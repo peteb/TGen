@@ -33,7 +33,7 @@ TGen::Rectangle & TGen::Rectangle::operator = (const TGen::Rectangle & rectangle
 	
 	return *this;
 }
-sv
+
 TGen::Rectangle TGen::Rectangle::FromUpperLeft(const TGen::Vector2 & topleft, float width, float height) {
 	TGen::Rectangle ret;
 	ret.center = topleft + TGen::Vector2(width, height) / 2.0f;

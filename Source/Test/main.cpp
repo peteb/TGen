@@ -2,7 +2,7 @@
 #include <sstream>
 #include <GL/glfw.h>
 #include <iomanip>
-#include "tgen.h"
+#include "../tgen.h"
 
 using namespace TGen;
 
