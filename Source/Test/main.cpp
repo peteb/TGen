@@ -17,8 +17,11 @@ int main() {
 	
 	glfwInit();
 	
-	if (!glfwOpenWindow(windowSize.width, windowSize.height, 0, 0, 0, 0, 0, 0, GLFW_WINDOW)) {
+	if (!glfwOpenWindow(int(windowSize.width), int(windowSize.height), 0, 0, 0, 0, 0, 0, GLFW_WINDOW)) {
 		glfwTerminate();
+		int heja;
+		std::cin >> heja;
+
 		return EXIT_FAILURE;
 	}
 
@@ -79,5 +82,9 @@ int main() {
     // Close OpenGL window and terminate GLFW
 	glfwTerminate();
 	
+	int hej;
+
+	std::cin >> hej;
+
 	return EXIT_SUCCESS;
 }
