@@ -60,6 +60,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="&#x0D;&#x0A;"
 				AdditionalDependencies="glfw.lib"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
@@ -134,6 +135,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalOptions="/I glfw.lib&#x0D;&#x0A;"
 				AdditionalDependencies="glfw.lib"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
