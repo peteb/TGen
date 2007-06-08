@@ -1,0 +1,309 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8D0C4E900486CD37000505A6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20286C2BFDCF999611CA2CEA /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
+		D0F0282F0C1747980020EE3F /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0282D0C1747980020EE3F /* AGL.framework */; };
+		D0F028300C1747980020EE3F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0282E0C1747980020EE3F /* OpenGL.framework */; };
+		D0F0284B0C1747C90020EE3F /* libglfw.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0284A0C1747C90020EE3F /* libglfw.a */; };
+		D0F029760C174F870020EE3F /* rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F029750C174F870020EE3F /* rectangle.cpp */; };
+		D0F0297F0C1750E40020EE3F /* vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0297E0C1750E40020EE3F /* vector2.cpp */; };
+		D0F02B040C1758940020EE3F /* vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B030C1758940020EE3F /* vector3.cpp */; };
+		D0F02B090C1758AB0020EE3F /* matrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B080C1758AB0020EE3F /* matrix3x3.cpp */; };
+		D0F02B870C175ABC0020EE3F /* matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B860C175ABC0020EE3F /* matrix4x4.cpp */; };
+		D0F02B940C175B2B0020EE3F /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B930C175B2B0020EE3F /* error.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		20286C2BFDCF999611CA2CEA /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Test/main.cpp; sourceTree = "<group>"; };
+		20286C33FDCF999611CA2CEA /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = /System/Library/Frameworks/Carbon.framework; sourceTree = "<absolute>"; };
+		4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = /System/Library/Frameworks/ApplicationServices.framework; sourceTree = "<absolute>"; };
+		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
+		5048396D09E3307300765E4B /* tgenProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = tgenProj.xcconfig; sourceTree = "<group>"; };
+		5048396E09E3307300765E4B /* tgenTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = tgenTarget.xcconfig; sourceTree = "<group>"; };
+		508344B209E5C41E0093A071 /* tgen Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tgen Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F0282D0C1747980020EE3F /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		D0F0282E0C1747980020EE3F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		D0F0284A0C1747C90020EE3F /* libglfw.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw.a; sourceTree = "<group>"; };
+		D0F029740C174F870020EE3F /* rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rectangle.h; sourceTree = "<group>"; };
+		D0F029750C174F870020EE3F /* rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rectangle.cpp; sourceTree = "<group>"; };
+		D0F0297D0C1750E40020EE3F /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2.h; sourceTree = "<group>"; };
+		D0F0297E0C1750E40020EE3F /* vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector2.cpp; sourceTree = "<group>"; };
+		D0F029960C1752030020EE3F /* tgen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tgen.h; sourceTree = "<group>"; };
+		D0F02A8F0C1756280020EE3F /* platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform.h; sourceTree = "<group>"; };
+		D0F02A900C17562E0020EE3F /* types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
+		D0F02B020C1758940020EE3F /* vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector3.h; sourceTree = "<group>"; };
+		D0F02B030C1758940020EE3F /* vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vector3.cpp; sourceTree = "<group>"; };
+		D0F02B070C1758AB0020EE3F /* matrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix3x3.h; sourceTree = "<group>"; };
+		D0F02B080C1758AB0020EE3F /* matrix3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix3x3.cpp; sourceTree = "<group>"; };
+		D0F02B850C175ABC0020EE3F /* matrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = matrix4x4.h; sourceTree = "<group>"; };
+		D0F02B860C175ABC0020EE3F /* matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4.cpp; sourceTree = "<group>"; };
+		D0F02B920C175B2B0020EE3F /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
+		D0F02B930C175B2B0020EE3F /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D0C4E910486CD37000505A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
+				D0F0282F0C1747980020EE3F /* AGL.framework in Frameworks */,
+				D0F028300C1747980020EE3F /* OpenGL.framework in Frameworks */,
+				D0F0284B0C1747C90020EE3F /* libglfw.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		195DF8CFFE9D517E11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				508344B209E5C41E0093A071 /* tgen Debug.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		20286C29FDCF999611CA2CEA /* tgen */ = {
+			isa = PBXGroup;
+			children = (
+				5048396909E3304600765E4B /* Configuration Files */,
+				20286C2AFDCF999611CA2CEA /* Source */,
+				20286C2CFDCF999611CA2CEA /* Resources */,
+				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				195DF8CFFE9D517E11CA2CBB /* Products */,
+			);
+			name = tgen;
+			sourceTree = "<group>";
+		};
+		20286C2AFDCF999611CA2CEA /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				D0F02AFA0C17583B0020EE3F /* Math */,
+				D0F02A950C1756510020EE3F /* Test */,
+				D0F0299B0C17523E0020EE3F /* Geometry */,
+				D0F029960C1752030020EE3F /* tgen.h */,
+				D0F02A8F0C1756280020EE3F /* platform.h */,
+				D0F02A900C17562E0020EE3F /* types.h */,
+				D0F02B930C175B2B0020EE3F /* error.cpp */,
+				D0F02B920C175B2B0020EE3F /* error.h */,
+			);
+			name = Source;
+			path = ../../Source;
+			sourceTree = "<group>";
+		};
+		20286C2CFDCF999611CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D0F0284A0C1747C90020EE3F /* libglfw.a */,
+				D0F0282D0C1747980020EE3F /* AGL.framework */,
+				D0F0282E0C1747980020EE3F /* OpenGL.framework */,
+				20286C33FDCF999611CA2CEA /* Carbon.framework */,
+				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
+				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
+			);
+			name = "External Frameworks and Libraries";
+			sourceTree = "<group>";
+		};
+		5048396909E3304600765E4B /* Configuration Files */ = {
+			isa = PBXGroup;
+			children = (
+				5048396D09E3307300765E4B /* tgenProj.xcconfig */,
+				5048396E09E3307300765E4B /* tgenTarget.xcconfig */,
+			);
+			name = "Configuration Files";
+			sourceTree = "<group>";
+		};
+		D0F0299B0C17523E0020EE3F /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				D0F029750C174F870020EE3F /* rectangle.cpp */,
+				D0F029740C174F870020EE3F /* rectangle.h */,
+			);
+			name = Geometry;
+			sourceTree = "<group>";
+		};
+		D0F02A950C1756510020EE3F /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				20286C2BFDCF999611CA2CEA /* main.cpp */,
+			);
+			name = Test;
+			sourceTree = "<group>";
+		};
+		D0F02AFA0C17583B0020EE3F /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				D0F0297E0C1750E40020EE3F /* vector2.cpp */,
+				D0F0297D0C1750E40020EE3F /* vector2.h */,
+				D0F02B030C1758940020EE3F /* vector3.cpp */,
+				D0F02B020C1758940020EE3F /* vector3.h */,
+				D0F02B080C1758AB0020EE3F /* matrix3x3.cpp */,
+				D0F02B070C1758AB0020EE3F /* matrix3x3.h */,
+				D0F02B860C175ABC0020EE3F /* matrix4x4.cpp */,
+				D0F02B850C175ABC0020EE3F /* matrix4x4.h */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D0C4E890486CD37000505A6 /* tgen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0E91AC508A95435008D54AB /* Build configuration list for PBXNativeTarget "tgen" */;
+			buildPhases = (
+				8D0C4E8C0486CD37000505A6 /* Resources */,
+				8D0C4E8F0486CD37000505A6 /* Sources */,
+				8D0C4E910486CD37000505A6 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tgen;
+			productInstallPath = "$(HOME)/Applications";
+			productName = tgen;
+			productReference = 508344B209E5C41E0093A071 /* tgen Debug.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		20286C28FDCF999611CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "tgen" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 20286C29FDCF999611CA2CEA /* tgen */;
+			projectDirPath = "";
+			targets = (
+				8D0C4E890486CD37000505A6 /* tgen */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D0C4E8C0486CD37000505A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D0C4E8F0486CD37000505A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D0C4E900486CD37000505A6 /* main.cpp in Sources */,
+				D0F029760C174F870020EE3F /* rectangle.cpp in Sources */,
+				D0F0297F0C1750E40020EE3F /* vector2.cpp in Sources */,
+				D0F02B040C1758940020EE3F /* vector3.cpp in Sources */,
+				D0F02B090C1758AB0020EE3F /* matrix3x3.cpp in Sources */,
+				D0F02B870C175ABC0020EE3F /* matrix4x4.cpp in Sources */,
+				D0F02B940C175B2B0020EE3F /* error.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C0E91AC608A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396E09E3307300765E4B /* tgenTarget.xcconfig */;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				USER_HEADER_SEARCH_PATHS = /usr/local/include/;
+			};
+			name = Debug;
+		};
+		C0E91AC708A95435008D54AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396E09E3307300765E4B /* tgenTarget.xcconfig */;
+			buildSettings = {
+				DEAD_CODE_STRIPPING = YES;
+				GCC_PREFIX_HEADER = "";
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				USER_HEADER_SEARCH_PATHS = /usr/local/include/;
+			};
+			name = Release;
+		};
+		C0E91ACA08A95435008D54AB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396D09E3307300765E4B /* tgenProj.xcconfig */;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		C0E91ACB08A95435008D54AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5048396D09E3307300765E4B /* tgenProj.xcconfig */;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				SEPARATE_STRIP = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0E91AC508A95435008D54AB /* Build configuration list for PBXNativeTarget "tgen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91AC608A95435008D54AB /* Debug */,
+				C0E91AC708A95435008D54AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0E91AC908A95435008D54AB /* Build configuration list for PBXProject "tgen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0E91ACA08A95435008D54AB /* Debug */,
+				C0E91ACB08A95435008D54AB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 20286C28FDCF999611CA2CEA /* Project object */;
+}
