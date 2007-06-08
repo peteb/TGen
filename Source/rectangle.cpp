@@ -26,14 +26,14 @@ TGen::Rectangle::Rectangle(const TGen::Vector2 & center, float width, float heig
 	
 }
 
-TGen::Rectangle::Rectangle & TGen::Rectangle::operator = (const TGen::Rectangle & rectangle) {
+TGen::Rectangle & TGen::Rectangle::operator = (const TGen::Rectangle & rectangle) {
 	center = rectangle.center;
 	width = rectangle.width;
 	height = rectangle.height;
 	
 	return *this;
 }
-
+sv
 TGen::Rectangle TGen::Rectangle::FromUpperLeft(const TGen::Vector2 & topleft, float width, float height) {
 	TGen::Rectangle ret;
 	ret.center = topleft + TGen::Vector2(width, height) / 2.0f;
