@@ -3,6 +3,7 @@
 #include <GL/glfw.h>
 #include <iomanip>
 #include "../tgen.h"
+#include "../opengl.h"
 
 using namespace TGen;
 
@@ -19,8 +20,6 @@ int main() {
 	
 	if (!glfwOpenWindow(int(windowSize.width), int(windowSize.height), 0, 0, 0, 0, 0, 0, GLFW_WINDOW)) {
 		glfwTerminate();
-		int heja;
-		std::cin >> heja;
 
 		return EXIT_FAILURE;
 	}
@@ -30,7 +29,10 @@ int main() {
 	running = GL_TRUE;
 	frames = 0;
 	t0 = glfwGetTime();
-    
+	
+	TGen::Renderer * renderer = new TGen::OpenGL::Renderer();
+	renderer->setClearColor(renderer->getClearColor());
+	
 	while (running) {
 		t = glfwGetTime();
 		
@@ -48,6 +50,7 @@ int main() {
 		
 		glfwGetWindowSize(&width, &height);
 		height = height > 0 ? height : 1;
+		renderer->Clear(TGen::ColorBuffer | TGen::DepthBuffer);
 		
 /*		// Set viewport
 		glViewport( 0, 0, width, height );
@@ -79,12 +82,10 @@ int main() {
 		running = !glfwGetKey(GLFW_KEY_ESC) && glfwGetWindowParam(GLFW_OPENED);
 	}
 	
+	delete renderer;
+	
     // Close OpenGL window and terminate GLFW
 	glfwTerminate();
-	
-	int hej;
-
-	std::cin >> hej;
 
 	return EXIT_SUCCESS;
 }
