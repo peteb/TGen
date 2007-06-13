@@ -26,9 +26,14 @@ namespace TGen {
 			
 			void setClearColor(const TGen::Color & color);
 			void setViewport(const TGen::Rectangle & viewport);
+			void setVertexBuffer(TGen::VertexBuffer * buffer);
+			void setColor(const TGen::Color & color);
+			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
+			TGen::Matrix4x4 getTransform(TransformMode mode) const;
 			
 			void Clear(ushort buffers);
 			
+			void DrawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount);
 			
 			TGen::VertexBuffer * CreateVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
 		};

@@ -26,7 +26,7 @@ namespace TGen {
 		
 		scalar getAverage() const;
 		
-		static Color Identity, White, Black, Red, Green, Blue;
+		static Color Identity, White, Black, Red, Green, Blue, Purple;
 		scalar r, g, b, a;		
 	};
 	

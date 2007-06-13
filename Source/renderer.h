@@ -23,9 +23,21 @@ namespace TGen {
 	};
 	
 	enum TransformMode {
-		ProjectionTransform,
-		WorldTransform,
-		TextureTransform,
+		TransformProjection,
+		TransformWorldView,
+		TransformTexture,
+		TransformColor,
+	};
+	
+	enum Usage {
+		UsageDynamic = 1,
+		UsageStatic,
+	};
+	
+	enum PrimitiveType {
+		PrimitiveQuads = 1,
+		PrimitiveTriangles,
+		PrimitiveLines,
 	};
 	
 	class VertexBuffer;
@@ -38,16 +50,21 @@ namespace TGen {
 	public:
 		virtual ~Renderer();
 		
-		virtual void setClearColor(const TGen::Color & color);
+		virtual void setClearColor(const Color & color);
 		virtual TGen::Color getClearColor() const;
-		virtual void setViewport(const TGen::Rectangle & viewport);
+		virtual void setViewport(const Rectangle & viewport);
 		virtual TGen::Rectangle getViewport() const;
-		virtual void setTransform(TGen::TransformMode mode, const TGen::Matrix4x4 & transformation);
-		virtual TGen::Matrix4x4 getTransform(TGen::TransformMode mode) const;
+		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
+		virtual TGen::Matrix4x4 getTransform(TransformMode mode) const;
+		
+		virtual void setVertexBuffer(VertexBuffer * buffer) abstract;
+		virtual void setColor(const Color & color) abstract;
 		
 		virtual void Clear(ushort buffers) abstract;
 		
-		virtual TGen::VertexBuffer * CreateVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage) abstract;
+		virtual void DrawPrimitive(PrimitiveType type, uint startVertex, uint vertexCount) abstract;
+		
+		virtual VertexBuffer * CreateVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		
 	private:
 		TGen::Rectangle viewport;

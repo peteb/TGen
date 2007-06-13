@@ -16,6 +16,7 @@
 namespace TGen {
 	class Matrix3x3;
 	class Vector3;
+	class Rectangle;
 	
 	class Matrix4x4 {
 	public:
@@ -37,7 +38,10 @@ namespace TGen {
 		static TGen::Matrix4x4 Identity;
 		static TGen::Matrix4x4 Translation(const TGen::Vector3 & vector);
 		static TGen::Matrix4x4 Scaling(const TGen::Vector3 & scale);
+		static TGen::Matrix4x4 OrthogonalProjection(scalar left, scalar top, scalar right, scalar bottom, scalar near = -1.0, scalar far = 1.0);
+		static TGen::Matrix4x4 OrthogonalProjection(const TGen::Rectangle & area, scalar near = -1.0, scalar far = 1.0);
 		
+
 		scalar elements[4][4];
 		
 	private:

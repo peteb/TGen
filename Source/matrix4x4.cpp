@@ -10,6 +10,9 @@
 #include "matrix4x4.h"
 #include "matrix3x3.h"
 #include "vector3.h"
+#include "vector2.h"
+#include "rectangle.h"
+
 #include <sstream>
 
 TGen::Matrix4x4 TGen::Matrix4x4::Identity(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
@@ -125,6 +128,26 @@ TGen::Matrix4x4 TGen::Matrix4x4::Scaling(const TGen::Vector3 & scale) {
 	TGen::Matrix4x4 matrix = Identity;
 	matrix.setScale(scale);
 	return matrix;
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::OrthogonalProjection(scalar left, scalar top, scalar right, scalar bottom, scalar near, scalar far) {
+	Matrix4x4 ret;
+	
+	ret.elements[0][0] = 2.0 / (right - left);
+	ret.elements[1][1] = 2.0 / (top - bottom);
+	ret.elements[2][2] = 0.0; //(T)-2.0 / (far - near);
+	ret.elements[3][3] = 1;
+	ret.elements[3][0] = - (right + left) / (right - left);
+	ret.elements[3][1] = - (top + bottom) / (top - bottom);
+	ret.elements[3][2] = 0.0; //- (far + near) / (far - near);
+	
+	return ret;
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::OrthogonalProjection(const TGen::Rectangle & area, scalar near, scalar far) {
+	TGen::Vector2 upperLeft = area.getUpperLeft();
+
+	return OrthogonalProjection(upperLeft.x, upperLeft.y, upperLeft.x + area.width, upperLeft.y + area.height, near, far);
 }
 
 void TGen::Matrix4x4::Clear() {

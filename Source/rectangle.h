@@ -19,6 +19,7 @@ namespace TGen {
 		Rectangle();
 		Rectangle(const TGen::Rectangle & rectangle);
 		Rectangle(const TGen::Vector2 & center, scalar width, scalar height);
+		Rectangle(scalar width, scalar height);
 		
 		Rectangle & operator = (const TGen::Rectangle & rectangle);
 		operator std::string() const;

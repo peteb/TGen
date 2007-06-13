@@ -31,15 +31,15 @@ TGen::Rectangle TGen::Renderer::getViewport() const {
 
 void TGen::Renderer::setTransform(TGen::TransformMode mode, const TGen::Matrix4x4 & transformation) {
 	switch (mode) {
-		case TGen::ProjectionTransform:
+		case TGen::TransformProjection:
 			projectionMatrix = transformation;
 			break;
 			
-		case TGen::WorldTransform:
+		case TGen::TransformWorldView:
 			worldMatrix = transformation;
 			break;
 			
-		case TGen::TextureTransform:
+		case TGen::TransformTexture:
 			textureMatrix = transformation;
 			break;
 			
@@ -50,13 +50,13 @@ void TGen::Renderer::setTransform(TGen::TransformMode mode, const TGen::Matrix4x
 
 TGen::Matrix4x4 TGen::Renderer::getTransform(TGen::TransformMode mode) const {
 	switch (mode) {
-		case TGen::ProjectionTransform:
+		case TGen::TransformProjection:
 			return projectionMatrix;
 			
-		case TGen::WorldTransform:
+		case TGen::TransformWorldView:
 			return worldMatrix;
 			
-		case TGen::TextureTransform:
+		case TGen::TransformTexture:
 			return textureMatrix;
 	}
 

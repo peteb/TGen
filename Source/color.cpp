@@ -16,6 +16,7 @@ TGen::Color TGen::Color::Black(0.0f, 0.0f, 0.0f, 1.0f);
 TGen::Color TGen::Color::Red(1.0f, 0.0f, 0.0f, 1.0f);
 TGen::Color TGen::Color::Green(0.0f, 1.0f, 0.0f, 1.0f);
 TGen::Color TGen::Color::Blue(0.0f, 0.0f, 1.0f, 1.0f);
+TGen::Color TGen::Color::Purple(1.0f, 0.0f, 1.0f, 1.0f);
 
 TGen::Color::Color(scalar r, scalar g, scalar b, scalar a) : r(r), g(g), b(b), a(a) {
 	

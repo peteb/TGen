@@ -26,6 +26,12 @@ TGen::Rectangle::Rectangle(const TGen::Vector2 & center, scalar width, scalar he
 	
 }
 
+TGen::Rectangle::Rectangle(scalar width, scalar height) :
+	center(width / 2.0f, height / 2.0f), width(width), height(height)
+{
+	
+}
+
 TGen::Rectangle & TGen::Rectangle::operator = (const TGen::Rectangle & rectangle) {
 	center = rectangle.center;
 	width = rectangle.width;
