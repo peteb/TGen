@@ -7,10 +7,17 @@
  *
  */
 
-#include "Matrix3x3.h"
+#include "matrix3x3.h"
+#include "matrix4x4.h"
 #include "Vector2.h"
 #include <cstring>
 #include <sstream>
+
+/*
+	XY
+	xx
+	yy
+ */
 
 TGen::Matrix3x3::Matrix3x3() {
 	Clear();
@@ -27,11 +34,27 @@ TGen::Matrix3x3::Matrix3x3(const TGen::Vector2 & x, const TGen::Vector2 & y) {
 	elements[2][2] = 1.0f;
 }
 
-TGen::Matrix3x3::Matrix3x3(const TGen::Matrix3x3 & Matrix3x3) {
-	memcpy(&elements, &Matrix3x3.elements, 3 * 3 * sizeof(float));
+TGen::Matrix3x3::Matrix3x3(const TGen::Matrix3x3 & matrix) {
+	memcpy(&elements, &matrix.elements, 3 * 3 * sizeof(scalar));
 }
 
-TGen::Matrix3x3::Matrix3x3(float e11, float e12, float e13, float e21, float e22, float e23, float e31, float e32, float e33) {
+TGen::Matrix3x3::Matrix3x3(const TGen::Matrix4x4 & matrix) {
+	Clear();
+	
+	elements[0][0] = matrix.elements[0][0];
+	elements[0][1] = matrix.elements[0][1];
+	elements[0][2] = matrix.elements[0][3];
+	
+	elements[1][0] = matrix.elements[1][0];
+	elements[1][1] = matrix.elements[1][1];
+	elements[1][2] = matrix.elements[1][3];
+	
+	elements[2][0] = matrix.elements[3][0];
+	elements[2][1] = matrix.elements[3][1];
+	elements[2][2] = matrix.elements[3][3];
+}
+
+TGen::Matrix3x3::Matrix3x3(scalar e11, scalar e12, scalar e13, scalar e21, scalar e22, scalar e23, scalar e31, scalar e32, scalar e33) {
 	elements[0][0] = e11;
 	elements[0][1] = e12;
 	elements[0][2] = e13;
@@ -44,11 +67,11 @@ TGen::Matrix3x3::Matrix3x3(float e11, float e12, float e13, float e21, float e22
 }
 
 void TGen::Matrix3x3::Clear() {
-	memset(&elements, 0, 3 * 3 * sizeof(float));
+	memset(&elements, 0, 3 * 3 * sizeof(scalar));
 }
 
 TGen::Matrix3x3 & TGen::Matrix3x3::operator = (const TGen::Matrix3x3 & matrix) {
-	memcpy(elements, matrix.elements, sizeof(float) * 3 * 3);
+	memcpy(elements, matrix.elements, sizeof(scalar) * 3 * 3);
 	return *this;
 }
 
@@ -81,7 +104,7 @@ void TGen::Matrix3x3::setOrigin(const TGen::Vector2 & origin) {
 	elements[2][1] = origin.y;
 }
 
-void TGen::Matrix3x3::get4x4(float * elements) const {
+void TGen::Matrix3x3::get4x4(scalar * elements) const {
 	//		 x   y
 	elements[0 + 0 * 4] = this->elements[0][0];
 	elements[0 + 1 * 4] = this->elements[1][0];
@@ -113,16 +136,16 @@ void TGen::Matrix3x3::setScale(const TGen::Vector2 & scale) {
 	
 }
 
-TGen::Matrix3x3 TGen::Matrix3x3::Translation(const TGen::Vector2 & Vector2) {
-	TGen::Matrix3x3 Matrix3x3 = TGen::Matrix3x3::Identity;
-	Matrix3x3.setOrigin(Vector2);
-	return Matrix3x3;
+TGen::Matrix3x3 TGen::Matrix3x3::Translation(const TGen::Vector2 & vector) {
+	TGen::Matrix3x3 matrix = Identity;
+	matrix.setOrigin(vector);
+	return matrix;
 }
 
 TGen::Matrix3x3 TGen::Matrix3x3::Scaling(const TGen::Vector2 & scale) {
-	TGen::Matrix3x3 Matrix3x3 = TGen::Matrix3x3::Identity;
-	Matrix3x3.setScale(scale);
-	return Matrix3x3;	
+	TGen::Matrix3x3 matrix = Identity;
+	matrix.setScale(scale);
+	return matrix;	
 }
 
 TGen::Matrix3x3::operator std::string() const {

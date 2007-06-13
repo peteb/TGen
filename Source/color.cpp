@@ -17,7 +17,7 @@ TGen::Color TGen::Color::Red(1.0f, 0.0f, 0.0f, 1.0f);
 TGen::Color TGen::Color::Green(0.0f, 1.0f, 0.0f, 1.0f);
 TGen::Color TGen::Color::Blue(0.0f, 0.0f, 1.0f, 1.0f);
 
-TGen::Color::Color(float r, float g, float b, float a) : r(r), g(g), b(b), a(a) {
+TGen::Color::Color(scalar r, scalar g, scalar b, scalar a) : r(r), g(g), b(b), a(a) {
 	
 }
 
@@ -50,7 +50,7 @@ TGen::Color & TGen::Color::operator *= (const TGen::Color & color) {
 	return *this;
 }
 
-TGen::Color & TGen::Color::operator *= (float scalar) {
+TGen::Color & TGen::Color::operator *= (scalar scalar) {
 	r *= scalar;
 	g *= scalar;
 	b *= scalar;
@@ -60,7 +60,7 @@ TGen::Color & TGen::Color::operator *= (float scalar) {
 }
 
 
-float TGen::Color::getAverage() const {
+scalar TGen::Color::getAverage() const {
 	return (r + g + b + a) / 4.0f;
 }
 

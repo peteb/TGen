@@ -16,6 +16,7 @@ typedef unsigned char uint8;
 typedef unsigned int uint;
 typedef unsigned short ushort;
 typedef unsigned char uchar;
+typedef float scalar;	// TODO: fixa överallt
 
 #define abstract =0
 

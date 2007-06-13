@@ -18,16 +18,17 @@ namespace TGen {
 	public:	
 		Rectangle();
 		Rectangle(const TGen::Rectangle & rectangle);
-		Rectangle(const TGen::Vector2 & center, float width, float height);
+		Rectangle(const TGen::Vector2 & center, scalar width, scalar height);
 		
 		Rectangle & operator = (const TGen::Rectangle & rectangle);
 		operator std::string() const;
 		
-		static TGen::Rectangle FromUpperLeft(const TGen::Vector2 & topleft, float width, float height);
-		
+		static TGen::Rectangle FromUpperLeft(const TGen::Vector2 & topleft, scalar width, scalar height);
+		TGen::Vector2 getUpperLeft() const;
+		TGen::Vector2 getLowerRight() const;
 		
 		Vector2 center;
-		float width, height;
+		scalar width, height;
 	};
 	
 } // !TGen

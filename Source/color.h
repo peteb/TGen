@@ -11,22 +11,23 @@
 #define _TGEN_COLOR_H
 
 #include <string>
+#include "types.h"
 
 namespace TGen {
 	class Color {
 	public:
-		Color(float r, float g, float b, float a = 1.0f);
+		Color(scalar r, scalar g, scalar b, scalar a = 1.0f);
 		Color(const TGen::Color & color = TGen::Color::Identity);
 		
 		operator std::string() const;
 		TGen::Color & operator = (const TGen::Color & color);
 		TGen::Color & operator *= (const TGen::Color & color);
-		TGen::Color & operator *= (float scalar);
+		TGen::Color & operator *= (scalar scalar);
 		
-		float getAverage() const;
+		scalar getAverage() const;
 		
 		static Color Identity, White, Black, Red, Green, Blue;
-		float r, g, b, a;		
+		scalar r, g, b, a;		
 	};
 	
 } // !TGen

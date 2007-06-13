@@ -23,5 +23,7 @@
 #include "color.h"
 
 #include "renderer.h"
+#include "vertexbuffer.h"
+#include "vertexstructure.h"
 
 #endif // !_TGEN_TGEN_H

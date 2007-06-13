@@ -11,5 +11,6 @@
 #define _TGEN_OPENGL_H
 
 #include "renderer_ogl.h"
+#include "vertexbuffer_ogl.h"
 
 #endif // !_TGEN_OPENGL_H

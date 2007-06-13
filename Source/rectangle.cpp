@@ -20,7 +20,7 @@ TGen::Rectangle::Rectangle(const TGen::Rectangle & rectangle) :
 	
 }
 
-TGen::Rectangle::Rectangle(const TGen::Vector2 & center, float width, float height) :
+TGen::Rectangle::Rectangle(const TGen::Vector2 & center, scalar width, scalar height) :
 	center(center), width(width), height(height)
 {
 	
@@ -34,7 +34,7 @@ TGen::Rectangle & TGen::Rectangle::operator = (const TGen::Rectangle & rectangle
 	return *this;
 }
 
-TGen::Rectangle TGen::Rectangle::FromUpperLeft(const TGen::Vector2 & topleft, float width, float height) {
+TGen::Rectangle TGen::Rectangle::FromUpperLeft(const TGen::Vector2 & topleft, scalar width, scalar height) {
 	TGen::Rectangle ret;
 	ret.center = topleft + TGen::Vector2(width, height) / 2.0f;
 	ret.width = width;
@@ -48,4 +48,12 @@ TGen::Rectangle::operator std::string() const {
 	ss << "center: " << std::string(center) << " width: " << width << " height: " << height;
 	
 	return ss.str();
+}
+
+TGen::Vector2 TGen::Rectangle::getUpperLeft() const {
+	return TGen::Vector2(center.x - width / 2.0f, center.y - height / 2.0f);
+}
+
+TGen::Vector2 TGen::Rectangle::getLowerRight() const {
+	return TGen::Vector2(center.x + width / 2.0f, center.y + height / 2.0f);	
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D0C4E900486CD37000505A6 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20286C2BFDCF999611CA2CEA /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
+		D07368FD0C2033C6005C3908 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07368FC0C2033C6005C3908 /* GLUT.framework */; };
 		D0F0282F0C1747980020EE3F /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0282D0C1747980020EE3F /* AGL.framework */; };
 		D0F028300C1747980020EE3F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0282E0C1747980020EE3F /* OpenGL.framework */; };
 		D0F0284B0C1747C90020EE3F /* libglfw.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0284A0C1747C90020EE3F /* libglfw.a */; };
@@ -18,6 +19,12 @@
 		D0F02B090C1758AB0020EE3F /* matrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B080C1758AB0020EE3F /* matrix3x3.cpp */; };
 		D0F02B870C175ABC0020EE3F /* matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B860C175ABC0020EE3F /* matrix4x4.cpp */; };
 		D0F02B940C175B2B0020EE3F /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B930C175B2B0020EE3F /* error.cpp */; };
+		D0F0BBB80C1F2B0D0086CF0F /* color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0BBB70C1F2B0D0086CF0F /* color.cpp */; };
+		D0F0BC510C1F30B10086CF0F /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0BC500C1F30B10086CF0F /* renderer.cpp */; };
+		D0F0BC550C1F30D80086CF0F /* renderer_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0BC540C1F30D80086CF0F /* renderer_ogl.cpp */; };
+		D0F0C0690C2026710086CF0F /* vertexbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0C0680C2026710086CF0F /* vertexbuffer.cpp */; };
+		D0F0C0B20C2027DA0086CF0F /* vertexstructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0C0B10C2027DA0086CF0F /* vertexstructure.cpp */; };
+		D0F0C0BB0C2028530086CF0F /* vertexbuffer_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0C0BA0C2028530086CF0F /* vertexbuffer_ogl.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +35,7 @@
 		5048396D09E3307300765E4B /* tgenProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = tgenProj.xcconfig; sourceTree = "<group>"; };
 		5048396E09E3307300765E4B /* tgenTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = tgenTarget.xcconfig; sourceTree = "<group>"; };
 		508344B209E5C41E0093A071 /* tgen Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "tgen Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D07368FC0C2033C6005C3908 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		D0F0282D0C1747980020EE3F /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		D0F0282E0C1747980020EE3F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D0F0284A0C1747C90020EE3F /* libglfw.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw.a; sourceTree = "<group>"; };
@@ -46,6 +54,19 @@
 		D0F02B860C175ABC0020EE3F /* matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = matrix4x4.cpp; sourceTree = "<group>"; };
 		D0F02B920C175B2B0020EE3F /* error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
 		D0F02B930C175B2B0020EE3F /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = error.cpp; sourceTree = "<group>"; };
+		D0F0BBB60C1F2B0D0086CF0F /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		D0F0BBB70C1F2B0D0086CF0F /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = color.cpp; sourceTree = "<group>"; };
+		D0F0BC4F0C1F30B10086CF0F /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderer.h; sourceTree = "<group>"; };
+		D0F0BC500C1F30B10086CF0F /* renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderer.cpp; sourceTree = "<group>"; };
+		D0F0BC530C1F30D80086CF0F /* renderer_ogl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderer_ogl.h; sourceTree = "<group>"; };
+		D0F0BC540C1F30D80086CF0F /* renderer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderer_ogl.cpp; sourceTree = "<group>"; };
+		D0F0BC580C1F30FC0086CF0F /* opengl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opengl.h; sourceTree = "<group>"; };
+		D0F0C0670C2026710086CF0F /* vertexbuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vertexbuffer.h; sourceTree = "<group>"; };
+		D0F0C0680C2026710086CF0F /* vertexbuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexbuffer.cpp; sourceTree = "<group>"; };
+		D0F0C0B00C2027DA0086CF0F /* vertexstructure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vertexstructure.h; sourceTree = "<group>"; };
+		D0F0C0B10C2027DA0086CF0F /* vertexstructure.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexstructure.cpp; sourceTree = "<group>"; };
+		D0F0C0B90C2028530086CF0F /* vertexbuffer_ogl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vertexbuffer_ogl.h; sourceTree = "<group>"; };
+		D0F0C0BA0C2028530086CF0F /* vertexbuffer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexbuffer_ogl.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +78,7 @@
 				D0F0282F0C1747980020EE3F /* AGL.framework in Frameworks */,
 				D0F028300C1747980020EE3F /* OpenGL.framework in Frameworks */,
 				D0F0284B0C1747C90020EE3F /* libglfw.a in Frameworks */,
+				D07368FD0C2033C6005C3908 /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +111,8 @@
 				D0F02AFA0C17583B0020EE3F /* Math */,
 				D0F02A950C1756510020EE3F /* Test */,
 				D0F0299B0C17523E0020EE3F /* Geometry */,
+				D0F0BBB50C1F2B030086CF0F /* Graphics */,
+				D0F0BC4E0C1F309F0086CF0F /* Renderer */,
 				D0F029960C1752030020EE3F /* tgen.h */,
 				D0F02A8F0C1756280020EE3F /* platform.h */,
 				D0F02A900C17562E0020EE3F /* types.h */,
@@ -109,6 +133,7 @@
 		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D07368FC0C2033C6005C3908 /* GLUT.framework */,
 				D0F0284A0C1747C90020EE3F /* libglfw.a */,
 				D0F0282D0C1747980020EE3F /* AGL.framework */,
 				D0F0282E0C1747980020EE3F /* OpenGL.framework */,
@@ -158,6 +183,41 @@
 				D0F02B850C175ABC0020EE3F /* matrix4x4.h */,
 			);
 			name = Math;
+			sourceTree = "<group>";
+		};
+		D0F0BBB50C1F2B030086CF0F /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				D0F0BBB70C1F2B0D0086CF0F /* color.cpp */,
+				D0F0BBB60C1F2B0D0086CF0F /* color.h */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		D0F0BC4E0C1F309F0086CF0F /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				D0F0BC520C1F30C90086CF0F /* OpenGL */,
+				D0F0BC500C1F30B10086CF0F /* renderer.cpp */,
+				D0F0BC4F0C1F30B10086CF0F /* renderer.h */,
+				D0F0C0680C2026710086CF0F /* vertexbuffer.cpp */,
+				D0F0C0670C2026710086CF0F /* vertexbuffer.h */,
+				D0F0C0B10C2027DA0086CF0F /* vertexstructure.cpp */,
+				D0F0C0B00C2027DA0086CF0F /* vertexstructure.h */,
+			);
+			name = Renderer;
+			sourceTree = "<group>";
+		};
+		D0F0BC520C1F30C90086CF0F /* OpenGL */ = {
+			isa = PBXGroup;
+			children = (
+				D0F0BC580C1F30FC0086CF0F /* opengl.h */,
+				D0F0BC540C1F30D80086CF0F /* renderer_ogl.cpp */,
+				D0F0BC530C1F30D80086CF0F /* renderer_ogl.h */,
+				D0F0C0BA0C2028530086CF0F /* vertexbuffer_ogl.cpp */,
+				D0F0C0B90C2028530086CF0F /* vertexbuffer_ogl.h */,
+			);
+			name = OpenGL;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +278,12 @@
 				D0F02B090C1758AB0020EE3F /* matrix3x3.cpp in Sources */,
 				D0F02B870C175ABC0020EE3F /* matrix4x4.cpp in Sources */,
 				D0F02B940C175B2B0020EE3F /* error.cpp in Sources */,
+				D0F0BBB80C1F2B0D0086CF0F /* color.cpp in Sources */,
+				D0F0BC510C1F30B10086CF0F /* renderer.cpp in Sources */,
+				D0F0BC550C1F30D80086CF0F /* renderer_ogl.cpp in Sources */,
+				D0F0C0690C2026710086CF0F /* vertexbuffer.cpp in Sources */,
+				D0F0C0B20C2027DA0086CF0F /* vertexstructure.cpp in Sources */,
+				D0F0C0BB0C2028530086CF0F /* vertexbuffer_ogl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

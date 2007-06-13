@@ -8,12 +8,17 @@
  */
 
 #include "vector2.h"
+#include "vector3.h"
 #include <cmath>
 #include <sstream>
 
-TGen::Vector2::Vector2(const TGen::Vector2 & vector) : x(vector.x), y(vector.y)/*, z(vector.z)*/ {}
-TGen::Vector2::Vector2(float x, float y/*, float z*/) : x(x), y(y)/*, z(z)*/ {}
-TGen::Vector2::Vector2(float scalar) : x(scalar), y(scalar)/*, z(scalar)*/ {}
+TGen::Vector2 TGen::Vector2::Identity(1.0f, 1.0f);
+
+TGen::Vector2::Vector2(const TGen::Vector2 & vector) : x(vector.x), y(vector.y) {}
+TGen::Vector2::Vector2(const TGen::Vector3 & vector) : x(vector.x), y(vector.y) {}
+
+TGen::Vector2::Vector2(scalar x, scalar y) : x(x), y(y) {}
+TGen::Vector2::Vector2(scalar scalar) : x(scalar), y(scalar) {}
 
 TGen::Vector2 & TGen::Vector2::operator += (const TGen::Vector2 & vector) {
 	x += vector.x;
@@ -39,7 +44,7 @@ TGen::Vector2 & TGen::Vector2::operator = (const TGen::Vector2 & vector) {
 	return *this;
 }
 
-TGen::Vector2 & TGen::Vector2::operator *= (float scalar) {
+TGen::Vector2 & TGen::Vector2::operator *= (scalar scalar) {
 	x *= scalar;
 	y *= scalar;
 	//	z *= scalar;
@@ -55,11 +60,11 @@ TGen::Vector2 TGen::Vector2::operator - (const TGen::Vector2 & vector) const {
 	return TGen::Vector2(x - vector.x, y - vector.y/*, z - vector.z*/);	
 }
 
-TGen::Vector2 TGen::Vector2::operator * (float scalar) const {
+TGen::Vector2 TGen::Vector2::operator * (scalar scalar) const {
 	return TGen::Vector2(x * scalar, y * scalar/*, z * scalar*/);
 }
 
-TGen::Vector2 TGen::Vector2::operator / (float scalar) const {
+TGen::Vector2 TGen::Vector2::operator / (scalar scalar) const {
 	return TGen::Vector2(x / scalar, y / scalar/*, z / scalar*/);
 }
 
@@ -67,7 +72,7 @@ TGen::Vector2 TGen::Vector2::operator - () const {
 	return TGen::Vector2(-x, -y/*, -z*/);
 }
 
-float TGen::Vector2::getMagnitude() const {
+scalar TGen::Vector2::getMagnitude() const {
 	return fabs(sqrt(x * x + y * y /* + z * z*/));
 }
 
@@ -76,7 +81,7 @@ TGen::Vector2 TGen::Vector2::getNormalized() const {
 }
 
 TGen::Vector2 & TGen::Vector2::Normalize() {
-	float magnitude = getMagnitude();
+	scalar magnitude = getMagnitude();
 	x /= magnitude;
 	y /= magnitude;
 	//	z /= magnitude;
@@ -84,7 +89,7 @@ TGen::Vector2 & TGen::Vector2::Normalize() {
 	return *this;
 }
 
-float TGen::Vector2::DotProduct(const TGen::Vector2 & v1, const TGen::Vector2 & v2) {
+scalar TGen::Vector2::DotProduct(const TGen::Vector2 & v1, const TGen::Vector2 & v2) {
 	return v1.x * v2.x + v1.y * v2.y; // + v1.z * v2.z;
 }
 
