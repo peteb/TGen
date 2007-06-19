@@ -14,6 +14,7 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "color.h"
+#include "renderer_types.h"
 #include <vector>
 
 namespace TGen {
@@ -21,31 +22,20 @@ namespace TGen {
 		CoordElement = 1,
 		NormalElement,
 		ColorElement,
-		IndexElement,
+		ColorIndexElement,
 		EdgeFlagElement,
 		TexCoordElement,
 	};
-	
-	enum VertexElementDataType {
-		TypeFloat = 1,
-		TypeDouble,
-		TypeInt,
-		TypeShort,
-		TypeUnsignedShort,
-		TypeByte,
-		TypeUnsignedByte,
-		TypeUnsignedInt,
 		
-	};
-	
 	class VertexElement {
 	public:
 		VertexElement() {}
-		VertexElement(TGen::VertexElementType type, VertexElementDataType dataType, uchar count, uchar unit = 0);
+		VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
 		
 		VertexElementType type;
-		VertexElementDataType dataType;
+		FormatType dataType;
 		uchar count, unit;
+		bool shared;
 	};
 	
 	class VertexStructure {
@@ -55,26 +45,19 @@ namespace TGen {
 		~VertexStructure() {}
 		
 		int getElementCount() const;
+		FormatType getElementDataType(int num) const;
 		void getElement(int num, TGen::VertexElement & ret);
+		void getElement(int num, TGen::VertexElement & ret) const;
 		int getStride() const;
 		int getSize() const;
-		void AddElement(TGen::VertexElementType type, VertexElementDataType dataType, uchar count, uchar unit = 0);
+		void AddElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
 		
 	private:
 		std::vector<TGen::VertexElement> elements;
 		int align;
 	};
 	
-	
-	template<typename T> class TGenDataType {public: };
-	template<> class TGenDataType<float> {public: TGenDataType() : type(TypeFloat) {} VertexElementDataType type; };
-	template<> class TGenDataType<double> {public: TGenDataType() : type(TypeDouble) {} VertexElementDataType type; };
-	template<> class TGenDataType<int> {public: TGenDataType() : type(TypeInt) {} VertexElementDataType type; };
-	template<> class TGenDataType<short> {public: TGenDataType() : type(TypeShort) {} VertexElementDataType type; };
-	template<> class TGenDataType<unsigned char> {public: TGenDataType() : type(TypeUnsignedByte) {} VertexElementDataType type; };
-	template<> class TGenDataType<char> {public: TGenDataType() : type(TypeByte) {} VertexElementDataType type; };
-	template<> class TGenDataType<unsigned short> {public: TGenDataType() : type(TypeUnsignedShort) {} VertexElementDataType type; };
-	template<> class TGenDataType<unsigned int> {public: TGenDataType() : type(TypeUnsignedInt) {} VertexElementDataType type; };
+	// TODO: en public bool isExtensionAvailable(), men bara i OpenGL::Renderer
 	
 	template<typename T>
 	class Vertex3 : public virtual TGen::VertexStructure {
@@ -88,6 +71,21 @@ namespace TGen {
 			T x, y, z;
 		};
 	};	
+	
+	template<typename T>
+	class Vertex2 : public virtual TGen::VertexStructure {
+	public:		
+		Vertex2() {AddElement(TGen::CoordElement, TGenDataType<T>().type, 2); }
+			
+		class Type {
+		public:
+			Type(const TGen::Vector2 & vector) : x(vector.x), y(vector.y) {}
+				
+			T x, y;
+		};
+	};	
+	
+	
 	
 	template<typename T>
 	class Color4 : public virtual TGen::VertexStructure {
@@ -109,16 +107,29 @@ namespace TGen {
 			
 		class Type {
 		public:
-			Type(const TGen::Vector3 & normal) : x(normal.x), y(normal.y), z(normal.z) {}
+			Type(const TGen::Vector3 & normal) : nx(normal.x), ny(normal.y), nz(normal.z) {}
 				
-			T x, y, z;
+			T nx, ny, nz;
+		};
+	};
+	
+	template<typename T>
+	class Index : public virtual TGen::VertexStructure {
+	public:
+		Index() {AddElement(TGen::ColorIndexElement, TGenDataType<T>().type, 1); }
+			
+		class Type {
+		public:
+			Type(const T & index) : index(index) {}
+				
+			T index;
 		};
 	};
 	
 	template<typename T, int unit>
 	class TexCoord2 : public virtual TGen::VertexStructure {
 	public:
-		TexCoord2() {AddElement(TGen::TexCoordElement, TGenDataType<T>().type, 2, unit); }
+		TexCoord2() {AddElement(TGen::TexCoordElement, TGenDataType<T>().type, 2, false, unit); }
 			
 		class Type {
 		public:
@@ -128,6 +139,17 @@ namespace TGen {
 		};
 	};
 	
+	template<typename T, int unit>
+	class SharedTexCoord2 : public virtual TGen::VertexStructure {
+	public:
+		SharedTexCoord2() {AddElement(TGen::TexCoordElement, TGenDataType<T>().type, 2, true, unit); }
+			
+		class Type {
+		public:
+			Type(int hullo) {}
+		};
+	};
+
 	
 	template<class A, class B>
 	class JoinVertex2 : public A, public B {
@@ -172,6 +194,16 @@ namespace TGen {
 			template<typename p1, typename p2, typename p3, typename p4, typename p5> Type(p1 a, p2 b, p3 c, p4 d, p5 e) : A::Type(a), B::Type(b), C::Type(c), D::Type(d), E::Type(e) {}
 		};
 	};	
+	
+	
+	typedef JoinVertex2<Vertex3<float>, Color4<float> > Vertex3Color4;
+	typedef JoinVertex3<Vertex3<float>, Color4<float>, TexCoord2<float, 0> > Vertex3Color4TexCoord02;
+	typedef JoinVertex3<Vertex3<float>, Color4<float>, TexCoord2<float, 0> > Vertex3Color4TexCoord02Normal3;
+	typedef Index<unsigned int> Index32;
+	typedef Index<unsigned short> Index16;
+	typedef Index<unsigned char> Index8;
+	
+	
 } // !TGen
 
 #endif // !_TGEN_VERTEXSTRUCTURE_H

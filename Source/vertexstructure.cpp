@@ -22,8 +22,8 @@ TGen::VertexStructure::VertexStructure(TGen::VertexElement * elements) {
 	}
 }
 
-TGen::VertexElement::VertexElement(TGen::VertexElementType type, VertexElementDataType dataType, uchar count, uchar unit) :
-	type(type), dataType(dataType), count(count), unit(unit) {
+TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) :
+	type(type), dataType(dataType), count(count), unit(unit), shared(shared) {
 	
 }
 
@@ -36,34 +36,43 @@ void TGen::VertexStructure::getElement(int num, TGen::VertexElement & ret) {
 	ret = elements[num];
 }
 
+void TGen::VertexStructure::getElement(int num, TGen::VertexElement & ret) const {
+	ret = elements[num];
+}
+
+TGen::FormatType TGen::VertexStructure::getElementDataType(int num) const {
+	return elements[num].dataType;
+}
+
 int TGen::VertexStructure::getSize() const {
 	int size = 0;
 	for (int i = 0; i < elements.size(); ++i) {
-		switch (elements[i].dataType) {
-			case TGen::TypeFloat:
-				size += sizeof(float) * elements[i].count;
-				break;
-			
-			case TGen::TypeDouble:
-				size += sizeof(double) * elements[i].count;
-				break;
-			
-			case TGen::TypeUnsignedInt:
-			case TGen::TypeInt:
-				size += sizeof(int) * elements[i].count;
-				break;
+		if (!elements[i].shared) {
+			switch (elements[i].dataType) {
+				case TGen::TypeFloat:
+					size += sizeof(float) * elements[i].count;
+					break;
+				
+				case TGen::TypeDouble:
+					size += sizeof(double) * elements[i].count;
+					break;
+				
+				case TGen::TypeUnsignedInt:
+				case TGen::TypeInt:
+					size += sizeof(int) * elements[i].count;
+					break;
 
-			case TGen::TypeUnsignedShort:
-			case TGen::TypeShort:
-				size += sizeof(short) * elements[i].count;
-				break;
+				case TGen::TypeUnsignedShort:
+				case TGen::TypeShort:
+					size += sizeof(short) * elements[i].count;
+					break;
 
-			case TGen::TypeUnsignedByte:
-			case TGen::TypeByte:
-				size += sizeof(char) * elements[i].count;
-				break;
+				case TGen::TypeUnsignedByte:
+				case TGen::TypeByte:
+					size += sizeof(char) * elements[i].count;
+					break;
+			}
 		}
-		
 	}
 	
 	return size;
@@ -75,7 +84,7 @@ int TGen::VertexStructure::getStride() const {
 	return getSize() % align;
 }
 
-void TGen::VertexStructure::AddElement(TGen::VertexElementType type, VertexElementDataType dataType, uchar count, uchar unit) {
-	elements.push_back(TGen::VertexElement(type, dataType, count, unit));
+void TGen::VertexStructure::AddElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) {
+	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit));
 }
 

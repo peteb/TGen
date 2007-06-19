@@ -15,6 +15,7 @@
 namespace TGen {
 	class VertexStructure;
 	class VertexBuffer;
+	class IndexBuffer;
 	
 	namespace OpenGL {
 		class VertexStructure;
@@ -27,6 +28,7 @@ namespace TGen {
 			void setClearColor(const TGen::Color & color);
 			void setViewport(const TGen::Rectangle & viewport);
 			void setVertexBuffer(TGen::VertexBuffer * buffer);
+			void setIndexBuffer(TGen::IndexBuffer * buffer);
 			void setColor(const TGen::Color & color);
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;
@@ -34,8 +36,16 @@ namespace TGen {
 			void Clear(ushort buffers);
 			
 			void DrawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount);
+			void DrawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount);
 			
 			TGen::VertexBuffer * CreateVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
+			TGen::IndexBuffer * CreateIndexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
+			
+		private:
+			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
+			
+			
+			uint indexBufferFormat;
 		};
 		
 	} // !OpenGL	

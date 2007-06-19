@@ -1,28 +1,28 @@
 /*
- *  vertexbuffer_ogl.h
+ *  indexbuffer_ogl.h
  *  tgen
  *
- *  Created by Peter Backman on 6/13/07.
+ *  Created by Peter Backman on 6/19/07.
  *  Copyright 2007 Peter Backman. All rights reserved.
  *
  */
 
-#ifndef _TGEN_OPENGL_VERTEXBUFFER_H
-#define _TGEN_OPENGL_VERTEXBUFFER_H
+#ifndef _TGEN_OPENGL_INDEXBUFFER_H
+#define _TGEN_OPENGL_INDEXBUFFER_H
 
-#include "vertexbuffer.h"
+#include "indexbuffer.h"
 #include "vertexstructure.h"
 
 namespace TGen {	
 	namespace OpenGL {
 		class Renderer;
 		
-		class VertexBuffer : public TGen::VertexBuffer {
+		class IndexBuffer : public TGen::IndexBuffer {
 		private:
-			VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId);
+			IndexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId);
 			
 		public:
-			~VertexBuffer();
+			~IndexBuffer();
 			
 			void * Lock(ushort flags);
 			void Unlock();
@@ -41,4 +41,3 @@ namespace TGen {
 } // !TGen
 
 #endif // !_TGEN_OPENGL_VERTEXBUFFER_H
-

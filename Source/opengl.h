@@ -12,5 +12,7 @@
 
 #include "renderer_ogl.h"
 #include "vertexbuffer_ogl.h"
+#include "indexbuffer_ogl.h"
+#include "types_converter_ogl.h"
 
 #endif // !_TGEN_OPENGL_H

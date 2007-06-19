@@ -1,30 +1,30 @@
 /*
- *  vertexbuffer_ogl.cpp
+ *  indexbuffer_ogl.cpp
  *  tgen
  *
- *  Created by Peter Backman on 6/13/07.
+ *  Created by Peter Backman on 6/19/07.
  *  Copyright 2007 Peter Backman. All rights reserved.
  *
  */
 
 #include "prefix_ogl.h"
-#include "vertexbuffer_ogl.h"
+#include "indexbuffer_ogl.h"
 #include "renderer.h"
 #include "error.h"
 
 #include <iostream>
 
-TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) : 
-	TGen::VertexBuffer(creator, size, usage), vertstruct(vertstruct), vboId(vboId) {}
+TGen::OpenGL::IndexBuffer::IndexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) : 
+TGen::IndexBuffer(creator, size, usage), vertstruct(vertstruct), vboId(vboId) {}
 
-TGen::OpenGL::VertexBuffer::~VertexBuffer() {
+TGen::OpenGL::IndexBuffer::~IndexBuffer() {
 	if (vboId > 0) {
-		std::cout << "[opengl]: deleting vertex buffer " << vboId << std::endl;
+		std::cout << "[opengl]: deleting index buffer " << vboId << std::endl;
 		glDeleteBuffersARB(1, reinterpret_cast<GLuint *>(&vboId));
 	}	
 }
 
-void * TGen::OpenGL::VertexBuffer::Lock(ushort flags) {
+void * TGen::OpenGL::IndexBuffer::Lock(ushort flags) {
 	GLenum fixedAccess = 0;
 	
 	if (flags & TGen::LockReadWrite)
@@ -43,19 +43,20 @@ void * TGen::OpenGL::VertexBuffer::Lock(ushort flags) {
 	data = glMapBufferARB(GL_ARRAY_BUFFER_ARB, fixedAccess);
 	
 	if (!data)
-		throw TGen::RuntimeException("OpenGL::VertexBuffer::Lock", "failed to map vertex buffer");
-	
+		throw TGen::RuntimeException("OpenGL::IndexBuffer::Lock", "failed to map vertex buffer");
+
 	return data;
 }
 
-void TGen::OpenGL::VertexBuffer::Unlock() {
+// TODO: glGetError()
+
+void TGen::OpenGL::IndexBuffer::Unlock() {
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
-	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);		
+	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);	
 }
 
-void TGen::OpenGL::VertexBuffer::BufferData(void * data, uint size, void * offset) {
-	GLenum fixedUsage = usage;
-
+void TGen::OpenGL::IndexBuffer::BufferData(void * data, uint size, void * offset) {
+	GLenum fixedUsage = usage;	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 	
 	if (offset != 0)
@@ -64,10 +65,10 @@ void TGen::OpenGL::VertexBuffer::BufferData(void * data, uint size, void * offse
 		glBufferDataARB(GL_ARRAY_BUFFER_ARB, static_cast<GLsizeiptr>(size), data, fixedUsage);	
 }
 
-bool TGen::OpenGL::VertexBuffer::isLocked() {
+bool TGen::OpenGL::IndexBuffer::isLocked() {
 	return false;
 }
 
-TGen::VertexStructure & TGen::OpenGL::VertexBuffer::getVertexStructure() {
+TGen::VertexStructure & TGen::OpenGL::IndexBuffer::getVertexStructure() {
 	return vertstruct;
 }

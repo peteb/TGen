@@ -13,6 +13,10 @@
 TGen::Renderer::Renderer() : clearColor(TGen::Color::Black) {}
 TGen::Renderer::~Renderer() {}
 
+TGen::RendererCaps const & TGen::Renderer::getCaps() const {
+	return caps;
+}
+
 void TGen::Renderer::setClearColor(const TGen::Color & color) {
 	clearColor = color;
 }
