@@ -18,7 +18,6 @@
 		D0E44A750C28238E008246ED /* renderer_caps.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E44A740C28238E008246ED /* renderer_caps.cpp */; };
 		D0F0282F0C1747980020EE3F /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0282D0C1747980020EE3F /* AGL.framework */; };
 		D0F028300C1747980020EE3F /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0282E0C1747980020EE3F /* OpenGL.framework */; };
-		D0F0284B0C1747C90020EE3F /* libglfw.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F0284A0C1747C90020EE3F /* libglfw.a */; };
 		D0F029760C174F870020EE3F /* rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F029750C174F870020EE3F /* rectangle.cpp */; };
 		D0F0297F0C1750E40020EE3F /* vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F0297E0C1750E40020EE3F /* vector2.cpp */; };
 		D0F02B040C1758940020EE3F /* vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F02B030C1758940020EE3F /* vector3.cpp */; };
@@ -60,7 +59,6 @@
 		D0E44A740C28238E008246ED /* renderer_caps.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderer_caps.cpp; sourceTree = "<group>"; };
 		D0F0282D0C1747980020EE3F /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
 		D0F0282E0C1747980020EE3F /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
-		D0F0284A0C1747C90020EE3F /* libglfw.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw.a; sourceTree = "<group>"; };
 		D0F029740C174F870020EE3F /* rectangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rectangle.h; sourceTree = "<group>"; };
 		D0F029750C174F870020EE3F /* rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rectangle.cpp; sourceTree = "<group>"; };
 		D0F0297D0C1750E40020EE3F /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vector2.h; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
 				D0F0282F0C1747980020EE3F /* AGL.framework in Frameworks */,
 				D0F028300C1747980020EE3F /* OpenGL.framework in Frameworks */,
-				D0F0284B0C1747C90020EE3F /* libglfw.a in Frameworks */,
 				D07368FD0C2033C6005C3908 /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				D07368FC0C2033C6005C3908 /* GLUT.framework */,
-				D0F0284A0C1747C90020EE3F /* libglfw.a */,
 				D0F0282D0C1747980020EE3F /* AGL.framework */,
 				D0F0282E0C1747980020EE3F /* OpenGL.framework */,
 				20286C33FDCF999611CA2CEA /* Carbon.framework */,
