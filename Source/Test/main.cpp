@@ -8,11 +8,6 @@
 
 using namespace TGen;
 
-class Tja {
-public:
-	Tja(int ett, int tva) {}
-	
-};
 
 class TestApp {
 public:
@@ -35,15 +30,23 @@ public:
 	}
 	
 	static void LoadData() {
-		typedef JoinVertex4<Vertex3<float>, Color4<float>, TexCoord2<float, 0>, SharedTexCoord2<float, 4> > MyVertex;
+		typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
 		
-		MyVertex::Type data[4] = {
+	/*	MyVertex::Type data[4] = {
 			MyVertex::Type(Vector3(10.0f, 10.0f, 0.0f), Color(1.0f, 0.0f, 0.0f, 1.0f), Vector2(0.0f, 0.0f), 0),
 			MyVertex::Type(Vector3(100.0f, 10.0f, 0.0f), Color(0.0f, 1.0f, 0.0f, 1.0f), Vector2(1.0f, 0.0f), 0),
 			MyVertex::Type(Vector3(100.0f, 100.0f, 0.0f), Color(0.0f, 0.0f, 1.0f, 1.0f), Vector2(1.0f, 1.0f), 0),
 			MyVertex::Type(Vector3(10.0f, 100.0f, 0.0f), Color(1.0f, 0.0f, 1.0f, 1.0f), Vector2(0.0f, 1.0f), 0),
 		};
-
+*/
+		
+		MyVertex::Type data[4] = {
+			MyVertex::Type(Vector3(10.0f, 10.0f, 0.0f), Vector2(0.0f, 0.0f)),
+			MyVertex::Type(Vector3(170.0f, 10.0f, 0.0f), Vector2(1.0f, 0.0f)),
+			MyVertex::Type(Vector3(170.0f, 170.0f, 0.0f), Vector2(1.0f, 1.0f)),
+			MyVertex::Type(Vector3(10.0f, 170.0f, 0.0f), Vector2(0.0f, 1.0f)),
+		};
+		
 		typedef Index<unsigned short> MyIndex;
 		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
 		
@@ -55,10 +58,22 @@ public:
 		
 		//object2 = renderer->CreateVertexBuffer(MyVertex2(), sizeof(MyVertex2::Type) * 4, UsageStatic);
 		//object2->BufferData(data2, sizeof(MyVertex2::Type) * 4, 0);
+		
+		TGen::Canvas myCanvas(TGen::Rectangle(16, 16));
+		myCanvas.Fill(Color::Green);
+		myCanvas.setPixel(Vector2(10, 10), Color::Red);
+		myCanvas.setPixel(Vector2(3, 7), Color::Red);
+		myCanvas.DrawLine(Vector2(1, 1), Vector2(15, 8), Color::Blue);
+		myCanvas.DrawLine(Vector2(8, 6), Vector2(2, 15), Color::Blue);
+		
+		
+		
+		tex = renderer->CreateTexture(myCanvas, TGen::RGB);
 	}
 	
 	static void Shutdown() {
 		//delete object2;
+		delete tex;
 		delete object;
 		delete renderer;	
 	}
@@ -81,7 +96,8 @@ public:
 			
 			renderer->setVertexBuffer(object);
 			renderer->setIndexBuffer(ib);
-			renderer->setColor(Color::Red);
+			renderer->setTexture(0, tex);
+			//renderer->setColor(Color::Red);
 			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 			//renderer->DrawPrimitive(PrimitiveQuads, 0, 4);
 			
@@ -98,6 +114,7 @@ public:
 	static Renderer * renderer;
 	static VertexBuffer * object, * object2;
 	static IndexBuffer * ib;
+	static Texture * tex;
 };
 
 Rectangle TestApp::windowSize;
@@ -105,6 +122,7 @@ Renderer * TestApp::renderer = NULL;
 VertexBuffer * TestApp::object = NULL;
 VertexBuffer * TestApp::object2 = NULL;
 IndexBuffer * TestApp::ib = NULL;
+Texture * TestApp::tex = NULL;
 
 int main(int argc, char ** argv) {
 	TestApp::windowSize = Rectangle(640, 480);

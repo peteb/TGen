@@ -21,12 +21,15 @@
 #include "matrix4x4.h"
 
 #include "color.h"
+#include "image.h"
+#include "canvas.h"
 
 #include "renderer.h"
 #include "renderer_types.h"
 #include "renderer_caps.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
+#include "texture.h"
 #include "vertexstructure.h"
 
 #endif // !_TGEN_TGEN_H

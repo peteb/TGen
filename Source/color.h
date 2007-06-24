@@ -12,6 +12,7 @@
 
 #include <string>
 #include "types.h"
+#include "image.h"
 
 namespace TGen {
 	class Color {
@@ -25,6 +26,8 @@ namespace TGen {
 		TGen::Color & operator *= (scalar scalar);
 		
 		scalar getAverage() const;
+		void getFormatted(TGen::ImageFormat format, TGen::FormatType componentFormat, void * store) const;
+		void getValueFormatted(TGen::FormatType format, float value, void * store) const;
 		
 		static Color Identity, White, Black, Red, Green, Blue, Purple;
 		scalar r, g, b, a;		

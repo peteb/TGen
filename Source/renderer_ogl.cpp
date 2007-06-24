@@ -12,6 +12,7 @@
 #include "vertexstructure.h"
 #include "vertexbuffer_ogl.h"
 #include "indexbuffer_ogl.h"
+#include "texture_ogl.h"
 #include "error.h"
 #include "types_converter_ogl.h"
 
@@ -142,6 +143,8 @@ TGen::VertexBuffer * TGen::OpenGL::Renderer::CreateVertexBuffer(const TGen::Vert
 			fixedUsage = GL_STREAM_COPY_ARB;
 		else if (usage & TGen::UsageRead)
 			fixedUsage = GL_STREAM_READ_ARB;
+		else
+			fixedUsage = GL_STREAM_DRAW_ARB;
 	}
 	else if (usage & TGen::UsageDynamic) {
 		if (usage & TGen::UsageDraw)
@@ -149,15 +152,19 @@ TGen::VertexBuffer * TGen::OpenGL::Renderer::CreateVertexBuffer(const TGen::Vert
 		else if (usage & TGen::UsageCopy)
 			fixedUsage = GL_DYNAMIC_COPY_ARB;
 		else if (usage & TGen::UsageRead)
-			fixedUsage = GL_DYNAMIC_READ_ARB;		
+			fixedUsage = GL_DYNAMIC_READ_ARB;
+		else
+			fixedUsage = GL_DYNAMIC_DRAW_ARB;
 	}
-	else if (usage & TGen::UsageStream) {
+	else if (usage & TGen::UsageStatic) {
 		if (usage & TGen::UsageDraw)
-			fixedUsage = GL_STREAM_DRAW_ARB;
+			fixedUsage = GL_STATIC_DRAW_ARB;
 		else if (usage & TGen::UsageCopy)
-			fixedUsage = GL_STREAM_COPY_ARB;
+			fixedUsage = GL_STATIC_COPY_ARB;
 		else if (usage & TGen::UsageRead)
-			fixedUsage = GL_STREAM_READ_ARB;		
+			fixedUsage = GL_STATIC_READ_ARB;
+		else
+			fixedUsage = GL_STATIC_DRAW_ARB;
 	}
 	
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, size, NULL, fixedUsage);
@@ -181,6 +188,8 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::CreateIndexBuffer(const TGen::Vertex
 			fixedUsage = GL_STREAM_COPY_ARB;
 		else if (usage & TGen::UsageRead)
 			fixedUsage = GL_STREAM_READ_ARB;
+		else
+			fixedUsage = GL_STREAM_DRAW_ARB;
 	}
 	else if (usage & TGen::UsageDynamic) {
 		if (usage & TGen::UsageDraw)
@@ -188,21 +197,87 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::CreateIndexBuffer(const TGen::Vertex
 		else if (usage & TGen::UsageCopy)
 			fixedUsage = GL_DYNAMIC_COPY_ARB;
 		else if (usage & TGen::UsageRead)
-			fixedUsage = GL_DYNAMIC_READ_ARB;		
+			fixedUsage = GL_DYNAMIC_READ_ARB;
+		else
+			fixedUsage = GL_DYNAMIC_DRAW_ARB;
 	}
-	else if (usage & TGen::UsageStream) {
+	else if (usage & TGen::UsageStatic) {
 		if (usage & TGen::UsageDraw)
-			fixedUsage = GL_STREAM_DRAW_ARB;
+			fixedUsage = GL_STATIC_DRAW_ARB;
 		else if (usage & TGen::UsageCopy)
-			fixedUsage = GL_STREAM_COPY_ARB;
+			fixedUsage = GL_STATIC_COPY_ARB;
 		else if (usage & TGen::UsageRead)
-			fixedUsage = GL_STREAM_READ_ARB;		
+			fixedUsage = GL_STATIC_READ_ARB;
+		else
+			fixedUsage = GL_STATIC_DRAW_ARB;
 	}
 	
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, size, NULL, fixedUsage);
 	
 	return new TGen::OpenGL::IndexBuffer(*this, vertstruct, size, fixedUsage, newVBO);	
 }
+
+TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, uint flags) {
+	GLuint newTex = 0;
+	glEnable(GL_TEXTURE_2D);
+	
+	return new TGen::OpenGL::Texture(*this, newTex, size);
+}
+
+TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags) {
+	GLuint newTex = 0;
+	glEnable(GL_TEXTURE_2D);
+	
+	GLenum format = TGen::OpenGL::TgenImageFormatToOpenGL(image.getFormat());
+	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(image.getComponentFormat());
+	GLenum internalFormat = 0;
+	
+	//glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &newTex);
+	glBindTexture(GL_TEXTURE_2D, newTex);
+
+	
+	if (flags & TGen::TextureCompressed) {
+		switch (components) {
+			case TGen::RGB:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					internalFormat = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				break;
+				
+			case TGen::RGBA:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT3Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT5Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				break;
+				
+			default:
+				throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+		}
+	}
+	else {
+		internalFormat = TGen::OpenGL::TgenImageFormatToOpenGL(components);
+	}
+	//gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, image.getSize().width, image.getSize().height, format, type, image.getData());	
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, image.getSize().width, image.getSize().height, 0, format, type, image.getData());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
+	GLint compressedSize = 0;
+	
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_IMAGE_SIZE_ARB, &compressedSize);
+	std::cout << "[opengl]: created texture " << newTex << " size: " << compressedSize;
+
+	
+	return new TGen::OpenGL::Texture(*this, newTex, image.getSize());
+}
+
 
 // TODO: texturer, compression om möjligt
 
@@ -231,9 +306,13 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 			throw TGen::RuntimeException("OpenGL::Renderer::setIndexBuffer", "index buffer is not a valid OpenGL buffer");
 		
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, ib->vboId);
-
 		indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
 	}
+}
+
+void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
+	glActiveTexture(GL_TEXTURE0 + unit);
+	glBindTexture(GL_TEXTURE_2D, static_cast<TGen::OpenGL::Texture *>(texture)->texId);
 }
 
 void TGen::OpenGL::Renderer::DrawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount) {

@@ -79,3 +79,33 @@ uint TGen::OpenGL::TgenPrimitiveToOpenGL(TGen::PrimitiveType primitive) {
 	
 	throw TGen::NotImplemented("TgenPrimitiveToOpenGL", "primitive not supported");	
 }
+
+uint TGen::OpenGL::TgenImageFormatToOpenGL(TGen::ImageFormat format) {
+	switch (format) {
+		case TGen::RGB:
+			return GL_RGB;
+			
+		case TGen::RGB32F:
+			return GL_RGB32F_ARB;
+			
+		case TGen::RGBA:
+			return GL_RGBA;
+			
+		case TGen::RGBA32F:
+			return GL_RGBA32F_ARB;
+			
+		case TGen::BGR:
+			return GL_BGR;
+			
+		case TGen::BGRA:
+			return GL_BGRA;
+			
+		case TGen::LUMINANCE:
+			return GL_LUMINANCE;
+		
+		case TGen::LUMINANCE_ALPHA:
+			return GL_LUMINANCE_ALPHA;
+	}
+	
+	throw TGen::NotImplemented("TgenImageFormatToOpenGL", "format not supported");		
+}

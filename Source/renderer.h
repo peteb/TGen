@@ -18,9 +18,17 @@
 #include "renderer_caps.h"
 
 namespace TGen {
+	enum TextureCreationFlags {
+		TextureCompressed =				0x0001,		// first four bits are compression. 0xF
+		TextureS3TCDXT1Compressed =		0x0003,
+		TextureS3TCDXT3Compressed =		0x0005,
+		TextureS3TCDXT5Compressed =		0x0007,
+	};
+	
 	class VertexBuffer;
 	class IndexBuffer;
 	class VertexStructure;
+	class Texture;
 	
 	class Renderer {
 	protected:
@@ -40,6 +48,8 @@ namespace TGen {
 		
 		virtual void setVertexBuffer(VertexBuffer * buffer) abstract;
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;
+		virtual void setTexture(int unit, Texture * texture) abstract;
+		
 		virtual void setColor(const Color & color) abstract;
 		
 		virtual void Clear(ushort buffers) abstract;
@@ -49,6 +59,8 @@ namespace TGen {
 		
 		virtual VertexBuffer * CreateVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual IndexBuffer * CreateIndexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
+		virtual Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, uint flags = 0) abstract;
+		virtual Texture * CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags = 0) abstract;
 		
 	protected:
 		TGen::RendererCaps caps;

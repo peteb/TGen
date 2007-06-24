@@ -12,11 +12,13 @@
 
 #include "types.h"
 #include "renderer_types.h"
+#include "image.h"
 
 namespace TGen {
 	namespace OpenGL {
 		uint TgenFormatToOpenGL(TGen::FormatType format);
 		uint TgenPrimitiveToOpenGL(TGen::PrimitiveType primitive);
+		uint TgenImageFormatToOpenGL(TGen::ImageFormat format);
 		
 	} // !OpenGL
 } // !TGen

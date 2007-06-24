@@ -60,6 +60,19 @@ namespace TGen {
 	// TODO: en public bool isExtensionAvailable(), men bara i OpenGL::Renderer
 	
 	template<typename T>
+	class Vertex4 : public virtual TGen::VertexStructure {
+	public:		
+		Vertex4() {AddElement(TGen::CoordElement, TGenDataType<T>().type, 4); }
+			
+		class Type {
+		public:
+			Type(const TGen::Vector3 & vector) : x(vector.x), y(vector.y), z(vector.z), w(0.0) {}
+				
+			T x, y, z, w;
+		};
+	};	
+	
+	template<typename T>
 	class Vertex3 : public virtual TGen::VertexStructure {
 	public:		
 		Vertex3() {AddElement(TGen::CoordElement, TGenDataType<T>().type, 3); }
@@ -86,7 +99,20 @@ namespace TGen {
 	};	
 	
 	
+	template<typename T>
+	class Color3 : public virtual TGen::VertexStructure {
+	public:
+		Color3() {AddElement(TGen::ColorElement, TGenDataType<T>().type, 3); }
+			
+		class Type {
+		public:
+			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b) {}
+				
+			T r, g, b;
+		};
+	};	
 	
+	// TODO: testa om man kan göra såhär för texturformat också, dvs en klass för R, en för G, osv. kolla om man kan templatea hur stor en variabel ska ta, int r:5; t ex och hur det blir när man ärver, hur det packas då
 	template<typename T>
 	class Color4 : public virtual TGen::VertexStructure {
 	public:
@@ -198,7 +224,9 @@ namespace TGen {
 	
 	typedef JoinVertex2<Vertex3<float>, Color4<float> > Vertex3Color4;
 	typedef JoinVertex3<Vertex3<float>, Color4<float>, TexCoord2<float, 0> > Vertex3Color4TexCoord02;
-	typedef JoinVertex3<Vertex3<float>, Color4<float>, TexCoord2<float, 0> > Vertex3Color4TexCoord02Normal3;
+	typedef JoinVertex4<Vertex3<float>, Color4<float>, TexCoord2<float, 0>, Normal3<float> > Vertex3Color4TexCoord02Normal3;
+	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > Vertex3TexCoord02;
+	typedef JoinVertex3<Vertex3<float>, TexCoord2<float, 0>, Normal3<float> > Vertex3TexCoord02Normal3;
 	typedef Index<unsigned int> Index32;
 	typedef Index<unsigned short> Index16;
 	typedef Index<unsigned char> Index8;
