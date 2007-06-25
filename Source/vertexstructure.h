@@ -112,7 +112,6 @@ namespace TGen {
 		};
 	};	
 	
-	// TODO: testa om man kan göra såhär för texturformat också, dvs en klass för R, en för G, osv. kolla om man kan templatea hur stor en variabel ska ta, int r:5; t ex och hur det blir när man ärver, hur det packas då
 	template<typename T>
 	class Color4 : public virtual TGen::VertexStructure {
 	public:
