@@ -12,7 +12,8 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "rectangle.h"
-
+#include "angle.h"
+#include <cmath>
 #include <sstream>
 
 TGen::Matrix4x4 TGen::Matrix4x4::Identity(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
@@ -82,9 +83,24 @@ TGen::Vector3 TGen::Matrix4x4::operator * (const TGen::Vector3 & vector) const {
 	return TGen::Vector3::Identity;
 }
 
-TGen::Matrix4x4 TGen::Matrix4x4::operator * (const TGen::Matrix4x4 & matrix) const {
+TGen::Matrix4x4 & TGen::Matrix4x4::operator *= (const TGen::Matrix4x4 & matrix) {
+	*this = *this * matrix;
 	
 	return *this;
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::operator * (const TGen::Matrix4x4 & matrix) const {
+	Matrix4x4 matRet;
+				
+	for (int r = 0; r < 4; r++) { 
+		for (int c = 0; c < 4; c++) { 
+			for (int i = 0; i < 4; i++) { 
+				matRet.elements[r][c] += matrix.elements[r][i] * elements[i][c]; 
+			} 
+		} 
+	} 
+		
+	return matRet;
 }
 
 TGen::Matrix4x4::operator std::string() const {
@@ -148,6 +164,52 @@ TGen::Matrix4x4 TGen::Matrix4x4::OrthogonalProjection(const TGen::Rectangle & ar
 	TGen::Vector2 upperLeft = area.getUpperLeft();
 
 	return OrthogonalProjection(upperLeft.x, upperLeft.y, upperLeft.x + area.width, upperLeft.y + area.height, near, far);
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::PerspectiveProjection(scalar fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far) {
+	Matrix4x4 ret;
+	float f = 1.0f / tanf((fieldOfViewY / 2.0f) / (M_PI) * 360.0f);
+				
+	ret.elements[0][0] = f / fieldOfViewAspect;
+	ret.elements[1][1] = f;
+	ret.elements[2][2] = (far + near) / (near - far);
+	ret.elements[3][2] = (2 * far * near) / (near - far);
+	ret.elements[2][3] = -1.0;
+				
+	return ret;
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::Rotation(const TGen::Vector3 & axis, const TGen::Angle & angle) {
+	Matrix4x4 ret;
+	scalar c = cos(TGen::Radian(angle).angle);
+	scalar s = sin(TGen::Radian(angle).angle);
+				
+	ret.elements[0][0] = (scalar)pow(axis.x, 2) * (1 - c) + c;
+	ret.elements[1][0] = axis.x * axis.y * (1 - c) - axis.z * s;
+	ret.elements[2][0] = axis.x * axis.z * (1 - c) + axis.y * s;
+	ret.elements[0][1] = axis.y * axis.x * (1 - c) + axis.z * s;
+	ret.elements[1][1] = (scalar)pow(axis.y, 2) * (1 - c) + c;
+	ret.elements[2][1] = axis.y * axis.z * (1 - c) - axis.x * s;
+	ret.elements[0][2] = axis.x * axis.z * (1 - c) - axis.y * s;
+	ret.elements[1][2] = axis.y * axis.z * (1 - c) + axis.x * s;
+	ret.elements[2][2] = (scalar)pow(axis.z, 2) * (1 - c) + c;
+	ret.elements[3][3] = (scalar)1.0;
+				
+	return ret;
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::LookAt(const TGen::Vector3 & position, const TGen::Vector3 & eye, const TGen::Vector3 & up) {
+	Matrix4x4 ret = Matrix4x4::Identity;
+	Vector3 forward = (eye - position).Normalize();
+	Vector3 UP = up.getNormalized();
+	Vector3 right = Vector3::CrossProduct(forward, UP).Normalize();
+	Vector3 newUp = Vector3::CrossProduct(forward, right).Normalize();
+	
+	ret = Matrix4x4(right, -newUp, -forward);
+	//ret = ret.Transpose();
+	ret *= Matrix4x4::Translation(-position);
+	
+	return ret;				
 }
 
 void TGen::Matrix4x4::Clear() {

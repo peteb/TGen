@@ -40,11 +40,18 @@ public:
 		};
 */
 		
-		MyVertex::Type data[4] = {
+		/*MyVertex::Type data[4] = {
 			MyVertex::Type(Vector3(10.0f, 10.0f, 0.0f), Vector2(0.0f, 0.0f)),
 			MyVertex::Type(Vector3(170.0f, 10.0f, 0.0f), Vector2(1.0f, 0.0f)),
 			MyVertex::Type(Vector3(170.0f, 170.0f, 0.0f), Vector2(1.0f, 1.0f)),
 			MyVertex::Type(Vector3(10.0f, 170.0f, 0.0f), Vector2(0.0f, 1.0f)),
+		};*/
+		
+		MyVertex::Type data[4] = {
+			MyVertex::Type(Vector3(-1.0f, 1.0f, 0.0f), Vector2(0.0f, 0.0f)),
+			MyVertex::Type(Vector3(1.0f, 1.0f, 0.0f), Vector2(1.0f, 0.0f)),
+			MyVertex::Type(Vector3(1.0f, -1.0f, 0.0f), Vector2(1.0f, 1.0f)),
+			MyVertex::Type(Vector3(-1.0f, -1.0f, 0.0f), Vector2(0.0f, 1.0f)),
 		};
 		
 		typedef Index<unsigned short> MyIndex;
@@ -69,7 +76,11 @@ public:
 		
 		
 		tex = renderer->CreateTexture(myCanvas, TGen::RGB);
+		
+		std::cout << "--> " << TGen::Radian(TGen::Degree(180)).angle << std::endl;
 	}
+	
+	// TODO: check for ARB_multitexture 
 	
 	static void Shutdown() {
 		//delete object2;
@@ -88,11 +99,16 @@ public:
 	
 	static void Render() {
 		if (renderer) {
+			static float animTimer = 0.0f;
+			animTimer += 0.01f;
+			
 			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
 			renderer->setViewport(windowSize);	
-			renderer->setTransform(TransformProjection, Matrix4x4::OrthogonalProjection(windowSize));
-			renderer->setTransform(TransformWorldView, Matrix4x4::Identity);
+			//renderer->setTransform(TransformProjection, Matrix4x4::OrthogonalProjection(windowSize));
+			renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
+			renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(animTimer)));
 						
+			// TODO: texture, setFilter, etc
 			
 			renderer->setVertexBuffer(object);
 			renderer->setIndexBuffer(ib);
