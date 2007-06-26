@@ -29,6 +29,7 @@ namespace TGen {
 	class IndexBuffer;
 	class VertexStructure;
 	class Texture;
+	class FrameBuffer;
 	
 	class Renderer {
 	protected:
@@ -49,6 +50,7 @@ namespace TGen {
 		virtual void setVertexBuffer(VertexBuffer * buffer) abstract;
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;
 		virtual void setTexture(int unit, Texture * texture) abstract;
+		virtual void setRenderTarget(FrameBuffer * buffer) abstract;
 		
 		virtual void setColor(const Color & color) abstract;
 		
@@ -59,8 +61,9 @@ namespace TGen {
 		
 		virtual VertexBuffer * CreateVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual IndexBuffer * CreateIndexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
-		virtual Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, uint flags = 0) abstract;
+		virtual Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags = 0) abstract;
 		virtual Texture * CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags = 0) abstract;
+		virtual FrameBuffer * CreateFrameBuffer() abstract;
 		
 	protected:
 		TGen::RendererCaps caps;

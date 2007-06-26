@@ -76,6 +76,11 @@ public:
 		
 		
 		tex = renderer->CreateTexture(myCanvas, TGen::RGB);
+		renderTarget1 = renderer->CreateTexture(Rectangle(256, 256), RGBA, TypeUnsignedByte);
+		renderTarget2 = renderer->CreateTexture(Rectangle(256, 256), RGBA, TypeUnsignedByte);
+		fb = renderer->CreateFrameBuffer();
+		if (fb)
+			fb->Attach(renderTarget1, ColorAttachment);
 		
 		std::cout << "--> " << TGen::Radian(TGen::Degree(180)).angle << std::endl;
 	}
@@ -102,8 +107,6 @@ public:
 			static float animTimer = 0.0f;
 			animTimer += 0.01f;
 			
-			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
-			renderer->setViewport(windowSize);	
 			//renderer->setTransform(TransformProjection, Matrix4x4::OrthogonalProjection(windowSize));
 			renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
 			renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(animTimer)));
@@ -113,9 +116,26 @@ public:
 			renderer->setVertexBuffer(object);
 			renderer->setIndexBuffer(ib);
 			renderer->setTexture(0, tex);
-			//renderer->setColor(Color::Red);
+			renderer->setRenderTarget(fb);	// drawing to our frame buffer
+			renderer->setViewport(Rectangle(256, 256));	
+			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
+
 			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
-			//renderer->DrawPrimitive(PrimitiveQuads, 0, 4);
+			
+
+			renderer->setRenderTarget(NULL);
+			renderer->setViewport(windowSize);	// we are now drawing to screen
+			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
+			
+			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(3.0f, 0.0f, 0.0f)));
+			renderer->setTexture(0, renderTarget1);
+			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+
+			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(-6.0f, 0.0f, 0.0f)));
+			renderer->setTexture(0, renderTarget2);
+			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+			
+	
 			
 			/*renderer->setVertexBuffer(object2);
 			renderer->setColor(Color::Red);
@@ -130,7 +150,8 @@ public:
 	static Renderer * renderer;
 	static VertexBuffer * object, * object2;
 	static IndexBuffer * ib;
-	static Texture * tex;
+	static Texture * tex, * renderTarget1, * renderTarget2;
+	static FrameBuffer * fb;
 };
 
 Rectangle TestApp::windowSize;
@@ -139,6 +160,9 @@ VertexBuffer * TestApp::object = NULL;
 VertexBuffer * TestApp::object2 = NULL;
 IndexBuffer * TestApp::ib = NULL;
 Texture * TestApp::tex = NULL;
+Texture * TestApp::renderTarget1 = NULL;
+Texture * TestApp::renderTarget2 = NULL;
+FrameBuffer * TestApp::fb = NULL;
 
 int main(int argc, char ** argv) {
 	TestApp::windowSize = Rectangle(640, 480);

@@ -32,5 +32,6 @@
 #include "indexbuffer.h"
 #include "texture.h"
 #include "vertexstructure.h"
+#include "framebuffer.h"
 
 #endif // !_TGEN_TGEN_H

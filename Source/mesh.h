@@ -11,9 +11,13 @@
 #define _TGEN_MESH_H
 
 namespace TGen {
+	template<typename vertstruct>
 	class Mesh {
 	public:	
 		
+//		vertstruct::Type 
+// ska det här bara vara interface? ska det ens vara med i tgen?????????		
+		// TODO: FrameBuffer ... setRenderTarget(myFrameBuffer), setRenderTarget(myTexture), båda ska gå. fixa fb först
 	};
 	
 } // !TGen

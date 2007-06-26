@@ -217,9 +217,56 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::CreateIndexBuffer(const TGen::Vertex
 	return new TGen::OpenGL::IndexBuffer(*this, vertstruct, size, fixedUsage, newVBO);	
 }
 
-TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, uint flags) {
+TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
 	GLuint newTex = 0;
 	glEnable(GL_TEXTURE_2D);
+	
+	GLenum format = TGen::OpenGL::TgenImageFormatToOpenGL(components);
+	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
+	GLenum internalFormat = 0;
+	
+	//glActiveTexture(GL_TEXTURE0);
+	glGenTextures(1, &newTex);
+	glBindTexture(GL_TEXTURE_2D, newTex);
+	
+	
+	if (flags & TGen::TextureCompressed) {
+		switch (components) {
+			case TGen::RGB:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					internalFormat = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				break;
+				
+			case TGen::RGBA:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT3Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT5Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				break;
+				
+			default:
+				throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+		}
+	}
+	else {
+		internalFormat = TGen::OpenGL::TgenImageFormatToOpenGL(components);
+	}
+
+	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.width, size.height, 0, format, type, NULL);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	
+	GLint compressedSize = 0;
+	
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_IMAGE_SIZE_ARB, &compressedSize);
+	
+	std::cout << "[opengl]: created texture " << newTex << " size: " << compressedSize << std::endl;
 	
 	return new TGen::OpenGL::Texture(*this, newTex, size);
 }
@@ -272,7 +319,7 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image,
 	GLint compressedSize = 0;
 	
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_IMAGE_SIZE_ARB, &compressedSize);
-	std::cout << "[opengl]: created texture " << newTex << " size: " << compressedSize;
+	std::cout << "[opengl]: created texture " << newTex << " size: " << compressedSize << std::endl;
 
 	
 	return new TGen::OpenGL::Texture(*this, newTex, image.getSize());
@@ -325,6 +372,14 @@ void TGen::OpenGL::Renderer::DrawIndexedPrimitive(TGen::PrimitiveType type, uint
 	GLenum fixedPrimitive = TGen::OpenGL::TgenPrimitiveToOpenGL(type);
 	
 	glDrawRangeElements(fixedPrimitive, startIndex, startIndex + indexCount, indexCount, indexBufferFormat, NULL);
+}
+
+TGen::FrameBuffer * TGen::OpenGL::Renderer::CreateFrameBuffer() {
+	return NULL;
+}
+
+void TGen::OpenGL::Renderer::setRenderTarget(TGen::FrameBuffer * buffer) {
+	
 }
 
 void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & vertstruct) {

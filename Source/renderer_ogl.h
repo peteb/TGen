@@ -30,6 +30,7 @@ namespace TGen {
 	class VertexBuffer;
 	class IndexBuffer;
 	class Texture;
+	class FrameBuffer;
 	
 	namespace OpenGL {
 		class VertexStructure;
@@ -44,6 +45,8 @@ namespace TGen {
 			void setVertexBuffer(TGen::VertexBuffer * buffer);
 			void setIndexBuffer(TGen::IndexBuffer * buffer);
 			void setTexture(int unit, TGen::Texture * texture);
+			void setRenderTarget(TGen::FrameBuffer * buffer);
+
 			void setColor(const TGen::Color & color);
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;
@@ -55,8 +58,9 @@ namespace TGen {
 			
 			TGen::VertexBuffer * CreateVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
 			TGen::IndexBuffer * CreateIndexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
-			TGen::Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, uint flags);
+			TGen::Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
 			TGen::Texture * CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags);
+			TGen::FrameBuffer * CreateFrameBuffer();
 			
 		private:
 			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
