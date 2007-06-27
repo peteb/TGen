@@ -34,4 +34,6 @@
 #include "vertexstructure.h"
 #include "framebuffer.h"
 
+#include "batch.h"
+
 #endif // !_TGEN_TGEN_H
