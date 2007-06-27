@@ -21,7 +21,7 @@ namespace TGen {
 		RendererCaps();
 		
 	public:
-		int maxTextureUnits, maxActiveLights, maxClipPlanes, maxIndexBufferIndicies, maxVertexBufferVertices, maxTextureSize;
+		int maxTextureUnits, maxActiveLights, maxClipPlanes, maxIndexBufferIndicies, maxVertexBufferVertices, maxTextureSize, maxFrameBufferColorAttachments;
 		
 		TGen::Rectangle maxViewportSize;
 		

@@ -72,15 +72,13 @@ public:
 		myCanvas.setPixel(Vector2(3, 7), Color::Red);
 		myCanvas.DrawLine(Vector2(1, 1), Vector2(15, 8), Color::Blue);
 		myCanvas.DrawLine(Vector2(8, 6), Vector2(2, 15), Color::Blue);
-		
-		
-		
+			
 		tex = renderer->CreateTexture(myCanvas, TGen::RGB);
-		renderTarget1 = renderer->CreateTexture(Rectangle(256, 256), RGBA, TypeUnsignedByte);
-		renderTarget2 = renderer->CreateTexture(Rectangle(256, 256), RGBA, TypeUnsignedByte);
+		renderTarget1 = renderer->CreateTexture(Rectangle(256, 256), RGB, TypeUnsignedByte);
+		renderTarget2 = renderer->CreateTexture(Rectangle(256, 256), DEPTH, TypeFloat);
 		fb = renderer->CreateFrameBuffer();
-		if (fb)
-			fb->Attach(renderTarget1, ColorAttachment);
+		fb->Attach(renderTarget1, ColorAttachment);
+		fb->Attach(renderTarget2, DepthAttachment);
 		
 		std::cout << "--> " << TGen::Radian(TGen::Degree(180)).angle << std::endl;
 	}
@@ -118,13 +116,30 @@ public:
 			renderer->setTexture(0, tex);
 			renderer->setRenderTarget(fb);	// drawing to our frame buffer
 			renderer->setViewport(Rectangle(256, 256));	
+			renderer->setClearColor(Color::Red);
 			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
-
-			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 			
+			
+			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(-5.0f * 3.0f, 0.0f, 0.0f)));
+
+			for (int i = 0; i < 10; i++) {
+				renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(3.0f, 0.0f, 0.0f)));
+				renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+			}
+			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(-5.0f * 3.0f, 0.0f, -5.0f * 3.0f)));
+			
+			for (int i = 0; i < 10; i++) {
+				renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(0.0f, 0.0f, 3.0f)));
+				renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+			}
+			
+			renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f)));
 
 			renderer->setRenderTarget(NULL);
 			renderer->setViewport(windowSize);	// we are now drawing to screen
+			
+			renderer->setClearColor(Color::Black);
+
 			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
 			
 			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(3.0f, 0.0f, 0.0f)));

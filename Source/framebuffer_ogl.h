@@ -11,6 +11,8 @@
 #define _TGEN_OPENGL_FRAMEBUFFER_H
 
 #include "framebuffer.h"
+#include "prefix_ogl.h"
+#include <vector>
 
 namespace TGen {
 	namespace OpenGL {
@@ -18,10 +20,17 @@ namespace TGen {
 	
 		class FrameBuffer : public TGen::FrameBuffer {
 		public:	
-			FrameBuffer();
+			FrameBuffer(GLuint fboId);
 			~FrameBuffer();
 		
-			void Attach(const TGen::Texture * texture, TGen::FrameBufferAttachment attachpoint);
+			void Attach(TGen::Texture * texture, TGen::FrameBufferAttachment attachpoint);
+			GLuint getInternalID() const;
+			void SetupDrawBuffers();
+			
+		private:
+			GLuint fboId;
+			int colorPointsTaken, depthPointsTaken, stencilPointsTaken;
+			std::vector<GLenum> pointsTaken;
 		};
 	
 	} // !OpenGL

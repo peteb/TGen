@@ -26,6 +26,10 @@ namespace TGen {
 		LUMINANCE_ALPHA,
 		LUMINANCE32F,
 		LUMINANCE_ALPHA32F,
+		DEPTH16,
+		DEPTH24,
+		DEPTH32,
+		DEPTH,
 	};
 	
 	int ImageFormatComponents(ImageFormat format);

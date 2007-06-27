@@ -15,10 +15,13 @@
 #include "texture_ogl.h"
 #include "error.h"
 #include "types_converter_ogl.h"
+#include "framebuffer_ogl.h"
 
 #include <iostream>
 
 TGen::OpenGL::Renderer::Renderer() {
+	glEnable(GL_DEPTH_TEST);
+
 	GLint viewportDims[2];
 
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, reinterpret_cast<GLint *>(&caps.maxTextureUnits));
@@ -28,7 +31,8 @@ TGen::OpenGL::Renderer::Renderer() {
 	glGetIntegerv(GL_MAX_ELEMENTS_VERTICES, reinterpret_cast<GLint *>(&caps.maxVertexBufferVertices));
 	glGetIntegerv(GL_MAX_TEXTURE_SIZE, reinterpret_cast<GLint *>(&caps.maxTextureSize));
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, viewportDims);
-	
+	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, reinterpret_cast<GLint *>(&caps.maxFrameBufferColorAttachments));
+
 	caps.maxViewportSize = TGen::Rectangle(viewportDims[0], viewportDims[1]);
 	/*
 	 maxClipPlanes, maxIndexBufferIndicies, maxVertexBufferVertices, maxTextureSize;
@@ -375,12 +379,25 @@ void TGen::OpenGL::Renderer::DrawIndexedPrimitive(TGen::PrimitiveType type, uint
 }
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::CreateFrameBuffer() {
-	return NULL;
+	GLuint fbo = 0;
+	glGenFramebuffersEXT(1, &fbo);
+	
+	return new TGen::OpenGL::FrameBuffer(fbo);
 }
 
 void TGen::OpenGL::Renderer::setRenderTarget(TGen::FrameBuffer * buffer) {
-	
+	TGen::OpenGL::FrameBuffer * fixedBuffer = static_cast<TGen::OpenGL::FrameBuffer *>(buffer);
+		
+	if (buffer) {
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fixedBuffer->getInternalID());		
+		fixedBuffer->SetupDrawBuffers();
+	}
+	else {
+		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	}
 }
+
+// TODO: kolla så alla texturer som attachas har samma storlek
 
 void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & vertstruct) {
 	TGen::VertexElement element;

@@ -10,7 +10,7 @@
 #include "renderer_caps.h"
 #include <sstream>
 
-TGen::RendererCaps::RendererCaps() : maxTextureUnits(0), maxActiveLights(0), maxClipPlanes(0), maxIndexBufferIndicies(0), maxVertexBufferVertices(0), maxTextureSize(0) {}
+TGen::RendererCaps::RendererCaps() : maxTextureUnits(0), maxActiveLights(0), maxClipPlanes(0), maxIndexBufferIndicies(0), maxVertexBufferVertices(0), maxTextureSize(0), maxFrameBufferColorAttachments(0) {}
 
 TGen::RendererCaps::operator std::string() const {
 	std::stringstream ss;
@@ -21,6 +21,7 @@ TGen::RendererCaps::operator std::string() const {
 	ss << "max (recommended) indicies per ib: " << maxIndexBufferIndicies << "\n";
 	ss << "max (recommended) vertices per vb: " << maxVertexBufferVertices << "\n";
 	ss << "max viewport size: " << std::string(maxViewportSize) << "\n";
+	ss << "max framebuffer color attachments: " << maxFrameBufferColorAttachments << "\n";
 	
 	return ss.str();	
 }

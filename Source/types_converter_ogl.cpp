@@ -105,6 +105,18 @@ uint TGen::OpenGL::TgenImageFormatToOpenGL(TGen::ImageFormat format) {
 		
 		case TGen::LUMINANCE_ALPHA:
 			return GL_LUMINANCE_ALPHA;
+			
+		case TGen::DEPTH16:
+			return GL_DEPTH_COMPONENT16;
+			
+		case TGen::DEPTH24:
+			return GL_DEPTH_COMPONENT24;
+			
+		case TGen::DEPTH32:
+			return GL_DEPTH_COMPONENT32;
+			
+		case TGen::DEPTH:
+			return GL_DEPTH_COMPONENT;
 	}
 	
 	throw TGen::NotImplemented("TgenImageFormatToOpenGL", "format not supported");		

@@ -26,6 +26,8 @@ namespace TGen {
 		
 			friend class TGen::OpenGL::Renderer;
 			
+			GLuint getInternalID() const;
+			
 		private:
 			GLuint texId;
 		};

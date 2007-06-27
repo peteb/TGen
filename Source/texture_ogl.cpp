@@ -21,3 +21,6 @@ TGen::OpenGL::Texture::~Texture() {
 	}	
 }
 
+GLuint TGen::OpenGL::Texture::getInternalID() const {
+	return texId;
+}
