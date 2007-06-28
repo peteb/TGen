@@ -66,8 +66,10 @@ namespace TGen {
 			TGen::FrameBuffer * CreateFrameBuffer();
 			TGen::Shader * CreateVertexShader(const char * code);
 			TGen::Shader * CreateFragmentShader(const char * code);
+			TGen::Shader * CreateGeometryShader(const char * code);
 			TGen::ShaderProgram * CreateShaderProgram();
-
+			TGen::ShaderProgram * CreateShaderProgram(char * code);
+			
 			
 		private:
 			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);

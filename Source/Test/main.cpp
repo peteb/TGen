@@ -83,9 +83,30 @@ public:
 		
 		std::cout << "--> " << TGen::Radian(TGen::Degree(180)).angle << std::endl;
 		
-		shaderProgram = renderer->CreateShaderProgram();
-		Shader * myShader = renderer->CreateFragmentShader("uniform vec4 useColor; \n void main() {\ngl_FragColor = useColor; \n}");
-		shaderProgram->Attach(myShader);
+		char shaderCode[] = "#section vertex                      \n"
+			"void main() {                        \n"
+			"gl_Position = ftransform();          \n"
+			"}                                    \n"
+			
+			"#section fragment                    \n"
+			"void main() {                        \n"
+			"gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);  \n"
+			"}  \n"
+			
+			"#section global					\n";
+		
+		shaderProgram = renderer->CreateShaderProgram(shaderCode);
+		
+		
+		/*Shader * myShader = renderer->CreateFragmentShader("uniform vec4 useColor; \n"
+														   "uniform sampler2D texture; \n"
+														   "void main() {\n"
+														   "   gl_FragColor = useColor * 0.5 + 0.5 * texture2D(texture, gl_TexCoord[0].xy); \n"
+														   "}");
+		
+		*/
+		
+		//shaderProgram->Attach(myShader);
 		shaderProgram->Link();
 	}
 	
@@ -137,8 +158,8 @@ public:
 			
 			renderer->setShaderProgram(shaderProgram);
 			
-			ShaderVariable & var = shaderProgram->getUniform("useColor");
-			var = Color::Blue;
+			//ShaderVariable & var = shaderProgram->getUniform("useColor");
+			//var = Color::Blue;
 			
 			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(-5.0f * 3.0f, 0.0f, 0.0f)));
 

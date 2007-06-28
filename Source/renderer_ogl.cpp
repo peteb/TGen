@@ -395,13 +395,19 @@ TGen::Shader * TGen::OpenGL::Renderer::CreateFragmentShader(const char * code) {
 	return CreateShader(code, 1);
 }
 
+TGen::Shader * TGen::OpenGL::Renderer::CreateGeometryShader(const char * code) {
+	return CreateShader(code, 2);
+}
+
 TGen::Shader * TGen::OpenGL::Renderer::CreateShader(const char * code, int type) {
 	GLuint newShader = 0;
 	
 	if (type == 0)
 		newShader = glCreateShader(GL_VERTEX_SHADER);	
-	else
+	else if (type == 1)
 		newShader = glCreateShader(GL_FRAGMENT_SHADER);
+	else
+		throw TGen::NotImplemented("OpenGL::Renderer::CreateGeometryShader", "geometry shaders not supported");
 	
 	glShaderSource(newShader, 1, const_cast<const GLchar **>(&code), NULL);
 	glCompileShader(newShader);
@@ -449,6 +455,12 @@ TGen::ShaderProgram * TGen::OpenGL::Renderer::CreateShaderProgram() {
 	return new TGen::OpenGL::ShaderProgram(*this, newProgram);	
 }
 
+TGen::ShaderProgram * TGen::OpenGL::Renderer::CreateShaderProgram(char * code) {
+	TGen::ShaderProgram * program = CreateShaderProgram();
+	program->ParseShaders(*this, code);
+	
+	return program;
+}
 
 
 void TGen::OpenGL::Renderer::setRenderTarget(TGen::FrameBuffer * buffer) {
