@@ -33,6 +33,9 @@
 #include "texture.h"
 #include "vertexstructure.h"
 #include "framebuffer.h"
+#include "shader.h"
+#include "shaderprogram.h"
+#include "shadervariable.h"
 
 #include "batch.h"
 

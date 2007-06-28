@@ -15,6 +15,10 @@
 #include "indexbuffer_ogl.h"
 #include "texture_ogl.h"
 #include "framebuffer_ogl.h"
+#include "shader_ogl.h"
+#include "shaderprogram_ogl.h"
+#include "shadervariable_ogl.h"
+
 #include "types_converter_ogl.h"
 
 #endif // !_TGEN_OPENGL_H

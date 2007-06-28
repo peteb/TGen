@@ -30,6 +30,8 @@ namespace TGen {
 	class VertexStructure;
 	class Texture;
 	class FrameBuffer;
+	class Shader;
+	class ShaderProgram;
 	
 	class Renderer {
 	protected:
@@ -51,6 +53,7 @@ namespace TGen {
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;
 		virtual void setTexture(int unit, Texture * texture) abstract;
 		virtual void setRenderTarget(FrameBuffer * buffer) abstract;
+		virtual void setShaderProgram(ShaderProgram * program) abstract;
 		
 		virtual void setColor(const Color & color) abstract;
 		
@@ -64,6 +67,9 @@ namespace TGen {
 		virtual Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags = 0) abstract;
 		virtual Texture * CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags = 0) abstract;
 		virtual FrameBuffer * CreateFrameBuffer() abstract;
+		virtual Shader * CreateVertexShader(const char * code) abstract;
+		virtual Shader * CreateFragmentShader(const char * code) abstract;
+		virtual ShaderProgram * CreateShaderProgram() abstract;
 		
 	protected:
 		TGen::RendererCaps caps;

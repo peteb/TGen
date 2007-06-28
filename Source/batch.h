@@ -43,7 +43,7 @@ namespace TGen {
 		void BeginBatch() {
 			mapped = vb->Lock(TGen::LockDiscard | TGen::LockWrite);
 			cursor = mapped;
-			verticesWritten = 0;
+			verticesWritten = 0; 
 			full = false;			
 		}
 		

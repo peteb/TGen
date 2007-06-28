@@ -16,6 +16,8 @@
 #include "error.h"
 #include "types_converter_ogl.h"
 #include "framebuffer_ogl.h"
+#include "shader_ogl.h"
+#include "shaderprogram_ogl.h"
 
 #include <iostream>
 
@@ -385,6 +387,70 @@ TGen::FrameBuffer * TGen::OpenGL::Renderer::CreateFrameBuffer() {
 	return new TGen::OpenGL::FrameBuffer(fbo);
 }
 
+TGen::Shader * TGen::OpenGL::Renderer::CreateVertexShader(const char * code) {
+	return CreateShader(code, 0);
+}
+
+TGen::Shader * TGen::OpenGL::Renderer::CreateFragmentShader(const char * code) {
+	return CreateShader(code, 1);
+}
+
+TGen::Shader * TGen::OpenGL::Renderer::CreateShader(const char * code, int type) {
+	GLuint newShader = 0;
+	
+	if (type == 0)
+		newShader = glCreateShader(GL_VERTEX_SHADER);	
+	else
+		newShader = glCreateShader(GL_FRAGMENT_SHADER);
+	
+	glShaderSource(newShader, 1, const_cast<const GLchar **>(&code), NULL);
+	glCompileShader(newShader);
+	
+	GLint status = 0, infoLogLength = 0;
+	GLsizei charsWritten = 0;
+	char * infoLog = NULL;
+	std::string infoLogString;
+	
+	glGetShaderiv(newShader, GL_COMPILE_STATUS, &status);
+	glGetShaderiv(newShader, GL_INFO_LOG_LENGTH, &infoLogLength);
+	
+	if (infoLogLength > 0) {
+		infoLog = static_cast<char *>(malloc(infoLogLength + 1));
+		glGetShaderInfoLog(newShader, infoLogLength, &charsWritten, infoLog);
+		infoLogString = infoLog;
+		free(infoLog);		
+	}
+	
+	if (status != GL_TRUE) {
+		if (infoLogString.empty())
+			infoLogString = "Unknown error";
+		
+		//std::cout << "[opengl]: failed to compile fragment shader: " << std::endl << infoLogString << std::endl;
+		glDeleteShader(newShader);
+		newShader = 0;
+		
+		if (type == 0)
+			throw TGen::RuntimeException("OpenGL::Renderer::CreateVertexShader", "failed to compile shader: \"" + infoLogString + "\"");			
+		else
+			throw TGen::RuntimeException("OpenGL::Renderer::CreateFragmentShader", "failed to compile shader: \"" + infoLogString + "\"");
+	}
+	
+	if (type == 0)
+		std::cout << "[opengl]: created vertex shader " << newShader << ": " << infoLogString << std::endl;		
+	else
+		std::cout << "[opengl]: created fragment shader " << newShader << ": " << infoLogString << std::endl;
+	
+	return new TGen::OpenGL::Shader(*this, newShader);		
+}
+
+TGen::ShaderProgram * TGen::OpenGL::Renderer::CreateShaderProgram() {
+	GLuint newProgram = glCreateProgram();
+	
+	return new TGen::OpenGL::ShaderProgram(*this, newProgram);	
+}
+
+
+
 void TGen::OpenGL::Renderer::setRenderTarget(TGen::FrameBuffer * buffer) {
 	TGen::OpenGL::FrameBuffer * fixedBuffer = static_cast<TGen::OpenGL::FrameBuffer *>(buffer);
 		
@@ -397,7 +463,17 @@ void TGen::OpenGL::Renderer::setRenderTarget(TGen::FrameBuffer * buffer) {
 	}
 }
 
-// TODO: kolla så alla texturer som attachas har samma storlek
+void TGen::OpenGL::Renderer::setShaderProgram(TGen::ShaderProgram * program) {
+	if (!program) {
+		glUseProgram(0);
+		return;
+	}
+	
+	TGen::OpenGL::ShaderProgram * fixedProgram = static_cast<TGen::OpenGL::ShaderProgram *>(program);
+	glUseProgram(fixedProgram->getInternalID());
+}
+
+// TODO: kolla så alla texturer som attachas på fb har samma storlek
 
 void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & vertstruct) {
 	TGen::VertexElement element;

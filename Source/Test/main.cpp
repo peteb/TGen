@@ -72,7 +72,7 @@ public:
 		myCanvas.setPixel(Vector2(3, 7), Color::Red);
 		myCanvas.DrawLine(Vector2(1, 1), Vector2(15, 8), Color::Blue);
 		myCanvas.DrawLine(Vector2(8, 6), Vector2(2, 15), Color::Blue);
-		 batch = new TGen::Batch<JoinVertex2<Vertex3<float>, TexCoord2<float, 0> >, 4>(renderer, 1000000, TGen::PrimitiveQuads, TGen::UsageStream);
+		batch = new TGen::Batch<JoinVertex2<Vertex3<float>, TexCoord2<float, 0> >, 4>(renderer, 1000000, TGen::PrimitiveQuads, TGen::UsageStream);
 			 
 		tex = renderer->CreateTexture(myCanvas, TGen::RGB);
 		renderTarget1 = renderer->CreateTexture(Rectangle(256, 256), RGB, TypeUnsignedByte);
@@ -81,24 +81,12 @@ public:
 		fb->Attach(renderTarget1, ColorAttachment);
 		fb->Attach(renderTarget2, DepthAttachment);
 		
-		typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
-		batch->BeginBatch();
-		
-		for (int i = 0; i < 100000; i++) {
-			MyVertex::Type vertices[4]  = {
-				MyVertex::Type(Vector3(-1.0f, -1.0f, 0.0f), Vector2(0.0f, 0.0f)),
-				MyVertex::Type(Vector3(1.0f, -1.0f, 0.0f), Vector2(1.0f, 0.0f)),
-				MyVertex::Type(Vector3(1.0f, 1.0f, 0.0f), Vector2(1.0f, 1.0f)),
-				MyVertex::Type(Vector3(-1.0f, 1.0f, 0.0f), Vector2(0.0f, 1.0f)),
-			};
-			
-			batch->WritePrimitive(vertices);
-			
-		}
-		
-		batch->EndBatch();
-		
 		std::cout << "--> " << TGen::Radian(TGen::Degree(180)).angle << std::endl;
+		
+		shaderProgram = renderer->CreateShaderProgram();
+		Shader * myShader = renderer->CreateFragmentShader("uniform vec4 useColor; \n void main() {\ngl_FragColor = useColor; \n}");
+		shaderProgram->Attach(myShader);
+		shaderProgram->Link();
 	}
 	
 	// TODO: check for ARB_multitexture 
@@ -131,17 +119,15 @@ public:
 			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
 			
 			renderer->setTexture(0, tex);
-			/*renderer->setVertexBuffer(object);
+			renderer->setVertexBuffer(object);
 			renderer->setIndexBuffer(ib);
 			
 			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
-			*/
+			
 			
 
-			
-			batch->Render(renderer);
-			
-			/*renderer->setVertexBuffer(object);
+						
+			renderer->setVertexBuffer(object);
 			renderer->setIndexBuffer(ib);
 			renderer->setTexture(0, tex);
 			renderer->setRenderTarget(fb);	// drawing to our frame buffer
@@ -149,6 +135,10 @@ public:
 			renderer->setClearColor(Color::Red);
 			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
 			
+			renderer->setShaderProgram(shaderProgram);
+			
+			ShaderVariable & var = shaderProgram->getUniform("useColor");
+			var = Color::Blue;
 			
 			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(-5.0f * 3.0f, 0.0f, 0.0f)));
 
@@ -174,13 +164,14 @@ public:
 			
 			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(3.0f, 0.0f, 0.0f)));
 			renderer->setTexture(0, renderTarget1);
+			renderer->setShaderProgram(NULL);
 			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 
 			renderer->setTransform(TransformWorldView, renderer->getTransform(TransformWorldView) * Matrix4x4::Translation(Vector3(-6.0f, 0.0f, 0.0f)));
 			renderer->setTexture(0, renderTarget2);
 			renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 			
-	*/
+
 			
 			/*renderer->setVertexBuffer(object2);
 			renderer->setColor(Color::Red);
@@ -198,6 +189,7 @@ public:
 	static Texture * tex, * renderTarget1, * renderTarget2;
 	static FrameBuffer * fb;
 	static Batch<JoinVertex2<Vertex3<float>, TexCoord2<float, 0> >, 4> * batch;
+	static ShaderProgram * shaderProgram;
 };
 
 Rectangle TestApp::windowSize;
@@ -210,6 +202,7 @@ Texture * TestApp::renderTarget1 = NULL;
 Texture * TestApp::renderTarget2 = NULL;
 FrameBuffer * TestApp::fb = NULL;
 Batch<JoinVertex2<Vertex3<float>, TexCoord2<float, 0> >, 4> * TestApp::batch = NULL;
+ShaderProgram * TestApp::shaderProgram = NULL;
 
 int main(int argc, char ** argv) {
 	TestApp::windowSize = Rectangle(640, 480);
