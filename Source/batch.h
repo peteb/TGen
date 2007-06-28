@@ -19,7 +19,7 @@ namespace TGen {
 	template<typename format, int vertsPerPrimitive>
 	class Batch {
 	public:	
-		Batch(TGen::Renderer * renderer, uint size, TGen::PrimitiveType type, TGen::Usage usage) : size(size), type(type), vb(NULL), verticesWritten(0), cursor(NULL), mapped(NULL) {
+		Batch(TGen::Renderer * renderer, uint size, TGen::PrimitiveType type, uint usage) : size(size), type(type), vb(NULL), verticesWritten(0), cursor(NULL), mapped(NULL) {
 			vb = renderer->CreateVertexBuffer(format(), sizeof(typename format::Type) * size, usage);
 			verticesPerDraw = renderer->getCaps().maxVertexBufferVertices;
 		}

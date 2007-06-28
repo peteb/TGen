@@ -86,11 +86,13 @@ public:
 		char shaderCode[] = "#section vertex                      \n"
 			"void main() {                        \n"
 			"gl_Position = ftransform();          \n"
+			"gl_TexCoord[0] = gl_MultiTexCoord0;  \n"
 			"}                                    \n"
 			
 			"#section fragment                    \n"
+			"uniform sampler2D tex1;			  \n"
 			"void main() {                        \n"
-			"gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);  \n"
+			"gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0) * 0.5 + texture2D(tex1, gl_TexCoord[0].xy) * 0.5;  \n"
 			"}  \n"
 			
 			"#section global					\n";

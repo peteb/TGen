@@ -14,7 +14,7 @@ TGen::OpenGL::Shader::Shader(TGen::Renderer & creator, GLuint shaderId) : TGen::
 }
 
 TGen::OpenGL::Shader::~Shader() {
-	
+	glDeleteShader(shaderId);
 }
 
 GLuint TGen::OpenGL::Shader::getInternalID() const {

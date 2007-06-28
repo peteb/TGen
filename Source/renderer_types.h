@@ -26,12 +26,12 @@ namespace TGen {
 	};
 	
 	enum Usage {
-		UsageStream = 1,
-		UsageDynamic,
-		UsageStatic,
-		UsageRead,
-		UsageCopy,
-		UsageDraw,
+		UsageStream		= 0x0001,
+		UsageDynamic	= 0x0002,
+		UsageStatic		= 0x0004,
+		UsageRead		= 0x0010,
+		UsageCopy		= 0x0020,
+		UsageDraw		= 0x0040,
 	};
 	
 	enum PrimitiveType {
