@@ -26,6 +26,7 @@ namespace TGen {
 		virtual void Attach(TGen::Shader * shader) abstract;
 		virtual void Link() abstract;
 		virtual ShaderVariable & getUniform(const std::string & name) abstract;
+		virtual ShaderVariable & getAttribute(const std::string & name) abstract;
 		
 	private:
 		TGen::Renderer & creator;

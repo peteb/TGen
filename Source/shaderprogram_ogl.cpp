@@ -70,14 +70,31 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getUniform(const std::string
 		if (location == -1)
 			throw TGen::RuntimeException("OpenGL::ShaderProgram::getUniform", "variable \"" + name + "\" not found");
 		
-		TGen::ShaderVariable * newVar = new TGen::OpenGL::ShaderVariable(location);
+		TGen::ShaderVariable * newVar = new TGen::OpenGL::ShaderVariable(location, TGen::OpenGL::Uniform);
+		
+		cachedVariables.insert(VariableMap::value_type(name, newVar));
+		return *newVar;
+	}
+		
+	return *iter->second;
+}
+
+TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getAttribute(const std::string & name) {
+	GLint location = 0;
+	
+	VariableMap::iterator iter = cachedVariables.find(name);
+	if (iter == cachedVariables.end()) {
+		location = glGetAttribLocation(programId, name.c_str());
+		if (location == -1)
+			throw TGen::RuntimeException("OpenGL::ShaderProgram::getAttribute", "variable \"" + name + "\" not found");
+		
+		TGen::ShaderVariable * newVar = new TGen::OpenGL::ShaderVariable(location, TGen::OpenGL::Attribute);
 		
 		cachedVariables.insert(VariableMap::value_type(name, newVar));
 		return *newVar;
 	}
 	
-	
-	return *iter->second;
+	return *iter->second;	
 }
 
 GLuint TGen::OpenGL::ShaderProgram::getInternalID() const {
