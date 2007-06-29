@@ -20,7 +20,8 @@ public:
 		glutDisplayFunc(&Render);		
 		glutReshapeFunc(&Reshape);
 		glutIdleFunc(&Render);
-		
+		//glutWMCloseFunc()
+			
 		renderer = new OpenGL::Renderer();		// We're going to use OpenGL for rendering
 		renderer->setClearColor(Color::White);	
 		
