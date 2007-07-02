@@ -132,14 +132,8 @@
 				D0EE96890C35E37500CB2978 /* tgen_math.h */,
 				D0EE96750C35E34700CB2978 /* angle.cpp */,
 				D0EE967F0C35E35600CB2978 /* angle.h */,
-				D0EE96760C35E34700CB2978 /* matrix3x3.cpp */,
-				D0EE96800C35E35600CB2978 /* matrix3x3.h */,
-				D0EE96770C35E34700CB2978 /* matrix4x4.cpp */,
-				D0EE96810C35E35600CB2978 /* matrix4x4.h */,
-				D0EE96780C35E34700CB2978 /* vector2.cpp */,
-				D0EE96820C35E35600CB2978 /* vector2.h */,
-				D0EE96790C35E34700CB2978 /* vector3.cpp */,
-				D0EE96830C35E35600CB2978 /* vector3.h */,
+				D00DC4310C3949AB002E6CCC /* Matrices */,
+				D00DC4340C3949B2002E6CCC /* Vectors */,
 				D0EE96CD0C35E4BB00CB2978 /* Geometry */,
 			);
 			name = Math;
@@ -161,6 +155,28 @@
 				C6859E8B029090EE04C91782 /* TGen Math.1 */,
 			);
 			name = Documentation;
+			sourceTree = "<group>";
+		};
+		D00DC4310C3949AB002E6CCC /* Matrices */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE96760C35E34700CB2978 /* matrix3x3.cpp */,
+				D0EE96800C35E35600CB2978 /* matrix3x3.h */,
+				D0EE96770C35E34700CB2978 /* matrix4x4.cpp */,
+				D0EE96810C35E35600CB2978 /* matrix4x4.h */,
+			);
+			name = Matrices;
+			sourceTree = "<group>";
+		};
+		D00DC4340C3949B2002E6CCC /* Vectors */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE96780C35E34700CB2978 /* vector2.cpp */,
+				D0EE96820C35E35600CB2978 /* vector2.h */,
+				D0EE96790C35E34700CB2978 /* vector3.cpp */,
+				D0EE96830C35E35600CB2978 /* vector3.h */,
+			);
+			name = Vectors;
 			sourceTree = "<group>";
 		};
 		D00FF7230C3939D100668773 /* TGen Dependencies */ = {
