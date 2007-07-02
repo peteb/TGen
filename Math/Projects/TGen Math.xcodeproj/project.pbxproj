@@ -1,0 +1,466 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		8DD76F6A0486A84900D96B5E /* TGen Math.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Math.1 */; };
+		D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */; };
+		D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96890C35E37500CB2978 /* tgen_math.h */; };
+		D0EE96F10C35E50C00CB2978 /* angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96750C35E34700CB2978 /* angle.cpp */; };
+		D0EE96F20C35E50C00CB2978 /* angle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE967F0C35E35600CB2978 /* angle.h */; };
+		D0EE96F30C35E50C00CB2978 /* matrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96760C35E34700CB2978 /* matrix3x3.cpp */; };
+		D0EE96F40C35E50C00CB2978 /* matrix3x3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96800C35E35600CB2978 /* matrix3x3.h */; };
+		D0EE96F50C35E50C00CB2978 /* matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96770C35E34700CB2978 /* matrix4x4.cpp */; };
+		D0EE96F60C35E50C00CB2978 /* matrix4x4.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96810C35E35600CB2978 /* matrix4x4.h */; };
+		D0EE96F70C35E50C00CB2978 /* vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96780C35E34700CB2978 /* vector2.cpp */; };
+		D0EE96F80C35E50C00CB2978 /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96820C35E35600CB2978 /* vector2.h */; };
+		D0EE96F90C35E50C00CB2978 /* vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96790C35E34700CB2978 /* vector3.cpp */; };
+		D0EE96FA0C35E50C00CB2978 /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96830C35E35600CB2978 /* vector3.h */; };
+		D0EE96FB0C35E50C00CB2978 /* rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96AF0C35E44500CB2978 /* rectangle.cpp */; };
+		D0EE96FC0C35E50C00CB2978 /* rectangle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96B10C35E44D00CB2978 /* rectangle.h */; };
+		D0EE96FD0C35E51800CB2978 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */; };
+		D0EE98020C35E94900CB2978 /* tgen_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE98010C35E94900CB2978 /* tgen_math.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D0EE96FE0C35E52500CB2978 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978;
+			remoteInfo = tgen_math;
+		};
+		D0EE978B0C35E6EA00CB2978 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Core";
+		};
+		D0EE978D0C35E6EA00CB2978 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
+			remoteInfo = tgen_core;
+		};
+		D0EE978F0C35E6FD00CB2978 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core */;
+			proxyType = 1;
+			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
+			remoteInfo = tgen_core;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8DD76F6A0486A84900D96B5E /* TGen Math.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8DD76F6C0486A84900D96B5E /* TGen Math */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Math"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6859E8B029090EE04C91782 /* TGen Math.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Math.1"; sourceTree = "<group>"; };
+		D0EE96750C35E34700CB2978 /* angle.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = angle.cpp; path = Source/angle.cpp; sourceTree = "<group>"; };
+		D0EE96760C35E34700CB2978 /* matrix3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = matrix3x3.cpp; path = Source/matrix3x3.cpp; sourceTree = "<group>"; };
+		D0EE96770C35E34700CB2978 /* matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = matrix4x4.cpp; path = Source/matrix4x4.cpp; sourceTree = "<group>"; };
+		D0EE96780C35E34700CB2978 /* vector2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = vector2.cpp; path = Source/vector2.cpp; sourceTree = "<group>"; };
+		D0EE96790C35E34700CB2978 /* vector3.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = vector3.cpp; path = Source/vector3.cpp; sourceTree = "<group>"; };
+		D0EE967F0C35E35600CB2978 /* angle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = angle.h; path = Include/angle.h; sourceTree = "<group>"; };
+		D0EE96800C35E35600CB2978 /* matrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = matrix3x3.h; path = Include/matrix3x3.h; sourceTree = "<group>"; };
+		D0EE96810C35E35600CB2978 /* matrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = matrix4x4.h; path = Include/matrix4x4.h; sourceTree = "<group>"; };
+		D0EE96820C35E35600CB2978 /* vector2.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = vector2.h; path = Include/vector2.h; sourceTree = "<group>"; };
+		D0EE96830C35E35600CB2978 /* vector3.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = vector3.h; path = Include/vector3.h; sourceTree = "<group>"; };
+		D0EE96890C35E37500CB2978 /* tgen_math.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_math.h; path = Include/tgen_math.h; sourceTree = "<group>"; };
+		D0EE96AF0C35E44500CB2978 /* rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = rectangle.cpp; path = Source/rectangle.cpp; sourceTree = "<group>"; };
+		D0EE96B10C35E44D00CB2978 /* rectangle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = rectangle.h; path = Include/rectangle.h; sourceTree = "<group>"; };
+		D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_math.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0EE97860C35E6EA00CB2978 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0EE98010C35E94900CB2978 /* tgen_math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_math.cpp; path = Source/tgen_math.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0EE96FD0C35E51800CB2978 /* libtgen_math.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0EE96ED0C35E4FC00CB2978 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* TGen Math */ = {
+			isa = PBXGroup;
+			children = (
+				D00FF7230C3939D100668773 /* TGen Dependencies */,
+				08FB7795FE84155DC02AAC07 /* Math */,
+				C6859E8C029090F304C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = "TGen Math";
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE96670C35E2A000CB2978 /* Test */,
+				D0EE98010C35E94900CB2978 /* tgen_math.cpp */,
+				D0EE96890C35E37500CB2978 /* tgen_math.h */,
+				D0EE96750C35E34700CB2978 /* angle.cpp */,
+				D0EE967F0C35E35600CB2978 /* angle.h */,
+				D0EE96760C35E34700CB2978 /* matrix3x3.cpp */,
+				D0EE96800C35E35600CB2978 /* matrix3x3.h */,
+				D0EE96770C35E34700CB2978 /* matrix4x4.cpp */,
+				D0EE96810C35E35600CB2978 /* matrix4x4.h */,
+				D0EE96780C35E34700CB2978 /* vector2.cpp */,
+				D0EE96820C35E35600CB2978 /* vector2.h */,
+				D0EE96790C35E34700CB2978 /* vector3.cpp */,
+				D0EE96830C35E35600CB2978 /* vector3.h */,
+				D0EE96CD0C35E4BB00CB2978 /* Geometry */,
+			);
+			name = Math;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* TGen Math */,
+				D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6859E8C029090F304C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6859E8B029090EE04C91782 /* TGen Math.1 */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		D00FF7230C3939D100668773 /* TGen Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE97860C35E6EA00CB2978 /* TGen Core */,
+			);
+			name = "TGen Dependencies";
+			sourceTree = "<group>";
+		};
+		D0EE96670C35E2A000CB2978 /* Test */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7796FE84155DC02AAC07 /* main.cpp */,
+			);
+			name = Test;
+			path = Source/Test;
+			sourceTree = "<group>";
+		};
+		D0EE96CD0C35E4BB00CB2978 /* Geometry */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE96AF0C35E44500CB2978 /* rectangle.cpp */,
+				D0EE96B10C35E44D00CB2978 /* rectangle.h */,
+			);
+			name = Geometry;
+			sourceTree = "<group>";
+		};
+		D0EE97870C35E6EA00CB2978 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0EE978C0C35E6EA00CB2978 /* TGen Core */,
+				D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D0EE96EB0C35E4FC00CB2978 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */,
+				D0EE96F20C35E50C00CB2978 /* angle.h in Headers */,
+				D0EE96F40C35E50C00CB2978 /* matrix3x3.h in Headers */,
+				D0EE96F60C35E50C00CB2978 /* matrix4x4.h in Headers */,
+				D0EE96F80C35E50C00CB2978 /* vector2.h in Headers */,
+				D0EE96FA0C35E50C00CB2978 /* vector3.h in Headers */,
+				D0EE96FC0C35E50C00CB2978 /* rectangle.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* TGen Math */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Math" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0EE96FF0C35E52500CB2978 /* PBXTargetDependency */,
+			);
+			name = "TGen Math";
+			productInstallPath = "$(HOME)/bin";
+			productName = "TGen Math";
+			productReference = 8DD76F6C0486A84900D96B5E /* TGen Math */;
+			productType = "com.apple.product-type.tool";
+		};
+		D0EE96EE0C35E4FC00CB2978 /* tgen_math */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0EE97230C35E59400CB2978 /* Build configuration list for PBXNativeTarget "tgen_math" */;
+			buildPhases = (
+				D0EE96EB0C35E4FC00CB2978 /* Headers */,
+				D0EE96EC0C35E4FC00CB2978 /* Sources */,
+				D0EE96ED0C35E4FC00CB2978 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0EE97900C35E6FD00CB2978 /* PBXTargetDependency */,
+			);
+			name = tgen_math;
+			productName = tgen_math;
+			productReference = D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "TGen Math" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* TGen Math */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D0EE97870C35E6EA00CB2978 /* Products */;
+					ProjectRef = D0EE97860C35E6EA00CB2978 /* TGen Core */;
+				},
+			);
+			targets = (
+				8DD76F620486A84900D96B5E /* TGen Math */,
+				D0EE96EE0C35E4FC00CB2978 /* tgen_math */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D0EE978C0C35E6EA00CB2978 /* TGen Core */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Core";
+			remoteRef = D0EE978B0C35E6EA00CB2978 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_core.a;
+			remoteRef = D0EE978D0C35E6EA00CB2978 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0EE96EC0C35E4FC00CB2978 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0EE96F10C35E50C00CB2978 /* angle.cpp in Sources */,
+				D0EE96F30C35E50C00CB2978 /* matrix3x3.cpp in Sources */,
+				D0EE96F50C35E50C00CB2978 /* matrix4x4.cpp in Sources */,
+				D0EE96F70C35E50C00CB2978 /* vector2.cpp in Sources */,
+				D0EE96F90C35E50C00CB2978 /* vector3.cpp in Sources */,
+				D0EE96FB0C35E50C00CB2978 /* rectangle.cpp in Sources */,
+				D0EE98020C35E94900CB2978 /* tgen_math.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0EE96FF0C35E52500CB2978 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0EE96EE0C35E4FC00CB2978 /* tgen_math */;
+			targetProxy = D0EE96FE0C35E52500CB2978 /* PBXContainerItemProxy */;
+		};
+		D0EE97900C35E6FD00CB2978 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_core;
+			targetProxy = D0EE978F0C35E6FD00CB2978 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
+				PRODUCT_NAME = "TGen Math";
+				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
+				PRODUCT_NAME = "TGen Math";
+				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+		D0EE97240C35E59400CB2978 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = tgen_math;
+				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		D0EE97250C35E59400CB2978 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					"$(NATIVE_ARCH)",
+				);
+				COPY_PHASE_STRIP = YES;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/lib;
+				PREBINDING = NO;
+				PRODUCT_NAME = tgen_math;
+				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Math" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "TGen Math" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0EE97230C35E59400CB2978 /* Build configuration list for PBXNativeTarget "tgen_math" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0EE97240C35E59400CB2978 /* Debug */,
+				D0EE97250C35E59400CB2978 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}

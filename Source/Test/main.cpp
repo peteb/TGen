@@ -84,20 +84,27 @@ public:
 		
 		std::cout << "--> " << TGen::Radian(TGen::Degree(180)).angle << std::endl;
 		
-		char shaderCode[] = "#section vertex                      \n"
+		char shaderCode[] = 
+			"#section global					  \n"
+			"varying vec4 projPos;				  \n"
+			"#section vertex                      \n"
 			"void main() {                        \n"
 			"gl_Position = ftransform();          \n"
+			"projPos = ftransform();			  \n"
 			"gl_TexCoord[0] = gl_MultiTexCoord0;  \n"
 			"}                                    \n"
 			
 			"#section fragment                    \n"
 			"uniform sampler2D tex1;			  \n"
 			"void main() {                        \n"
-			"gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0) * 0.5 + texture2D(tex1, gl_TexCoord[0].xy) * 0.5;  \n"
-			"}  \n"
-			
-			"#section global					\n";
-		
+			"float x = (projPos.x / projPos.w + 1.0) / 2.0;    \n"
+			"float y = (projPos.y / projPos.w + 1.0) / 2.0;		\n"
+			"if (x >= 0.05 && x <= 0.95 && y >= 0.05 && y <= 0.95)			\n"
+			"   gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0) * 0.5 + texture2D(tex1, gl_TexCoord[0].st) * 0.5;  \n"
+			"else       \n"
+			"   gl_FragColor = vec4(0.0, 0.0, 1.0, 1.0);  \n"
+			"}  \n";
+					
 		shaderProgram = renderer->CreateShaderProgram(shaderCode);
 		
 		
@@ -156,7 +163,7 @@ public:
 			renderer->setTexture(0, tex);
 			renderer->setRenderTarget(fb);	// drawing to our frame buffer
 			renderer->setViewport(Rectangle(256, 256));	
-			renderer->setClearColor(Color::Red);
+			renderer->setClearColor(Color::White);
 			renderer->Clear(ColorBuffer | DepthBuffer);		// Clear color buffer and depth (z) buffer
 			
 			renderer->setShaderProgram(shaderProgram);
