@@ -25,22 +25,22 @@
 		D00FF6E10C39395200668773 /* texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF6550C39368E00668773 /* texture.cpp */; };
 		D00FF6E20C39395200668773 /* vertexbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF6570C39368E00668773 /* vertexbuffer.cpp */; };
 		D00FF6E30C39395200668773 /* vertexstructure.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF6580C39368E00668773 /* vertexstructure.cpp */; };
-		D00FF6E60C39396400668773 /* tgen_graphics.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF68E0C39370B00668773 /* tgen_graphics.h */; };
-		D00FF6E70C39396400668773 /* batch.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6690C39369F00668773 /* batch.h */; };
-		D00FF6E80C39396400668773 /* canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66A0C39369F00668773 /* canvas.h */; };
-		D00FF6E90C39396400668773 /* framebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66C0C39369F00668773 /* framebuffer.h */; };
-		D00FF6EA0C39396400668773 /* image.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66D0C39369F00668773 /* image.h */; };
-		D00FF6EB0C39396400668773 /* color.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6A40C39381400668773 /* color.h */; };
-		D00FF6EC0C39396400668773 /* indexbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66E0C39369F00668773 /* indexbuffer.h */; };
-		D00FF6ED0C39396400668773 /* renderer_caps.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66F0C39369F00668773 /* renderer_caps.h */; };
-		D00FF6EE0C39396400668773 /* renderer_types.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6700C39369F00668773 /* renderer_types.h */; };
-		D00FF6EF0C39396400668773 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6710C39369F00668773 /* renderer.h */; };
-		D00FF6F00C39396400668773 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6720C39369F00668773 /* shader.h */; };
-		D00FF6F10C39396400668773 /* shaderprogram.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6730C39369F00668773 /* shaderprogram.h */; };
-		D00FF6F20C39396400668773 /* shadervariable.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6740C39369F00668773 /* shadervariable.h */; };
-		D00FF6F30C39396400668773 /* texture.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6750C39369F00668773 /* texture.h */; };
-		D00FF6F40C39396400668773 /* vertexbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6760C39369F00668773 /* vertexbuffer.h */; };
-		D00FF6F50C39396400668773 /* vertexstructure.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6770C39369F00668773 /* vertexstructure.h */; };
+		D00FF6E60C39396400668773 /* tgen_graphics.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF68E0C39370B00668773 /* tgen_graphics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6E70C39396400668773 /* batch.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6690C39369F00668773 /* batch.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6E80C39396400668773 /* canvas.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66A0C39369F00668773 /* canvas.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6E90C39396400668773 /* framebuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66C0C39369F00668773 /* framebuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6EA0C39396400668773 /* image.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66D0C39369F00668773 /* image.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6EB0C39396400668773 /* color.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6A40C39381400668773 /* color.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6EC0C39396400668773 /* indexbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66E0C39369F00668773 /* indexbuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6ED0C39396400668773 /* renderer_caps.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF66F0C39369F00668773 /* renderer_caps.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6EE0C39396400668773 /* renderer_types.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6700C39369F00668773 /* renderer_types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6EF0C39396400668773 /* renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6710C39369F00668773 /* renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6F00C39396400668773 /* shader.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6720C39369F00668773 /* shader.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6F10C39396400668773 /* shaderprogram.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6730C39369F00668773 /* shaderprogram.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6F20C39396400668773 /* shadervariable.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6740C39369F00668773 /* shadervariable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6F30C39396400668773 /* texture.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6750C39369F00668773 /* texture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6F40C39396400668773 /* vertexbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6760C39369F00668773 /* vertexbuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D00FF6F50C39396400668773 /* vertexstructure.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6770C39369F00668773 /* vertexstructure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF6CC0C39391D00668773 /* libtgen_graphics.a */; };
 		D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 /* End PBXBuildFile section */
@@ -543,6 +543,8 @@
 					i386,
 				);
 				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = ../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
@@ -550,9 +552,10 @@
 					../../Core/Include/,
 					../../Math/Include/,
 				);
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_graphics;
+				PUBLIC_HEADERS_FOLDER_PATH = /include/;
 				ZERO_LINK = NO;
 			};
 			name = Release;

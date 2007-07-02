@@ -10,19 +10,19 @@
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* TGen Math.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Math.1 */; };
 		D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */; };
-		D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96890C35E37500CB2978 /* tgen_math.h */; };
+		D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96890C35E37500CB2978 /* tgen_math.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F10C35E50C00CB2978 /* angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96750C35E34700CB2978 /* angle.cpp */; };
-		D0EE96F20C35E50C00CB2978 /* angle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE967F0C35E35600CB2978 /* angle.h */; };
+		D0EE96F20C35E50C00CB2978 /* angle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE967F0C35E35600CB2978 /* angle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F30C35E50C00CB2978 /* matrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96760C35E34700CB2978 /* matrix3x3.cpp */; };
-		D0EE96F40C35E50C00CB2978 /* matrix3x3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96800C35E35600CB2978 /* matrix3x3.h */; };
+		D0EE96F40C35E50C00CB2978 /* matrix3x3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96800C35E35600CB2978 /* matrix3x3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F50C35E50C00CB2978 /* matrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96770C35E34700CB2978 /* matrix4x4.cpp */; };
-		D0EE96F60C35E50C00CB2978 /* matrix4x4.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96810C35E35600CB2978 /* matrix4x4.h */; };
+		D0EE96F60C35E50C00CB2978 /* matrix4x4.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96810C35E35600CB2978 /* matrix4x4.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F70C35E50C00CB2978 /* vector2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96780C35E34700CB2978 /* vector2.cpp */; };
-		D0EE96F80C35E50C00CB2978 /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96820C35E35600CB2978 /* vector2.h */; };
+		D0EE96F80C35E50C00CB2978 /* vector2.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96820C35E35600CB2978 /* vector2.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F90C35E50C00CB2978 /* vector3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96790C35E34700CB2978 /* vector3.cpp */; };
-		D0EE96FA0C35E50C00CB2978 /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96830C35E35600CB2978 /* vector3.h */; };
+		D0EE96FA0C35E50C00CB2978 /* vector3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96830C35E35600CB2978 /* vector3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96FB0C35E50C00CB2978 /* rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96AF0C35E44500CB2978 /* rectangle.cpp */; };
-		D0EE96FC0C35E50C00CB2978 /* rectangle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96B10C35E44D00CB2978 /* rectangle.h */; };
+		D0EE96FC0C35E50C00CB2978 /* rectangle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96B10C35E44D00CB2978 /* rectangle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96FD0C35E51800CB2978 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */; };
 		D0EE98020C35E94900CB2978 /* tgen_math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE98010C35E94900CB2978 /* tgen_math.cpp */; };
 /* End PBXBuildFile section */
@@ -435,12 +435,15 @@
 					"$(NATIVE_ARCH)",
 				);
 				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = ../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_math;
+				PUBLIC_HEADERS_FOLDER_PATH = /include/;
 				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
 				ZERO_LINK = NO;
 			};

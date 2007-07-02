@@ -11,10 +11,10 @@
 		8DD76F6A0486A84900D96B5E /* TGen Core.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Core.1 */; };
 		D0EE95AD0C35E00900CB2978 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95780C35DF0F00CB2978 /* error.cpp */; };
 		D0EE95B00C35E00F00CB2978 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95790C35DF0F00CB2978 /* types.cpp */; };
-		D0EE95FB0C35E10600CB2978 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95800C35DF3100CB2978 /* error.h */; };
-		D0EE96000C35E10D00CB2978 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95820C35DF3100CB2978 /* types.h */; };
-		D0EE96030C35E11200CB2978 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; };
-		D0EE96060C35E11600CB2978 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; };
+		D0EE95FB0C35E10600CB2978 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95800C35DF3100CB2978 /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EE96000C35E10D00CB2978 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95820C35DF3100CB2978 /* types.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EE96030C35E11200CB2978 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EE96060C35E11600CB2978 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE961A0C35E15900CB2978 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */; };
 		D0EE97D80C35E85800CB2978 /* tgen_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE97D70C35E85800CB2978 /* tgen_core.cpp */; };
 /* End PBXBuildFile section */
@@ -309,12 +309,15 @@
 					"$(NATIVE_ARCH)",
 				);
 				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = ../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = /usr/local/lib;
+				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_core;
+				PUBLIC_HEADERS_FOLDER_PATH = /include/;
 				ZERO_LINK = NO;
 			};
 			name = Release;
