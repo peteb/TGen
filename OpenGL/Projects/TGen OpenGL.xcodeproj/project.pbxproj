@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* TGen OpenGL.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen OpenGL.1 */; };
 		D00FF9030C39412500668773 /* tgen_opengl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF8D80C39404D00668773 /* tgen_opengl.cpp */; };
 		D00FF9040C39412500668773 /* tgen_opengl.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF8D60C39403F00668773 /* tgen_opengl.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,6 +33,7 @@
 		D00FF95D0C3941C800668773 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
 		D00FFA290C39431600668773 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9C50C39429C00668773 /* GLUT.framework */; };
 		D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9760C39423600668773 /* OpenGL.framework */; };
+		D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,7 +124,7 @@
 
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		8DD76F6C0486A84900D96B5E /* TGen OpenGL */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "compiled.mach-o.executable"; path = "TGen OpenGL"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DD76F6C0486A84900D96B5E /* TGen OpenGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen OpenGL"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen OpenGL.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen OpenGL.1"; sourceTree = "<group>"; };
 		D00FF8AC0C393FEC00668773 /* framebuffer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = framebuffer_ogl.cpp; path = Source/framebuffer_ogl.cpp; sourceTree = "<group>"; };
 		D00FF8AD0C393FEC00668773 /* indexbuffer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = indexbuffer_ogl.cpp; path = Source/indexbuffer_ogl.cpp; sourceTree = "<group>"; };
@@ -153,6 +153,8 @@
 		D00FF92D0C39414D00668773 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D00FF9760C39423600668773 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D00FF9C50C39429C00668773 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = materialtest.cpp; sourceTree = "<group>"; };
+		D08DCB280C3BBEA500C0AB3F /* quad.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = quad.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,8 @@
 			isa = PBXGroup;
 			children = (
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
+				D08DCB280C3BBEA500C0AB3F /* quad.cpp */,
+				D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */,
 			);
 			name = Test;
 			path = Source/Test;
@@ -434,7 +438,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
