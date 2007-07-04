@@ -18,6 +18,7 @@
 #include "framebuffer_ogl.h"
 #include "shader_ogl.h"
 #include "shaderprogram_ogl.h"
+#include "tgen_graphics.h"
 
 #include <iostream>
 
@@ -568,3 +569,15 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 }
 
 // TODO: kolla om texturen är för stor med PROXY_TEX
+
+
+
+void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context) {
+	if (context.depthWrite)
+		glDepthMask(GL_TRUE);
+	else
+		glDepthMask(GL_FALSE);
+	
+	glColor4f(context.frontColor.r, context.frontColor.g, context.frontColor.b, context.frontColor.a);	
+}
+

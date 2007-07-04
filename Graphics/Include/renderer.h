@@ -32,6 +32,7 @@ namespace TGen {
 	class FrameBuffer;
 	class Shader;
 	class ShaderProgram;
+	class RenderContext;
 	
 	class Renderer {
 	protected:
@@ -56,6 +57,7 @@ namespace TGen {
 		virtual void setShaderProgram(ShaderProgram * program) abstract;
 		
 		virtual void setColor(const Color & color) abstract;
+		virtual void setRenderContext(const RenderContext & context) abstract;
 		
 		virtual void Clear(ushort buffers) abstract;
 		

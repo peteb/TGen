@@ -9,6 +9,6 @@ int main(int argc, char ** argv) {
 	
 	// 2.
 	std::cout << "2. 640x480: " << std::string(TGen::Rectangle(640, 480)) << std::endl;
-	
+		
 	return EXIT_SUCCESS;
 }

@@ -7,9 +7,18 @@ using namespace TGen;
 void Reshape(int width, int height);
 void Render();
 
+
+class Object : public TGen::Renderable {
+public:
+	void Render(TGen::Renderer & renderer) {
+		std::cout << "render" << std::endl;
+	}
+};
+
+
 class App {
 public:
-	App(int argc, char ** argv) : renderer(NULL), vb(NULL), ib(NULL), time(0) {
+	App(int argc, char ** argv) : renderer(NULL), vb(NULL), ib(NULL), time(0), material(NULL) {
 		windowSize.width = 640;
 		windowSize.height = 480;
 		
@@ -32,10 +41,13 @@ public:
 			std::cout << "   ...ok" << std::endl << std::endl;
 		}
 		
+		std::cout << "2. Loading data..." << std::endl;
 		LoadData();
+		std::cout << "   ... ok" << std::endl;
 	}
 	
 	~App() {
+		delete material;
 		delete vb;
 		delete ib;
 		delete renderer;
@@ -59,6 +71,8 @@ public:
 
 		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 
+		material->Render(myObject, "default", 9);
+
 		
 		glutSwapBuffers();
 	}
@@ -78,12 +92,17 @@ public:
 		
 		ib = renderer->CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
 		ib->BufferData(indicies, sizeof(MyIndex::Type) * 6, 0);
+		
+		material = new Material(*renderer, "hejk");
+		material->Link();
 	}
 	
 private:
 	typedef Index<unsigned short> MyIndex;
 	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
 	
+	Object myObject;
+	Material * material;
 	Rectangle windowSize;
 	Renderer * renderer;
 	VertexBuffer * vb;

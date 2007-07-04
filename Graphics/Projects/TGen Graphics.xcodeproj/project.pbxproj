@@ -43,6 +43,15 @@
 		D00FF6F50C39396400668773 /* vertexstructure.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6770C39369F00668773 /* vertexstructure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF6CC0C39391D00668773 /* libtgen_graphics.a */; };
 		D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
+		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
+		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
+		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; };
+		D08DCB680C3BBFE200C0AB3F /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB670C3BBFE200C0AB3F /* material.h */; };
+		D08DCB6A0C3BBFE900C0AB3F /* pass.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB690C3BBFE900C0AB3F /* pass.h */; };
+		D08DCB780C3BC07800C0AB3F /* rendercontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB770C3BC07800C0AB3F /* rendercontext.cpp */; };
+		D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */; };
+		D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCC3B0C3BC33000C0AB3F /* technique.h */; };
+		D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +158,15 @@
 		D00FF6CC0C39391D00668773 /* libtgen_graphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_graphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00FF7090C3939A100668773 /* TGen Math */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D00FF7180C3939B500668773 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D08DCB610C3BBF9700C0AB3F /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = Source/material.cpp; sourceTree = "<group>"; };
+		D08DCB630C3BBFA000C0AB3F /* pass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pass.cpp; path = Source/pass.cpp; sourceTree = "<group>"; };
+		D08DCB650C3BBFD800C0AB3F /* rendercontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendercontext.h; path = Include/rendercontext.h; sourceTree = "<group>"; };
+		D08DCB670C3BBFE200C0AB3F /* material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = material.h; path = Include/material.h; sourceTree = "<group>"; };
+		D08DCB690C3BBFE900C0AB3F /* pass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pass.h; path = Include/pass.h; sourceTree = "<group>"; };
+		D08DCB770C3BC07800C0AB3F /* rendercontext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rendercontext.cpp; path = Source/rendercontext.cpp; sourceTree = "<group>"; };
+		D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderable.h; path = Include/renderable.h; sourceTree = "<group>"; };
+		D08DCC3B0C3BC33000C0AB3F /* technique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = technique.h; path = Include/technique.h; sourceTree = "<group>"; };
+		D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = technique.cpp; path = Source/technique.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,36 +206,14 @@
 				D00FF6310C39362B00668773 /* Test */,
 				D00FF68C0C3936FA00668773 /* tgen_graphics.cpp */,
 				D00FF68E0C39370B00668773 /* tgen_graphics.h */,
-				D00FF6490C39368E00668773 /* batch.cpp */,
-				D00FF6690C39369F00668773 /* batch.h */,
 				D00FF64A0C39368E00668773 /* canvas.cpp */,
 				D00FF66A0C39369F00668773 /* canvas.h */,
-				D00FF64C0C39368E00668773 /* framebuffer.cpp */,
-				D00FF66C0C39369F00668773 /* framebuffer.h */,
 				D00FF64D0C39368E00668773 /* image.cpp */,
 				D00FF66D0C39369F00668773 /* image.h */,
 				D00FF6A20C39380C00668773 /* color.cpp */,
 				D00FF6A40C39381400668773 /* color.h */,
-				D00FF64E0C39368E00668773 /* indexbuffer.cpp */,
-				D00FF66E0C39369F00668773 /* indexbuffer.h */,
-				D00FF64F0C39368E00668773 /* renderer_caps.cpp */,
-				D00FF66F0C39369F00668773 /* renderer_caps.h */,
-				D00FF6500C39368E00668773 /* renderer_types.cpp */,
-				D00FF6700C39369F00668773 /* renderer_types.h */,
-				D00FF6510C39368E00668773 /* renderer.cpp */,
-				D00FF6710C39369F00668773 /* renderer.h */,
-				D00FF6520C39368E00668773 /* shader.cpp */,
-				D00FF6720C39369F00668773 /* shader.h */,
-				D00FF6530C39368E00668773 /* shaderprogram.cpp */,
-				D00FF6730C39369F00668773 /* shaderprogram.h */,
-				D00FF6540C39368E00668773 /* shadervariable.cpp */,
-				D00FF6740C39369F00668773 /* shadervariable.h */,
-				D00FF6550C39368E00668773 /* texture.cpp */,
-				D00FF6750C39369F00668773 /* texture.h */,
-				D00FF6570C39368E00668773 /* vertexbuffer.cpp */,
-				D00FF6760C39369F00668773 /* vertexbuffer.h */,
-				D00FF6580C39368E00668773 /* vertexstructure.cpp */,
-				D00FF6770C39369F00668773 /* vertexstructure.h */,
+				D08DCDC80C3BC7CE00C0AB3F /* Renderer */,
+				D08DCB560C3BBF2D00C0AB3F /* Renderer Aux */,
 			);
 			name = Graphics;
 			path = ..;
@@ -276,6 +272,61 @@
 			name = "TGen Dependencies";
 			sourceTree = "<group>";
 		};
+		D08DCB560C3BBF2D00C0AB3F /* Renderer Aux */ = {
+			isa = PBXGroup;
+			children = (
+				D08DCB590C3BBF7C00C0AB3F /* Material */,
+				D00FF6490C39368E00668773 /* batch.cpp */,
+				D00FF6690C39369F00668773 /* batch.h */,
+				D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */,
+			);
+			name = "Renderer Aux";
+			sourceTree = "<group>";
+		};
+		D08DCB590C3BBF7C00C0AB3F /* Material */ = {
+			isa = PBXGroup;
+			children = (
+				D08DCB610C3BBF9700C0AB3F /* material.cpp */,
+				D08DCB670C3BBFE200C0AB3F /* material.h */,
+				D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */,
+				D08DCC3B0C3BC33000C0AB3F /* technique.h */,
+				D08DCB630C3BBFA000C0AB3F /* pass.cpp */,
+				D08DCB690C3BBFE900C0AB3F /* pass.h */,
+			);
+			name = Material;
+			sourceTree = "<group>";
+		};
+		D08DCDC80C3BC7CE00C0AB3F /* Renderer */ = {
+			isa = PBXGroup;
+			children = (
+				D00FF64C0C39368E00668773 /* framebuffer.cpp */,
+				D00FF66C0C39369F00668773 /* framebuffer.h */,
+				D00FF64E0C39368E00668773 /* indexbuffer.cpp */,
+				D00FF66E0C39369F00668773 /* indexbuffer.h */,
+				D00FF64F0C39368E00668773 /* renderer_caps.cpp */,
+				D00FF66F0C39369F00668773 /* renderer_caps.h */,
+				D00FF6500C39368E00668773 /* renderer_types.cpp */,
+				D00FF6700C39369F00668773 /* renderer_types.h */,
+				D00FF6510C39368E00668773 /* renderer.cpp */,
+				D00FF6710C39369F00668773 /* renderer.h */,
+				D00FF6520C39368E00668773 /* shader.cpp */,
+				D00FF6720C39369F00668773 /* shader.h */,
+				D00FF6530C39368E00668773 /* shaderprogram.cpp */,
+				D00FF6730C39369F00668773 /* shaderprogram.h */,
+				D00FF6540C39368E00668773 /* shadervariable.cpp */,
+				D00FF6740C39369F00668773 /* shadervariable.h */,
+				D00FF6550C39368E00668773 /* texture.cpp */,
+				D00FF6750C39369F00668773 /* texture.h */,
+				D00FF6570C39368E00668773 /* vertexbuffer.cpp */,
+				D00FF6760C39369F00668773 /* vertexbuffer.h */,
+				D00FF6580C39368E00668773 /* vertexstructure.cpp */,
+				D00FF6770C39369F00668773 /* vertexstructure.h */,
+				D08DCB770C3BC07800C0AB3F /* rendercontext.cpp */,
+				D08DCB650C3BBFD800C0AB3F /* rendercontext.h */,
+			);
+			name = Renderer;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -299,6 +350,11 @@
 				D00FF6F30C39396400668773 /* texture.h in Headers */,
 				D00FF6F40C39396400668773 /* vertexbuffer.h in Headers */,
 				D00FF6F50C39396400668773 /* vertexstructure.h in Headers */,
+				D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */,
+				D08DCB680C3BBFE200C0AB3F /* material.h in Headers */,
+				D08DCB6A0C3BBFE900C0AB3F /* pass.h in Headers */,
+				D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */,
+				D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +485,10 @@
 				D00FF6E10C39395200668773 /* texture.cpp in Sources */,
 				D00FF6E20C39395200668773 /* vertexbuffer.cpp in Sources */,
 				D00FF6E30C39395200668773 /* vertexstructure.cpp in Sources */,
+				D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */,
+				D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */,
+				D08DCB780C3BC07800C0AB3F /* rendercontext.cpp in Sources */,
+				D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

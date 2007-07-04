@@ -33,6 +33,7 @@ namespace TGen {
 	class FrameBuffer;
 	class Shader;
 	class ShaderProgram;
+	class RenderContext;
 	
 	namespace OpenGL {
 		class VertexStructure;
@@ -50,6 +51,7 @@ namespace TGen {
 			void setRenderTarget(TGen::FrameBuffer * buffer);
 			void setShaderProgram(TGen::ShaderProgram * program);
 			
+			void setRenderContext(const TGen::RenderContext & context);
 			void setColor(const TGen::Color & color);
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;

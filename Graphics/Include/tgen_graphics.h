@@ -24,12 +24,17 @@
 #include "shaderprogram.h"
 #include "shadervariable.h"
 #include "framebuffer.h"
+#include "rendercontext.h"
 
 #include "image.h"
 #include "canvas.h"
 #include "color.h"
 
 #include "batch.h"
+#include "material.h"
+#include "technique.h"
+#include "pass.h"
+#include "renderable.h"
 
 namespace TGen {
 	bool isGraphicsDebug();

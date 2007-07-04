@@ -32,7 +32,9 @@ public:
 			std::cout << "   ...ok" << std::endl << std::endl;
 		}
 		
+		std::cout << "2. Loading data..." << std::endl;
 		LoadData();
+		std::cout << "   ... ok" << std::endl;
 	}
 	
 	~App() {
