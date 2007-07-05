@@ -129,6 +129,7 @@ public:
 					 "      pass tjaaa.glsl { \n"
 					 "         color 1 0 0    \n"
 					// "         noDepthWrite    \n"
+					 "         texunit 0 texture4.tga {}  \n"
 					 "      }   \n"
 					 "   } \n"
 					 "}"				 

@@ -27,9 +27,13 @@ namespace TGen {
 		
 		void setColor(const std::string & r, const std::string & g, const std::string & b);
 		void setShader(const std::string & name);
+		void setTextureUnit(int unit, const std::string & name);
 		void Link(TGen::MaterialLinkCallback & callback);
 		
 	private:
+		typedef std::map<int, std::string> TextureMap;
+		TextureMap textureUnits;
+		
 		TGen::RenderContext renderContext;
 		std::string shaderName;
 	};

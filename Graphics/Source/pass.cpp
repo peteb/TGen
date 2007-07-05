@@ -58,13 +58,14 @@ void TGen::Pass::setShader(const std::string & name) {
 	shaderName = name;
 }
 
-void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
-	std::cout << "linking shader " << shaderName << std::endl;
-	if (shaderName == "fixed")
-		renderContext.shader = NULL;
-	else
-		renderContext.shader = callback.getShader(shaderName);
+void TGen::Pass::setTextureUnit(int unit, const std::string & name) {
+	TextureMap::iterator iter = textureUnits.find(unit);
+	if (iter != textureUnits.end())
+		throw TGen::RuntimeException("Pass::setTextureUnit", "unit is already set");
+	
+	textureUnits[unit] = name;
 }
+
 
 void TGen::PassList::Link(TGen::MaterialLinkCallback & callback) {
 	PassVector::iterator iter = passes.begin();
@@ -73,3 +74,19 @@ void TGen::PassList::Link(TGen::MaterialLinkCallback & callback) {
 	}
 }
 
+void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
+	std::cout << "linking shader " << shaderName << std::endl;
+	if (shaderName == "fixed")
+		renderContext.shader = NULL;
+	else
+		renderContext.shader = callback.getShader(shaderName);
+	
+	renderContext.textureUnits.clear();
+	
+	TextureMap::iterator iter = textureUnits.begin();
+	for (; iter != textureUnits.end(); ++iter) {
+		renderContext.setTextureUnit(iter->first, callback.getTexture(iter->second));
+	}
+	
+	
+}
