@@ -18,6 +18,14 @@ namespace TGen {
 	class Renderer;
 	class MaterialLinkCallback;
 	
+	class PassTextureUnit {
+	public:	
+		PassTextureUnit(int unit, const std::string & name);
+		
+		std::string textureName;
+		int unit;
+	};
+	
 	class Pass {
 	public:	
 		Pass();
@@ -27,12 +35,12 @@ namespace TGen {
 		
 		void setColor(const std::string & r, const std::string & g, const std::string & b);
 		void setShader(const std::string & name);
-		void setTextureUnit(int unit, const std::string & name);
+		void AddTextureUnit(PassTextureUnit * textureUnit);
 		void Link(TGen::MaterialLinkCallback & callback);
 		
 	private:
-		typedef std::map<int, std::string> TextureMap;
-		TextureMap textureUnits;
+		typedef std::vector<TGen::PassTextureUnit *> TextureList;
+		TextureList textureUnits;
 		
 		TGen::RenderContext renderContext;
 		std::string shaderName;

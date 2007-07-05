@@ -236,6 +236,7 @@ void TGen::MaterialParser::ParseLodBlock() {
 			currentLod->addPass(newPass);
 			
 			tokens.NextToken(currentToken, endIter);
+			currentPass = newPass;
 			
 			std::cout << "entering pass block" << std::endl;
 			ParsePassBlock();
@@ -270,11 +271,24 @@ void TGen::MaterialParser::ParsePassBlock() {
 				
 				if (currentToken->first != TGen::MaterialTokenBlockStart) 
 					throw TGen::RuntimeException("MaterialParser::ParsePassBlock", "texunit: expecting block start, not '" + currentToken->second + "'!");
+
+				int textureUnitNumber = -1;
+				std::stringstream ss;
+				ss << textureUnit;
+				ss >> textureUnitNumber;
+				
+				TGen::PassTextureUnit * newTextureUnit = new TGen::PassTextureUnit(textureUnitNumber, textureName);
 				
 				StepToken();
 				std::cout << "entering texunit " << textureUnit << " name: " << textureName << std::endl;
-				ParseTexunitBlock();
+				ParseTexunitBlock(newTextureUnit);
 				std::cout << "leaving texunit" << std::endl;
+				
+				if (!currentPass) {
+					throw TGen::RuntimeException("AAAAARG", "AAAAAAARG");
+					
+				}
+				currentPass->AddTextureUnit(newTextureUnit);
 			}
 			else if (currentToken->second == "color") {
 				std::string r, g, b;
@@ -303,7 +317,7 @@ void TGen::MaterialParser::ParsePassBlock() {
 		tokens.NextToken(currentToken, endIter);	
 }
 
-void TGen::MaterialParser::ParseTexunitBlock() {
+void TGen::MaterialParser::ParseTexunitBlock(TGen::PassTextureUnit * unit) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::TokenValueString) {
 			if (currentToken->second == "texCoordGen") {
