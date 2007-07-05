@@ -14,6 +14,7 @@
 
 namespace TGen {
 	class PassList;
+	class MaterialLinkCallback;
 	
 	class Technique {
 	public:
@@ -22,6 +23,7 @@ namespace TGen {
 	
 		void setPassList(PassList * pass, int lod);
 		PassList * getPassList(int lod);
+		void Link(TGen::MaterialLinkCallback & callback);
 		
 	private:
 		typedef std::vector<PassList *> PassVector;
@@ -35,6 +37,7 @@ namespace TGen {
 		
 		void setTechnique(Technique * tech, int reqs);
 		Technique * getTechnique(int minreqs);
+		void Link(TGen::MaterialLinkCallback & callback);
 		
 	private:
 		typedef std::vector<Technique *> TechniqueVector;

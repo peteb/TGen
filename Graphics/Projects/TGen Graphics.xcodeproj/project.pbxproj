@@ -45,13 +45,15 @@
 		D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
-		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; };
-		D08DCB680C3BBFE200C0AB3F /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB670C3BBFE200C0AB3F /* material.h */; };
-		D08DCB6A0C3BBFE900C0AB3F /* pass.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB690C3BBFE900C0AB3F /* pass.h */; };
+		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D08DCB680C3BBFE200C0AB3F /* material.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB670C3BBFE200C0AB3F /* material.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D08DCB6A0C3BBFE900C0AB3F /* pass.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB690C3BBFE900C0AB3F /* pass.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCB780C3BC07800C0AB3F /* rendercontext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB770C3BC07800C0AB3F /* rendercontext.cpp */; };
-		D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */; };
-		D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCC3B0C3BC33000C0AB3F /* technique.h */; };
+		D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCC3B0C3BC33000C0AB3F /* technique.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */; };
+		D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CEF2640C3BDABE007D4B18 /* materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +169,8 @@
 		D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderable.h; path = Include/renderable.h; sourceTree = "<group>"; };
 		D08DCC3B0C3BC33000C0AB3F /* technique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = technique.h; path = Include/technique.h; sourceTree = "<group>"; };
 		D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = technique.cpp; path = Source/technique.cpp; sourceTree = "<group>"; };
+		D0CEF2640C3BDABE007D4B18 /* materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialparser.h; path = Include/materialparser.h; sourceTree = "<group>"; };
+		D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = materialparser.cpp; path = Source/materialparser.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +292,8 @@
 			children = (
 				D08DCB610C3BBF9700C0AB3F /* material.cpp */,
 				D08DCB670C3BBFE200C0AB3F /* material.h */,
+				D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */,
+				D0CEF2640C3BDABE007D4B18 /* materialparser.h */,
 				D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */,
 				D08DCC3B0C3BC33000C0AB3F /* technique.h */,
 				D08DCB630C3BBFA000C0AB3F /* pass.cpp */,
@@ -355,6 +361,7 @@
 				D08DCB6A0C3BBFE900C0AB3F /* pass.h in Headers */,
 				D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */,
 				D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */,
+				D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +496,7 @@
 				D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */,
 				D08DCB780C3BC07800C0AB3F /* rendercontext.cpp in Sources */,
 				D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */,
+				D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

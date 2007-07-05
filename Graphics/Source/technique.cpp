@@ -17,7 +17,8 @@ TGen::Technique::Technique() {
 }
 
 TGen::Technique::~Technique() {
-	
+	for (int i = 0; i < lods.size(); ++i)
+		delete lods[i];
 }
 
 TGen::TechniqueList::TechniqueList() {
@@ -33,7 +34,7 @@ TGen::TechniqueList::~TechniqueList() {
 TGen::Technique * TGen::TechniqueList::getTechnique(int minreqs) {
 	for (int i = minreqs; i >= 0; --i) {
 		if (techniques.at(i)) {
-			std::cout << "technique " << i << " chosen" << std::endl;
+			//std::cout << "technique " << i << " chosen" << std::endl;
 			return techniques[i];
 		}
 	}
@@ -65,7 +66,7 @@ void TGen::Technique::setPassList(PassList * pass, int lod) {
 TGen::PassList * TGen::Technique::getPassList(int lod) {
 	for (int i = lod; i >= 0; --i) {
 		if (lods.at(i)) {
-			std::cout << "lod " << i << " chosen" << std::endl;
+			//std::cout << "lod " << i << " chosen" << std::endl;
 			return lods[i];
 		}
 	}
@@ -79,3 +80,20 @@ TGen::PassList * TGen::Technique::getPassList(int lod) {
 	
 	return NULL;
 }
+
+void TGen::Technique::Link(TGen::MaterialLinkCallback & callback) {
+	PassVector::iterator iter = lods.begin();
+	for (; iter != lods.end(); ++iter) {
+		if (*iter)
+			(*iter)->Link(callback);
+	}
+}
+
+void TGen::TechniqueList::Link(TGen::MaterialLinkCallback & callback) {
+	TechniqueVector::iterator iter = techniques.begin();
+	for (; iter != techniques.end(); ++iter) {
+		if (*iter)
+			(*iter)->Link(callback);
+	}
+}
+

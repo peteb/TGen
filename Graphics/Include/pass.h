@@ -16,6 +16,7 @@
 namespace TGen {
 	class Renderable;
 	class Renderer;
+	class MaterialLinkCallback;
 	
 	class Pass {
 	public:	
@@ -24,8 +25,13 @@ namespace TGen {
 		
 		const TGen::RenderContext & getRenderContext() const;
 		
+		void setColor(const std::string & r, const std::string & g, const std::string & b);
+		void setShader(const std::string & name);
+		void Link(TGen::MaterialLinkCallback & callback);
+		
 	private:
 		TGen::RenderContext renderContext;
+		std::string shaderName;
 	};
 	
 	class PassList {
@@ -35,6 +41,7 @@ namespace TGen {
 		
 		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable);
 		void addPass(TGen::Pass * pass);
+		void Link(TGen::MaterialLinkCallback & callback);
 		
 	private:
 		typedef std::vector<Pass *> PassVector;

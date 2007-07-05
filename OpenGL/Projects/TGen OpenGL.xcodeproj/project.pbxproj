@@ -30,10 +30,10 @@
 		D00FF9160C39412500668773 /* vertexbuffer_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF8B50C393FEC00668773 /* vertexbuffer_ogl.cpp */; };
 		D00FF9170C39412500668773 /* vertexbuffer_ogl.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF8C90C393FF400668773 /* vertexbuffer_ogl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF9420C39417E00668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9230C39413C00668773 /* libtgen_graphics.a */; };
-		D00FF95D0C3941C800668773 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
 		D00FFA290C39431600668773 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9C50C39429C00668773 /* GLUT.framework */; };
 		D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9760C39423600668773 /* OpenGL.framework */; };
 		D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
+		D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -162,9 +162,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D00FF95D0C3941C800668773 /* libtgen_opengl.a in Frameworks */,
 				D00FFA290C39431600668773 /* GLUT.framework in Frameworks */,
 				D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */,
+				D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

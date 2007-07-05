@@ -20,6 +20,7 @@ namespace TGen {
 		Renderable() {}
 		virtual ~Renderable() {}
 		
+		virtual void PrepareRender(TGen::Renderer & renderer) abstract;
 		virtual void Render(TGen::Renderer & renderer) abstract;
 		
 	};

@@ -16,7 +16,7 @@
 
 TGen::Material::SpecializationMap TGen::Material::specializations;
 
-TGen::Material::Material(TGen::Renderer & renderer, const char * code) : renderer(renderer), minimumTechnique(2) {
+TGen::Material::Material(const std::string & name) : minimumTechnique(2), name(name) {
 	TGen::TechniqueList * newTechniques = new TGen::TechniqueList;
 	TGen::Technique * newTechnique = new TGen::Technique;
 	TGen::PassList * passes = new TGen::PassList;
@@ -34,11 +34,26 @@ TGen::Material::~Material() {
 	
 }
 
-void TGen::Material::Link(/*callback*/) {
-	
+std::string TGen::Material::getName() const {
+	return name;
 }
 
-void TGen::Material::Render(TGen::Renderable & renderable, const std::string & mode, int lod) {
+void TGen::Material::Link(TGen::MaterialLinkCallback & callback) {
+	TechniqueListMap::iterator iter = techniques.begin();
+	for (; iter != techniques.end(); ++iter) {
+		iter->second->Link(callback);
+	}
+}
+
+void TGen::Material::setSpecialization(const std::string & name, TGen::TechniqueList * techniques) {
+	TechniqueListMap::iterator iter = this->techniques.find(getSpecializationID(name));
+	if (iter != this->techniques.end())
+		delete iter->second;
+	
+	this->techniques[getSpecializationID(name)] = techniques;
+}
+
+void TGen::Material::Render(TGen::Renderer & renderer, TGen::Renderable & renderable, const std::string & mode, int lod) {
 	TGen::TechniqueList * techniques = NULL;
 	int specialization = getSpecializationID(mode);
 	
@@ -74,7 +89,7 @@ int TGen::Material::getSpecializationID(const std::string & name) {
 	return iter->second;
 }
 
-void TGen::Material::setMinimumTechnique(int minreqs)  {
+void TGen::Material::setMaximumTechnique(int minreqs)  {
 	minimumTechnique = minreqs;
 }
 

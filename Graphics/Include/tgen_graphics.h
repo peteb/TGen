@@ -32,6 +32,7 @@
 
 #include "batch.h"
 #include "material.h"
+#include "materialparser.h"
 #include "technique.h"
 #include "pass.h"
 #include "renderable.h"

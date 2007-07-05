@@ -10,13 +10,16 @@
 #include "pass.h"
 #include "renderable.h"
 #include "renderer.h"
+#include "material.h"
+#include <iostream>
 
 TGen::PassList::PassList() {
 	
 }
 
 TGen::PassList::~PassList() {
-	
+	for (int i = 0; i < passes.size(); ++i)
+		delete passes[i];
 }
 
 TGen::Pass::Pass() {
@@ -35,6 +38,8 @@ void TGen::PassList::Render(TGen::Renderer & renderer, TGen::Renderable & render
 	if (passes.empty())
 		throw TGen::RuntimeException("PassList::Render", "no passes to render");
 	
+	renderable.PrepareRender(renderer);
+	
 	for (int i = 0; i < passes.size(); ++i) {
 		renderer.setRenderContext(passes[i]->getRenderContext());
 		renderable.Render(renderer);
@@ -44,3 +49,27 @@ void TGen::PassList::Render(TGen::Renderer & renderer, TGen::Renderable & render
 const TGen::RenderContext & TGen::Pass::getRenderContext() const {
 	return renderContext;
 }
+
+void TGen::Pass::setColor(const std::string & r, const std::string & g, const std::string & b) {
+	std::cout << "R: " << r << " G: " << g << " B: " << b << std::endl;
+}
+
+void TGen::Pass::setShader(const std::string & name) {
+	shaderName = name;
+}
+
+void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
+	std::cout << "linking shader " << shaderName << std::endl;
+	if (shaderName == "fixed")
+		renderContext.shader = NULL;
+	else
+		renderContext.shader = callback.getShader(shaderName);
+}
+
+void TGen::PassList::Link(TGen::MaterialLinkCallback & callback) {
+	PassVector::iterator iter = passes.begin();
+	for (; iter != passes.end(); ++iter) {
+		(*iter)->Link(callback);
+	}
+}
+

@@ -10,6 +10,7 @@
 #ifndef _TGEN_MATERIAL_H
 #define _TGEN_MATERIAL_H
 
+#include "tgen_core.h"
 #include <string>
 #include <map>
 #include <vector>
@@ -18,17 +19,30 @@ namespace TGen {
 	class Renderable;
 	class TechniqueList;
 	class Renderer;
+	class Shader;
+	class Texture;
+	
+	class MaterialLinkCallback {
+	public:
+		virtual ~MaterialLinkCallback() {}
+		
+		virtual TGen::Shader * getShader(const std::string & name) abstract;
+		virtual TGen::Texture * getTexture(const std::string & name) abstract;
+	};
 	
 	class Material {
 	public:
-		Material(TGen::Renderer & renderer, const char * code);
+		Material(const std::string & name);
 		~Material();
 		
-		void Link(/*callback*/);
-		void Render(TGen::Renderable & renderable, const std::string & mode, int lod);
+		std::string getName() const;
+		void Link(MaterialLinkCallback & callback);
+		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable, const std::string & mode, int lod);
 		void Update(float dt);
-		void setMinimumTechnique(int minreqs);
+		void setMaximumTechnique(int minreqs);
 		void setParameter(const std::string & name, const std::vector<std::string> & values);
+		void setSpecialization(const std::string & name, TGen::TechniqueList * techniques);
+		
 		std::vector<std::string> & getParameter(const std::string & name);
 		
 	private:
@@ -42,7 +56,7 @@ namespace TGen {
 		ParameterMap parameters;
 		TechniqueListMap techniques;
 		int minimumTechnique;
-		TGen::Renderer & renderer;
+		std::string name;
 	};
 	
 } // !TGen

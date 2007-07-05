@@ -13,6 +13,7 @@
 #include "error.h"
 #include "types.h"
 #include "platform.h"
+#include "tokenizer.h"
 
 namespace TGen {
 	bool isCoreDebug();

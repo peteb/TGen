@@ -10,15 +10,51 @@ void Render();
 
 class Object : public TGen::Renderable {
 public:
-	void Render(TGen::Renderer & renderer) {
-		std::cout << "render" << std::endl;
+	Object() : vb(NULL), ib(NULL) {}
+	~Object() {
+		delete vb;
+		delete ib;
 	}
+	
+	void PrepareRender(TGen::Renderer & renderer) {
+		renderer.setVertexBuffer(vb);
+		renderer.setIndexBuffer(ib);		
+	}
+	
+	void Render(TGen::Renderer & renderer) {
+		renderer.setColor(Color::Red);
+		renderer.DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+	}
+	
+	void LoadData(TGen::Renderer & renderer) {
+		MyVertex::Type vertices[4] = {
+			MyVertex::Type(Vector3(-1.0f, 1.0f, 0.0f), Vector2(0.0f, 0.0f)),
+			MyVertex::Type(Vector3(1.0f, 1.0f, 0.0f), Vector2(1.0f, 0.0f)),
+			MyVertex::Type(Vector3(1.0f, -1.0f, 0.0f), Vector2(1.0f, 1.0f)),
+			MyVertex::Type(Vector3(-1.0f, -1.0f, 0.0f), Vector2(0.0f, 1.0f)),
+		};
+		
+		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
+		
+		vb = renderer.CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
+		vb->BufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
+		
+		ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
+		ib->BufferData(indicies, sizeof(MyIndex::Type) * 6, 0);		
+	}
+	
+private:
+	typedef Index<unsigned short> MyIndex;
+	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
+
+	VertexBuffer * vb;
+	IndexBuffer * ib;
 };
 
 
-class App {
+class App : public TGen::MaterialLinkCallback {
 public:
-	App(int argc, char ** argv) : renderer(NULL), vb(NULL), ib(NULL), time(0), material(NULL) {
+	App(int argc, char ** argv) : renderer(NULL), time(0), material(NULL) {
 		windowSize.width = 640;
 		windowSize.height = 480;
 		
@@ -48,9 +84,17 @@ public:
 	
 	~App() {
 		delete material;
-		delete vb;
-		delete ib;
 		delete renderer;
+	}
+	
+	TGen::Shader * getShader(const std::string & name) {
+		std::cout << "getting shader '" << name << "'" << std::endl;
+		return NULL;
+	}
+	
+	TGen::Texture * getTexture(const std::string & name) {
+		std::cout << "getting texture '" << name << "'" << std::endl;		
+		return NULL;
 	}
 
 	void Reshape(const Rectangle & size) {
@@ -62,51 +106,56 @@ public:
 		renderer->setClearColor(Color::White);
 		renderer->Clear(ColorBuffer | DepthBuffer);
 		
-		renderer->setVertexBuffer(vb);
-		renderer->setIndexBuffer(ib);
-		renderer->setColor(Color::Red);
-		
 		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
 		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -1.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
 
-		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+		if (material)
+			material->Render(*renderer, myObject, "default", 9);
 
-		material->Render(myObject, "default", 9);
-
-		
 		glutSwapBuffers();
 	}
 	
 	void LoadData() {
-		MyVertex::Type vertices[4] = {
-			MyVertex::Type(Vector3(-1.0f, 1.0f, 0.0f), Vector2(0.0f, 0.0f)),
-			MyVertex::Type(Vector3(1.0f, 1.0f, 0.0f), Vector2(1.0f, 0.0f)),
-			MyVertex::Type(Vector3(1.0f, -1.0f, 0.0f), Vector2(1.0f, 1.0f)),
-			MyVertex::Type(Vector3(-1.0f, -1.0f, 0.0f), Vector2(0.0f, 1.0f)),
-		};
+		myObject.LoadData(*renderer);
+
+		std::list<Material *> materials;
+		MaterialParser parser;
+		parser.Parse("params cool {\n"
+					 "   niceParam 1 5 3  \n"
+					 "   matAuthor \"peter\" \"Peter Backman\"  123123 \n"
+					 "}        \n"
+					 "material cool default 0{"
+					 "   lod 0 { \n"
+					 "      pass tjaaa.glsl { \n"
+					 "         color 1 0 0    \n"
+					// "         noDepthWrite    \n"
+					 "      }   \n"
+					 "   } \n"
+					 "}"				 
+					 
+					 , materials);
 		
-		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
+		for (std::list<Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
+			if ((*iter)->getName() == "cool") {
+				material = *iter;
+				material->Link(*this);
+			}
+			else {
+				delete *iter;
+			}
+		}
 		
-		vb = renderer->CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
-		vb->BufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
+		if (!material)
+			throw TGen::RuntimeException("App::LoadData", "material \"cool\" not defined");
 		
-		ib = renderer->CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
-		ib->BufferData(indicies, sizeof(MyIndex::Type) * 6, 0);
-		
-		material = new Material(*renderer, "hejk");
-		material->Link();
+		materials.clear();
 	}
 	
 private:
-	typedef Index<unsigned short> MyIndex;
-	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
-	
 	Object myObject;
 	Material * material;
 	Rectangle windowSize;
 	Renderer * renderer;
-	VertexBuffer * vb;
-	IndexBuffer * ib;
 	float time;
 };
 

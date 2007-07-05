@@ -9,4 +9,4 @@
 
 #include "rendercontext.h"
 
-TGen::RenderContext::RenderContext() : depthWrite(true), frontColor(TGen::Color::White) {}
+TGen::RenderContext::RenderContext() : depthWrite(true), frontColor(TGen::Color::White), shader(NULL) {}

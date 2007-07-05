@@ -13,12 +13,15 @@
 #include "color.h"
 
 namespace TGen {
+	class Shader;
+	
 	class RenderContext {
 	public:
 		RenderContext();
 		
 		bool depthWrite;
 		TGen::Color frontColor;
+		TGen::Shader * shader;
 	};
 	
 } // !TGen
