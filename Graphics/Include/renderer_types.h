@@ -47,6 +47,13 @@ namespace TGen {
 		PrimitivePolygon,
 		
 	};
+
+	enum TextureCoordGen {
+		TextureCoordGenBase = 0,
+		TextureCoordGenObjectLinear,
+		TextureCoordGenEyeLinear,
+		TextureCoordGenSphereMap,
+	};
 	
 	enum LockFlags {
 		LockWrite		= 0x0001,

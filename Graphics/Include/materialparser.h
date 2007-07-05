@@ -39,10 +39,10 @@ namespace TGen {
 		
 		void Parse(const char * code, std::list<TGen::Material *> & materials);
 		void ParseGlobalBlock();
-		void ParseParamsBlock();
-		void ParseMaterialBlock();
-		void ParseLodBlock();
-		void ParsePassBlock();
+		void ParseParamsBlock(TGen::Material * material);
+		void ParseMaterialBlock(TGen::Material * material);
+		void ParseLodBlock(TGen::PassList * lod);
+		void ParsePassBlock(TGen::Pass * pass);
 		void ParseTexunitBlock(TGen::PassTextureUnit * unit);
 		
 	private:
@@ -54,10 +54,9 @@ namespace TGen {
 		typedef std::map<std::string, TGen::Material *> MaterialMap;
 		MaterialMap materials;
 		
-		TGen::Material * currentMaterial;
+	//	TGen::Material * currentMaterial;
 		TGen::Technique * currentTechnique;
-		TGen::PassList * currentLod;
-		TGen::Pass * currentPass;
+		//TGen::PassList * currentLod;
 		TGen::TechniqueList * currentSpecialization;
 		TGen::TokenStream::TokenList::iterator currentToken, endIter;
 		TGen::TokenStream tokens;

@@ -81,11 +81,46 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 	
 	TextureList::iterator iter = textureUnits.begin();
 	for (; iter != textureUnits.end(); ++iter) {
-		std::cout << "linking unit " << (*iter)->unit << " with " << (*iter)->textureName << std::endl;
-		renderContext.setTextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
+		//std::cout << "linking unit " << (*iter)->unit << " with " << (*iter)->textureName << std::endl;
+		TGen::TextureUnit * newUnit = NULL;
+		
+		if ((*iter)->textureName == "none")
+			newUnit = new TGen::TextureUnit((*iter)->unit, NULL);			
+		else
+			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
+		
+		newUnit->genU = (*iter)->genU;
+		newUnit->genV = (*iter)->genV;
+		
+		renderContext.AddTextureUnit(newUnit);		
 	}
 	
 	
 }
 
-TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name) {}
+TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase) {}
+
+void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::string & genV) {
+	if (genU == "base")
+		this->genU = TGen::TextureCoordGenBase;
+	else if (genU == "object")
+		this->genU = TGen::TextureCoordGenObjectLinear;
+	else if (genU == "eye")
+		this->genU = TGen::TextureCoordGenEyeLinear;
+	else if (genU == "sphere")
+		this->genU = TGen::TextureCoordGenSphereMap;
+	else
+		throw TGen::RuntimeException("PassTextureUnit::setTexCoordGen", "invalid value for u: '" + genU + "'");
+
+	if (genV == "base")
+		this->genV = TGen::TextureCoordGenBase;
+	else if (genV == "object")
+		this->genV = TGen::TextureCoordGenObjectLinear;
+	else if (genV == "eye")
+		this->genV = TGen::TextureCoordGenEyeLinear;
+	else if (genV == "sphere")
+		this->genV = TGen::TextureCoordGenSphereMap;
+	else
+		throw TGen::RuntimeException("PassTextureUnit::setTexCoordGen", "invalid value for v: '" + genV + "'");
+}
+

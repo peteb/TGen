@@ -12,6 +12,7 @@
 
 #include <vector>
 #include "rendercontext.h"
+#include "renderer_types.h"
 
 namespace TGen {
 	class Renderable;
@@ -22,9 +23,14 @@ namespace TGen {
 	public:	
 		PassTextureUnit(int unit, const std::string & name);
 		
+		void setTexCoordGen(const std::string & genU, const std::string & genV);
+		
+		
 		std::string textureName;
 		int unit;
+		TGen::TextureCoordGen genU, genV;
 	};
+	
 	
 	class Pass {
 	public:	

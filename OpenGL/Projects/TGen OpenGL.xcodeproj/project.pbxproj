@@ -33,6 +33,11 @@
 		D00FFA290C39431600668773 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9C50C39429C00668773 /* GLUT.framework */; };
 		D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9760C39423600668773 /* OpenGL.framework */; };
 		D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
+		D0CE01370C3D9633007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
+		D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
+		D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02520C3D9F3D007D4B18 /* libIL.a */; };
+		D0CE02710C3D9FBA007D4B18 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02700C3D9FBA007D4B18 /* libjpeg.a */; };
+		D0CE027A0C3D9FDC007D4B18 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02790C3D9FDC007D4B18 /* libpng12.a */; };
 		D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
 /* End PBXBuildFile section */
 
@@ -117,8 +122,19 @@
 			dstSubfolderSpec = 0;
 			files = (
 				8DD76F6A0486A84900D96B5E /* TGen OpenGL.1 in CopyFiles */,
+				D0CE01370C3D9633007D4B18 /* envmap.jpg in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		D0CE014F0C3D967C007D4B18 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -155,6 +171,10 @@
 		D00FF9C50C39429C00668773 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = materialtest.cpp; sourceTree = "<group>"; };
 		D08DCB280C3BBEA500C0AB3F /* quad.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = quad.cpp; sourceTree = "<group>"; };
+		D0CE01360C3D9633007D4B18 /* envmap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = envmap.jpg; sourceTree = "<group>"; };
+		D0CE02520C3D9F3D007D4B18 /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIL.a; sourceTree = "<group>"; };
+		D0CE02700C3D9FBA007D4B18 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
+		D0CE02790C3D9FDC007D4B18 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +185,9 @@
 				D00FFA290C39431600668773 /* GLUT.framework in Frameworks */,
 				D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */,
 				D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */,
+				D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */,
+				D0CE02710C3D9FBA007D4B18 /* libjpeg.a in Frameworks */,
+				D0CE027A0C3D9FDC007D4B18 /* libpng12.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +207,9 @@
 			children = (
 				D00FF91A0C39412900668773 /* TGen Dependencies */,
 				D00FF97A0C39423900668773 /* Dependencies */,
+				D0CE02520C3D9F3D007D4B18 /* libIL.a */,
+				D0CE02700C3D9FBA007D4B18 /* libjpeg.a */,
+				D0CE02790C3D9FDC007D4B18 /* libpng12.a */,
 				08FB7795FE84155DC02AAC07 /* OpenGL */,
 				C6859E8C029090F304C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
@@ -194,6 +220,7 @@
 		08FB7795FE84155DC02AAC07 /* OpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				D0CE01340C3D962A007D4B18 /* Resources */,
 				D00FF8A50C393FB600668773 /* Test */,
 				D00FF8D80C39404D00668773 /* tgen_opengl.cpp */,
 				D00FF8D60C39403F00668773 /* tgen_opengl.h */,
@@ -295,6 +322,14 @@
 			name = Dependencies;
 			sourceTree = "<group>";
 		};
+		D0CE01340C3D962A007D4B18 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D0CE01360C3D9633007D4B18 /* envmap.jpg */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -326,6 +361,7 @@
 				8DD76F640486A84900D96B5E /* Sources */,
 				8DD76F660486A84900D96B5E /* Frameworks */,
 				8DD76F690486A84900D96B5E /* CopyFiles */,
+				D0CE014F0C3D967C007D4B18 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -497,8 +533,19 @@
 					../../Core/Include/,
 					../../Math/Include/,
 					../../Graphics/Include/,
+					/usr/local/include/,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib/",
+					"-lIL",
+					"-lz",
+				);
 				PRODUCT_NAME = "TGen OpenGL";
 				ZERO_LINK = YES;
 			};
@@ -517,8 +564,19 @@
 					../../Core/Include/,
 					../../Math/Include/,
 					../../Graphics/Include/,
+					/usr/local/include/,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					/usr/local/lib/,
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				OTHER_LDFLAGS = (
+					"-L/usr/local/lib/",
+					"-lIL",
+					"-lz",
+				);
 				PRODUCT_NAME = "TGen OpenGL";
 			};
 			name = Release;

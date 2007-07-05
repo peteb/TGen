@@ -324,8 +324,8 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image,
 	}
 	//gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, image.getSize().width, image.getSize().height, format, type, image.getData());	
 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, image.getSize().width, image.getSize().height, 0, format, type, image.getData());
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
 	GLint compressedSize = 0;
 	
@@ -370,6 +370,12 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 
 void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
 	glActiveTexture(GL_TEXTURE0 + unit);
+	
+	if (!texture) {
+		glBindTexture(GL_TEXTURE_2D, 0);
+		return;
+	}
+	
 	glBindTexture(GL_TEXTURE_2D, static_cast<TGen::OpenGL::Texture *>(texture)->texId);
 }
 
@@ -579,5 +585,63 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		glDepthMask(GL_FALSE);
 	
 	glColor4f(context.frontColor.r, context.frontColor.g, context.frontColor.b, context.frontColor.a);	
+	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	
+	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
+	for (; iter != context.textureUnits.end(); ++iter) {
+		setTexture((*iter)->unit, (*iter)->texture);
+		setTextureCoordGen((*iter)->genU, (*iter)->genV);
+	}
+}
+
+
+void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV) {
+	if (genU == TGen::TextureCoordGenBase) {
+		glDisable(GL_TEXTURE_GEN_S);
+	}
+	else {
+		switch (genU) {
+			case TGen::TextureCoordGenObjectLinear:
+				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+				break;
+				
+			case TGen::TextureCoordGenEyeLinear:
+				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);				
+				break;
+				
+			case TGen::TextureCoordGenSphereMap:
+				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);				
+				break;				
+				
+			default:
+				throw TGen::NotImplemented("OpenGL::Renderer::setTextureCoordGen", "gen U value is not supported");						
+		}
+		
+		glEnable(GL_TEXTURE_GEN_S);
+	}
+	
+	if (genV == TGen::TextureCoordGenBase) {
+		glDisable(GL_TEXTURE_GEN_T);
+	}
+	else {
+		switch (genV) {
+			case TGen::TextureCoordGenObjectLinear:
+				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
+				break;
+				
+			case TGen::TextureCoordGenEyeLinear:
+				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);				
+				break;
+				
+			case TGen::TextureCoordGenSphereMap:
+				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);				
+				break;				
+				
+			default:
+				throw TGen::NotImplemented("OpenGL::Renderer::setTextureCoordGen", "gen V value is not supported");						
+		}
+		
+		glEnable(GL_TEXTURE_GEN_T);
+	}
 }
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include <GLUT/GLUT.h>
 #include "tgen_opengl.h"
+#include <IL/IL.h>
 
 using namespace TGen;
 
@@ -22,7 +23,6 @@ public:
 	}
 	
 	void Render(TGen::Renderer & renderer) {
-		renderer.setColor(Color::Red);
 		renderer.DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 	}
 	
@@ -49,6 +49,45 @@ private:
 
 	VertexBuffer * vb;
 	IndexBuffer * ib;
+};
+
+class DevILImage : public TGen::Image {
+public:
+	DevILImage(ILuint imageName) : imageName(imageName) {}
+	
+	TGen::Rectangle getSize() const {
+		ILuint width, height;
+		ilBindImage(imageName);
+		width = ilGetInteger(IL_IMAGE_WIDTH);
+		height = ilGetInteger(IL_IMAGE_HEIGHT);
+		
+		return TGen::Rectangle(width, height);
+	}
+	
+	TGen::ImageFormat getFormat() const {
+		ilBindImage(imageName);
+		ILuint bpp = ilGetInteger(IL_IMAGE_BPP);
+		
+		if (bpp == 4)
+			return TGen::RGBA;
+		else if (bpp == 3)
+			return TGen::RGB;
+		
+		throw TGen::RuntimeException("DevILImage::getFormat", "unknown format!");
+	}
+	
+	TGen::FormatType getComponentFormat() const {
+		return TGen::TypeUnsignedByte;		
+	}
+	
+	const void * getData() const {
+		ilBindImage(imageName);
+		return ilGetData();
+	}
+	
+
+private:
+	ILuint imageName;
 };
 
 
@@ -94,7 +133,20 @@ public:
 	
 	TGen::Texture * getTexture(const std::string & name) {
 		std::cout << "getting texture '" << name << "'" << std::endl;		
-		return NULL;
+		
+		ILuint imageName;
+		ilGenImages(1, &imageName);
+		ilBindImage(imageName);
+		
+		if (!ilLoadImage(name.c_str()))
+			throw TGen::RuntimeException("App::getTexture", "image failed to load");
+		
+		TGen::Texture * newTexture = renderer->CreateTexture(DevILImage(imageName), TGen::RGB);
+		
+		ilDeleteImages(1, &imageName);
+		
+		
+		return newTexture;
 	}
 
 	void Reshape(const Rectangle & size) {
@@ -103,11 +155,12 @@ public:
 	}
 	
 	void Render() {
+		time += 0.01f;
 		renderer->setClearColor(Color::White);
 		renderer->Clear(ColorBuffer | DepthBuffer);
 		
 		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
-		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -1.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
+		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -2.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
 
 		if (material)
 			material->Render(*renderer, myObject, "default", 9);
@@ -126,10 +179,11 @@ public:
 					 "}        \n"
 					 "material cool default 0{"
 					 "   lod 0 { \n"
-					 "      pass tjaaa.glsl { \n"
-					 "         color 1 0 0    \n"
+					 "      pass fixed { \n"
 					// "         noDepthWrite    \n"
-					 "         texunit 0 texture4.tga {}  \n"
+					 "         texunit 0 envmap.jpg { \n"
+                     "            texCoordGen sphere sphere  \n"
+					 "         }    \n"
 					 "      }   \n"
 					 "   } \n"
 					 "}"				 
@@ -173,6 +227,7 @@ void Render() {
 }
 
 int main(int argc, char ** argv) {
+	ilInit();
 	std::cout << "TGen OpenGL (debug binary: " << std::boolalpha << isOpenGLDebug() << ")" << std::endl << std::endl;
 	
 	app = new App(argc, argv);

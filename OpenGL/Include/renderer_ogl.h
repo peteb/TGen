@@ -74,6 +74,8 @@ namespace TGen {
 			
 			
 		private:
+			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
+			
 			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
 			TGen::Shader * CreateShader(const char * code, int type);
 			

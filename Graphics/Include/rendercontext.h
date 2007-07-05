@@ -11,24 +11,34 @@
 #define _TGEN_RENDERCONTEXT_H
 
 #include "color.h"
-#include <map>
+#include "renderer_types.h"
+#include <vector>
 
 namespace TGen {
 	class Shader;
 	class Texture;
 	
+	class TextureUnit {
+	public:
+		TextureUnit(int unit, TGen::Texture * texture);
+		
+		int unit;
+		TGen::Texture * texture;
+		TGen::TextureCoordGen genU, genV;
+	};
+	
 	class RenderContext {
 	public:
 		RenderContext();
 		
-		void setTextureUnit(int unit, TGen::Texture * texture);
+		void AddTextureUnit(TGen::TextureUnit * unit);
 		
 		bool depthWrite;
 		TGen::Color frontColor;
 		TGen::Shader * shader;
 		
-		typedef std::map<int, TGen::Texture *> TextureMap;
-		TextureMap textureUnits;
+		typedef std::vector<TGen::TextureUnit *> TextureList;
+		TextureList textureUnits;
 	};
 	
 } // !TGen
