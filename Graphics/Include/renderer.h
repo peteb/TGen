@@ -73,7 +73,7 @@ namespace TGen {
 		virtual Shader * CreateFragmentShader(const char * code) abstract;
 		virtual Shader * CreateGeometryShader(const char * code) abstract;
 		virtual ShaderProgram * CreateShaderProgram() abstract;
-		virtual ShaderProgram * CreateShaderProgram(char * code) abstract;
+		virtual ShaderProgram * CreateShaderProgram(const char * code) abstract;
 		
 	protected:
 		TGen::RendererCaps caps;

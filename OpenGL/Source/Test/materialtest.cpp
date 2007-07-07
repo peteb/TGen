@@ -66,12 +66,27 @@ public:
 	
 	TGen::ImageFormat getFormat() const {
 		ilBindImage(imageName);
-		ILuint bpp = ilGetInteger(IL_IMAGE_BPP);
+
+		ILuint type = ilGetInteger(IL_IMAGE_FORMAT);
 		
-		if (bpp == 4)
-			return TGen::RGBA;
-		else if (bpp == 3)
-			return TGen::RGB;
+		switch (type) {
+			case IL_RGB:
+				return TGen::RGB;
+			
+			case IL_RGBA:
+				return TGen::RGBA;
+				
+			case IL_BGR:
+				return TGen::BGR;
+				
+			case IL_BGRA:
+				return TGen::BGRA;		
+				
+			default:
+				std::cout << "format " << type << std::endl;
+		}
+		
+
 		
 		throw TGen::RuntimeException("DevILImage::getFormat", "unknown format!");
 	}
@@ -126,9 +141,13 @@ public:
 		delete renderer;
 	}
 	
-	TGen::Shader * getShader(const std::string & name) {
+	TGen::ShaderProgram * getShaderProgram(const std::string & name) {
 		std::cout << "getting shader '" << name << "'" << std::endl;
-		return NULL;
+		std::string data = ReadFile(name);
+		
+		TGen::ShaderProgram * ret = renderer->CreateShaderProgram(data.c_str());
+		ret->Link();
+		return ret;
 	}
 	
 	TGen::Texture * getTexture(const std::string & name) {
@@ -141,7 +160,7 @@ public:
 		if (!ilLoadImage(name.c_str()))
 			throw TGen::RuntimeException("App::getTexture", "image failed to load");
 		
-		TGen::Texture * newTexture = renderer->CreateTexture(DevILImage(imageName), TGen::RGB);
+		TGen::Texture * newTexture = renderer->CreateTexture(DevILImage(imageName), TGen::RGBA);
 		
 		ilDeleteImages(1, &imageName);
 		
@@ -173,22 +192,7 @@ public:
 
 		std::list<Material *> materials;
 		MaterialParser parser;
-		parser.Parse("params cool {\n"
-					 "   niceParam 1 5 3  \n"
-					 "   matAuthor \"peter\" \"Peter Backman\"  123123 \n"
-					 "}        \n"
-					 "material cool default 0{"
-					 "   lod 0 { \n"
-					 "      pass fixed { \n"
-					// "         noDepthWrite    \n"
-					 "         texunit 0 envmap.jpg { \n"
-                     "            texCoordGen sphere sphere  \n"
-					 "         }    \n"
-					 "      }   \n"
-					 "   } \n"
-					 "}"				 
-					 
-					 , materials);
+		parser.Parse(ReadFile("material.mat").c_str(), materials);
 		
 		for (std::list<Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
 			if ((*iter)->getName() == "cool") {
@@ -205,6 +209,26 @@ public:
 		
 		materials.clear();
 	}
+	
+	std::string ReadFile(const std::string & name) {
+		std::string ret;
+		
+		FILE * file = fopen(name.c_str(), "r");
+		if (!file)
+			throw TGen::RuntimeException("App::ReadFile", "file not found");
+		
+		char buffer[1024];
+		while (!feof(file)) {
+			int read = fread(buffer, 1, 1022, file);
+			buffer[read] = 0;
+			ret += buffer;
+		}
+		
+		fclose(file);
+		
+		return ret;		
+	}
+	
 	
 private:
 	Object myObject;

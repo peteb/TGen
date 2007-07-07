@@ -291,6 +291,27 @@ void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
 				
 				pass->setColor(r, g, b);
 			}
+			else if (currentToken->second == "front") {
+				std::string polyMode;
+				
+				StepToken();
+				polyMode = getStringToken("pass.front: expecting string value for mode");
+				
+				pass->setFrontMode(polyMode);
+			}
+			else if (currentToken->second == "back") {
+				std::string polyMode;
+				
+				StepToken();
+				polyMode = getStringToken("pass.back: expecting string value for mode");
+				
+				pass->setBackMode(polyMode);
+			}
+			else if (currentToken->second == "depthPass") {
+				StepToken();
+				
+				pass->setDepthFunc(getStringToken("pass.depthPass: expecting string value for compare func"));
+			}
 			else {
 				throw TGen::RuntimeException("MaterialParser::ParsePassBlock", "not expecting '" + currentToken->second + "'!");							
 			}
@@ -318,6 +339,14 @@ void TGen::MaterialParser::ParseTexunitBlock(TGen::PassTextureUnit * unit) {
 				genV = getStringToken("texunit.texCoordGen: expecting string value for V");
 				
 				unit->setTexCoordGen(genU, genV);
+			}
+			else if (currentToken->second == "sampler") {
+				std::string samplerName;
+				
+				StepToken();
+				samplerName = getStringToken("texunit.sampler: expecting string value for sampler name");
+				
+				unit->setSampler(samplerName);
 			}
 			else {
 				throw TGen::RuntimeException("MaterialParser::ParseTexunitBlock", "not expecting '" + currentToken->second + "'!");

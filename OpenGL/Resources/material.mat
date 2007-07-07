@@ -1,0 +1,27 @@
+
+// some parameters...
+params cool {
+	niceParam 1 5 3
+	matAuthor "peter" "Peter Backman"  123123
+} 
+
+// here's the material
+material cool default 0 {
+	lod 0 {
+		pass shader.glsl {
+			depthPass lequal
+			front fill
+			back cull
+			
+			texunit 0 panel_shiny.tga {
+				sampler tex
+				texCoordGen base base
+			}
+	
+			texunit 1 envmap.jpg {
+				sampler environment
+				texCoordGen sphere sphere
+			}
+		}
+	}
+}	

@@ -19,14 +19,14 @@ namespace TGen {
 	class Renderable;
 	class TechniqueList;
 	class Renderer;
-	class Shader;
+	class ShaderProgram;
 	class Texture;
 	
 	class MaterialLinkCallback {
 	public:
 		virtual ~MaterialLinkCallback() {}
 		
-		virtual TGen::Shader * getShader(const std::string & name) abstract;
+		virtual TGen::ShaderProgram * getShaderProgram(const std::string & name) abstract;
 		virtual TGen::Texture * getTexture(const std::string & name) abstract;
 	};
 	

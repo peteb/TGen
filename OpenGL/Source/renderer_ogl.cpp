@@ -47,6 +47,11 @@ TGen::OpenGL::Renderer::Renderer() {
 	caps.driverName += (char *)glGetString(GL_VERSION);
 	caps.rendererName = (char *)glGetString(GL_RENDERER);
 	caps.driverVendor = (char *)glGetString(GL_VENDOR);
+	
+	glEnable(GL_BLEND);
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CW);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 TGen::OpenGL::Renderer::~Renderer() {}
@@ -466,9 +471,12 @@ TGen::ShaderProgram * TGen::OpenGL::Renderer::CreateShaderProgram() {
 	return new TGen::OpenGL::ShaderProgram(*this, newProgram);	
 }
 
-TGen::ShaderProgram * TGen::OpenGL::Renderer::CreateShaderProgram(char * code) {
+TGen::ShaderProgram * TGen::OpenGL::Renderer::CreateShaderProgram(const char * code) {
 	TGen::ShaderProgram * program = CreateShaderProgram();
-	program->ParseShaders(*this, code);
+	char * buffer = static_cast<char *>(malloc(strlen(code) + 1));
+	strcpy(buffer, code);
+	program->ParseShaders(*this, buffer);
+	free(buffer);
 	
 	return program;
 }
@@ -584,14 +592,65 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	else
 		glDepthMask(GL_FALSE);
 	
+	setShaderProgram(context.shader);
+	
 	glColor4f(context.frontColor.r, context.frontColor.g, context.frontColor.b, context.frontColor.a);	
 	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+	setDepthFunc(context.depthFunc);
 	
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
 	for (; iter != context.textureUnits.end(); ++iter) {
 		setTexture((*iter)->unit, (*iter)->texture);
 		setTextureCoordGen((*iter)->genU, (*iter)->genV);
 	}
+	
+	if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)
+		glCullFace(GL_FRONT_AND_BACK);
+	else if (context.front == TGen::PolygonFaceCull)
+		glCullFace(GL_FRONT);
+	else if (context.back == TGen::PolygonFaceCull)
+		glCullFace(GL_BACK);
+	
+	switch (context.front) {
+		case TGen::PolygonFaceFill:
+			glPolygonMode(GL_FRONT, GL_FILL);
+			break;
+			
+		case TGen::PolygonFaceLines:
+			glPolygonMode(GL_FRONT, GL_LINE);
+			break;
+			
+		case TGen::PolygonFacePoints:
+			glPolygonMode(GL_FRONT, GL_POINT);
+			break;
+			
+		case TGen::PolygonFaceCull:
+			break;
+			
+		default:
+			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "front polygon mode not supported");						
+	}
+	
+	switch (context.back) {
+		case TGen::PolygonFaceFill:
+			glPolygonMode(GL_BACK, GL_FILL);
+			break;
+			
+		case TGen::PolygonFaceLines:
+			glPolygonMode(GL_BACK, GL_LINE);
+			break;
+			
+		case TGen::PolygonFacePoints:
+			glPolygonMode(GL_BACK, GL_POINT);
+			break;
+			
+		case TGen::PolygonFaceCull:
+			break;
+			
+		default:
+			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "back polygon mode not supported");						
+	}
+	
 }
 
 
@@ -645,3 +704,46 @@ void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen
 	}
 }
 
+
+void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
+	GLenum fixedFunc = 0;
+	
+	switch (compare) {
+		case TGen::CompareNever:
+			fixedFunc = GL_NEVER;
+			break;
+			
+		case TGen::CompareAlways:
+			fixedFunc = GL_ALWAYS;
+			break;
+			
+		case TGen::CompareLess:
+			fixedFunc = GL_LESS;
+			break;
+			
+		case TGen::CompareEqual:
+			fixedFunc = GL_EQUAL;
+			break;
+			
+		case TGen::CompareLessOrEqual:
+			fixedFunc = GL_LEQUAL;
+			break;
+			
+		case TGen::CompareGreater:
+			fixedFunc = GL_GREATER;
+			break;
+			
+		case TGen::CompareNotEqual:
+			fixedFunc = GL_NOTEQUAL;
+			break;
+			
+		case TGen::CompareGreaterOrEqual:
+			fixedFunc = GL_GEQUAL;
+			break;
+			
+		default:
+			throw TGen::NotImplemented("OpenGL::Renderer::setDepthFunc", "compare function not supported");						
+	}
+	
+	glDepthFunc(fixedFunc);
+}

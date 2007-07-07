@@ -24,9 +24,10 @@ namespace TGen {
 		PassTextureUnit(int unit, const std::string & name);
 		
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
+		void setSampler(const std::string & sampler);
 		
 		
-		std::string textureName;
+		std::string textureName, samplerName;
 		int unit;
 		TGen::TextureCoordGen genU, genV;
 	};
@@ -40,6 +41,10 @@ namespace TGen {
 		const TGen::RenderContext & getRenderContext() const;
 		
 		void setColor(const std::string & r, const std::string & g, const std::string & b);
+		void setDepthFunc(const std::string & func);
+		void setFrontMode(const std::string & mode);
+		void setBackMode(const std::string & mode);
+		
 		void setShader(const std::string & name);
 		void AddTextureUnit(PassTextureUnit * textureUnit);
 		void Link(TGen::MaterialLinkCallback & callback);

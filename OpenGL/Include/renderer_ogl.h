@@ -70,11 +70,12 @@ namespace TGen {
 			TGen::Shader * CreateFragmentShader(const char * code);
 			TGen::Shader * CreateGeometryShader(const char * code);
 			TGen::ShaderProgram * CreateShaderProgram();
-			TGen::ShaderProgram * CreateShaderProgram(char * code);
+			TGen::ShaderProgram * CreateShaderProgram(const char * code);
 			
 			
 		private:
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
+			void setDepthFunc(TGen::CompareFunc compare);
 			
 			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
 			TGen::Shader * CreateShader(const char * code, int type);

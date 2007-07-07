@@ -15,7 +15,7 @@
 #include <vector>
 
 namespace TGen {
-	class Shader;
+	class ShaderProgram;
 	class Texture;
 	
 	class TextureUnit {
@@ -35,7 +35,9 @@ namespace TGen {
 		
 		bool depthWrite;
 		TGen::Color frontColor;
-		TGen::Shader * shader;
+		TGen::ShaderProgram * shader;
+		TGen::CompareFunc depthFunc;
+		TGen::PolygonFaceMode front, back;
 		
 		typedef std::vector<TGen::TextureUnit *> TextureList;
 		TextureList textureUnits;

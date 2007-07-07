@@ -10,7 +10,11 @@
 #include "rendercontext.h"
 #include "tgen_core.h"
 
-TGen::RenderContext::RenderContext() : depthWrite(true), frontColor(TGen::Color::White), shader(NULL) {}
+TGen::RenderContext::RenderContext() : depthWrite(true), frontColor(TGen::Color::White), shader(NULL), depthFunc(TGen::CompareLess),
+	front(TGen::PolygonFaceFill), back(TGen::PolygonFaceCull)
+{
+
+}
 
 void TGen::RenderContext::AddTextureUnit(TGen::TextureUnit * unit) {
 	textureUnits.push_back(unit);

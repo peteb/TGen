@@ -12,7 +12,8 @@
 #include "vector3.h"
 #include "vector2.h"
 
-TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, TGen::OpenGL::ShaderVariableType type) : location(location), type(type) {
+TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type) : 
+	location(location), program(program), type(type) {
 	
 }
 
@@ -20,8 +21,22 @@ TGen::OpenGL::ShaderVariable::~ShaderVariable() {
 	
 }
 
+TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (int value) {
+	return setInt(value);
+}
+
+TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::setInt(int value) {
+	glUseProgram(program);
+	
+	if (type == TGen::OpenGL::Uniform)
+		glUniform1i(location, value);
+	
+	return *this;	
+}
 
 TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Color & color) {
+	glUseProgram(program);
+
 	if (type == TGen::OpenGL::Uniform)
 		glUniform4f(location, color.r, color.g, color.b, color.a);
 	else
@@ -31,6 +46,8 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Col
 }
 
 TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Vector3 & vector) {
+	glUseProgram(program);
+
 	if (type == TGen::OpenGL::Uniform)
 		glUniform3f(location, vector.x, vector.y, vector.z);
 	else
@@ -40,6 +57,8 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Vec
 }
 
 TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Vector2 & vector) {
+	glUseProgram(program);
+
 	if (type == TGen::OpenGL::Uniform)
 		glUniform2f(location, vector.x, vector.y);
 	else

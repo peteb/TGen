@@ -55,6 +55,24 @@ namespace TGen {
 		TextureCoordGenSphereMap,
 	};
 	
+	enum CompareFunc {
+		CompareNever = 1,
+		CompareLess,
+		CompareEqual,
+		CompareLessOrEqual,
+		CompareGreater,
+		CompareNotEqual,
+		CompareGreaterOrEqual,
+		CompareAlways,
+	};
+	
+	enum PolygonFaceMode {
+		PolygonFaceFill = 1,
+		PolygonFaceLines,
+		PolygonFacePoints,
+		PolygonFaceCull,		
+	};
+	
 	enum LockFlags {
 		LockWrite		= 0x0001,
 		LockRead		= 0x0002,

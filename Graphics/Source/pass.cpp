@@ -11,6 +11,8 @@
 #include "renderable.h"
 #include "renderer.h"
 #include "material.h"
+#include "shaderprogram.h"
+#include "shadervariable.h"
 #include <iostream>
 
 TGen::PassList::PassList() {
@@ -75,7 +77,7 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 	if (shaderName == "fixed")
 		renderContext.shader = NULL;
 	else
-		renderContext.shader = callback.getShader(shaderName);
+		renderContext.shader = callback.getShaderProgram(shaderName);
 	
 	renderContext.textureUnits.clear();
 	
@@ -93,12 +95,22 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 		newUnit->genV = (*iter)->genV;
 		
 		renderContext.AddTextureUnit(newUnit);		
+		
+		if (renderContext.shader && !(*iter)->samplerName.empty()) {
+			std::cout << "setting '" << (*iter)->samplerName << "' to " << (*iter)->unit << std::endl;
+			renderContext.shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+		}
 	}
 	
 	
 }
 
 TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase) {}
+
+void TGen::PassTextureUnit::setSampler(const std::string & sampler) {
+	samplerName = sampler;
+}
+
 
 void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::string & genV) {
 	if (genU == "base")
@@ -122,5 +134,52 @@ void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::
 		this->genV = TGen::TextureCoordGenSphereMap;
 	else
 		throw TGen::RuntimeException("PassTextureUnit::setTexCoordGen", "invalid value for v: '" + genV + "'");
+}
+
+void TGen::Pass::setDepthFunc(const std::string & func) {
+	if (func == "never")
+		renderContext.depthFunc = TGen::CompareNever;
+	else if (func == "less")
+		renderContext.depthFunc = TGen::CompareLess;
+	else if (func == "equal")
+		renderContext.depthFunc = TGen::CompareEqual;
+	else if (func == "lequal")
+		renderContext.depthFunc = TGen::CompareLessOrEqual;
+	else if (func == "greater")
+		renderContext.depthFunc = TGen::CompareGreater;
+	else if (func == "nequal")
+		renderContext.depthFunc = TGen::CompareNotEqual;
+	else if (func == "gequal")
+		renderContext.depthFunc = TGen::CompareGreaterOrEqual;
+	else if (func == "always")
+		renderContext.depthFunc = TGen::CompareAlways;
+	else
+		throw TGen::RuntimeException("Pass::setDepthFunc", "invalid compare function: '" + func + "'!");
+}
+
+void TGen::Pass::setFrontMode(const std::string & mode) {
+	if (mode == "cull")
+		renderContext.front = TGen::PolygonFaceCull;
+	else if (mode == "lines" || mode == "line")
+		renderContext.front = TGen::PolygonFaceLines;
+	else if (mode == "point" || mode == "points")
+		renderContext.front = TGen::PolygonFacePoints;
+	else if (mode == "fill")
+		renderContext.front = TGen::PolygonFaceFill;
+	else
+		throw TGen::RuntimeException("Pass::setFrontMode", "invalid front mode: '" + mode + "'!");
+}
+
+void TGen::Pass::setBackMode(const std::string & mode) {
+	if (mode == "cull")
+		renderContext.back = TGen::PolygonFaceCull;
+	else if (mode == "lines" || mode == "line")
+		renderContext.back = TGen::PolygonFaceLines;
+	else if (mode == "point" || mode == "points")
+		renderContext.back = TGen::PolygonFacePoints;
+	else if (mode == "fill")
+		renderContext.back = TGen::PolygonFaceFill;
+	else
+		throw TGen::RuntimeException("Pass::setBackMode", "invalid back mode: '" + mode + "'!");	
 }
 

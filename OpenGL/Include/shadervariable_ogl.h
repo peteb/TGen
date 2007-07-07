@@ -24,17 +24,20 @@ namespace TGen {
 		
 		class ShaderVariable : public TGen::ShaderVariable {
 		public:
-			ShaderVariable(GLint location, TGen::OpenGL::ShaderVariableType type);
+			ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type);
 			~ShaderVariable();
+
+			TGen::ShaderVariable & operator = (int value);
+			TGen::ShaderVariable & setInt(int value);
 			
 			TGen::ShaderVariable & operator = (const TGen::Color & color);
 			TGen::ShaderVariable & operator = (const TGen::Vector3 & vector);
 			TGen::ShaderVariable & operator = (const TGen::Vector2 & vector);
-		
+			
 			
 		private:
 			TGen::OpenGL::ShaderVariableType type;
-			GLint location;
+			GLint location, program;
 		};
 		
 	} // !OpenGL
