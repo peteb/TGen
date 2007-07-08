@@ -73,6 +73,19 @@ namespace TGen {
 		PolygonFaceCull,		
 	};
 	
+	enum BlendFunc {
+		BlendZero = 1,
+		BlendOne,
+		BlendDestColor,
+		BlendOneMinusDestColor,
+		BlendSourceAlpha,
+		BlendOneMinusSourceAlpha,
+		BlendDestAlpha,
+		BlendOneMinusDestAlpha,
+		BlendSourceColor,
+		BlendOneMinusSourceColor,		
+	};
+	
 	enum LockFlags {
 		LockWrite		= 0x0001,
 		LockRead		= 0x0002,

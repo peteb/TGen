@@ -43,6 +43,8 @@
 		D00FF6F50C39396400668773 /* vertexstructure.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6770C39369F00668773 /* vertexstructure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF6CC0C39391D00668773 /* libtgen_graphics.a */; };
 		D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
+		D04270470C40FFBC004CB60C /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D04270460C40FFBC004CB60C /* generator.cpp */; };
+		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
 		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -160,6 +162,8 @@
 		D00FF6CC0C39391D00668773 /* libtgen_graphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_graphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00FF7090C3939A100668773 /* TGen Math */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D00FF7180C3939B500668773 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D04270460C40FFBC004CB60C /* generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = generator.cpp; path = Source/generator.cpp; sourceTree = "<group>"; };
+		D04270480C40FFC9004CB60C /* generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generator.h; path = Include/generator.h; sourceTree = "<group>"; };
 		D08DCB610C3BBF9700C0AB3F /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = Source/material.cpp; sourceTree = "<group>"; };
 		D08DCB630C3BBFA000C0AB3F /* pass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pass.cpp; path = Source/pass.cpp; sourceTree = "<group>"; };
 		D08DCB650C3BBFD800C0AB3F /* rendercontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendercontext.h; path = Include/rendercontext.h; sourceTree = "<group>"; };
@@ -298,6 +302,8 @@
 				D08DCC3B0C3BC33000C0AB3F /* technique.h */,
 				D08DCB630C3BBFA000C0AB3F /* pass.cpp */,
 				D08DCB690C3BBFE900C0AB3F /* pass.h */,
+				D04270460C40FFBC004CB60C /* generator.cpp */,
+				D04270480C40FFC9004CB60C /* generator.h */,
 			);
 			name = Material;
 			sourceTree = "<group>";
@@ -362,6 +368,7 @@
 				D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */,
 				D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */,
 				D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */,
+				D04270490C40FFC9004CB60C /* generator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +504,7 @@
 				D08DCB780C3BC07800C0AB3F /* rendercontext.cpp in Sources */,
 				D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */,
 				D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */,
+				D04270470C40FFBC004CB60C /* generator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

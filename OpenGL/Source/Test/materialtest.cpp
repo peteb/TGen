@@ -181,9 +181,11 @@ public:
 		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
 		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -2.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
 
-		if (material)
+		if (material) {
+			material->Update(scalar(glutGet(GLUT_ELAPSED_TIME)) / 1000.0);
 			material->Render(*renderer, myObject, "default", 9);
-
+		}
+		
 		glutSwapBuffers();
 	}
 	

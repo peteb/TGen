@@ -38,6 +38,7 @@ namespace TGen {
 		TGen::ShaderProgram * shader;
 		TGen::CompareFunc depthFunc;
 		TGen::PolygonFaceMode front, back;
+		TGen::BlendFunc blendSrc, blendDst;
 		
 		typedef std::vector<TGen::TextureUnit *> TextureList;
 		TextureList textureUnits;

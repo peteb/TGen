@@ -121,3 +121,39 @@ uint TGen::OpenGL::TgenImageFormatToOpenGL(TGen::ImageFormat format) {
 	
 	throw TGen::NotImplemented("TgenImageFormatToOpenGL", "format not supported");		
 }
+
+uint TGen::OpenGL::TGenBlendFuncToOpenGL(TGen::BlendFunc blend) {
+	switch (blend) {
+		case TGen::BlendZero:
+			return GL_ZERO;
+			
+		case TGen::BlendOne:
+			return GL_ONE;
+			
+		case TGen::BlendDestColor:
+			return GL_DST_COLOR;
+		
+		case TGen::BlendOneMinusDestColor:
+			return GL_ONE_MINUS_DST_COLOR;
+		
+		case TGen::BlendSourceAlpha:
+			return GL_SRC_ALPHA;
+			
+		case TGen::BlendOneMinusSourceAlpha:
+			return GL_ONE_MINUS_SRC_ALPHA;
+		
+		case TGen::BlendDestAlpha:
+			return GL_DST_ALPHA;
+			
+		case TGen::BlendOneMinusDestAlpha:
+			return GL_ONE_MINUS_DST_ALPHA;
+			
+		case TGen::BlendSourceColor:
+			return GL_SRC_COLOR;
+			
+		case TGen::BlendOneMinusSourceColor:
+			return GL_ONE_MINUS_SRC_COLOR;
+	}
+	
+	throw TGen::NotImplemented("TgenBlendFuncToOpenGL", "func not supported");		
+}

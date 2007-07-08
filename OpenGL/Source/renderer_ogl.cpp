@@ -604,24 +604,39 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		setTextureCoordGen((*iter)->genU, (*iter)->genV);
 	}
 	
+	glBlendFunc(TGenBlendFuncToOpenGL(context.blendSrc), TGenBlendFuncToOpenGL(context.blendDst));
+	
+	glEnable(GL_CULL_FACE);
+	
 	if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)
 		glCullFace(GL_FRONT_AND_BACK);
 	else if (context.front == TGen::PolygonFaceCull)
 		glCullFace(GL_FRONT);
 	else if (context.back == TGen::PolygonFaceCull)
 		glCullFace(GL_BACK);
+	else if (context.back != TGen::PolygonFaceCull && context.front != TGen::PolygonFaceCull)
+		glDisable(GL_CULL_FACE);
 	
 	switch (context.front) {
 		case TGen::PolygonFaceFill:
-			glPolygonMode(GL_FRONT, GL_FILL);
+			if (context.back == TGen::PolygonFaceFill)
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				
+			else
+				glPolygonMode(GL_FRONT, GL_FILL);
 			break;
 			
 		case TGen::PolygonFaceLines:
-			glPolygonMode(GL_FRONT, GL_LINE);
+			if (context.back == TGen::PolygonFaceLines)
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);				
+			else
+				glPolygonMode(GL_FRONT, GL_LINE);
 			break;
 			
 		case TGen::PolygonFacePoints:
-			glPolygonMode(GL_FRONT, GL_POINT);
+			if (context.back == TGen::PolygonFacePoints)
+				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);				
+			else
+				glPolygonMode(GL_FRONT, GL_POINT);
 			break;
 			
 		case TGen::PolygonFaceCull:
@@ -633,15 +648,18 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	
 	switch (context.back) {
 		case TGen::PolygonFaceFill:
-			glPolygonMode(GL_BACK, GL_FILL);
+			if (context.front != TGen::PolygonFaceFill)
+				glPolygonMode(GL_BACK, GL_FILL);
 			break;
 			
 		case TGen::PolygonFaceLines:
-			glPolygonMode(GL_BACK, GL_LINE);
+			if (context.front != TGen::PolygonFaceLines)
+				glPolygonMode(GL_BACK, GL_LINE);
 			break;
 			
 		case TGen::PolygonFacePoints:
-			glPolygonMode(GL_BACK, GL_POINT);
+			if (context.front != TGen::PolygonFacePoints)
+				glPolygonMode(GL_BACK, GL_POINT);
 			break;
 			
 		case TGen::PolygonFaceCull:

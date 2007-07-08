@@ -20,6 +20,7 @@ namespace TGen {
 	class PassList;
 	class Pass;
 	class PassTextureUnit;
+	class WaveGenerator;
 	
 	enum MaterialTokens {
 		MaterialTokenBlockStart = 20,
@@ -44,6 +45,7 @@ namespace TGen {
 		void ParseLodBlock(TGen::PassList * lod);
 		void ParsePassBlock(TGen::Pass * pass);
 		void ParseTexunitBlock(TGen::PassTextureUnit * unit);
+		TGen::WaveGenerator * ParseWaveGenerator();
 		
 	private:
 		TGen::Material * getMaterial(const std::string & name);

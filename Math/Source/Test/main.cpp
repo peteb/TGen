@@ -37,5 +37,8 @@ int main(int argc, char ** const argv) {
 	// 9.
 	std::cout << "9. sizeof(scalar) = " << sizeof(scalar) << std::endl;
 	
+	// 8.
+	std::cout << "8. PI =  " << TGen::Sine(TGen::PI) << std::endl;
+	
 	return EXIT_SUCCESS;
 }

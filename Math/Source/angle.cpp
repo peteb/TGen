@@ -12,3 +12,7 @@
 const scalar TGen::Radian::RoundAngle = scalar(2.0 * TGen::PI);
 const scalar TGen::Degree::RoundAngle = scalar(360.0);
 const scalar TGen::UnitAngle::RoundAngle = scalar(1.0);
+
+scalar TGen::Sine(const TGen::Radian & radians) {
+	return scalar(sin(radians.angle));
+}

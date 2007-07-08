@@ -11,6 +11,7 @@
 #define _TGEN_TECHNIQUE_H
 
 #include <vector>
+#include "tgen_math.h"
 
 namespace TGen {
 	class PassList;
@@ -24,6 +25,7 @@ namespace TGen {
 		void setPassList(PassList * pass, int lod);
 		PassList * getPassList(int lod);
 		void Link(TGen::MaterialLinkCallback & callback);
+		void Update(scalar time);
 		
 	private:
 		typedef std::vector<PassList *> PassVector;
@@ -38,6 +40,7 @@ namespace TGen {
 		void setTechnique(Technique * tech, int reqs);
 		Technique * getTechnique(int minreqs);
 		void Link(TGen::MaterialLinkCallback & callback);
+		void Update(scalar time);
 		
 	private:
 		typedef std::vector<Technique *> TechniqueVector;

@@ -18,6 +18,8 @@ namespace TGen {
 	class Renderable;
 	class Renderer;
 	class MaterialLinkCallback;
+	class ColorGenerator;
+	class ScalarGenerator;
 	
 	class PassTextureUnit {
 	public:	
@@ -41,19 +43,31 @@ namespace TGen {
 		const TGen::RenderContext & getRenderContext() const;
 		
 		void setColor(const std::string & r, const std::string & g, const std::string & b);
+		void setAlpha(const std::string & a);
 		void setDepthFunc(const std::string & func);
 		void setFrontMode(const std::string & mode);
 		void setBackMode(const std::string & mode);
+		void setBlendFunc(const std::string & source, const std::string & dest);
+		void setColorGenerator(TGen::ColorGenerator * gen);
+		void setAlphaGenerator(TGen::ScalarGenerator * gen);
+		void setNoDepthWrite();
+		
+		void Update(scalar dt);
 		
 		void setShader(const std::string & name);
 		void AddTextureUnit(PassTextureUnit * textureUnit);
 		void Link(TGen::MaterialLinkCallback & callback);
 		
 	private:
+		TGen::BlendFunc StringToBlendFunc(const std::string & blend);
+			
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
 		TextureList textureUnits;
 		
 		TGen::RenderContext renderContext;
+		TGen::ColorGenerator * colorGen;
+		TGen::ScalarGenerator * alphaGen;
+		
 		std::string shaderName;
 	};
 	
@@ -65,6 +79,7 @@ namespace TGen {
 		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable);
 		void addPass(TGen::Pass * pass);
 		void Link(TGen::MaterialLinkCallback & callback);
+		void Update(scalar time);
 		
 	private:
 		typedef std::vector<Pass *> PassVector;

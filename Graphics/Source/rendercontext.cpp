@@ -11,7 +11,7 @@
 #include "tgen_core.h"
 
 TGen::RenderContext::RenderContext() : depthWrite(true), frontColor(TGen::Color::White), shader(NULL), depthFunc(TGen::CompareLess),
-	front(TGen::PolygonFaceFill), back(TGen::PolygonFaceCull)
+	front(TGen::PolygonFaceFill), back(TGen::PolygonFaceCull), blendSrc(TGen::BlendSourceAlpha), blendDst(TGen::BlendOneMinusSourceAlpha) 
 {
 
 }

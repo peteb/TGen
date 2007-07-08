@@ -19,6 +19,7 @@ namespace TGen {
 		uint TgenFormatToOpenGL(TGen::FormatType format);
 		uint TgenPrimitiveToOpenGL(TGen::PrimitiveType primitive);
 		uint TgenImageFormatToOpenGL(TGen::ImageFormat format);
+		uint TGenBlendFuncToOpenGL(TGen::BlendFunc blend);
 		
 	} // !OpenGL
 } // !TGen

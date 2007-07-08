@@ -11,6 +11,7 @@
 #include "material.h"
 #include "technique.h"
 #include "pass.h"
+#include "generator.h"
 #include <iostream>
 
 TGen::MaterialParser::MaterialParser() {}
@@ -283,13 +284,36 @@ void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
 				std::string r, g, b;
 				
 				StepToken();
-				r = getNumericToken("pass.color: expecting numeric R value ");
-				StepToken();
-				g = getNumericToken("pass.color: expecting numeric G value ");
-				StepToken();
-				b = getNumericToken("pass.color: expecting numeric B value ");
+				if (currentToken->second == "wave") {
+					StepToken();
+					pass->setColorGenerator(ParseWaveGenerator());					
+				}
+				else {
+					r = getNumericToken("pass.color: expecting numeric R value ");
+					StepToken();
+					g = getNumericToken("pass.color: expecting numeric G value ");
+					StepToken();
+					b = getNumericToken("pass.color: expecting numeric B value ");
 				
-				pass->setColor(r, g, b);
+					pass->setColor(r, g, b);
+				}
+			}
+			else if (currentToken->second == "alpha") {
+				std::string a;
+				
+				StepToken();
+				if (currentToken->second == "wave") {
+					StepToken();
+					pass->setAlphaGenerator(ParseWaveGenerator());					
+				}
+				else {
+					a = getNumericToken("pass.alpha: expecting numeric A value ");
+					
+					pass->setAlpha(a);
+				}
+			}
+			else if (currentToken->second == "noDepthWrite") {
+				pass->setNoDepthWrite();
 			}
 			else if (currentToken->second == "front") {
 				std::string polyMode;
@@ -311,6 +335,18 @@ void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
 				StepToken();
 				
 				pass->setDepthFunc(getStringToken("pass.depthPass: expecting string value for compare func"));
+			}
+			else if (currentToken->second == "blendFunc") {
+				StepToken();
+				std::string source, dest;
+				
+				source = getStringToken("pass.blend: expecting string value for func");
+				
+				StepToken();
+				if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote)
+					dest = currentToken->second;
+				
+				pass->setBlendFunc(source, dest);
 			}
 			else {
 				throw TGen::RuntimeException("MaterialParser::ParsePassBlock", "not expecting '" + currentToken->second + "'!");							
@@ -436,4 +472,35 @@ std::string TGen::MaterialParser::getNumericToken(const std::string & name, bool
 
 void TGen::MaterialParser::StepToken() {
 	tokens.NextToken(currentToken, endIter);
+}
+
+TGen::WaveGenerator * TGen::MaterialParser::ParseWaveGenerator() {
+	TGen::WaveGenerator * ret = NULL;
+
+	std::string type, base, amplitude, phase, frequency;
+	type = getStringToken("wave: expecting string value for wave type", true);
+	StepToken();
+	base = getNumericToken("wave: expecting numeric value for base", true);
+	StepToken();
+	amplitude = getNumericToken("wave: expecting numeric value for amplitude", true);
+	StepToken();
+	phase = getNumericToken("wave: expecting numeric value for phase", true);
+	StepToken();
+	frequency = getNumericToken("wave: expecting numeric value for frequency", true);
+	
+	std::stringstream ss;
+	scalar baseNumber, amplitudeNumber, phaseNumber, frequencyNumber;
+	ss << base << " " << amplitude << " " << phase << " " << frequency;
+	ss >> baseNumber >> amplitudeNumber >> phaseNumber >> frequencyNumber;
+	
+	if (type == "sine" || type == "sin")
+		ret = new TGen::SineWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);
+	else if (type == "square")
+		ret = new TGen::SquareWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else if (type == "sawtooth" || type == "saw")
+		ret = new TGen::SawtoothWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else
+		throw TGen::RuntimeException("MaterialParser::ParseWaveGenerator", "invalid wave type: '" + currentToken->second + "'!");
+	
+	return ret;
 }

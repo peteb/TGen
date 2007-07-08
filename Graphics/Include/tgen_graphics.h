@@ -36,6 +36,7 @@
 #include "technique.h"
 #include "pass.h"
 #include "renderable.h"
+#include "generator.h"
 
 namespace TGen {
 	bool isGraphicsDebug();

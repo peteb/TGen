@@ -13,6 +13,7 @@
 #include "material.h"
 #include "shaderprogram.h"
 #include "shadervariable.h"
+#include "generator.h"
 #include <iostream>
 
 TGen::PassList::PassList() {
@@ -24,12 +25,13 @@ TGen::PassList::~PassList() {
 		delete passes[i];
 }
 
-TGen::Pass::Pass() {
+TGen::Pass::Pass() : colorGen(NULL), alphaGen(NULL) {
 	
 }
 
 TGen::Pass::~Pass() {
-	
+	delete colorGen;
+	delete alphaGen;
 }
 
 void TGen::PassList::addPass(TGen::Pass * pass) {
@@ -53,11 +55,43 @@ const TGen::RenderContext & TGen::Pass::getRenderContext() const {
 }
 
 void TGen::Pass::setColor(const std::string & r, const std::string & g, const std::string & b) {
-	std::cout << "R: " << r << " G: " << g << " B: " << b << std::endl;
+	delete colorGen;
+	colorGen = NULL;
+	
+	std::stringstream ss;
+	scalar rNum, gNum, bNum;
+	ss << r << " " << g << " " << b;
+	ss >> rNum >> gNum >> bNum;
+	
+	renderContext.frontColor.r = rNum;
+	renderContext.frontColor.g = gNum;
+	renderContext.frontColor.b = bNum;
+}
+
+void TGen::Pass::setAlpha(const std::string & a) {
+	delete alphaGen;
+	alphaGen = NULL;
+	
+	std::stringstream ss;
+	scalar aNum;
+	ss << a;
+	ss >> aNum;
+	
+	renderContext.frontColor.a = aNum;
 }
 
 void TGen::Pass::setShader(const std::string & name) {
 	shaderName = name;
+}
+
+void TGen::Pass::setColorGenerator(TGen::ColorGenerator * gen) {
+	delete colorGen;	
+	colorGen = gen;
+}
+
+void TGen::Pass::setAlphaGenerator(TGen::ScalarGenerator * gen) {
+	delete alphaGen;
+	alphaGen = gen;
 }
 
 void TGen::Pass::AddTextureUnit(TGen::PassTextureUnit * textureUnit) {
@@ -70,6 +104,13 @@ void TGen::PassList::Link(TGen::MaterialLinkCallback & callback) {
 	for (; iter != passes.end(); ++iter) {
 		(*iter)->Link(callback);
 	}
+}
+
+void TGen::PassList::Update(scalar time) {
+	PassVector::iterator iter = passes.begin();
+	for (; iter != passes.end(); ++iter) {
+		(*iter)->Update(time);
+	}	
 }
 
 void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
@@ -110,7 +151,6 @@ TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : uni
 void TGen::PassTextureUnit::setSampler(const std::string & sampler) {
 	samplerName = sampler;
 }
-
 
 void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::string & genV) {
 	if (genU == "base")
@@ -181,5 +221,66 @@ void TGen::Pass::setBackMode(const std::string & mode) {
 		renderContext.back = TGen::PolygonFaceFill;
 	else
 		throw TGen::RuntimeException("Pass::setBackMode", "invalid back mode: '" + mode + "'!");	
+}
+
+void TGen::Pass::setNoDepthWrite() {
+	renderContext.depthWrite = false;
+}
+
+void TGen::Pass::setBlendFunc(const std::string & source, const std::string & dest) {
+	if (source == "additive" || source == "add") {
+		renderContext.blendSrc = TGen::BlendOne;
+		renderContext.blendDst = TGen::BlendOne;
+	}
+	else if (source == "interpolate" || source == "default" || source == "blend") {
+		renderContext.blendSrc = TGen::BlendSourceAlpha;
+		renderContext.blendDst = TGen::BlendOneMinusSourceAlpha;
+	}
+	else if (source == "filter") {
+		renderContext.blendSrc = TGen::BlendDestColor;
+		renderContext.blendDst = TGen::BlendZero;
+	}
+	else {
+		renderContext.blendSrc = StringToBlendFunc(source);
+		renderContext.blendDst = StringToBlendFunc(dest);		
+	}
+}
+
+TGen::BlendFunc TGen::Pass::StringToBlendFunc(const std::string & blend) {
+	if (blend == "zero" || blend == "0")
+		return TGen::BlendZero;
+	else if (blend == "one" || blend == "1")
+		return TGen::BlendOne;
+	else if (blend == "destcolor" || blend == "dstcolor")
+		return TGen::BlendDestColor;
+	else if (blend == "oneminusdestcolor" || blend == "1-dstcolor")
+		return TGen::BlendOneMinusDestColor;
+	else if (blend == "srcalpha" || blend == "srcalpha")
+		return TGen::BlendSourceAlpha;
+	else if (blend == "oneminussrcalpha" || blend == "1-srcalpha")
+		return TGen::BlendOneMinusSourceAlpha;
+	else if (blend == "destalpha" || blend == "dstalpha")
+		return TGen::BlendDestAlpha;
+	else if (blend == "oneminusdestalpha" || blend == "1-dstalpha")
+		return TGen::BlendOneMinusDestAlpha;
+	else if (blend == "srccolor" || blend == "srccolor")
+		return TGen::BlendSourceColor;
+	else if (blend == "oneminussrccolor" || blend == "1-srccolor")
+		return TGen::BlendOneMinusSourceColor;
+	
+	throw TGen::RuntimeException("Pass::StringToBlendFunc", "invalid blend func: '" + blend + "'!");		
+}
+
+void TGen::Pass::Update(scalar time) {
+	if (colorGen) {
+		TGen::Color newColor = colorGen->getColor(time, 1.0);
+		renderContext.frontColor.r = newColor.r;
+		renderContext.frontColor.g = newColor.g;
+		renderContext.frontColor.b = newColor.b;
+	}
+	
+	if (alphaGen) {
+		renderContext.frontColor.a = alphaGen->getValue(time);
+	}
 }
 

@@ -81,6 +81,7 @@ namespace TGen {
 		const static scalar RoundAngle;
 	};
 	
+	scalar Sine(const Radian & radians);
 } // !TGen
 
 #endif // !_TGEN_ANGLE_H

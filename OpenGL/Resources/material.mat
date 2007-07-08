@@ -7,21 +7,31 @@ params cool {
 
 // here's the material
 material cool default 0 {
-	lod 0 {
-		pass shader.glsl {
-			depthPass lequal
+	lod 0 {	
+		pass fixed {			
 			front fill
-			back cull
+			back fill
 			
-			texunit 0 panel_shiny.tga {
+			//depthPass lequal
+			
+			texunit 0 metalbridge06_pent.jpg {
 				sampler tex
 				texCoordGen base base
 			}
-	
-			texunit 1 envmap.jpg {
+		}
+		
+		pass fixed {
+			front fill
+			back fill
+			blendFunc additive
+			depthPass lequal
+			color wave sawtooth 0.5 0.5 0 0.7
+			
+			texunit 0 pent_glow.jpg {
 				sampler environment
-				texCoordGen sphere sphere
 			}
 		}
+		
 	}
 }	
+

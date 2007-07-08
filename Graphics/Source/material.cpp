@@ -74,8 +74,11 @@ void TGen::Material::Render(TGen::Renderer & renderer, TGen::Renderable & render
 	passes->Render(renderer, renderable);
 }
 
-void TGen::Material::Update(float dt) {
-	
+void TGen::Material::Update(scalar time) {
+	TechniqueListMap::iterator iter = techniques.begin();
+	for (; iter != techniques.end(); ++iter) {
+		iter->second->Update(time);
+	}
 }
 
 int TGen::Material::getSpecializationID(const std::string & name) {

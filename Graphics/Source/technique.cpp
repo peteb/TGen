@@ -97,3 +97,19 @@ void TGen::TechniqueList::Link(TGen::MaterialLinkCallback & callback) {
 	}
 }
 
+void TGen::TechniqueList::Update(scalar time) {
+	TechniqueVector::iterator iter = techniques.begin();
+	for (; iter != techniques.end(); ++iter) {
+		if (*iter)
+			(*iter)->Update(time);
+	}	
+}
+
+void TGen::Technique::Update(scalar time) {
+	PassVector::iterator iter = lods.begin();
+	for (; iter != lods.end(); ++iter) {
+		if (*iter)
+			(*iter)->Update(time);
+	}
+}
+

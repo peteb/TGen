@@ -38,7 +38,7 @@ namespace TGen {
 		std::string getName() const;
 		void Link(MaterialLinkCallback & callback);
 		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable, const std::string & mode, int lod);
-		void Update(float dt);
+		void Update(scalar time);
 		void setMaximumTechnique(int minreqs);
 		void setParameter(const std::string & name, const std::vector<std::string> & values);
 		void setSpecialization(const std::string & name, TGen::TechniqueList * techniques);
