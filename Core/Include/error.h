@@ -31,6 +31,7 @@ namespace TGen {
 		}
 		
 	private:
+		mutable std::string temp;
 		std::string where, description;
 	};
 	

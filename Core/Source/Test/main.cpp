@@ -29,5 +29,10 @@ int main(int argc, char ** const argv) {
 		std::cout << "4. exception: " << e.what() << std::endl;
 	}
 	
+	#ifdef _PLATFORM_WINDOWS
+	int hej;
+	std::cin >> hej;
+	#endif
+
 	return EXIT_SUCCESS;
 }

@@ -24,7 +24,9 @@ TGen::RuntimeException::~RuntimeException() throw() {
 const char * TGen::RuntimeException::what() const throw() {
 	std::stringstream ss;
 	ss << "RuntimeException: " << where << ": " << description;
-	return ss.str().c_str();
+	temp = ss.str();
+
+	return temp.c_str();
 }
 
 

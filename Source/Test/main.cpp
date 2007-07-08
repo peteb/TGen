@@ -8,6 +8,31 @@
 
 using namespace TGen;
 
+<<<<<<< .mine
+int main() {
+	int width = 640, height = 480, running, frames;
+	double t, t0, fps;
+	
+	Rectangle windowSize(0.0f, 640, 480);
+	
+	std::cout << std::string(windowSize) << std::endl;
+	std::cout << std::string(Matrix3x3::Identity) << std::endl;
+	
+	if (glfwInit() == GL_FALSE) {
+		std::cout << "glfwInit failed";
+		int heja;
+		std::cin >> heja;
+	
+		return EXIT_FAILURE;
+	}
+
+	if (!glfwOpenWindow(640, 480, 0, 0, 0, 0, 0, 0, GLFW_WINDOW)) {
+		std::cout << "hejdo";
+		glfwTerminate();
+		int heja;
+		std::cin >> heja;
+=======
+>>>>>>> .r43
 
 class TestApp {
 public:
