@@ -58,11 +58,13 @@ namespace TGen {
 	
 	class TextureCoordRotate : public TGen::TextureCoordTransformer {
 	public:
-		TextureCoordRotate(float speed);
-		TextureCoordRotate(TGen::ScalarGenerator * genRot);
+		TextureCoordRotate(float speed, bool centered = false);
+		TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered = false);
 		
 		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
 		
+		float speed;
+		bool centered;
 	};
 	
 	class PassTextureUnit {

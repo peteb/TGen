@@ -460,7 +460,29 @@ void TGen::MaterialParser::ParseTexunitBlock(TGen::PassTextureUnit * unit) {
 				scaler->v = vNum;
 				
 				unit->AddTexCoordTransformer(scaler);
+			}
+			else if (currentToken->second == "rotate" || currentToken->second == "spin") {
+				float u = 0.0f;
+				bool centered = currentToken->second == "spin";
 				
+				TGen::ScalarGenerator * genRot = NULL;
+				StepToken();
+				if (currentToken->second == "wave") {
+					StepToken();
+					genRot = ParseWaveGenerator();
+				}
+				else {
+					std::string uName = getNumericToken("texunit.rotate: expecting numeric or wave value for U");
+					
+					std::stringstream ss;
+					ss << uName;
+					ss >> u;
+				}
+				
+				TGen::TextureCoordRotate * rotator = new TGen::TextureCoordRotate(genRot, centered);
+				rotator->speed = u;
+				
+				unit->AddTexCoordTransformer(rotator);				
 			}
 			else if (currentToken->second == "sampler") {
 				std::string samplerName;

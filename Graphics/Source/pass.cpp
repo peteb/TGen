@@ -390,12 +390,37 @@ void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar ti
 		fixedV = genV->getValue(time);
 	
 	
-	if (centered)
-		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
-	
+	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
 	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector2(fixedU, fixedV));
-	
-	if (centered)
-		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
+	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 }
+
+TGen::TextureCoordRotate::TextureCoordRotate(float speed, bool centered)
+	: TGen::TextureCoordTransformer(NULL, NULL), speed(speed), centered(centered)
+{}
+
+TGen::TextureCoordRotate::TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered) 
+	: TGen::TextureCoordTransformer(genRot, NULL), speed(0.0f), centered(centered)
+{}
+
+void TGen::TextureCoordRotate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
+	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
+
+	if (!genU) {
+		float degrees = (time - startedAt) * speed;
+		
+		degrees = degrees - floor(degrees / 360.0f) * 360.0f;
+		if (speed < 0.0)
+			degrees = -degrees;
+		
+		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(degrees));
+	}
+	else {
+		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(genU->getValue(time)));
+	}
+
+	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
+}
+
+
 
