@@ -24,6 +24,16 @@ TGen::Matrix4x4::Matrix4x4() {
 
 TGen::Matrix4x4::Matrix4x4(const TGen::Vector3 & x, const TGen::Vector3 & y, const TGen::Vector3 & z) {
 	Clear();
+	elements[0][0] = x.x;
+	elements[0][1] = x.y;
+	elements[0][2] = x.z;
+	elements[1][0] = y.x;
+	elements[1][1] = y.y;
+	elements[1][2] = y.z;
+	elements[2][0] = z.x;
+	elements[2][1] = z.y;
+	elements[2][2] = z.z;
+	elements[3][3] = 1.0f;
 }
 
 TGen::Matrix4x4::Matrix4x4(const TGen::Matrix4x4 & matrix) {
@@ -210,6 +220,15 @@ TGen::Matrix4x4 TGen::Matrix4x4::LookAt(const TGen::Vector3 & position, const TG
 	ret *= Matrix4x4::Translation(-position);
 	
 	return ret;				
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up) {
+	TGen::Vector3 forward, right;
+	
+	forward = direction;
+	right = TGen::Vector3::CrossProduct(forward, up).Normalize();
+
+	return Matrix4x4(right, -up, forward);
 }
 
 void TGen::Matrix4x4::Clear() {

@@ -46,6 +46,7 @@ namespace TGen {
 		static TGen::Matrix4x4 PerspectiveProjection(scalar fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far);
 		static TGen::Matrix4x4 Rotation(const TGen::Vector3 & axis, const TGen::Angle & angle);
 		static TGen::Matrix4x4 LookAt(const TGen::Vector3 & position, const TGen::Vector3 & eye, const TGen::Vector3 & up);
+		static TGen::Matrix4x4 LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up);
 		
 		scalar elements[4][4];
 		

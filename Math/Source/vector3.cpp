@@ -60,8 +60,8 @@ scalar TGen::Vector3::DotProduct(const TGen::Vector3 & v1, const TGen::Vector3 &
 
 TGen::Vector3 TGen::Vector3::CrossProduct(const TGen::Vector3 & v1, const TGen::Vector3 & v2) {
 	return TGen::Vector3(v1.y * v2.z - v2.y * v1.z,  
-		v1.z * v2.x - v2.z * v1.x,  
-		v1.x * v2.y - v2.x * v1.y);  	
+						 v1.z * v2.x - v2.z * v1.x,  
+						 v1.x * v2.y - v2.x * v1.y);  	
 }
 
 TGen::Vector3 & TGen::Vector3::operator += (const TGen::Vector3 & vector) {
