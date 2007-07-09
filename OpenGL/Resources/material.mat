@@ -17,6 +17,8 @@ material cool default 0 {
 			texunit 0 metalbridge06_pent.jpg {
 				sampler tex
 				texCoordGen base base
+				translate 0.5 0.5
+				stretch wave sine 1 0.1 0 0.7
 			}
 		}
 		
@@ -35,3 +37,5 @@ material cool default 0 {
 	}
 }	
 
+// TODO: vector4, x, y, z, w
+ 

@@ -21,17 +21,66 @@ namespace TGen {
 	class ColorGenerator;
 	class ScalarGenerator;
 	
+	class TextureCoordTransformer {
+	public:
+		TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV);
+		virtual ~TextureCoordTransformer();
+		
+		virtual void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) abstract;
+		
+	protected:
+		scalar startedAt;
+		TGen::ScalarGenerator * genU, * genV;
+	};
+	
+	
+	class TextureCoordTranslate : public TGen::TextureCoordTransformer {
+	public:
+		TextureCoordTranslate(float u, float v, bool scroll = false);
+		TextureCoordTranslate(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool scroll = false);
+		
+		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
+
+		float u, v;
+		bool scroll;
+	};
+
+	class TextureCoordScale : public TGen::TextureCoordTransformer {
+	public:
+		TextureCoordScale(float u, float v, bool centered = false);
+		TextureCoordScale(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered = false);
+		
+		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
+		
+		float u, v;
+		bool centered;
+	};	
+	
+	class TextureCoordRotate : public TGen::TextureCoordTransformer {
+	public:
+		TextureCoordRotate(float speed);
+		TextureCoordRotate(TGen::ScalarGenerator * genRot);
+		
+		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
+		
+	};
+	
 	class PassTextureUnit {
 	public:	
 		PassTextureUnit(int unit, const std::string & name);
+		~PassTextureUnit();
 		
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
-		
+		void AddTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
+		void Update(scalar time);
 		
 		std::string textureName, samplerName;
 		int unit;
 		TGen::TextureCoordGen genU, genV;
+		typedef std::vector<TGen::TextureCoordTransformer *> TransformerList;
+		TransformerList transformers;
+		TGen::TextureUnit * texunit;
 	};
 	
 	

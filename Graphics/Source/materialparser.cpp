@@ -376,6 +376,92 @@ void TGen::MaterialParser::ParseTexunitBlock(TGen::PassTextureUnit * unit) {
 				
 				unit->setTexCoordGen(genU, genV);
 			}
+			else if (currentToken->second == "translate" || currentToken->second == "scroll") {
+				std::string offU, offV;
+				float u = 0.0f, v = 0.0f;
+				bool scroll = currentToken->second == "scroll";
+				
+				TGen::ScalarGenerator * genU = NULL, * genV = NULL;
+
+				StepToken();
+				if (currentToken->second == "wave") {
+					StepToken();
+					genU = ParseWaveGenerator();
+				}
+				else {
+					offU = getNumericToken("texunit.translate: expecting numeric or wave value for U offset");
+				
+					std::stringstream ss;
+					ss << offU;
+					ss >> u;
+				}
+				
+				StepToken();
+				if (currentToken->second == "wave") {
+					StepToken();
+					genV = ParseWaveGenerator();
+				}
+				else {
+					offV = getNumericToken("texunit.translate: expecting numeric or wave value for V offset");
+
+					std::stringstream ss;
+					ss << offV;
+					ss >> v;
+				}
+				
+				TGen::TextureCoordTranslate * translator = new TGen::TextureCoordTranslate(genU, genV, scroll);
+				translator->u = u;
+				translator->v = v;
+				
+				unit->AddTexCoordTransformer(translator);
+			}
+			else if (currentToken->second == "scale" || currentToken->second == "stretch") {
+				std::string u, v;
+				float uNum = 0.0f, vNum = 0.0f;
+				bool centered = currentToken->second == "stretch";
+				
+				TGen::ScalarGenerator * genU = NULL, * genV = NULL;
+				
+				StepToken();
+				if (currentToken->second == "wave") {
+					StepToken();
+					genU = ParseWaveGenerator();
+				}
+				else {
+					u = getNumericToken("texunit.scale: expecting numeric or wave value for U");
+					
+					std::stringstream ss;
+					ss << u;
+					ss >> uNum;
+				}
+				
+				StepToken();
+				if (currentToken->first == TGen::MaterialTokenEndOfLine) {
+					genV = genU;
+					vNum = uNum;
+				}
+				else {
+					if (currentToken->second == "wave") {
+						StepToken();
+						genV = ParseWaveGenerator();
+					}
+					else {
+						v = getNumericToken("texunit.scale: expecting numeric or wave value for V");
+						
+						std::stringstream ss;
+						ss << v;
+						ss >> vNum;
+					}
+				}
+				
+				
+				TGen::TextureCoordScale * scaler = new TGen::TextureCoordScale(genU, genV, centered);
+				scaler->u = uNum;
+				scaler->v = vNum;
+				
+				unit->AddTexCoordTransformer(scaler);
+				
+			}
 			else if (currentToken->second == "sampler") {
 				std::string samplerName;
 				

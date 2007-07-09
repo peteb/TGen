@@ -600,12 +600,21 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
 	for (; iter != context.textureUnits.end(); ++iter) {
+		glActiveTexture(GL_TEXTURE0 + (*iter)->unit);
 		setTexture((*iter)->unit, (*iter)->texture);
 		setTextureCoordGen((*iter)->genU, (*iter)->genV);
+		
+		if ((*iter)->transformed) {
+			setTransform(TGen::TransformTexture, (*iter)->transform);
+		}
+		else {
+			glMatrixMode(GL_TEXTURE);
+			glLoadIdentity();
+		}
 	}
 	
-	glBlendFunc(TGenBlendFuncToOpenGL(context.blendSrc), TGenBlendFuncToOpenGL(context.blendDst));
 	
+	glBlendFunc(TGenBlendFuncToOpenGL(context.blendSrc), TGenBlendFuncToOpenGL(context.blendDst));
 	glEnable(GL_CULL_FACE);
 	
 	if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)

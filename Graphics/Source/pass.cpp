@@ -134,6 +134,7 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 		
 		newUnit->genU = (*iter)->genU;
 		newUnit->genV = (*iter)->genV;
+		(*iter)->texunit = newUnit;
 		
 		renderContext.AddTextureUnit(newUnit);		
 		
@@ -146,7 +147,12 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 	
 }
 
-TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase) {}
+TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase), texunit(NULL) {}
+
+TGen::PassTextureUnit::~PassTextureUnit() {
+	for (int i = 0; i < transformers.size(); ++i)
+		delete transformers[i];
+}
 
 void TGen::PassTextureUnit::setSampler(const std::string & sampler) {
 	samplerName = sampler;
@@ -282,5 +288,114 @@ void TGen::Pass::Update(scalar time) {
 	if (alphaGen) {
 		renderContext.frontColor.a = alphaGen->getValue(time);
 	}
+	
+	for (int i = 0; i < textureUnits.size(); ++i) {
+		textureUnits[i]->Update(time);
+	}
+}
+
+void TGen::PassTextureUnit::AddTexCoordTransformer(TGen::TextureCoordTransformer * transformer) {
+	transformers.push_back(transformer);
+}
+
+void TGen::PassTextureUnit::Update(scalar time) {
+	if (!texunit)
+		return;
+	
+	texunit->transform = TGen::Matrix4x4::Identity;
+	texunit->transformed = false;
+	
+	for (int i = 0; i < transformers.size(); ++i) {
+		transformers[i]->ApplyTransform(texunit->transform, time);
+		texunit->transformed = true;
+	}
+}
+
+TGen::TextureCoordTransformer::TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV) 
+	: genU(genU), genV(genV), startedAt(0.0) {}
+
+TGen::TextureCoordTransformer::~TextureCoordTransformer() {
+	delete genU;
+	if (genV != genU)
+		delete genV;
+}
+
+
+TGen::TextureCoordTranslate::TextureCoordTranslate(float u, float v, bool scroll)
+	: TGen::TextureCoordTransformer(NULL, NULL), u(u), v(v), scroll(scroll) {}
+
+TGen::TextureCoordTranslate::TextureCoordTranslate(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool scroll)
+	: TGen::TextureCoordTransformer(genU, genV), scroll(scroll) {}
+
+void TGen::TextureCoordTranslate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
+	if (!scroll) {
+		float fixedU = 0.0f, fixedV = 0.0f;
+		
+		if (!genU)
+			fixedU = u;
+		else
+			fixedU = genU->getValue(time);
+		
+		if (!genV)
+			fixedV = v;
+		else
+			fixedV = genV->getValue(time);
+				
+		//fixedU = fixedU - floor(fixedU);		// fix range
+		//fixedV = fixedV - floor(fixedV);		
+		
+		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(fixedU, fixedV));		
+	}
+	else {
+		float fixedU = 0.0f, fixedV = 0.0f;
+		
+		if (!genU)
+			fixedU = (time - startedAt) * u;
+		else
+			fixedU = genU->getValue(time);
+		
+		if (!genV)
+			fixedV = (time - startedAt) * v;
+		else
+			fixedV = genV->getValue(time);				
+		
+		//	fixedU = fixedU - floor(fixedU);		// fix range
+		//		fixedV = fixedV - floor(fixedV);
+		
+		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(fixedU, fixedV));
+	}
+}
+
+
+TGen::TextureCoordScale::TextureCoordScale(float u, float v, bool centered)
+	: TGen::TextureCoordTransformer(NULL, NULL), u(u), v(v), centered(centered)
+{}
+
+TGen::TextureCoordScale::TextureCoordScale(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered)
+	: TGen::TextureCoordTransformer(genU, genV), u(0.0f), v(0.0f), centered(centered)
+{}
+
+
+void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
+	float fixedU = 0.0f, fixedV = 0.0f;
+	
+	if (!genU)
+		fixedU = u;
+	else
+		fixedU = genU->getValue(time);
+	
+	if (!genV)
+		fixedV = v;
+	else
+		fixedV = genV->getValue(time);
+	
+	
+	if (centered)
+		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
+	
+	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector2(fixedU, fixedV));
+	
+	if (centered)
+		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 }
 

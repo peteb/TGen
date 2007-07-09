@@ -13,6 +13,7 @@
 #include "color.h"
 #include "renderer_types.h"
 #include <vector>
+#include "tgen_math.h"
 
 namespace TGen {
 	class ShaderProgram;
@@ -25,6 +26,8 @@ namespace TGen {
 		int unit;
 		TGen::Texture * texture;
 		TGen::TextureCoordGen genU, genV;
+		TGen::Matrix4x4 transform;
+		bool transformed;
 	};
 	
 	class RenderContext {

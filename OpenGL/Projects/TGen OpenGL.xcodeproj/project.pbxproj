@@ -386,8 +386,8 @@
 			buildPhases = (
 				8DD76F640486A84900D96B5E /* Sources */,
 				8DD76F660486A84900D96B5E /* Frameworks */,
-				8DD76F690486A84900D96B5E /* CopyFiles */,
 				D0CE014F0C3D967C007D4B18 /* CopyFiles */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
 			);
 			buildRules = (
 			);
