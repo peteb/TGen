@@ -50,6 +50,8 @@ App::App() : windowSize(800, 600), run(true), renderer(NULL), world(NULL), resou
 	glutWMCloseFunc(WindowClose);
 	glutKeyboardFunc(WindowKeyDown);
 	
+	dInitODE();
+
 	renderer = new TGen::OpenGL::Renderer();
 	resources = new ResourceManager(*renderer);
 	
@@ -65,6 +67,7 @@ App::~App() {
 	delete resources;
 	delete renderer;
 	
+	dCloseODE();
 	glutDestroyWindow(window);
 }
 
@@ -88,4 +91,9 @@ void App::Render() {
 	glutSwapBuffers();
 }
 
+void App::Update() {
+	if (world)
+		world->Update();
+	
+}
 

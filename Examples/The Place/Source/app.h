@@ -26,7 +26,8 @@ public:
 	~App();
 	
 	void Reshape(const TGen::Rectangle & size);	
-	void Render();	
+	void Render();
+	void Update();
 	bool isRunning() const;
 	void Quit();
 	

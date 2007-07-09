@@ -17,6 +17,7 @@ int main(int argc, char ** argv) {
 	
 	while (app->isRunning()) {
 		glutCheckLoop();
+		app->Update();
 	}
 	
 	std::cout << "===================== shutting down =====================" << std::endl;

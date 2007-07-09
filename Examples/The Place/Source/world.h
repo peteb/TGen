@@ -19,6 +19,9 @@ public:
 	World();
 	~World();
 	
+	void Update();
+	void Render();
+	
 private:
 	dWorldID worldId;
 	TGen::Vector3 gravity;
