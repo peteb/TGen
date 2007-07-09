@@ -75,8 +75,10 @@ void TGen::MaterialParser::ParseGlobalBlock() {
 			if (currentToken->first != TGen::MaterialTokenBlockStart) 
 				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting block start, not '" + currentToken->second + "'!");
 			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "Creating new material: name: '" << materialName << "' specialization: '" << specialization << "' technique: " << techniqueNumber <<  std::endl;
-
+			#endif
+			
 			
 			TGen::Material * newMaterial = getMaterial(materialName);
 			TGen::TechniqueList * newTechniqueList = new TGen::TechniqueList;
@@ -90,15 +92,21 @@ void TGen::MaterialParser::ParseGlobalBlock() {
 			currentTechnique = newTechnique;
 			tokens.NextToken(currentToken, endIter);
 
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "entering material block" << std::endl;
+			#endif
+			
 			ParseMaterialBlock(newMaterial);
+			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "left material block" << std::endl;
-		
+			#endif
+			
 			continue;
 		}
 		else if (currentToken->first == TGen::MaterialTokenParameters) {
 			std::string materialName;
-			tokens.NextToken(currentToken, endIter);
+			StepToken();
 			
 			if (currentToken->first == TGen::TokenValueString)
 				materialName = currentToken->second;
@@ -106,18 +114,22 @@ void TGen::MaterialParser::ParseGlobalBlock() {
 				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "params: expecting string value for name, not '" + currentToken->second + "'!");			
 		
 			do {
-				tokens.NextToken(currentToken, endIter);
+				StepToken();
 			} while(currentToken->first == TGen::MaterialTokenEndOfLine);
 			
 			if (currentToken->first != TGen::MaterialTokenBlockStart) 
 				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "params: expecting block start, not '" + currentToken->second + "'!");
 			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "entering params block for material '" << materialName << "'" << std::endl;
-			//currentMaterial = getMaterial(materialName);
-			tokens.NextToken(currentToken, endIter);
-
+			#endif
+			
+			StepToken();
 			ParseParamsBlock(getMaterial(materialName));
+			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "leaving params block" << std::endl;
+			#endif
 			
 			continue;
 		}
@@ -135,36 +147,44 @@ void TGen::MaterialParser::ParseParamsBlock(TGen::Material * material) {
 		if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote) {
 			std::string paramName = currentToken->second;
 			std::list<std::string> parameters;
+			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "param name: '" << paramName << "' parameter: ";
+			#endif
 			
 			do {
-				tokens.NextToken(currentToken, endIter);
+				StepToken();
 				
 				if (currentToken->first == TGen::TokenValueNumeric || currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote) {
 					parameters.push_back(currentToken->second);
+					
+					#ifdef _MATPARSER_VERBOSE
 					std::cout << "'" << currentToken->second << "' ";
+					#endif
 				}
 				
 			} while (currentToken->first != TGen::MaterialTokenEndOfLine && currentToken->first != TGen::MaterialTokenBlockEnd);
 			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << std::endl;
+			#endif
 		}
 		else if (currentToken->first != TGen::MaterialTokenEndOfLine) {
 			throw TGen::RuntimeException("MaterialParser::ParseParamsBlock", "expecting string parameter name, not '" + currentToken->second + "'!");
 		}
 		
-		tokens.NextToken(currentToken, endIter);
+		StepToken();
 	}
 	
 	if (currentToken->first == TGen::MaterialTokenBlockEnd)
-		tokens.NextToken(currentToken, endIter);
+		StepToken();
 }
 
 void TGen::MaterialParser::ParseMaterialBlock(TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::MaterialTokenLod) {
 			std::string lodValue;
-			tokens.NextToken(currentToken, endIter);
+			StepToken();
 			
 			if (currentToken->first == TGen::TokenValueNumeric)
 				lodValue = currentToken->second;
@@ -189,24 +209,29 @@ void TGen::MaterialParser::ParseMaterialBlock(TGen::Material * material) {
 				throw TGen::RuntimeException("MaterialParser::ParseMaterialBlock", "lod: no current technique!!");
 			
 			currentTechnique->setPassList(newLod, lodNumber);
-			//currentLod = newLod;
 			
-			tokens.NextToken(currentToken, endIter);
+			StepToken();
 			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "entering lod block" << std::endl;
+			#endif
+			
 			ParseLodBlock(newLod);
+			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "left lod block" << std::endl;
+			#endif
 			
 		}
 		else if (currentToken->first != TGen::MaterialTokenEndOfLine) {
 			throw TGen::RuntimeException("MaterialParser::ParseMaterialBlock", "not expecting '" + currentToken->second + "'!");			
 		}
 		
-		tokens.NextToken(currentToken, endIter);		
+		StepToken();		
 	}
 	
 	if (currentToken->first == TGen::MaterialTokenBlockEnd)
-		tokens.NextToken(currentToken, endIter);
+		StepToken();
 }
 
 void TGen::MaterialParser::ParseLodBlock(TGen::PassList * lod) {
@@ -214,28 +239,35 @@ void TGen::MaterialParser::ParseLodBlock(TGen::PassList * lod) {
 		if (currentToken->first == TGen::MaterialTokenPass) {
 			std::string shaderName;
 			
-			tokens.NextToken(currentToken, endIter);
-			
+			StepToken();
 			shaderName = getStringToken("pass: expecting string value for shader", true);
 			
 			do {
-				tokens.NextToken(currentToken, endIter);
+				StepToken();
 			} while(currentToken->first == TGen::MaterialTokenEndOfLine);
 			
 			if (currentToken->first != TGen::MaterialTokenBlockStart) 
 				throw TGen::RuntimeException("MaterialParser::ParseLodBlock", "pass: expecting block start, not '" + currentToken->second + "'!");
 			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "creating new '" << shaderName << "' pass" << std::endl;
+			#endif
 			
 			TGen::Pass * newPass = new TGen::Pass;
 			newPass->setShader(shaderName);
 			lod->addPass(newPass);
 			
-			tokens.NextToken(currentToken, endIter);
+			StepToken();
 			
+			#ifdef _MATPARSER_VERBOSE
 			std::cout << "entering pass block" << std::endl;
+			#endif
+			
 			ParsePassBlock(newPass);
-			std::cout << "left pass block" << std::endl;		
+			
+			#ifdef _MATPARSER_VERBOSE
+			std::cout << "left pass block" << std::endl;
+			#endif
 		}
 		else if (currentToken->first != TGen::MaterialTokenEndOfLine) {
 			throw TGen::RuntimeException("MaterialParser::ParseLodBlock", "not expecting '" + currentToken->second + "'!");			
@@ -274,9 +306,16 @@ void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
 				TGen::PassTextureUnit * newTextureUnit = new TGen::PassTextureUnit(textureUnitNumber, textureName);
 				
 				StepToken();
+				
+				#ifdef _MATPARSER_VERBOSE
 				std::cout << "entering texunit " << textureUnit << " name: " << textureName << std::endl;
+				#endif
+				
 				ParseTexunitBlock(newTextureUnit);
+				
+				#ifdef _MATPARSER_VERBOSE
 				std::cout << "leaving texunit" << std::endl;
+				#endif
 				
 				pass->AddTextureUnit(newTextureUnit);
 			}

@@ -114,7 +114,7 @@ void TGen::PassList::Update(scalar time) {
 }
 
 void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
-	std::cout << "linking shader " << shaderName << std::endl;
+	//std::cout << "linking shader " << shaderName << std::endl;
 	if (shaderName == "fixed")
 		renderContext.shader = NULL;
 	else

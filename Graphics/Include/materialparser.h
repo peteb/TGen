@@ -13,6 +13,8 @@
 #include <list>
 #include "tgen_core.h"
 
+//#define _MATPARSER_VERBOSE
+
 namespace TGen {
 	class Material;
 	class Technique;

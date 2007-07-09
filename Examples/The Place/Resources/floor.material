@@ -1,0 +1,11 @@
+
+material tilefloor7 default 0 {
+	lod 0 {
+		pass fixed {
+		
+			texunit 0 tilefloor7.jpg {
+				
+			}			
+		}		
+	}	
+}
