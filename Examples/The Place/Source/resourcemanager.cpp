@@ -121,3 +121,8 @@ void ResourceManager::LoadMaterials(const std::string & filename) {
 	
 	std::cout << std::endl;
 }
+
+void ResourceManager::UpdateMaterials(scalar time) {
+	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
+		iter->second->Update(time);
+}

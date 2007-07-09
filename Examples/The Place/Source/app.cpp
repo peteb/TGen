@@ -38,12 +38,12 @@ void WindowKeyDown(unsigned char key, int x, int y) {
 }
 
 
-App::App() : windowSize(800, 600), run(true), renderer(NULL), world(NULL), resources(NULL) {
+App::App() : windowSize(800, 600), run(true), renderer(NULL), world(NULL), resources(NULL), lastUpdate(0.0) {
 	std::cout << "[app]: initializing..." << std::endl;
 	
 	glutInitWindowSize(windowSize.width, windowSize.height);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
-	window = glutCreateWindow("TGen ThePlace");
+	window = glutCreateWindow("TGen \"The Place\"");
 	glutDisplayFunc(WindowRender);		
 	glutReshapeFunc(WindowReshape);
 	glutIdleFunc(WindowRender);
@@ -58,6 +58,7 @@ App::App() : windowSize(800, 600), run(true), renderer(NULL), world(NULL), resou
 	resources->LoadMaterials("floor.material");
 	
 	world = new World;
+	world->LoadData(*renderer, *resources);
 }
 
 App::~App() {
@@ -87,13 +88,27 @@ void App::Reshape(const TGen::Rectangle & size) {
 void App::Render() {
 	renderer->setClearColor(TGen::Color::White);
 	renderer->Clear(TGen::ColorBuffer | TGen::DepthBuffer);
+
+	renderer->setTransform(TGen::TransformProjection, TGen::Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
+	//renderer->setTransform(TGen::TransformWorldView, TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 0.0f, -6.0f)) * TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(0.0f)));
+	
+	
+	if (world)
+		world->Render(*renderer);
 	
 	glutSwapBuffers();
 }
 
 void App::Update() {
-	if (world)
-		world->Update();
+	scalar timeNow = scalar(glutGet(GLUT_ELAPSED_TIME)) / 1000.0;
+	scalar updateDelta = timeNow - lastUpdate;
 	
+	if (resources)
+		resources->UpdateMaterials(timeNow);
+	
+	if (world)
+		world->Update(updateDelta);
+
+	lastUpdate = timeNow;
 }
 

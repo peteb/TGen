@@ -40,6 +40,7 @@ private:
 	
 	int window;
 	bool run;
+	scalar lastUpdate;
 
 };
 

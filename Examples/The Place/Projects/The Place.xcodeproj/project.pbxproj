@@ -26,6 +26,10 @@
 		D0EE6ED70C429ED20046F347 /* tilefloor7.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE6ED60C429ED20046F347 /* tilefloor7.jpg */; };
 		D0EE6F740C42A1220046F347 /* world.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE6F720C42A1220046F347 /* world.h */; };
 		D0EE6F750C42A1220046F347 /* world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE6F730C42A1220046F347 /* world.cpp */; };
+		D0EE70940C42A5620046F347 /* level.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE70920C42A5620046F347 /* level.h */; };
+		D0EE70950C42A5620046F347 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE70930C42A5620046F347 /* level.cpp */; };
+		D0EE715C0C42A8A00046F347 /* plane.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE715A0C42A8A00046F347 /* plane.h */; };
+		D0EE715D0C42A8A00046F347 /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE715B0C42A8A00046F347 /* plane.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +121,8 @@
 				D0EE6EA00C429DF00046F347 /* floor.material in CopyFiles */,
 				D0EE6ED70C429ED20046F347 /* tilefloor7.jpg in CopyFiles */,
 				D0EE6F740C42A1220046F347 /* world.h in CopyFiles */,
+				D0EE70940C42A5620046F347 /* level.h in CopyFiles */,
+				D0EE715C0C42A8A00046F347 /* plane.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +152,10 @@
 		D0EE6ED60C429ED20046F347 /* tilefloor7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tilefloor7.jpg; sourceTree = "<group>"; };
 		D0EE6F720C42A1220046F347 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = world.h; sourceTree = "<group>"; };
 		D0EE6F730C42A1220046F347 /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
+		D0EE70920C42A5620046F347 /* level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = level.h; sourceTree = "<group>"; };
+		D0EE70930C42A5620046F347 /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = level.cpp; sourceTree = "<group>"; };
+		D0EE715A0C42A8A00046F347 /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
+		D0EE715B0C42A8A00046F347 /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,6 +200,10 @@
 				D0EE6DCD0C429AB50046F347 /* devil.h */,
 				D0EE6F730C42A1220046F347 /* world.cpp */,
 				D0EE6F720C42A1220046F347 /* world.h */,
+				D0EE70930C42A5620046F347 /* level.cpp */,
+				D0EE70920C42A5620046F347 /* level.h */,
+				D0EE715B0C42A8A00046F347 /* plane.cpp */,
+				D0EE715A0C42A8A00046F347 /* plane.h */,
 			);
 			name = Source;
 			path = ../Source;
@@ -399,6 +413,8 @@
 				D0EE6CE60C4297690046F347 /* resourcemanager.cpp in Sources */,
 				D0EE6DD00C429AB50046F347 /* devil.cpp in Sources */,
 				D0EE6F750C42A1220046F347 /* world.cpp in Sources */,
+				D0EE70950C42A5620046F347 /* level.cpp in Sources */,
+				D0EE715D0C42A8A00046F347 /* plane.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

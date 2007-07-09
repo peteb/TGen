@@ -22,6 +22,7 @@ public:
 	TGen::Texture * getTexture(const std::string & name);
 	TGen::Material * getMaterial(const std::string & name);
 	void LoadMaterials(const std::string & filename);
+	void UpdateMaterials(scalar time);
 	
 private:
 	std::string ReadFile(const std::string & filename) const;
