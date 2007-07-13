@@ -23,6 +23,7 @@ public:
 	TGen::Material * getMaterial(const std::string & name);
 	void LoadMaterials(const std::string & filename);
 	void UpdateMaterials(scalar time);
+	void LoadMaps(const std::string & filename);
 	
 private:
 	std::string ReadFile(const std::string & filename) const;

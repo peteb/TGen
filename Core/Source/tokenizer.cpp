@@ -267,7 +267,7 @@ int TGen::Tokenizer::getAutoAdd(char * text, TGen::TokenStream & stream) {
 
 bool TGen::Tokenizer::isNumeric(const std::string & text) {	// TODO: hexadec osv
 	for (int i = 0; i < text.size(); i++) {
-		if ((text[i] < '0' || text[i] > '9') && text[i] != '.')			
+		if ((text[i] < '0' || text[i] > '9') && text[i] != '.' && text[i] != '-')			
 			return false;
 	}
 	

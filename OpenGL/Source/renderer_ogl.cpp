@@ -613,7 +613,6 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		}
 	}
 	
-	
 	glBlendFunc(TGenBlendFuncToOpenGL(context.blendSrc), TGenBlendFuncToOpenGL(context.blendDst));
 	glEnable(GL_CULL_FACE);
 	

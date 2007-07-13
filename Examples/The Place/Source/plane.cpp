@@ -48,7 +48,7 @@ TGen::Material * Plane::getMaterial() {
 	return material;
 }
 
-void Plane::ApplyTransform(TGen::Renderer & renderer) {
+TGen::Matrix4x4 & Plane::getTransform(TGen::Renderer & renderer) {
 	/*
 	 Matrix4 ret = Matrix4::Identity();
 	 Vector forward = dir.normalized();
@@ -68,12 +68,15 @@ void Plane::ApplyTransform(TGen::Renderer & renderer) {
 	forward = direction.getNormalized();
 	up = TGen::Vector3(0.0f, 0.0f, -1.0f);
 	right = TGen::Vector3::CrossProduct(forward, up).Normalize();
-	//up = TGen::Vector3::CrossProduct(forward, right).Normalize();
+	up = TGen::Vector3::CrossProduct(forward, right).Normalize();
 		
 	TGen::Matrix4x4 mat(right, -up, forward);
 	
+	mat.setOrigin(position); //-direction * position.getMagnitude());
 //	std::cout << std::string(mat) << std::endl;
 	
-	renderer.setTransform(TGen::TransformWorldView, TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, -2.0f, -6.0f)) * mat);
+	
+	cachedMatrix = mat;
 
+	return cachedMatrix;
 }

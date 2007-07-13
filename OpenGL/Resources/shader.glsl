@@ -1,19 +1,16 @@
 #section global
+varying vec4 color;
 
 #section vertex
 void main() {
 	gl_Position = ftransform();
-	gl_TexCoord[0] = gl_MultiTexCoord0;
-	gl_TexCoord[1] = gl_MultiTexCoord1;
-	gl_TexCoord[2] = gl_MultiTexCoord2;
-
+	gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;
+	color = gl_Color;
 }
 
 #section fragment
-uniform sampler2D tex, environment;
+uniform sampler2D texture, environment;
 
 void main() {
-	gl_FragColor = texture2D(environment, gl_TexCoord[0].st);
-	
-	vec4 hej = texture2D(tex, gl_TexCoord[0].st);
+	gl_FragColor = clamp(texture2D(texture, gl_TexCoord[0].st) * color, 0.0, 1.0);
 }

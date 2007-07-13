@@ -28,7 +28,7 @@ material cool default 0 {
 			color wave sawtooth 0.5 0.5 0 0.7
 			
 			texunit 0 pent_glow.jpg {
-				sampler environment
+				sampler texture
 				stretch wave sine 1 0.3 0 0.7
 				spin 180
 			}

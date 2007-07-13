@@ -46,11 +46,14 @@ namespace TGen {
 		
 		int getElementCount() const;
 		FormatType getElementDataType(int num) const;
+		VertexElement getElementAtComponent(int component) const;
 		void getElement(int num, TGen::VertexElement & ret);
 		void getElement(int num, TGen::VertexElement & ret) const;
 		int getStride() const;
 		int getSize() const;
+		int getComponentCount() const;
 		void AddElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
+		void AddElement(const std::string & format);
 		
 	private:
 		std::vector<TGen::VertexElement> elements;

@@ -28,7 +28,7 @@ public:
 	void LoadData(TGen::Renderer & renderer, ResourceManager & resources);
 	void PrepareRender(TGen::Renderer & renderer);
 	void Render(TGen::Renderer & renderer);
-	void ApplyTransform(TGen::Renderer & renderer);
+	TGen::Matrix4x4 & getTransform(TGen::Renderer & renderer);
 	TGen::Material * getMaterial();
 	
 	friend class World;
@@ -39,6 +39,7 @@ private:
 	TGen::Vector3 position, direction;
 	TGen::Material * material;
 	TGen::VertexBuffer * vb;
+	TGen::Matrix4x4 cachedMatrix;
 	
 	dGeomID geomId;
 };

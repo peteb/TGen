@@ -2,7 +2,9 @@
 material tilefloor7 default 0 {
 	lod 0 {
 		pass fixed {
-		
+			front fill
+			back fill
+
 			texunit 0 tilefloor7.jpg {
 				
 			}			

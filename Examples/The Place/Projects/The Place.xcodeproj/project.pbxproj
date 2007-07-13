@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* The Place.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* The Place.1 */; };
+		D05B8BC00C47B97800F276BD /* maploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D05B8BBE0C47B97800F276BD /* maploader.h */; };
+		D05B8BC10C47B97800F276BD /* maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05B8BBF0C47B97800F276BD /* maploader.cpp */; };
+		D05B8BED0C47BAF800F276BD /* map.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D05B8BEB0C47BAF800F276BD /* map.h */; };
+		D05B8BEE0C47BAF800F276BD /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05B8BEC0C47BAF800F276BD /* map.cpp */; };
+		D05B8C0F0C47BB8400F276BD /* mesh.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D05B8C0D0C47BB8400F276BD /* mesh.h */; };
+		D05B8C100C47BB8400F276BD /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05B8C0E0C47BB8400F276BD /* mesh.cpp */; };
+		D05B8C640C47BEAA00F276BD /* meshdata.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D05B8C620C47BEAA00F276BD /* meshdata.h */; };
+		D05B8C650C47BEAA00F276BD /* meshdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D05B8C630C47BEAA00F276BD /* meshdata.cpp */; };
+		D05B8CBD0C47C0EC00F276BD /* meshes.map in CopyFiles */ = {isa = PBXBuildFile; fileRef = D05B8CBC0C47C0EC00F276BD /* meshes.map */; };
 		D0EE6A330C428C020046F347 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE6A100C428BBD0046F347 /* libtgen_opengl.a */; };
 		D0EE6A750C428CD60046F347 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE6A720C428CD60046F347 /* libIL.a */; };
 		D0EE6A760C428CD60046F347 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE6A730C428CD60046F347 /* libjpeg.a */; };
@@ -30,6 +39,9 @@
 		D0EE70950C42A5620046F347 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE70930C42A5620046F347 /* level.cpp */; };
 		D0EE715C0C42A8A00046F347 /* plane.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE715A0C42A8A00046F347 /* plane.h */; };
 		D0EE715D0C42A8A00046F347 /* plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE715B0C42A8A00046F347 /* plane.cpp */; };
+		D0EE76050C42B86D0046F347 /* player.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE76030C42B86D0046F347 /* player.h */; };
+		D0EE76060C42B86D0046F347 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE76040C42B86D0046F347 /* player.cpp */; };
+		D0EE87490C43D1310046F347 /* level1.map in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE87480C43D1310046F347 /* level1.map */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +135,13 @@
 				D0EE6F740C42A1220046F347 /* world.h in CopyFiles */,
 				D0EE70940C42A5620046F347 /* level.h in CopyFiles */,
 				D0EE715C0C42A8A00046F347 /* plane.h in CopyFiles */,
+				D0EE76050C42B86D0046F347 /* player.h in CopyFiles */,
+				D0EE87490C43D1310046F347 /* level1.map in CopyFiles */,
+				D05B8BC00C47B97800F276BD /* maploader.h in CopyFiles */,
+				D05B8BED0C47BAF800F276BD /* map.h in CopyFiles */,
+				D05B8C0F0C47BB8400F276BD /* mesh.h in CopyFiles */,
+				D05B8C640C47BEAA00F276BD /* meshdata.h in CopyFiles */,
+				D05B8CBD0C47C0EC00F276BD /* meshes.map in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +151,15 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* The Place */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "The Place"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* The Place.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "The Place.1"; sourceTree = "<group>"; };
+		D05B8BBE0C47B97800F276BD /* maploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = maploader.h; sourceTree = "<group>"; };
+		D05B8BBF0C47B97800F276BD /* maploader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maploader.cpp; sourceTree = "<group>"; };
+		D05B8BEB0C47BAF800F276BD /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = map.h; sourceTree = "<group>"; };
+		D05B8BEC0C47BAF800F276BD /* map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = map.cpp; sourceTree = "<group>"; };
+		D05B8C0D0C47BB8400F276BD /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		D05B8C0E0C47BB8400F276BD /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
+		D05B8C620C47BEAA00F276BD /* meshdata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = meshdata.h; sourceTree = "<group>"; };
+		D05B8C630C47BEAA00F276BD /* meshdata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshdata.cpp; sourceTree = "<group>"; };
+		D05B8CBC0C47C0EC00F276BD /* meshes.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = meshes.map; sourceTree = "<group>"; };
 		D0EE6A080C428BBD0046F347 /* TGen OpenGL */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EE6A110C428BC50046F347 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EE6A140C428BC50046F347 /* TGen Math */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math"; path = "../../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -156,6 +184,9 @@
 		D0EE70930C42A5620046F347 /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = level.cpp; sourceTree = "<group>"; };
 		D0EE715A0C42A8A00046F347 /* plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = plane.h; sourceTree = "<group>"; };
 		D0EE715B0C42A8A00046F347 /* plane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = plane.cpp; sourceTree = "<group>"; };
+		D0EE76030C42B86D0046F347 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
+		D0EE76040C42B86D0046F347 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
+		D0EE87480C43D1310046F347 /* level1.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = level1.map; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,6 +235,16 @@
 				D0EE70920C42A5620046F347 /* level.h */,
 				D0EE715B0C42A8A00046F347 /* plane.cpp */,
 				D0EE715A0C42A8A00046F347 /* plane.h */,
+				D0EE76040C42B86D0046F347 /* player.cpp */,
+				D0EE76030C42B86D0046F347 /* player.h */,
+				D05B8BBF0C47B97800F276BD /* maploader.cpp */,
+				D05B8BBE0C47B97800F276BD /* maploader.h */,
+				D05B8BEC0C47BAF800F276BD /* map.cpp */,
+				D05B8BEB0C47BAF800F276BD /* map.h */,
+				D05B8C0E0C47BB8400F276BD /* mesh.cpp */,
+				D05B8C0D0C47BB8400F276BD /* mesh.h */,
+				D05B8C630C47BEAA00F276BD /* meshdata.cpp */,
+				D05B8C620C47BEAA00F276BD /* meshdata.h */,
 			);
 			name = Source;
 			path = ../Source;
@@ -230,6 +271,8 @@
 			children = (
 				D0EE6E850C429DBF0046F347 /* floor.material */,
 				D0EE6ED60C429ED20046F347 /* tilefloor7.jpg */,
+				D0EE87480C43D1310046F347 /* level1.map */,
+				D05B8CBC0C47C0EC00F276BD /* meshes.map */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -415,6 +458,11 @@
 				D0EE6F750C42A1220046F347 /* world.cpp in Sources */,
 				D0EE70950C42A5620046F347 /* level.cpp in Sources */,
 				D0EE715D0C42A8A00046F347 /* plane.cpp in Sources */,
+				D0EE76060C42B86D0046F347 /* player.cpp in Sources */,
+				D05B8BC10C47B97800F276BD /* maploader.cpp in Sources */,
+				D05B8BEE0C47BAF800F276BD /* map.cpp in Sources */,
+				D05B8C100C47BB8400F276BD /* mesh.cpp in Sources */,
+				D05B8C650C47BEAA00F276BD /* meshdata.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

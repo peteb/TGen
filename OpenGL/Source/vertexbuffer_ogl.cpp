@@ -20,6 +20,7 @@ TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::V
 TGen::OpenGL::VertexBuffer::~VertexBuffer() {
 	if (vboId > 0) {
 		std::cout << "[opengl]: deleting vertex buffer " << vboId << std::endl;
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDeleteBuffersARB(1, reinterpret_cast<GLuint *>(&vboId));
 	}	
 }

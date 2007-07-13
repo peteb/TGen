@@ -16,6 +16,9 @@ void WindowReshape(int width, int height);
 void WindowRender();
 void WindowClose();
 void WindowKeyDown(unsigned char key, int x, int y);
+void WindowKeyUp(unsigned char key, int x, int y);
+void WindowSpecKeyDown(int key, int x, int y);
+void WindowSpecKeyUp(int key, int x, int y);
 
 class World;
 class ResourceManager;
@@ -30,6 +33,10 @@ public:
 	void Update();
 	bool isRunning() const;
 	void Quit();
+	void KeyDown(unsigned char key);
+	void KeyUp(unsigned char key);
+	void SpecKeyDown(int key);
+	void SpecKeyUp(int key);
 	
 private:
 	TGen::Renderer * renderer;
@@ -41,7 +48,6 @@ private:
 	int window;
 	bool run;
 	scalar lastUpdate;
-
 };
 
 #endif // !_TGEN_THEPLACE_APP_H

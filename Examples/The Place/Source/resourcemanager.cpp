@@ -11,6 +11,7 @@
 #include <iostream>
 #include <IL/IL.h>
 #include "devil.h"
+#include "maploader.h"
 
 ResourceManager::ResourceManager(TGen::Renderer & renderer) : renderer(renderer) {
 	std::cout << "[res]: initializing..." << std::endl;
@@ -122,7 +123,19 @@ void ResourceManager::LoadMaterials(const std::string & filename) {
 	std::cout << std::endl;
 }
 
+void ResourceManager::LoadMaps(const std::string & filename) {
+	std::cout << "[res]: loading maps from '" + filename + "'..." << std::endl;
+	
+	std::list<Map *> maps;
+	MapLoader loader;
+	loader.Parse(ReadFile(filename).c_str(), maps);
+	
+	
+}
+
+
 void ResourceManager::UpdateMaterials(scalar time) {
 	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
 		iter->second->Update(time);
 }
+

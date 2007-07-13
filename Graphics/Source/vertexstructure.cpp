@@ -8,6 +8,7 @@
  */
 
 #include "vertexstructure.h"
+#include "error.h"
 #include <iostream>
 
 TGen::VertexStructure::VertexStructure() : align(4) {
@@ -42,6 +43,26 @@ void TGen::VertexStructure::getElement(int num, TGen::VertexElement & ret) const
 
 TGen::FormatType TGen::VertexStructure::getElementDataType(int num) const {
 	return elements[num].dataType;
+}
+
+TGen::VertexElement TGen::VertexStructure::getElementAtComponent(int component) const {
+	int compPos = 0;
+	for (int i = 0; i < elements.size(); ++i) {
+		compPos += elements[i].count;
+		if (compPos > component)
+			return elements[i];
+	}
+	
+	throw TGen::RuntimeException("VertexStructure::getElementAtComponent", "component out of range");
+}
+
+int TGen::VertexStructure::getComponentCount() const {
+	int ret = 0;
+	for (int i = 0; i < elements.size(); ++i) {
+		ret += elements[i].count;
+	}
+	
+	return ret;
 }
 
 int TGen::VertexStructure::getSize() const {
@@ -86,5 +107,130 @@ int TGen::VertexStructure::getStride() const {
 
 void TGen::VertexStructure::AddElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) {
 	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit));
+}
+
+/*
+	format type count [unit = 0] [shared = no]
+	ft20s = float tex 2 0 shared
+	usc4 = unsigned short coord 4
+ */
+
+void TGen::VertexStructure::AddElement(const std::string & format) {
+	TGen::VertexElementType elType;
+	TGen::FormatType type;
+	uchar count = 0, unit = 0;
+	bool shared = false;
+	bool twoFormat = false;
+	
+	char format1 = format[0];
+	char format2 = format[1];
+	
+	switch (format1) {
+	case 'f':
+		type = TGen::TypeFloat;
+		break;
+		
+	case 'i':
+		type = TGen::TypeInt;
+		break;
+		
+	case 's':
+		type = TGen::TypeShort;
+		break;
+		
+	case 'd':
+		type = TGen::TypeDouble;
+		break;
+		
+	case 'b':
+		type = TGen::TypeByte;
+		break;
+		
+	case 'u':
+		twoFormat = true;
+		
+		switch (format2) {
+		case 'i':
+			type = TGen::TypeUnsignedInt;
+			break;
+			
+		case 's':
+			type = TGen::TypeUnsignedShort;
+			break;
+			
+		case 'b':
+			type = TGen::TypeUnsignedByte;
+			break;
+			
+		default:
+			throw TGen::RuntimeException("VertexStructure::AddElement", "second format letter is insane");
+		}
+		break;
+		
+	default:
+		throw TGen::RuntimeException("VertexStructure::AddElement", "first format letter is insane");
+	}
+	
+	char typeName = 0;
+	if (twoFormat)
+		typeName = format[2];
+	else
+		typeName = format[1];
+	
+	switch (typeName) {
+		case 'v':
+			elType = TGen::CoordElement;
+			break;
+			
+		case 'n':
+			elType = TGen::NormalElement;
+			break;
+			
+		case 'c':
+			elType = TGen::ColorElement;
+			break;
+			
+		case 'i':
+			elType = TGen::ColorIndexElement;
+			break;
+		
+		case 'e':
+			elType = TGen::EdgeFlagElement;
+			break;
+			
+		case 't':
+			elType = TGen::TexCoordElement;
+			break;
+			
+		default:
+			throw TGen::RuntimeException("VertexStructure::AddElement", "element type invalid");
+	}
+		
+	if (twoFormat)
+		count = format[3] - '0';
+	else
+		count = format[2] - '0';
+	
+	if (twoFormat && format.size() > 4 || !twoFormat && format.size() > 3) {
+		char unitName = 0;
+		if (twoFormat)
+			unitName = format[4];
+		else
+			unitName = format[3];
+		
+		if (unitName >= '0' && unitName <= '9')
+			unit = unitName - '0';
+		
+		if (twoFormat && format.size() > 5 || !twoFormat && format.size() > 3) {
+			if (twoFormat)
+				shared = format[5] == 's';
+			else
+				shared = format[4] == 's';
+		}
+	}
+	
+	std::cout << "TYPE: " << int(elType) << " DATATYPE: " << int(type) << " COUNT: " << int(count) << " UNIT: " << int(unit) << " SHARED: " << shared << std::endl;
+
+	elements.push_back(TGen::VertexElement(elType, type, count, shared, unit));
 }
 

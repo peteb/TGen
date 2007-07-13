@@ -16,6 +16,8 @@
 #include <tgen_graphics.h>
 #include "level.h"
 
+class Player;
+
 class World {
 public:	
 	World();
@@ -24,16 +26,24 @@ public:
 	void Update(scalar dt);
 	void Render(TGen::Renderer & renderer);
 	void LoadData(TGen::Renderer & renderer, ResourceManager & resources);
+	Player * getPlayer();
 	
 	Plane * CreatePlane(const TGen::Vector3 & position, const TGen::Vector3 & direction, TGen::Material * material);
+	Player * CreatePlayer(const TGen::Vector3 & position, const TGen::Vector3 & direction);
+	
+	
+	dWorldID worldId;
+	dJointGroupID contactJointsGroupId;
+	dSpaceID spaceId;
 	
 private:
-	dWorldID worldId;
+	
 	TGen::Vector3 gravity;
 
+	Player * player;
 	Level * level;
 	scalar lastWorldStep, timeNow;
 };
 
-
+void NearCallback(void * data, dGeomID o1, dGeomID o2);
 #endif // !_TGEN_THEPLACE_WORLD_H

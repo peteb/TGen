@@ -13,6 +13,7 @@
 #include <tgen_opengl.h>
 #include "resourcemanager.h"
 #include "world.h"
+#include "player.h"
 
 App * app = NULL;
 
@@ -35,6 +36,25 @@ void WindowKeyDown(unsigned char key, int x, int y) {
 	if (key == 27 && app) {
 		app->Quit();
 	}
+	else if (app) {
+		app->KeyDown(key);
+	}
+}
+
+void WindowKeyUp(unsigned char key, int x, int y) {
+	if (app) {
+		app->KeyUp(key);
+	}
+}
+
+void WindowSpecKeyDown(int key, int x, int y) {
+	if (app)
+		app->SpecKeyDown(key);	
+}
+
+void WindowSpecKeyUp(int key, int x, int y) {
+	if (app)
+		app->SpecKeyUp(key);
 }
 
 
@@ -49,6 +69,9 @@ App::App() : windowSize(800, 600), run(true), renderer(NULL), world(NULL), resou
 	glutIdleFunc(WindowRender);
 	glutWMCloseFunc(WindowClose);
 	glutKeyboardFunc(WindowKeyDown);
+	glutKeyboardUpFunc(WindowKeyUp);
+	glutSpecialFunc(WindowSpecKeyDown);
+	glutSpecialUpFunc(WindowSpecKeyUp);
 	
 	dInitODE();
 
@@ -56,6 +79,7 @@ App::App() : windowSize(800, 600), run(true), renderer(NULL), world(NULL), resou
 	resources = new ResourceManager(*renderer);
 	
 	resources->LoadMaterials("floor.material");
+	resources->LoadMaps("meshes.map");
 	
 	world = new World;
 	world->LoadData(*renderer, *resources);
@@ -80,17 +104,61 @@ void App::Quit() {
 	run = false;
 }
 
+void App::KeyDown(unsigned char key) {
+	switch (key) {
+		case 'w':
+			world->getPlayer()->moveForward = true;
+			break;
+		
+	}
+}
+
+void App::KeyUp(unsigned char key) {
+	switch (key) {
+		case 'w':
+			world->getPlayer()->moveForward = false;
+			break;
+	}
+}
+
+void App::SpecKeyDown(int key) {
+	switch (key) {
+		case GLUT_KEY_LEFT:
+			world->getPlayer()->spinLeft = true;
+			break;
+
+		case GLUT_KEY_RIGHT:
+			world->getPlayer()->spinRight = true;
+			break;	
+	}
+	
+	
+}
+
+void App::SpecKeyUp(int key) {
+	switch (key) {
+		case GLUT_KEY_LEFT:
+			world->getPlayer()->spinLeft = false;
+			break;
+			
+		case GLUT_KEY_RIGHT:
+			world->getPlayer()->spinRight = false;
+			break;	
+	}
+}
+
+
 void App::Reshape(const TGen::Rectangle & size) {
 	renderer->setViewport(size);
 	windowSize = size;
 }
 
 void App::Render() {
-	renderer->setClearColor(TGen::Color::White);
+	renderer->setClearColor(TGen::Color::Black);
 	renderer->Clear(TGen::ColorBuffer | TGen::DepthBuffer);
 
-	renderer->setTransform(TGen::TransformProjection, TGen::Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
-	//renderer->setTransform(TGen::TransformWorldView, TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 0.0f, -6.0f)) * TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(0.0f)));
+	renderer->setTransform(TGen::TransformProjection, TGen::Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.5f, 100.0f));
+	//renderer->setTransform(TGen::TransformWorldView, TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 2.0f, -6.0f)));
 	
 	
 	if (world)
