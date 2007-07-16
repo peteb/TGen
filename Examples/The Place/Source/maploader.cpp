@@ -199,20 +199,10 @@ void MapLoader::ParseVertices(MeshData * mesh) {
 	}
 	
 	std::cout << "written " << reinterpret_cast<uchar *>(pos) - reinterpret_cast<uchar *>(vertexData) << " bytes" << std::endl;
+
+	mesh->data = vertexData;
+	// TODO: data, vad gör man med den va. spara alla MeshData i en lista som betas av när man länkar, då skapar den alla vbs osv
 }
-
-enum FormatType {
-	TypeFloat = 1,
-	TypeDouble,
-	TypeInt,
-	TypeShort,
-	TypeByte,
-	TypeUnsignedInt,
-	TypeUnsignedShort,
-	TypeUnsignedByte,
-	TypeNone,
-};
-
 
 void MapLoader::Link(MapLinkCallback & callback) {
 	
