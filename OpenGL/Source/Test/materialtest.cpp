@@ -193,10 +193,12 @@ public:
 		myObject.LoadData(*renderer);
 
 		std::list<Material *> materials;
-		MaterialParser parser;
-		parser.Parse(ReadFile("material.mat").c_str(), materials);
+		Q3MaterialParser parser;
+		parser.Parse(ReadFile("base.shader").c_str(), materials); // material.mat
 		
 		for (std::list<Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
+			std::cout << (*iter)->getName() << ": " << std::endl;
+			
 			if ((*iter)->getName() == "cool") {
 				material = *iter;
 				material->Link(*this);

@@ -41,6 +41,8 @@ namespace TGen {
 		~MaterialParser();
 		
 		void Parse(const char * code, std::list<TGen::Material *> & materials);
+	
+	private:
 		void ParseGlobalBlock();
 		void ParseParamsBlock(TGen::Material * material);
 		void ParseMaterialBlock(TGen::Material * material);
@@ -49,7 +51,7 @@ namespace TGen {
 		void ParseTexunitBlock(TGen::PassTextureUnit * unit);
 		TGen::WaveGenerator * ParseWaveGenerator();
 		
-	private:
+	
 		TGen::Material * getMaterial(const std::string & name);
 		std::string getStringToken(const std::string & name, bool ignorelf = false, bool quote = true);
 		std::string getNumericToken(const std::string & name, bool ignorelf = false, bool quote = true);

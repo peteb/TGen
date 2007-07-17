@@ -32,6 +32,7 @@
 		D00FF9420C39417E00668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9230C39413C00668773 /* libtgen_graphics.a */; };
 		D00FFA290C39431600668773 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9C50C39429C00668773 /* GLUT.framework */; };
 		D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9760C39423600668773 /* OpenGL.framework */; };
+		D01F790D0C4D113C007618C6 /* base.shader in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F790C0C4D113C007618C6 /* base.shader */; };
 		D0426E850C406FE6004CB60C /* pent_glow.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426E830C406FE6004CB60C /* pent_glow.jpg */; };
 		D0426EB20C407304004CB60C /* metalbridge06_pent.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */; };
 		D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
@@ -145,6 +146,7 @@
 				D0CE07BC0C3E5852007D4B18 /* proto_comp.tga in CopyFiles */,
 				D0CE07140C3E5564007D4B18 /* panel_shiny.tga in CopyFiles */,
 				D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */,
+				D01F790D0C4D113C007618C6 /* base.shader in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -181,6 +183,7 @@
 		D00FF92D0C39414D00668773 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D00FF9760C39423600668773 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D00FF9C50C39429C00668773 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		D01F790C0C4D113C007618C6 /* base.shader */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = base.shader; sourceTree = "<group>"; };
 		D0426E830C406FE6004CB60C /* pent_glow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pent_glow.jpg; sourceTree = "<group>"; };
 		D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = metalbridge06_pent.jpg; sourceTree = "<group>"; };
 		D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = materialtest.cpp; sourceTree = "<group>"; };
@@ -344,6 +347,7 @@
 		D0CE01340C3D962A007D4B18 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D01F790C0C4D113C007618C6 /* base.shader */,
 				D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */,
 				D0426E830C406FE6004CB60C /* pent_glow.jpg */,
 				D0CE06F60C3E5546007D4B18 /* panel_shiny.tga */,

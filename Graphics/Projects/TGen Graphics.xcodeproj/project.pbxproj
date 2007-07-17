@@ -44,9 +44,9 @@
 		D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF6CC0C39391D00668773 /* libtgen_graphics.a */; };
 		D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 		D01F77BB0C4D0B1C007618C6 /* q3materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01F77BA0C4D0B1C007618C6 /* q3materialparser.cpp */; };
-		D01F77BD0C4D0B27007618C6 /* q3materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01F77BC0C4D0B27007618C6 /* q3materialparser.h */; };
+		D01F77BD0C4D0B27007618C6 /* q3materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01F77BC0C4D0B27007618C6 /* q3materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04270470C40FFBC004CB60C /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D04270460C40FFBC004CB60C /* generator.cpp */; };
-		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; };
+		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
 		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; settings = {ATTRIBUTES = (Public, ); }; };
