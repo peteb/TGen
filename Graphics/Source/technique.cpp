@@ -41,7 +41,7 @@ TGen::Technique * TGen::TechniqueList::getTechnique(int minreqs) {
 	
 	for (int i = minreqs; i < 10; ++i) {
 		if (techniques.at(i)) {
-			std::cout << "no lower technique, chosing " << i << std::endl;
+			//std::cout << "no lower technique, chosing " << i << std::endl;
 			return techniques[i];
 		}
 	}

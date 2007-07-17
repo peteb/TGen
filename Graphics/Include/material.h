@@ -28,6 +28,7 @@ namespace TGen {
 		
 		virtual TGen::ShaderProgram * getShaderProgram(const std::string & name) abstract;
 		virtual TGen::Texture * getTexture(const std::string & name) abstract;
+		virtual int getTextureType(const std::string & name) abstract;
 	};
 	
 	class Material {
@@ -37,7 +38,7 @@ namespace TGen {
 		
 		std::string getName() const;
 		void Link(MaterialLinkCallback & callback);
-		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable, const std::string & mode, int lod);
+		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes);
 		void Update(scalar time);
 		void setMaximumTechnique(int minreqs);
 		void setParameter(const std::string & name, const std::vector<std::string> & values);

@@ -33,6 +33,9 @@
 		D00FFA290C39431600668773 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9C50C39429C00668773 /* GLUT.framework */; };
 		D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9760C39423600668773 /* OpenGL.framework */; };
 		D01F790D0C4D113C007618C6 /* base.shader in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F790C0C4D113C007618C6 /* base.shader */; };
+		D01F7A340C4D291B007618C6 /* test.shader in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F7A330C4D291B007618C6 /* test.shader */; };
+		D01F7A790C4D2AB2007618C6 /* metalfloor_wall_15ow.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */; };
+		D01F7A840C4D2AD2007618C6 /* hologirl.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F7A830C4D2AD2007618C6 /* hologirl.tga */; };
 		D0426E850C406FE6004CB60C /* pent_glow.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426E830C406FE6004CB60C /* pent_glow.jpg */; };
 		D0426EB20C407304004CB60C /* metalbridge06_pent.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */; };
 		D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
@@ -147,6 +150,9 @@
 				D0CE07140C3E5564007D4B18 /* panel_shiny.tga in CopyFiles */,
 				D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */,
 				D01F790D0C4D113C007618C6 /* base.shader in CopyFiles */,
+				D01F7A340C4D291B007618C6 /* test.shader in CopyFiles */,
+				D01F7A790C4D2AB2007618C6 /* metalfloor_wall_15ow.tga in CopyFiles */,
+				D01F7A840C4D2AD2007618C6 /* hologirl.tga in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -184,6 +190,9 @@
 		D00FF9760C39423600668773 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D00FF9C50C39429C00668773 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		D01F790C0C4D113C007618C6 /* base.shader */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = base.shader; sourceTree = "<group>"; };
+		D01F7A330C4D291B007618C6 /* test.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.shader; sourceTree = "<group>"; };
+		D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = metalfloor_wall_15ow.tga; sourceTree = "<group>"; };
+		D01F7A830C4D2AD2007618C6 /* hologirl.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologirl.tga; sourceTree = "<group>"; };
 		D0426E830C406FE6004CB60C /* pent_glow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pent_glow.jpg; sourceTree = "<group>"; };
 		D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = metalbridge06_pent.jpg; sourceTree = "<group>"; };
 		D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = materialtest.cpp; sourceTree = "<group>"; };
@@ -348,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				D01F790C0C4D113C007618C6 /* base.shader */,
+				D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */,
 				D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */,
 				D0426E830C406FE6004CB60C /* pent_glow.jpg */,
 				D0CE06F60C3E5546007D4B18 /* panel_shiny.tga */,
@@ -356,6 +366,8 @@
 				D0CE07B80C3E584B007D4B18 /* proto_comp.tga */,
 				D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */,
 				D0CE0ABD0C3FE94D007D4B18 /* material.mat */,
+				D01F7A330C4D291B007618C6 /* test.shader */,
+				D01F7A830C4D2AD2007618C6 /* hologirl.tga */,
 			);
 			path = Resources;
 			sourceTree = "<group>";

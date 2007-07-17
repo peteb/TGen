@@ -153,6 +153,9 @@ public:
 	TGen::Texture * getTexture(const std::string & name) {
 		std::cout << "getting texture '" << name << "'" << std::endl;		
 		
+		if (name == "$lightmap")
+			return NULL;
+		
 		ILuint imageName;
 		ilGenImages(1, &imageName);
 		ilBindImage(imageName);
@@ -167,6 +170,13 @@ public:
 		
 		return newTexture;
 	}
+	
+	int getTextureType(const std::string & name) {
+		if (name == "$lightmap")
+			return 1;
+		
+		return 0;
+	}
 
 	void Reshape(const Rectangle & size) {
 		renderer->setViewport(size);
@@ -174,7 +184,7 @@ public:
 	}
 	
 	void Render() {
-		time += 0.01f;
+		//time += 0.01f;
 		renderer->setClearColor(Color::White);
 		renderer->Clear(ColorBuffer | DepthBuffer);
 		
@@ -182,8 +192,10 @@ public:
 		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -2.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
 
 		if (material) {
+			TGen::Texture * textureTypes[] = {NULL, NULL};
+			
 			material->Update(scalar(glutGet(GLUT_ELAPSED_TIME)) / 1000.0);
-			material->Render(*renderer, myObject, "default", 9);
+			material->Render(*renderer, myObject, "default", 9, textureTypes);
 		}
 		
 		glutSwapBuffers();
@@ -194,17 +206,17 @@ public:
 
 		std::list<Material *> materials;
 		Q3MaterialParser parser;
-		parser.Parse(ReadFile("base.shader").c_str(), materials); // material.mat
+		parser.Parse(ReadFile("test.shader").c_str(), materials); // material.mat
 		
 		for (std::list<Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
 			std::cout << (*iter)->getName() << ": " << std::endl;
+			(*iter)->Link(*this);
 			
-			if ((*iter)->getName() == "cool") {
+			if ((*iter)->getName() == "textures/base_wall/metalfloor_wall_15ow") {
 				material = *iter;
-				material->Link(*this);
 			}
 			else {
-				delete *iter;
+				//delete *iter;
 			}
 		}
 		

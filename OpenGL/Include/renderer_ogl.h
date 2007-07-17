@@ -51,7 +51,7 @@ namespace TGen {
 			void setRenderTarget(TGen::FrameBuffer * buffer);
 			void setShaderProgram(TGen::ShaderProgram * program);
 			
-			void setRenderContext(const TGen::RenderContext & context);
+			void setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes);
 			void setColor(const TGen::Color & color);
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;

@@ -72,6 +72,7 @@ namespace TGen {
 		PassTextureUnit(int unit, const std::string & name);
 		~PassTextureUnit();
 		
+		void setTextureName(const std::string & name);
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
 		void AddTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
@@ -83,6 +84,7 @@ namespace TGen {
 		typedef std::vector<TGen::TextureCoordTransformer *> TransformerList;
 		TransformerList transformers;
 		TGen::TextureUnit * texunit;
+		int textureType;
 	};
 	
 	
@@ -127,7 +129,7 @@ namespace TGen {
 		PassList();
 		~PassList();
 		
-		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable);
+		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable, TGen::Texture ** textureTypes);
 		void addPass(TGen::Pass * pass);
 		void Link(TGen::MaterialLinkCallback & callback);
 		void Update(scalar time);

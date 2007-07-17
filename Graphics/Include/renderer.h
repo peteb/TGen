@@ -16,6 +16,7 @@
 #include "matrix4x4.h"
 #include "renderer_types.h"
 #include "renderer_caps.h"
+#include <vector>
 
 namespace TGen {
 	enum TextureCreationFlags {
@@ -57,7 +58,7 @@ namespace TGen {
 		virtual void setShaderProgram(ShaderProgram * program) abstract;
 		
 		virtual void setColor(const Color & color) abstract;
-		virtual void setRenderContext(const RenderContext & context) abstract;
+		virtual void setRenderContext(const RenderContext & context, TGen::Texture ** textureTypes) abstract;
 		
 		virtual void Clear(ushort buffers) abstract;
 		

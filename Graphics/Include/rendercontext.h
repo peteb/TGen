@@ -28,6 +28,7 @@ namespace TGen {
 		TGen::TextureCoordGen genU, genV;
 		TGen::Matrix4x4 transform;
 		bool transformed;
+		int textureType;
 	};
 	
 	class RenderContext {

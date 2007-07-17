@@ -38,14 +38,14 @@ void TGen::PassList::addPass(TGen::Pass * pass) {
 	passes.push_back(pass);
 }
 
-void TGen::PassList::Render(TGen::Renderer & renderer, TGen::Renderable & renderable) {
+void TGen::PassList::Render(TGen::Renderer & renderer, TGen::Renderable & renderable, TGen::Texture ** textureTypes) {
 	if (passes.empty())
 		throw TGen::RuntimeException("PassList::Render", "no passes to render");
 	
 	renderable.PrepareRender(renderer);
 	
 	for (int i = 0; i < passes.size(); ++i) {
-		renderer.setRenderContext(passes[i]->getRenderContext());
+		renderer.setRenderContext(passes[i]->getRenderContext(), textureTypes);
 		renderable.Render(renderer);
 	}
 }
@@ -127,10 +127,14 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 		//std::cout << "linking unit " << (*iter)->unit << " with " << (*iter)->textureName << std::endl;
 		TGen::TextureUnit * newUnit = NULL;
 		
-		if ((*iter)->textureName == "none")
-			newUnit = new TGen::TextureUnit((*iter)->unit, NULL);			
-		else
+		int texType = callback.getTextureType((*iter)->textureName);
+		
+		if ((*iter)->textureName == "none" || texType != 0) {
+			newUnit = new TGen::TextureUnit((*iter)->unit, NULL);
+		}
+		else {
 			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
+		}
 		
 		newUnit->genU = (*iter)->genU;
 		newUnit->genV = (*iter)->genV;
@@ -147,7 +151,7 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 	
 }
 
-TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase), texunit(NULL) {}
+TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase), texunit(NULL), textureType(0) {}
 
 TGen::PassTextureUnit::~PassTextureUnit() {
 	for (int i = 0; i < transformers.size(); ++i)
@@ -165,7 +169,7 @@ void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::
 		this->genU = TGen::TextureCoordGenObjectLinear;
 	else if (genU == "eye")
 		this->genU = TGen::TextureCoordGenEyeLinear;
-	else if (genU == "sphere")
+	else if (genU == "sphere" || genU == "environment")
 		this->genU = TGen::TextureCoordGenSphereMap;
 	else
 		throw TGen::RuntimeException("PassTextureUnit::setTexCoordGen", "invalid value for u: '" + genU + "'");
@@ -176,7 +180,7 @@ void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::
 		this->genV = TGen::TextureCoordGenObjectLinear;
 	else if (genV == "eye")
 		this->genV = TGen::TextureCoordGenEyeLinear;
-	else if (genV == "sphere")
+	else if (genV == "sphere" || genV == "environment")
 		this->genV = TGen::TextureCoordGenSphereMap;
 	else
 		throw TGen::RuntimeException("PassTextureUnit::setTexCoordGen", "invalid value for v: '" + genV + "'");
@@ -253,25 +257,25 @@ void TGen::Pass::setBlendFunc(const std::string & source, const std::string & de
 }
 
 TGen::BlendFunc TGen::Pass::StringToBlendFunc(const std::string & blend) {
-	if (blend == "zero" || blend == "0")
+	if (blend == "zero" || blend == "0" || blend == "GL_ZERO")
 		return TGen::BlendZero;
-	else if (blend == "one" || blend == "1")
+	else if (blend == "one" || blend == "1" || blend == "GL_ONE")
 		return TGen::BlendOne;
-	else if (blend == "destcolor" || blend == "dstcolor")
+	else if (blend == "destcolor" || blend == "dstcolor" || blend == "GL_DST_COLOR")
 		return TGen::BlendDestColor;
-	else if (blend == "oneminusdestcolor" || blend == "1-dstcolor")
+	else if (blend == "oneminusdestcolor" || blend == "1-dstcolor" || blend == "GL_ONE_MINUS_DST_COLOR")
 		return TGen::BlendOneMinusDestColor;
-	else if (blend == "srcalpha" || blend == "srcalpha")
+	else if (blend == "srcalpha" || blend == "srcalpha" || blend == "GL_SRC_ALPHA")
 		return TGen::BlendSourceAlpha;
-	else if (blend == "oneminussrcalpha" || blend == "1-srcalpha")
+	else if (blend == "oneminussrcalpha" || blend == "1-srcalpha" || blend == "GL_ONE_MINUS_SRC_ALPHA")
 		return TGen::BlendOneMinusSourceAlpha;
-	else if (blend == "destalpha" || blend == "dstalpha")
+	else if (blend == "destalpha" || blend == "dstalpha" || blend == "GL_DST_ALPHA")
 		return TGen::BlendDestAlpha;
-	else if (blend == "oneminusdestalpha" || blend == "1-dstalpha")
+	else if (blend == "oneminusdestalpha" || blend == "1-dstalpha" || blend == "GL_ONE_MINUS_DST_ALPHA")
 		return TGen::BlendOneMinusDestAlpha;
-	else if (blend == "srccolor" || blend == "srccolor")
+	else if (blend == "srccolor" || blend == "srccolor" || blend == "GL_SRC_COLOR")
 		return TGen::BlendSourceColor;
-	else if (blend == "oneminussrccolor" || blend == "1-srccolor")
+	else if (blend == "oneminussrccolor" || blend == "1-srccolor" || blend == "GL_ONE_MINUS_SRC_COLOR")
 		return TGen::BlendOneMinusSourceColor;
 	
 	throw TGen::RuntimeException("Pass::StringToBlendFunc", "invalid blend func: '" + blend + "'!");		
@@ -309,6 +313,10 @@ void TGen::PassTextureUnit::Update(scalar time) {
 		transformers[i]->ApplyTransform(texunit->transform, time);
 		texunit->transformed = true;
 	}
+}
+
+void TGen::PassTextureUnit::setTextureName(const std::string & name) {
+	textureName = name;
 }
 
 TGen::TextureCoordTransformer::TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV) 

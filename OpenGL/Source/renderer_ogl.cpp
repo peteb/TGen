@@ -586,7 +586,7 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 
 
 
-void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context) {
+void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes) {
 	if (context.depthWrite)
 		glDepthMask(GL_TRUE);
 	else
@@ -595,13 +595,19 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	setShaderProgram(context.shader);
 	
 	glColor4f(context.frontColor.r, context.frontColor.g, context.frontColor.b, context.frontColor.a);	
-	//glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 	setDepthFunc(context.depthFunc);
 	
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
 	for (; iter != context.textureUnits.end(); ++iter) {
 		glActiveTexture(GL_TEXTURE0 + (*iter)->unit);
-		setTexture((*iter)->unit, (*iter)->texture);
+		
+		if ((*iter)->textureType == 0)
+			setTexture((*iter)->unit, (*iter)->texture);
+		else if ((*iter)->textureType > 0)
+			setTexture((*iter)->unit, textureTypes[(*iter)->textureType]);
+		else
+			setTexture((*iter)->unit, NULL);
+		
 		setTextureCoordGen((*iter)->genU, (*iter)->genV);
 		
 		if ((*iter)->transformed) {

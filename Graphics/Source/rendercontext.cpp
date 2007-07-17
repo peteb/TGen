@@ -22,5 +22,5 @@ void TGen::RenderContext::AddTextureUnit(TGen::TextureUnit * unit) {
 
 TGen::TextureUnit::TextureUnit(int unit, TGen::Texture * texture) 
 	: unit(unit), texture(texture), transformed(false), transform(TGen::Matrix4x4::Identity), 
-	genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase) {}
+	genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase), textureType(0) {}
 
