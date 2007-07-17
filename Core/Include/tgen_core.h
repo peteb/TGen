@@ -15,6 +15,7 @@
 #include "platform.h"
 #include "tokenizer.h"
 #include "cast.h"
+#include "stringman.h"
 
 namespace TGen {
 	bool isCoreDebug();

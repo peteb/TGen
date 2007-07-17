@@ -33,6 +33,12 @@ int main(int argc, char ** const argv) {
 	int hej;
 	std::cin >> hej;
 	#endif
+	
+	// 5.
+	std::cout << "5. lexical_cast: " << TGen::lexical_cast<int>("12345") + TGen::lexical_cast<int>("54321") << " = " << 12345 + 54321 << std::endl;
+	
+	// 6.
+	//std::cout << "6. " << TGen::lexical_cast<bool>("false") << " = false" << std::endl;
 
 	return EXIT_SUCCESS;
 }
