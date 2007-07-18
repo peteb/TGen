@@ -20,6 +20,7 @@ public:
 	
 	TGen::ShaderProgram * getShaderProgram(const std::string & name);
 	TGen::Texture * getTexture(const std::string & name);
+	int getTextureType(const std::string & name);
 	TGen::Material * getMaterial(const std::string & name);
 	void LoadMaterials(const std::string & filename);
 	void UpdateMaterials(scalar time);

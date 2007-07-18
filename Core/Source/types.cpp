@@ -8,6 +8,7 @@
  */
 
 #include "types.h"
+#include "error.h"
 
 int TGen::FormatTypeSize(FormatType type) {
 	switch (type) {
@@ -18,26 +19,35 @@ int TGen::FormatTypeSize(FormatType type) {
 			return sizeof(double);
 			
 		case TGen::TypeInt:
-			return sizeof(int);
+			return sizeof(int32);
+			
+		case TGen::TypeDoubleInt:
+			return sizeof(int64);
 			
 		case TGen::TypeShort:
-			return sizeof(short);
+			return sizeof(int16);
 			
 		case TGen::TypeByte:
-			return sizeof(char);
+			return sizeof(int8);
+			
+		case TGen::TypeUnsignedDoubleInt:
+			return sizeof(uint64);
 			
 		case TGen::TypeUnsignedInt:
-			return sizeof(unsigned int);
+			return sizeof(uint32);
 			
 		case TGen::TypeUnsignedShort:
-			return sizeof(unsigned short);
+			return sizeof(uint16);
 			
 		case TGen::TypeUnsignedByte:
-			return sizeof(unsigned char);
+			return sizeof(uint8);
 			
 		case TGen::TypeNone:
 			return 0;		
+			
+		case TGen::TypeBool:
+			return sizeof(bool);
 	}
 	
-	return 0;
+	throw TGen::RuntimeException("FormatTypeSize", "invalid type");
 }

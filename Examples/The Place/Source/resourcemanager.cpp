@@ -78,6 +78,10 @@ TGen::Material * ResourceManager::getMaterial(const std::string & name) {
 	throw TGen::RuntimeException("ResourceManager::getMaterial", "material '" + name + "' not loaded!");
 }
 
+int ResourceManager::getTextureType(const std::string & name) {
+	return 0;
+}
+
 std::string ResourceManager::ReadFile(const std::string & filename) const {
 	std::string ret;
 	

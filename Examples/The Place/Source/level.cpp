@@ -34,7 +34,7 @@ void Level::Render(TGen::Renderer & renderer) {
 		
 		TGen::Matrix4x4 & mat = nicePlane->getTransform(renderer);
 		renderer.setTransform(TGen::TransformWorldView, at * nicePlane->getTransform(renderer));
-		nicePlane->getMaterial()->Render(renderer, *nicePlane, "default", 9);
+		nicePlane->getMaterial()->Render(renderer, *nicePlane, "default", 9, NULL);
 	}
 }
 

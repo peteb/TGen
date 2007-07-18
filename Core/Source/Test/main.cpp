@@ -11,7 +11,12 @@ int main(int argc, char ** const argv) {
 	
 	// 2.
 	std::cout << "2. " << sizeof(float) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<float>().type) << std::endl;
-	
+	std::cout << "   " << sizeof(long long) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<long long>().type) << std::endl;
+	std::cout << "   " << sizeof(int) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<int>().type) << std::endl;
+	std::cout << "   " << sizeof(short) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<short>().type) << std::endl;
+	std::cout << "   " << sizeof(char) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<char>().type) << std::endl;
+	std::cout << "   " << sizeof(bool) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<bool>().type) << std::endl;
+
 	// 3.
 	#ifdef _PLATFORM_WINDOWS
 	std::cout << "3. Windows" << std::endl;
@@ -35,10 +40,18 @@ int main(int argc, char ** const argv) {
 	#endif
 	
 	// 5.
-	std::cout << "5. lexical_cast: " << TGen::lexical_cast<int>("12345") + TGen::lexical_cast<int>("54321") << " = " << 12345 + 54321 << std::endl;
+	std::cout << "5. lexical_cast: " << TGen::lexical_cast<int>("12345") + TGen::lexical_cast<int>("54321") << " == " << 12345 + 54321 << std::endl;
 	
 	// 6.
-	//std::cout << "6. " << TGen::lexical_cast<bool>("false") << " = false" << std::endl;
+	std::cout << "6. " << TGen::lexical_cast<bool>("false") << " == false, " << TGen::lexical_cast<bool>("true") << " == true, " << TGen::lexical_cast<std::string>(false) << " == false, " << TGen::lexical_cast<std::string>(true) << " == true" << std::endl;
 
+	// 7.
+	try {
+		std::cout << TGen::lexical_cast<int>("hejsan") << std::endl;
+	}
+	catch (const std::exception & e) {
+		std::cout << "7. bad_lexical_cast: " << e.what() << std::endl;
+	}
+	
 	return EXIT_SUCCESS;
 }
