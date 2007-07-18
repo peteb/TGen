@@ -10,6 +10,8 @@
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* TGen Math.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Math.1 */; };
 		D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */; };
+		D0A9D2350C4E760D00D7DFDB /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2340C4E760D00D7DFDB /* AABB.cpp */; };
+		D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A9D2360C4E761E00D7DFDB /* AABB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96890C35E37500CB2978 /* tgen_math.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F10C35E50C00CB2978 /* angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96750C35E34700CB2978 /* angle.cpp */; };
 		D0EE96F20C35E50C00CB2978 /* angle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE967F0C35E35600CB2978 /* angle.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,6 +77,8 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Math */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Math"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Math.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Math.1"; sourceTree = "<group>"; };
+		D0A9D2340C4E760D00D7DFDB /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AABB.cpp; path = Source/AABB.cpp; sourceTree = "<group>"; };
+		D0A9D2360C4E761E00D7DFDB /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABB.h; path = Include/AABB.h; sourceTree = "<group>"; };
 		D0EE96750C35E34700CB2978 /* angle.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = angle.cpp; path = Source/angle.cpp; sourceTree = "<group>"; };
 		D0EE96760C35E34700CB2978 /* matrix3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = matrix3x3.cpp; path = Source/matrix3x3.cpp; sourceTree = "<group>"; };
 		D0EE96770C35E34700CB2978 /* matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = matrix4x4.cpp; path = Source/matrix4x4.cpp; sourceTree = "<group>"; };
@@ -201,6 +205,8 @@
 			children = (
 				D0EE96AF0C35E44500CB2978 /* rectangle.cpp */,
 				D0EE96B10C35E44D00CB2978 /* rectangle.h */,
+				D0A9D2340C4E760D00D7DFDB /* AABB.cpp */,
+				D0A9D2360C4E761E00D7DFDB /* AABB.h */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";
@@ -228,6 +234,7 @@
 				D0EE96F80C35E50C00CB2978 /* vector2.h in Headers */,
 				D0EE96FA0C35E50C00CB2978 /* vector3.h in Headers */,
 				D0EE96FC0C35E50C00CB2978 /* rectangle.h in Headers */,
+				D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +337,7 @@
 				D0EE96F90C35E50C00CB2978 /* vector3.cpp in Sources */,
 				D0EE96FB0C35E50C00CB2978 /* rectangle.cpp in Sources */,
 				D0EE98020C35E94900CB2978 /* tgen_math.cpp in Sources */,
+				D0A9D2350C4E760D00D7DFDB /* AABB.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

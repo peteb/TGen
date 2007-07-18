@@ -38,7 +38,7 @@ void TGen::PassList::addPass(TGen::Pass * pass) {
 	passes.push_back(pass);
 }
 
-void TGen::PassList::Render(TGen::Renderer & renderer, TGen::Renderable & renderable, TGen::Texture ** textureTypes) {
+void TGen::PassList::Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes) {
 	if (passes.empty())
 		throw TGen::RuntimeException("PassList::Render", "no passes to render");
 	

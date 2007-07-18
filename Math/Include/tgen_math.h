@@ -19,6 +19,7 @@
 #include "vector3.h"
 
 #include "rectangle.h"
+#include "AABB.h"
 
 namespace TGen {
 	bool isMathDebug();

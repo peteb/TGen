@@ -129,7 +129,7 @@ namespace TGen {
 		PassList();
 		~PassList();
 		
-		void Render(TGen::Renderer & renderer, TGen::Renderable & renderable, TGen::Texture ** textureTypes);
+		void Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes);
 		void addPass(TGen::Pass * pass);
 		void Link(TGen::MaterialLinkCallback & callback);
 		void Update(scalar time);

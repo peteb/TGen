@@ -16,7 +16,10 @@
 
 TGen::Material::SpecializationMap TGen::Material::specializations;
 
-TGen::Material::Material(const std::string & name) : minimumTechnique(2), name(name) {
+TGen::Material::Material(const std::string & name) 
+	: minimumTechnique(9)
+	, name(name) 
+{
 	TGen::TechniqueList * newTechniques = new TGen::TechniqueList;
 	TGen::Technique * newTechnique = new TGen::Technique;
 	TGen::PassList * passes = new TGen::PassList;
@@ -53,7 +56,7 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 	this->techniques[getSpecializationID(name)] = techniques;
 }
 
-void TGen::Material::Render(TGen::Renderer & renderer, TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
+void TGen::Material::Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
 	TGen::TechniqueList * techniques = NULL;
 	int specialization = getSpecializationID(mode);
 	

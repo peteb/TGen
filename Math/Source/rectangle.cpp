@@ -10,24 +10,33 @@
 #include "rectangle.h"
 #include <sstream>
 
-TGen::Rectangle::Rectangle() : width(0.0f), height(0.0f) {
-	
-}
-
-TGen::Rectangle::Rectangle(const TGen::Rectangle & rectangle) :
-	center(rectangle.center), width(rectangle.width), height(rectangle.height)
+TGen::Rectangle::Rectangle() 
+	: width(0.0f)
+	, height(0.0f) 
 {
 	
 }
 
-TGen::Rectangle::Rectangle(const TGen::Vector2 & center, scalar width, scalar height) :
-	center(center), width(width), height(height)
+TGen::Rectangle::Rectangle(const TGen::Rectangle & rectangle) 
+	: center(rectangle.center)
+	, width(rectangle.width)
+	, height(rectangle.height)
 {
 	
 }
 
-TGen::Rectangle::Rectangle(scalar width, scalar height) :
-	center(width / 2.0f, height / 2.0f), width(width), height(height)
+TGen::Rectangle::Rectangle(const TGen::Vector2 & center, scalar width, scalar height) 
+	: center(center)
+	, width(width)
+	, height(height)
+{
+	
+}
+
+TGen::Rectangle::Rectangle(scalar width, scalar height) 
+	: center(width / 2.0f, height / 2.0f)
+	, width(width)
+	, height(height)
 {
 	
 }

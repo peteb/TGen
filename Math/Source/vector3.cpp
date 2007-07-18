@@ -116,4 +116,12 @@ TGen::Vector3 TGen::Vector3::operator - () const {
 	return TGen::Vector3(-x, -y, -z);
 }
 
+bool TGen::Vector3::operator < (const TGen::Vector3 & vector) const {
+	return (x < vector.x && y < vector.y);
+}
+
+bool TGen::Vector3::operator > (const TGen::Vector3 & vector) const {
+	return (x > vector.x && y > vector.y);
+}
+
 

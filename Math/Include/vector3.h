@@ -34,6 +34,8 @@ namespace TGen {
 		Vector3 operator / (scalar scalar) const;
 		Vector3 operator - () const;
 		
+		bool operator < (const TGen::Vector3 & vector) const;
+		bool operator > (const TGen::Vector3 & vector) const;
 		
 		operator std::string() const;
 		
