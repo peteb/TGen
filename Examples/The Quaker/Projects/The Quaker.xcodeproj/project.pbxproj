@@ -1,0 +1,389 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 42;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		8DD76F6A0486A84900D96B5E /* The Quaker.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* The Quaker.1 */; };
+		D07227130C4BC00B00E6E64B /* scenenode.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07227110C4BC00B00E6E64B /* scenenode.h */; };
+		D07227140C4BC00B00E6E64B /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07227120C4BC00B00E6E64B /* scenenode.cpp */; };
+		D072272E0C4BC06000E6E64B /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D072272D0C4BC05900E6E64B /* libtgen_opengl.a */; };
+		D07227320C4BC08A00E6E64B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227310C4BC08A00E6E64B /* OpenGL.framework */; };
+		D07227340C4BC09000E6E64B /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227330C4BC09000E6E64B /* GLUT.framework */; };
+		D07227390C4BC09C00E6E64B /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227350C4BC09C00E6E64B /* libIL.a */; };
+		D072273A0C4BC09C00E6E64B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227360C4BC09C00E6E64B /* libjpeg.a */; };
+		D072273B0C4BC09C00E6E64B /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227370C4BC09C00E6E64B /* libpng12.a */; };
+		D072273C0C4BC09C00E6E64B /* libode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227380C4BC09C00E6E64B /* libode.a */; };
+		D0A9CEEC0C4E62B400D7DFDB /* app.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9CEEA0C4E62B400D7DFDB /* app.h */; };
+		D0A9CEED0C4E62B400D7DFDB /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9CEEB0C4E62B400D7DFDB /* app.cpp */; };
+		D0A9D0320C4E66BA00D7DFDB /* renderlist.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D0300C4E66BA00D7DFDB /* renderlist.h */; };
+		D0A9D0330C4E66BA00D7DFDB /* renderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D0310C4E66BA00D7DFDB /* renderlist.cpp */; };
+		D0A9D0670C4E6CC000D7DFDB /* surface.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D0650C4E6CC000D7DFDB /* surface.h */; };
+		D0A9D0680C4E6CC000D7DFDB /* surface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D0660C4E6CC000D7DFDB /* surface.cpp */; };
+		D0A9D1D10C4E74C100D7DFDB /* scene.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D1CF0C4E74C100D7DFDB /* scene.h */; };
+		D0A9D1D20C4E74C100D7DFDB /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D1D00C4E74C100D7DFDB /* scene.cpp */; };
+		D0A9D2E20C4E787200D7DFDB /* geometry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D2E00C4E787200D7DFDB /* geometry.h */; };
+		D0A9D2E30C4E787200D7DFDB /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2E10C4E787200D7DFDB /* geometry.cpp */; };
+		D0A9D56B0C4E844800D7DFDB /* camera.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D5690C4E844800D7DFDB /* camera.h */; };
+		D0A9D56C0C4E844800D7DFDB /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D56A0C4E844800D7DFDB /* camera.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D072272A0C4BC05900E6E64B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen OpenGL";
+		};
+		D072272C0C4BC05900E6E64B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D00FF8E60C3940E900668773;
+			remoteInfo = tgen_opengl;
+		};
+		D072272F0C4BC07800E6E64B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D00FF8E50C3940E900668773;
+			remoteInfo = tgen_opengl;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8DD76F690486A84900D96B5E /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 8;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				8DD76F6A0486A84900D96B5E /* The Quaker.1 in CopyFiles */,
+				D07227130C4BC00B00E6E64B /* scenenode.h in CopyFiles */,
+				D0A9CEEC0C4E62B400D7DFDB /* app.h in CopyFiles */,
+				D0A9D0320C4E66BA00D7DFDB /* renderlist.h in CopyFiles */,
+				D0A9D0670C4E6CC000D7DFDB /* surface.h in CopyFiles */,
+				D0A9D1D10C4E74C100D7DFDB /* scene.h in CopyFiles */,
+				D0A9D2E20C4E787200D7DFDB /* geometry.h in CopyFiles */,
+				D0A9D56B0C4E844800D7DFDB /* camera.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		8DD76F6C0486A84900D96B5E /* The Quaker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "The Quaker"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C6859E8B029090EE04C91782 /* The Quaker.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "The Quaker.1"; sourceTree = "<group>"; };
+		D07227110C4BC00B00E6E64B /* scenenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scenenode.h; sourceTree = "<group>"; };
+		D07227120C4BC00B00E6E64B /* scenenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenode.cpp; sourceTree = "<group>"; };
+		D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D07227310C4BC08A00E6E64B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		D07227330C4BC09000E6E64B /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
+		D07227350C4BC09C00E6E64B /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIL.a; sourceTree = "<group>"; };
+		D07227360C4BC09C00E6E64B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
+		D07227370C4BC09C00E6E64B /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
+		D07227380C4BC09C00E6E64B /* libode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libode.a; sourceTree = "<group>"; };
+		D0A9CEEA0C4E62B400D7DFDB /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
+		D0A9CEEB0C4E62B400D7DFDB /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
+		D0A9D0300C4E66BA00D7DFDB /* renderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderlist.h; sourceTree = "<group>"; };
+		D0A9D0310C4E66BA00D7DFDB /* renderlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderlist.cpp; sourceTree = "<group>"; };
+		D0A9D0650C4E6CC000D7DFDB /* surface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = surface.h; sourceTree = "<group>"; };
+		D0A9D0660C4E6CC000D7DFDB /* surface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = surface.cpp; sourceTree = "<group>"; };
+		D0A9D1CF0C4E74C100D7DFDB /* scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scene.h; sourceTree = "<group>"; };
+		D0A9D1D00C4E74C100D7DFDB /* scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene.cpp; sourceTree = "<group>"; };
+		D0A9D2E00C4E787200D7DFDB /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geometry.h; sourceTree = "<group>"; };
+		D0A9D2E10C4E787200D7DFDB /* geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
+		D0A9D5690C4E844800D7DFDB /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
+		D0A9D56A0C4E844800D7DFDB /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DD76F660486A84900D96B5E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D072272E0C4BC06000E6E64B /* libtgen_opengl.a in Frameworks */,
+				D07227320C4BC08A00E6E64B /* OpenGL.framework in Frameworks */,
+				D07227340C4BC09000E6E64B /* GLUT.framework in Frameworks */,
+				D07227390C4BC09C00E6E64B /* libIL.a in Frameworks */,
+				D072273A0C4BC09C00E6E64B /* libjpeg.a in Frameworks */,
+				D072273B0C4BC09C00E6E64B /* libpng12.a in Frameworks */,
+				D072273C0C4BC09C00E6E64B /* libode.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		08FB7794FE84155DC02AAC07 /* The Quaker */ = {
+			isa = PBXGroup;
+			children = (
+				D0A9D7400C4E8D8900D7DFDB /* Resources */,
+				D01F7D410C4D36F4007618C6 /* Dependencies */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				C6859E8C029090F304C91782 /* Documentation */,
+				1AB674ADFE9D54B511CA2CBB /* Products */,
+			);
+			name = "The Quaker";
+			sourceTree = "<group>";
+		};
+		08FB7795FE84155DC02AAC07 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				08FB7796FE84155DC02AAC07 /* main.cpp */,
+				D07227120C4BC00B00E6E64B /* scenenode.cpp */,
+				D07227110C4BC00B00E6E64B /* scenenode.h */,
+				D0A9CEEB0C4E62B400D7DFDB /* app.cpp */,
+				D0A9CEEA0C4E62B400D7DFDB /* app.h */,
+				D0A9D0310C4E66BA00D7DFDB /* renderlist.cpp */,
+				D0A9D0300C4E66BA00D7DFDB /* renderlist.h */,
+				D0A9D0660C4E6CC000D7DFDB /* surface.cpp */,
+				D0A9D0650C4E6CC000D7DFDB /* surface.h */,
+				D0A9D1D00C4E74C100D7DFDB /* scene.cpp */,
+				D0A9D1CF0C4E74C100D7DFDB /* scene.h */,
+				D0A9D2E10C4E787200D7DFDB /* geometry.cpp */,
+				D0A9D2E00C4E787200D7DFDB /* geometry.h */,
+				D0A9D56A0C4E844800D7DFDB /* camera.cpp */,
+				D0A9D5690C4E844800D7DFDB /* camera.h */,
+			);
+			name = Source;
+			path = ../Source;
+			sourceTree = "<group>";
+		};
+		1AB674ADFE9D54B511CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DD76F6C0486A84900D96B5E /* The Quaker */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C6859E8C029090F304C91782 /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				C6859E8B029090EE04C91782 /* The Quaker.1 */,
+			);
+			name = Documentation;
+			sourceTree = "<group>";
+		};
+		D01F7D410C4D36F4007618C6 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				D07227350C4BC09C00E6E64B /* libIL.a */,
+				D07227360C4BC09C00E6E64B /* libjpeg.a */,
+				D07227370C4BC09C00E6E64B /* libpng12.a */,
+				D07227380C4BC09C00E6E64B /* libode.a */,
+				D07227330C4BC09000E6E64B /* GLUT.framework */,
+				D07227310C4BC08A00E6E64B /* OpenGL.framework */,
+				D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */,
+			);
+			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		D07227260C4BC05900E6E64B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D072272B0C4BC05900E6E64B /* TGen OpenGL */,
+				D072272D0C4BC05900E6E64B /* libtgen_opengl.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0A9D7400C4E8D8900D7DFDB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = ../Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DD76F620486A84900D96B5E /* The Quaker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "The Quaker" */;
+			buildPhases = (
+				8DD76F640486A84900D96B5E /* Sources */,
+				8DD76F660486A84900D96B5E /* Frameworks */,
+				8DD76F690486A84900D96B5E /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D07227300C4BC07800E6E64B /* PBXTargetDependency */,
+			);
+			name = "The Quaker";
+			productInstallPath = "$(HOME)/bin";
+			productName = "The Quaker";
+			productReference = 8DD76F6C0486A84900D96B5E /* The Quaker */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		08FB7793FE84155DC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "The Quaker" */;
+			hasScannedForEncodings = 1;
+			mainGroup = 08FB7794FE84155DC02AAC07 /* The Quaker */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D07227260C4BC05900E6E64B /* Products */;
+					ProjectRef = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+				},
+			);
+			targets = (
+				8DD76F620486A84900D96B5E /* The Quaker */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D072272B0C4BC05900E6E64B /* TGen OpenGL */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen OpenGL";
+			remoteRef = D072272A0C4BC05900E6E64B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D072272D0C4BC05900E6E64B /* libtgen_opengl.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_opengl.a;
+			remoteRef = D072272C0C4BC05900E6E64B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DD76F640486A84900D96B5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				D07227140C4BC00B00E6E64B /* scenenode.cpp in Sources */,
+				D0A9CEED0C4E62B400D7DFDB /* app.cpp in Sources */,
+				D0A9D0330C4E66BA00D7DFDB /* renderlist.cpp in Sources */,
+				D0A9D0680C4E6CC000D7DFDB /* surface.cpp in Sources */,
+				D0A9D1D20C4E74C100D7DFDB /* scene.cpp in Sources */,
+				D0A9D2E30C4E787200D7DFDB /* geometry.cpp in Sources */,
+				D0A9D56C0C4E844800D7DFDB /* camera.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D07227300C4BC07800E6E64B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_opengl;
+			targetProxy = D072272F0C4BC07800E6E64B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB923208733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					../../../OpenGL/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
+					/usr/local/include/,
+				);
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				PRODUCT_NAME = "The Quaker";
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		1DEB923308733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					ppc,
+					i386,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_MODEL_TUNING = G5;
+				HEADER_SEARCH_PATHS = (
+					../../../OpenGL/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
+					/usr/local/include/,
+				);
+				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				PRODUCT_NAME = "The Quaker";
+			};
+			name = Release;
+		};
+		1DEB923608733DC60010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Debug;
+		};
+		1DEB923708733DC60010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = /Developer/SDKs/MacOSX10.4u.sdk;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "The Quaker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923208733DC60010E9CD /* Debug */,
+				1DEB923308733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "The Quaker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB923608733DC60010E9CD /* Debug */,
+				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 08FB7793FE84155DC02AAC07 /* Project object */;
+}
