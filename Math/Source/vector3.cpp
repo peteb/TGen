@@ -96,6 +96,10 @@ TGen::Vector3 & TGen::Vector3::operator *= (scalar scalar) {
 	return *this;
 }
 
+bool TGen::Vector3::operator == (const TGen::Vector3 & vector) const {
+	return (x == vector.x && y == vector.y && z == vector.z);
+}
+
 TGen::Vector3 TGen::Vector3::operator + (const TGen::Vector3 & vector) const {
 	return TGen::Vector3(x + vector.x, y + vector.y, z + vector.z);
 }
@@ -106,6 +110,10 @@ TGen::Vector3 TGen::Vector3::operator - (const TGen::Vector3 & vector) const {
 
 TGen::Vector3 TGen::Vector3::operator * (scalar scalar) const {
 	return TGen::Vector3(x * scalar, y * scalar, z * scalar);
+}
+
+TGen::Vector3 TGen::Vector3::operator * (const TGen::Vector3 & vector) const {
+	return TGen::Vector3(x * vector.x, y * vector.y, z * vector.z);
 }
 
 TGen::Vector3 TGen::Vector3::operator / (scalar scalar) const {

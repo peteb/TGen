@@ -23,6 +23,7 @@ namespace TGen {
 		Vector3(scalar x, scalar y, scalar z);
 		Vector3(scalar scalar = 0.0f);
 
+		bool operator == (const TGen::Vector3 & vector) const;
 		Vector3 & operator += (const TGen::Vector3 & vector);
 		Vector3 & operator -= (const TGen::Vector3 & vector);
 		Vector3 & operator = (const TGen::Vector3 & vector);
@@ -31,6 +32,7 @@ namespace TGen {
 		Vector3 operator + (const TGen::Vector3 & vector) const;
 		Vector3 operator - (const TGen::Vector3 & vector) const;
 		Vector3 operator * (scalar scalar) const;
+		Vector3 operator * (const TGen::Vector3 & vector) const;
 		Vector3 operator / (scalar scalar) const;
 		Vector3 operator - () const;
 		

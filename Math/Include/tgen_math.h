@@ -13,6 +13,8 @@
 #include "tgen_core.h"
 
 #include "angle.h"
+#include "plane3.h"
+
 #include "matrix3x3.h"
 #include "matrix4x4.h"
 #include "vector2.h"

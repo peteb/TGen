@@ -17,12 +17,12 @@ public:
 		delete ib;
 	}
 	
-	void PrepareRender(TGen::Renderer & renderer) {
+	void PrepareRender(TGen::Renderer & renderer) const {
 		renderer.setVertexBuffer(vb);
 		renderer.setIndexBuffer(ib);		
 	}
 	
-	void Render(TGen::Renderer & renderer) {
+	void Render(TGen::Renderer & renderer) const {
 		renderer.DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 	}
 	
