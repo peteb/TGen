@@ -36,13 +36,6 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 		
 		surfaces[i]->getMaterial()->Render(renderer, *surfaces[i], "default", 9, NULL);
 	}
-	
-	/*TGen::Material * getMaterial();
-	void Link(SurfaceLinker & linker);
-	void PrepareRender(TGen::Renderer & renderer);
-	void Render(TGen::Renderer & renderer);
-	SceneNode * getSceneNode() const;
-	*/
 }
 
 void RenderList::AddSurface(const Surface * surface) {

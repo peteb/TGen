@@ -16,8 +16,7 @@ SceneNode::SceneNode(const std::string & name)
 	, orientation(0.0f, 0.0f, 1.0f)
 	, up(0.0f, 1.0f, 0.0f)
 	, parent(NULL)
-	, boundingSphere(0.0f)
-	, boundingBox(TGen::Vector3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f, 1.0f)
+	, objectBoundingSphere(0.0f)
 {
 	
 }
@@ -75,7 +74,9 @@ const std::string & SceneNode::getName() const {
 }
 
 void SceneNode::AddSurface(const Surface & surface) {
-	surfaces.push_back(surface);
+	Surface newSurface = surface;
+	newSurface.Attached(this);
+	surfaces.push_back(newSurface);
 }
 
 void SceneNode::AddChild(SceneNode * node) {
@@ -105,7 +106,12 @@ void SceneNode::Detached() {
 }
 
 void SceneNode::CalculateBV() {
-	TGen::Vector3 min(-0.3f, -0.3f, -0.3f), max(0.3f, 0.3f, 0.3f);
+	CalculateSurfacesObjectBV();
+	CalculateWorldBV();
+}
+
+void SceneNode::CalculateSurfacesObjectBV() {
+	TGen::Vector3 min, max;
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		if (surfaces[i].getMin().x < min.x)
@@ -123,29 +129,59 @@ void SceneNode::CalculateBV() {
 			max.z = surfaces[i].getMax().z;
 	}
 	
-	min = transform.getOrigin() + min;
-	max = transform.getOrigin() + max;
-	
-	boundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
-	boundingBox.Calculate(min, max);
+	objectBoundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
+	objectBoundingBox.Calculate(min, max);	
 }
 
-TGen::Vector3 SceneNode::getGlobalPosition() const {
+void SceneNode::CalculateWorldBV() {
+	TGen::Vector3 min, max;
+	TGen::Vector3 corners[8];
+	objectBoundingBox.getCorners(corners);
+	
+	for (int i = 0; i < 8; ++i) {
+		corners[i] = transform * corners[i];
+		if (corners[i].x < min.x)
+			min.x = corners[i].x;
+		if (corners[i].y < min.y)
+			min.y = corners[i].y;
+		if (corners[i].z < min.z)
+			min.z = corners[i].z;
+		
+		if (corners[i].x > max.x)
+			max.x = corners[i].x;
+		if (corners[i].y > max.y)
+			max.y = corners[i].y;
+		if (corners[i].z > max.z)
+			max.z = corners[i].z;
+		
+	}
+	
+	worldBoundingBox.Calculate(min, max);
+}
+
+TGen::Vector3 SceneNode::getWorldPosition() const {
 	return transform.getOrigin();
 }
 
-TGen::Vector3 SceneNode::getGlobalOrientation() const {
+TGen::Vector3 SceneNode::getWorldOrientation() const {
 	return transform.getZ();
 }
 
-const TGen::AABB & SceneNode::getAABB() const {
-	return boundingBox;
+const TGen::AABB & SceneNode::getObjectAABB() const {
+	return objectBoundingBox;
 }
 
-scalar SceneNode::getBS() const {
-	return boundingSphere;
+const TGen::AABB & SceneNode::getWorldAABB() const {
+	return worldBoundingBox;
 }
 
+scalar SceneNode::getObjectBS() const {
+	return objectBoundingSphere;
+}
+
+scalar SceneNode::getWorldBS() const {
+	return 0.0f;
+}
 /*void SceneNode::AddSurfaces(RenderList & list, const Camera & camera) const {
 	for (int i = 0; i < surfaces.size(); ++i)
 		list.AddSurface(&surfaces[i]);
@@ -159,11 +195,5 @@ void SceneNode::Accept(SceneNodeVisitor & visitor) {
 	
 	for (int i = 0; i < children.size(); ++i)
 		children[i]->Accept(visitor);
-}
-
-void SceneNode::setHej(float size) {
-	boundingBox.width = size;
-	boundingBox.height = size;
-	boundingBox.depth = size;
 }
 

@@ -39,7 +39,7 @@ void TGen::AABB::Calculate(const TGen::Vector3 & min, const TGen::Vector3 & max)
 	center = TGen::Vector3(min.x + width / 2.0f, min.y + height / 2.0f, min.z + depth / 2.0f);
 }
 
-void TGen::AABB::getCubePoints(TGen::Vector3 * array) const {
+void TGen::AABB::getCorners(TGen::Vector3 * array) const {
 	float halfWidth = width / 2.0f;
 	float halfHeight = height / 2.0f;
 	float halfDepth = depth / 2.0f;

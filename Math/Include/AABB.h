@@ -20,7 +20,7 @@ namespace TGen {
 		AABB(const TGen::Vector3 & min, const TGen::Vector3 & max);
 		
 		void Calculate(const TGen::Vector3 & min, const TGen::Vector3 & max);
-		void getCubePoints(TGen::Vector3 * array) const;
+		void getCorners(TGen::Vector3 * array) const;
 		
 		TGen::Vector3 center;
 		scalar width, height, depth;

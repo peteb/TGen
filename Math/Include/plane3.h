@@ -15,6 +15,7 @@
 namespace TGen {
 	class Plane3 {
 	public:
+		Plane3();
 		Plane3(const TGen::Vector3 & n, scalar d);
 		Plane3(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2);
 		

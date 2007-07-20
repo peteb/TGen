@@ -9,11 +9,15 @@
 
 #include "plane3.h"
 
+TGen::Plane3::Plane3()
+	: distance(0.0f)
+{		
+}
+
 TGen::Plane3::Plane3(const TGen::Vector3 & n, scalar d) 
 	: normal(n)
 	, distance(d)
 {
-	
 }
 
 // TODO: mycket av denna kod är otestad kod

@@ -14,6 +14,7 @@
 #include "scene.h"
 #include "camera.h"
 #include "scenenoderenderer.h"
+#include "resourcemanager.h"
 
 App * gApp = NULL;
 
@@ -42,6 +43,8 @@ App::App()
 	, aabbBatch(NULL)
 	, time(0.0f)
 	, cubeNode(NULL)
+	, resources(NULL)
+	, myCube(NULL)
 {
 	std::cout << "[app]: initializing..." << std::endl;
 	
@@ -59,16 +62,23 @@ App::App()
 	
 	aabbBatch = new TGen::Batch<TGen::Vertex3<float>, 2>(renderer, 1000, TGen::PrimitiveLines, TGen::UsageStream);
 	
+	resources = new ResourceManager(*renderer);
 	scene = new Scene();
 	camera = new Camera("mycam");
 	
+	
+	resources->LoadMaterials("test.shader");
+	
+	myCube = new Cube(*renderer);
+	
 	cubeNode = new SceneNode("cubenode");
-	cubeNode->setHej(0.5f);
+	cubeNode->AddSurface(Surface(resources->getMaterial("textures/base_wall/metalfloor_wall_15ow"), myCube));
+	
 	scene->getSceneRoot()->AddChild(camera);
 	scene->getSceneRoot()->AddChild(cubeNode);
 	
-	camera->setPosition(TGen::Vector3(0.0f, 0.0f, 15.0f));
-	camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f));
+	camera->setPosition(TGen::Vector3(1.0f, -0.4f, 19.0f));
+	camera->setOrientation(TGen::Vector3(0.83f, 0.52f, 0.9f).getNormalized()); //camera->getPosition().getNormalized());
 
 	scene->Update(0.0f);
 }
@@ -76,9 +86,12 @@ App::App()
 App::~App() {
 	std::cout << "[app]: shutting down..." << std::endl;
 	
+	delete myCube;
 	delete aabbBatch;
 	delete camera;
 	delete scene;
+
+	delete resources;
 	delete renderer;
 }
 
@@ -104,10 +117,13 @@ void App::Resize(const TGen::Rectangle & size) {
 }
 
 void App::Render() {
-	time += 0.01f;
+	time += 0.02f;
 
-	cubeNode->setPosition(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 1.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 1.0f));
-	cubeNode->setOrientation(cubeNode->getPosition().getNormalized());
+	if (resources)
+		resources->UpdateMaterials(time);
+	
+	cubeNode->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 1.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 1.0f));
+	//cubeNode->setOrientation(cubeNode->getPosition().getNormalized());
 	
 	// TODO: något är skumt med orientation och position......
 	//camera->setPosition(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 15.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 15.0f));
@@ -131,16 +147,19 @@ void App::Render() {
 	// render aabbs ---------------------------------------	
 	AABBRenderer aabbRenderer(*aabbBatch, *camera);
 
-	std::cout << "start batch" << std::endl;
+	//std::cout << "start batch" << std::endl;
 	aabbBatch->BeginBatch();	
 	if (scene) scene->getSceneRoot()->Accept(aabbRenderer);
 	aabbBatch->EndBatch();
-	std::cout << "end batch" << std::endl;
+	//std::cout << "end batch" << std::endl;
 	
-	renderer->setColor(TGen::Color::Red);
+	renderer->setColor(TGen::Color(0.0f, 1.0f, 0.0f, 1.0f));
 	renderer->setTransform(TGen::TransformProjection, camera->getProjection());
 	renderer->setTransform(TGen::TransformWorldView, camera->getTransform());
 
+	//glDepthFunc(GL_ALWAYS);
+	glLineWidth(2.0f);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	aabbBatch->Render(renderer);
 	
 	glutSwapBuffers();

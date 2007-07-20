@@ -106,7 +106,7 @@ void TGen::OpenGL::Renderer::setTransform(TGen::TransformMode mode, const TGen::
 	TGen::Renderer::setTransform(mode, transformation);
 	
 	float elements[16];
-	transformation.get4x4(elements);
+	//transformation.get4x4(elements);
 	
 	glLoadMatrixf((GLfloat *)transformation.elements);	
 }

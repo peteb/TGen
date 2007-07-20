@@ -191,7 +191,7 @@
 		D00FF9C50C39429C00668773 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		D01F790C0C4D113C007618C6 /* base.shader */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = base.shader; sourceTree = "<group>"; };
 		D01F7A330C4D291B007618C6 /* test.shader */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.shader; sourceTree = "<group>"; };
-		D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = metalfloor_wall_15ow.tga; sourceTree = "<group>"; };
+		D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */ = {isa = PBXFileReference; explicitFileType = image; path = metalfloor_wall_15ow.tga; sourceTree = "<group>"; };
 		D01F7A830C4D2AD2007618C6 /* hologirl.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologirl.tga; sourceTree = "<group>"; };
 		D0426E830C406FE6004CB60C /* pent_glow.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pent_glow.jpg; sourceTree = "<group>"; };
 		D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = metalbridge06_pent.jpg; sourceTree = "<group>"; };

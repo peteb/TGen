@@ -34,14 +34,9 @@ namespace TGen {
 
 		operator std::string() const;
 		
-		void Transpose();
 		void setOrigin(const TGen::Vector3 & origin);
 		void setScale(const TGen::Vector3 & scale);
 		void get4x4(scalar * elements) const;
-		TGen::Vector3 getOrigin() const;
-		TGen::Vector3 getX() const;
-		TGen::Vector3 getY() const;
-		TGen::Vector3 getZ() const;
 		
 		static TGen::Matrix4x4 Identity;
 		static TGen::Matrix4x4 Translation(const TGen::Vector3 & vector);
@@ -51,7 +46,6 @@ namespace TGen {
 		static TGen::Matrix4x4 PerspectiveProjection(scalar fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far);
 		static TGen::Matrix4x4 Rotation(const TGen::Vector3 & axis, const TGen::Angle & angle);
 		static TGen::Matrix4x4 LookAt(const TGen::Vector3 & position, const TGen::Vector3 & eye, const TGen::Vector3 & up);
-		static TGen::Matrix4x4 LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up);
 		
 		scalar elements[4][4];
 		

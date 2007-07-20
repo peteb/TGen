@@ -40,11 +40,10 @@ void Camera::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 void Camera::CalculateBV() {
 	TGen::Vector3 min(-0.1f, -0.1f, -0.1f), max(0.1f, 0.1f, 0.1f);
 	
-	min = transform * min;
-	max = transform * max;
+	objectBoundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
+	objectBoundingBox.Calculate(min, max);	
 	
-	boundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
-	boundingBox.Calculate(min, max);	
+	//CalculateWorldBV();
 }
 
 void Camera::setAspectRatio(float ratio) {

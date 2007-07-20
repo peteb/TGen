@@ -22,10 +22,11 @@ public:
 
 class Surface : public Geometry {
 public:	
-	Surface(const std::string & materialName, Geometry * geometry, SceneNode * node);
-	Surface(TGen::Material * material, Geometry * geometry, SceneNode * node);
+	Surface(const std::string & materialName, Geometry * geometry);
+	Surface(TGen::Material * material, Geometry * geometry);
 	~Surface();
 	
+	void Attached(SceneNode * parent);
 	TGen::Material * getMaterial() const;
 	void Link(SurfaceLinker & linker);
 	void PrepareRender(TGen::Renderer & renderer) const;

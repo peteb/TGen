@@ -14,6 +14,10 @@
 		D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A9D2360C4E761E00D7DFDB /* AABB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0D89CBB0C4FA14A00ACB21A /* plane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */; };
 		D0D89CBE0C4FA15800ACB21A /* plane3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0D89CBD0C4FA15800ACB21A /* plane3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EE68F40C512AC100D55B42 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE68F30C512AC100D55B42 /* sphere.cpp */; };
+		D0EE68F60C512ACD00D55B42 /* sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE68F50C512ACD00D55B42 /* sphere.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EE69340C512CEF00D55B42 /* frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE69330C512CEF00D55B42 /* frustum.h */; };
+		D0EE69360C512CFB00D55B42 /* frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE69350C512CFB00D55B42 /* frustum.cpp */; };
 		D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96890C35E37500CB2978 /* tgen_math.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F10C35E50C00CB2978 /* angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96750C35E34700CB2978 /* angle.cpp */; };
 		D0EE96F20C35E50C00CB2978 /* angle.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE967F0C35E35600CB2978 /* angle.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -83,6 +87,10 @@
 		D0A9D2360C4E761E00D7DFDB /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABB.h; path = Include/AABB.h; sourceTree = "<group>"; };
 		D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plane3.cpp; path = Source/plane3.cpp; sourceTree = "<group>"; };
 		D0D89CBD0C4FA15800ACB21A /* plane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = plane3.h; path = Include/plane3.h; sourceTree = "<group>"; };
+		D0EE68F30C512AC100D55B42 /* sphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sphere.cpp; path = Source/sphere.cpp; sourceTree = "<group>"; };
+		D0EE68F50C512ACD00D55B42 /* sphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sphere.h; path = Include/sphere.h; sourceTree = "<group>"; };
+		D0EE69330C512CEF00D55B42 /* frustum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = frustum.h; path = Include/frustum.h; sourceTree = "<group>"; };
+		D0EE69350C512CFB00D55B42 /* frustum.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frustum.cpp; path = Source/frustum.cpp; sourceTree = "<group>"; };
 		D0EE96750C35E34700CB2978 /* angle.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = angle.cpp; path = Source/angle.cpp; sourceTree = "<group>"; };
 		D0EE96760C35E34700CB2978 /* matrix3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = matrix3x3.cpp; path = Source/matrix3x3.cpp; sourceTree = "<group>"; };
 		D0EE96770C35E34700CB2978 /* matrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = matrix4x4.cpp; path = Source/matrix4x4.cpp; sourceTree = "<group>"; };
@@ -213,6 +221,10 @@
 				D0EE96B10C35E44D00CB2978 /* rectangle.h */,
 				D0A9D2340C4E760D00D7DFDB /* AABB.cpp */,
 				D0A9D2360C4E761E00D7DFDB /* AABB.h */,
+				D0EE68F30C512AC100D55B42 /* sphere.cpp */,
+				D0EE68F50C512ACD00D55B42 /* sphere.h */,
+				D0EE69350C512CFB00D55B42 /* frustum.cpp */,
+				D0EE69330C512CEF00D55B42 /* frustum.h */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";
@@ -242,6 +254,8 @@
 				D0EE96FC0C35E50C00CB2978 /* rectangle.h in Headers */,
 				D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */,
 				D0D89CBE0C4FA15800ACB21A /* plane3.h in Headers */,
+				D0EE68F60C512ACD00D55B42 /* sphere.h in Headers */,
+				D0EE69340C512CEF00D55B42 /* frustum.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +360,8 @@
 				D0EE98020C35E94900CB2978 /* tgen_math.cpp in Sources */,
 				D0A9D2350C4E760D00D7DFDB /* AABB.cpp in Sources */,
 				D0D89CBB0C4FA14A00ACB21A /* plane3.cpp in Sources */,
+				D0EE68F40C512AC100D55B42 /* sphere.cpp in Sources */,
+				D0EE69360C512CFB00D55B42 /* frustum.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

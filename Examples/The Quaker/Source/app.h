@@ -12,6 +12,7 @@
 
 #include <tgen_graphics.h>
 #include "renderlist.h"
+#include "cube.h"
 
 void WindowResize(int width, int height);
 void WindowRender();	
@@ -19,6 +20,7 @@ void WindowKeyDown(unsigned char key, int x, int y);
 
 class Scene;
 class Camera;
+class ResourceManager;
 
 class App {
 public:
@@ -33,7 +35,8 @@ public:
 	
 private:
 	TGen::Batch<TGen::Vertex3<float>, 2> * aabbBatch;
-	
+
+	ResourceManager * resources;
 	SceneNode * cubeNode;
 	TGen::Renderer * renderer;
 	TGen::Rectangle windowSize;
@@ -43,6 +46,9 @@ private:
 	int window;
 	bool run;
 	scalar time;
+
+
+	Cube * myCube;
 };
 
 #endif // !_THEQUAKER_APP_H

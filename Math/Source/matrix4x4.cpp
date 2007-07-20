@@ -156,9 +156,13 @@ void TGen::Matrix4x4::setScale(const TGen::Vector3 & scale) {
 }
 
 void TGen::Matrix4x4::get4x4(scalar * elements) const {
-	
+	//std::cout << "HEJ" << std::endl;
+	memcpy(elements, this->elements, sizeof(scalar) * 4 * 4);
 }
 
+void TGen::Matrix4x4::Transpose() {
+	
+}
 
 TGen::Matrix4x4 TGen::Matrix4x4::Translation(const TGen::Vector3 & vector) {
 	TGen::Matrix4x4 matrix = Identity;

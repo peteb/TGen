@@ -37,6 +37,9 @@ public:
 	void Attached(SceneNode * parent);
 	void Detached();
 	virtual void CalculateBV();
+	void CalculateSurfacesObjectBV();
+	void CalculateWorldBV();
+	
 //	void AddSurfaces(RenderList & list, const Camera & camera) const;
 	void Accept(SceneNodeVisitor & visitor);
 	
@@ -45,18 +48,19 @@ public:
 	void setOrientation(const TGen::Vector3 & orientation);
 	const TGen::Vector3 & getPosition() const;
 	const TGen::Vector3 & getOrientation() const;
-	TGen::Vector3 getGlobalPosition() const;
-	TGen::Vector3 getGlobalOrientation() const;
-	const TGen::AABB & getAABB() const;
-	scalar getBS() const;
-	void setHej(float size);
+	TGen::Vector3 getWorldPosition() const;
+	TGen::Vector3 getWorldOrientation() const;
+	const TGen::AABB & getWorldAABB() const;
+	const TGen::AABB & getObjectAABB() const;	
+	scalar getObjectBS() const;
+	scalar SceneNode::getWorldBS() const;
 	
 	friend class SceneNodeRenderer;
 	
 protected:
 	bool updated;
-	TGen::AABB boundingBox;
-	scalar boundingSphere;
+	TGen::AABB objectBoundingBox, worldBoundingBox;
+	scalar objectBoundingSphere;
 	TGen::Matrix4x4 transform;
 	
 private:

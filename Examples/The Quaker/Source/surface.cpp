@@ -9,19 +9,19 @@
 
 #include "surface.h"
 
-Surface::Surface(const std::string & materialName, Geometry * geometry, SceneNode * node) 
+Surface::Surface(const std::string & materialName, Geometry * geometry) 
 	: materialName(materialName)
 	, geometry(geometry)
 	, material(NULL)
-	, sceneNode(node)
+	, sceneNode(NULL)
 {
 	
 }
 
-Surface::Surface(TGen::Material * material, Geometry * geometry, SceneNode * node)
+Surface::Surface(TGen::Material * material, Geometry * geometry)
 	: material(material)
 	, geometry(geometry)
-	, sceneNode(node)
+	, sceneNode(NULL)
 {
 	
 }
@@ -30,6 +30,12 @@ Surface::~Surface() {
 	
 }
 
+void Surface::Attached(SceneNode * parent) {
+	if (sceneNode)
+		throw TGen::RuntimeException("Surface::Attached", "surface already attached!");
+	
+	sceneNode = parent;
+}
 
 TGen::Material * Surface::getMaterial() const {
 	return material;

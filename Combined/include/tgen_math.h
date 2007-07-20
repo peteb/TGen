@@ -13,19 +13,15 @@
 #include "tgen_core.h"
 
 #include "angle.h"
-#include "plane3.h"
-
 #include "matrix3x3.h"
 #include "matrix4x4.h"
 #include "vector2.h"
 #include "vector3.h"
 
 #include "rectangle.h"
-#include "AABB.h"
-#include "sphere.h"
 
 namespace TGen {
-	bool isMathDebug();	
+	bool isMathDebug();
 }
 
 #endif // !_TGEN_MATH_H
