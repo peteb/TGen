@@ -82,6 +82,7 @@ namespace TGen {
 	};
 	
 	scalar Sine(const Radian & radians);
+	scalar Cosine(const Radian & radians);
 } // !TGen
 
 #endif // !_TGEN_ANGLE_H

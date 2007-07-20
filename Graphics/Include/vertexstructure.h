@@ -69,6 +69,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Vector3 & vector) : x(vector.x), y(vector.y), z(vector.z), w(0.0) {}
 				
 			T x, y, z, w;
@@ -82,6 +83,7 @@ namespace TGen {
 		
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Vector3 & vector) : x(vector.x), y(vector.y), z(vector.z) {}
 			
 			T x, y, z;
@@ -95,6 +97,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Vector2 & vector) : x(vector.x), y(vector.y) {}
 				
 			T x, y;
@@ -109,6 +112,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b) {}
 				
 			T r, g, b;
@@ -122,6 +126,7 @@ namespace TGen {
 
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b), a(color.a) {}
 			
 			T r, g, b, a;
@@ -135,6 +140,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Vector3 & normal) : nx(normal.x), ny(normal.y), nz(normal.z) {}
 				
 			T nx, ny, nz;
@@ -148,6 +154,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(const T & index) : index(index) {}
 				
 			T index;
@@ -161,6 +168,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(const TGen::Vector2 & texcoord) : u(texcoord.x), v(texcoord.y) {}
 			
 			T u, v;
@@ -174,6 +182,7 @@ namespace TGen {
 			
 		class Type {
 		public:
+			Type() {}
 			Type(int hullo) {}
 		};
 	};

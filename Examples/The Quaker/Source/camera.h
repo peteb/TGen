@@ -19,6 +19,8 @@ public:
 	void Update(const TGen::Matrix4x4 & parent, bool parentUpdated);	
 	
 	const TGen::Matrix4x4 & getProjection() const;
+	void CalculateBV();
+	void setAspectRatio(float ratio);
 	
 private:
 	scalar fovY, aspectRatio, near, far, lodNear, lodFar;

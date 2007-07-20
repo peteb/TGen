@@ -30,6 +30,8 @@
 		D0A9D2E30C4E787200D7DFDB /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2E10C4E787200D7DFDB /* geometry.cpp */; };
 		D0A9D56B0C4E844800D7DFDB /* camera.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D5690C4E844800D7DFDB /* camera.h */; };
 		D0A9D56C0C4E844800D7DFDB /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D56A0C4E844800D7DFDB /* camera.cpp */; };
+		D0D89E270C4FAC5500ACB21A /* scenenoderenderer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0D89E250C4FAC5500ACB21A /* scenenoderenderer.h */; };
+		D0D89E280C4FAC5500ACB21A /* scenenoderenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0D89E260C4FAC5500ACB21A /* scenenoderenderer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,7 @@
 				D0A9D1D10C4E74C100D7DFDB /* scene.h in CopyFiles */,
 				D0A9D2E20C4E787200D7DFDB /* geometry.h in CopyFiles */,
 				D0A9D56B0C4E844800D7DFDB /* camera.h in CopyFiles */,
+				D0D89E270C4FAC5500ACB21A /* scenenoderenderer.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
@@ -101,6 +104,8 @@
 		D0A9D2E10C4E787200D7DFDB /* geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geometry.cpp; sourceTree = "<group>"; };
 		D0A9D5690C4E844800D7DFDB /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = camera.h; sourceTree = "<group>"; };
 		D0A9D56A0C4E844800D7DFDB /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = camera.cpp; sourceTree = "<group>"; };
+		D0D89E250C4FAC5500ACB21A /* scenenoderenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scenenoderenderer.h; sourceTree = "<group>"; };
+		D0D89E260C4FAC5500ACB21A /* scenenoderenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenoderenderer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +144,8 @@
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				D07227120C4BC00B00E6E64B /* scenenode.cpp */,
 				D07227110C4BC00B00E6E64B /* scenenode.h */,
+				D0D89E260C4FAC5500ACB21A /* scenenoderenderer.cpp */,
+				D0D89E250C4FAC5500ACB21A /* scenenoderenderer.h */,
 				D0A9CEEB0C4E62B400D7DFDB /* app.cpp */,
 				D0A9CEEA0C4E62B400D7DFDB /* app.h */,
 				D0A9D0310C4E66BA00D7DFDB /* renderlist.cpp */,
@@ -276,6 +283,7 @@
 				D0A9D1D20C4E74C100D7DFDB /* scene.cpp in Sources */,
 				D0A9D2E30C4E787200D7DFDB /* geometry.cpp in Sources */,
 				D0A9D56C0C4E844800D7DFDB /* camera.cpp in Sources */,
+				D0D89E280C4FAC5500ACB21A /* scenenoderenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -27,9 +27,9 @@ void Scene::Update(scalar dt) {
 		root->Update(TGen::Matrix4x4::Identity, false);
 }
 
-void Scene::AddSurfaces(RenderList & renderList, const Camera & camera) {
-	root->AddSurfaces(renderList);
-}
+/*void Scene::AddSurfaces(RenderList & renderList, const Camera & camera) {
+	root->AddSurfaces(renderList, camera);
+}*/
 
 SceneNode * Scene::getSceneRoot() {
 	return root;

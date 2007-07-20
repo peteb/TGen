@@ -32,6 +32,9 @@ public:
 	void Quit();
 	
 private:
+	TGen::Batch<TGen::Vertex3<float>, 2> * aabbBatch;
+	
+	SceneNode * cubeNode;
 	TGen::Renderer * renderer;
 	TGen::Rectangle windowSize;
 	RenderList renderList;
@@ -39,6 +42,7 @@ private:
 	Scene * scene;
 	int window;
 	bool run;
+	scalar time;
 };
 
 #endif // !_THEQUAKER_APP_H

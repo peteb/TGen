@@ -17,6 +17,7 @@ SceneNode::SceneNode(const std::string & name)
 	, up(0.0f, 1.0f, 0.0f)
 	, parent(NULL)
 	, boundingSphere(0.0f)
+	, boundingBox(TGen::Vector3(0.0f, 0.0f, 0.0f), 1.0f, 1.0f, 1.0f)
 {
 	
 }
@@ -39,7 +40,7 @@ void SceneNode::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 	if (updated || parentUpdated) {
 		std::cout << "node '" << getName() << "' updated, calculates transform" << std::endl;
 		updated = true;
-		transform = parent * TGen::Matrix4x4::LookAt(position, position + orientation, up);
+		transform = parent * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(orientation, up); //TGen::Matrix4x4::LookAt(position, position + orientation, up);
 	
 		CalculateBV();
 	}
@@ -104,21 +105,37 @@ void SceneNode::Detached() {
 }
 
 void SceneNode::CalculateBV() {
-	TGen::Vector3 min, max;
+	TGen::Vector3 min(-0.3f, -0.3f, -0.3f), max(0.3f, 0.3f, 0.3f);
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
-		if (surfaces[i].getMin() < min)
-			min = surfaces[i].getMin();
+		if (surfaces[i].getMin().x < min.x)
+			min.x = surfaces[i].getMin().x;
+		if (surfaces[i].getMin().y < min.y)
+			min.y = surfaces[i].getMin().y;
+		if (surfaces[i].getMin().z < min.z)
+			min.z = surfaces[i].getMin().z;
 		
-		if (surfaces[i].getMax() > max)
-			max = surfaces[i].getMax();
+		if (surfaces[i].getMax().x > max.x)
+			max.x = surfaces[i].getMax().x;
+		if (surfaces[i].getMax().y > max.y)
+			max.y = surfaces[i].getMax().y;
+		if (surfaces[i].getMax().z > max.z)
+			max.z = surfaces[i].getMax().z;
 	}
 	
-	min = transform * min;
-	max = transform * max;
+	min = transform.getOrigin() + min;
+	max = transform.getOrigin() + max;
 	
 	boundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
-	boundingBox.Calculate(min, max);	// TODO: måste renderas för att seom det är korrekt.. inte säker
+	boundingBox.Calculate(min, max);
+}
+
+TGen::Vector3 SceneNode::getGlobalPosition() const {
+	return transform.getOrigin();
+}
+
+TGen::Vector3 SceneNode::getGlobalOrientation() const {
+	return transform.getZ();
 }
 
 const TGen::AABB & SceneNode::getAABB() const {
@@ -129,10 +146,24 @@ scalar SceneNode::getBS() const {
 	return boundingSphere;
 }
 
-void SceneNode::AddSurfaces(RenderList & list) const {
+/*void SceneNode::AddSurfaces(RenderList & list, const Camera & camera) const {
 	for (int i = 0; i < surfaces.size(); ++i)
 		list.AddSurface(&surfaces[i]);
 	
 	for (int i = 0; i < children.size(); ++i)
-		children[i]->AddSurfaces(list);
+		children[i]->AddSurfaces(list, camera);
+}*/
+
+void SceneNode::Accept(SceneNodeVisitor & visitor) {
+	visitor.Visit(*this);
+	
+	for (int i = 0; i < children.size(); ++i)
+		children[i]->Accept(visitor);
 }
+
+void SceneNode::setHej(float size) {
+	boundingBox.width = size;
+	boundingBox.height = size;
+	boundingBox.depth = size;
+}
+

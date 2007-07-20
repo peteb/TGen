@@ -14,6 +14,14 @@
 #include <tgen_math.h>
 
 class RenderList;
+class Camera;
+
+class SceneNodeVisitor {
+public:
+	virtual ~SceneNodeVisitor() {}
+	
+	virtual void Visit(SceneNode & node) abstract;
+};
 
 class SceneNode {
 public:
@@ -29,20 +37,27 @@ public:
 	void Attached(SceneNode * parent);
 	void Detached();
 	virtual void CalculateBV();
-	void AddSurfaces(RenderList & list) const;
+//	void AddSurfaces(RenderList & list, const Camera & camera) const;
+	void Accept(SceneNodeVisitor & visitor);
 	
 	const std::string & getName() const;
 	void setPosition(const TGen::Vector3 & position);
 	void setOrientation(const TGen::Vector3 & orientation);
 	const TGen::Vector3 & getPosition() const;
 	const TGen::Vector3 & getOrientation() const;
+	TGen::Vector3 getGlobalPosition() const;
+	TGen::Vector3 getGlobalOrientation() const;
 	const TGen::AABB & getAABB() const;
 	scalar getBS() const;
+	void setHej(float size);
+	
+	friend class SceneNodeRenderer;
 	
 protected:
 	bool updated;
 	TGen::AABB boundingBox;
 	scalar boundingSphere;
+	TGen::Matrix4x4 transform;
 	
 private:
 	typedef std::vector<Surface> SurfaceList;
@@ -52,9 +67,7 @@ private:
 	SceneNodeList children;
 	std::string name;
 	SceneNode * parent;
-	
-	TGen::Vector3 position, orientation, up;
-	TGen::Matrix4x4 transform;
+	TGen::Vector3 position, orientation, up;	
 };
 
 

@@ -11,7 +11,7 @@
 
 Camera::Camera(const std::string & name) 
 	: SceneNode(name)
-	, fovY(90.0f)
+	, fovY(80.0f)
 	, aspectRatio(1.0f)
 	, near(0.1f)
 	, far(100.0f)
@@ -22,10 +22,6 @@ Camera::Camera(const std::string & name)
 {
 		
 }
-
-/*
- fovY, aspectRatio, near, far, lodNear, lodFar
- */
 
 const TGen::Matrix4x4 & Camera::getProjection() const {
 	return projectionMatrix;
@@ -39,5 +35,20 @@ void Camera::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 	}
 	
 	SceneNode::Update(parent, parentUpdated);
+}
+
+void Camera::CalculateBV() {
+	TGen::Vector3 min(-0.1f, -0.1f, -0.1f), max(0.1f, 0.1f, 0.1f);
+	
+	min = transform * min;
+	max = transform * max;
+	
+	boundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
+	boundingBox.Calculate(min, max);	
+}
+
+void Camera::setAspectRatio(float ratio) {
+	aspectRatio = ratio;
+	projUpdated = true;
 }
 

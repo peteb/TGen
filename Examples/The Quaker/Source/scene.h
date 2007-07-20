@@ -22,7 +22,7 @@ public:
 	~Scene();
 
 	void Update(scalar dt);
-	void AddSurfaces(RenderList & renderList, const Camera & camera);
+	//void AddSurfaces(RenderList & renderList, const Camera & camera);
 	SceneNode * getSceneRoot();
 	
 private:

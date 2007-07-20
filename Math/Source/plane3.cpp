@@ -51,3 +51,6 @@ void TGen::Plane3::Normalize() {
 	normal.Normalize();
 }
 
+int TGen::Plane3::PointPos(const TGen::Vector3 & p) const {
+	return normal.x * p.x + normal.y * p.y + normal.z * p.z - distance;	
+}

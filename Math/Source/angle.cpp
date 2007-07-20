@@ -16,3 +16,7 @@ const scalar TGen::UnitAngle::RoundAngle = scalar(1.0);
 scalar TGen::Sine(const TGen::Radian & radians) {
 	return scalar(sin(radians.angle));
 }
+
+scalar TGen::Cosine(const TGen::Radian & radians) {
+	return scalar(cos(radians.angle));
+}

@@ -78,6 +78,18 @@ TGen::Matrix4x4::Matrix4x4(scalar e11, scalar e12, scalar e13, scalar e14, scala
 	elements[3][3] = e44;
 }
 
+TGen::Vector3 TGen::Matrix4x4::getX() const {
+	return TGen::Vector3(elements[0][0], elements[0][1], elements[0][2]);
+}
+
+TGen::Vector3 TGen::Matrix4x4::getY() const {
+	return TGen::Vector3(elements[1][0], elements[1][1], elements[1][2]);
+}
+
+TGen::Vector3 TGen::Matrix4x4::getZ() const {
+	return TGen::Vector3(elements[2][0], elements[2][1], elements[2][2]);	
+}
+
 TGen::Matrix4x4 & TGen::Matrix4x4::operator = (const TGen::Matrix4x4 & matrix) {
 	memcpy(&elements, &matrix.elements, 4 * 4 * sizeof(scalar));	
 	
@@ -90,7 +102,7 @@ TGen::Vector3 TGen::Matrix4x4::operator * (const TGen::Vector3 & vector) const {
 	ret.y = vector.x * elements[0][1] + vector.y * elements[1][1] + vector.z * elements[2][1] + elements[3][1];
 	ret.z = vector.x * elements[0][2] + vector.y * elements[1][2] + vector.z * elements[2][2] + elements[3][2];
 	
-	return TGen::Vector3::Identity;
+	return ret;
 }
 
 TGen::Matrix4x4 & TGen::Matrix4x4::operator *= (const TGen::Matrix4x4 & matrix) {
@@ -131,6 +143,10 @@ void TGen::Matrix4x4::setOrigin(const TGen::Vector3 & origin) {
 	elements[3][0] = origin.x;
 	elements[3][1] = origin.y;
 	elements[3][2] = origin.z;
+}
+
+TGen::Vector3 TGen::Matrix4x4::getOrigin() const {
+	return TGen::Vector3(elements[3][0], elements[3][1], elements[3][2]);
 }
 
 void TGen::Matrix4x4::setScale(const TGen::Vector3 & scale) {

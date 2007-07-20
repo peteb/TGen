@@ -14,12 +14,20 @@
 #include "renderer.h"
 #include "vertexbuffer.h"
 #include "error.h"
+#include <iostream>
 
 namespace TGen {
 	template<typename format, int vertsPerPrimitive>
 	class Batch {
 	public:	
-		Batch(TGen::Renderer * renderer, uint size, TGen::PrimitiveType type, uint usage) : size(size), type(type), vb(NULL), verticesWritten(0), cursor(NULL), mapped(NULL) {
+		Batch(TGen::Renderer * renderer, uint size, TGen::PrimitiveType type, uint usage) 
+			: size(size)
+			, type(type)
+			, vb(NULL)
+			, verticesWritten(0)
+			, cursor(NULL)
+			, mapped(NULL) 
+		{
 			vb = renderer->CreateVertexBuffer(format(), sizeof(typename format::Type) * size, usage);
 			verticesPerDraw = renderer->getCaps().maxVertexBufferVertices;
 		}
@@ -34,7 +42,7 @@ namespace TGen {
 				renderer->setVertexBuffer(vb);
 				
 				for (int i = 0; i < verticesWritten; i += verticesPerDraw)
-					renderer->DrawPrimitive(type, i, verticesPerDraw);
+					renderer->DrawPrimitive(type, i, std::min(verticesPerDraw, verticesWritten));
 				//renderer->DrawPrimitive(type, 0, verticesWritten);
 			}
 			

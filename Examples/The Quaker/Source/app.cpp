@@ -13,6 +13,7 @@
 #include "app.h"
 #include "scene.h"
 #include "camera.h"
+#include "scenenoderenderer.h"
 
 App * gApp = NULL;
 
@@ -38,6 +39,9 @@ App::App()
 	, run(true)
 	, renderer(NULL)
 	, scene(NULL)
+	, aabbBatch(NULL)
+	, time(0.0f)
+	, cubeNode(NULL)
 {
 	std::cout << "[app]: initializing..." << std::endl;
 	
@@ -53,12 +57,17 @@ App::App()
 	renderer = new TGen::OpenGL::Renderer();
 	std::cout << "[app]: created renderer '" << renderer->getCaps().driverName << "'" << std::endl;
 	
+	aabbBatch = new TGen::Batch<TGen::Vertex3<float>, 2>(renderer, 1000, TGen::PrimitiveLines, TGen::UsageStream);
+	
 	scene = new Scene();
-
 	camera = new Camera("mycam");
+	
+	cubeNode = new SceneNode("cubenode");
+	cubeNode->setHej(0.5f);
 	scene->getSceneRoot()->AddChild(camera);
-
-	camera->setPosition(TGen::Vector3(0.0f, 0.0f, -5.0f));
+	scene->getSceneRoot()->AddChild(cubeNode);
+	
+	camera->setPosition(TGen::Vector3(0.0f, 0.0f, 15.0f));
 	camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f));
 
 	scene->Update(0.0f);
@@ -67,6 +76,7 @@ App::App()
 App::~App() {
 	std::cout << "[app]: shutting down..." << std::endl;
 	
+	delete aabbBatch;
 	delete camera;
 	delete scene;
 	delete renderer;
@@ -88,18 +98,50 @@ void App::Update() {
 void App::Resize(const TGen::Rectangle & size) {
 	renderer->setViewport(size);
 	windowSize = size;
+	
+	if (camera)
+		camera->setAspectRatio(size.width / size.height);
 }
 
 void App::Render() {
+	time += 0.01f;
+
+	cubeNode->setPosition(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 1.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 1.0f));
+	cubeNode->setOrientation(cubeNode->getPosition().getNormalized());
+	
+	// TODO: något är skumt med orientation och position......
+	//camera->setPosition(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 15.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 15.0f));
+	//camera->setOrientation(-(camera->getPosition().getNormalized()));
+
+	scene->Update(1.0f);
+//	camera->Update(TGen::Matrix4x4::Identity, false);
+
 	renderer->setClearColor(TGen::Color::Black);
 	renderer->Clear(TGen::ColorBuffer | TGen::DepthBuffer);
 	
+	// render nodes ---------------------------------------
+	SceneNodeRenderer nodeRenderer(renderList, *camera);
 	
-	if (scene)
-		scene->AddSurfaces(renderList, *camera);
+	if (scene) scene->getSceneRoot()->Accept(nodeRenderer);
 	
 	renderList.Render(*renderer, *camera);
 	renderList.Clear();
+	
+	
+	// render aabbs ---------------------------------------	
+	AABBRenderer aabbRenderer(*aabbBatch, *camera);
+
+	std::cout << "start batch" << std::endl;
+	aabbBatch->BeginBatch();	
+	if (scene) scene->getSceneRoot()->Accept(aabbRenderer);
+	aabbBatch->EndBatch();
+	std::cout << "end batch" << std::endl;
+	
+	renderer->setColor(TGen::Color::Red);
+	renderer->setTransform(TGen::TransformProjection, camera->getProjection());
+	renderer->setTransform(TGen::TransformWorldView, camera->getTransform());
+
+	aabbBatch->Render(renderer);
 	
 	glutSwapBuffers();
 }
