@@ -75,12 +75,15 @@ namespace TGen {
 		void setTextureName(const std::string & name);
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
+		void setWrap(const std::string & wrapU, const std::string & wrapV);
 		void AddTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
 		void Update(scalar time);
 		
 		std::string textureName, samplerName;
 		int unit;
 		TGen::TextureCoordGen genU, genV;
+		TGen::TextureWrap wrapU, wrapV;
+
 		typedef std::vector<TGen::TextureCoordTransformer *> TransformerList;
 		TransformerList transformers;
 		TGen::TextureUnit * texunit;

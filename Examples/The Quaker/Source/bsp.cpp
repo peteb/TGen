@@ -48,7 +48,7 @@ void BSPGeometry::Render(TGen::Renderer & renderer) const {
 	//	renderer.DrawIndexedPrimitive(TGen::PrimitiveTriangleFan, startIndex, numIndices);
 	//else
 	//glCullFace(GL_FRONT);
-	if (polygon)
+	//if (polygon)
 		renderer.DrawIndexedPrimitive(TGen::PrimitiveTriangles, startIndex, numIndices);
 }
 

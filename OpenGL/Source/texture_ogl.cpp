@@ -27,3 +27,45 @@ TGen::OpenGL::Texture::~Texture() {
 GLuint TGen::OpenGL::Texture::getInternalID() const {
 	return texId;
 }
+
+void TGen::OpenGL::Texture::setWrap(TGen::TextureWrap u, TGen::TextureWrap v) {
+	GLint fixedU = 0, fixedV = 0;
+	// TODO: fix converter
+	
+	switch (u) {
+		case TGen::TextureWrapClamp:
+			fixedU = GL_CLAMP;
+			break;
+			
+		case TGen::TextureWrapClampToEdge:
+			fixedU = GL_CLAMP_TO_EDGE;
+			break;
+			
+		case TGen::TextureWrapRepeat:
+			fixedU = GL_REPEAT;
+			break;
+	}
+
+	switch (v) {
+		case TGen::TextureWrapClamp:
+			fixedV = GL_CLAMP;
+			break;
+			
+		case TGen::TextureWrapClampToEdge:
+			fixedV = GL_CLAMP_TO_EDGE;
+			break;
+			
+		case TGen::TextureWrapRepeat:
+			fixedV = GL_REPEAT;
+			break;
+	}
+	
+	std::cout << "setting wrap " << std::endl;
+	if (fixedU == TGen::TextureWrapClamp)
+		std::cout << "CLAMP!!!!" << std::endl;
+	
+	glBindTexture(GL_TEXTURE_2D, texId);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, fixedU);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, fixedV);
+
+}

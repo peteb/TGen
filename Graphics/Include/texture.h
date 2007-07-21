@@ -11,6 +11,7 @@
 #define _TGEN_TEXTURE_H
 
 #include "rectangle.h"
+#include "renderer_types.h"
 
 namespace TGen {
 	class Renderer;
@@ -23,6 +24,7 @@ namespace TGen {
 		virtual ~Texture() {}
 		
 		const TGen::Rectangle size;
+		virtual void setWrap(TGen::TextureWrap u, TGen::TextureWrap v) abstract;
 		
 	protected:
 		TGen::Renderer & creator;

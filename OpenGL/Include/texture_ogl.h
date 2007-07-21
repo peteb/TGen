@@ -26,6 +26,8 @@ namespace TGen {
 		
 			friend class TGen::OpenGL::Renderer;
 			
+			void setWrap(TGen::TextureWrap u, TGen::TextureWrap v);
+			
 			GLuint getInternalID() const;
 			
 		private:

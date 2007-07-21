@@ -137,22 +137,53 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			std::string modType = TGen::toUpper(getStringToken("pass.tcMod: expecting string value for tex coord mod type"));
 			StepToken();
 			
-			if (modType == "SCALE") {
-				std::string offU, offV;
-				float U, V;
+			if (modType == "SCALE" || modType == "STRETCH") {
+				std::string u, v;
+				float uNum = 0.0f, vNum = 0.0f;
+				bool centered = modType == "STRETCH";
 				
-				offU = "0" + getNumericToken("texunit.tcMod.scroll: expecting numeric value for U");
+				TGen::ScalarGenerator * genU = NULL, * genV = NULL;
+				
+				if (currentToken->second == "sin") {
+					//std::cout << "SIN GEN" << std::endl;
+					genU = ParseWaveGenerator();
+				}
+				else {
+					std::cout << "::::" << currentToken->second << std::endl;
+					u = getNumericToken("pass.tcMod.scale: expecting numeric or wave value for U");
+					
+					std::stringstream ss;
+					ss << u;
+					ss >> uNum;
+				}
+				
+				//std::cout << "current token = " << currentToken->second << std::endl;
+				
 				StepToken();
-				offV = "0" + getNumericToken("texunit.tcMod.scroll: expecting numeric value for V");
+				if (currentToken->first == TGen::Q3MaterialTokenEndOfLine) {
+					genV = genU;
+					vNum = uNum;
+				}
+				else {
+					if (currentToken->second == "sin") {
+						genV = ParseWaveGenerator();
+					}
+					else {
+						v = getNumericToken("pass.tcMod.scale: expecting numeric or wave value for V");
+						
+						std::stringstream ss;
+						ss << v;
+						ss >> vNum;
+					}
+				}
 				
-				U = TGen::lexical_cast<float>(offU);
-				V = TGen::lexical_cast<float>(offV);
-
-				TGen::TextureCoordScale * scaler = new TGen::TextureCoordScale((TGen::ScalarGenerator *)NULL, NULL, true);
-				scaler->u = U;
-				scaler->v = V;
+				
+				TGen::TextureCoordScale * scaler = new TGen::TextureCoordScale(genU, genV, centered);
+				scaler->u = uNum;
+				scaler->v = vNum;
 				
 				unit->AddTexCoordTransformer(scaler);
+				
 			}
 			else if (modType == "SCROLL") {
 				std::string offU, offV;
@@ -170,6 +201,17 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				translator->v = V;
 				unit->AddTexCoordTransformer(translator);
 			}
+			else if (modType == "ROTATE") {
+				std::string rotSpeed;
+				float rotSpeedNum;
+				
+				rotSpeed = "0" + getNumericToken("texunit.tcMod.rotate: expecting numeric value for rotation speed");
+				
+				rotSpeedNum = TGen::lexical_cast<float>(rotSpeed);
+				
+				TGen::TextureCoordRotate * rotator = new TGen::TextureCoordRotate(rotSpeedNum, true);
+				unit->AddTexCoordTransformer(rotator);
+			}
 			else {
 				throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "tcMod type not supported '" + modType + "'!");
 			}
@@ -177,13 +219,18 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 		else if (TGen::toUpper(currentToken->second) == "RGBGEN") {
 			StepToken();
 			StepToken();
-			
+			// TODO: todo!!!!
 		}
-		else if (currentToken->second == "map") {
+		else if (currentToken->second == "map" || currentToken->second == "clampmap") {
+			bool clampmap = currentToken->second == "clampmap";
 			StepToken();
 			std::string texName = getStringToken("pass.map: expecting string value for texture name");
 			
 			unit->setTextureName(texName);
+			
+			
+			if (clampmap)
+				unit->setWrap("clamp", "clamp");
 		}
 		else if (currentToken->first != TGen::Q3MaterialTokenEndOfLine) {
 			throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "unexpected symbol: '" + currentToken->second + "'");
@@ -238,6 +285,37 @@ void TGen::Q3MaterialParser::StepOverLF() {
 
 void TGen::Q3MaterialParser::StepToken() {
 	tokens.NextToken(currentToken, endIter);
+}
+
+TGen::WaveGenerator * TGen::Q3MaterialParser::ParseWaveGenerator() {
+	TGen::WaveGenerator * ret = NULL;
+	
+	std::string type, base, amplitude, phase, frequency;
+	type = getStringToken("wave: expecting string value for wave type", true);
+	StepToken();
+	base = getNumericToken("wave: expecting numeric value for base", true);
+	StepToken();
+	amplitude = getNumericToken("wave: expecting numeric value for amplitude", true);
+	StepToken();
+	phase = getNumericToken("wave: expecting numeric value for phase", true);
+	StepToken();
+	frequency = getNumericToken("wave: expecting numeric value for frequency", true);
+	
+	std::stringstream ss;
+	scalar baseNumber, amplitudeNumber, phaseNumber, frequencyNumber;
+	ss << base << " " << amplitude << " " << phase << " " << frequency;
+	ss >> baseNumber >> amplitudeNumber >> phaseNumber >> frequencyNumber;
+	
+	if (type == "sine" || type == "sin")
+		ret = new TGen::SineWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);
+	else if (type == "square")
+		ret = new TGen::SquareWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else if (type == "sawtooth" || type == "saw")
+		ret = new TGen::SawtoothWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else
+		throw TGen::RuntimeException("Q3MaterialParser::ParseWaveGenerator", "invalid wave type: '" + currentToken->second + "'!");
+	
+	return ret;
 }
 
 TGen::Q3MaterialTokenizer::Q3MaterialTokenizer() {

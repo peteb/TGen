@@ -18,6 +18,7 @@ namespace TGen {
 	class PassList;
 	class Pass;
 	class PassTextureUnit;
+	class WaveGenerator;
 	
 	enum Q3MaterialTokens {
 		Q3MaterialTokenBlockStart = 20,
@@ -40,7 +41,8 @@ namespace TGen {
 		void ParsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit);
 		std::string getStringToken(const std::string & name, bool ignorelf = false, bool quote = true);
 		std::string getNumericToken(const std::string & name, bool ignorelf = false, bool quote = true);
-
+		TGen::WaveGenerator * ParseWaveGenerator();
+		
 		void StepToken();
 		void StepOverLF();
 		

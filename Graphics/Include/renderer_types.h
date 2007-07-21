@@ -48,6 +48,12 @@ namespace TGen {
 		
 	};
 
+	enum TextureWrap {
+		TextureWrapClamp = 1,
+		TextureWrapClampToEdge,
+		TextureWrapRepeat,
+	};
+	
 	enum TextureCoordGen {
 		TextureCoordGenBase = 0,
 		TextureCoordGenObjectLinear,

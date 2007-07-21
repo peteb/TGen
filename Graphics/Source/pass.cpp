@@ -14,6 +14,7 @@
 #include "shaderprogram.h"
 #include "shadervariable.h"
 #include "generator.h"
+#include "texture.h"
 #include <iostream>
 
 TGen::PassList::PassList() {
@@ -134,7 +135,11 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 		}
 		else {
 			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
+			
+			if (newUnit->texture)
+				newUnit->texture->setWrap((*iter)->wrapU, (*iter)->wrapV);
 		}
+		
 		
 		newUnit->genU = (*iter)->genU;
 		newUnit->genV = (*iter)->genV;
@@ -151,7 +156,17 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 	
 }
 
-TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) : unit(unit), textureName(name), genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase), texunit(NULL), textureType(0) {}
+TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) 
+	: unit(unit)
+	, textureName(name)
+	, genU(TGen::TextureCoordGenBase)
+	, genV(TGen::TextureCoordGenBase)
+	, texunit(NULL)
+	, textureType(0) 
+	, wrapU(TGen::TextureWrapRepeat)
+	, wrapV(TGen::TextureWrapRepeat)
+{
+}
 
 TGen::PassTextureUnit::~PassTextureUnit() {
 	for (int i = 0; i < transformers.size(); ++i)
@@ -160,6 +175,20 @@ TGen::PassTextureUnit::~PassTextureUnit() {
 
 void TGen::PassTextureUnit::setSampler(const std::string & sampler) {
 	samplerName = sampler;
+}
+
+void TGen::PassTextureUnit::setWrap(const std::string & wrapU, const std::string & wrapV) {
+	std::string fixedU, fixedV;
+	fixedU = TGen::toLower(wrapU);
+	fixedV = TGen::toLower(wrapV);
+	
+	if (fixedU == "clamp")
+		this->wrapU = TGen::TextureWrapClamp;
+	
+	if (fixedV == "clamp")
+		this->wrapV = TGen::TextureWrapClamp;
+	
+	std::cout << "setting ggggggg to " << wrapU << " ... " << fixedV << std::endl;
 }
 
 void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::string & genV) {
@@ -257,25 +286,27 @@ void TGen::Pass::setBlendFunc(const std::string & source, const std::string & de
 }
 
 TGen::BlendFunc TGen::Pass::StringToBlendFunc(const std::string & blend) {
-	if (blend == "zero" || blend == "0" || blend == "GL_ZERO")
+	std::string fixedBlend = TGen::toLower(blend);
+	
+	if (fixedBlend == "zero" || fixedBlend == "0" || fixedBlend == "gl_zero")
 		return TGen::BlendZero;
-	else if (blend == "one" || blend == "1" || blend == "GL_ONE")
+	else if (fixedBlend == "one" || fixedBlend == "1" || fixedBlend == "gl_one")
 		return TGen::BlendOne;
-	else if (blend == "destcolor" || blend == "dstcolor" || blend == "GL_DST_COLOR")
+	else if (fixedBlend == "destcolor" || fixedBlend == "dstcolor" || fixedBlend == "gl_dst_color")
 		return TGen::BlendDestColor;
-	else if (blend == "oneminusdestcolor" || blend == "1-dstcolor" || blend == "GL_ONE_MINUS_DST_COLOR")
+	else if (fixedBlend == "oneminusdestcolor" || fixedBlend == "1-dstcolor" || fixedBlend == "gl_one_minus_dst_color")
 		return TGen::BlendOneMinusDestColor;
-	else if (blend == "srcalpha" || blend == "srcalpha" || blend == "GL_SRC_ALPHA")
+	else if (fixedBlend == "srcalpha" || fixedBlend == "srcalpha" || fixedBlend == "gl_src_alpha")
 		return TGen::BlendSourceAlpha;
-	else if (blend == "oneminussrcalpha" || blend == "1-srcalpha" || blend == "GL_ONE_MINUS_SRC_ALPHA")
+	else if (fixedBlend == "oneminussrcalpha" || fixedBlend == "1-srcalpha" || fixedBlend == "gl_one_minus_src_alpha")
 		return TGen::BlendOneMinusSourceAlpha;
-	else if (blend == "destalpha" || blend == "dstalpha" || blend == "GL_DST_ALPHA")
+	else if (fixedBlend == "destalpha" || fixedBlend == "dstalpha" || fixedBlend == "gl_dst_alpha")
 		return TGen::BlendDestAlpha;
-	else if (blend == "oneminusdestalpha" || blend == "1-dstalpha" || blend == "GL_ONE_MINUS_DST_ALPHA")
+	else if (fixedBlend == "oneminusdestalpha" || fixedBlend == "1-dstalpha" || fixedBlend == "gl_one_minus_dst_alpha")
 		return TGen::BlendOneMinusDestAlpha;
-	else if (blend == "srccolor" || blend == "srccolor" || blend == "GL_SRC_COLOR")
+	else if (fixedBlend == "srccolor" || fixedBlend == "srccolor" || fixedBlend == "gl_src_color")
 		return TGen::BlendSourceColor;
-	else if (blend == "oneminussrccolor" || blend == "1-srccolor" || blend == "GL_ONE_MINUS_SRC_COLOR")
+	else if (fixedBlend == "oneminussrccolor" || fixedBlend == "1-srccolor" || fixedBlend == "gl_one_minus_src_color")
 		return TGen::BlendOneMinusSourceColor;
 	
 	throw TGen::RuntimeException("Pass::StringToBlendFunc", "invalid blend func: '" + blend + "'!");		
@@ -397,6 +428,10 @@ void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar ti
 	else
 		fixedV = genV->getValue(time);
 	
+	if (fixedU < 0.0f)
+		fixedU = 0.0f;
+	if (fixedV < 0.0f)
+		fixedV = 0.0f;
 	
 	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
 	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector2(fixedU, fixedV));
