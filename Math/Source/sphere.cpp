@@ -9,10 +9,14 @@
 
 #include "sphere.h"
 
+TGen::Sphere::Sphere()
+	: radius(0.0f)
+{
+}
+
 TGen::Sphere::Sphere(const TGen::Vector3 & center, scalar radius)
 	: center(center)
 	, radius(radius) 
 {
-		
 }
 

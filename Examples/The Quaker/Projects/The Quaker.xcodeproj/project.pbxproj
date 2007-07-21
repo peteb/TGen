@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* The Quaker.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* The Quaker.1 */; };
+		D06DB7660C52321400C10D29 /* q3dm17.bsp in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DB7650C52321400C10D29 /* q3dm17.bsp */; };
+		D06DB7FA0C52394100C10D29 /* bsp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DB7F80C52394100C10D29 /* bsp.h */; };
+		D06DB7FB0C52394100C10D29 /* bsp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DB7F90C52394100C10D29 /* bsp.cpp */; };
+		D06DB8250C523A4E00C10D29 /* bsploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DB8230C523A4E00C10D29 /* bsploader.h */; };
+		D06DB8260C523A4E00C10D29 /* bsploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DB8240C523A4E00C10D29 /* bsploader.cpp */; };
+		D06DBB3C0C52450A00C10D29 /* mesh.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DBB3A0C52450A00C10D29 /* mesh.h */; };
+		D06DBB3D0C52450A00C10D29 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DBB3B0C52450A00C10D29 /* mesh.cpp */; };
 		D07227130C4BC00B00E6E64B /* scenenode.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07227110C4BC00B00E6E64B /* scenenode.h */; };
 		D07227140C4BC00B00E6E64B /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07227120C4BC00B00E6E64B /* scenenode.cpp */; };
 		D072272E0C4BC06000E6E64B /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D072272D0C4BC05900E6E64B /* libtgen_opengl.a */; };
@@ -98,6 +105,10 @@
 				D0EE62FC0C50F21F00D55B42 /* metalfloor_wall_15ow.tga in CopyFiles */,
 				D0EE62FD0C50F21F00D55B42 /* test.shader in CopyFiles */,
 				D0EE62FE0C50F21F00D55B42 /* hologirl.tga in CopyFiles */,
+				D06DB7660C52321400C10D29 /* q3dm17.bsp in CopyFiles */,
+				D06DB7FA0C52394100C10D29 /* bsp.h in CopyFiles */,
+				D06DB8250C523A4E00C10D29 /* bsploader.h in CopyFiles */,
+				D06DBB3C0C52450A00C10D29 /* mesh.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +118,13 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* The Quaker */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "The Quaker"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* The Quaker.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "The Quaker.1"; sourceTree = "<group>"; };
+		D06DB7650C52321400C10D29 /* q3dm17.bsp */ = {isa = PBXFileReference; lastKnownFileType = file; path = q3dm17.bsp; sourceTree = "<group>"; };
+		D06DB7F80C52394100C10D29 /* bsp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bsp.h; sourceTree = "<group>"; };
+		D06DB7F90C52394100C10D29 /* bsp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bsp.cpp; sourceTree = "<group>"; };
+		D06DB8230C523A4E00C10D29 /* bsploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bsploader.h; sourceTree = "<group>"; };
+		D06DB8240C523A4E00C10D29 /* bsploader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bsploader.cpp; sourceTree = "<group>"; };
+		D06DBB3A0C52450A00C10D29 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		D06DBB3B0C52450A00C10D29 /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mesh.cpp; sourceTree = "<group>"; };
 		D07227110C4BC00B00E6E64B /* scenenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scenenode.h; sourceTree = "<group>"; };
 		D07227120C4BC00B00E6E64B /* scenenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenode.cpp; sourceTree = "<group>"; };
 		D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -197,6 +215,12 @@
 				D0EE62520C50EDFC00D55B42 /* resourcemanager.h */,
 				D0EE627C0C50EF2100D55B42 /* devil.cpp */,
 				D0EE627B0C50EF2100D55B42 /* devil.h */,
+				D06DB7F90C52394100C10D29 /* bsp.cpp */,
+				D06DB7F80C52394100C10D29 /* bsp.h */,
+				D06DB8240C523A4E00C10D29 /* bsploader.cpp */,
+				D06DB8230C523A4E00C10D29 /* bsploader.h */,
+				D06DBB3B0C52450A00C10D29 /* mesh.cpp */,
+				D06DBB3A0C52450A00C10D29 /* mesh.h */,
 			);
 			name = Source;
 			path = ../Source;
@@ -244,6 +268,7 @@
 		D0A9D7400C4E8D8900D7DFDB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D06DB7650C52321400C10D29 /* q3dm17.bsp */,
 				D0EE62F90C50F21F00D55B42 /* metalfloor_wall_15ow.tga */,
 				D0EE62FB0C50F21F00D55B42 /* hologirl.tga */,
 				D0EE62FA0C50F21F00D55B42 /* test.shader */,
@@ -330,6 +355,9 @@
 				D0EE62350C50ED7700D55B42 /* cube.cpp in Sources */,
 				D0EE62550C50EDFC00D55B42 /* resourcemanager.cpp in Sources */,
 				D0EE627E0C50EF2100D55B42 /* devil.cpp in Sources */,
+				D06DB7FB0C52394100C10D29 /* bsp.cpp in Sources */,
+				D06DB8260C523A4E00C10D29 /* bsploader.cpp in Sources */,
+				D06DBB3D0C52450A00C10D29 /* mesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

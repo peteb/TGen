@@ -14,7 +14,9 @@
 
 namespace TGen {
 	class Matrix4x4;
-
+	class Sphere;
+	class AABB;
+	
 	enum Planes {
 		FarPlane = 0,
 		NearPlane,
@@ -22,7 +24,7 @@ namespace TGen {
 		LeftPlane,
 		BottomPlane,
 		TopPlane,
-	}
+	};
 	
 	class Frustum {
 	public:

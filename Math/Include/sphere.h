@@ -15,6 +15,7 @@
 namespace TGen {
 	class Sphere {
 	public:
+		Sphere();
 		Sphere(const TGen::Vector3 & center, scalar radius);
 
 		TGen::Vector3 center;

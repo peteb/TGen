@@ -20,7 +20,7 @@ RenderList::~RenderList() {
 }
 
 void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
-	std::cout << "surfaces to render: " << surfaces.size() << std::endl;
+	//std::cout << "surfaces to render: " << surfaces.size() << std::endl;
 	
 	TGen::Matrix4x4 baseMat = camera.getTransform();
 	renderer.setTransform(TGen::TransformProjection, camera.getProjection());

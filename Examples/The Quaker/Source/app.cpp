@@ -9,12 +9,14 @@
 
 #include <iostream>
 #include <GLUT/GLUT.h>
+#include <fstream>
 #include <tgen_opengl.h>
 #include "app.h"
 #include "scene.h"
 #include "camera.h"
 #include "scenenoderenderer.h"
 #include "resourcemanager.h"
+#include "bsploader.h"
 
 App * gApp = NULL;
 
@@ -45,6 +47,7 @@ App::App()
 	, cubeNode(NULL)
 	, resources(NULL)
 	, myCube(NULL)
+	, level(NULL)
 {
 	std::cout << "[app]: initializing..." << std::endl;
 	
@@ -66,8 +69,23 @@ App::App()
 	scene = new Scene();
 	camera = new Camera("mycam");
 	
+	std::cout << "[app]: loading bsp..." << std::endl;
+	BSPLoader bspLoader;
 	
+	std::ifstream file;
+	file.open("q3dm17.bsp", std::ios::in | std::ios::binary);
+	bspLoader.Parse(file);
+	file.close();
+
 	resources->LoadMaterials("test.shader");
+	
+	
+	level = bspLoader.CreateTree(*renderer, *resources);
+	
+	if (!level)
+		throw TGen::RuntimeException("App::App", "failed to load bsp!");
+	
+	scene->getSceneRoot()->AddChild(level);	
 	
 	myCube = new Cube(*renderer);
 	
@@ -77,15 +95,22 @@ App::App()
 	scene->getSceneRoot()->AddChild(camera);
 	scene->getSceneRoot()->AddChild(cubeNode);
 	
-	camera->setPosition(TGen::Vector3(1.0f, -0.4f, 19.0f));
-	camera->setOrientation(TGen::Vector3(0.83f, 0.52f, 0.9f).getNormalized()); //camera->getPosition().getNormalized());
-
+	TGen::Vector3 lookAt(0.0f, 0.0f, 0.0f);
+	TGen::Vector3 position(0.0f, 250.0f, -350.0f);
+	
+	camera->setPosition(position);
+	camera->setOrientation((lookAt - position).getNormalized());
+	//camera->setOrientation(TGen::Vector3(0.83f, 0.52f, 0.9f).getNormalized()); //camera->getPosition().getNormalized());
+	camera->setUp(TGen::Vector3(0.0f, 1.0f, 0.0f));
+	
+	camera->Update(TGen::Matrix4x4::Identity, false);
 	scene->Update(0.0f);
 }
 
 App::~App() {
 	std::cout << "[app]: shutting down..." << std::endl;
 	
+	delete level;
 	delete myCube;
 	delete aabbBatch;
 	delete camera;
@@ -122,21 +147,21 @@ void App::Render() {
 	if (resources)
 		resources->UpdateMaterials(time);
 	
-	cubeNode->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 1.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 1.0f));
-	//cubeNode->setOrientation(cubeNode->getPosition().getNormalized());
+	//cubeNode->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 1.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 1.0f));
+	//cubeNode->setPosition(cubeNode->getOrientation().getNormalized() * 1.0f + TGen::Vector3(-2.0f, 0.0f, 0.0f));
 	
-	// TODO: något är skumt med orientation och position......
+	// TODO: något är skumt med orientation......
 	//camera->setPosition(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 15.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 15.0f));
 	//camera->setOrientation(-(camera->getPosition().getNormalized()));
 
 	scene->Update(1.0f);
-//	camera->Update(TGen::Matrix4x4::Identity, false);
 
 	renderer->setClearColor(TGen::Color::Black);
 	renderer->Clear(TGen::ColorBuffer | TGen::DepthBuffer);
 	
+
 	// render nodes ---------------------------------------
-	SceneNodeRenderer nodeRenderer(renderList, *camera);
+	SceneNodeRenderer nodeRenderer(renderList, *camera, 100000000); //(time > 5.0f ? (time - 5.0f) * 100.0f : 0));
 	
 	if (scene) scene->getSceneRoot()->Accept(nodeRenderer);
 	
@@ -147,11 +172,9 @@ void App::Render() {
 	// render aabbs ---------------------------------------	
 	AABBRenderer aabbRenderer(*aabbBatch, *camera);
 
-	//std::cout << "start batch" << std::endl;
 	aabbBatch->BeginBatch();	
 	if (scene) scene->getSceneRoot()->Accept(aabbRenderer);
 	aabbBatch->EndBatch();
-	//std::cout << "end batch" << std::endl;
 	
 	renderer->setColor(TGen::Color(0.0f, 1.0f, 0.0f, 1.0f));
 	renderer->setTransform(TGen::TransformProjection, camera->getProjection());
@@ -161,6 +184,8 @@ void App::Render() {
 	glLineWidth(2.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	aabbBatch->Render(renderer);
+	
+	
 	
 	glutSwapBuffers();
 }

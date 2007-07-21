@@ -174,7 +174,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "tcMod type not supported '" + modType + "'!");
 			}
 		}
-		else if (currentToken->second == "rgbGen") {
+		else if (TGen::toUpper(currentToken->second) == "RGBGEN") {
 			StepToken();
 			StepToken();
 			

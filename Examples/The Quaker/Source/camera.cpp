@@ -11,10 +11,10 @@
 
 Camera::Camera(const std::string & name) 
 	: SceneNode(name)
-	, fovY(80.0f)
+	, fovY(60.0f)
 	, aspectRatio(1.0f)
-	, near(0.1f)
-	, far(100.0f)
+	, near(10.0f)
+	, far(600.0f)
 	, lodNear(0.1f)
 	, lodFar(100.0f)
 	, projectionMatrix(TGen::Matrix4x4::Identity)
@@ -35,12 +35,13 @@ void Camera::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 	}
 	
 	SceneNode::Update(parent, parentUpdated);
+	transform = TGen::Matrix4x4::LookInDirection(getOrientation(), getUp()) * TGen::Matrix4x4::Translation(getPosition());
 }
 
 void Camera::CalculateBV() {
 	TGen::Vector3 min(-0.1f, -0.1f, -0.1f), max(0.1f, 0.1f, 0.1f);
 	
-	objectBoundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
+	objectBoundingSphere.radius = std::max(min.getMagnitude(), max.getMagnitude());
 	objectBoundingBox.Calculate(min, max);	
 	
 	//CalculateWorldBV();

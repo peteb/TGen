@@ -46,21 +46,26 @@ public:
 	const std::string & getName() const;
 	void setPosition(const TGen::Vector3 & position);
 	void setOrientation(const TGen::Vector3 & orientation);
+	void setUp(const TGen::Vector3 & up);
+	
 	const TGen::Vector3 & getPosition() const;
 	const TGen::Vector3 & getOrientation() const;
+	const TGen::Vector3 & getUp() const;
+	
 	TGen::Vector3 getWorldPosition() const;
 	TGen::Vector3 getWorldOrientation() const;
+	
 	const TGen::AABB & getWorldAABB() const;
 	const TGen::AABB & getObjectAABB() const;	
-	scalar getObjectBS() const;
-	scalar SceneNode::getWorldBS() const;
+	const TGen::Sphere & getObjectBS() const;
+	const TGen::Sphere & getWorldBS() const;
 	
 	friend class SceneNodeRenderer;
 	
 protected:
 	bool updated;
 	TGen::AABB objectBoundingBox, worldBoundingBox;
-	scalar objectBoundingSphere;
+	TGen::Sphere objectBoundingSphere, worldBoundingSphere;
 	TGen::Matrix4x4 transform;
 	
 private:

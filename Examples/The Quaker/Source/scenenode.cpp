@@ -16,7 +16,6 @@ SceneNode::SceneNode(const std::string & name)
 	, orientation(0.0f, 0.0f, 1.0f)
 	, up(0.0f, 1.0f, 0.0f)
 	, parent(NULL)
-	, objectBoundingSphere(0.0f)
 {
 	
 }
@@ -37,7 +36,7 @@ const TGen::Matrix4x4 & SceneNode::getTransform() const {
 
 void SceneNode::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 	if (updated || parentUpdated) {
-		std::cout << "node '" << getName() << "' updated, calculates transform" << std::endl;
+		//std::cout << "node '" << getName() << "' updated, calculates transform" << std::endl;
 		updated = true;
 		transform = parent * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(orientation, up); //TGen::Matrix4x4::LookAt(position, position + orientation, up);
 	
@@ -61,12 +60,21 @@ void SceneNode::setOrientation(const TGen::Vector3 & orientation) {
 	updated = true;
 }
 
+void SceneNode::setUp(const TGen::Vector3 & up) {
+	this->up = up;
+	updated = true;
+}
+
 const TGen::Vector3 & SceneNode::getPosition() const {
 	return position;
 }
 
 const TGen::Vector3 & SceneNode::getOrientation() const {
 	return orientation;
+}
+
+const TGen::Vector3 & SceneNode::getUp() const {
+	return up;
 }
 
 const std::string & SceneNode::getName() const {
@@ -129,12 +137,12 @@ void SceneNode::CalculateSurfacesObjectBV() {
 			max.z = surfaces[i].getMax().z;
 	}
 	
-	objectBoundingSphere = std::max(min.getMagnitude(), max.getMagnitude());
+	objectBoundingSphere.radius = std::max(min.getMagnitude(), max.getMagnitude());
 	objectBoundingBox.Calculate(min, max);	
 }
 
 void SceneNode::CalculateWorldBV() {
-	TGen::Vector3 min, max;
+	TGen::Vector3 min(transform.getOrigin()), max(transform.getOrigin());
 	TGen::Vector3 corners[8];
 	objectBoundingBox.getCorners(corners);
 	
@@ -175,12 +183,12 @@ const TGen::AABB & SceneNode::getWorldAABB() const {
 	return worldBoundingBox;
 }
 
-scalar SceneNode::getObjectBS() const {
+const TGen::Sphere & SceneNode::getObjectBS() const {
 	return objectBoundingSphere;
 }
 
-scalar SceneNode::getWorldBS() const {
-	return 0.0f;
+const TGen::Sphere & SceneNode::getWorldBS() const {
+	return worldBoundingSphere;
 }
 /*void SceneNode::AddSurfaces(RenderList & list, const Camera & camera) const {
 	for (int i = 0; i < surfaces.size(); ++i)

@@ -13,6 +13,7 @@
 #include <tgen_graphics.h>
 #include "renderlist.h"
 #include "cube.h"
+#include "bsp.h"
 
 void WindowResize(int width, int height);
 void WindowRender();	
@@ -38,6 +39,7 @@ private:
 
 	ResourceManager * resources;
 	SceneNode * cubeNode;
+	BSPTree * level;
 	TGen::Renderer * renderer;
 	TGen::Rectangle windowSize;
 	RenderList renderList;
