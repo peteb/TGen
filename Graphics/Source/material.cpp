@@ -17,7 +17,7 @@
 TGen::Material::SpecializationMap TGen::Material::specializations;
 
 TGen::Material::Material(const std::string & name) 
-	: minimumTechnique(9)
+	: minimumTechnique(0)
 	, name(name) 
 {
 	TGen::TechniqueList * newTechniques = new TGen::TechniqueList;

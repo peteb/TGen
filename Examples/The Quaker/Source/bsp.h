@@ -16,7 +16,7 @@ class BSPTree;
 
 class BSPGeometry : public Geometry {
 public:
-	BSPGeometry(BSPTree & tree, bool polygon);
+	BSPGeometry(BSPTree & tree, bool wire);
 	~BSPGeometry();
 	
 	void PrepareRender(TGen::Renderer & renderer) const;
@@ -27,7 +27,10 @@ public:
 	int startIndex, numIndices;
 	BSPTree & tree;
 	TGen::IndexBuffer * ib;
-	bool polygon;
+	TGen::VertexBuffer * vb;
+	bool wire;
+	
+	std::vector<std::pair<TGen::IndexBuffer *, int> > multidraw;
 };
 
 class BSPTree : public SceneNode {

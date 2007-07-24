@@ -41,14 +41,20 @@ void TGen::PassList::addPass(TGen::Pass * pass) {
 
 void TGen::PassList::Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes) {
 	if (passes.empty())
-		throw TGen::RuntimeException("PassList::Render", "no passes to render");
+		return;
 	
+	//	throw TGen::RuntimeException("PassList::Render", "no passes to render");
+	
+	TGen::Time start = TGen::Time::Now();
 	renderable.PrepareRender(renderer);
-	
+	//std::cout << "prepare: " << std::fixed << TGen::Time::Now() - start << std::endl;
+
+	start = TGen::Time::Now();
 	for (int i = 0; i < passes.size(); ++i) {
 		renderer.setRenderContext(passes[i]->getRenderContext(), textureTypes);
 		renderable.Render(renderer);
 	}
+	//std::cout << "render: " << std::fixed << TGen::Time::Now() - start << std::endl;
 }
 
 const TGen::RenderContext & TGen::Pass::getRenderContext() const {
@@ -67,6 +73,10 @@ void TGen::Pass::setColor(const std::string & r, const std::string & g, const st
 	renderContext.frontColor.r = rNum;
 	renderContext.frontColor.g = gNum;
 	renderContext.frontColor.b = bNum;
+}
+
+void TGen::Pass::setColorFromVertex() {
+	renderContext.colorFromVertex = true;
 }
 
 void TGen::Pass::setAlpha(const std::string & a) {
@@ -187,8 +197,6 @@ void TGen::PassTextureUnit::setWrap(const std::string & wrapU, const std::string
 	
 	if (fixedV == "clamp")
 		this->wrapV = TGen::TextureWrapClamp;
-	
-	std::cout << "setting ggggggg to " << wrapU << " ... " << fixedV << std::endl;
 }
 
 void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::string & genV) {

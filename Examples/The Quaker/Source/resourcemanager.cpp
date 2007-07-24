@@ -15,6 +15,8 @@
 ResourceManager::ResourceManager(TGen::Renderer & renderer) : renderer(renderer) {
 	std::cout << "[res]: initializing..." << std::endl;
 	ilInit();
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
 }
 
 ResourceManager::~ResourceManager() {
@@ -44,7 +46,7 @@ TGen::ShaderProgram * ResourceManager::getShaderProgram(const std::string & name
 	shaders[name] = ret;
 	
 	return ret;	
-}
+} // RGBGEN!!!!! 
 
 TGen::Texture * ResourceManager::getTexture(const std::string & name) {
 	if (name == "$lightmap")

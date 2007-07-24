@@ -31,6 +31,7 @@ BSPLoader::~BSPLoader() {
 
 void BSPLoader::Parse(std::ifstream & file) {
 	ReadHeader(file);
+	
 	ReadTextures(file);
 	ReadFaces(file);
 	ReadVertices(file);
@@ -125,6 +126,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 		vertices[i].position[2] /= 3.0f;
 		
 		std::swap(vertices[i].position[1], vertices[i].position[2]);
+		std::swap(vertices[i].normal[1], vertices[i].normal[2]);
 		vertices[i].position[1] = -vertices[i].position[1];
 		
 		if (vertices[i].position[0] > max.x)
@@ -165,7 +167,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 		
 		if (currentFace->type == BSPFaceMesh || currentFace->type == BSPFacePolygon) {
 			//std::cout << "mesh" << std::endl;
-			BSPGeometry * newGeom = new BSPGeometry(*tree, currentFace->type == BSPFacePolygon);
+			BSPGeometry * newGeom = new BSPGeometry(*tree, false);
 		
 			int sizze = currentFace->num_meshvertices;
 			
@@ -184,7 +186,145 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 			
 			tree->AddSurface(Surface(linker.getMaterial(textures[currentFace->texture].name), newGeom));
 		}
+		else if (currentFace->type == BSPFacePatch) {
+			BSPGeometry * newGeom = new BSPGeometry(*tree, true);
+
+		/*	static int created = 0;
+			created++;
+			if (created != 21)
+				continue;
+		*/
+			// TODO: en multidraw med egen indexbuffer, startindex verkar ju inte ufnka....
+						
+			
+			std::vector<Vertex> verticesbez;
+			std::vector<MyIndex::Type> indices;
+			int xPos = 0;
+			
+			for (int a = 0; a < (currentFace->size[0] - 1) / 2; ++a) {
+				Bezier bez;
+				for (int i = 0; i < 9; i++)
+					bez.controls[i] = vertices[xPos + currentFace->vertex + i];
+				
+				bez.Tessellate(10);
+				
+				for (int i = 0; i < bez.vertices.size(); ++i)
+					verticesbez.push_back(bez.vertices[i]);
+				
+				
+				for (int i = 0; i < bez.indices.size(); ++i) {
+					indices.push_back(bez.indices[i]);
+					
+				}
+			
+				xPos += 6;
+				
+				for (int i = 0; i < bez.rowIndices.size(); ++i) {
+					TGen::IndexBuffer * ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * bez.trianglesPerRow[i] * 1, TGen::UsageStatic);
+					ib->BufferData(bez.rowIndices[i], sizeof(MyIndex::Type) * bez.trianglesPerRow[i] * 1, NULL);
+					
+					newGeom->multidraw.push_back(std::pair<TGen::IndexBuffer *, int>(ib, bez.trianglesPerRow[i] * 1));
+				}
+			}
+			
+			newGeom->startIndex = 0;
+			newGeom->numIndices = indices.size();
+			newGeom->vb = renderer.CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * verticesbez.size(), TGen::UsageStatic);
+			//newGeom->ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * indices.size(), TGen::UsageStatic);
+			
+			newGeom->vb->BufferData(&verticesbez[0], sizeof(MyVertex::Type) * verticesbez.size(), NULL);
+			//newGeom->ib->BufferData(&indices[0], sizeof(MyIndex::Type) * indices.size(), NULL);
+			
+
+			
+			
+			tree->AddSurface(Surface(linker.getMaterial(textures[currentFace->texture].name), newGeom));
+			
+			// TODO: fixa igång så man kan dumpa vertices någonstans och som sen rendreras som surface. mesh kan användsa för det, om ib är NULL så blir det DrawPrimitive, inte DrawIndexed
+			// TODO: rgbgen, sawtooth, etc
+		}
+		else if (currentFace->type == BSPFaceBillboard) {
+			std::cout << "BILLBOARD" << std::endl;
+		}
 	}
 	
 	return tree;	
 }
+
+TGen::Vector3 BSPLoader::getQuadratic(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2, scalar t) {
+	TGen::Vector3 ret;
+	scalar it = 1.0 - t;
+	ret.x = p0.x * pow(t, 2) + p1.x * 2.0 * t * it + p2.x * pow(it, 2);
+	ret.y = p0.y * pow(t, 2) + p1.y * 2.0 * t * it + p2.y * pow(it, 2);
+	ret.z = p0.z * pow(t, 2) + p1.z * 2.0 * t * it + p2.z * pow(it, 2);
+	
+	return ret;
+}
+
+void BSPLoader::Bezier::Tessellate(int level) {
+	
+    // The number of vertices along a side is 1 + num edges
+    const int L1 = level + 1;
+	
+    vertices.resize(L1 * L1);
+	
+    // Compute the vertices
+    int i;
+	
+    for (i = 0; i <= level; ++i) {
+        double a = (double)i / level;
+        double b = 1 - a;
+		
+        vertices[i] =
+            controls[0] * (b * b) + 
+            controls[3] * (2.0 * b * a) +
+            controls[6] * (a * a);
+    }
+	
+    for (i = 1; i <= level; ++i) {
+        double a = (double)i / level;
+        double b = 1.0 - a;
+		
+        Vertex temp[3];
+		
+        int j;
+        for (j = 0; j < 3; ++j) {
+            int k = 3 * j;
+            temp[j] =
+                controls[k + 0] * (b * b) + 
+                controls[k + 1] * (2.0 * b * a) +
+                controls[k + 2] * (a * a);
+        }
+		
+        for(j = 0; j <= level; ++j) {
+            double a = (double)j / level;
+            double b = 1.0 - a;
+			
+            vertices[i * L1 + j]=
+                temp[0] * (b * b) + 
+                temp[1] * (2.0 * b * a) +
+                temp[2] * (a * a);
+        }
+    }
+	
+	
+    // Compute the indices
+    int row;
+    indices.resize(level * (level + 1) * 2);
+	
+	
+    for (row = 0; row < level; ++row) {
+        for(int col = 0; col <= level; ++col)	{
+            indices[(row * (level + 1) + col) * 2 + 1] = row       * L1 + col;
+            indices[(row * (level + 1) + col) * 2]     = (row + 1) * L1 + col;
+        }
+    }
+	
+    trianglesPerRow.resize(level);
+    rowIndices.resize(level);
+    for (row = 0; row < level; ++row) {
+        trianglesPerRow[row] = 2 * L1;
+        rowIndices[row]      = &indices[row * 2 * L1];
+    }	
+}
+

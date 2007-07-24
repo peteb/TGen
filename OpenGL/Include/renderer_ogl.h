@@ -80,7 +80,10 @@ namespace TGen {
 			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
 			TGen::Shader * CreateShader(const char * code, int type);
 			
+			bool colorFromVertex;
 			uint indexBufferFormat;
+			TGen::VertexBuffer * lastVb;
+			TGen::IndexBuffer * lastIb;
 		};
 		
 	} // !OpenGL	

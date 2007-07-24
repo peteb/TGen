@@ -22,6 +22,8 @@
 		D0EE96060C35E11600CB2978 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE961A0C35E15900CB2978 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */; };
 		D0EE97D80C35E85800CB2978 /* tgen_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE97D70C35E85800CB2978 /* tgen_core.cpp */; };
+		D0F2A7380C563DA700E3A05B /* hrestimer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F2A7370C563DA700E3A05B /* hrestimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F2A73A0C563DB400E3A05B /* hrestimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F2A7390C563DB400E3A05B /* hrestimer.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +66,8 @@
 		D0EE958C0C35DF7700CB2978 /* tgen_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_core.h; path = Include/tgen_core.h; sourceTree = "<group>"; };
 		D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EE97D70C35E85800CB2978 /* tgen_core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_core.cpp; path = Source/tgen_core.cpp; sourceTree = "<group>"; };
+		D0F2A7370C563DA700E3A05B /* hrestimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = hrestimer.h; path = Include/hrestimer.h; sourceTree = "<group>"; };
+		D0F2A7390C563DB400E3A05B /* hrestimer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = hrestimer.cpp; path = Source/hrestimer.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +115,8 @@
 				D07258900C4C372000909B4E /* cast.h */,
 				D07258CE0C4C389C00909B4E /* stringman.cpp */,
 				D07258CA0C4C388100909B4E /* stringman.h */,
+				D0F2A7390C563DB400E3A05B /* hrestimer.cpp */,
+				D0F2A7370C563DA700E3A05B /* hrestimer.h */,
 			);
 			name = Core;
 			path = ..;
@@ -156,6 +162,7 @@
 				D08DD2A00C3BD72600C0AB3F /* tokenizer.h in Headers */,
 				D07258910C4C372000909B4E /* cast.h in Headers */,
 				D07258CB0C4C388100909B4E /* stringman.h in Headers */,
+				D0F2A7380C563DA700E3A05B /* hrestimer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +239,7 @@
 				D0EE97D80C35E85800CB2978 /* tgen_core.cpp in Sources */,
 				D08DD29E0C3BD71D00C0AB3F /* tokenizer.cpp in Sources */,
 				D07258CF0C4C389C00909B4E /* stringman.cpp in Sources */,
+				D0F2A73A0C563DB400E3A05B /* hrestimer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

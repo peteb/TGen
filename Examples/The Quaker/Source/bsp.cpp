@@ -8,6 +8,7 @@
  */
 
 #include "bsp.h"
+#include <tgen_graphics.h>
 
 BSPTree::BSPTree(const std::string & name)
 	: SceneNode(name)
@@ -20,23 +21,28 @@ BSPTree::~BSPTree() {
 	delete vb;
 }
 
-BSPGeometry::BSPGeometry(BSPTree & tree, bool polygon)
+BSPGeometry::BSPGeometry(BSPTree & tree, bool wire)
 	: tree(tree)
 	, startIndex(0)
 	, numIndices(0)
 	, ib(NULL)
-	, polygon(polygon)
+	, vb(NULL)
+	, wire(wire)
 {
-	delete ib;
-		
+	
 }
 
 BSPGeometry::~BSPGeometry() {
-
+	delete ib;
+	delete vb;
 }
 
 void BSPGeometry::PrepareRender(TGen::Renderer & renderer) const {
-	renderer.setVertexBuffer(tree.vb);
+	if (!vb)
+		renderer.setVertexBuffer(tree.vb);
+	else
+		renderer.setVertexBuffer(vb);
+	
 	renderer.setIndexBuffer(ib);
 
 }
@@ -49,7 +55,28 @@ void BSPGeometry::Render(TGen::Renderer & renderer) const {
 	//else
 	//glCullFace(GL_FRONT);
 	//if (polygon)
-		renderer.DrawIndexedPrimitive(TGen::PrimitiveTriangles, startIndex, numIndices);
+	
+	TGen::PrimitiveType type = TGen::PrimitiveTriangles;
+	if (wire) {
+		type = TGen::PrimitiveTriangleStrip;
+	}
+
+	
+	if (multidraw.empty()) {
+		if (ib)
+			renderer.DrawIndexedPrimitive(type, startIndex, numIndices);
+		else
+			renderer.DrawPrimitive(type, startIndex, numIndices);
+	}
+	else {
+		for (int i = 0; i < multidraw.size(); ++i) {
+			int count = multidraw[i].second;
+			
+			renderer.setIndexBuffer(multidraw[i].first);
+			renderer.DrawIndexedPrimitive(type, 0, count);
+		}
+	}
+	
 }
 
 TGen::Vector3 BSPGeometry::getMax() const {

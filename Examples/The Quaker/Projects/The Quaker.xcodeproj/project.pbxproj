@@ -84,6 +84,13 @@
 		D06DD1190C52A09400C10D29 /* energy3.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD1170C52A09400C10D29 /* energy3.jpg */; };
 		D06DD1500C52A0FA00C10D29 /* teleporter_edge2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD14F0C52A0FA00C10D29 /* teleporter_edge2.jpg */; };
 		D06DD1750C52A12F00C10D29 /* transparency2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD1740C52A12F00C10D29 /* transparency2.jpg */; };
+		D06DD34B0C52A89300C10D29 /* baslt4_1.blend.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD3490C52A89300C10D29 /* baslt4_1.blend.jpg */; };
+		D06DD34C0C52A89300C10D29 /* baslt4_1.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD34A0C52A89300C10D29 /* baslt4_1.jpg */; };
+		D06DD35C0C52A8C500C10D29 /* light2.blend.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD35B0C52A8C500C10D29 /* light2.blend.jpg */; };
+		D06DD35E0C52A8CB00C10D29 /* light2.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD35D0C52A8CB00C10D29 /* light2.jpg */; };
+		D06DD36C0C52A98C00C10D29 /* flare.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD36B0C52A98C00C10D29 /* flare.jpg */; };
+		D06DD4440C52AB6200C10D29 /* black.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD4430C52AB6200C10D29 /* black.jpg */; };
+		D06DD6860C52B83A00C10D29 /* smallfont.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD6850C52B83A00C10D29 /* smallfont.tga */; };
 		D07227130C4BC00B00E6E64B /* scenenode.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07227110C4BC00B00E6E64B /* scenenode.h */; };
 		D07227140C4BC00B00E6E64B /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07227120C4BC00B00E6E64B /* scenenode.cpp */; };
 		D072272E0C4BC06000E6E64B /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D072272D0C4BC05900E6E64B /* libtgen_opengl.a */; };
@@ -245,6 +252,13 @@
 				D06DD1190C52A09400C10D29 /* energy3.jpg in CopyFiles */,
 				D06DD1500C52A0FA00C10D29 /* teleporter_edge2.jpg in CopyFiles */,
 				D06DD1750C52A12F00C10D29 /* transparency2.jpg in CopyFiles */,
+				D06DD34B0C52A89300C10D29 /* baslt4_1.blend.jpg in CopyFiles */,
+				D06DD34C0C52A89300C10D29 /* baslt4_1.jpg in CopyFiles */,
+				D06DD35C0C52A8C500C10D29 /* light2.blend.jpg in CopyFiles */,
+				D06DD35E0C52A8CB00C10D29 /* light2.jpg in CopyFiles */,
+				D06DD36C0C52A98C00C10D29 /* flare.jpg in CopyFiles */,
+				D06DD4440C52AB6200C10D29 /* black.jpg in CopyFiles */,
+				D06DD6860C52B83A00C10D29 /* smallfont.tga in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -329,6 +343,13 @@
 		D06DD1170C52A09400C10D29 /* energy3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = energy3.jpg; sourceTree = "<group>"; };
 		D06DD14F0C52A0FA00C10D29 /* teleporter_edge2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = teleporter_edge2.jpg; sourceTree = "<group>"; };
 		D06DD1740C52A12F00C10D29 /* transparency2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = transparency2.jpg; sourceTree = "<group>"; };
+		D06DD3490C52A89300C10D29 /* baslt4_1.blend.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = baslt4_1.blend.jpg; sourceTree = "<group>"; };
+		D06DD34A0C52A89300C10D29 /* baslt4_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = baslt4_1.jpg; sourceTree = "<group>"; };
+		D06DD35B0C52A8C500C10D29 /* light2.blend.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = light2.blend.jpg; sourceTree = "<group>"; };
+		D06DD35D0C52A8CB00C10D29 /* light2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = light2.jpg; sourceTree = "<group>"; };
+		D06DD36B0C52A98C00C10D29 /* flare.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = flare.jpg; sourceTree = "<group>"; };
+		D06DD4430C52AB6200C10D29 /* black.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = black.jpg; sourceTree = "<group>"; };
+		D06DD6850C52B83A00C10D29 /* smallfont.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = smallfont.tga; sourceTree = "<group>"; };
 		D07227110C4BC00B00E6E64B /* scenenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scenenode.h; sourceTree = "<group>"; };
 		D07227120C4BC00B00E6E64B /* scenenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenode.cpp; sourceTree = "<group>"; };
 		D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -485,6 +506,7 @@
 				D06DC9690C52857600C10D29 /* metaltech12final.jpg */,
 				D06DC96A0C52857600C10D29 /* metaltech13final.jpg */,
 				D06DC9780C5285B600C10D29 /* main_q3abanner.tga */,
+				D06DD4430C52AB6200C10D29 /* black.jpg */,
 				D06DC98E0C5285E200C10D29 /* metalfloor_wall_15.jpg */,
 				D06DC99B0C52861D00C10D29 /* metalblack03.jpg */,
 				D06DC9A70C52865100C10D29 /* c_met5_2.jpg */,
@@ -535,14 +557,20 @@
 				D06DCDDF0C5293E700C10D29 /* bot_lamp.jpg */,
 				D06DCDE90C52941200C10D29 /* bot_flare.jpg */,
 				D06DCDEE0C52941C00C10D29 /* bot_flare2.jpg */,
+				D06DD3490C52A89300C10D29 /* baslt4_1.blend.jpg */,
+				D06DD34A0C52A89300C10D29 /* baslt4_1.jpg */,
 				D06DCDE40C5293FD00C10D29 /* bot_lamp2.jpg */,
+				D06DD35D0C52A8CB00C10D29 /* light2.jpg */,
 				D06DCDF60C52943900C10D29 /* bot_wing.tga */,
 				D06DCE080C52949600C10D29 /* spotbeam.jpg */,
+				D06DD35B0C52A8C500C10D29 /* light2.blend.jpg */,
 				D06DCDFB0C52945F00C10D29 /* spotlamp_l.jpg */,
 				D06DCDFC0C52945F00C10D29 /* spotlamp.tga */,
 				D06DCE290C52954700C10D29 /* bouncepad01_diamond2cTGA.jpg */,
+				D06DD36B0C52A98C00C10D29 /* flare.jpg */,
 				D06DCE2B0C52954F00C10D29 /* bouncepad01b_layer1.jpg */,
 				D06DCE300C52955C00C10D29 /* jumppadsmall.jpg */,
+				D06DD6850C52B83A00C10D29 /* smallfont.tga */,
 				D0EE62FA0C50F21F00D55B42 /* test.shader */,
 			);
 			name = Resources;
@@ -650,8 +678,10 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_UNROLL_LOOPS = NO;
 				HEADER_SEARCH_PATHS = (
 					../../../OpenGL/Include/,
 					../../../Core/Include/,
@@ -674,12 +704,11 @@
 		1DEB923308733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = i386;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = (
 					../../../OpenGL/Include/,
 					../../../Core/Include/,

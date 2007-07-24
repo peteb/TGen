@@ -22,7 +22,11 @@
 
 #include <iostream>
 
-TGen::OpenGL::Renderer::Renderer() {
+TGen::OpenGL::Renderer::Renderer()
+	: colorFromVertex(true)
+	, lastVb(NULL)
+	, lastIb(NULL)
+{
 	glEnable(GL_DEPTH_TEST);
 
 	GLint viewportDims[2];
@@ -105,7 +109,7 @@ void TGen::OpenGL::Renderer::setTransform(TGen::TransformMode mode, const TGen::
 
 	TGen::Renderer::setTransform(mode, transformation);
 	
-	float elements[16];
+	//float elements[16];
 	//transformation.get4x4(elements);
 	
 	glLoadMatrixf((GLfloat *)transformation.elements);	
@@ -275,8 +279,8 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & si
 	}
 
 	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.width, size.height, 0, format, type, NULL);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	
 	GLint compressedSize = 0;
 	
@@ -327,10 +331,12 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image,
 	else {
 		internalFormat = TGen::OpenGL::TgenImageFormatToOpenGL(components);
 	}
-	//gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, image.getSize().width, image.getSize().height, format, type, image.getData());	
-	glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, image.getSize().width, image.getSize().height, 0, format, type, image.getData());
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, image.getSize().width, image.getSize().height, format, type, image.getData());	
+	//glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, image.getSize().width, image.getSize().height, 0, format, type, image.getData());
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	// TODO: these are states. should be set when binding texture
+	// TODO: check whether current vb is the new vb
 	
 	GLint compressedSize = 0;
 	
@@ -348,14 +354,14 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer) {
 	if (!buffer) {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);		
 	}
-	else {
+	else if (buffer != lastVb) {
 		TGen::OpenGL::VertexBuffer * vb = static_cast<TGen::OpenGL::VertexBuffer *>(buffer);
 		if (!vb) // NOTE: this is never thrown, static_cast!
 			throw TGen::RuntimeException("OpenGL::Renderer::setVertexBuffer", "vertex buffer is not a valid OpenGL buffer");
 		
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vb->vboId);
-
 		ApplyVertexStructure(buffer->getVertexStructure());
+		lastVb = buffer;
 	}
 }
 
@@ -363,13 +369,14 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 	if (!buffer) {
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 	}
-	else {
+	else if (buffer != lastIb) {
 		TGen::OpenGL::IndexBuffer * ib = static_cast<TGen::OpenGL::IndexBuffer *>(buffer);
 		if (!ib) // NOTE: this is never thrown, static_cast!
 			throw TGen::RuntimeException("OpenGL::Renderer::setIndexBuffer", "index buffer is not a valid OpenGL buffer");
 		
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, ib->vboId);
 		indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
+		lastIb = buffer;
 	}
 }
 
@@ -393,7 +400,9 @@ void TGen::OpenGL::Renderer::DrawPrimitive(TGen::PrimitiveType type, uint startV
 void TGen::OpenGL::Renderer::DrawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) {
 	GLenum fixedPrimitive = TGen::OpenGL::TgenPrimitiveToOpenGL(type);
 	
-	glDrawRangeElements(fixedPrimitive, startIndex, startIndex + indexCount, indexCount, indexBufferFormat, NULL);
+	glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb->getVertexStructure().getElementDataType(0))));	
+	//glDrawRangeElements(fixedPrimitive, startIndex, startIndex + indexCount, indexCount, indexBufferFormat, NULL);	// TODO: get real size
+
 }
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::CreateFrameBuffer() {
@@ -559,13 +568,18 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 				
 			case TGen::ColorElement:
 				//std::cout << "color pointer count: " << int(element.count) << " type: " << fixedType << " stride: " << stride << " pos: " << pos << std::endl;
-				glEnableClientState(GL_COLOR_ARRAY);
-				glColorPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
+				if (colorFromVertex) {
+					glEnableClientState(GL_COLOR_ARRAY);
+					glColorPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
+				}
+				
 				break;
 				
 			case TGen::ColorIndexElement:
-				glEnableClientState(GL_INDEX_ARRAY);
-				glIndexPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
+				if (colorFromVertex) {
+					glEnableClientState(GL_INDEX_ARRAY);
+					glIndexPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
+				}
 				break;
 				
 			case TGen::EdgeFlagElement:
@@ -683,6 +697,7 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "back polygon mode not supported");						
 	}
 	
+	colorFromVertex = context.colorFromVertex;
 }
 
 

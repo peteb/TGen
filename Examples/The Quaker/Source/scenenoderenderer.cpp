@@ -83,15 +83,14 @@ void AABBRenderer::Visit(SceneNode & node) {
 
 }
 
-SceneNodeRenderer::SceneNodeRenderer(RenderList & list, Camera & camera, int maxSurfaces)
+SceneNodeRenderer::SceneNodeRenderer(RenderList & list, Camera & camera)
 	: list(list)
 	, camera(camera)
-	, maxSurfaces(maxSurfaces)
 {
 }
 
 void SceneNodeRenderer::Visit(SceneNode & node) {
-	for (int i = 0; i < node.surfaces.size() && i < maxSurfaces; ++i)
+	for (int i = 0; i < node.surfaces.size(); ++i)
 		list.AddSurface(&node.surfaces[i]);
 }
 

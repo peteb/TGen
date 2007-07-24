@@ -196,9 +196,9 @@ TGen::Matrix4x4 TGen::Matrix4x4::OrthogonalProjection(const TGen::Rectangle & ar
 	return OrthogonalProjection(upperLeft.x, upperLeft.y, upperLeft.x + area.width, upperLeft.y + area.height, near, far);
 }
 
-TGen::Matrix4x4 TGen::Matrix4x4::PerspectiveProjection(scalar fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far) {
+TGen::Matrix4x4 TGen::Matrix4x4::PerspectiveProjection(const TGen::Angle & fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far) {
 	Matrix4x4 ret;
-	float f = 1.0f / tanf((fieldOfViewY / 2.0f) / (M_PI) * 360.0f);
+	float f = 1.0f / tanf(TGen::Radian(fieldOfViewY).angle / 2.0f);
 				
 	ret.elements[0][0] = f / fieldOfViewAspect;
 	ret.elements[1][1] = f;

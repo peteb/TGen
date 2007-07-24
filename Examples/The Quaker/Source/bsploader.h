@@ -54,6 +54,9 @@ private:
 	
 	StringList materialDeps;
 	
+	TGen::Vector3 getQuadratic(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2, scalar t);
+	
+	
 	struct Face {
 		int texture, effect, type, vertex, num_vertices, meshvert, num_meshvertices, lm_index;
 		int lm_start[2], lm_size[2];
@@ -70,6 +73,38 @@ private:
 		float texcoord[2][2];
 		float normal[3];
 		uint8 color[4];
+		
+		Vertex operator * (scalar value) {
+			Vertex ret;
+			ret = *this;
+			ret.position[0] = position[0] * value;
+			ret.position[1] = position[1] * value;
+			ret.position[2] = position[2] * value;
+			ret.texcoord[0][0] = texcoord[0][0] * value;
+			ret.texcoord[0][1] = texcoord[0][1] * value;
+			
+	//		for (int i = 0; i < 4; ++i)
+	//			ret.color[i] = color[i] * value;
+			
+			return ret;
+		}
+		
+		Vertex operator + (const Vertex & vert) {
+			Vertex ret;
+			ret = vert;
+			ret.position[0] = position[0] + vert.position[0];
+			ret.position[1] = position[1] + vert.position[1];
+			ret.position[2] = position[2] + vert.position[2];
+			ret.texcoord[0][0] = texcoord[0][0] + vert.texcoord[0][0];
+			ret.texcoord[0][1] = texcoord[0][1] + vert.texcoord[0][1];
+			
+			for (int i = 0; i < 4; ++i) {
+				ret.color[i] = vert.color[i] + (color[i] - vert.color[i]) * 0.5;
+			}
+			
+			return ret;
+		}
+		
 	};
 	
 	struct Texture {
@@ -87,6 +122,19 @@ private:
 		DirectoryEntry entries[17];
 	};
 
+	class Bezier {
+	public:
+		Vertex controls[9];
+		
+		void Tessellate(int level);
+	
+		std::vector<Vertex> vertices;
+		std::vector<uint32> indices;
+		std::vector<int32> trianglesPerRow;
+		std::vector<uint32 *> rowIndices;
+		
+	};
+	
 	Header header;
 	Texture * textures;
 	Face * faces;

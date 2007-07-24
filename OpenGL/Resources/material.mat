@@ -1,12 +1,10 @@
 
-// some parameters...
-params cool {
+params metalbridge06_pent {
 	niceParam 1 5 3
 	matAuthor "peter" "Peter Backman"  123123
 } 
 
-// here's the material
-material cool default 0 {
+material metalbridge06_pent default 0 {
 	lod 0 {	
 		pass fixed {			
 			front fill
@@ -35,5 +33,6 @@ material cool default 0 {
 		}		
 	}
 }	
+
 
 // TODO: vector4, x, y, z, w

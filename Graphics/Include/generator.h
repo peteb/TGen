@@ -62,12 +62,13 @@ namespace TGen {
 	
 	class SawtoothWaveGenerator : public WaveGenerator {
 	public:
-		SawtoothWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency);
+		SawtoothWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency, bool inverse);
 		
 		TGen::Color getColor(double time, float alpha) const;
 		scalar getValue(double time) const;
 		
 	private:
+		bool inverse;
 		mutable scalar lastValue;
 	};	
 } // !TGen

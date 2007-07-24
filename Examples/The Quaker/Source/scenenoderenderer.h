@@ -28,14 +28,13 @@ private:
 
 class SceneNodeRenderer : public SceneNodeVisitor {
 public:
-	SceneNodeRenderer(RenderList & list, Camera & camera, int maxSurfaces);
+	SceneNodeRenderer(RenderList & list, Camera & camera);
 	
 	void Visit(SceneNode & node);
 	
 private:
 	RenderList & list;
 	Camera & camera;
-	int maxSurfaces;
 };
 
 #endif // !_THEQUAKER_SCENENODERENDERER_H

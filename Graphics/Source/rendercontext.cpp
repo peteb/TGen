@@ -10,8 +10,16 @@
 #include "rendercontext.h"
 #include "tgen_core.h"
 
-TGen::RenderContext::RenderContext() : depthWrite(true), frontColor(TGen::Color::White), shader(NULL), depthFunc(TGen::CompareLess),
-	front(TGen::PolygonFaceFill), back(TGen::PolygonFaceCull), blendSrc(TGen::BlendSourceAlpha), blendDst(TGen::BlendOneMinusSourceAlpha)
+TGen::RenderContext::RenderContext() 
+	: depthWrite(true)
+	, frontColor(TGen::Color::White)
+	, shader(NULL)
+	, depthFunc(TGen::CompareLess)
+	, front(TGen::PolygonFaceFill)
+	, back(TGen::PolygonFaceCull)
+	, blendSrc(TGen::BlendSourceAlpha)
+	, blendDst(TGen::BlendOneMinusSourceAlpha)
+	, colorFromVertex(false)
 {
 
 }
@@ -21,6 +29,14 @@ void TGen::RenderContext::AddTextureUnit(TGen::TextureUnit * unit) {
 }
 
 TGen::TextureUnit::TextureUnit(int unit, TGen::Texture * texture) 
-	: unit(unit), texture(texture), transformed(false), transform(TGen::Matrix4x4::Identity), 
-	genU(TGen::TextureCoordGenBase), genV(TGen::TextureCoordGenBase), textureType(0) {}
+	: unit(unit)
+	, texture(texture)
+	, transformed(false)
+	, transform(TGen::Matrix4x4::Identity)
+	, genU(TGen::TextureCoordGenBase)
+	, genV(TGen::TextureCoordGenBase)
+	, textureType(0) 
+{
+
+}
 

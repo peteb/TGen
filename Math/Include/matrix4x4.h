@@ -18,6 +18,7 @@ namespace TGen {
 	class Vector3;
 	class Rectangle;
 	class Angle;
+	class Degree;
 	
 	class Matrix4x4 {
 	public:
@@ -48,7 +49,7 @@ namespace TGen {
 		static TGen::Matrix4x4 Scaling(const TGen::Vector3 & scale);
 		static TGen::Matrix4x4 OrthogonalProjection(scalar left, scalar top, scalar right, scalar bottom, scalar near = -1.0, scalar far = 1.0);
 		static TGen::Matrix4x4 OrthogonalProjection(const TGen::Rectangle & area, scalar near = -1.0, scalar far = 1.0);
-		static TGen::Matrix4x4 PerspectiveProjection(scalar fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far);
+		static TGen::Matrix4x4 PerspectiveProjection(const TGen::Angle & fieldOfViewY, scalar fieldOfViewAspect, scalar near, scalar far);
 		static TGen::Matrix4x4 Rotation(const TGen::Vector3 & axis, const TGen::Angle & angle);
 		static TGen::Matrix4x4 LookAt(const TGen::Vector3 & position, const TGen::Vector3 & eye, const TGen::Vector3 & up);
 		static TGen::Matrix4x4 LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up);

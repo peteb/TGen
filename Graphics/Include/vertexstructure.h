@@ -195,6 +195,7 @@ namespace TGen {
 			
 		class Type : public A::Type, public B::Type {
 		public:
+			Type() : A::Type(), B::Type() {}			
 			template<typename p1, typename p2> Type(p1 a, p2 b) : A::Type(a), B::Type(b) {}
 		};
 	};
@@ -206,6 +207,7 @@ namespace TGen {
 			
 		class Type : public A::Type, public B::Type, public C::Type {
 		public:
+			Type() : A::Type(), B::Type(), C::Type() {}			
 			template<typename p1, typename p2, typename p3> Type(p1 a, p2 b, p3 c) : A::Type(a), B::Type(b), C::Type(c) {}
 		};
 	};
@@ -217,6 +219,7 @@ namespace TGen {
 			
 		class Type : public A::Type, public B::Type, public C::Type, public D::Type {
 		public:
+			Type() : A::Type(), B::Type(), C::Type(), D::Type() {}			
 			template<typename p1, typename p2, typename p3, typename p4> Type(p1 a, p2 b, p3 c, p4 d) : A::Type(a), B::Type(b), C::Type(c), D::Type(d) {}
 		};
 	};
@@ -228,6 +231,7 @@ namespace TGen {
 			
 		class Type : public A::Type, public B::Type, public C::Type, public D::Type, public E::Type {
 		public:
+			Type() : A::Type(), B::Type(), C::Type(), D::Type(), E::Type() {}			
 			template<typename p1, typename p2, typename p3, typename p4, typename p5> Type(p1 a, p2 b, p3 c, p4 d, p5 e) : A::Type(a), B::Type(b), C::Type(c), D::Type(d), E::Type(e) {}
 		};
 	};	

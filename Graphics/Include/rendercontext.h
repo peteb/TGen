@@ -43,6 +43,7 @@ namespace TGen {
 		TGen::CompareFunc depthFunc;
 		TGen::PolygonFaceMode front, back;
 		TGen::BlendFunc blendSrc, blendDst;
+		bool colorFromVertex;
 		
 		typedef std::vector<TGen::TextureUnit *> TextureList;
 		TextureList textureUnits;

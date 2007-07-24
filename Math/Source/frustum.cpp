@@ -45,7 +45,7 @@ void TGen::Frustum::Calculate(const TGen::Matrix4x4 & projection, const TGen::Ma
 }
 
 int TGen::Frustum::Intersects(const TGen::Sphere & sphere) const {
-	
+	return 0;
 }
 
 int TGen::Frustum::Intersects(const TGen::AABB & aabb) const {

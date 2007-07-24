@@ -53,5 +53,12 @@ int main(int argc, char ** const argv) {
 		std::cout << "7. bad_lexical_cast: " << e.what() << std::endl;
 	}
 	
+	// 8.
+	TGen::Time now = TGen::Time::Now();
+	std::cout << "8. now: " << std::fixed << double(now) << " ";
+	TGen::Sleep(TGen::Time(1.0));
+	TGen::Time really = TGen::Time::Now();
+	std::cout << "sleep diff: " << double(really - now) << std::endl;
+	
 	return EXIT_SUCCESS;
 }

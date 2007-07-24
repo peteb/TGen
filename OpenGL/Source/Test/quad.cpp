@@ -34,7 +34,7 @@ public:
 		
 		std::cout << "2. Loading data..." << std::endl;
 		LoadData();
-		std::cout << "   ... ok" << std::endl;
+		std::cout << "   ... ok" << std::endl; // TODO: wrap ska vara per textur, filter också, cool
 	}
 	
 	~App() {
@@ -56,10 +56,11 @@ public:
 		renderer->setIndexBuffer(ib);
 		renderer->setColor(Color::Red);
 		
-		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(60.0f, windowSize.width / windowSize.height, 0.1f, 100.0f));
-		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -1.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
+		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(TGen::Degree(90.0f), windowSize.width / windowSize.height, 0.1f, 100.0f));
+		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
 
-		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 3);
+		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 3, 3);
 
 		
 		glutSwapBuffers();

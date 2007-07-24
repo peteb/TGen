@@ -38,7 +38,6 @@
 		D01F7A840C4D2AD2007618C6 /* hologirl.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F7A830C4D2AD2007618C6 /* hologirl.tga */; };
 		D0426E850C406FE6004CB60C /* pent_glow.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426E830C406FE6004CB60C /* pent_glow.jpg */; };
 		D0426EB20C407304004CB60C /* metalbridge06_pent.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */; };
-		D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
 		D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
 		D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02520C3D9F3D007D4B18 /* libIL.a */; };
 		D0CE02710C3D9FBA007D4B18 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02700C3D9FBA007D4B18 /* libjpeg.a */; };
@@ -49,6 +48,7 @@
 		D0CE09000C3FE4AB007D4B18 /* shader.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */; };
 		D0CE0ABE0C3FE94D007D4B18 /* material.mat in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE0ABD0C3FE94D007D4B18 /* material.mat */; };
 		D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
+		D0F2ABD50C5664F900E3A05B /* quad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB280C3BBEA500C0AB3F /* quad.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -516,7 +516,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D08DC92B0C3BB59900C0AB3F /* materialtest.cpp in Sources */,
+				D0F2ABD50C5664F900E3A05B /* quad.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -596,10 +596,7 @@
 		1DEB923308733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = i386;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
@@ -678,6 +675,8 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 1;
+				GCC_UNROLL_LOOPS = YES;
 				HEADER_SEARCH_PATHS = (
 					../../Core/Include/,
 					../../Math/Include/,

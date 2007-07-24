@@ -61,8 +61,10 @@ scalar TGen::SquareWaveGenerator::getValue(double time) const {
 }
 
 
-TGen::SawtoothWaveGenerator::SawtoothWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency) :
-	TGen::WaveGenerator(base, amplitude, phase, frequency), lastValue(0.0f) 
+TGen::SawtoothWaveGenerator::SawtoothWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency, bool inverse) 
+	: TGen::WaveGenerator(base, amplitude, phase, frequency)
+	, lastValue(0.0f) 
+	, inverse(inverse)
 {
 }
 
@@ -76,12 +78,12 @@ TGen::Color TGen::SawtoothWaveGenerator::getColor(double time, float alpha) cons
 scalar TGen::SawtoothWaveGenerator::getValue(double time) const {
 	float a = 1.0 / frequency;
 	time += phase * frequency;
-	scalar value = (2.0 * (time / a - floor(time / a + 0.5))) * amplitude + base;
+	scalar value = 0.0f;
 	
-	//if (fabs(value - lastValue) < 0.01f)
-	//	return lastValue;
-	
-	//lastValue = value;
+	if (!inverse)
+		value = (2.0 * (time / a - floor(time / a + 0.5))) * amplitude + base;
+	else
+		value = -(2.0 * (time / a - floor(time / a + 0.5))) * amplitude + base;
 	
 	return value;
 }

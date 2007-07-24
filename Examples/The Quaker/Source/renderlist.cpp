@@ -26,6 +26,7 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 	renderer.setTransform(TGen::TransformProjection, camera.getProjection());
 	
 	SceneNode * lastNode = NULL;
+	TGen::Material * lastMaterial = NULL;
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		SceneNode * thisNode = surfaces[i]->getSceneNode();
@@ -34,7 +35,8 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 			lastNode = thisNode;
 		}
 		
-		surfaces[i]->getMaterial()->Render(renderer, *surfaces[i], "default", 9, NULL);
+		TGen::Material * mat = surfaces[i]->getMaterial();
+		mat->Render(renderer, *surfaces[i], "default", 9, NULL);
 	}
 }
 
@@ -46,30 +48,4 @@ void RenderList::Clear() {
 	surfaces.clear();
 }
 
-// vad behövs för rendrering: transformmatris, material, pekare till metod som rendrerar
-// rendrerar = Renderable, transform = SceneNode, material = 
-// men vissa geoms kan ha samma transform men olika material?
-// minsta del måste vara geom + material.
-// en transform har flera geom + material.
-// geom + material = surface
-// en transform har flera surfaces
-// en transform har en AABB
-// rättare sagt:
-// en scenenode har en transform + AABB + flera surfaces
-// Man har en renderable-collection
-// sen kan surfaces peka på saker där
 
-// man måste kunna ha samma mesh på olika ställen, med olika AABBs, och olika material
-/*
-class Surface : public Renderable {
-public:
-	Surface(materialName, Renderable *)
-	getMaterial
-	Link(MaterialLinker & linker) // översätter matnamn till mat*
-	Prepare
-	Render() (renderable->render)
-};
- 
- det enda slutsteget behöver är transform + surface
- 
- */

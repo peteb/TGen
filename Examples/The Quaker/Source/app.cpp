@@ -52,7 +52,7 @@ App::App()
 	std::cout << "[app]: initializing..." << std::endl;
 	
 	glutInitWindowSize(windowSize.width, windowSize.height);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutInitDisplayMode(GLUT_RGB |  GLUT_DEPTH);
 	window = glutCreateWindow("TGen \"The Quaker\"");
 	glutDisplayFunc(WindowRender);		
 	glutReshapeFunc(WindowResize);
@@ -78,7 +78,7 @@ App::App()
 	file.close();
 
 	resources->LoadMaterials("test.shader");
-	
+	// FÖRST: fixa kurvan. sen fixa en index buffer bara
 	
 	level = bspLoader.CreateTree(*renderer, *resources);
 	
@@ -95,20 +95,52 @@ App::App()
 	scene->getSceneRoot()->AddChild(camera);
 	scene->getSceneRoot()->AddChild(cubeNode);
 	
+	TGen::Vector3 base(-100.0f, 0.0f, 00.0f); //(100.0f, 50.0f, 470.0f);
 	TGen::Vector3 lookAt(0.0f, 0.0f, 0.0f);
-	TGen::Vector3 position(0.0f, 250.0f, -350.0f);
+	TGen::Vector3 position(0.0f, 130.0f, -250.0f);	// (0.0f, 160.0f, 0.0f);
+	
+	lookAt += base;
+	position += base;
 	
 	camera->setPosition(position);
+	//camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f));
 	camera->setOrientation((lookAt - position).getNormalized());
 	//camera->setOrientation(TGen::Vector3(0.83f, 0.52f, 0.9f).getNormalized()); //camera->getPosition().getNormalized());
 	camera->setUp(TGen::Vector3(0.0f, 1.0f, 0.0f));
 	
 	camera->Update(TGen::Matrix4x4::Identity, false);
 	scene->Update(0.0f);
+	
+	glEnable(GL_COLOR_MATERIAL);
+	
+	GLfloat amb[] = {1.0f, 1.0f, 1.0f, 1.0f};
+	GLfloat pos[] = {0.0f, 200.0f, 0.0f};
+	GLfloat dif[] = {0.0f, 0.0f, 0.0f, 1.0f};
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, amb);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, amb);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, amb);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, amb);
+	
+	/*//glEnable(GL_LIGHT1);
+	glLightfv(GL_LIGHT1, GL_POSITION, pos);
+	glLightfv(GL_LIGHT1, GL_DIFFUSE, dif);
+	//glLightfv(GL_LIGHT1, GL_SPECULAR, dif);*/
+	glPointSize(90.0f);
+	
+	
+	renderer->Clear(TGen::ColorBuffer);
+
+	lastFrame = TGen::Time::Now();
 }
 
 App::~App() {
 	std::cout << "[app]: shutting down..." << std::endl;
+	
+	for (int i = 0; i < 4; ++i)
+		std::cout << "[app]: stat " << i << ": " << std::fixed << stats[i] << std::endl;
 	
 	delete level;
 	delete myCube;
@@ -142,7 +174,15 @@ void App::Resize(const TGen::Rectangle & size) {
 }
 
 void App::Render() {
-	time += 0.02f;
+	TGen::Time thisFrame = TGen::Time::Now();
+	
+	double dt = double(thisFrame) - double(lastFrame);
+	lastFrame = thisFrame;
+	
+	time += dt;
+	fps = 1 / dt;
+
+	std::cout << TGen::lexical_cast<std::string>(fps).c_str() << std::endl;
 
 	if (resources)
 		resources->UpdateMaterials(time);
@@ -151,26 +191,39 @@ void App::Render() {
 	//cubeNode->setPosition(cubeNode->getOrientation().getNormalized() * 1.0f + TGen::Vector3(-2.0f, 0.0f, 0.0f));
 	
 	// TODO: något är skumt med orientation......
-	//camera->setPosition(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 15.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 15.0f));
+	//camera->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)), 0.0f, TGen::Sine(TGen::Radian(time))));
 	//camera->setOrientation(-(camera->getPosition().getNormalized()));
 
+	TGen::Time start = TGen::Time::Now();
 	scene->Update(1.0f);
-
-	renderer->setClearColor(TGen::Color::Black);
-	renderer->Clear(TGen::ColorBuffer | TGen::DepthBuffer);
+	stats[0] = TGen::Time::Now() - start;
+	
+	//renderer->setClearColor(TGen::Color::Black);
+	renderer->Clear(TGen::DepthBuffer);
 	
 
+	
+	start = TGen::Time::Now();
 	// render nodes ---------------------------------------
-	SceneNodeRenderer nodeRenderer(renderList, *camera, 100000000); //(time > 5.0f ? (time - 5.0f) * 100.0f : 0));
+	SceneNodeRenderer nodeRenderer(renderList, *camera); //(time > 5.0f ? (time - 5.0f) * 100.0f : 0));
 	
 	if (scene) scene->getSceneRoot()->Accept(nodeRenderer);
-	
+	stats[1] = TGen::Time::Now() - start;
+
+	start = TGen::Time::Now();
 	renderList.Render(*renderer, *camera);
 	renderList.Clear();
+	stats[2] = TGen::Time::Now() - start;
 	
 	
+	
+	
+	
+	
+	
+	start = TGen::Time::Now();
 	// render aabbs ---------------------------------------	
-	AABBRenderer aabbRenderer(*aabbBatch, *camera);
+	/*AABBRenderer aabbRenderer(*aabbBatch, *camera);
 
 	aabbBatch->BeginBatch();	
 	if (scene) scene->getSceneRoot()->Accept(aabbRenderer);
@@ -184,8 +237,9 @@ void App::Render() {
 	glLineWidth(2.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	aabbBatch->Render(renderer);
+	*/
 	
-	
+	stats[3] = TGen::Time::Now() - start;
 	
 	glutSwapBuffers();
 }

@@ -144,7 +144,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				
 				TGen::ScalarGenerator * genU = NULL, * genV = NULL;
 				
-				if (currentToken->second == "sin") {
+				if (currentToken->second == "sin" || currentToken->second == "saw" || currentToken->second == "inversesaw") {
 					//std::cout << "SIN GEN" << std::endl;
 					genU = ParseWaveGenerator();
 				}
@@ -218,8 +218,28 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 		}
 		else if (TGen::toUpper(currentToken->second) == "RGBGEN") {
 			StepToken();
-			StepToken();
-			// TODO: todo!!!!
+			if (currentToken->second == "wave") {
+				StepToken();
+				pass->setColorGenerator(ParseWaveGenerator());					
+			}
+			else {
+				if (currentToken->second == "identity") {
+					pass->setColor("1", "1", "1");
+				}
+				else if (currentToken->second == "vertex") {
+					pass->setColorFromVertex();
+				}
+				else {
+					std::string r, g, b;
+
+					r = getNumericToken("pass.rgbgen: expecting numeric R value ");
+					StepToken();
+					g = getNumericToken("pass.rgbgen: expecting numeric G value ");
+					StepToken();
+					b = getNumericToken("pass.rgbgen: expecting numeric B value ");
+					pass->setColor(r, g, b);
+				}
+			}
 		}
 		else if (currentToken->second == "map" || currentToken->second == "clampmap") {
 			bool clampmap = currentToken->second == "clampmap";
@@ -310,8 +330,8 @@ TGen::WaveGenerator * TGen::Q3MaterialParser::ParseWaveGenerator() {
 		ret = new TGen::SineWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);
 	else if (type == "square")
 		ret = new TGen::SquareWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
-	else if (type == "sawtooth" || type == "saw")
-		ret = new TGen::SawtoothWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else if (type == "sawtooth" || type == "saw" || type == "inversesaw" || type == "inversesawtooth")
+		ret = new TGen::SawtoothWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber, (type == "inversesaw" || type == "inversesawtooth"));	
 	else
 		throw TGen::RuntimeException("Q3MaterialParser::ParseWaveGenerator", "invalid wave type: '" + currentToken->second + "'!");
 	

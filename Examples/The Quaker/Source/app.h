@@ -33,6 +33,7 @@ public:
 	void Resize(const TGen::Rectangle & size);
 	void Render();
 	void Quit();
+	TGen::Time stats[10];
 	
 private:
 	TGen::Batch<TGen::Vertex3<float>, 2> * aabbBatch;
@@ -47,6 +48,8 @@ private:
 	Scene * scene;
 	int window;
 	bool run;
+	TGen::Time lastFrame;
+	double fps;
 	scalar time;
 
 

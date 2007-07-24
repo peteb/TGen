@@ -16,7 +16,7 @@
 		D0D89CBE0C4FA15800ACB21A /* plane3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0D89CBD0C4FA15800ACB21A /* plane3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE68F40C512AC100D55B42 /* sphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE68F30C512AC100D55B42 /* sphere.cpp */; };
 		D0EE68F60C512ACD00D55B42 /* sphere.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE68F50C512ACD00D55B42 /* sphere.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EE69340C512CEF00D55B42 /* frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE69330C512CEF00D55B42 /* frustum.h */; };
+		D0EE69340C512CEF00D55B42 /* frustum.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE69330C512CEF00D55B42 /* frustum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE69360C512CFB00D55B42 /* frustum.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE69350C512CFB00D55B42 /* frustum.cpp */; };
 		D0EE96F00C35E50C00CB2978 /* tgen_math.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE96890C35E37500CB2978 /* tgen_math.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EE96F10C35E50C00CB2978 /* angle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE96750C35E34700CB2978 /* angle.cpp */; };
@@ -472,6 +472,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = s;
 				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_math;
