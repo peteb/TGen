@@ -10,8 +10,6 @@
 #ifndef _TGEN_MATH_H
 #define _TGEN_MATH_H
 
-#include "tgen_core.h"
-
 #include "angle.h"
 #include "plane3.h"
 

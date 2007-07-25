@@ -17,9 +17,11 @@ namespace TGen {
 	const scalar PI = scalar(3.1415926536);
 	
 	class Angle {
-	public:
+	protected:
 		Angle(scalar anAngle = 0.0) : angle(anAngle) {}
 		Angle(const Angle & anAngle) {setAngle(anAngle); }
+
+	public:
 		virtual ~Angle() {}
 		
 		virtual scalar getRoundAngle() const abstract;
@@ -81,8 +83,8 @@ namespace TGen {
 		const static scalar RoundAngle;
 	};
 	
-	scalar Sine(const Radian & radians);
-	scalar Cosine(const Radian & radians);
+	scalar Sin(const Angle & angle);
+	scalar Cos(const Angle & angle);
 } // !TGen
 
 #endif // !_TGEN_ANGLE_H

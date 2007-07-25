@@ -1,6 +1,7 @@
 #include <iostream>
 #include <iomanip>
 #include "tgen_math.h"
+#include "tgen_core.h"
 
 int main(int argc, char ** const argv) {
 	std::cout << "TGen Math (debug binary: " << std::boolalpha << TGen::isMathDebug() << ")" << std::endl;
@@ -37,8 +38,13 @@ int main(int argc, char ** const argv) {
 	// 9.
 	std::cout << "9. sizeof(scalar) = " << sizeof(scalar) << std::endl;
 	
-	// 8.
-	std::cout << "8. PI =  " << TGen::Sine(TGen::PI) << std::endl;
+	// 10.
+	std::cout << "10. cos(PI) =  " << std::fixed << TGen::Cos(TGen::Radian(TGen::PI)) << std::endl;
 	
+	#ifdef _PLATFORM_WINDOWS
+	int hej;
+	std::cin >> hej;
+	#endif
+
 	return EXIT_SUCCESS;
 }
