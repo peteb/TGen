@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Math", "TGen Math.vcproj", "{653F9992-853E-4099-98F7-43CB08D3F8C1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mathtest", "mathtest.vcproj", "{7F27A562-6624-4833-8157-83CFD43BB1CC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{653F9992-853E-4099-98F7-43CB08D3F8C1} = {653F9992-853E-4099-98F7-43CB08D3F8C1}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Debug|Win32.Build.0 = Debug|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Release|Win32.ActiveCfg = Release|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Release|Win32.Build.0 = Release|Win32
+		{7F27A562-6624-4833-8157-83CFD43BB1CC}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7F27A562-6624-4833-8157-83CFD43BB1CC}.Debug|Win32.Build.0 = Debug|Win32
+		{7F27A562-6624-4833-8157-83CFD43BB1CC}.Release|Win32.ActiveCfg = Release|Win32
+		{7F27A562-6624-4833-8157-83CFD43BB1CC}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
