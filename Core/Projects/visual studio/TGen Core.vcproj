@@ -153,7 +153,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\hrestimer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\stringman.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\tgen_core.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\tokenizer.cpp"
 				>
 			</File>
 			<File
@@ -167,7 +179,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath="..\..\Include\cast.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\error.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\hrestimer.h"
 				>
 			</File>
 			<File
@@ -175,7 +195,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\stringman.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\tgen_core.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\tokenizer.h"
 				>
 			</File>
 			<File

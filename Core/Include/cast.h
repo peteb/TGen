@@ -92,31 +92,14 @@ namespace TGen {
 	
 	template<typename to, typename from>
 	to lexical_cast(const from & _from) {
-	/*	std::stringstream ss;
-		to ret;
-		
-		if (!(ss << _from) || !(ss >> ret))
-			throw bad_lexical_cast();
-	*/
-		
 		to ret;
 		lexstreamer ls;
+
 		if (!(ls << _from) || !(ls >> ret))
 			throw bad_lexical_cast();
 		
 		return ret;
 	}
-	
-	/*template<>
-	bool lexical_cast<bool, std::string>(const std::string & _from) {
-		std::cout << "BOOL CAST" << std::endl;
-		std::string lower = TGen::toLower(_from);
-		if (lower == "false" || lower == "no" || lower == "0")
-			return false;
-		
-		return true;
-	}*/
-	
 } // !Tgen
 
 #endif // !_TGEN_CAST_H

@@ -13,6 +13,7 @@
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN__) || defined(WINDOWS)
 	#define WIN32_LEAN_AND_MEAN
 	#define _PLATFORM_WINDOWS
+	#define _PLATFORM_WIN
 
 #elif defined(__APPLE__)
 	#define _PLATFORM_OSX

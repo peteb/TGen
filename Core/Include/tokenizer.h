@@ -14,6 +14,7 @@
 #include <list>
 #include <utility>
 #include <map>
+#include "types.h"
 #include "error.h"
 
 namespace TGen {

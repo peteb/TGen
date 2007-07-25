@@ -33,12 +33,7 @@ int main(int argc, char ** const argv) {
 	catch (const std::exception & e) {
 		std::cout << "4. exception: " << e.what() << std::endl;
 	}
-	
-	#ifdef _PLATFORM_WINDOWS
-	int hej;
-	std::cin >> hej;
-	#endif
-	
+
 	// 5.
 	std::cout << "5. lexical_cast: " << TGen::lexical_cast<int>("12345") + TGen::lexical_cast<int>("54321") << " == " << 12345 + 54321 << std::endl;
 	
@@ -60,5 +55,12 @@ int main(int argc, char ** const argv) {
 	TGen::Time really = TGen::Time::Now();
 	std::cout << "sleep diff: " << double(really - now) << std::endl;
 	
+	
+	#ifdef _PLATFORM_WINDOWS
+	int hej;
+	std::cin >> hej;
+	#endif
+	
+
 	return EXIT_SUCCESS;
 }

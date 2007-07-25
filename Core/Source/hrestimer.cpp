@@ -14,6 +14,8 @@
 #ifndef _PLATFORM_WIN
 #include <sys/time.h>
 #include <unistd.h>
+#else
+#include <windows.h>
 #endif
 
 TGen::Time::Time()
