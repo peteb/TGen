@@ -17,14 +17,18 @@ namespace TGen {
 	class Color;
 	
 	namespace OpenGL {
+		class ShaderProgram;
+		
 		enum ShaderVariableType {
 			Uniform,
 			Attribute,
 		};
 		
 		class ShaderVariable : public TGen::ShaderVariable {
-		public:
+		private:
 			ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type);
+
+		public:
 			~ShaderVariable();
 
 			TGen::ShaderVariable & operator = (int value);
@@ -34,7 +38,8 @@ namespace TGen {
 			TGen::ShaderVariable & operator = (const TGen::Vector3 & vector);
 			TGen::ShaderVariable & operator = (const TGen::Vector2 & vector);
 			
-			
+			friend class TGen::OpenGL::ShaderProgram;
+				
 		private:
 			TGen::OpenGL::ShaderVariableType type;
 			GLint location, program;

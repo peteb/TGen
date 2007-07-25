@@ -7,19 +7,24 @@
  *
  */
 
+#include <iostream>
+#include <tgen_core.h>
 #include "prefix_ogl.h"
 #include "vertexbuffer_ogl.h"
 #include "renderer.h"
 #include "error.h"
 
-#include <iostream>
 
-TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) : 
-	TGen::VertexBuffer(creator, size, usage), vertstruct(vertstruct), vboId(vboId) {}
+TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) 
+	: TGen::VertexBuffer(creator, size, usage)
+	, vertstruct(vertstruct)
+	, vboId(vboId) 
+{
+}
 
 TGen::OpenGL::VertexBuffer::~VertexBuffer() {
 	if (vboId > 0) {
-		std::cout << "[opengl]: deleting vertex buffer " << vboId << std::endl;
+		DEBUG_PRINT("[opengl]: deleting vertex buffer " << vboId);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glDeleteBuffersARB(1, reinterpret_cast<GLuint *>(&vboId));
 	}	

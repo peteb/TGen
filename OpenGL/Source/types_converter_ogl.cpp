@@ -122,7 +122,7 @@ uint TGen::OpenGL::TgenImageFormatToOpenGL(TGen::ImageFormat format) {
 	throw TGen::NotImplemented("TgenImageFormatToOpenGL", "format not supported");		
 }
 
-uint TGen::OpenGL::TGenBlendFuncToOpenGL(TGen::BlendFunc blend) {
+uint TGen::OpenGL::TgenBlendFuncToOpenGL(TGen::BlendFunc blend) {
 	switch (blend) {
 		case TGen::BlendZero:
 			return GL_ZERO;
@@ -156,4 +156,97 @@ uint TGen::OpenGL::TGenBlendFuncToOpenGL(TGen::BlendFunc blend) {
 	}
 	
 	throw TGen::NotImplemented("TgenBlendFuncToOpenGL", "func not supported");		
+}
+
+uint TGen::OpenGL::TgenTextureWrapToOpenGL(TGen::TextureWrap wrap) {
+	switch (wrap) {
+		case TGen::TextureWrapClamp:
+			return GL_CLAMP;
+			
+		case TGen::TextureWrapClampToEdge:
+			return GL_CLAMP_TO_EDGE;
+		
+		case TGen::TextureWrapClampToBorder:
+			return GL_CLAMP_TO_BORDER;
+			
+		case TGen::TextureWrapRepeat:
+			return GL_REPEAT;
+	}
+	
+	throw TGen::NotImplemented("TgenTextureWrapToOpenGL", "wrap mode not supported");		
+}
+
+uint TGen::OpenGL::TgenTextureFilterToOpenGL(TGen::TextureFilter filter) {
+	switch (filter) {
+		case TGen::TextureFilterNone:
+			return GL_NONE;
+
+		case TGen::TextureFilterNearest:
+			return GL_NEAREST;
+		
+		case TGen::TextureFilterLinear:
+			return GL_LINEAR;
+		
+		case TGen::TextureFilterNearestMipmapNearest:	// I don't like this format at all.
+			return GL_NEAREST_MIPMAP_NEAREST;
+			
+		case TGen::TextureFilterLinearMipmapNearest:
+			return GL_LINEAR_MIPMAP_NEAREST;
+			
+		case TGen::TextureFilterNearestMipmapLinear:
+			return GL_NEAREST_MIPMAP_LINEAR;
+
+		case TGen::TextureFilterLinearMipmapLinear:
+			return GL_LINEAR_MIPMAP_LINEAR;			
+	}	
+	
+	throw TGen::NotImplemented("TgenTextureFilterToOpenGL", "filter not supported");		
+}
+
+uint TGen::OpenGL::TgenTextureCoordGenToOpenGL(TGen::TextureCoordGen tcgen) {
+	switch (tcgen) {
+		case TGen::TextureCoordGenBase:
+			return GL_NONE;
+			
+		case TGen::TextureCoordGenObjectLinear:
+			return GL_OBJECT_LINEAR;
+			
+		case TGen::TextureCoordGenEyeLinear:
+			return GL_EYE_LINEAR;
+			
+		case TGen::TextureCoordGenSphereMap:
+			return GL_SPHERE_MAP;
+	}
+	
+	throw TGen::NotImplemented("TgenTextureCoordGenToOpenGL", "gen not supported");			
+}
+
+uint TGen::OpenGL::TgenCompareFuncToOpenGL(TGen::CompareFunc func) {
+	switch (func) {
+		case TGen::CompareNever:
+			return GL_NEVER;
+			
+		case TGen::CompareLess:
+			return GL_LESS;
+			
+		case TGen::CompareEqual:
+			return GL_EQUAL;
+			
+		case TGen::CompareLessOrEqual:
+			return GL_LEQUAL;
+			
+		case TGen::CompareGreater:
+			return GL_GREATER;
+			
+		case TGen::CompareNotEqual:
+			return GL_NOTEQUAL;
+			
+		case TGen::CompareGreaterOrEqual:
+			return GL_GEQUAL;
+			
+		case TGen::CompareAlways:
+			return GL_ALWAYS;		
+	}
+	
+	throw TGen::NotImplemented("TgenCompareFuncToOpenGL", "func not supported");			
 }

@@ -25,7 +25,7 @@ namespace TGen {
 		virtual ~Angle() {}
 		
 		virtual scalar getRoundAngle() const abstract;
-		void setAngle(const Angle & anAngle) {angle = (anAngle.angle / anAngle.getRoundAngle()) * getRoundAngle(); }
+		void setAngle(const Angle & angle) {this->angle = (angle.angle / angle.getRoundAngle()) * getRoundAngle(); }
 		bool isAcute(const Angle & anAngle) const {return (fabs((anAngle.angle / anAngle.getRoundAngle()) * getRoundAngle() - angle) < getRoundAngle() * 0.25f); }
 		
 		virtual Angle & operator =(float anAngle) {angle = anAngle; return *this; }
@@ -43,7 +43,7 @@ namespace TGen {
 		inline scalar getRoundAngle() const {return RoundAngle; }
 		
 		Degree & operator =(const Angle & anAngle) {angle = Degree(anAngle).angle; return *this; }
-		inline Degree operator +(Angle & anAngle) {Degree ret(angle + Degree(anAngle).angle); return ret; }		// OPT: will probably be called pretty often, so, something faster than "Degree(anAngle).angle" should be used
+		inline Degree operator +(Angle & anAngle) {Degree ret(angle + Degree(anAngle).angle); return ret; }
 		inline Degree operator -(Angle & anAngle) {Degree ret(angle - Degree(anAngle).angle); return ret; }
 		inline Angle & operator +=(Angle & anAngle) {*this = *this + anAngle; return *this; }
 		inline Angle & operator -=(Angle & anAngle) {*this = *this - anAngle; return *this; }

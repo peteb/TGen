@@ -24,7 +24,8 @@ namespace TGen {
 		virtual ~Texture() {}
 		
 		const TGen::Rectangle size;
-		virtual void setWrap(TGen::TextureWrap u, TGen::TextureWrap v) abstract;
+		virtual void setWrapMode(TGen::TextureWrap u, TGen::TextureWrap v) abstract;
+		virtual void setFilterMode(TGen::TextureFilter min, TGen::TextureFilter mag) abstract;
 		
 	protected:
 		TGen::Renderer & creator;

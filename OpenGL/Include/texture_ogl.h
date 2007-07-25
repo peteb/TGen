@@ -23,12 +23,13 @@ namespace TGen {
 
 		public:
 			~Texture();
-		
-			friend class TGen::OpenGL::Renderer;
-			
-			void setWrap(TGen::TextureWrap u, TGen::TextureWrap v);
+					
+			void setWrapMode(TGen::TextureWrap u, TGen::TextureWrap v);
+			void setFilterMode(TGen::TextureFilter min, TGen::TextureFilter mag);
 			
 			GLuint getInternalID() const;
+		
+			friend class TGen::OpenGL::Renderer;
 			
 		private:
 			GLuint texId;

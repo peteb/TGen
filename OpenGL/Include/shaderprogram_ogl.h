@@ -19,9 +19,13 @@ namespace TGen {
 	class ShaderVariable;
 	
 	namespace OpenGL {
+		class Renderer;
+		
 		class ShaderProgram : public TGen::ShaderProgram {
-		public:
+		private:
 			ShaderProgram(TGen::Renderer & creator, GLuint programId);
+
+		public:
 			~ShaderProgram();
 			
 			void Attach(TGen::Shader * shader);
@@ -30,6 +34,8 @@ namespace TGen {
 			TGen::ShaderVariable & getAttribute(const std::string & name);
 			
 			GLuint getInternalID() const;
+		
+			friend class TGen::OpenGL::Renderer;
 			
 		private:
 			typedef std::map<std::string, TGen::ShaderVariable *> VariableMap;

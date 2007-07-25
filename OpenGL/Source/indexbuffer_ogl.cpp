@@ -11,15 +11,19 @@
 #include "indexbuffer_ogl.h"
 #include "renderer.h"
 #include "error.h"
-
+#include <tgen_core.h>
 #include <iostream>
 
-TGen::OpenGL::IndexBuffer::IndexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) : 
-TGen::IndexBuffer(creator, size, usage), vertstruct(vertstruct), vboId(vboId) {}
+TGen::OpenGL::IndexBuffer::IndexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) 
+	: TGen::IndexBuffer(creator, size, usage)
+	, vertstruct(vertstruct), vboId(vboId) 
+{
+
+}
 
 TGen::OpenGL::IndexBuffer::~IndexBuffer() {
 	if (vboId > 0) {
-		std::cout << "[opengl]: deleting index buffer " << vboId << std::endl;
+		DEBUG_PRINT("[opengl]: deleting index buffer " << vboId);
 		glDeleteBuffersARB(1, reinterpret_cast<GLuint *>(&vboId));
 	}	
 }

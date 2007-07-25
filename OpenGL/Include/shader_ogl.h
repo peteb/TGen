@@ -17,12 +17,18 @@ namespace TGen {
 	class Renderer;
 	
 	namespace OpenGL {
+		class Renderer;
+		
 		class Shader : public TGen::Shader {
-		public:	
+		private:
 			Shader(TGen::Renderer & creator, GLuint shaderId);
+
+		public:	
 			~Shader();
 			
 			GLuint getInternalID() const;
+		
+			friend class TGen::OpenGL::Renderer;
 			
 		private:
 		   GLuint shaderId;

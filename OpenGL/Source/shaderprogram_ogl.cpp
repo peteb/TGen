@@ -15,8 +15,10 @@
 #include <string>
 #include <iostream>
 
-TGen::OpenGL::ShaderProgram::ShaderProgram(TGen::Renderer & creator, GLuint programId) : TGen::ShaderProgram(creator), programId(programId) {
-	
+TGen::OpenGL::ShaderProgram::ShaderProgram(TGen::Renderer & creator, GLuint programId) 
+	: TGen::ShaderProgram(creator)
+	, programId(programId) 
+{
 }
 
 TGen::OpenGL::ShaderProgram::~ShaderProgram() {

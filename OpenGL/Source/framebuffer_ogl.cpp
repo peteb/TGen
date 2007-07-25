@@ -7,6 +7,7 @@
  *
  */
 
+#include <tgen_core.h>
 #include "framebuffer_ogl.h"
 #include "texture.h"
 #include "framebuffer.h"
@@ -14,12 +15,20 @@
 #include "prefix_ogl.h"
 #include "error.h"
 
-TGen::OpenGL::FrameBuffer::FrameBuffer(GLuint fboId) : fboId(fboId), colorPointsTaken(0), depthPointsTaken(0), stencilPointsTaken(0) {
+TGen::OpenGL::FrameBuffer::FrameBuffer(GLuint fboId) 
+	: fboId(fboId)
+	, colorPointsTaken(0)
+	, depthPointsTaken(0)
+	, stencilPointsTaken(0) 
+{
 	
 }
 
 TGen::OpenGL::FrameBuffer::~FrameBuffer() {
-	glDeleteFramebuffersEXT(1, &fboId);
+	if (fboId > 0) {
+		DEBUG_PRINT("[opengl]: deleting framebuffer " << fboId);
+		glDeleteFramebuffersEXT(1, &fboId);
+	}
 }
 
 void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FrameBufferAttachment attachpoint) {

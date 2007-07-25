@@ -12,9 +12,11 @@
 #include "vector3.h"
 #include "vector2.h"
 
-TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type) : 
-	location(location), program(program), type(type) {
-	
+TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type) 
+	: location(location)
+	, program(program)
+	, type(type) 
+{
 }
 
 TGen::OpenGL::ShaderVariable::~ShaderVariable() {

@@ -31,7 +31,7 @@ TGen::Color TGen::SineWaveGenerator::getColor(double time, float alpha) const {
 }
 
 scalar TGen::SineWaveGenerator::getValue(double time) const {	
-	return TGen::Sine(TGen::UnitAngle(((time - startedAt) + phase) * frequency)) * amplitude + base;
+	return TGen::Sin(TGen::UnitAngle(((time - startedAt) + phase) * frequency)) * amplitude + base;
 }
 
 
@@ -49,7 +49,7 @@ TGen::Color TGen::SquareWaveGenerator::getColor(double time, float alpha) const 
 }
 
 scalar TGen::SquareWaveGenerator::getValue(double time) const {
-	scalar value = TGen::Sine(TGen::UnitAngle(((time - startedAt) + phase) * frequency));
+	scalar value = TGen::Sin(TGen::UnitAngle(((time - startedAt) + phase) * frequency));
 	scalar fixed;
 	
 	if (value >= 0.0)

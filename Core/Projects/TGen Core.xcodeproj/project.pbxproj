@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* TGen Core.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Core.1 */; };
+		D067DA850C57F0810078E141 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258910C4C372000909B4E /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258CB0C4C388100909B4E /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258CF0C4C389C00909B4E /* stringman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07258CE0C4C389C00909B4E /* stringman.cpp */; };
@@ -53,6 +54,7 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Core */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Core"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Core.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Core.1"; sourceTree = "<group>"; };
+		D067DA840C57F0810078E141 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = Include/debug.h; sourceTree = "<group>"; };
 		D07258900C4C372000909B4E /* cast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cast.h; path = Include/cast.h; sourceTree = "<group>"; };
 		D07258CA0C4C388100909B4E /* stringman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringman.h; path = Include/stringman.h; sourceTree = "<group>"; };
 		D07258CE0C4C389C00909B4E /* stringman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringman.cpp; path = Source/stringman.cpp; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				D07258CA0C4C388100909B4E /* stringman.h */,
 				D0F2A7390C563DB400E3A05B /* hrestimer.cpp */,
 				D0F2A7370C563DA700E3A05B /* hrestimer.h */,
+				D067DA840C57F0810078E141 /* debug.h */,
 			);
 			name = Core;
 			path = ..;
@@ -163,6 +166,7 @@
 				D07258910C4C372000909B4E /* cast.h in Headers */,
 				D07258CB0C4C388100909B4E /* stringman.h in Headers */,
 				D0F2A7380C563DA700E3A05B /* hrestimer.h in Headers */,
+				D067DA850C57F0810078E141 /* debug.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

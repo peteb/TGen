@@ -27,10 +27,8 @@ TGen::OpenGL::Renderer::Renderer()
 	, lastVb(NULL)
 	, lastIb(NULL)
 {
-	glEnable(GL_DEPTH_TEST);
 
 	GLint viewportDims[2];
-
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, reinterpret_cast<GLint *>(&caps.maxTextureUnits));
 	glGetIntegerv(GL_MAX_LIGHTS, reinterpret_cast<GLint *>(&caps.maxActiveLights));
 	glGetIntegerv(GL_MAX_CLIP_PLANES, reinterpret_cast<GLint *>(&caps.maxClipPlanes));
@@ -52,13 +50,16 @@ TGen::OpenGL::Renderer::Renderer()
 	caps.rendererName = (char *)glGetString(GL_RENDERER);
 	caps.driverVendor = (char *)glGetString(GL_VENDOR);
 	
+	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-TGen::OpenGL::Renderer::~Renderer() {}
+TGen::OpenGL::Renderer::~Renderer() {
+
+}
 
 void TGen::OpenGL::Renderer::setClearColor(const TGen::Color & color) {
 	TGen::Renderer::setClearColor(color);
@@ -607,8 +608,7 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		glDepthMask(GL_FALSE);
 	
 	setShaderProgram(context.shader);
-	
-	glColor4f(context.frontColor.r, context.frontColor.g, context.frontColor.b, context.frontColor.a);	
+	setColor(context.frontColor);	
 	setDepthFunc(context.depthFunc);
 	
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
@@ -633,7 +633,7 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		}
 	}
 	
-	glBlendFunc(TGenBlendFuncToOpenGL(context.blendSrc), TGenBlendFuncToOpenGL(context.blendDst));
+	glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendSrc), TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendDst));
 	glEnable(GL_CULL_FACE);
 	
 	if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)
@@ -706,23 +706,7 @@ void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen
 		glDisable(GL_TEXTURE_GEN_S);
 	}
 	else {
-		switch (genU) {
-			case TGen::TextureCoordGenObjectLinear:
-				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-				break;
-				
-			case TGen::TextureCoordGenEyeLinear:
-				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);				
-				break;
-				
-			case TGen::TextureCoordGenSphereMap:
-				glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);				
-				break;				
-				
-			default:
-				throw TGen::NotImplemented("OpenGL::Renderer::setTextureCoordGen", "gen U value is not supported");						
-		}
-		
+		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, TGen::OpenGL::TgenTextureCoordGenToOpenGL(genU));			
 		glEnable(GL_TEXTURE_GEN_S);
 	}
 	
@@ -730,67 +714,12 @@ void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen
 		glDisable(GL_TEXTURE_GEN_T);
 	}
 	else {
-		switch (genV) {
-			case TGen::TextureCoordGenObjectLinear:
-				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_OBJECT_LINEAR);
-				break;
-				
-			case TGen::TextureCoordGenEyeLinear:
-				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);				
-				break;
-				
-			case TGen::TextureCoordGenSphereMap:
-				glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);				
-				break;				
-				
-			default:
-				throw TGen::NotImplemented("OpenGL::Renderer::setTextureCoordGen", "gen V value is not supported");						
-		}
-		
+		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, TGen::OpenGL::TgenTextureCoordGenToOpenGL(genV));		
 		glEnable(GL_TEXTURE_GEN_T);
 	}
 }
 
 
 void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
-	GLenum fixedFunc = 0;
-	
-	switch (compare) {
-		case TGen::CompareNever:
-			fixedFunc = GL_NEVER;
-			break;
-			
-		case TGen::CompareAlways:
-			fixedFunc = GL_ALWAYS;
-			break;
-			
-		case TGen::CompareLess:
-			fixedFunc = GL_LESS;
-			break;
-			
-		case TGen::CompareEqual:
-			fixedFunc = GL_EQUAL;
-			break;
-			
-		case TGen::CompareLessOrEqual:
-			fixedFunc = GL_LEQUAL;
-			break;
-			
-		case TGen::CompareGreater:
-			fixedFunc = GL_GREATER;
-			break;
-			
-		case TGen::CompareNotEqual:
-			fixedFunc = GL_NOTEQUAL;
-			break;
-			
-		case TGen::CompareGreaterOrEqual:
-			fixedFunc = GL_GEQUAL;
-			break;
-			
-		default:
-			throw TGen::NotImplemented("OpenGL::Renderer::setDepthFunc", "compare function not supported");						
-	}
-	
-	glDepthFunc(fixedFunc);
+	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
 }

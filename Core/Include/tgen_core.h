@@ -17,6 +17,7 @@
 #include "cast.h"
 #include "stringman.h"
 #include "hrestimer.h"
+#include "debug.h"
 
 namespace TGen {
 	bool isCoreDebug();

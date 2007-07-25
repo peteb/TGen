@@ -51,7 +51,18 @@ namespace TGen {
 	enum TextureWrap {
 		TextureWrapClamp = 1,
 		TextureWrapClampToEdge,
+		TextureWrapClampToBorder,
 		TextureWrapRepeat,
+	};
+	
+	enum TextureFilter {
+		TextureFilterNone = 0,
+		TextureFilterNearest = 1,
+		TextureFilterLinear,
+		TextureFilterNearestMipmapNearest,
+		TextureFilterLinearMipmapNearest,
+		TextureFilterNearestMipmapLinear,
+		TextureFilterLinearMipmapLinear,
 	};
 	
 	enum TextureCoordGen {

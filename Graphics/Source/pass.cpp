@@ -147,7 +147,7 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
 			
 			if (newUnit->texture)
-				newUnit->texture->setWrap((*iter)->wrapU, (*iter)->wrapV);
+				newUnit->texture->setWrapMode((*iter)->wrapU, (*iter)->wrapV);
 		}
 		
 		

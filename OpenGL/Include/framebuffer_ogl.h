@@ -17,15 +17,20 @@
 namespace TGen {
 	namespace OpenGL {
 		class Texture;
-	
+		class Renderer;
+		
 		class FrameBuffer : public TGen::FrameBuffer {
-		public:	
+		private:
 			FrameBuffer(GLuint fboId);
+
+		public:	
 			~FrameBuffer();
 		
 			void Attach(TGen::Texture * texture, TGen::FrameBufferAttachment attachpoint);
 			GLuint getInternalID() const;
 			void SetupDrawBuffers();
+		
+			friend class TGen::OpenGL::Renderer;
 			
 		private:
 			GLuint fboId;
