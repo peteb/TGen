@@ -24,7 +24,6 @@
 #include "texture_ogl.h"
 #include "types_converter_ogl.h"
 
-
 namespace TGen {
 	bool isOpenGLDebug();
 }

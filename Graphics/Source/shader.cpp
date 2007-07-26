@@ -9,7 +9,9 @@
 
 #include "shader.h"
 
-TGen::Shader::Shader(TGen::Renderer & creator) : creator(creator) {
+TGen::Shader::Shader(TGen::Renderer & creator) 
+	: creator(creator) 
+{
 	
 }
 

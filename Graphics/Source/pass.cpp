@@ -26,7 +26,10 @@ TGen::PassList::~PassList() {
 		delete passes[i];
 }
 
-TGen::Pass::Pass() : colorGen(NULL), alphaGen(NULL) {
+TGen::Pass::Pass() 
+	: colorGen(NULL)
+	, alphaGen(NULL) 
+{
 	
 }
 
@@ -391,7 +394,7 @@ void TGen::TextureCoordTranslate::ApplyTransform(TGen::Matrix4x4 & matrix, scala
 		//fixedU = fixedU - floor(fixedU);		// fix range
 		//fixedV = fixedV - floor(fixedV);		
 		
-		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(fixedU, fixedV));		
+		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-fixedU, fixedV));		
 	}
 	else {
 		float fixedU = 0.0f, fixedV = 0.0f;
@@ -409,7 +412,7 @@ void TGen::TextureCoordTranslate::ApplyTransform(TGen::Matrix4x4 & matrix, scala
 		//	fixedU = fixedU - floor(fixedU);		// fix range
 		//		fixedV = fixedV - floor(fixedV);
 		
-		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(fixedU, fixedV));
+		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-fixedU, fixedV));
 	}
 }
 
@@ -442,29 +445,35 @@ void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar ti
 		fixedV = 0.0f;
 	
 	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
-	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector2(fixedU, fixedV));
+	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector3(fixedU, fixedV, 1.0));
 	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 }
 
 TGen::TextureCoordRotate::TextureCoordRotate(float speed, bool centered)
-	: TGen::TextureCoordTransformer(NULL, NULL), speed(speed), centered(centered)
-{}
+	: TGen::TextureCoordTransformer(NULL, NULL)
+	, speed(speed)
+	, centered(centered)
+{
+}
 
 TGen::TextureCoordRotate::TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered) 
-	: TGen::TextureCoordTransformer(genRot, NULL), speed(0.0f), centered(centered)
-{}
+	: TGen::TextureCoordTransformer(genRot, NULL)
+	, speed(0.0f)
+	, centered(centered)
+{
+}
 
 void TGen::TextureCoordRotate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
-	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
+	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));	// TODO: this should be moved to the one calling ApplyTransform
 
 	if (!genU) {
 		float degrees = (time - startedAt) * speed;
 		
 		degrees = degrees - floor(degrees / 360.0f) * 360.0f;
-		if (speed < 0.0)
-			degrees = -degrees;
+		//if (speed < 0.0)
+	//		degrees = -degrees;
 		
-		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(degrees));
+		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(-degrees));
 	}
 	else {
 		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(genU->getValue(time)));

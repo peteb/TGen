@@ -108,7 +108,8 @@ void TGen::OpenGL::Renderer::setTransform(TGen::TransformMode mode, const TGen::
 			throw TGen::NotImplemented("OpenGL::Renderer::setTransform", "transform mode invalid");
 	}
 
-	TGen::Renderer::setTransform(mode, transformation);
+	if (mode != TransformTexture)
+		TGen::Renderer::setTransform(mode, transformation);
 	
 	//float elements[16];
 	//transformation.get4x4(elements);

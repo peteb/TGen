@@ -10,7 +10,14 @@
 #include "renderer.h"
 #include "error.h"
 
-TGen::Renderer::Renderer() : clearColor(TGen::Color::Black) {}
+TGen::Renderer::Renderer() 
+	: clearColor(TGen::Color::Black) 
+	, projectionMatrix(TGen::Matrix4x4::Identity)
+	, worldMatrix(TGen::Matrix4x4::Identity)
+{
+
+}
+
 TGen::Renderer::~Renderer() {}
 
 TGen::RendererCaps const & TGen::Renderer::getCaps() const {
@@ -43,9 +50,10 @@ void TGen::Renderer::setTransform(TGen::TransformMode mode, const TGen::Matrix4x
 			worldMatrix = transformation;
 			break;
 			
-		case TGen::TransformTexture:
+		/*case TGen::TransformTexture:
 			textureMatrix = transformation;
 			break;
+		*/
 			
 		default:
 			throw TGen::RuntimeException("Renderer::setTransform", "invalid transformation mode");
@@ -60,8 +68,8 @@ TGen::Matrix4x4 TGen::Renderer::getTransform(TGen::TransformMode mode) const {
 		case TGen::TransformWorldView:
 			return worldMatrix;
 			
-		case TGen::TransformTexture:
-			return textureMatrix;
+		/*case TGen::TransformTexture:
+			return textureMatrix;*/
 	}
 
 	throw TGen::RuntimeException("Renderer::getTransform", "invalid transformation mode");

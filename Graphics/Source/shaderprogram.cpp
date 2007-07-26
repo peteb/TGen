@@ -13,7 +13,9 @@
 #include <string>
 #include <vector>
 
-TGen::ShaderProgram::ShaderProgram(TGen::Renderer & creator) : creator(creator) {
+TGen::ShaderProgram::ShaderProgram(TGen::Renderer & creator) 
+	: creator(creator) 
+{
 
 }
 

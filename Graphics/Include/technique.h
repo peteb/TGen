@@ -30,6 +30,7 @@ namespace TGen {
 	private:
 		typedef std::vector<PassList *> PassVector;
 		PassVector lods;
+		PassList * expressLane;
 	};
 	
 	class TechniqueList {

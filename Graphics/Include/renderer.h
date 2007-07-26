@@ -80,7 +80,7 @@ namespace TGen {
 		TGen::RendererCaps caps;
 		TGen::Rectangle viewport;
 		TGen::Color clearColor;
-		TGen::Matrix4x4 projectionMatrix, worldMatrix, textureMatrix;
+		TGen::Matrix4x4 projectionMatrix, worldMatrix;
 	};
 	
 } // !TGen

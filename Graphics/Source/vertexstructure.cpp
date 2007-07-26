@@ -23,8 +23,13 @@ TGen::VertexStructure::VertexStructure(TGen::VertexElement * elements) {
 	}
 }
 
-TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) :
-	type(type), dataType(dataType), count(count), unit(unit), shared(shared) {
+TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) 
+	: type(type)
+	, dataType(dataType)
+	, count(count)
+	, unit(unit)
+	, shared(shared) 
+{
 	
 }
 

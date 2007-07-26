@@ -129,6 +129,7 @@ public:
 		}
 		else {
 			std::cout << "   ...ok" << std::endl << std::endl;
+			std::cout << std::string(renderer->getCaps()) << std::endl;
 		}
 		
 		std::cout << "2. Loading data..." << std::endl;

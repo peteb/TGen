@@ -9,7 +9,14 @@
 
 #include "indexbuffer.h"
 
-TGen::IndexBuffer::IndexBuffer(TGen::Renderer & creator, uint size, ushort usage) : creator(creator), size(size), usage(usage) {}
+TGen::IndexBuffer::IndexBuffer(TGen::Renderer & creator, uint size, ushort usage) 
+	: creator(creator)
+	, size(size)
+	, usage(usage)
+{
+
+}
+
 TGen::IndexBuffer::~IndexBuffer() {}
 
 uint TGen::IndexBuffer::getSize() const {

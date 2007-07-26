@@ -10,8 +10,18 @@
 #include "renderer_caps.h"
 #include <sstream>
 
-TGen::RendererCaps::RendererCaps() : maxTextureUnits(0), maxActiveLights(0), maxClipPlanes(0), maxIndexBufferIndicies(0), 
-	maxVertexBufferVertices(0), maxTextureSize(0), maxFrameBufferColorAttachments(0), shadingLanguageVersionNumber(0) {}
+TGen::RendererCaps::RendererCaps() 
+	: maxTextureUnits(0)
+	, maxActiveLights(0)
+	, maxClipPlanes(0)
+	, maxIndexBufferIndicies(0)
+	, maxVertexBufferVertices(0)
+	, maxTextureSize(0)
+	, maxFrameBufferColorAttachments(0)
+	, shadingLanguageVersionNumber(0) 
+{
+
+}
 
 TGen::RendererCaps::operator std::string() const {
 	std::stringstream ss;

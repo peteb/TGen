@@ -12,8 +12,11 @@
 #include "color.h"
 #include <iostream>
 
-TGen::Canvas::Canvas(const TGen::Rectangle & size, TGen::ImageFormat format, TGen::FormatType componentFormat) : 
-	size(size), format(format), componentFormat(componentFormat), data(NULL) 
+TGen::Canvas::Canvas(const TGen::Rectangle & size, TGen::ImageFormat format, TGen::FormatType componentFormat) 
+	: size(size)
+	, format(format)
+	, componentFormat(componentFormat)
+	, data(NULL) 
 {
 	data = malloc(TGen::FormatTypeSize(componentFormat) * ImageFormatComponents(format) * size.width * size.height);
 		

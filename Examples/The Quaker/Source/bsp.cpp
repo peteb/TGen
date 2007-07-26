@@ -37,6 +37,7 @@ BSPGeometry::~BSPGeometry() {
 	delete vb;
 }
 
+
 void BSPGeometry::PrepareRender(TGen::Renderer & renderer) const {
 	if (!vb)
 		renderer.setVertexBuffer(tree.vb);

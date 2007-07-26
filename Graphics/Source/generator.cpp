@@ -10,8 +10,12 @@
 #include "generator.h"
 #include "tgen_math.h"
 
-TGen::WaveGenerator::WaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency) :
-	base(base), amplitude(amplitude), phase(phase), frequency(frequency), startedAt(0.0) 
+TGen::WaveGenerator::WaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency) 
+	: base(base)
+	, amplitude(amplitude)
+	, phase(phase)
+	, frequency(frequency)
+	, startedAt(0.0) 
 {
 
 }
@@ -31,7 +35,23 @@ TGen::Color TGen::SineWaveGenerator::getColor(double time, float alpha) const {
 }
 
 scalar TGen::SineWaveGenerator::getValue(double time) const {	
-	return TGen::Sin(TGen::UnitAngle(((time - startedAt) + phase) * frequency)) * amplitude + base;
+/*	scalar t = time - startedAt;
+	return TGen::Sin(TGen::UnitAngle(frequency * (t - phase))) * amplitude + base;*/
+	
+	
+	
+	scalar x = (time - startedAt - phase) * frequency;
+	scalar y = 0.0f;
+	
+	x -= floorf(x);
+	
+	y = sinf(x * TGen::PI * 2.0);
+	
+	return y * amplitude + base;
+	
+	
+	
+//	return TGen::Sin(TGen::UnitAngle(((time - startedAt) + phase) * frequency)) * amplitude + base;
 }
 
 
@@ -47,9 +67,43 @@ TGen::Color TGen::SquareWaveGenerator::getColor(double time, float alpha) const 
 	
 	return TGen::Color(value, value, value, alpha);	
 }
+/*
+ float Wave::Evaluate(float time) const
+ {
+	 // Evaluate y = offset + amplitude * f((time + phase) * frequency)
+	 float x = (time + m_phase) * m_frequency;
+	 x -= floorf(x); // Normalize
+	 
+	 float y;	
+	 switch (m_type)
+	 {
+		 case SIN:
+			 y = sinf(x * Math::TWO_PI);
+			 break;
+		 case TRIANGLE:
+			 x < 0.5f ? y = 4.0f * x - 1.0f : y = -4.0f * x + 3.0f;
+			 break;
+		 case SQUARE:
+			 x < 0.5f ? y = 1.0f : y = -1.0f;
+			 break;
+		 case SAWTOOTH:
+			 y = x;
+			 break;
+		 case INVSAWTOOTH:
+			 y = 1.0f - x;
+			 break;
+		 case NOISE:
+			 y = (float)rand() / (float)RAND_MAX;
+			 break;
+	 }
+	 
+	 return y * m_amplitude + m_offset;
+ }
+ */
 
 scalar TGen::SquareWaveGenerator::getValue(double time) const {
-	scalar value = TGen::Sin(TGen::UnitAngle(((time - startedAt) + phase) * frequency));
+	/*scalar t = time - startedAt;
+	scalar value = TGen::Sin(TGen::UnitAngle(frequency * (t - phase))) * amplitude + base;
 	scalar fixed;
 	
 	if (value >= 0.0)
@@ -57,9 +111,22 @@ scalar TGen::SquareWaveGenerator::getValue(double time) const {
 	else
 		fixed = base - amplitude;
 	
-	return fixed;
+	return fixed;*/
+	
+	scalar x = (time - startedAt - phase) * frequency;
+	scalar y = 0.0f;
+
+	x -= floorf(x);
+	
+	if (x < 0.5f)
+		y = 1.0f;
+	else
+		y = -1.0f;
+	
+	return y * amplitude + base;
 }
 
+// TODO: flytta in det här i en klass... wave...
 
 TGen::SawtoothWaveGenerator::SawtoothWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency, bool inverse) 
 	: TGen::WaveGenerator(base, amplitude, phase, frequency)
@@ -76,14 +143,15 @@ TGen::Color TGen::SawtoothWaveGenerator::getColor(double time, float alpha) cons
 }
 
 scalar TGen::SawtoothWaveGenerator::getValue(double time) const {
-	float a = 1.0 / frequency;
-	time += phase * frequency;
-	scalar value = 0.0f;
+	scalar x = (time - startedAt - phase) * frequency;
+	scalar y = 0.0f;
 	
-	if (!inverse)
-		value = (2.0 * (time / a - floor(time / a + 0.5))) * amplitude + base;
+	x -= floorf(x);
+	
+	if (inverse)
+		y = 1.0 - x;
 	else
-		value = -(2.0 * (time / a - floor(time / a + 0.5))) * amplitude + base;
+		y = x;
 	
-	return value;
+	return y * amplitude + base;
 }

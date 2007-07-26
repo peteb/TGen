@@ -187,6 +187,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 			tree->AddSurface(Surface(linker.getMaterial(textures[currentFace->texture].name), newGeom));
 		}
 		else if (currentFace->type == BSPFacePatch) {
+			
 			BSPGeometry * newGeom = new BSPGeometry(*tree, true);
 
 		/*	static int created = 0;

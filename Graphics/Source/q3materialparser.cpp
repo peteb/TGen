@@ -189,9 +189,9 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				std::string offU, offV;
 				float U, V;
 				
-				offU = "0" + getNumericToken("texunit.tcMod.scroll: expecting numeric value for U");
+				offU = getNumericToken("texunit.tcMod.scroll: expecting numeric value for U");
 				StepToken();
-				offV = "0" + getNumericToken("texunit.tcMod.scroll: expecting numeric value for V");
+				offV = getNumericToken("texunit.tcMod.scroll: expecting numeric value for V");
 
 				U = TGen::lexical_cast<float>(offU);
 				V = TGen::lexical_cast<float>(offV);
@@ -205,7 +205,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				std::string rotSpeed;
 				float rotSpeedNum;
 				
-				rotSpeed = "0" + getNumericToken("texunit.tcMod.rotate: expecting numeric value for rotation speed");
+				rotSpeed = getNumericToken("texunit.tcMod.rotate: expecting numeric value for rotation speed");
 				
 				rotSpeedNum = TGen::lexical_cast<float>(rotSpeed);
 				

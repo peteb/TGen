@@ -10,6 +10,8 @@ material metalbridge06_pent default 0 {
 			front fill
 			back fill
 			
+			color wave sine 0.5 0.5 0 1
+			
 			texunit 0 metalbridge06_pent.jpg {
 				sampler tex
 				texCoordGen base base

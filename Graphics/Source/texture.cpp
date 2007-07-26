@@ -9,4 +9,9 @@
 
 #include "texture.h"
 
-TGen::Texture::Texture(TGen::Renderer & creator, const TGen::Rectangle & size) : creator(creator), size(size) {}
+TGen::Texture::Texture(TGen::Renderer & creator, const TGen::Rectangle & size) 
+	: creator(creator)
+	, size(size) 
+{
+
+}

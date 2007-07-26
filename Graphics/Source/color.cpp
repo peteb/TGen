@@ -21,11 +21,21 @@ TGen::Color TGen::Color::Blue(0.0f, 0.0f, 1.0f, 1.0f);
 TGen::Color TGen::Color::Purple(1.0f, 0.0f, 1.0f, 1.0f);
 TGen::Color TGen::Color::Yellow(1.0f, 1.0f, 1.0f, 0.0f);
 
-TGen::Color::Color(scalar r, scalar g, scalar b, scalar a) : r(r), g(g), b(b), a(a) {
+TGen::Color::Color(scalar r, scalar g, scalar b, scalar a) 
+	: r(r)
+	, g(g)
+	, b(b)
+	, a(a)
+{
 	
 }
 
-TGen::Color::Color(const TGen::Color & color) : r(color.r), g(color.g), b(color.b), a(color.a) {
+TGen::Color::Color(const TGen::Color & color) 
+	: r(color.r)
+	, g(color.g)
+	, b(color.b)
+	, a(color.a) 
+{
 	
 }
 

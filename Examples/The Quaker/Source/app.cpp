@@ -48,6 +48,9 @@ App::App()
 	, resources(NULL)
 	, myCube(NULL)
 	, level(NULL)
+	, lastUpdate(0.0)
+	, frames(0)
+	, accumFps(0.0)
 {
 	std::cout << "[app]: initializing..." << std::endl;
 	
@@ -95,8 +98,8 @@ App::App()
 	scene->getSceneRoot()->AddChild(camera);
 	scene->getSceneRoot()->AddChild(cubeNode);
 	
-	TGen::Vector3 base(-100.0f, 0.0f, 00.0f); //(100.0f, 50.0f, 470.0f);
-	TGen::Vector3 lookAt(0.0f, 0.0f, 0.0f);
+	TGen::Vector3 base(-100.0f, 0.0f, 100.0f); //(100.0f, 50.0f, 470.0f);
+	TGen::Vector3 lookAt(-100.0f, 0.0f, 0.0f);
 	TGen::Vector3 position(0.0f, 130.0f, -250.0f);	// (0.0f, 160.0f, 0.0f);
 	
 	lookAt += base;
@@ -181,9 +184,16 @@ void App::Render() {
 	
 	time += dt;
 	fps = 1 / dt;
-
-	std::cout << TGen::lexical_cast<std::string>(fps).c_str() << std::endl;
-
+	
+	accumFps += fps;
+	
+	if (thisFrame - lastUpdate >= 1.0) {
+		std::cout << "accum fps avg: " << accumFps / double(frames) << " frames: " << frames << " last: " << TGen::lexical_cast<std::string>(fps).c_str() << std::endl;
+		accumFps = 0.0;
+		frames = 0;
+		lastUpdate = thisFrame;
+	}
+	
 	if (resources)
 		resources->UpdateMaterials(time);
 	
@@ -242,5 +252,6 @@ void App::Render() {
 	stats[3] = TGen::Time::Now() - start;
 	
 	glutSwapBuffers();
+	frames++;
 }
 

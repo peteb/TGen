@@ -38,7 +38,8 @@ void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FrameBuffe
 	GLint maxBuffers;
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, &maxBuffers);
 	
-	GLenum pointNames[16] = {GL_COLOR_ATTACHMENT0_EXT,
+	GLenum pointNames[16] = {
+		GL_COLOR_ATTACHMENT0_EXT,
 		GL_COLOR_ATTACHMENT1_EXT,
 		GL_COLOR_ATTACHMENT2_EXT,
 		GL_COLOR_ATTACHMENT3_EXT,

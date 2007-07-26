@@ -14,6 +14,21 @@
 
 class BSPTree;
 
+/*class MaterialBuffer : public Geometry {
+public:
+	MaterialBuffer(BSPTree & tree);
+	~MaterialBuffer();
+	
+	void PrepareRenderer(TGen::Renderer & renderer) const;
+	void Render(TGen::Renderer & renderer) const;
+	TGen::Vector3 getMax() const;
+	TGen::Vector3 getMin() const;
+
+	BSPTree & tree;	
+	TGen::IndexBuffer * ib;
+	int start, indices;	
+};*/
+
 class BSPGeometry : public Geometry {
 public:
 	BSPGeometry(BSPTree & tree, bool wire);
@@ -40,6 +55,8 @@ public:
 	
 	TGen::VertexBuffer * vb;
 
+	//typedef std::map<TGen::Material *, BSPGeometry *> GeometryMap;
+	//GeometryMap geometryPerMaterial;
 };
 
 

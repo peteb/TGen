@@ -46,12 +46,12 @@ private:
 	RenderList renderList;
 	Camera * camera;
 	Scene * scene;
-	int window;
+	int window, frames;
 	bool run;
-	TGen::Time lastFrame;
-	double fps;
+	TGen::Time lastFrame, lastUpdate;
+	double fps, accumFps;
 	scalar time;
-
+	
 
 	Cube * myCube;
 };
