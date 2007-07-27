@@ -54,7 +54,8 @@ public:
 	~BSPTree();
 	
 	TGen::VertexBuffer * vb;
-
+	TGen::IndexBuffer * ib;
+	
 	//typedef std::map<TGen::Material *, BSPGeometry *> GeometryMap;
 	//GeometryMap geometryPerMaterial;
 };

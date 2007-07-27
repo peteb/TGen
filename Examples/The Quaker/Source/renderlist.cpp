@@ -11,6 +11,10 @@
 #include "scenenode.h"
 #include "camera.h"
 
+bool Sorter::operator() (const Surface * s1, const Surface * s2) {
+	return s1->getMaterial() > s2->getMaterial();
+}
+
 RenderList::RenderList() {
 	surfaces.reserve(200000);
 }
@@ -48,4 +52,12 @@ void RenderList::Clear() {
 	surfaces.clear();
 }
 
+void RenderList::Sort() {
+	std::sort(surfaces.begin(), surfaces.end(), Sorter());	
+	
+	/*for (int i = 0; i < surfaces.size(); ++i) {
+		std::cout << " ------ " << surfaces[i]->getMaterial()->getName() << std::endl;
+	}*/
+	
+}
 

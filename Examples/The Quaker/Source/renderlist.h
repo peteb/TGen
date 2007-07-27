@@ -15,6 +15,11 @@
 
 class Camera;
 
+class Sorter {
+public:	
+	bool operator() (const Surface * s1, const Surface * s2);
+};
+
 class RenderList {
 public:	
 	RenderList();
@@ -23,6 +28,7 @@ public:
 	void Render(TGen::Renderer & renderer, const Camera & camera);
 	void AddSurface(const Surface * surface);
 	void Clear();
+	void Sort();
 	
 private:
 	typedef std::vector<const Surface *> SurfaceList; 

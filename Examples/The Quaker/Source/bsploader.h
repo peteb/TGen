@@ -53,9 +53,8 @@ public:
 private:
 	typedef TGen::JoinVertex5<TGen::Vertex3<float>, TGen::TexCoord2<float, 0>, TGen::TexCoord2<float, 1>, TGen::Normal3<float>, TGen::Color4<uint8> > MyVertex;
 	typedef TGen::Index<uint> MyIndex;
-	typedef std::map<std::string, std::vector> IndexMap;
+	typedef std::map<std::string, std::vector<MyIndex::Type> > IndexMap;
 	
-	IndexMap indicesPerMaterial;
 	StringList materialDeps;
 	
 	TGen::Vector3 getQuadratic(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2, scalar t);

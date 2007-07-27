@@ -33,8 +33,8 @@ BSPGeometry::BSPGeometry(BSPTree & tree, bool wire)
 }
 
 BSPGeometry::~BSPGeometry() {
-	delete ib;
-	delete vb;
+	//delete ib;
+	//delete vb;
 }
 
 
@@ -44,7 +44,10 @@ void BSPGeometry::PrepareRender(TGen::Renderer & renderer) const {
 	else
 		renderer.setVertexBuffer(vb);
 	
-	renderer.setIndexBuffer(ib);
+	if (!ib)
+		renderer.setIndexBuffer(tree.ib);		
+	else
+		renderer.setIndexBuffer(ib);
 
 }
 
@@ -64,7 +67,7 @@ void BSPGeometry::Render(TGen::Renderer & renderer) const {
 
 	
 	if (multidraw.empty()) {
-		if (ib)
+		if (ib || tree.ib)
 			renderer.DrawIndexedPrimitive(type, startIndex, numIndices);
 		else
 			renderer.DrawPrimitive(type, startIndex, numIndices);

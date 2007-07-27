@@ -161,14 +161,35 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 	std::cout << "bsp vertex: " << sizeof(Vertex) << " tgen: " << sizeof(MyVertex::Type) << std::endl;
 	std::cout << "bsp index: " << sizeof(Meshvert) << " tgen: " << sizeof(MyIndex::Type) << std::endl;
 	
+	IndexMap indicesPerMaterial;
+	std::vector<MyIndex::Type> indics;
+	
+	int biggest = 0, geoms = 0;
 	
 	for (int i = 0; i < numFaces; ++i) {
 		Face * currentFace = &faces[i];
 		
 		if (currentFace->type == BSPFaceMesh || currentFace->type == BSPFacePolygon) {
 			//std::cout << "mesh" << std::endl;
+			//std::vector<MyIndex::Type> & indicesMaterial = indicesPerMaterial[textures[currentFace->texture].name];
 			BSPGeometry * newGeom = new BSPGeometry(*tree, false);
-		
+			newGeom->startIndex = indics.size();
+			
+			for (int a = 0; a < currentFace->num_meshvertices; ++a) {
+				indics.push_back(meshverts[currentFace->meshvert + a].offset + currentFace->vertex);
+				//indicesMaterial.push_back(meshverts[currentFace->meshvert + a].offset + currentFace->vertex);				
+			}
+			
+			if (currentFace->num_meshvertices > biggest)
+				biggest = currentFace->num_meshvertices;
+			
+			newGeom->numIndices = currentFace->num_meshvertices;
+			
+			geoms++;
+			tree->AddSurface(Surface(linker.getMaterial(textures[currentFace->texture].name), newGeom));
+			
+			/*BSPGeometry * newGeom = new BSPGeometry(*tree, false);
+		 
 			int sizze = currentFace->num_meshvertices;
 			
 			newGeom->startIndex = 0;
@@ -184,18 +205,12 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 			newGeom->ib->BufferData(data, sizeof(MyIndex::Type) * sizze, NULL);
 			delete data;
 			
-			tree->AddSurface(Surface(linker.getMaterial(textures[currentFace->texture].name), newGeom));
+			tree->AddSurface(Surface(linker.getMaterial(textures[currentFace->texture].name), newGeom));*/
+			
 		}
 		else if (currentFace->type == BSPFacePatch) {
-			
+			continue;
 			BSPGeometry * newGeom = new BSPGeometry(*tree, true);
-
-		/*	static int created = 0;
-			created++;
-			if (created != 21)
-				continue;
-		*/
-			// TODO: en multidraw med egen indexbuffer, startindex verkar ju inte ufnka....
 						
 			
 			std::vector<Vertex> verticesbez;
@@ -207,7 +222,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 				for (int i = 0; i < 9; i++)
 					bez.controls[i] = vertices[xPos + currentFace->vertex + i];
 				
-				bez.Tessellate(10);
+				bez.Tessellate(8);
 				
 				for (int i = 0; i < bez.vertices.size(); ++i)
 					verticesbez.push_back(bez.vertices[i]);
@@ -248,6 +263,28 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 			std::cout << "BILLBOARD" << std::endl;
 		}
 	}
+	
+	
+	// Create indexbuffers
+	/*for (IndexMap::iterator iter = indicesPerMaterial.begin(); iter != indicesPerMaterial.end(); ++iter) {
+		std::vector<MyIndex::Type> & indicesMaterial = iter->second;
+		
+		BSPGeometry * newGeom = new BSPGeometry(*tree, false);
+		
+		newGeom->startIndex = 0;
+		newGeom->numIndices = indicesMaterial.size();
+		newGeom->ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * indicesMaterial.size(), TGen::UsageStatic);
+		newGeom->ib->BufferData(&indicesMaterial[0], sizeof(MyIndex::Type) * indicesMaterial.size(), NULL);
+		
+		tree->AddSurface(Surface(linker.getMaterial(iter->first), newGeom));
+	}*/
+	
+	tree->ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * indics.size(), TGen::UsageStatic);
+	tree->ib->BufferData(&indics[0], sizeof(MyIndex::Type) * indics.size(), NULL);
+	
+	std::cout << "biggest draw: " << biggest << " objects: " << geoms << " ib size: " << std::fixed << std::setprecision(2) << (sizeof(MyIndex::Type) * indics.size()) / 1000.0 << " kb  vb size: " <<  (sizeof(MyVertex::Type) * numVertices) / 1000.0 << " kb " << std::endl;
+	
+	//std::cout << "GEOMS: " << indicesPerMaterial.size() << std::endl;
 	
 	return tree;	
 }

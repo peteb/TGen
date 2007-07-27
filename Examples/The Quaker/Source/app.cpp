@@ -137,6 +137,12 @@ App::App()
 	renderer->Clear(TGen::ColorBuffer);
 
 	lastFrame = TGen::Time::Now();
+
+
+
+
+
+
 }
 
 App::~App() {
@@ -212,15 +218,13 @@ void App::Render() {
 	renderer->Clear(TGen::DepthBuffer);
 	
 
-	
-	start = TGen::Time::Now();
+
 	// render nodes ---------------------------------------
 	SceneNodeRenderer nodeRenderer(renderList, *camera); //(time > 5.0f ? (time - 5.0f) * 100.0f : 0));
 	
 	if (scene) scene->getSceneRoot()->Accept(nodeRenderer);
-	stats[1] = TGen::Time::Now() - start;
-
-	start = TGen::Time::Now();
+	
+	renderList.Sort();
 	renderList.Render(*renderer, *camera);
 	renderList.Clear();
 	stats[2] = TGen::Time::Now() - start;
