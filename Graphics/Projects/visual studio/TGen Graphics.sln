@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Graphics", "TGen Graphics.vcproj", "{EA312372-8427-4748-B939-823C72985D26}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "graphicstest", "graphicstest.vcproj", "{6A85C95D-3D88-435D-9532-95C2921E6555}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EA312372-8427-4748-B939-823C72985D26} = {EA312372-8427-4748-B939-823C72985D26}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EA312372-8427-4748-B939-823C72985D26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Debug|Win32.Build.0 = Debug|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Release|Win32.ActiveCfg = Release|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Release|Win32.Build.0 = Release|Win32
+		{6A85C95D-3D88-435D-9532-95C2921E6555}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6A85C95D-3D88-435D-9532-95C2921E6555}.Debug|Win32.Build.0 = Debug|Win32
+		{6A85C95D-3D88-435D-9532-95C2921E6555}.Release|Win32.ActiveCfg = Release|Win32
+		{6A85C95D-3D88-435D-9532-95C2921E6555}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
