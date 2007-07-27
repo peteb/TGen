@@ -14,20 +14,32 @@
 
 TGen::Vector3 TGen::Vector3::Identity(1.0f, 1.0f, 1.0f);
 
-TGen::Vector3::Vector3(const TGen::Vector3 & vector) : x(vector.x), y(vector.y), z(vector.z) {
-	
+TGen::Vector3::Vector3(const TGen::Vector3 & vector) 
+	: x(vector.x)
+	, y(vector.y)
+	, z(vector.z) 
+{
 }
 
-TGen::Vector3::Vector3(const TGen::Vector2 & vector) : x(vector.x), y(vector.y), z(0.0f) {
-	
+TGen::Vector3::Vector3(const TGen::Vector2 & vector) 
+	: x(vector.x)
+	, y(vector.y)
+	, z(0.0f) 
+{
 }
 
-TGen::Vector3::Vector3(scalar x, scalar y, scalar z) : x(x), y(y), z(z) {
-	
+TGen::Vector3::Vector3(scalar x, scalar y, scalar z) 
+	: x(x)
+	, y(y)
+	, z(z) 
+{
 }
 
-TGen::Vector3::Vector3(scalar scalar) : x(scalar), y(scalar), z(scalar) {
-	
+TGen::Vector3::Vector3(scalar scalar) 
+	: x(scalar)
+	, y(scalar)
+	, z(scalar) 
+{
 }
 
 TGen::Vector3::operator std::string() const {

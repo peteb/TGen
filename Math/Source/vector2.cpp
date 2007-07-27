@@ -14,16 +14,33 @@
 
 TGen::Vector2 TGen::Vector2::Identity(1.0f, 1.0f);
 
-TGen::Vector2::Vector2(const TGen::Vector2 & vector) : x(vector.x), y(vector.y) {}
-TGen::Vector2::Vector2(const TGen::Vector3 & vector) : x(vector.x), y(vector.y) {}
+TGen::Vector2::Vector2(const TGen::Vector2 & vector) 
+	: x(vector.x)
+	, y(vector.y) 
+{
+}
 
-TGen::Vector2::Vector2(scalar x, scalar y) : x(x), y(y) {}
-TGen::Vector2::Vector2(scalar scalar) : x(scalar), y(scalar) {}
+TGen::Vector2::Vector2(const TGen::Vector3 & vector) 
+	: x(vector.x)
+	, y(vector.y) 
+{
+}
+
+TGen::Vector2::Vector2(scalar x, scalar y) 
+	: x(x)
+	, y(y) 
+{
+}
+
+TGen::Vector2::Vector2(scalar scalar) 
+	: x(scalar)
+	, y(scalar) 
+{
+}
 
 TGen::Vector2 & TGen::Vector2::operator += (const TGen::Vector2 & vector) {
 	x += vector.x;
 	y += vector.y;
-	//	z += vector.z;
 	
 	return *this;
 }
@@ -31,7 +48,6 @@ TGen::Vector2 & TGen::Vector2::operator += (const TGen::Vector2 & vector) {
 TGen::Vector2 & TGen::Vector2::operator -= (const TGen::Vector2 & vector) {
 	x -= vector.x;
 	y -= vector.y;
-	//	z -= vector.z;
 	
 	return *this;	
 }
@@ -39,7 +55,6 @@ TGen::Vector2 & TGen::Vector2::operator -= (const TGen::Vector2 & vector) {
 TGen::Vector2 & TGen::Vector2::operator = (const TGen::Vector2 & vector) {
 	x = vector.x;
 	y = vector.y;
-	//	z = vector.z;
 	
 	return *this;
 }
@@ -47,7 +62,6 @@ TGen::Vector2 & TGen::Vector2::operator = (const TGen::Vector2 & vector) {
 TGen::Vector2 & TGen::Vector2::operator *= (scalar scalar) {
 	x *= scalar;
 	y *= scalar;
-	//	z *= scalar;
 	
 	return *this;
 }
@@ -84,8 +98,7 @@ TGen::Vector2 & TGen::Vector2::Normalize() {
 	scalar magnitude = getMagnitude();
 	x /= magnitude;
 	y /= magnitude;
-	//	z /= magnitude;
-	
+
 	return *this;
 }
 
