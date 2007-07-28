@@ -66,8 +66,8 @@ void TGen::ShaderProgram::ParseShaders(TGen::Renderer & renderer, char * code) {
 	int codeSize[4];
 	for (int i = 0; i < 4; ++i) {
 		codeSize[i] = 0;
-		for (int a = 0; a < sections[i].size(); ++a) {
-			codeSize[i] += sections[i][a].size() + 1;
+		for (int a = 0; a < int(sections[i].size()); ++a) {
+			codeSize[i] += int(sections[i][a].size()) + 1;
 		}
 	}
 	
@@ -79,7 +79,7 @@ void TGen::ShaderProgram::ParseShaders(TGen::Renderer & renderer, char * code) {
 			char * pos = sectionCode[i];
 			*pos = 0;
 			
-			for (int a = 0; a < sections[i].size(); ++a) {
+			for (int a = 0; a < int(sections[i].size()); ++a) {
 				strcpy(pos, sections[i][a].c_str());
 				pos += sections[i][a].length();
 				strcpy(pos, "\n");
@@ -95,7 +95,7 @@ void TGen::ShaderProgram::ParseShaders(TGen::Renderer & renderer, char * code) {
 			strcpy(pos, sectionCode[0]);
 			pos += strlen(sectionCode[0]);
 			
-			for (int a = 0; a < sections[i].size(); ++a) {
+			for (int a = 0; a < int(sections[i].size()); ++a) {
 				strcpy(pos, sections[i][a].c_str());
 				pos += sections[i][a].length();
 				strcpy(pos, "\n");

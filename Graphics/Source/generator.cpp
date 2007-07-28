@@ -40,7 +40,7 @@ scalar TGen::SineWaveGenerator::getValue(double time) const {
 	
 	
 	
-	scalar x = (time - startedAt - phase) * frequency;
+	scalar x = scalar(time - startedAt - phase) * frequency;
 	scalar y = 0.0f;
 	
 	x -= floorf(x);

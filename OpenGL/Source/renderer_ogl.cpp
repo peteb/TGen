@@ -27,7 +27,8 @@ TGen::OpenGL::Renderer::Renderer()
 	, lastVb(NULL)
 	, lastIb(NULL)
 {
-
+	TGen::OpenGL::BindFunctions();	// might be needed if we're running on a sucky platform!
+	
 	GLint viewportDims[2];
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, reinterpret_cast<GLint *>(&caps.maxTextureUnits));
 	glGetIntegerv(GL_MAX_LIGHTS, reinterpret_cast<GLint *>(&caps.maxActiveLights));

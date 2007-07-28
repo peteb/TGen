@@ -10,5 +10,10 @@ int main(int argc, char ** argv) {
 	// 2.
 	std::cout << "2. 640x480: " << std::string(TGen::Rectangle(640, 480)) << std::endl;
 		
+	#ifdef _PLATFORM_WINDOWS
+	int hej;
+	std::cin >> hej;
+	#endif
+
 	return EXIT_SUCCESS;
 }

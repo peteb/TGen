@@ -35,7 +35,7 @@ TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType data
 
 
 int TGen::VertexStructure::getElementCount() const {
-	return elements.size();
+	return int(elements.size());
 }
 
 void TGen::VertexStructure::getElement(int num, TGen::VertexElement & ret) {
@@ -52,7 +52,7 @@ TGen::FormatType TGen::VertexStructure::getElementDataType(int num) const {
 
 TGen::VertexElement TGen::VertexStructure::getElementAtComponent(int component) const {
 	int compPos = 0;
-	for (int i = 0; i < elements.size(); ++i) {
+	for (int i = 0; i < int(elements.size()); ++i) {
 		compPos += elements[i].count;
 		if (compPos > component)
 			return elements[i];
@@ -63,7 +63,7 @@ TGen::VertexElement TGen::VertexStructure::getElementAtComponent(int component) 
 
 int TGen::VertexStructure::getComponentCount() const {
 	int ret = 0;
-	for (int i = 0; i < elements.size(); ++i) {
+	for (int i = 0; i < int(elements.size()); ++i) {
 		ret += elements[i].count;
 	}
 	
@@ -72,7 +72,7 @@ int TGen::VertexStructure::getComponentCount() const {
 
 int TGen::VertexStructure::getSize() const {
 	int size = 0;
-	for (int i = 0; i < elements.size(); ++i) {
+	for (int i = 0; i < int(elements.size()); ++i) {
 		if (!elements[i].shared) {
 			switch (elements[i].dataType) {
 				case TGen::TypeFloat:

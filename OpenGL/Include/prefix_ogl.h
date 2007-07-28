@@ -16,8 +16,10 @@
 	#include <OpenGL/OpenGL.h>
 	#include <GLUT/GLUT.h>
 #else
+	#include <windows.h>
 	#include <GL/GL.h>
 #endif
 
+#include "binder_ogl.h"
 
 #endif // !_TGEN_OPENGL_PREFIX_H
