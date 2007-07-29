@@ -63,7 +63,7 @@ CheckFramebufferStatusEXTPtr glCheckFramebufferStatusEXT = NULL;
 DrawBuffersARBPtr glDrawBuffersARB = NULL;
 
 void TGen::OpenGL::BindFunctions() {
-	DEBUG_PRINT("[ogl]: binding functions... :(");
+	DEBUG_PRINT("[opengl]: binding functions... :(");
 
 	glBindBufferARB = (BindBufferARBPtr)_GET_EXT("glBindBufferARB");
 	glGenBuffersARB = (GenBuffersARBPtr)_GET_EXT("glGenBuffersARB");

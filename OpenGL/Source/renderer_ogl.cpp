@@ -19,7 +19,8 @@
 #include "framebuffer_ogl.h"
 #include "shader_ogl.h"
 #include "shaderprogram_ogl.h"
-#include "tgen_graphics.h"
+#include <tgen_graphics.h>
+#include <tgen_core.h>
 
 #include <iostream>
 
@@ -144,7 +145,6 @@ TGen::Matrix4x4 TGen::OpenGL::Renderer::getTransform(TGen::TransformMode mode) c
 	}
 	
 	TGen::Matrix4x4 ret;
-
 	glGetFloatv(fixedTransform, (GLfloat *)ret.elements);
 	
 	return ret;
@@ -156,7 +156,7 @@ TGen::VertexBuffer * TGen::OpenGL::Renderer::CreateVertexBuffer(const TGen::Vert
 	glGenBuffersARB(1, &newVBO);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, newVBO);
 	
-	std::cout << "[opengl]: created vertex buffer " << newVBO << std::endl;
+	DEBUG_PRINT("[opengl]: created vertex buffer " << newVBO);
 	
 	GLenum fixedUsage = 0;
 	
@@ -201,7 +201,7 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::CreateIndexBuffer(const TGen::Vertex
 	glGenBuffersARB(1, &newVBO);
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, newVBO);
 	
-	std::cout << "[opengl]: created index buffer " << newVBO << std::endl;
+	DEBUG_PRINT("[opengl]: created index buffer " << newVBO);
 	
 	GLenum fixedUsage = 0;
 	
@@ -290,7 +290,7 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & si
 	
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_IMAGE_SIZE_ARB, &compressedSize);
 	
-	std::cout << "[opengl]: created texture " << newTex << " size: " << compressedSize << std::endl;
+	DEBUG_PRINT("[opengl]: created texture " << newTex << " size: " << compressedSize);
 	
 	return new TGen::OpenGL::Texture(*this, newTex, size);
 }
@@ -339,20 +339,17 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image,
 	//glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, image.getSize().width, image.getSize().height, 0, format, type, image.getData());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	// TODO: these are states. should be set when binding texture
 	// TODO: check whether current vb is the new vb
 	
 	GLint compressedSize = 0;
 	
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_IMAGE_SIZE_ARB, &compressedSize);
-	std::cout << "[opengl]: created texture " << newTex << " size: " << compressedSize << std::endl;
+	DEBUG_PRINT("[opengl]: created texture " << newTex << " size: " << compressedSize);
 
-	
 	return new TGen::OpenGL::Texture(*this, newTex, image.getSize());
 }
 
 
-// TODO: texturer, compression om möjligt
 
 void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer) {
 	if (!buffer) {
@@ -405,13 +402,14 @@ void TGen::OpenGL::Renderer::DrawIndexedPrimitive(TGen::PrimitiveType type, uint
 	GLenum fixedPrimitive = TGen::OpenGL::TgenPrimitiveToOpenGL(type);
 	
 	glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb->getVertexStructure().getElementDataType(0))));	
-	//glDrawRangeElements(fixedPrimitive, startIndex, startIndex + indexCount, indexCount, indexBufferFormat, NULL);	// TODO: get real size
-
 }
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::CreateFrameBuffer() {
 	GLuint fbo = 0;
 	glGenFramebuffersEXT(1, &fbo);
+	
+	DEBUG_PRINT("[opengl]: created framebuffer " << fbo);
+
 	
 	return new TGen::OpenGL::FrameBuffer(fbo);
 }
@@ -471,9 +469,9 @@ TGen::Shader * TGen::OpenGL::Renderer::CreateShader(const char * code, int type)
 	}
 	
 	if (type == 0)
-		std::cout << "[opengl]: created vertex shader " << newShader << ": " << infoLogString << std::endl;		
-	else
-		std::cout << "[opengl]: created fragment shader " << newShader << ": " << infoLogString << std::endl;
+		DEBUG_PRINT("[opengl]: created vertex shader " << newShader << ": " << infoLogString);		
+	else if (type == 1)
+		DEBUG_PRINT("[opengl]: created fragment shader " << newShader << ": " << infoLogString);
 	
 	return new TGen::OpenGL::Shader(*this, newShader);		
 }
@@ -526,7 +524,6 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 	
 	int elementCount = vertstruct.getElementCount();
 	
-	// Disabling these should be pretty fast
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);

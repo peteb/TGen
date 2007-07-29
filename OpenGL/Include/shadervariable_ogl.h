@@ -26,7 +26,7 @@ namespace TGen {
 		
 		class ShaderVariable : public TGen::ShaderVariable {
 		private:
-			ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type);
+			ShaderVariable(GLint location, GLuint program, TGen::OpenGL::ShaderVariableType type);
 
 		public:
 			~ShaderVariable();
@@ -42,7 +42,8 @@ namespace TGen {
 				
 		private:
 			TGen::OpenGL::ShaderVariableType type;
-			GLint location, program;
+			GLint location;
+			GLuint program;
 		};
 		
 	} // !OpenGL

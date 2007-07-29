@@ -16,7 +16,7 @@
 #include "renderer.h"
 #include "error.h"
 
-TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) 
+TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, GLuint vboId) 
 	: TGen::VertexBuffer(creator, size, usage)
 	, vertstruct(vertstruct)
 	, vboId(vboId) 
@@ -77,4 +77,8 @@ bool TGen::OpenGL::VertexBuffer::isLocked() {
 
 TGen::VertexStructure & TGen::OpenGL::VertexBuffer::getVertexStructure() {
 	return vertstruct;
+}
+
+GLuint TGen::OpenGL::VertexBuffer::getInternalID() const {
+	return vboId;
 }

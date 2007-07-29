@@ -13,7 +13,7 @@
 #include "vector2.h"
 #include "binder_ogl.h"
 
-TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type) 
+TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLuint program, TGen::OpenGL::ShaderVariableType type) 
 	: location(location)
 	, program(program)
 	, type(type) 

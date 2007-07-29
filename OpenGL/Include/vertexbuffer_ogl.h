@@ -12,6 +12,7 @@
 
 #include "vertexbuffer.h"
 #include "vertexstructure.h"
+#include "prefix_ogl.h"
 
 namespace TGen {	
 	namespace OpenGL {
@@ -19,7 +20,7 @@ namespace TGen {
 		
 		class VertexBuffer : public TGen::VertexBuffer {
 		private:
-			VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId);
+			VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, GLuint vboId);
 			
 		public:
 			~VertexBuffer();
@@ -30,11 +31,13 @@ namespace TGen {
 			bool isLocked();
 			TGen::VertexStructure & getVertexStructure();
 			
+			GLuint getInternalID() const;
+
 			friend class TGen::OpenGL::Renderer;
 			
 		private:
 			TGen::VertexStructure vertstruct;
-			uint vboId;
+			GLuint vboId;
 		};
 		
 	} // !OpenGL
