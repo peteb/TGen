@@ -243,7 +243,8 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::CreateIndexBuffer(const TGen::Vertex
 }
 
 TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
-	GLuint newTex = 0;
+	return CreateTexture(NULL, size, components, components, componentFormat, flags);
+	/*GLuint newTex = 0;
 
 	GLenum format = TGen::OpenGL::TgenImageFormatToOpenGL(components);
 	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
@@ -292,11 +293,13 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & si
 	
 	DEBUG_PRINT("[opengl]: created texture " << newTex << " size: " << compressedSize);
 	
-	return new TGen::OpenGL::Texture(*this, newTex, size);
+	return new TGen::OpenGL::Texture(*this, newTex, size);*/
 }
 
 TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags) {
-	GLuint newTex = 0;
+	return CreateTexture(image.getData(), image.getSize(), image.getFormat(), components, image.getComponentFormat(), flags);
+	
+	/*GLuint newTex = 0;
 	
 	GLenum format = TGen::OpenGL::TgenImageFormatToOpenGL(image.getFormat());
 	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(image.getComponentFormat());
@@ -345,10 +348,65 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image,
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_IMAGE_SIZE_ARB, &compressedSize);
 	DEBUG_PRINT("[opengl]: created texture " << newTex << " size: " << compressedSize);
 
-	return new TGen::OpenGL::Texture(*this, newTex, image.getSize());
+	return new TGen::OpenGL::Texture(*this, newTex, image.getSize());*/
 }
 
 
+TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
+	GLuint newTex = 0;
+	
+	GLenum imgFormat = TGen::OpenGL::TgenImageFormatToOpenGL(format);
+	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
+	GLenum internalFormat = 0;
+	
+	glGenTextures(1, &newTex);
+	glBindTexture(GL_TEXTURE_2D, newTex);
+	
+	bool generateMipmaps = true;
+	
+	if (flags & TGen::TextureCompressed) {
+		switch (components) {
+			case TGen::RGB:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					internalFormat = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				break;
+				
+			case TGen::RGBA:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT3Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT5Compressed)
+					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				break;
+				
+			default:
+				throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+		}
+	}
+	else {
+		internalFormat = TGen::OpenGL::TgenImageFormatToOpenGL(components);
+	}
+	
+	if (generateMipmaps) {
+		gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, size.width, size.height, imgFormat, type, data);	
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	}
+	else {
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.width, size.height, 0, imgFormat, type, data);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		
+	}
+	
+	DEBUG_PRINT("[opengl]: created texture " << newTex);
+	
+	return new TGen::OpenGL::Texture(*this, newTex, size);
+}
 
 void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer) {
 	if (!buffer) {
@@ -723,7 +781,3 @@ void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
 }
 
-TGen::Texture * CreateTexture(void * data, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
-
-	return NULL;
-}

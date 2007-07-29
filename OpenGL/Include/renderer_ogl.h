@@ -74,7 +74,7 @@ namespace TGen {
 			
 			
 		private:
-			TGen::Texture * CreateTexture(void * data, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
+			TGen::Texture * CreateTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
 
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
 			void setDepthFunc(TGen::CompareFunc compare);
