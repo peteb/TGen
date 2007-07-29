@@ -39,7 +39,7 @@ public:
 
 		std::cout << "2. Loading data..." << std::endl;
 		LoadData();
-		std::cout << "   ... ok" << std::endl; // TODO: wrap ska vara per textur, filter också, cool
+		std::cout << "   ... ok" << std::endl;
 	}
 	
 	~App() {

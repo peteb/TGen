@@ -15,6 +15,8 @@
 #ifdef _PLATFORM_WIN
 #include <windows.h>
 #define _GET_EXT(x) wglGetProcAddress(x)
+#else
+#error this platform is not supported
 #endif
 
 BindBufferARBPtr glBindBufferARB = NULL;
