@@ -18,6 +18,10 @@
 #endif
 
 #ifdef _TGEN_OPENGL_NEED_BINDING
+
+#define GLAPIENTRY __stdcall
+
+
 typedef char GLchar;
 typedef void *GLhandle;
 
@@ -26,48 +30,48 @@ typedef long GLsizeiptr;
 typedef long GLintptrARB;
 typedef long GLsizeiptrARB;
 
-typedef void (*BindBufferARBPtr)(GLenum target, GLuint buffer);
-typedef void (*GenBuffersARBPtr)(GLsizei n, GLuint * buffers);
-typedef void (*BufferDataARBPtr)(GLenum target, GLsizeiptr size, const GLvoid * data, GLenum usage);
-typedef void (*BufferSubDataARBPtr) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, const GLvoid *data);
-typedef void (*DeleteBuffersARBPtr) (GLsizei n, const GLuint *buffers);
-typedef void * (*MapBufferARBPtr)(GLenum target, GLenum access);
-typedef GLboolean (*UnmapBufferARBPtr)(GLenum target);
+typedef void (GLAPIENTRY *BindBufferARBPtr)(GLenum target, GLuint buffer);
+typedef void (GLAPIENTRY *GenBuffersARBPtr)(GLsizei n, GLuint * buffers);
+typedef void (GLAPIENTRY *BufferDataARBPtr)(GLenum target, GLsizeiptr size, const GLvoid * data, GLenum usage);
+typedef void (GLAPIENTRY *BufferSubDataARBPtr) (GLenum target, GLintptrARB offset, GLsizeiptrARB size, const GLvoid *data);
+typedef void (GLAPIENTRY *DeleteBuffersARBPtr) (GLsizei n, const GLuint *buffers);
+typedef void * (GLAPIENTRY *MapBufferARBPtr)(GLenum target, GLenum access);
+typedef GLboolean (GLAPIENTRY *UnmapBufferARBPtr)(GLenum target);
 
-typedef void (*ActiveTextureARBPtr) (GLenum target);
-typedef void (*ClientActiveTextureARBPtr) (GLenum target);
+typedef void (GLAPIENTRY *ActiveTextureARBPtr) (GLenum target);
+typedef void (GLAPIENTRY *ClientActiveTextureARBPtr) (GLenum target);
 
-typedef void (*DrawRangeElementsEXTPtr) (GLenum, GLuint, GLuint, GLsizei, GLenum, const GLvoid *);
+typedef void (GLAPIENTRY *DrawRangeElementsEXTPtr) (GLenum, GLuint, GLuint, GLsizei, GLenum, const GLvoid *);
 
-typedef void (*DeleteShaderPtr) (GLuint shader);
-typedef void (*AttachShaderPtr) (GLuint program, GLuint shader);
-typedef void (*LinkProgramPtr) (GLuint program);
-typedef void (*GetProgramivPtr) (GLuint program, GLenum pname, GLint *params);
-typedef void (*GetProgramInfoLogPtr) (GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
-typedef GLint (*GetUniformLocationPtr) (GLuint program, const GLchar *name);
-typedef GLint (*GetAttribLocationPtr) (GLuint program, const GLchar *name);
-typedef void (*UseProgramPtr) (GLuint program);
-typedef void (*Uniform1iPtr) (GLint location, GLint v0);
-typedef void (*Uniform4fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
-typedef void (*VertexAttrib4fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
-typedef void (*Uniform3fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
-typedef void (*VertexAttrib3fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z);
-typedef void (*Uniform2fPtr) (GLint location, GLfloat v0, GLfloat v1);
-typedef void (*VertexAttrib2fPtr) (GLuint index, GLfloat x, GLfloat y);
-typedef GLuint (*CreateShaderPtr) (GLenum type);
-typedef void (*ShaderSourcePtr) (GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
-typedef void (*CompileShaderPtr) (GLuint shader);
-typedef void (*GetShaderivPtr) (GLuint shader, GLenum pname, GLint *params);
-typedef void (*GetShaderInfoLogPtr) (GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
-typedef GLuint (*CreateProgramPtr) (void);
+typedef void (GLAPIENTRY *DeleteShaderPtr) (GLuint shader);
+typedef void (GLAPIENTRY *AttachShaderPtr) (GLuint program, GLuint shader);
+typedef void (GLAPIENTRY *LinkProgramPtr) (GLuint program);
+typedef void (GLAPIENTRY *GetProgramivPtr) (GLuint program, GLenum pname, GLint *params);
+typedef void (GLAPIENTRY *GetProgramInfoLogPtr) (GLuint program, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+typedef GLint (GLAPIENTRY *GetUniformLocationPtr) (GLuint program, const GLchar *name);
+typedef GLint (GLAPIENTRY *GetAttribLocationPtr) (GLuint program, const GLchar *name);
+typedef void (GLAPIENTRY *UseProgramPtr) (GLuint program);
+typedef void (GLAPIENTRY *Uniform1iPtr) (GLint location, GLint v0);
+typedef void (GLAPIENTRY *Uniform4fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+typedef void (GLAPIENTRY *VertexAttrib4fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
+typedef void (GLAPIENTRY *Uniform3fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
+typedef void (GLAPIENTRY *VertexAttrib3fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z);
+typedef void (GLAPIENTRY *Uniform2fPtr) (GLint location, GLfloat v0, GLfloat v1);
+typedef void (GLAPIENTRY *VertexAttrib2fPtr) (GLuint index, GLfloat x, GLfloat y);
+typedef GLuint (GLAPIENTRY *CreateShaderPtr) (GLenum type);
+typedef void (GLAPIENTRY *ShaderSourcePtr) (GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
+typedef void (GLAPIENTRY *CompileShaderPtr) (GLuint shader);
+typedef void (GLAPIENTRY *GetShaderivPtr) (GLuint shader, GLenum pname, GLint *params);
+typedef void (GLAPIENTRY *GetShaderInfoLogPtr) (GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+typedef GLuint (GLAPIENTRY *CreateProgramPtr) (void);
 
-typedef void (*DeleteFramebuffersEXTPtr) (GLsizei n, const GLuint *framebuffers);
-typedef void (*GenFramebuffersEXTPtr) (GLsizei n, GLuint *framebuffers);
-typedef void (*FramebufferTexture2DEXTPtr) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
-typedef void (*BindFramebufferEXTPtr) (GLenum target, GLuint framebuffer);
-typedef GLenum (*CheckFramebufferStatusEXTPtr) (GLenum target);
+typedef void (GLAPIENTRY *DeleteFramebuffersEXTPtr) (GLsizei n, const GLuint *framebuffers);
+typedef void (GLAPIENTRY *GenFramebuffersEXTPtr) (GLsizei n, GLuint *framebuffers);
+typedef void (GLAPIENTRY *FramebufferTexture2DEXTPtr) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+typedef void (GLAPIENTRY *BindFramebufferEXTPtr) (GLenum target, GLuint framebuffer);
+typedef GLenum (GLAPIENTRY *CheckFramebufferStatusEXTPtr) (GLenum target);
 
-typedef void (*DrawBuffersARBPtr) (GLsizei n, const GLenum *bufs);
+typedef void (GLAPIENTRY *DrawBuffersARBPtr) (GLsizei n, const GLenum *bufs);
 
 #ifndef GL_ARRAY_BUFFER
 #define GL_ARRAY_BUFFER 0x8892    // VBO ARB

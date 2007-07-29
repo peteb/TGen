@@ -43,7 +43,7 @@ public:
 		delete renderer;
 	}
 
-	void Reshape(const Rectangle & size) {
+	void Reshape(const TGen::Rectangle & size) {
 		renderer->setViewport(size);
 		windowSize = size;
 	}
@@ -87,10 +87,10 @@ private:
 	typedef Index<unsigned short> MyIndex;
 	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
 	
-	Rectangle windowSize;
-	Renderer * renderer;
-	VertexBuffer * vb;
-	IndexBuffer * ib;
+	TGen::Rectangle windowSize;
+	TGen::Renderer * renderer;
+	TGen::VertexBuffer * vb;
+	TGen::IndexBuffer * ib;
 	float time;
 };
 
@@ -98,7 +98,7 @@ App * app = NULL;
 
 void Reshape(int width, int height) {
 	if (app)
-		app->Reshape(Rectangle(width, height));
+		app->Reshape(TGen::Rectangle(width, height));
 }
 
 void Render() {
