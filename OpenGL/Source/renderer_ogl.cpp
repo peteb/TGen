@@ -55,6 +55,7 @@ TGen::OpenGL::Renderer::Renderer()
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CW);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -243,8 +244,7 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::CreateIndexBuffer(const TGen::Vertex
 
 TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
 	GLuint newTex = 0;
-	glEnable(GL_TEXTURE_2D);
-	
+
 	GLenum format = TGen::OpenGL::TgenImageFormatToOpenGL(components);
 	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
 	GLenum internalFormat = 0;
@@ -297,7 +297,6 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Rectangle & si
 
 TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags) {
 	GLuint newTex = 0;
-	glEnable(GL_TEXTURE_2D);
 	
 	GLenum format = TGen::OpenGL::TgenImageFormatToOpenGL(image.getFormat());
 	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(image.getComponentFormat());
@@ -722,4 +721,9 @@ void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen
 
 void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
+}
+
+TGen::Texture * CreateTexture(void * data, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
+
+	return NULL;
 }

@@ -21,8 +21,7 @@ TGen::OpenGL::FrameBuffer::FrameBuffer(GLuint fboId)
 	, colorPointsTaken(0)
 	, depthPointsTaken(0)
 	, stencilPointsTaken(0) 
-{
-	
+{	
 }
 
 TGen::OpenGL::FrameBuffer::~FrameBuffer() {
