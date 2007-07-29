@@ -9,11 +9,14 @@ void Render();
 
 class App {
 public:
-	App(int argc, char ** argv) : renderer(NULL), vb(NULL), ib(NULL), time(0) {
-		windowSize.width = 640;
-		windowSize.height = 480;
-		
-		// We need a context...
+	App(int argc, char ** argv) 
+		: renderer(NULL)
+		, vb(NULL)
+		, ib(NULL)
+		, time(0) 
+		, windowSize(640, 480)
+	{
+		// We need a window environment, let GLUT create one
 		glutInit(&argc, argv);
 		glutInitWindowSize(windowSize.width, windowSize.height);
 		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
@@ -51,19 +54,24 @@ public:
 	}
 	
 	void Render() {
+		time += 0.001;
+
 		renderer->setClearColor(Color::White);
 		renderer->Clear(ColorBuffer | DepthBuffer);
+		
+		Matrix4x4 view = Matrix4x4::Identity;
+		view *= Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f));
+		view *= Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time));
+
+		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(TGen::Degree(90.0f), windowSize.width / windowSize.height, 0.1f, 10.0f));
+		renderer->setTransform(TransformWorldView, view);
 		
 		renderer->setVertexBuffer(vb);
 		renderer->setIndexBuffer(ib);
 		renderer->setColor(Color::Red);
-		
-		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(TGen::Degree(90.0f), windowSize.width / windowSize.height, 0.1f, 100.0f));
-		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
 
-		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 3);
-		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 3, 3);
-
+		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 3);	// draw triangle #1
+		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 3, 3);	//     --|--     #2
 		
 		glutSwapBuffers();
 	}
