@@ -10,6 +10,8 @@
 #ifndef _TGEN_OPENGL_BINDER_H
 #define _TGEN_OPENGL_BINDER_H
 
+#include "platform.h"
+
 #ifdef _PLATFORM_OSX
 	#include <OpenGL/OpenGL.h>
 	#include <GLUT/GLUT.h>

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8DD76F6A0486A84900D96B5E /* TGen OpenGL.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen OpenGL.1 */; };
+		D00CEF510C5CDA23005AEC75 /* binder_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00CEF500C5CDA23005AEC75 /* binder_ogl.cpp */; };
+		D00CEF560C5CDA2D005AEC75 /* binder_ogl.h in Headers */ = {isa = PBXBuildFile; fileRef = D00CEF550C5CDA2D005AEC75 /* binder_ogl.h */; };
 		D00FF9030C39412500668773 /* tgen_opengl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF8D80C39404D00668773 /* tgen_opengl.cpp */; };
 		D00FF9040C39412500668773 /* tgen_opengl.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF8D60C39403F00668773 /* tgen_opengl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF9050C39412500668773 /* renderer_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF8AF0C393FEC00668773 /* renderer_ogl.cpp */; };
@@ -162,6 +164,8 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen OpenGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen OpenGL"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen OpenGL.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen OpenGL.1"; sourceTree = "<group>"; };
+		D00CEF500C5CDA23005AEC75 /* binder_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = binder_ogl.cpp; path = Source/binder_ogl.cpp; sourceTree = "<group>"; };
+		D00CEF550C5CDA2D005AEC75 /* binder_ogl.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = binder_ogl.h; path = Include/binder_ogl.h; sourceTree = "<group>"; };
 		D00FF8AC0C393FEC00668773 /* framebuffer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = framebuffer_ogl.cpp; path = Source/framebuffer_ogl.cpp; sourceTree = "<group>"; };
 		D00FF8AD0C393FEC00668773 /* indexbuffer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = indexbuffer_ogl.cpp; path = Source/indexbuffer_ogl.cpp; sourceTree = "<group>"; };
 		D00FF8AF0C393FEC00668773 /* renderer_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = renderer_ogl.cpp; path = Source/renderer_ogl.cpp; sourceTree = "<group>"; };
@@ -254,6 +258,8 @@
 				D0CE01340C3D962A007D4B18 /* Resources */,
 				D00FF8A50C393FB600668773 /* Test */,
 				D00FF8C20C393FF400668773 /* prefix_ogl.h */,
+				D00CEF550C5CDA2D005AEC75 /* binder_ogl.h */,
+				D00CEF500C5CDA23005AEC75 /* binder_ogl.cpp */,
 				D00FF8D80C39404D00668773 /* tgen_opengl.cpp */,
 				D00FF8D60C39403F00668773 /* tgen_opengl.h */,
 				D00FF8AF0C393FEC00668773 /* renderer_ogl.cpp */,
@@ -390,6 +396,7 @@
 				D00FF9130C39412500668773 /* texture_ogl.h in Headers */,
 				D00FF9150C39412500668773 /* types_converter_ogl.h in Headers */,
 				D00FF9170C39412500668773 /* vertexbuffer_ogl.h in Headers */,
+				D00CEF560C5CDA2D005AEC75 /* binder_ogl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,6 +541,7 @@
 				D00FF9120C39412500668773 /* texture_ogl.cpp in Sources */,
 				D00FF9140C39412500668773 /* types_converter_ogl.cpp in Sources */,
 				D00FF9160C39412500668773 /* vertexbuffer_ogl.cpp in Sources */,
+				D00CEF510C5CDA23005AEC75 /* binder_ogl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
