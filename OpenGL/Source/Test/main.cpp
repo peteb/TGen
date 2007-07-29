@@ -25,5 +25,10 @@ int main(int argc, char ** argv) {
 	
 	delete renderer;
 	
+	#ifdef _PLATFORM_WINDOWS
+	int hej;
+	std::cin >> hej;
+	#endif
+
 	return EXIT_SUCCESS;
 }

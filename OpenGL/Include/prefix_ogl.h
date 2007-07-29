@@ -15,11 +15,13 @@
 #ifdef _PLATFORM_OSX
 	#include <OpenGL/OpenGL.h>
 	#include <GLUT/GLUT.h>
-#else
+#elif defined(_PLATFORM_WIN)
 	#include <windows.h>
 	#include <GL/GL.h>
+	#include <GL/GLU.h>
+#else
+	#include <GL/GL.h>
+	#include <GL/GLU.h>
 #endif
-
-#include "binder_ogl.h"
 
 #endif // !_TGEN_OPENGL_PREFIX_H

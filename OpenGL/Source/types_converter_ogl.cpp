@@ -8,6 +8,7 @@
  */
 
 #include "prefix_ogl.h"
+#include "binder_ogl.h"
 #include "types_converter_ogl.h"
 #include "error.h"
 

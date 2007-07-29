@@ -11,6 +11,7 @@
 #include "shader_ogl.h"
 #include "error.h"
 #include "shadervariable_ogl.h"
+#include "binder_ogl.h"
 
 #include <string>
 #include <iostream>

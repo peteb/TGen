@@ -9,6 +9,7 @@
 
 #include <tgen_core.h>
 #include "shader_ogl.h"
+#include "binder_ogl.h"
 
 TGen::OpenGL::Shader::Shader(TGen::Renderer & creator, GLuint shaderId) 
 	: TGen::Shader(creator)

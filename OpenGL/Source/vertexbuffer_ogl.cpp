@@ -10,10 +10,11 @@
 #include <iostream>
 #include <tgen_core.h>
 #include "prefix_ogl.h"
+#include "binder_ogl.h"
+
 #include "vertexbuffer_ogl.h"
 #include "renderer.h"
 #include "error.h"
-
 
 TGen::OpenGL::VertexBuffer::VertexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId) 
 	: TGen::VertexBuffer(creator, size, usage)

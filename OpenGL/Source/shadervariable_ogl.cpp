@@ -11,6 +11,7 @@
 #include "color.h"
 #include "vector3.h"
 #include "vector2.h"
+#include "binder_ogl.h"
 
 TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLint program, TGen::OpenGL::ShaderVariableType type) 
 	: location(location)

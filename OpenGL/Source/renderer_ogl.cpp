@@ -8,6 +8,7 @@
  */
 
 #include "prefix_ogl.h"
+#include "binder_ogl.h"
 #include "renderer_ogl.h"
 #include "vertexstructure.h"
 #include "vertexbuffer_ogl.h"

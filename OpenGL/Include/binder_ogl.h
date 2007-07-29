@@ -11,14 +11,7 @@
 #define _TGEN_OPENGL_BINDER_H
 
 #include "platform.h"
-
-#ifdef _PLATFORM_OSX
-	#include <OpenGL/OpenGL.h>
-	#include <GLUT/GLUT.h>
-#else
-	#include <windows.h>
-	#include <GL/GL.h>
-#endif
+#include "prefix_ogl.h"
 
 #ifndef GL_VERSION_2_0
 #define _TGEN_OPENGL_NEED_BINDING
@@ -61,6 +54,20 @@ typedef void (*Uniform3fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2
 typedef void (*VertexAttrib3fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z);
 typedef void (*Uniform2fPtr) (GLint location, GLfloat v0, GLfloat v1);
 typedef void (*VertexAttrib2fPtr) (GLuint index, GLfloat x, GLfloat y);
+typedef GLuint (*CreateShaderPtr) (GLenum type);
+typedef void (*ShaderSourcePtr) (GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
+typedef void (*CompileShaderPtr) (GLuint shader);
+typedef void (*GetShaderivPtr) (GLuint shader, GLenum pname, GLint *params);
+typedef void (*GetShaderInfoLogPtr) (GLuint shader, GLsizei bufSize, GLsizei *length, GLchar *infoLog);
+typedef GLuint (*CreateProgramPtr) (void);
+
+typedef void (*DeleteFramebuffersEXTPtr) (GLsizei n, const GLuint *framebuffers);
+typedef void (*GenFramebuffersEXTPtr) (GLsizei n, GLuint *framebuffers);
+typedef void (*FramebufferTexture2DEXTPtr) (GLenum target, GLenum attachment, GLenum textarget, GLuint texture, GLint level);
+typedef void (*BindFramebufferEXTPtr) (GLenum target, GLuint framebuffer);
+typedef GLenum (*CheckFramebufferStatusEXTPtr) (GLenum target);
+
+typedef void (*DrawBuffersARBPtr) (GLsizei n, const GLenum *bufs);
 
 #ifndef GL_ARRAY_BUFFER
 #define GL_ARRAY_BUFFER 0x8892    // VBO ARB
@@ -154,37 +161,90 @@ typedef void (*VertexAttrib2fPtr) (GLuint index, GLfloat x, GLfloat y);
 #define GL_ACTIVE_UNIFORMS                0x8B86
 #define GL_ACTIVE_UNIFORM_MAX_LENGTH      0x8B87
 #define GL_SHADER_SOURCE_LENGTH           0x8B88
+#define GL_VERTEX_SHADER                  0x8B31
+#define GL_FRAGMENT_SHADER                0x8B30
+#define GL_SHADING_LANGUAGE_VERSION       0x8B8C
+
+#define GL_FRAMEBUFFER_EXT                 0x8D40
+#define GL_MAX_COLOR_ATTACHMENTS_EXT       0x8CDF
+
+#define GL_COLOR_ATTACHMENT0_EXT           0x8CE0
+#define GL_COLOR_ATTACHMENT1_EXT           0x8CE1
+#define GL_COLOR_ATTACHMENT2_EXT           0x8CE2
+#define GL_COLOR_ATTACHMENT3_EXT           0x8CE3
+#define GL_COLOR_ATTACHMENT4_EXT           0x8CE4
+#define GL_COLOR_ATTACHMENT5_EXT           0x8CE5
+#define GL_COLOR_ATTACHMENT6_EXT           0x8CE6
+#define GL_COLOR_ATTACHMENT7_EXT           0x8CE7
+#define GL_COLOR_ATTACHMENT8_EXT           0x8CE8
+#define GL_COLOR_ATTACHMENT9_EXT           0x8CE9
+#define GL_COLOR_ATTACHMENT10_EXT          0x8CEA
+#define GL_COLOR_ATTACHMENT11_EXT          0x8CEB
+#define GL_COLOR_ATTACHMENT12_EXT          0x8CEC
+#define GL_COLOR_ATTACHMENT13_EXT          0x8CED
+#define GL_COLOR_ATTACHMENT14_EXT          0x8CEE
+#define GL_COLOR_ATTACHMENT15_EXT          0x8CEF
+#define GL_DEPTH_ATTACHMENT_EXT            0x8D00
+#define GL_STENCIL_ATTACHMENT_EXT          0x8D20
+#define GL_FRAMEBUFFER_COMPLETE_EXT                        0x8CD5
+#define GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT           0x8CD6
+#define GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_EXT   0x8CD7
+#define GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_EXT           0x8CD9
+#define GL_FRAMEBUFFER_INCOMPLETE_FORMATS_EXT              0x8CDA
+#define GL_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER_EXT          0x8CDB
+#define GL_FRAMEBUFFER_INCOMPLETE_READ_BUFFER_EXT          0x8CDC
+#define GL_FRAMEBUFFER_UNSUPPORTED_EXT                     0x8CDD
+#define GL_FRAMEBUFFER_BINDING_EXT         0x8CA6
+#define GL_RENDERBUFFER_BINDING_EXT        0x8CA7
+#define GL_MAX_COLOR_ATTACHMENTS_EXT       0x8CDF
+#define GL_MAX_RENDERBUFFER_SIZE_EXT       0x84E8
+#define GL_INVALID_FRAMEBUFFER_OPERATION_EXT 0x0506
 
 #endif
 
-BindBufferARBPtr glBindBufferARB = NULL;
-GenBuffersARBPtr glGenBuffersARB = NULL;
-BufferDataARBPtr glBufferDataARB = NULL;
-MapBufferARBPtr glMapBufferARB = NULL;
-UnmapBufferARBPtr glUnmapBufferARB = NULL;
-BufferSubDataARBPtr glBufferSubDataARB = NULL;
-DeleteBuffersARBPtr glDeleteBuffersARB = NULL;
+extern BindBufferARBPtr glBindBufferARB;
+extern GenBuffersARBPtr glGenBuffersARB;
+extern BufferDataARBPtr glBufferDataARB;
+extern MapBufferARBPtr glMapBufferARB;
+extern UnmapBufferARBPtr glUnmapBufferARB;
+extern BufferSubDataARBPtr glBufferSubDataARB;
+extern DeleteBuffersARBPtr glDeleteBuffersARB;
 
-ActiveTextureARBPtr glActiveTexture = NULL;
-ClientActiveTextureARBPtr glClientActiveTexture = NULL;
+extern ActiveTextureARBPtr glActiveTexture;
+extern ClientActiveTextureARBPtr glClientActiveTexture;
 
-DrawRangeElementsEXTPtr glDrawRangeElements = NULL;
+extern DrawRangeElementsEXTPtr glDrawRangeElements;
 
-DeleteShaderPtr glDeleteShader = NULL;
-AttachShaderPtr glAttachShader = NULL;
-LinkProgramPtr glLinkProgram = NULL;
-GetProgramivPtr glGetProgramiv = NULL;
-GetProgramInfoLogPtr glGetProgramInfoLog = NULL;
-GetUniformLocationPtr glGetUniformLocation = NULL;
-GetAttribLocationPtr glGetAttribLocation = NULL;
-UseProgramPtr glUseProgram = NULL;
-Uniform1iPtr glUniform1i = NULL;
-Uniform4fPtr glUniform4f = NULL;
-VertexAttrib4fPtr glVertexAttrib4f = NULL;
-Uniform3fPtr glUniform3f = NULL;
-VertexAttrib3fPtr glVertexAttrib3f = NULL;
-Uniform2fPtr glUniform2f = NULL;
-VertexAttrib2fPtr glVertexAttrib2f = NULL;
+extern DeleteShaderPtr glDeleteShader;
+extern AttachShaderPtr glAttachShader;
+extern LinkProgramPtr glLinkProgram;
+extern GetProgramivPtr glGetProgramiv;
+extern GetProgramInfoLogPtr glGetProgramInfoLog;
+extern GetUniformLocationPtr glGetUniformLocation;
+extern GetAttribLocationPtr glGetAttribLocation;
+extern UseProgramPtr glUseProgram;
+extern Uniform1iPtr glUniform1i;
+extern Uniform4fPtr glUniform4f;
+extern VertexAttrib4fPtr glVertexAttrib4f;
+extern Uniform3fPtr glUniform3f;
+extern VertexAttrib3fPtr glVertexAttrib3f;
+extern Uniform2fPtr glUniform2f;
+extern VertexAttrib2fPtr glVertexAttrib2f;
+extern CreateShaderPtr glCreateShader;
+extern ShaderSourcePtr glShaderSource;
+extern CompileShaderPtr glCompileShader;
+extern GetShaderivPtr glGetShaderiv;
+extern GetShaderInfoLogPtr glGetShaderInfoLog;
+extern CreateProgramPtr glCreateProgram;
+
+extern DeleteFramebuffersEXTPtr glDeleteFramebuffersEXT;
+extern GenFramebuffersEXTPtr glGenFramebuffersEXT;
+extern FramebufferTexture2DEXTPtr glFramebufferTexture2DEXT;
+extern BindFramebufferEXTPtr glBindFramebufferEXT;
+extern CheckFramebufferStatusEXTPtr glCheckFramebufferStatusEXT;
+
+extern DrawBuffersARBPtr glDrawBuffersARB;
+
 
 
 #endif // !_TGEN_OPENGL_NEED_BINDING

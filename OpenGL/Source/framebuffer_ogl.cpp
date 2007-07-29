@@ -8,11 +8,12 @@
  */
 
 #include <tgen_core.h>
+#include "prefix_ogl.h"
+#include "binder_ogl.h"
 #include "framebuffer_ogl.h"
 #include "texture.h"
 #include "framebuffer.h"
 #include "texture_ogl.h"
-#include "prefix_ogl.h"
 #include "error.h"
 
 TGen::OpenGL::FrameBuffer::FrameBuffer(GLuint fboId) 
@@ -148,5 +149,5 @@ GLuint TGen::OpenGL::FrameBuffer::getInternalID() const {
 */
 
 void TGen::OpenGL::FrameBuffer::SetupDrawBuffers() {
-	glDrawBuffers(pointsTaken.size(), &pointsTaken[0]);
+	glDrawBuffersARB(pointsTaken.size(), &pointsTaken[0]);
 }
