@@ -32,6 +32,8 @@ public:
 			std::cout << "   ...ok" << std::endl << std::endl;
 		}
 		
+		std::cout << std::string(renderer->getCaps()) << std::endl;
+
 		std::cout << "2. Loading data..." << std::endl;
 		LoadData();
 		std::cout << "   ... ok" << std::endl; // TODO: wrap ska vara per textur, filter också, cool
@@ -74,13 +76,13 @@ public:
 			MyVertex::Type(Vector3(-1.0f, -1.0f, 0.0f), Vector2(0.0f, 1.0f)),
 		};
 		
-		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
+		MyIndex::Type indices[6] = {0, 1, 3, 1, 2, 3};
 		
 		vb = renderer->CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
 		vb->BufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
 		
 		ib = renderer->CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
-		ib->BufferData(indicies, sizeof(MyIndex::Type) * 6, 0);
+		ib->BufferData(indices, sizeof(MyIndex::Type) * 6, 0);
 	}
 	
 private:
