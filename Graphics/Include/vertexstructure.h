@@ -59,9 +59,7 @@ namespace TGen {
 		std::vector<TGen::VertexElement> elements;
 		int align;
 	};
-	
-	// TODO: en public bool isExtensionAvailable(), men bara i OpenGL::Renderer
-	
+		
 	template<typename T>
 	class Vertex4 : public virtual TGen::VertexStructure {
 	public:		

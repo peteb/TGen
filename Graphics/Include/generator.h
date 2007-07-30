@@ -51,35 +51,6 @@ namespace TGen {
 		scalar base, amplitude, phase, frequency;
 		double startedAt;
 	};
-	
-	/*class SineWaveGenerator : public WaveGenerator {
-	public:	
-		SineWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency);
-		~SineWaveGenerator() {}
-		
-		TGen::Color getColor(double time, float alpha) const;
-		scalar getValue(double time) const;			
-	};
-	
-	class SquareWaveGenerator : public WaveGenerator {
-	public:
-		SquareWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency);
-		
-		TGen::Color getColor(double time, float alpha) const;
-		scalar getValue(double time) const;
-	};
-	
-	class SawtoothWaveGenerator : public WaveGenerator {
-	public:
-		SawtoothWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency, bool inverse);
-		
-		TGen::Color getColor(double time, float alpha) const;
-		scalar getValue(double time) const;
-		
-	private:
-		bool inverse;
-		mutable scalar lastValue;
-	};	*/
 } // !TGen
 
 #endif // !_TGEN_GENERATOR_H
