@@ -9,12 +9,13 @@
 
 #include "matrix3x3.h"
 #include "matrix4x4.h"
-#include "Vector2.h"
+#include "vector2.h"
 #include <cstring>
 #include <sstream>
 
 /*
 	XY
+    --
 	xx
 	yy
     Column-vector matrix

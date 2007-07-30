@@ -11,6 +11,8 @@
 		8DD76F6A0486A84900D96B5E /* TGen Math.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Math.1 */; };
 		D00158D70C5D6534001086D3 /* vector4.h in Headers */ = {isa = PBXBuildFile; fileRef = D00158D60C5D6534001086D3 /* vector4.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00158D90C5D6546001086D3 /* vector4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00158D80C5D6546001086D3 /* vector4.cpp */; };
+		D0015A160C5E2C35001086D3 /* quaternion4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0015A150C5E2C35001086D3 /* quaternion4.cpp */; };
+		D0015A180C5E2C42001086D3 /* quaternion4.h in Headers */ = {isa = PBXBuildFile; fileRef = D0015A170C5E2C42001086D3 /* quaternion4.h */; };
 		D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */; };
 		D0A9D2350C4E760D00D7DFDB /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2340C4E760D00D7DFDB /* AABB.cpp */; };
 		D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A9D2360C4E761E00D7DFDB /* AABB.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -87,6 +89,8 @@
 		C6859E8B029090EE04C91782 /* TGen Math.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Math.1"; sourceTree = "<group>"; };
 		D00158D60C5D6534001086D3 /* vector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vector4.h; path = Include/vector4.h; sourceTree = "<group>"; };
 		D00158D80C5D6546001086D3 /* vector4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vector4.cpp; path = Source/vector4.cpp; sourceTree = "<group>"; };
+		D0015A150C5E2C35001086D3 /* quaternion4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = quaternion4.cpp; path = Source/quaternion4.cpp; sourceTree = "<group>"; };
+		D0015A170C5E2C42001086D3 /* quaternion4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = quaternion4.h; path = Include/quaternion4.h; sourceTree = "<group>"; };
 		D0A9D2340C4E760D00D7DFDB /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AABB.cpp; path = Source/AABB.cpp; sourceTree = "<group>"; };
 		D0A9D2360C4E761E00D7DFDB /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABB.h; path = Include/AABB.h; sourceTree = "<group>"; };
 		D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plane3.cpp; path = Source/plane3.cpp; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 				D0EE967F0C35E35600CB2978 /* angle.h */,
 				D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */,
 				D0D89CBD0C4FA15800ACB21A /* plane3.h */,
+				D0015A150C5E2C35001086D3 /* quaternion4.cpp */,
+				D0015A170C5E2C42001086D3 /* quaternion4.h */,
 				D00DC4310C3949AB002E6CCC /* Matrices */,
 				D00DC4340C3949B2002E6CCC /* Vectors */,
 				D0EE96CD0C35E4BB00CB2978 /* Geometry */,
@@ -263,6 +269,7 @@
 				D0EE68F60C512ACD00D55B42 /* sphere.h in Headers */,
 				D0EE69340C512CEF00D55B42 /* frustum.h in Headers */,
 				D00158D70C5D6534001086D3 /* vector4.h in Headers */,
+				D0015A180C5E2C42001086D3 /* quaternion4.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,6 +377,7 @@
 				D0EE68F40C512AC100D55B42 /* sphere.cpp in Sources */,
 				D0EE69360C512CFB00D55B42 /* frustum.cpp in Sources */,
 				D00158D90C5D6546001086D3 /* vector4.cpp in Sources */,
+				D0015A160C5E2C35001086D3 /* quaternion4.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
