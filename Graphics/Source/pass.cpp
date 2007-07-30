@@ -492,7 +492,7 @@ TGen::TextureCoordRotate::TextureCoordRotate(TGen::ScalarGenerator * genRot, boo
 }
 
 void TGen::TextureCoordRotate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
-	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));	// TODO: this should be moved one level up
+	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
 
 	if (!genU) {
 		float degrees = (time - startedAt) * speed;

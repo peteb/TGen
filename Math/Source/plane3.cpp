@@ -20,7 +20,7 @@ TGen::Plane3::Plane3(const TGen::Vector3 & n, scalar d)
 {
 }
 
-// TODO: mycket av denna kod är otestad kod
+// TODO: test plane code
 
 TGen::Plane3::Plane3(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2) {
 	normal = TGen::Vector3::CrossProduct(p1 - p0, p2 - p0);
