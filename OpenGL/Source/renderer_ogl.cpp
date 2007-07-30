@@ -450,7 +450,7 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const void * data, const T
 	return new TGen::OpenGL::Texture(*this, newTex, size);
 }
 
-void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer) {
+void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override) {
 	if (!buffer) {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);		
 	}
@@ -460,7 +460,12 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer) {
 			throw TGen::RuntimeException("OpenGL::Renderer::setVertexBuffer", "vertex buffer is not a valid OpenGL buffer");
 		
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vb->vboId);
-		ApplyVertexStructure(buffer->getVertexStructure());
+		
+		if (override)
+			ApplyVertexStructure(*override);			
+		else
+			ApplyVertexStructure(buffer->getVertexStructure());
+		
 		lastVb = buffer;
 	}
 }

@@ -52,7 +52,7 @@ namespace TGen {
 		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 		virtual TGen::Matrix4x4 getTransform(TransformMode mode) const;
 		
-		virtual void setVertexBuffer(VertexBuffer * buffer) abstract;
+		virtual void setVertexBuffer(VertexBuffer * buffer, VertexStructure * override = NULL) abstract;
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;
 		virtual void setTexture(int unit, Texture * texture) abstract;
 		virtual void setRenderTarget(FrameBuffer * buffer) abstract;

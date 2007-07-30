@@ -20,6 +20,10 @@
 
 #ifndef GL_GEOMETRY_SHADER_EXT
 	#define GL_GEOMETRY_SHADER_EXT              0x8DD9
+	#define GL_LINES_ADJACENCY_EXT              0xA
+	#define GL_LINE_STRIP_ADJACENCY_EXT         0xB
+	#define GL_TRIANGLES_ADJACENCY_EXT          0xC
+	#define GL_TRIANGLE_STRIP_ADJACENCY_EXT     0xD
 #endif
 
 #ifndef GL_COMPRESSED_RGB_S3TC_DXT1_EXT
@@ -50,7 +54,7 @@ namespace TGen {
 			
 			void setClearColor(const TGen::Color & color);
 			void setViewport(const TGen::Rectangle & viewport);
-			void setVertexBuffer(TGen::VertexBuffer * buffer);
+			void setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override = NULL);
 			void setIndexBuffer(TGen::IndexBuffer * buffer);
 			void setTexture(int unit, TGen::Texture * texture);
 			void setRenderTarget(TGen::FrameBuffer * buffer);

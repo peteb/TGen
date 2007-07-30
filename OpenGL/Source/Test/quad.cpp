@@ -40,6 +40,8 @@ public:
 		std::cout << "2. Loading data..." << std::endl;
 		LoadData();
 		std::cout << "   ... ok" << std::endl;
+		
+		lastFrame = TGen::Time::Now();
 	}
 	
 	~App() {
@@ -54,7 +56,10 @@ public:
 	}
 	
 	void Render() {
-		time += 0.001;
+		TGen::Time now = TGen::Time::Now();
+		time += now - lastFrame;
+		lastFrame = now;
+		
 
 		renderer->setClearColor(Color::White);
 		renderer->Clear(ColorBuffer | DepthBuffer);
@@ -97,6 +102,7 @@ private:
 	typedef Index<unsigned short> MyIndex;
 	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
 	
+	TGen::Time lastFrame;
 	TGen::Rectangle windowSize;
 	TGen::Renderer * renderer;
 	TGen::VertexBuffer * vb;
