@@ -173,6 +173,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\quaternion4.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\rectangle.cpp"
 				>
 			</File>
@@ -190,6 +194,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Source\vector3.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\vector4.cpp"
 				>
 			</File>
 		</Filter>
@@ -223,6 +231,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\quaternion4.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\rectangle.h"
 				>
 			</File>
@@ -240,6 +252,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Include\vector3.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\vector4.h"
 				>
 			</File>
 		</Filter>
