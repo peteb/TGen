@@ -1,5 +1,5 @@
 /*
- *  quaternion.cpp
+ *  quaternion4.cpp
  *  TGen Math
  *
  *  Created by Peter Backman on 7/30/07.
@@ -7,5 +7,5 @@
  *
  */
 
-#include "quaternion.h"
+#include "quaternion4.h"
 

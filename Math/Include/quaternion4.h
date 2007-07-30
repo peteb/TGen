@@ -10,6 +10,8 @@
 #ifndef _TGEN_QUATERNION4_H
 #define _TGEN_QUATERNION4_H
 
+#include "types.h"
+
 namespace TGen {
 	class Quaternion4 {
 	public:	

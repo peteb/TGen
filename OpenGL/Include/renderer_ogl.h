@@ -18,6 +18,10 @@
 	#define GL_RGB32F_ARB                       0x8815
 #endif
 
+#ifndef GL_GEOMETRY_SHADER_EXT
+	#define GL_GEOMETRY_SHADER_EXT              0x8DD9
+#endif
+
 #ifndef GL_COMPRESSED_RGB_S3TC_DXT1_EXT
 	#define GL_COMPRESSED_RGB_S3TC_DXT1_EXT                   0x83F0
 	#define GL_COMPRESSED_RGBA_S3TC_DXT1_EXT                  0x83F1

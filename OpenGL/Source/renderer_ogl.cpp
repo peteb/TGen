@@ -544,7 +544,7 @@ TGen::Shader * TGen::OpenGL::Renderer::CreateShader(const char * code, int type)
 	else if (type == 1)
 		newShader = glCreateShader(GL_FRAGMENT_SHADER);
 	else
-		throw TGen::NotImplemented("OpenGL::Renderer::CreateGeometryShader", "geometry shaders not supported");
+		newShader = glCreateShader(GL_GEOMETRY_SHADER_EXT);
 	
 	glShaderSource(newShader, 1, const_cast<const GLchar **>(&code), NULL);
 	glCompileShader(newShader);
