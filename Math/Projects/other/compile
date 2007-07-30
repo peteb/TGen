@@ -1,0 +1,4 @@
+g++ -c ../../Source/*.cpp -I../../Include/ -I../../../Core/Include/
+ar rc libtgen_math.a *.o
+ranlib libtgen_math.a
+

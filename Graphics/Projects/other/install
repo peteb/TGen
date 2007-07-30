@@ -1,0 +1,10 @@
+PREFIX=/usr/local
+LIB_PREFIX=$PREFIX/lib/
+INC_PREFIX=$PREFIX/include/tgen/
+
+cp ../../Include/*.h $INC_PREFIX
+cp *.a $LIB_PREFIX
+
+echo Libraries copied to $LIB_PREFIX
+echo Headers copied to $INC_PREFIX
+

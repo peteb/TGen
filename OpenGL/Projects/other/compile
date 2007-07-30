@@ -1,0 +1,4 @@
+g++ -c ../../Source/*.cpp -I../../Include/ -I../../../Core/Include/ -I../../../Math/Include/ -I../../../Graphics/Include/
+ar rc libtgen_opengl.a *.o
+ranlib libtgen_opengl.a
+
