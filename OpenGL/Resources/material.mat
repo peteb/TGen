@@ -36,5 +36,3 @@ material metalbridge06_pent default 0 {
 	}
 }	
 
-
-// TODO: vector4, x, y, z, w
