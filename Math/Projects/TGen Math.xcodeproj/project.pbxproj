@@ -197,8 +197,8 @@
 				D0EE96820C35E35600CB2978 /* vector2.h */,
 				D0EE96790C35E34700CB2978 /* vector3.cpp */,
 				D0EE96830C35E35600CB2978 /* vector3.h */,
-				D00158D60C5D6534001086D3 /* vector4.h */,
 				D00158D80C5D6546001086D3 /* vector4.cpp */,
+				D00158D60C5D6534001086D3 /* vector4.h */,
 			);
 			name = Vectors;
 			sourceTree = "<group>";
