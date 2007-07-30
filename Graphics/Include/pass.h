@@ -23,11 +23,13 @@ namespace TGen {
 	
 	class TextureCoordTransformer {
 	public:
-		TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV);
+		TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered);
 		virtual ~TextureCoordTransformer();
 		
 		virtual void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) abstract;
-		
+
+		bool centered;
+
 	protected:
 		scalar startedAt;
 		TGen::ScalarGenerator * genU, * genV;
@@ -53,7 +55,6 @@ namespace TGen {
 		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
 		
 		float u, v;
-		bool centered;
 	};	
 	
 	class TextureCoordRotate : public TGen::TextureCoordTransformer {
@@ -64,7 +65,6 @@ namespace TGen {
 		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
 		
 		float speed;
-		bool centered;
 	};
 	
 	class PassTextureUnit {

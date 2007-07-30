@@ -351,18 +351,35 @@ void TGen::PassTextureUnit::Update(scalar time) {
 	texunit->transform = TGen::Matrix4x4::Identity;
 	texunit->transformed = false;
 	
+	bool lastCentered = false;
+	
 	for (int i = 0; i < transformers.size(); ++i) {
+		if (transformers[i]->centered && !lastCentered)
+			texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
+		else if (!transformers[i]->centered && lastCentered)
+			texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
+
+		lastCentered = transformers[i]->centered;
+		
 		transformers[i]->ApplyTransform(texunit->transform, time);
 		texunit->transformed = true;
 	}
+	
+	if (lastCentered)
+		texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));		
 }
 
 void TGen::PassTextureUnit::setTextureName(const std::string & name) {
 	textureName = name;
 }
 
-TGen::TextureCoordTransformer::TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV) 
-	: genU(genU), genV(genV), startedAt(0.0) {}
+TGen::TextureCoordTransformer::TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered) 
+	: genU(genU)
+	, genV(genV)
+	, startedAt(0.0)
+	, centered(centered)
+{
+}
 
 TGen::TextureCoordTransformer::~TextureCoordTransformer() {
 	delete genU;
@@ -372,10 +389,18 @@ TGen::TextureCoordTransformer::~TextureCoordTransformer() {
 
 
 TGen::TextureCoordTranslate::TextureCoordTranslate(float u, float v, bool scroll)
-	: TGen::TextureCoordTransformer(NULL, NULL), u(u), v(v), scroll(scroll) {}
+	: TGen::TextureCoordTransformer(NULL, NULL, false)
+	, u(u)
+	, v(v)
+	, scroll(scroll) 
+{
+}
 
 TGen::TextureCoordTranslate::TextureCoordTranslate(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool scroll)
-	: TGen::TextureCoordTransformer(genU, genV), scroll(scroll) {}
+	: TGen::TextureCoordTransformer(genU, genV, false)
+	, scroll(scroll) 
+{
+}
 
 void TGen::TextureCoordTranslate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
 	if (!scroll) {
@@ -418,13 +443,18 @@ void TGen::TextureCoordTranslate::ApplyTransform(TGen::Matrix4x4 & matrix, scala
 
 
 TGen::TextureCoordScale::TextureCoordScale(float u, float v, bool centered)
-	: TGen::TextureCoordTransformer(NULL, NULL), u(u), v(v), centered(centered)
-{}
+	: TGen::TextureCoordTransformer(NULL, NULL, centered)
+	, u(u)
+	, v(v)
+{
+}
 
 TGen::TextureCoordScale::TextureCoordScale(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered)
-	: TGen::TextureCoordTransformer(genU, genV), u(0.0f), v(0.0f), centered(centered)
-{}
-
+	: TGen::TextureCoordTransformer(genU, genV, centered)
+	, u(0.0f)
+	, v(0.0f)
+{
+}
 
 void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
 	float fixedU = 0.0f, fixedV = 0.0f;
@@ -444,27 +474,25 @@ void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar ti
 	if (fixedV < 0.0f)
 		fixedV = 0.0f;
 	
-	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
+	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
 	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector3(fixedU, fixedV, 1.0));
-	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
+	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 }
 
 TGen::TextureCoordRotate::TextureCoordRotate(float speed, bool centered)
-	: TGen::TextureCoordTransformer(NULL, NULL)
+	: TGen::TextureCoordTransformer(NULL, NULL, centered)
 	, speed(speed)
-	, centered(centered)
 {
 }
 
 TGen::TextureCoordRotate::TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered) 
-	: TGen::TextureCoordTransformer(genRot, NULL)
+	: TGen::TextureCoordTransformer(genRot, NULL, centered)
 	, speed(0.0f)
-	, centered(centered)
 {
 }
 
 void TGen::TextureCoordRotate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
-	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));	// TODO: this should be moved one level up
+	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));	// TODO: this should be moved one level up
 
 	if (!genU) {
 		float degrees = (time - startedAt) * speed;
@@ -479,7 +507,7 @@ void TGen::TextureCoordRotate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar t
 		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(genU->getValue(time)));
 	}
 
-	if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
+	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 }
 
 
