@@ -641,11 +641,15 @@ TGen::WaveGenerator * TGen::MaterialParser::ParseWaveGenerator() {
 	ss >> baseNumber >> amplitudeNumber >> phaseNumber >> frequencyNumber;
 	
 	if (type == "sine" || type == "sin")
-		ret = new TGen::SineWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);
+		ret = new TGen::WaveGenerator(TGen::WaveSine, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);
 	else if (type == "square")
-		ret = new TGen::SquareWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
-	else if (type == "sawtooth" || type == "saw" || type == "inverseaw" || type == "inversesawtooth")
-		ret = new TGen::SawtoothWaveGenerator(baseNumber, amplitudeNumber, phaseNumber, frequencyNumber, (type == "inverseaw" || type == "inversesawtooth"));		
+		ret = new TGen::WaveGenerator(TGen::WaveSquare, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else if (type == "sawtooth" || type == "saw")
+		ret = new TGen::WaveGenerator(TGen::WaveSawtooth, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
+	else if (type == "inversesawtooth")
+		ret = new TGen::WaveGenerator(TGen::WaveInverseSawtooth, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);				
+	else if (type == "triangle")
+		ret = new TGen::WaveGenerator(TGen::WaveTriangle, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);				
 	else
 		throw TGen::RuntimeException("MaterialParser::ParseWaveGenerator", "invalid wave type: '" + currentToken->second + "'!");
 	

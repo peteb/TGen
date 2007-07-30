@@ -21,8 +21,9 @@
 #include "shaderprogram_ogl.h"
 #include <tgen_graphics.h>
 #include <tgen_core.h>
-
 #include <iostream>
+
+TGen::OpenGL::Renderer::ExtensionMap TGen::OpenGL::Renderer::extensionsAvailable;
 
 TGen::OpenGL::Renderer::Renderer()
 	: colorFromVertex(true)
@@ -31,6 +32,21 @@ TGen::OpenGL::Renderer::Renderer()
 {
 	TGen::OpenGL::BindFunctions();	// might be needed if we're running on a sucky platform!
 	
+	ParseExtensions();
+	ReadCaps();
+	CheckCompatibility();
+	
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CW);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+TGen::OpenGL::Renderer::~Renderer() {}
+
+void TGen::OpenGL::Renderer::ReadCaps() {
 	GLint viewportDims[2];
 	glGetIntegerv(GL_MAX_TEXTURE_UNITS, reinterpret_cast<GLint *>(&caps.maxTextureUnits));
 	glGetIntegerv(GL_MAX_LIGHTS, reinterpret_cast<GLint *>(&caps.maxActiveLights));
@@ -40,7 +56,7 @@ TGen::OpenGL::Renderer::Renderer()
 	glGetIntegerv(GL_MAX_TEXTURE_SIZE, reinterpret_cast<GLint *>(&caps.maxTextureSize));
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, viewportDims);
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, reinterpret_cast<GLint *>(&caps.maxFrameBufferColorAttachments));
-
+	
 	caps.maxViewportSize = TGen::Rectangle(viewportDims[0], viewportDims[1]);
 	
 	if (glGetString(GL_SHADING_LANGUAGE_VERSION))
@@ -52,17 +68,44 @@ TGen::OpenGL::Renderer::Renderer()
 	caps.driverName += (char *)glGetString(GL_VERSION);
 	caps.rendererName = (char *)glGetString(GL_RENDERER);
 	caps.driverVendor = (char *)glGetString(GL_VENDOR);
-	
-	glEnable(GL_DEPTH_TEST);
-	glEnable(GL_BLEND);
-	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CW);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	caps.vertexShader = isExtensionAvailable("GL_ARB_vertex_shader");	// GL_ARB_vertex_program?
+	caps.fragmentShader = isExtensionAvailable("GL_ARB_fragment_shader");
+	caps.geometryShader = isExtensionAvailable("EXT_geometry_shader4");
+	caps.framebuffer = isExtensionAvailable("GL_EXT_framebuffer_object");
+	caps.multitexturing = isExtensionAvailable("GL_ARB_multitexture");
 }
 
-TGen::OpenGL::Renderer::~Renderer() {
+void TGen::OpenGL::Renderer::ParseExtensions() {
+	std::string extensions = (char *)glGetString(GL_EXTENSIONS);
 
+	for (std::string::size_type pos = 0; pos < extensions.size(); ) {
+		std::string::size_type next = extensions.find(" ", pos);
+		if (next == std::string::npos)
+			next = extensions.size();
+		
+		std::string extension = extensions.substr(pos, next - pos);
+		extensionsAvailable[extension] = true;
+		
+		pos = next + 1;
+	}
+}
+
+void TGen::OpenGL::Renderer::CheckCompatibility() {
+	bool compatible = true;
+	
+	if (!isExtensionAvailable("GL_ARB_vertex_buffer_object"))
+		compatible = false;
+	
+	if (!compatible)
+		throw TGen::RuntimeException("OpenGL::Renderer::CheckCompatibility", "not compatible!");
+}
+
+bool TGen::OpenGL::Renderer::isExtensionAvailable(const std::string & extension) {
+	ExtensionMap::iterator iter = extensionsAvailable.find(extension);
+	if (iter == extensionsAvailable.end())
+		return false;
+	
+	return true;
 }
 
 void TGen::OpenGL::Renderer::setClearColor(const TGen::Color & color) {
@@ -341,7 +384,6 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const TGen::Image & image,
 	//glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, image.getSize().width, image.getSize().height, 0, format, type, image.getData());
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	// TODO: check whether current vb is the new vb
 	
 	GLint compressedSize = 0;
 	
@@ -362,7 +404,7 @@ TGen::Texture * TGen::OpenGL::Renderer::CreateTexture(const void * data, const T
 	glGenTextures(1, &newTex);
 	glBindTexture(GL_TEXTURE_2D, newTex);
 	
-	bool generateMipmaps = true;
+	bool generateMipmaps = !(flags & TGen::TextureNoMipmaps);
 	
 	if (flags & TGen::TextureCompressed) {
 		switch (components) {
@@ -462,24 +504,35 @@ void TGen::OpenGL::Renderer::DrawIndexedPrimitive(TGen::PrimitiveType type, uint
 }
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::CreateFrameBuffer() {
+	if (!caps.framebuffer)
+		throw TGen::RuntimeException("OpenGL::Renderer::CreateFrameBuffer", "framebuffers not supported");
+	
 	GLuint fbo = 0;
 	glGenFramebuffersEXT(1, &fbo);
 	
 	DEBUG_PRINT("[opengl]: created framebuffer " << fbo);
-
 	
 	return new TGen::OpenGL::FrameBuffer(fbo);
 }
 
 TGen::Shader * TGen::OpenGL::Renderer::CreateVertexShader(const char * code) {
+	if (!caps.vertexShader)
+		throw TGen::RuntimeException("OpenGL::Renderer::CreateVertexShader", "vertex shaders not supported");
+	
 	return CreateShader(code, 0);
 }
 
 TGen::Shader * TGen::OpenGL::Renderer::CreateFragmentShader(const char * code) {
+	if (!caps.fragmentShader)
+		throw TGen::RuntimeException("OpenGL::Renderer::CreateFragmentShader", "fragment shaders not supported");
+
 	return CreateShader(code, 1);
 }
 
 TGen::Shader * TGen::OpenGL::Renderer::CreateGeometryShader(const char * code) {
+	if (!caps.geometryShader)
+		throw TGen::RuntimeException("OpenGL::Renderer::CreateGeometryShader", "geometry shaders not supported");
+		
 	return CreateShader(code, 2);
 }
 

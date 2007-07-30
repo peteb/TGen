@@ -55,11 +55,11 @@ TGen::Time TGen::Time::Now() {
 		gettimeofday(&t, NULL);
 		return TGen::Time(t.tv_sec, t.tv_usec);
 	#else
-		int64 frequency, ticks;		// om det inte funkar... fixa long long freq, ticks istället       eller __int64
+		int64 frequency, ticks;		// om det inte funkar... fixa long long freq, ticks istället eller __int64
 		if (!QueryPerformanceFrequency((LARGE_INTEGER *)&frequency))
 			frequency = 1000;
 		
-		if (!QueryPerformanceCounter((LARGE_INTEGER *)&ticks))					// TODO: kanske måste använda CLK_TCK.... KANSKE
+		if (!QueryPerformanceCounter((LARGE_INTEGER *)&ticks))					// TODO: kanske måste använda CLK_TCK.... E
 			ticks = GetTickCount();
 		
 		double seconds = double(ticks) / double(frequency);

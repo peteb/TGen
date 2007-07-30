@@ -19,6 +19,11 @@ TGen::RendererCaps::RendererCaps()
 	, maxTextureSize(0)
 	, maxFrameBufferColorAttachments(0)
 	, shadingLanguageVersionNumber(0) 
+	, vertexShader(false)
+	, fragmentShader(false)
+	, geometryShader(false)
+	, framebuffer(false)
+	, multitexturing(false)
 {
 
 }
@@ -37,6 +42,11 @@ TGen::RendererCaps::operator std::string() const {
 	ss << "max (recommended) vertices per vb: " << maxVertexBufferVertices << "\n";
 	ss << "max viewport size: " << std::string(maxViewportSize) << "\n";
 	ss << "max framebuffer color attachments: " << maxFrameBufferColorAttachments << "\n";
+	ss << "vertex shader: " << std::boolalpha << vertexShader << "\n";
+	ss << "fragment shader: " << fragmentShader << "\n";
+	ss << "geometry shader: " << geometryShader << "\n";
+	ss << "framebuffer: " << framebuffer << "\n";
+	ss << "multitexturing: " << multitexturing << "\n";
 	
 	return ss.str();	
 }

@@ -15,6 +15,8 @@
 
 namespace TGen {
 	const scalar PI = scalar(3.1415926536);
+	const scalar TWO_PI = scalar(6.28318530718);
+	const scalar HALF_PI = scalar(1.57079632679);
 	
 	class Angle {
 	protected:

@@ -13,6 +13,8 @@
 TGen::Tokenizer::Tokenizer() : inQuote(false), inComment(false), inEscape(false) {}
 TGen::Tokenizer::~Tokenizer() {}
 
+// old code, but who cares.
+
 void TGen::Tokenizer::TokenizeString(const std::string & _str, TGen::TokenStream & stream, bool _verbose) {
 	TokenizeString(_str.c_str(), stream, _verbose);
 }

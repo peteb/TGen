@@ -61,7 +61,7 @@ void TGen::Material::Render(TGen::Renderer & renderer, const TGen::Renderable & 
 	TGen::TechniqueList * techniques = NULL;
 	int specialization = getSpecializationID(mode);
 	
-	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: opta bort det här
+	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: man ska kunna ange specnum direkt också
 	if (iter == this->techniques.end())
 		throw TGen::RuntimeException("Material::Render", "material doesn't contain specialization \"" + mode + "\"");
 	

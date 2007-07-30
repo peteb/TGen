@@ -30,20 +30,29 @@ namespace TGen {
 	
 	// rgbGen = new SineGenerator
 	
+	enum WaveType {
+		WaveSine = 1,
+		WaveSquare,
+		WaveTriangle,
+		WaveSawtooth,
+		WaveInverseSawtooth,
+	};
+	
 	class WaveGenerator : public ColorGenerator, public ScalarGenerator {
 	public:
-		WaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency);
-		virtual ~WaveGenerator() {}
+		WaveGenerator(WaveType type, scalar base, scalar amplitude, scalar phase, scalar frequency);
+		~WaveGenerator() {}
 		
-		virtual TGen::Color getColor(double time, float alpha) const abstract;
-		virtual scalar getValue(double time) const abstract;
+		TGen::Color getColor(double time, float alpha) const;
+		scalar getValue(double time) const;
 		
 	protected:
+		WaveType type;
 		scalar base, amplitude, phase, frequency;
 		double startedAt;
 	};
 	
-	class SineWaveGenerator : public WaveGenerator {
+	/*class SineWaveGenerator : public WaveGenerator {
 	public:	
 		SineWaveGenerator(scalar base, scalar amplitude, scalar phase, scalar frequency);
 		~SineWaveGenerator() {}
@@ -70,7 +79,7 @@ namespace TGen {
 	private:
 		bool inverse;
 		mutable scalar lastValue;
-	};	
+	};	*/
 } // !TGen
 
 #endif // !_TGEN_GENERATOR_H

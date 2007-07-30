@@ -11,6 +11,7 @@
 #define _TGEN_OPENGL_RENDERER_H
 
 #include "renderer.h"
+#include <map>
 
 #ifndef GL_RGBA32F_ARB
 	#define GL_RGBA32F_ARB                      0x8814
@@ -72,15 +73,24 @@ namespace TGen {
 			TGen::ShaderProgram * CreateShaderProgram();
 			TGen::ShaderProgram * CreateShaderProgram(const char * code);
 			
+			static bool isExtensionAvailable(const std::string & extension);
 			
 		private:
+			void ParseExtensions();
+			void ReadCaps();
+			void CheckCompatibility();
+			
 			TGen::Texture * CreateTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
+			TGen::Shader * CreateShader(const char * code, int type);
 
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
 			void setDepthFunc(TGen::CompareFunc compare);
 			
 			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
-			TGen::Shader * CreateShader(const char * code, int type);
+			
+		private:			
+			typedef std::map<std::string, bool> ExtensionMap;
+			static ExtensionMap extensionsAvailable;
 			
 			bool colorFromVertex;
 			uint indexBufferFormat;
