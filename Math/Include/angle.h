@@ -65,6 +65,7 @@ namespace TGen {
 		inline Radian operator -(Angle & anAngle) {Radian ret(angle - Radian(anAngle).angle); return ret; }
 		inline Angle & operator +=(Angle & anAngle) {*this = *this + anAngle; return *this; }
 		inline Angle & operator -=(Angle & anAngle) {*this = *this - anAngle; return *this; }
+		inline Radian operator / (scalar value) {return Radian(angle / value); }
 		
 		const static scalar RoundAngle;	
 	};
