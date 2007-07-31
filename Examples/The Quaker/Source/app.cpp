@@ -73,22 +73,21 @@ App::App()
 	camera = new Camera("mycam");
 	
 	std::cout << "[app]: loading bsp..." << std::endl;
-	BSPLoader bspLoader;
+	/*BSPLoader bspLoader;
 	
 	std::ifstream file;
 	file.open("q3dm17.bsp", std::ios::in | std::ios::binary);
 	bspLoader.Parse(file);
-	file.close();
+	file.close();*/
 
 	resources->LoadMaterials("test.shader");
-	// FÖRST: fixa kurvan. sen fixa en index buffer bara
 	
-	level = bspLoader.CreateTree(*renderer, *resources);
+	//level = bspLoader.CreateTree(*renderer, *resources);
 	
-	if (!level)
-		throw TGen::RuntimeException("App::App", "failed to load bsp!");
+	//if (!level)
+	//	throw TGen::RuntimeException("App::App", "failed to load bsp!");
 	
-	scene->getSceneRoot()->AddChild(level);	
+	//scene->getSceneRoot()->AddChild(level);	
 	
 	myCube = new Cube(*renderer);
 	

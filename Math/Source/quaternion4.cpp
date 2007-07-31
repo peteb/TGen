@@ -27,6 +27,15 @@ TGen::Quaternion4::Quaternion4()
 {
 }
 
+TGen::Quaternion4 & TGen::Quaternion4::operator *= (const TGen::Quaternion4 & quat) {
+	x = w * quat.x + x * quat.w + y * quat.z - z * quat.y;
+	y = w * quat.y - x * quat.z + y * quat.w + z * quat.x;
+	z = w * quat.z + x * quat.y - y * quat.x + z * quat.w;
+	w = w * quat.w - x * quat.x - y * quat.y - z * quat.z;		
+	
+	return *this;
+}
+
 TGen::Quaternion4 TGen::Quaternion4::operator * (const TGen::Quaternion4 & quat) const {
 	return Quaternion4(w * quat.x + x * quat.w + y * quat.z - z * quat.y,
 					   w * quat.y - x * quat.z + y * quat.w + z * quat.x,
@@ -67,7 +76,7 @@ TGen::Quaternion4 & TGen::Quaternion4::Normalize() {
 	return *this;
 }
 
-TGen::Quaternion4 TGen::Quaternion4::operator ! () const {
+TGen::Quaternion4 TGen::Quaternion4::operator - () const {
 	return TGen::Quaternion4(-x, -y, -z, w);
 }
 

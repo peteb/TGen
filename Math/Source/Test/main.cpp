@@ -41,6 +41,14 @@ int main(int argc, char ** const argv) {
 	// 10.
 	std::cout << "10. cos(PI) =  " << std::fixed << TGen::Cos(TGen::Radian(TGen::PI)) << std::endl;
 	
+	// 11.
+	TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
+	//front *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90.0));
+	TGen::Quaternion4 rot = TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90.0));
+	TGen::Quaternion4 result = rot * front * -rot;
+	
+	std::cout << "11. (1, 0, 0) == " << std::string(TGen::Vector3(result)) << std::endl;
+	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

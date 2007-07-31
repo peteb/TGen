@@ -27,8 +27,9 @@ namespace TGen {
 		Quaternion4 getNormalized() const;
 		Quaternion4 & Normalize();
 		
+		Quaternion4 & operator *= (const TGen::Quaternion4 & quat);
 		Quaternion4 operator * (const TGen::Quaternion4 & quat) const;
-		Quaternion4 operator ! () const;
+		Quaternion4 operator - () const;
 		operator TGen::Matrix4x4 () const;
 		operator TGen::Vector3 () const;
 		operator TGen::Vector4 () const;
