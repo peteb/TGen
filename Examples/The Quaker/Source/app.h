@@ -18,6 +18,8 @@
 void WindowResize(int width, int height);
 void WindowRender();	
 void WindowKeyDown(unsigned char key, int x, int y);
+void WindowMouseMove(int x, int y);
+void WindowKeyUp(unsigned char key, int x, int y);
 
 class Scene;
 class Camera;
@@ -31,8 +33,13 @@ public:
 	bool isRunning() const;
 	void Update();
 	void Resize(const TGen::Rectangle & size);
+	void MouseMove(const TGen::Vector2 & pos);
 	void Render();
 	void Quit();
+	void HandleMouseMove(const TGen::Vector2 & delta);
+	void KeyDown(char key);
+	void KeyUp(char key);
+	
 	TGen::Time stats[10];
 	
 private:
@@ -41,6 +48,7 @@ private:
 	ResourceManager * resources;
 	SceneNode * cubeNode;
 	BSPTree * level;
+	TGen::Vector2 lastMousePos;
 	TGen::Renderer * renderer;
 	TGen::Rectangle windowSize;
 	RenderList renderList;
@@ -52,7 +60,8 @@ private:
 	double fps, accumFps;
 	scalar time;
 	
-
+	bool moveForward, moveBack, moveLeft, moveRight;
+	
 	Cube * myCube;
 };
 

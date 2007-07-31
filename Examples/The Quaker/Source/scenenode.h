@@ -45,11 +45,11 @@ public:
 	
 	const std::string & getName() const;
 	void setPosition(const TGen::Vector3 & position);
-	void setOrientation(const TGen::Vector3 & orientation);
+	void setOrientation(const TGen::Quaternion4 & orientation);
 	void setUp(const TGen::Vector3 & up);
 	
 	const TGen::Vector3 & getPosition() const;
-	const TGen::Vector3 & getOrientation() const;
+	const TGen::Quaternion4 & getOrientation() const;
 	const TGen::Vector3 & getUp() const;
 	
 	TGen::Vector3 getWorldPosition() const;
@@ -76,7 +76,8 @@ private:
 	SceneNodeList children;
 	std::string name;
 	SceneNode * parent;
-	TGen::Vector3 position, orientation, up;	
+	TGen::Vector3 position, up;
+	TGen::Quaternion4 orientation;
 };
 
 

@@ -22,6 +22,9 @@ void AABBRenderer::Visit(SceneNode & node) {
 	TGen::Vector3 corners[8];
 	node.getWorldAABB().getCorners(corners);
 
+	if (node.getWorldAABB().width <= 0.001 && node.getWorldAABB().height <= 0.001)
+		return;
+	
 	// bottom
 	data[0] = corners[0];
 	data[1] = corners[1];

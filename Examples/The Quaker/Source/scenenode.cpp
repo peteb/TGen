@@ -36,10 +36,15 @@ const TGen::Matrix4x4 & SceneNode::getTransform() const {
 
 void SceneNode::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 	if (updated || parentUpdated) {
-		//std::cout << "node '" << getName() << "' updated, calculates transform" << std::endl;
+		TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
+		TGen::Quaternion4 result = orientation ; ///** front **/ -orientation;
+		
+		std::cout << "node '" << getName() << "' updated, calculates transform" << std::endl;
+		std::cout << std::string(TGen::Vector3(result)) << std::endl;
+		
 		updated = true;
-		transform = parent * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(orientation, up); //TGen::Matrix4x4::LookAt(position, position + orientation, up);
-	
+		transform = parent * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(result, up); //TGen::Matrix4x4::LookAt(position, position + orientation, up);
+		
 		CalculateBV();
 	}
 	
@@ -55,7 +60,7 @@ void SceneNode::setPosition(const TGen::Vector3 & position) {
 	updated = true;
 }
 
-void SceneNode::setOrientation(const TGen::Vector3 & orientation) {
+void SceneNode::setOrientation(const TGen::Quaternion4 & orientation) {
 	this->orientation = orientation;
 	updated = true;
 }
@@ -69,7 +74,7 @@ const TGen::Vector3 & SceneNode::getPosition() const {
 	return position;
 }
 
-const TGen::Vector3 & SceneNode::getOrientation() const {
+const TGen::Quaternion4 & SceneNode::getOrientation() const {
 	return orientation;
 }
 

@@ -55,3 +55,14 @@ void Camera::setAspectRatio(float ratio) {
 	projUpdated = true;
 }
 
+void Camera::setNear(scalar near) {
+	this->near = near;
+	projUpdated = true;
+}
+
+void Camera::setFar(scalar far) {
+	this->far = far;
+	projUpdated = true;
+}
+
+

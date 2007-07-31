@@ -21,6 +21,8 @@ public:
 	const TGen::Matrix4x4 & getProjection() const;
 	void CalculateBV();
 	void setAspectRatio(float ratio);
+	void setNear(scalar near);
+	void setFar(scalar far);
 	
 private:
 	scalar fovY, aspectRatio, near, far, lodNear, lodFar;

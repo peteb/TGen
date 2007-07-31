@@ -244,11 +244,13 @@ TGen::Matrix4x4 TGen::Matrix4x4::LookAt(const TGen::Vector3 & position, const TG
 
 TGen::Matrix4x4 TGen::Matrix4x4::LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up) {
 	TGen::Vector3 forward, right;
+	TGen::Vector3 fixedUp;
 	
-	forward = direction;
+	forward = direction.getNormalized();
 	right = TGen::Vector3::CrossProduct(forward, up).Normalize();
-
-	return Matrix4x4(right, -up, forward);
+	fixedUp = TGen::Vector3::CrossProduct(forward, right).Normalize();
+	
+	return Matrix4x4(right, fixedUp, forward);
 }
 
 void TGen::Matrix4x4::Clear() {

@@ -27,6 +27,14 @@ TGen::Quaternion4::Quaternion4()
 {
 }
 
+TGen::Quaternion4::Quaternion4(const TGen::Vector3 & vector)
+	: x(vector.x)
+	, y(vector.y)
+	, z(vector.z)
+	, w(0.0)
+{
+}
+
 TGen::Quaternion4 & TGen::Quaternion4::operator *= (const TGen::Quaternion4 & quat) {
 	x = w * quat.x + x * quat.w + y * quat.z - z * quat.y;
 	y = w * quat.y - x * quat.z + y * quat.w + z * quat.x;
@@ -91,3 +99,40 @@ TGen::Quaternion4 TGen::Quaternion4::Rotation(const TGen::Vector3 axis, const TG
 	
 	return ret;
 }
+
+TGen::Quaternion4 TGen::Quaternion4::Slerp(const TGen::Quaternion4 & q1, const TGen::Quaternion4 & q2, scalar t) {
+	scalar dot = TGen::Quaternion4::DotProduct(q1, q2);
+				
+	const scalar DOT_TRESHOLD = scalar(0.9995);
+	if (dot > DOT_TRESHOLD) {
+		TGen::Quaternion4 ret = q1 + (q2 - q1) * t;
+		ret.Normalize();
+		return ret;
+	}
+	
+	//Lead::Math::Clamp(dot, -1.0, 1.0);
+	double theta_0 = ::acos(dot);
+	double theta = theta_0 * t;
+	
+	Quaternion4 q3 = q2 - q1 * dot;
+	q3.Normalize();
+	
+	return q1 * static_cast<scalar>(::cos(theta)) + q3 * static_cast<scalar>(::sin(theta));
+}
+
+scalar TGen::Quaternion4::DotProduct(const TGen::Quaternion4 & q1, const TGen::Quaternion4 & q2) {
+	return TGen::Vector3::DotProduct(TGen::Vector3(q1), TGen::Vector3(q2));
+}
+
+TGen::Quaternion4 TGen::Quaternion4::operator + (const TGen::Quaternion4 & quat) const {
+	return TGen::Quaternion4(x + quat.x, y + quat.y, z + quat.z, w + quat.w);
+}
+
+TGen::Quaternion4 TGen::Quaternion4::operator - (const TGen::Quaternion4 & quat) const {
+	return TGen::Quaternion4(x - quat.x, y - quat.y, z - quat.z, w - quat.w);	
+}
+
+TGen::Quaternion4 TGen::Quaternion4::operator * (scalar value) const {
+	return TGen::Quaternion4(x * value, y * value, z * value, w * value);
+}
+

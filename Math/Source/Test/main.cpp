@@ -46,8 +46,11 @@ int main(int argc, char ** const argv) {
 	//front *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90.0));
 	TGen::Quaternion4 rot = TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90.0));
 	TGen::Quaternion4 result = rot * front * -rot;
-	
 	std::cout << "11. (1, 0, 0) == " << std::string(TGen::Vector3(result)) << std::endl;
+		
+	// 12.
+	TGen::Matrix4x4 matRot = TGen::Matrix4x4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Degree(-90.0f));
+	std::cout << "12. (0, 1, 0) ~= " << std::string(matRot * TGen::Vector3(0.0f, 0.0f, 1.0f)) << std::endl;
 	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
