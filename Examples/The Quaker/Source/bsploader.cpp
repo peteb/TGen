@@ -121,9 +121,9 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 	
 	TGen::Vector3 max, min;
 	for (int i = 0; i < numVertices; ++i) {
-		vertices[i].position[0] /= 3.0f;
-		vertices[i].position[1] /= 3.0f;
-		vertices[i].position[2] /= 3.0f;
+		vertices[i].position[0] /= 80.0f;
+		vertices[i].position[1] /= 80.0f;
+		vertices[i].position[2] /= 80.0f;
 		
 		std::swap(vertices[i].position[1], vertices[i].position[2]);
 		std::swap(vertices[i].normal[1], vertices[i].normal[2]);

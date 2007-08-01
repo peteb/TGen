@@ -24,10 +24,15 @@ public:
 	void setNear(scalar near);
 	void setFar(scalar far);
 	
+	//TGen::Quaternion4 orientationX, orientationY;
+	scalar orientationX, orientationY;
+	TGen::Vector3 forward;
+	
 private:
 	scalar fovY, aspectRatio, near, far, lodNear, lodFar;
 	bool projUpdated;
 	TGen::Matrix4x4 projectionMatrix;
+	
 };
 
 #endif // !_THEQUAKER_CAMERA_H

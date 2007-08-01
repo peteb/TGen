@@ -7,15 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* The Quaker.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* The Quaker.1 */; };
 		D06DB7660C52321400C10D29 /* q3dm17.bsp in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DB7650C52321400C10D29 /* q3dm17.bsp */; };
 		D06DB7FA0C52394100C10D29 /* bsp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DB7F80C52394100C10D29 /* bsp.h */; };
-		D06DB7FB0C52394100C10D29 /* bsp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DB7F90C52394100C10D29 /* bsp.cpp */; };
 		D06DB8250C523A4E00C10D29 /* bsploader.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DB8230C523A4E00C10D29 /* bsploader.h */; };
-		D06DB8260C523A4E00C10D29 /* bsploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DB8240C523A4E00C10D29 /* bsploader.cpp */; };
 		D06DBB3C0C52450A00C10D29 /* mesh.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DBB3A0C52450A00C10D29 /* mesh.h */; };
-		D06DBB3D0C52450A00C10D29 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DBB3B0C52450A00C10D29 /* mesh.cpp */; };
 		D06DC8DB0C5282B400C10D29 /* stars_ss_31.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DC8DA0C5282B400C10D29 /* stars_ss_31.jpg */; };
 		D06DC8FC0C5283B100C10D29 /* metfloor_block_3.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DC8FB0C5283B100C10D29 /* metfloor_block_3.jpg */; };
 		D06DC9060C52842900C10D29 /* metalfloor_wall_10.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DC9050C52842900C10D29 /* metalfloor_wall_10.jpg */; };
@@ -92,57 +88,63 @@
 		D06DD4440C52AB6200C10D29 /* black.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD4430C52AB6200C10D29 /* black.jpg */; };
 		D06DD6860C52B83A00C10D29 /* smallfont.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D06DD6850C52B83A00C10D29 /* smallfont.tga */; };
 		D07227130C4BC00B00E6E64B /* scenenode.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07227110C4BC00B00E6E64B /* scenenode.h */; };
-		D07227140C4BC00B00E6E64B /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07227120C4BC00B00E6E64B /* scenenode.cpp */; };
 		D072272E0C4BC06000E6E64B /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D072272D0C4BC05900E6E64B /* libtgen_opengl.a */; };
 		D07227320C4BC08A00E6E64B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227310C4BC08A00E6E64B /* OpenGL.framework */; };
-		D07227340C4BC09000E6E64B /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227330C4BC09000E6E64B /* GLUT.framework */; };
 		D07227390C4BC09C00E6E64B /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227350C4BC09C00E6E64B /* libIL.a */; };
 		D072273A0C4BC09C00E6E64B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227360C4BC09C00E6E64B /* libjpeg.a */; };
 		D072273B0C4BC09C00E6E64B /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227370C4BC09C00E6E64B /* libpng12.a */; };
 		D072273C0C4BC09C00E6E64B /* libode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227380C4BC09C00E6E64B /* libode.a */; };
 		D0A9CEEC0C4E62B400D7DFDB /* app.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9CEEA0C4E62B400D7DFDB /* app.h */; };
-		D0A9CEED0C4E62B400D7DFDB /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9CEEB0C4E62B400D7DFDB /* app.cpp */; };
 		D0A9D0320C4E66BA00D7DFDB /* renderlist.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D0300C4E66BA00D7DFDB /* renderlist.h */; };
-		D0A9D0330C4E66BA00D7DFDB /* renderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D0310C4E66BA00D7DFDB /* renderlist.cpp */; };
 		D0A9D0670C4E6CC000D7DFDB /* surface.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D0650C4E6CC000D7DFDB /* surface.h */; };
-		D0A9D0680C4E6CC000D7DFDB /* surface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D0660C4E6CC000D7DFDB /* surface.cpp */; };
 		D0A9D1D10C4E74C100D7DFDB /* scene.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D1CF0C4E74C100D7DFDB /* scene.h */; };
-		D0A9D1D20C4E74C100D7DFDB /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D1D00C4E74C100D7DFDB /* scene.cpp */; };
 		D0A9D2E20C4E787200D7DFDB /* geometry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D2E00C4E787200D7DFDB /* geometry.h */; };
-		D0A9D2E30C4E787200D7DFDB /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2E10C4E787200D7DFDB /* geometry.cpp */; };
 		D0A9D56B0C4E844800D7DFDB /* camera.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D5690C4E844800D7DFDB /* camera.h */; };
-		D0A9D56C0C4E844800D7DFDB /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D56A0C4E844800D7DFDB /* camera.cpp */; };
 		D0D89E270C4FAC5500ACB21A /* scenenoderenderer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0D89E250C4FAC5500ACB21A /* scenenoderenderer.h */; };
-		D0D89E280C4FAC5500ACB21A /* scenenoderenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0D89E260C4FAC5500ACB21A /* scenenoderenderer.cpp */; };
 		D0EE62340C50ED7700D55B42 /* cube.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE62320C50ED7700D55B42 /* cube.h */; };
-		D0EE62350C50ED7700D55B42 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE62330C50ED7700D55B42 /* cube.cpp */; };
 		D0EE62540C50EDFC00D55B42 /* resourcemanager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE62520C50EDFC00D55B42 /* resourcemanager.h */; };
-		D0EE62550C50EDFC00D55B42 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE62530C50EDFC00D55B42 /* resourcemanager.cpp */; };
 		D0EE627D0C50EF2100D55B42 /* devil.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE627B0C50EF2100D55B42 /* devil.h */; };
-		D0EE627E0C50EF2100D55B42 /* devil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE627C0C50EF2100D55B42 /* devil.cpp */; };
 		D0EE62FC0C50F21F00D55B42 /* metalfloor_wall_15ow.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE62F90C50F21F00D55B42 /* metalfloor_wall_15ow.tga */; };
 		D0EE62FD0C50F21F00D55B42 /* test.shader in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE62FA0C50F21F00D55B42 /* test.shader */; };
 		D0EE62FE0C50F21F00D55B42 /* hologirl.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EE62FB0C50F21F00D55B42 /* hologirl.tga */; };
+		D0EF93E40C60E5B000A474F5 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF93790C60E57600A474F5 /* Cocoa.framework */; };
+		D0EF93E50C60E5B000A474F5 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF935E0C60E51E00A474F5 /* SDL.framework */; };
+		D0EF93E60C60E5C400A474F5 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EF934F0C60E4FB00A474F5 /* SDLMain.m */; };
+		D0EF94080C60E62B00A474F5 /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07227120C4BC00B00E6E64B /* scenenode.cpp */; };
+		D0EF94090C60E62B00A474F5 /* scenenoderenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0D89E260C4FAC5500ACB21A /* scenenoderenderer.cpp */; };
+		D0EF940A0C60E62B00A474F5 /* renderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D0310C4E66BA00D7DFDB /* renderlist.cpp */; };
+		D0EF940B0C60E62B00A474F5 /* surface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D0660C4E6CC000D7DFDB /* surface.cpp */; };
+		D0EF940C0C60E62B00A474F5 /* scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D1D00C4E74C100D7DFDB /* scene.cpp */; };
+		D0EF940D0C60E62B00A474F5 /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2E10C4E787200D7DFDB /* geometry.cpp */; };
+		D0EF940E0C60E62B00A474F5 /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D56A0C4E844800D7DFDB /* camera.cpp */; };
+		D0EF940F0C60E62B00A474F5 /* cube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE62330C50ED7700D55B42 /* cube.cpp */; };
+		D0EF94100C60E62B00A474F5 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE62530C50EDFC00D55B42 /* resourcemanager.cpp */; };
+		D0EF94110C60E62B00A474F5 /* devil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE627C0C50EF2100D55B42 /* devil.cpp */; };
+		D0EF94120C60E62B00A474F5 /* bsp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DB7F90C52394100C10D29 /* bsp.cpp */; };
+		D0EF94130C60E62B00A474F5 /* bsploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DB8240C523A4E00C10D29 /* bsploader.cpp */; };
+		D0EF94140C60E62B00A474F5 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DBB3B0C52450A00C10D29 /* mesh.cpp */; };
+		D0EF94A50C60EEC000A474F5 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9CEEB0C4E62B400D7DFDB /* app.cpp */; };
+		D0EF982D0C612E0D00A474F5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		D072272A0C4BC05900E6E64B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL */;
 			proxyType = 2;
 			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen OpenGL";
 		};
 		D072272C0C4BC05900E6E64B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL */;
 			proxyType = 2;
 			remoteGlobalIDString = D00FF8E60C3940E900668773;
 			remoteInfo = tgen_opengl;
 		};
 		D072272F0C4BC07800E6E64B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+			containerPortal = D07227250C4BC05900E6E64B /* TGen OpenGL */;
 			proxyType = 1;
 			remoteGlobalIDString = D00FF8E50C3940E900668773;
 			remoteInfo = tgen_opengl;
@@ -352,7 +354,7 @@
 		D06DD6850C52B83A00C10D29 /* smallfont.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = smallfont.tga; sourceTree = "<group>"; };
 		D07227110C4BC00B00E6E64B /* scenenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = scenenode.h; sourceTree = "<group>"; };
 		D07227120C4BC00B00E6E64B /* scenenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenode.cpp; sourceTree = "<group>"; };
-		D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D07227250C4BC05900E6E64B /* TGen OpenGL */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D07227310C4BC08A00E6E64B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D07227330C4BC09000E6E64B /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		D07227350C4BC09C00E6E64B /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIL.a; sourceTree = "<group>"; };
@@ -382,6 +384,10 @@
 		D0EE62F90C50F21F00D55B42 /* metalfloor_wall_15ow.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = metalfloor_wall_15ow.tga; sourceTree = "<group>"; };
 		D0EE62FA0C50F21F00D55B42 /* test.shader */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = test.shader; sourceTree = "<group>"; };
 		D0EE62FB0C50F21F00D55B42 /* hologirl.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologirl.tga; sourceTree = "<group>"; };
+		D0EF934E0C60E4FB00A474F5 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = SOURCE_ROOT; };
+		D0EF934F0C60E4FB00A474F5 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = SOURCE_ROOT; };
+		D0EF935E0C60E51E00A474F5 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
+		D0EF93790C60E57600A474F5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -389,9 +395,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0EF93E40C60E5B000A474F5 /* Cocoa.framework in Frameworks */,
+				D0EF93E50C60E5B000A474F5 /* SDL.framework in Frameworks */,
 				D072272E0C4BC06000E6E64B /* libtgen_opengl.a in Frameworks */,
 				D07227320C4BC08A00E6E64B /* OpenGL.framework in Frameworks */,
-				D07227340C4BC09000E6E64B /* GLUT.framework in Frameworks */,
 				D07227390C4BC09C00E6E64B /* libIL.a in Frameworks */,
 				D072273A0C4BC09C00E6E64B /* libjpeg.a in Frameworks */,
 				D072273B0C4BC09C00E6E64B /* libpng12.a in Frameworks */,
@@ -417,6 +424,8 @@
 		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				D0EF934E0C60E4FB00A474F5 /* SDLMain.h */,
+				D0EF934F0C60E4FB00A474F5 /* SDLMain.m */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
 				D07227120C4BC00B00E6E64B /* scenenode.cpp */,
 				D07227110C4BC00B00E6E64B /* scenenode.h */,
@@ -470,13 +479,15 @@
 		D01F7D410C4D36F4007618C6 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D0EF93790C60E57600A474F5 /* Cocoa.framework */,
+				D0EF935E0C60E51E00A474F5 /* SDL.framework */,
 				D07227350C4BC09C00E6E64B /* libIL.a */,
 				D07227360C4BC09C00E6E64B /* libjpeg.a */,
 				D07227370C4BC09C00E6E64B /* libpng12.a */,
 				D07227380C4BC09C00E6E64B /* libode.a */,
 				D07227330C4BC09000E6E64B /* GLUT.framework */,
 				D07227310C4BC08A00E6E64B /* OpenGL.framework */,
-				D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */,
+				D07227250C4BC05900E6E64B /* TGen OpenGL */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -612,7 +623,7 @@
 			projectReferences = (
 				{
 					ProductGroup = D07227260C4BC05900E6E64B /* Products */;
-					ProjectRef = D07227250C4BC05900E6E64B /* TGen OpenGL.xcodeproj */;
+					ProjectRef = D07227250C4BC05900E6E64B /* TGen OpenGL */;
 				},
 			);
 			targets = (
@@ -643,21 +654,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
-				D07227140C4BC00B00E6E64B /* scenenode.cpp in Sources */,
-				D0A9CEED0C4E62B400D7DFDB /* app.cpp in Sources */,
-				D0A9D0330C4E66BA00D7DFDB /* renderlist.cpp in Sources */,
-				D0A9D0680C4E6CC000D7DFDB /* surface.cpp in Sources */,
-				D0A9D1D20C4E74C100D7DFDB /* scene.cpp in Sources */,
-				D0A9D2E30C4E787200D7DFDB /* geometry.cpp in Sources */,
-				D0A9D56C0C4E844800D7DFDB /* camera.cpp in Sources */,
-				D0D89E280C4FAC5500ACB21A /* scenenoderenderer.cpp in Sources */,
-				D0EE62350C50ED7700D55B42 /* cube.cpp in Sources */,
-				D0EE62550C50EDFC00D55B42 /* resourcemanager.cpp in Sources */,
-				D0EE627E0C50EF2100D55B42 /* devil.cpp in Sources */,
-				D06DB7FB0C52394100C10D29 /* bsp.cpp in Sources */,
-				D06DB8260C523A4E00C10D29 /* bsploader.cpp in Sources */,
-				D06DBB3D0C52450A00C10D29 /* mesh.cpp in Sources */,
+				D0EF982D0C612E0D00A474F5 /* main.cpp in Sources */,
+				D0EF94A50C60EEC000A474F5 /* app.cpp in Sources */,
+				D0EF94080C60E62B00A474F5 /* scenenode.cpp in Sources */,
+				D0EF94090C60E62B00A474F5 /* scenenoderenderer.cpp in Sources */,
+				D0EF940A0C60E62B00A474F5 /* renderlist.cpp in Sources */,
+				D0EF940B0C60E62B00A474F5 /* surface.cpp in Sources */,
+				D0EF940C0C60E62B00A474F5 /* scene.cpp in Sources */,
+				D0EF940D0C60E62B00A474F5 /* geometry.cpp in Sources */,
+				D0EF940E0C60E62B00A474F5 /* camera.cpp in Sources */,
+				D0EF940F0C60E62B00A474F5 /* cube.cpp in Sources */,
+				D0EF94100C60E62B00A474F5 /* resourcemanager.cpp in Sources */,
+				D0EF94110C60E62B00A474F5 /* devil.cpp in Sources */,
+				D0EF94120C60E62B00A474F5 /* bsp.cpp in Sources */,
+				D0EF94130C60E62B00A474F5 /* bsploader.cpp in Sources */,
+				D0EF94140C60E62B00A474F5 /* mesh.cpp in Sources */,
+				D0EF93E60C60E5C400A474F5 /* SDLMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

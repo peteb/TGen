@@ -8,7 +8,7 @@
  */
 
 #include <iostream>
-#include <GLUT/GLUT.h>
+//#include <GLUT/GLUT.h>
 #include <fstream>
 #include <tgen_opengl.h>
 #include "app.h"
@@ -19,36 +19,6 @@
 #include "bsploader.h"
 
 App * gApp = NULL;
-
-void WindowResize(int width, int height) {
-	if (gApp)
-		gApp->Resize(TGen::Rectangle(width, height));
-}
-
-void WindowRender() {
-	if (gApp)
-		gApp->Render();
-}
-
-void WindowKeyDown(unsigned char key, int x, int y) {
-	if (key == 27 && gApp) {
-		gApp->Quit();
-	}
-	else if (gApp) {
-		gApp->KeyDown(key);
-	}
-}
-
-void WindowKeyUp(unsigned char key, int x, int y) {
-	if (gApp) {
-		gApp->KeyUp(key);
-	}
-}
-
-void WindowMouseMove(int x, int y) {
-	if (gApp)
-		gApp->MouseMove(TGen::Vector2(x, y));
-}
 
 App::App() 
 	: windowSize(800, 600) 
@@ -72,7 +42,7 @@ App::App()
 {
 	std::cout << "[app]: initializing..." << std::endl;
 	
-	glutInitWindowSize(windowSize.width, windowSize.height);
+	/*glutInitWindowSize(windowSize.width, windowSize.height);
 	glutInitDisplayMode(GLUT_RGB |  GLUT_DEPTH);
 	window = glutCreateWindow("TGen \"The Quaker\"");
 	glutDisplayFunc(WindowRender);		
@@ -83,7 +53,8 @@ App::App()
 	
 	glutKeyboardFunc(WindowKeyDown);
 	glutKeyboardUpFunc(WindowKeyUp);
-	
+	*/
+		
 	renderer = new TGen::OpenGL::Renderer();
 	std::cout << "[app]: created renderer '" << renderer->getCaps().driverName << "'" << std::endl;
 	
@@ -94,21 +65,21 @@ App::App()
 	camera = new Camera("mycam");
 	
 	std::cout << "[app]: loading bsp..." << std::endl;
-	/*BSPLoader bspLoader;
+	BSPLoader bspLoader;
 	
 	std::ifstream file;
 	file.open("q3dm17.bsp", std::ios::in | std::ios::binary);
 	bspLoader.Parse(file);
-	file.close();*/
+	file.close();
 
 	resources->LoadMaterials("test.shader");
 	
-	//level = bspLoader.CreateTree(*renderer, *resources);
+	level = bspLoader.CreateTree(*renderer, *resources);
 	
 	//if (!level)
 	//	throw TGen::RuntimeException("App::App", "failed to load bsp!");
 	
-	//scene->getSceneRoot()->AddChild(level);	
+	scene->getSceneRoot()->AddChild(level);	
 	
 	myCube = new Cube(*renderer);
 	
@@ -196,7 +167,7 @@ void App::Quit() {
 }
 
 void App::Update() {
-	//if (lastMousePos.getMagnitude() > 0.0)
+	//if (lastMousePos.getMagnitude() > 0.1)
 	//	glutWarpPointer(windowSize.width / 2.0, windowSize.height / 2.0);
 	
 	if (scene)
@@ -204,7 +175,8 @@ void App::Update() {
 	
 	
 	if (camera) {
-		TGen::Quaternion4 forward = camera->getTransform().getZ().getNormalized(); //getOrientation().getNormalized();
+				
+		TGen::Quaternion4 forward = camera->forward; //getOrientation().getNormalized();
 		forward.y = -forward.y;
 		
 
@@ -214,15 +186,28 @@ void App::Update() {
 		TGen::Vector3 position = camera->getPosition();
 		perpend.Normalize();
 		
+		scalar speed = 10.0;
+		
 		if (moveForward)
-			position += TGen::Vector3(forward) / 100.0;
+			position += TGen::Vector3(forward) / speed;
 		if (moveBack)
-			position -= TGen::Vector3(forward) / 100.0;
+			position -= TGen::Vector3(forward) / speed;
 		if (moveRight)
-			position += TGen::Vector3(perpend) / 100.0;
+			position += TGen::Vector3(perpend) / speed;
 		if (moveLeft)
-			position -= TGen::Vector3(perpend) / 100.0;
-			
+			position -= TGen::Vector3(perpend) / speed;
+		
+		
+		/*if (moveForward)
+			camera->orientationY -= 0.1f;
+		if (moveBack)
+			camera->orientationY += 0.1f;
+		if (moveRight)
+			camera->orientationX += 0.1f;
+		if (moveLeft)
+			camera->orientationX -= 0.1f;
+		*/
+		
 		camera->setPosition(position);
 	}
 }
@@ -262,11 +247,19 @@ void App::Render() {
 	//camera->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)), 0.0f, TGen::Sine(TGen::Radian(time))));
 	//camera->setOrientation(-(camera->getPosition().getNormalized()));
 
-	/*TGen::Quaternion4 newOrientation = cubeNode->getOrientation();
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Degree(90 * dt));
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90 * dt));
+	static scalar rot = 0.0f;
+	rot += dt;
+	
+	TGen::Quaternion4 newOrientation = cubeNode->getOrientation();
+	newOrientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f);
+	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(rot));
 
-	cubeNode->setOrientation(newOrientation);*/
+	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(rot / 10.0));
+	
+	//newOrientation.Normalize();
+	//newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90 * dt));
+
+	cubeNode->setOrientation(newOrientation);
 	
 	
 	/*newOrientation = cubeNode->getOrientation();
@@ -307,60 +300,86 @@ void App::Render() {
 	renderer->setTransform(TGen::TransformWorldView, camera->getTransform());
 
 	//glDepthFunc(GL_ALWAYS);
-	glLineWidth(2.0f);
+	glLineWidth(5.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	aabbBatch->Render(renderer);
 
 	
 	
-	
-	glutSwapBuffers();
+	SDL_GL_SwapBuffers();
+	//glutSwapBuffers();
 	frames++;
 }
 
-void App::MouseMove(const TGen::Vector2 & pos) {
-	TGen::Vector2 center(windowSize.width / 2.0, windowSize.height / 2.0);
+void App::MouseMove(const SDL_MouseMotionEvent & motion) {
+	TGen::Vector2 delta(motion.xrel, motion.yrel);
 	
-	//std::cout << std::string(lastMousePos - pos) << std::endl;
-	HandleMouseMove(lastMousePos - pos);
-
-	lastMousePos = pos;	// why is glutWrapPointer fucking everything up???????
+	TGen::Vector2 center(windowSize.width / 2.0, windowSize.height / 2.0);
+	/*int x = 0, y = 0;
+	SDL_GetRelativeMouseState(&x, &y);
+	TGen::Vector2 pos(x, y);*/
+	HandleMouseMove(delta/* - lastMousePos*/);
+	//lastMousePos = pos;
+	
+	//SDL_WarpMouse(center.x, center.y);
 }
 
 void App::HandleMouseMove(const TGen::Vector2 & delta) {
 	//const TGen::Vector2 sensibility(0.01, 0.01);
 	// TODO: operator * Vector2
-	
 	TGen::Vector2 fixed = delta * 0.005;
 	
 	if (camera) {
-		TGen::Quaternion4 rotation = camera->getOrientation();
-		rotation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(fixed.y));
-		rotation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(fixed.x));
-		
-		camera->setOrientation(rotation.getNormalized());
+		//TGen::Quaternion4 rotation = camera->getOrientation();
+		//camera->orientationY *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(fixed.y));
+		//camera->orientationX *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(-fixed.x));
+		camera->orientationX -= fixed.x;
+		camera->orientationY += fixed.y;
+		//camera->setOrientation(rotation.getNormalized());
 	}
 }
 
-void App::KeyDown(char key) {
-	if (key == 'w')
-		moveForward = true;
-	else if (key == 's')
-		moveBack = true;
-	else if (key == 'd')
-		moveRight = true;
-	else if (key == 'a')
-		moveLeft = true;
+void App::KeyDown(const SDL_keysym & keysym) {	
+	switch (keysym.sym) {
+		case SDLK_ESCAPE:
+			Quit();
+			break;
+		
+		case SDLK_w:
+			moveForward = true;
+			break;
+			
+		case SDLK_s:
+			moveBack = true;
+			break;
+			
+		case SDLK_a:
+			moveLeft = true;
+			break;
+			
+		case SDLK_d:
+			moveRight = true;
+			break;
+	}
 }
 
-void App::KeyUp(char key) {
-	if (key == 'w')
-		moveForward = false;
-	else if (key == 's')
-		moveBack = false;
-	else if (key == 'd')
-		moveRight = false;
-	else if (key == 'a')
-		moveLeft = false;	
+void App::KeyUp(const SDL_keysym & keysym) {
+	switch (keysym.sym) {
+		case SDLK_w:
+			moveForward = false;
+			break;
+			
+		case SDLK_s:
+			moveBack = false;
+			break;		
+
+		case SDLK_a:
+			moveLeft = false;
+			break;
+			
+		case SDLK_d:
+			moveRight = false;
+			break;
+	}
 }
 

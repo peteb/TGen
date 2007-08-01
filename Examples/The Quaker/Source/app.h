@@ -11,6 +11,7 @@
 #define _THEQUAKER_APP_H
 
 #include <tgen_graphics.h>
+#include <SDL/SDL.h>
 #include "renderlist.h"
 #include "cube.h"
 #include "bsp.h"
@@ -33,12 +34,12 @@ public:
 	bool isRunning() const;
 	void Update();
 	void Resize(const TGen::Rectangle & size);
-	void MouseMove(const TGen::Vector2 & pos);
+	void MouseMove(const SDL_MouseMotionEvent & motion);
 	void Render();
 	void Quit();
 	void HandleMouseMove(const TGen::Vector2 & delta);
-	void KeyDown(char key);
-	void KeyUp(char key);
+	void KeyDown(const SDL_keysym & keysym);
+	void KeyUp(const SDL_keysym & keysym);
 	
 	TGen::Time stats[10];
 	
