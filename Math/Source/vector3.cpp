@@ -59,6 +59,9 @@ TGen::Vector3 TGen::Vector3::getNormalized() const {
 
 TGen::Vector3 & TGen::Vector3::Normalize() {
 	scalar magnitude = getMagnitude();
+	if (magnitude == 0.0)
+		return *this;
+	
 	x /= magnitude;
 	y /= magnitude;
 	z /= magnitude;

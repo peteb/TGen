@@ -26,7 +26,7 @@ public:
 	
 	//TGen::Quaternion4 orientationX, orientationY;
 	scalar orientationX, orientationY;
-	TGen::Vector3 forward;
+	TGen::Vector3 forward, right;
 	
 private:
 	scalar fovY, aspectRatio, near, far, lodNear, lodFar;

@@ -49,8 +49,17 @@ int main(int argc, char ** const argv) {
 	std::cout << "11. (1, 0, 0) == " << std::string(TGen::Vector3(result)) << std::endl;
 		
 	// 12.
-	TGen::Matrix4x4 matRot = TGen::Matrix4x4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Degree(-90.0f));
-	std::cout << "12. (0, 1, 0) ~= " << std::string(matRot * TGen::Vector3(0.0f, 0.0f, 1.0f)) << std::endl;
+	std::cout << "12. (1, 0, 0) == " << std::string(TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(-90.0f)) * TGen::Vector3(0.0f, 1.0f, 0.0f)) << std::endl;
+	std::cout << "    (0, 1, 0) == " << std::string(TGen::Matrix4x4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Degree(-90.0f)) * TGen::Vector3(0.0f, 0.0f, 1.0f)) << std::endl;
+	std::cout << "    (0, 0, 1) == " << std::string(TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(-90.0f)) * TGen::Vector3(1.0f, 0.0f, 0.0f)) << std::endl;
+	std::cout << "    (1, 0, 0) == " << std::string(TGen::Matrix4x4::RotationY(TGen::Degree(90.0f)) * TGen::Vector3(0.0f, 0.0f, 1.0f)) << std::endl;
+	
+	// 13.
+	std::cout << "13. identity == " << std::endl << std::string(TGen::Matrix4x4::LookInDirection(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Vector3(0.0f, 1.0f, 0.0f))) << std::endl;
+	std::cout << "    identity -X, Y, -Z == " << std::endl << std::string(TGen::Matrix4x4::LookInDirection(TGen::Vector3(0.0f, 0.0f, -1.0f), TGen::Vector3(0.0, 1.0f, 0.0f))) << std::endl;
+						
+	// 14.
+	std::cout << "14. I^-1 == " << std::endl << std::string(TGen::Matrix4x4::Identity.Inverse()) << std::endl;
 	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;

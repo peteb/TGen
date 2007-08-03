@@ -102,13 +102,13 @@ App::App()
 	//camera->setOrientation(TGen::Vector3(0.83f, 0.52f, 0.9f).getNormalized()); //camera->getPosition().getNormalized());
 	camera->setUp(TGen::Vector3(0.0f, 1.0f, 0.0f));
 	*/
+	cubeNode->setPosition(TGen::Vector3(0.0f, 2.0f, 4.0f));
 	camera->setPosition(TGen::Vector3(0.0f, 2.0f, 3.0f));
 	camera->setOrientation(TGen::Quaternion4(0.0f, 0.0f, -1.0f));
 	camera->setUp(TGen::Vector3(0.0f, 1.0f, 0.0f));
 	camera->setNear(0.1);
 	camera->setFar(100.0);
 	
-	camera->Update(TGen::Matrix4x4::Identity, false);
 	scene->Update(0.0f);
 	
 	glEnable(GL_COLOR_MATERIAL);
@@ -177,10 +177,9 @@ void App::Update() {
 	if (camera) {
 				
 		TGen::Quaternion4 forward = camera->forward; //getOrientation().getNormalized();
-		forward.y = -forward.y;
 		
 
-		TGen::Vector3 perpend = -TGen::Vector3::CrossProduct(forward, TGen::Vector3(0.0f, 1.0f, 0.0f)).Normalize();
+		TGen::Vector3 perpend = -camera->right; //-TGen::Vector3::CrossProduct(forward, TGen::Vector3(0.0f, 1.0f, 0.0f)).Normalize();
 
 		//TGen::Quaternion4 perpend = TGen::Quaternion4::Rotation(, TGen::Degree(90)) * forward;
 		TGen::Vector3 position = camera->getPosition();
@@ -251,10 +250,13 @@ void App::Render() {
 	rot += dt;
 	
 	TGen::Quaternion4 newOrientation = cubeNode->getOrientation();
-	newOrientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f);
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(rot));
+	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(0.03));
+	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(0.03));
 
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(rot / 10.0));
+	//newOrientation.Normalize();
+	
+//	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(rot / 10.0));
+//	newOrientation.Normalize();
 	
 	//newOrientation.Normalize();
 	//newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90 * dt));
@@ -312,7 +314,7 @@ void App::Render() {
 }
 
 void App::MouseMove(const SDL_MouseMotionEvent & motion) {
-	TGen::Vector2 delta(motion.xrel, motion.yrel);
+	TGen::Vector2 delta(-motion.xrel, motion.yrel);
 	
 	TGen::Vector2 center(windowSize.width / 2.0, windowSize.height / 2.0);
 	/*int x = 0, y = 0;
