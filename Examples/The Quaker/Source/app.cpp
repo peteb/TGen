@@ -33,6 +33,7 @@ App::App()
 	, myCube(NULL)
 	, level(NULL)
 	, lastUpdate(0.0)
+	, lastStateUpdate(0.0)
 	, frames(0)
 	, accumFps(0.0)
 	, moveForward(false)
@@ -167,47 +168,27 @@ void App::Quit() {
 }
 
 void App::Update() {
-	//if (lastMousePos.getMagnitude() > 0.1)
-	//	glutWarpPointer(windowSize.width / 2.0, windowSize.height / 2.0);
+	TGen::Time thisUpdate = TGen::Time::Now();
+	double dt = double(thisUpdate - lastStateUpdate);
+	lastStateUpdate = thisUpdate;
 	
 	if (scene)
 		scene->Update(1.0);
 	
-	
 	if (camera) {
-				
-		TGen::Quaternion4 forward = camera->forward; //getOrientation().getNormalized();
-		
-
-		TGen::Vector3 perpend = -camera->right; //-TGen::Vector3::CrossProduct(forward, TGen::Vector3(0.0f, 1.0f, 0.0f)).Normalize();
-
-		//TGen::Quaternion4 perpend = TGen::Quaternion4::Rotation(, TGen::Degree(90)) * forward;
-		TGen::Vector3 position = camera->getPosition();
-		perpend.Normalize();
-		
-		scalar speed = 10.0;
+		TGen::Vector3 dir;
 		
 		if (moveForward)
-			position += TGen::Vector3(forward) / speed;
+			dir += TGen::Vector3(0.0f, 0.0f, 1.0f);
 		if (moveBack)
-			position -= TGen::Vector3(forward) / speed;
+			dir += TGen::Vector3(0.0f, 0.0f, -1.0f);
 		if (moveRight)
-			position += TGen::Vector3(perpend) / speed;
+			dir += TGen::Vector3(1.0f, 0.0f, 0.0f);
 		if (moveLeft)
-			position -= TGen::Vector3(perpend) / speed;
+			dir += TGen::Vector3(-1.0f, 0.0f, 0.0f);
 		
-		
-		/*if (moveForward)
-			camera->orientationY -= 0.1f;
-		if (moveBack)
-			camera->orientationY += 0.1f;
-		if (moveRight)
-			camera->orientationX += 0.1f;
-		if (moveLeft)
-			camera->orientationX -= 0.1f;
-		*/
-		
-		camera->setPosition(position);
+		dir.Normalize();
+		camera->Move(dir * 5.0 * dt);
 	}
 }
 
@@ -226,12 +207,13 @@ void App::Render() {
 	lastFrame = thisFrame;
 	
 	time += dt;
-	fps = 1 / dt;
+	fps = 1.0 / dt;
 	
 	accumFps += fps;
 	
 	if (thisFrame - lastUpdate >= 1.0) {
-		std::cout << "accum fps avg: " << accumFps / double(frames) << " frames: " << frames << " last: " << TGen::lexical_cast<std::string>(fps).c_str() << std::endl;
+		std::cout << "accum fps avg: " << accumFps / double(frames) << " frames: " << frames 
+		<< " last: " << TGen::lexical_cast<std::string>(fps) << std::endl;
 		accumFps = 0.0;
 		frames = 0;
 		lastUpdate = thisFrame;
@@ -240,39 +222,17 @@ void App::Render() {
 	if (resources)
 		resources->UpdateMaterials(time);
 	
-	//cubeNode->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)) * 1.0f, 0.0f, TGen::Sine(TGen::Radian(time)) * 1.0f));
-	//cubeNode->setPosition(cubeNode->getOrientation().getNormalized() * 1.0f + TGen::Vector3(-2.0f, 0.0f, 0.0f));
-	
-	//camera->setOrientation(TGen::Vector3(TGen::Cosine(TGen::Radian(time)), 0.0f, TGen::Sine(TGen::Radian(time))));
-	//camera->setOrientation(-(camera->getPosition().getNormalized()));
-
 	static scalar rot = 0.0f;
 	rot += dt;
 	
 	TGen::Quaternion4 newOrientation = cubeNode->getOrientation();
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(0.03));
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(0.03));
+	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(dt));
+	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(dt));
 
-	//newOrientation.Normalize();
-	
-//	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f), TGen::Radian(rot / 10.0));
-//	newOrientation.Normalize();
-	
-	//newOrientation.Normalize();
-	//newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90 * dt));
 
 	cubeNode->setOrientation(newOrientation);
 	
-	
-	/*newOrientation = cubeNode->getOrientation();
-	newOrientation *= TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Degree(90 * dt));
-	cubeNode->setOrientation(newOrientation);
-	*/
-	
-	//scene->Update(1.0f);
-	
-	//renderer->setClearColor(TGen::Color::Black);
-	renderer->Clear(TGen::DepthBuffer | TGen::ColorBuffer);
+	renderer->Clear(TGen::DepthBuffer/* | TGen::ColorBuffer*/);
 	
 
 
@@ -297,19 +257,18 @@ void App::Render() {
 	if (scene) scene->getSceneRoot()->Accept(aabbRenderer);
 	aabbBatch->EndBatch();
 	
-	renderer->setColor(TGen::Color(0.0f, 1.0f, 0.0f, 1.0f));
+	renderer->setColor(TGen::Color::Red);
 	renderer->setTransform(TGen::TransformProjection, camera->getProjection());
 	renderer->setTransform(TGen::TransformWorldView, camera->getTransform());
 
 	//glDepthFunc(GL_ALWAYS);
-	glLineWidth(5.0f);
+	glLineWidth(2.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	aabbBatch->Render(renderer);
 
 	
 	
 	SDL_GL_SwapBuffers();
-	//glutSwapBuffers();
 	frames++;
 }
 

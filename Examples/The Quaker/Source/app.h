@@ -57,7 +57,7 @@ private:
 	Scene * scene;
 	int window, frames;
 	bool run;
-	TGen::Time lastFrame, lastUpdate;
+	TGen::Time lastFrame, lastUpdate, lastStateUpdate;
 	double fps, accumFps;
 	scalar time;
 	

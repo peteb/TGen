@@ -21,6 +21,7 @@ enum BSPLumps {
 	BSPLumpMeshverts = 11,
 	BSPLumpEffects = 12,	
 	BSPLumpFaces = 13,
+	BSPLumpNodes = 3,
 };
 
 enum BSPFaceType {
@@ -47,6 +48,7 @@ public:
 	void ReadFaces(std::ifstream & file);
 	void ReadVertices(std::ifstream & file);
 	void ReadMeshverts(std::ifstream & file);
+	void ReadNodes(std::ifstream & file);
 	
 	const StringList & getTextures() const;
 	
@@ -69,6 +71,13 @@ private:
 	
 	struct Meshvert {
 		int offset;		
+	};
+	
+	struct Node {
+		int plane;
+		int children[2];
+		int mins[3];
+		int maxs[3];
 	};
 	
 	struct Vertex {
@@ -143,8 +152,9 @@ private:
 	Face * faces;
 	Vertex * vertices;
 	Meshvert * meshverts;
+	Node * nodes;
 	
-	int numTextures, numFaces, numVertices, numMeshverts;
+	int numTextures, numFaces, numVertices, numMeshverts, numNodes;
 };
 
 #endif // !_THEQUAKER_BSPLOADER_H

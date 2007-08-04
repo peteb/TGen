@@ -48,13 +48,30 @@ public:
 	std::vector<std::pair<TGen::IndexBuffer *, int> > multidraw;
 };
 
+class BSPLeaf {
+public:	
+	
+};
+
+class BSPNode {
+public:	
+	BSPNode();
+	
+	BSPNode * children[2];
+	BSPLeaf * leaf;
+};
+
 class BSPTree : public SceneNode {
 public:
 	BSPTree(const std::string & name);
 	~BSPTree();
 	
+	void Accept(SceneNodeVisitor & visitor);
+	
 	TGen::VertexBuffer * vb;
 	TGen::IndexBuffer * ib;
+	
+	BSPNode * root;
 	
 	//typedef std::map<TGen::Material *, BSPGeometry *> GeometryMap;
 	//GeometryMap geometryPerMaterial;

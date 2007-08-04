@@ -23,15 +23,15 @@ public:
 	void setAspectRatio(float ratio);
 	void setNear(scalar near);
 	void setFar(scalar far);
+	void Move(const TGen::Vector3 & direction);
 	
 	//TGen::Quaternion4 orientationX, orientationY;
 	scalar orientationX, orientationY;
-	TGen::Vector3 forward, right;
 	
 private:
 	scalar fovY, aspectRatio, near, far, lodNear, lodFar;
 	bool projUpdated;
-	TGen::Matrix4x4 projectionMatrix;
+	TGen::Matrix4x4 projectionMatrix, moveMatrix;
 	
 };
 

@@ -37,6 +37,7 @@ namespace TGen {
 			TGen::ShaderVariable & operator = (const TGen::Color & color);
 			TGen::ShaderVariable & operator = (const TGen::Vector3 & vector);
 			TGen::ShaderVariable & operator = (const TGen::Vector2 & vector);
+			TGen::ShaderVariable & operator = (const TGen::Matrix4x4 & matrix);
 			
 			friend class TGen::OpenGL::ShaderProgram;
 				

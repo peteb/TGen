@@ -97,3 +97,7 @@ void SceneNodeRenderer::Visit(SceneNode & node) {
 		list.AddSurface(&node.surfaces[i]);
 }
 
+void SceneNodeRenderer::Visit(BSPTree & node) {
+	
+}
+

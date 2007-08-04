@@ -216,7 +216,7 @@ void TGen::MaterialParser::ParseMaterialBlock(TGen::Material * material) {
 			std::cout << "entering lod block" << std::endl;
 			#endif
 			
-			ParseLodBlock(newLod);
+			ParseLodBlock(newLod, material);
 			
 			#ifdef _MATPARSER_VERBOSE
 			std::cout << "left lod block" << std::endl;
@@ -234,7 +234,7 @@ void TGen::MaterialParser::ParseMaterialBlock(TGen::Material * material) {
 		StepToken();
 }
 
-void TGen::MaterialParser::ParseLodBlock(TGen::PassList * lod) {
+void TGen::MaterialParser::ParseLodBlock(TGen::PassList * lod, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::MaterialTokenPass) {
 			std::string shaderName;
@@ -263,7 +263,7 @@ void TGen::MaterialParser::ParseLodBlock(TGen::PassList * lod) {
 			std::cout << "entering pass block" << std::endl;
 			#endif
 			
-			ParsePassBlock(newPass);
+			ParsePassBlock(newPass, material);
 			
 			#ifdef _MATPARSER_VERBOSE
 			std::cout << "left pass block" << std::endl;
@@ -280,7 +280,7 @@ void TGen::MaterialParser::ParseLodBlock(TGen::PassList * lod) {
 		tokens.NextToken(currentToken, endIter);
 }
 
-void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
+void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::TokenValueString) {
 			if (currentToken->second == "texunit") {
@@ -311,7 +311,7 @@ void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
 				std::cout << "entering texunit " << textureUnit << " name: " << textureName << std::endl;
 				#endif
 				
-				ParseTexunitBlock(newTextureUnit);
+				ParseTexunitBlock(newTextureUnit, material);
 				
 				#ifdef _MATPARSER_VERBOSE
 				std::cout << "leaving texunit" << std::endl;
@@ -402,7 +402,7 @@ void TGen::MaterialParser::ParsePassBlock(TGen::Pass * pass) {
 		tokens.NextToken(currentToken, endIter);	
 }
 
-void TGen::MaterialParser::ParseTexunitBlock(TGen::PassTextureUnit * unit) {
+void TGen::MaterialParser::ParseTexunitBlock(TGen::PassTextureUnit * unit, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::TokenValueString) {
 			if (currentToken->second == "texCoordGen") {

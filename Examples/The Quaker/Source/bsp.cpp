@@ -13,6 +13,7 @@
 BSPTree::BSPTree(const std::string & name)
 	: SceneNode(name)
 	, vb(NULL)
+	, root(NULL)
 {
 		
 }
@@ -37,6 +38,12 @@ BSPGeometry::~BSPGeometry() {
 	//delete vb;
 }
 
+BSPNode::BSPNode()
+	: leaf(NULL)
+{
+	children[0] = NULL;
+	children[1] = NULL;
+}
 
 void BSPGeometry::PrepareRender(TGen::Renderer & renderer) const {
 	if (!vb)
@@ -91,3 +98,9 @@ TGen::Vector3 BSPGeometry::getMin() const {
 	return TGen::Vector3(-1.0f, -1.0f, -1.0f);
 }
 
+void BSPTree::Accept(SceneNodeVisitor & visitor) {
+	visitor.Visit(*this);
+	
+	for (int i = 0; i < children.size(); ++i)
+		children[i]->Accept(visitor);
+}

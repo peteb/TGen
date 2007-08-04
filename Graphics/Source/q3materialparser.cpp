@@ -82,7 +82,7 @@ void TGen::Q3MaterialParser::ParseMaterialBlock(TGen::Material * material, TGen:
 			TGen::PassTextureUnit * newUnit = new TGen::PassTextureUnit(0, "");
 			
 			std::cout << "entering pass block" << std::endl;
-			ParsePassBlock(newPass, newUnit);
+			ParsePassBlock(newPass, newUnit, material);
 			std::cout << "left pass block" << std::endl;
 			
 			newPass->AddTextureUnit(newUnit);
@@ -113,7 +113,7 @@ void TGen::Q3MaterialParser::ParseMaterialBlock(TGen::Material * material, TGen:
 		StepToken();
 }
 
-void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit) {
+void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::Q3MaterialTokenBlockEnd) {
 		if (TGen::toUpper(currentToken->second) == "BLENDFUNC") {
 			StepToken();
@@ -124,6 +124,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote)
 				dest = currentToken->second;
 			
+			material->setSortLevel(TGen::MaterialSortTransparent); 
 			pass->setBlendFunc(source, dest);			
 		}
 		else if (TGen::toUpper(currentToken->second) == "TCGEN") {
@@ -149,7 +150,6 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 					genU = ParseWaveGenerator();
 				}
 				else {
-					std::cout << "::::" << currentToken->second << std::endl;
 					u = getNumericToken("pass.tcMod.scale: expecting numeric or wave value for U");
 					
 					std::stringstream ss;
@@ -333,7 +333,9 @@ TGen::WaveGenerator * TGen::Q3MaterialParser::ParseWaveGenerator() {
 	else if (type == "sawtooth" || type == "saw")
 		ret = new TGen::WaveGenerator(TGen::WaveSawtooth, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);	
 	else if (type == "inversesaw" || type == "inversesawtooth")
-		ret = new TGen::WaveGenerator(TGen::WaveInverseSawtooth, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);			
+		ret = new TGen::WaveGenerator(TGen::WaveInverseSawtooth, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);
+	else if (type == "triangle")
+		ret = new TGen::WaveGenerator(TGen::WaveTriangle, baseNumber, amplitudeNumber, phaseNumber, frequencyNumber);		
 	else
 		throw TGen::RuntimeException("Q3MaterialParser::ParseWaveGenerator", "invalid wave type: '" + currentToken->second + "'!");
 	

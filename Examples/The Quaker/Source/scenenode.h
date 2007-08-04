@@ -15,12 +15,15 @@
 
 class RenderList;
 class Camera;
+class BSPTree;
 
 class SceneNodeVisitor {
 public:
 	virtual ~SceneNodeVisitor() {}
 	
 	virtual void Visit(SceneNode & node) abstract;
+	virtual void Visit(BSPTree & node) {}
+
 };
 
 class SceneNode {
@@ -41,7 +44,7 @@ public:
 	void CalculateWorldBV();
 	
 //	void AddSurfaces(RenderList & list, const Camera & camera) const;
-	void Accept(SceneNodeVisitor & visitor);
+	virtual void Accept(SceneNodeVisitor & visitor);
 	
 	const std::string & getName() const;
 	void setPosition(const TGen::Vector3 & position);
@@ -67,13 +70,13 @@ protected:
 	TGen::AABB objectBoundingBox, worldBoundingBox;
 	TGen::Sphere objectBoundingSphere, worldBoundingSphere;
 	TGen::Matrix4x4 transform;
-	
-private:
 	typedef std::vector<Surface> SurfaceList;
 	typedef std::vector<SceneNode *> SceneNodeList;
 	
 	SurfaceList surfaces;
 	SceneNodeList children;
+	
+private:
 	std::string name;
 	SceneNode * parent;
 	TGen::Vector3 position, up;

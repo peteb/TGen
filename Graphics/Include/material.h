@@ -22,6 +22,11 @@ namespace TGen {
 	class ShaderProgram;
 	class Texture;
 	
+	enum MaterialSort {
+		MaterialSortOpaque = 10,
+		MaterialSortTransparent = 30,
+	};
+	
 	class MaterialLinkCallback {
 	public:
 		virtual ~MaterialLinkCallback() {}

@@ -11,6 +11,7 @@
 #define _THEQUAKER_SCENENODERENDERER_H
 
 #include "scenenode.h"
+#include "bsp.h"
 
 class RenderList;
 class Camera;
@@ -31,6 +32,9 @@ public:
 	SceneNodeRenderer(RenderList & list, Camera & camera);
 	
 	void Visit(SceneNode & node);
+	void Visit(BSPTree & node);
+	
+	friend class BSPTree;
 	
 private:
 	RenderList & list;
