@@ -36,8 +36,8 @@ public:
 	BSPGeometry(BSPNode & tree, bool wire);
 	~BSPGeometry();
 	
-	void PrepareRender(TGen::Renderer & renderer) const;
-	void Render(TGen::Renderer & renderer) const;
+	void prepareRender(TGen::Renderer & renderer) const;
+	void render(TGen::Renderer & renderer) const;
 	TGen::Vector3 getMax() const;
 	TGen::Vector3 getMin() const;
 	

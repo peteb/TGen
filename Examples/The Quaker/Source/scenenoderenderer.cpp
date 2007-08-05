@@ -28,58 +28,58 @@ void AABBRenderer::Visit(SceneNode & node) {
 	// bottom
 	data[0] = corners[0];
 	data[1] = corners[1];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	data[0] = corners[1];
 	data[1] = corners[2];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	data[0] = corners[2];
 	data[1] = corners[3];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	data[0] = corners[3];
 	data[1] = corners[0];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	// TOP
 	data[0] = corners[4];
 	data[1] = corners[5];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 
 	data[0] = corners[5];
 	data[1] = corners[6];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	data[0] = corners[6];
 	data[1] = corners[7];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	data[0] = corners[7];
 	data[1] = corners[4];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 
 	// SIDES
 		
 	data[0] = corners[0];
 	data[1] = corners[4];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 
 	data[0] = corners[1];
 	data[1] = corners[5];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 
 	data[0] = corners[2];
 	data[1] = corners[6];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 
 	data[0] = corners[3];
 	data[1] = corners[7];
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	data[0] = node.getTransform().getOrigin();
 	data[1] = node.getTransform() * TGen::Vector3(0.0f, 0.0f, 1.0f);
-	batch.WritePrimitive(data);
+	batch.writePrimitive(data);
 	
 	//for (int i = 0; i < 8; ++i)
 	//	std::cout << std::string(corners[i]) << std::endl;

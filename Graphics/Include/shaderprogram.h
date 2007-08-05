@@ -23,11 +23,11 @@ namespace TGen {
 		ShaderProgram(TGen::Renderer & creator);
 		virtual ~ShaderProgram();
 		
-		virtual void Attach(TGen::Shader * shader) abstract;
-		virtual void Link() abstract;
+		virtual void attach(TGen::Shader * shader) abstract;
+		virtual void link() abstract;
 		virtual ShaderVariable & getUniform(const std::string & name) abstract;
 		virtual ShaderVariable & getAttribute(const std::string & name) abstract;
-		void ParseShaders(TGen::Renderer & renderer, char * code);
+		void parseShaders(TGen::Renderer & renderer, char * code);
 		
 	private:
 		TGen::Renderer & creator;

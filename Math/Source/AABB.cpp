@@ -29,10 +29,10 @@ TGen::AABB::AABB(const TGen::Vector3 & min, const TGen::Vector3 & max)
 	, height(0.0f)
 	, depth(0.0f)
 {
-	Calculate(min, max);
+	calculate(min, max);
 }
 
-void TGen::AABB::Calculate(const TGen::Vector3 & min, const TGen::Vector3 & max) {
+void TGen::AABB::calculate(const TGen::Vector3 & min, const TGen::Vector3 & max) {
 	height = max.y - min.y;
 	width = max.x - min.x;
 	depth = max.z - min.z;

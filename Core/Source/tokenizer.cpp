@@ -15,11 +15,11 @@ TGen::Tokenizer::~Tokenizer() {}
 
 // old code, but who cares.
 
-void TGen::Tokenizer::TokenizeString(const std::string & _str, TGen::TokenStream & stream, bool _verbose) {
-	TokenizeString(_str.c_str(), stream, _verbose);
+void TGen::Tokenizer::tokenizeString(const std::string & _str, TGen::TokenStream & stream, bool _verbose) {
+	tokenizeString(_str.c_str(), stream, _verbose);
 }
 
-void TGen::Tokenizer::TokenizeString(const char * str, TGen::TokenStream & stream, bool _verbose) {
+void TGen::Tokenizer::tokenizeString(const char * str, TGen::TokenStream & stream, bool _verbose) {
 	if (!str) return;
 	
 	char * currentChar = const_cast<char *>(str);
@@ -248,7 +248,7 @@ int TGen::Tokenizer::getAutoAdd(char * text, TGen::TokenStream & stream) {
 			ignoreSize = tokenSize;
 		
 		if (ignoreSize > 0) {
-			if (!ProcessSpecialToken(value, stream)) {
+			if (!processSpecialToken(value, stream)) {
 				if (!isNumeric(value))
 					stream.addToken(TokenValueString, value);
 				else

@@ -14,7 +14,6 @@ TGen::IndexBuffer::IndexBuffer(TGen::Renderer & creator, uint size, ushort usage
 	, size(size)
 	, usage(usage)
 {
-
 }
 
 TGen::IndexBuffer::~IndexBuffer() {}

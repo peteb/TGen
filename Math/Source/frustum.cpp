@@ -11,11 +11,11 @@
 #include "matrix4x4.h"
 
 TGen::Frustum::Frustum(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview) {
-	Calculate(projection, worldview);
+	calculate(projection, worldview);
 }
 
 
-void TGen::Frustum::Calculate(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview) {
+void TGen::Frustum::calculate(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview) {
 	TGen::Matrix4x4 combined = projection * worldview;
 	
 	rightPlane.normal = combined.getOrigin() - combined.getX();
@@ -36,19 +36,19 @@ void TGen::Frustum::Calculate(const TGen::Matrix4x4 & projection, const TGen::Ma
 	nearPlane.normal = combined.getOrigin() + combined.getZ();
 	nearPlane.distance = combined.elements[3][3] + combined.elements[2][3];
 	
-	rightPlane.Normalize();
-	leftPlane.Normalize();
-	bottomPlane.Normalize();
-	topPlane.Normalize();
-	nearPlane.Normalize();
-	farPlane.Normalize();
+	rightPlane.normalize();
+	leftPlane.normalize();
+	bottomPlane.normalize();
+	topPlane.normalize();
+	nearPlane.normalize();
+	farPlane.normalize();
 }
 
-int TGen::Frustum::Intersects(const TGen::Sphere & sphere) const {
+int TGen::Frustum::intersects(const TGen::Sphere & sphere) const {
 	return 0;
 }
 
-int TGen::Frustum::Intersects(const TGen::AABB & aabb) const {
+int TGen::Frustum::intersects(const TGen::AABB & aabb) const {
 
 	return 0;
 }

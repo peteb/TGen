@@ -21,8 +21,8 @@ Cube::Cube(TGen::Renderer & renderer)
 	
 	scalar halfWidth = width / 2.0f, halfHeight = height / 2.0f, halfDepth = depth / 2.0f;
 		
-	vb = renderer.CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 8, TGen::UsageStatic);
-	ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 24, TGen::UsageStatic);
+	vb = renderer.createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 8, TGen::UsageStatic);
+	ib = renderer.createIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 24, TGen::UsageStatic);
 	
 	MyVertex::Type vertices[8] = {
 		MyVertex::Type(Vector3(-halfWidth, halfHeight, halfDepth), Vector2(0.0f, 0.0f)),		// 0
@@ -45,8 +45,8 @@ Cube::Cube(TGen::Renderer & renderer)
 		2, 6, 7, 3,		// BOTTOM
 	};
 
-	vb->BufferData(vertices, sizeof(MyVertex::Type) * 8, 0);
-	ib->BufferData(indicies, sizeof(MyIndex::Type) * 24, 0);	
+	vb->bufferData(vertices, sizeof(MyVertex::Type) * 8, 0);
+	ib->bufferData(indicies, sizeof(MyIndex::Type) * 24, 0);	
 }
 
 Cube::~Cube() {
@@ -55,13 +55,13 @@ Cube::~Cube() {
 }
 
 
-void Cube::PrepareRender(TGen::Renderer & renderer) const {
+void Cube::prepareRender(TGen::Renderer & renderer) const {
 	renderer.setVertexBuffer(vb);
 	renderer.setIndexBuffer(ib);			
 }
 
-void Cube::Render(TGen::Renderer & renderer) const {
-	renderer.DrawIndexedPrimitive(TGen::PrimitiveQuads, 0, 24);
+void Cube::render(TGen::Renderer & renderer) const {
+	renderer.drawIndexedPrimitive(TGen::PrimitiveQuads, 0, 24);
 }
 
 TGen::Vector3 Cube::getMax() const {

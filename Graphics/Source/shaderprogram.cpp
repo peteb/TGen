@@ -19,11 +19,10 @@ TGen::ShaderProgram::ShaderProgram(TGen::Renderer & creator)
 
 }
 
-TGen::ShaderProgram::~ShaderProgram() {
-	
+TGen::ShaderProgram::~ShaderProgram() {	
 }
 
-void TGen::ShaderProgram::ParseShaders(TGen::Renderer & renderer, char * code) {
+void TGen::ShaderProgram::parseShaders(TGen::Renderer & renderer, char * code) {
 	char * pos = code;
 	char * end = code + strlen(code);
 	
@@ -108,15 +107,15 @@ void TGen::ShaderProgram::ParseShaders(TGen::Renderer & renderer, char * code) {
 		if (codeSize[i] > 0) {
 			switch (i) {
 				case 1:
-					Attach(renderer.CreateVertexShader(sectionCode[i]));
+					attach(renderer.createVertexShader(sectionCode[i]));
 					break;
 					
 				case 2:
-					Attach(renderer.CreateGeometryShader(sectionCode[i]));					
+					attach(renderer.createGeometryShader(sectionCode[i]));					
 					break;
 					
 				case 3:
-					Attach(renderer.CreateFragmentShader(sectionCode[i]));
+					attach(renderer.createFragmentShader(sectionCode[i]));
 					break;				
 			}
 			

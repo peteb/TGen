@@ -24,8 +24,8 @@ namespace TGen {
 	
 		void setPassList(PassList * pass, int lod);
 		PassList * getPassList(int lod);
-		void Link(TGen::MaterialLinkCallback & callback);
-		void Update(scalar time);
+		void link(TGen::MaterialLinkCallback & callback);
+		void update(scalar time);
 		
 	private:
 		typedef std::vector<PassList *> PassVector;
@@ -33,20 +33,7 @@ namespace TGen {
 		PassList * expressLane;
 	};
 	
-	class TechniqueList {
-	public:
-		TechniqueList();
-		~TechniqueList();	
-		
-		void setTechnique(Technique * tech, int reqs);
-		Technique * getTechnique(int minreqs);
-		void Link(TGen::MaterialLinkCallback & callback);
-		void Update(scalar time);
-		
-	private:
-		typedef std::vector<Technique *> TechniqueVector;
-		TechniqueVector techniques;
-	};
+
 	
 } // !TGen
 

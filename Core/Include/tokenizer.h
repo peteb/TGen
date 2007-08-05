@@ -45,7 +45,7 @@ namespace TGen {
 		
 		virtual void addToken(uint token, const std::string & value) {tokens.push_back(std::pair<uint, std::string>(token, value)); }
 		
-		void NextToken(TokenList::iterator & iter, TokenList::iterator & end) {
+		void stepToken(TokenList::iterator & iter, TokenList::iterator & end) {
 			if (iter == end)
 				throw TGen::RuntimeException("TokenStream::NextToken", "Unexpected end of stream");
 			
@@ -70,8 +70,8 @@ namespace TGen {
 		Tokenizer();
 		virtual ~Tokenizer();
 		
-		void TokenizeString(const std::string & _str, TokenStream & stream, bool _verbose = false);
-		void TokenizeString(const char * str, TokenStream & stream, bool _verbose = false);
+		void tokenizeString(const std::string & _str, TokenStream & stream, bool _verbose = false);
+		void tokenizeString(const char * str, TokenStream & stream, bool _verbose = false);
 		//void TokenizeFile(const TGen::Path & path, TokenStream & stream);
 		int getIgnore(char * text);
 		int getToken(char * text, TokenStream & stream);
@@ -84,7 +84,7 @@ namespace TGen {
 		bool isNumeric(const std::string & text);
 		
 		virtual int getSpecialToken(char * text, TGen::TokenStream & stream) {return 0; }
-		virtual bool ProcessSpecialToken(const std::string & value, TGen::TokenStream & stream) {return false; }	// handle a special token, like a value
+		virtual bool processSpecialToken(const std::string & value, TGen::TokenStream & stream) {return false; }	// handle a special token, like a value
 		
 		typedef std::pair<std::string, std::string> StringPair;
 		typedef std::list<std::string> StringList;

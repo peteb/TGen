@@ -244,8 +244,8 @@ void BSPLoader::CreateFace(TGen::Renderer & renderer, BSPLeaf * leaf, BSPNode * 
 			
 			newGeom->numIndices = indics.size();
 			
-			newGeom->ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * indics.size(), TGen::UsageStatic);
-			newGeom->ib->BufferData(&indics[0], sizeof(MyIndex::Type) * indics.size(), NULL);
+			newGeom->ib = renderer.createIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * indics.size(), TGen::UsageStatic);
+			newGeom->ib->bufferData(&indics[0], sizeof(MyIndex::Type) * indics.size(), NULL);
 			newGeom->vb = globalVB;
 			
 			leaf->AddSurface(Surface(linker.getMaterial(textures[bspFace->texture].name), newGeom));			
@@ -311,7 +311,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 	BSPTree * tree = new BSPTree("bsp");
 	
 	
-	globalVB = renderer.CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * numVertices, TGen::UsageStatic);
+	globalVB = renderer.createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * numVertices, TGen::UsageStatic);
 	
 	TGen::Vector3 max, min;
 	for (int i = 0; i < numVertices; ++i) {
@@ -332,7 +332,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 		
 	}
 		
-	globalVB->BufferData(vertices, sizeof(Vertex) * numVertices, NULL);
+	globalVB->bufferData(vertices, sizeof(Vertex) * numVertices, NULL);
 	
 	
 	
@@ -345,7 +345,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 	return tree;
 	
 	delete tree->vb;
-	tree->vb = renderer.CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * numVertices, TGen::UsageStatic);
+	tree->vb = renderer.createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * numVertices, TGen::UsageStatic);
 	
 	
 	//TGen::Vector3 max, min;
@@ -379,7 +379,7 @@ BSPTree * BSPLoader::CreateTree(TGen::Renderer & renderer, SurfaceLinker & linke
 	
 	std::cout << "MAXO: " << maxo << " ONES: " << ones << std::endl;
 	
-	tree->vb->BufferData(vertices, sizeof(Vertex) * numVertices, NULL);
+	tree->vb->bufferData(vertices, sizeof(Vertex) * numVertices, NULL);
 
 	
 	std::cout << "max: " << std::string(max) << std::endl;

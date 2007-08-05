@@ -40,8 +40,8 @@ TGen::ShaderProgram * ResourceManager::getShaderProgram(const std::string & name
 	std::cout << "[res]: loading shader '" << name << "'..." << std::endl;
 	std::string data = ReadFile(name);
 	
-	TGen::ShaderProgram * ret = renderer.CreateShaderProgram(data.c_str());
-	ret->Link();
+	TGen::ShaderProgram * ret = renderer.createShaderProgram(data.c_str());
+	ret->link();
 	
 	shaders[name] = ret;
 	
@@ -68,7 +68,7 @@ TGen::Texture * ResourceManager::getTexture(const std::string & name) {
 	if (!ilLoadImage(name.c_str()))
 		throw TGen::RuntimeException("ResourceManager::getTexture", "image failed to load image with DevIL");
 	
-	TGen::Texture * newTexture = renderer.CreateTexture(DevilImage(imageName), TGen::RGBA);
+	TGen::Texture * newTexture = renderer.createTexture(DevilImage(imageName), TGen::RGBA);
 	ilDeleteImages(1, &imageName);
 	
 	textures[name] = newTexture;
@@ -117,10 +117,10 @@ void ResourceManager::LoadMaterials(const std::string & filename) {
 	
 	std::list<TGen::Material *> materials;
 	TGen::Q3MaterialParser parser;
-	parser.Parse(ReadFile(filename).c_str(), materials);
+	parser.parse(ReadFile(filename).c_str(), materials);
 	
 	for (std::list<TGen::Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
-		(*iter)->Link(*this);
+		(*iter)->link(*this);
 		this->materials[(*iter)->getName()] = *iter;
 	}	
 	
@@ -141,5 +141,5 @@ void ResourceManager::LoadMaterials(const std::string & filename) {
 
 void ResourceManager::UpdateMaterials(scalar time) {
 	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
-		iter->second->Update(time);
+		iter->second->update(time);
 }

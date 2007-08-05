@@ -36,7 +36,7 @@ scalar TGen::Plane3::getDistanceTo(const TGen::Vector3 & p) const {
 }
 
 
-TGen::Vector3 TGen::Plane3::RayIntersection(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const {
+TGen::Vector3 TGen::Plane3::rayIntersection(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const {
 	scalar a = TGen::Vector3::DotProduct(normal, dir);
 	if (a == 0)
 		return pos;
@@ -44,16 +44,16 @@ TGen::Vector3 TGen::Plane3::RayIntersection(const TGen::Vector3 & pos, const TGe
 	return pos - dir * (getDistanceTo(pos) / a);
 }
 
-TGen::Vector3 TGen::Plane3::PlaneIntersection(const TGen::Plane3 & plane) const {
+TGen::Vector3 TGen::Plane3::planeIntersection(const TGen::Plane3 & plane) const {
 	return TGen::Vector3::CrossProduct(normal, plane.normal);	
 }
 
-TGen::Vector3 TGen::Plane3::Project(const TGen::Vector3 & p) const {
+TGen::Vector3 TGen::Plane3::project(const TGen::Vector3 & p) const {
 	return TGen::Vector3(0, 0, 0);	// TODO
 }
 
-void TGen::Plane3::Normalize() {
-	normal.Normalize();
+void TGen::Plane3::normalize() {
+	normal.normalize();
 }
 
 scalar TGen::Plane3::getPointSide(const TGen::Vector3 & p) const {

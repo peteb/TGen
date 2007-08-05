@@ -26,7 +26,7 @@ namespace TGen {
 		TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered);
 		virtual ~TextureCoordTransformer();
 		
-		virtual void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) abstract;
+		virtual void applyTransform(TGen::Matrix4x4 & matrix, scalar time) abstract;
 
 		bool centered;
 
@@ -41,7 +41,7 @@ namespace TGen {
 		TextureCoordTranslate(float u, float v, bool scroll = false);
 		TextureCoordTranslate(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool scroll = false);
 		
-		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
+		void applyTransform(TGen::Matrix4x4 & matrix, scalar time);
 
 		float u, v;
 		bool scroll;
@@ -52,7 +52,7 @@ namespace TGen {
 		TextureCoordScale(float u, float v, bool centered = false);
 		TextureCoordScale(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered = false);
 		
-		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
+		void applyTransform(TGen::Matrix4x4 & matrix, scalar time);
 		
 		float u, v;
 	};	
@@ -62,7 +62,7 @@ namespace TGen {
 		TextureCoordRotate(float speed, bool centered = false);
 		TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered = false);
 		
-		void ApplyTransform(TGen::Matrix4x4 & matrix, scalar time);
+		void applyTransform(TGen::Matrix4x4 & matrix, scalar time);
 		
 		float speed;
 	};
@@ -76,8 +76,8 @@ namespace TGen {
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
 		void setWrap(const std::string & wrapU, const std::string & wrapV);
-		void AddTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
-		void Update(scalar time);
+		void addTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
+		void update(scalar time);
 		
 		std::string textureName, samplerName;
 		int unit;
@@ -109,14 +109,14 @@ namespace TGen {
 		void setNoDepthWrite();
 		void setColorFromVertex();
 		
-		void Update(scalar dt);
+		void update(scalar dt);
 		
 		void setShader(const std::string & name);
-		void AddTextureUnit(PassTextureUnit * textureUnit);
-		void Link(TGen::MaterialLinkCallback & callback);
+		void addTextureUnit(PassTextureUnit * textureUnit);
+		void link(TGen::MaterialLinkCallback & callback);
 		
 	private:
-		TGen::BlendFunc StringToBlendFunc(const std::string & blend);
+		static TGen::BlendFunc StringToBlendFunc(const std::string & blend);
 			
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
 		TextureList textureUnits;
@@ -128,20 +128,7 @@ namespace TGen {
 		std::string shaderName;
 	};
 	
-	class PassList {
-	public:
-		PassList();
-		~PassList();
-		
-		void Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes);
-		void addPass(TGen::Pass * pass);
-		void Link(TGen::MaterialLinkCallback & callback);
-		void Update(scalar time);
-		
-	private:
-		typedef std::vector<Pass *> PassVector;
-		PassVector passes;
-	};
+
 	
 } // !TGen
 

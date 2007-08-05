@@ -28,13 +28,13 @@ TGen::OpenGL::ShaderProgram::~ShaderProgram() {
 		delete iter->second;
 }
 
-void TGen::OpenGL::ShaderProgram::Attach(TGen::Shader * shader) {
+void TGen::OpenGL::ShaderProgram::attach(TGen::Shader * shader) {
 	TGen::OpenGL::Shader * fixedShader = static_cast<TGen::OpenGL::Shader *>(shader);
 	
 	glAttachShader(programId, fixedShader->getInternalID());	
 }
 
-void TGen::OpenGL::ShaderProgram::Link() {
+void TGen::OpenGL::ShaderProgram::link() {
 	glLinkProgram(programId);
 	
 	GLint status = 0;

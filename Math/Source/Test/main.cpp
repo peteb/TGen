@@ -59,7 +59,7 @@ int main(int argc, char ** const argv) {
 	std::cout << "    identity -X, Y, -Z == " << std::endl << std::string(TGen::Matrix4x4::LookInDirection(TGen::Vector3(0.0f, 0.0f, -1.0f), TGen::Vector3(0.0, 1.0f, 0.0f))) << std::endl;
 						
 	// 14.
-	std::cout << "14. I^-1 == " << std::endl << std::string(TGen::Matrix4x4::Identity.Inverse()) << std::endl;
+	std::cout << "14. I^-1 == " << std::endl << std::string(TGen::Matrix4x4::Identity.invert()) << std::endl;
 		
 	#ifdef _PLATFORM_WINDOWS
 	int hej;

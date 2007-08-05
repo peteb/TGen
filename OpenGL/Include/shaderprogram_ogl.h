@@ -28,8 +28,8 @@ namespace TGen {
 		public:
 			~ShaderProgram();
 			
-			void Attach(TGen::Shader * shader);
-			void Link();
+			void attach(TGen::Shader * shader);
+			void link();
 			TGen::ShaderVariable & getUniform(const std::string & name);
 			TGen::ShaderVariable & getAttribute(const std::string & name);
 			

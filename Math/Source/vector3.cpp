@@ -54,10 +54,10 @@ scalar TGen::Vector3::getMagnitude() const {
 }
 
 TGen::Vector3 TGen::Vector3::getNormalized() const {
-	return TGen::Vector3(*this).Normalize();
+	return TGen::Vector3(*this).normalize();
 }
 
-TGen::Vector3 & TGen::Vector3::Normalize() {
+TGen::Vector3 & TGen::Vector3::normalize() {
 	scalar magnitude = getMagnitude();
 	if (magnitude == 0.0)
 		return *this;

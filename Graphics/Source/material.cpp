@@ -13,6 +13,8 @@
 #include "technique.h"
 #include "pass.h"
 #include "renderer.h"
+#include "techniquelist.h"
+#include "passlist.h"
 
 TGen::Material::SpecializationMap TGen::Material::specializations;
 
@@ -42,10 +44,10 @@ std::string TGen::Material::getName() const {
 	return name;
 }
 
-void TGen::Material::Link(TGen::MaterialLinkCallback & callback) {
+void TGen::Material::link(TGen::MaterialLinkCallback & callback) {
 	TechniqueListMap::iterator iter = techniques.begin();
 	for (; iter != techniques.end(); ++iter) {
-		iter->second->Link(callback);
+		iter->second->link(callback);
 	}
 }
 
@@ -57,7 +59,7 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 	this->techniques[getSpecializationID(name)] = techniques;
 }
 
-void TGen::Material::Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
+void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
 	TGen::TechniqueList * techniques = NULL;
 	int specialization = getSpecializationID(mode);
 	
@@ -68,20 +70,18 @@ void TGen::Material::Render(TGen::Renderer & renderer, const TGen::Renderable & 
 	techniques = iter->second;
 	
 	TGen::Technique * technique = techniques->getTechnique(minimumTechnique);
-	if (!technique)
-		throw TGen::RuntimeException("Material::Render", "no techniques");
+	if (!technique) throw TGen::RuntimeException("Material::Render", "no techniques");
 	
 	TGen::PassList * passes = technique->getPassList(lod);
-	if (!passes)
-		throw TGen::RuntimeException("Material::Render", "no passes");
+	if (!passes) throw TGen::RuntimeException("Material::Render", "no passes");
 	
-	passes->Render(renderer, renderable, textureTypes);
+	passes->render(renderer, renderable, textureTypes);
 }
 
-void TGen::Material::Update(scalar time) {
+void TGen::Material::update(scalar time) {
 	TechniqueListMap::iterator iter = techniques.begin();
 	for (; iter != techniques.end(); ++iter) {
-		iter->second->Update(time);
+		iter->second->update(time);
 	}
 }
 

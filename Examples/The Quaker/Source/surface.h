@@ -29,8 +29,8 @@ public:
 	void Attached(SceneNode * parent);
 	TGen::Material * getMaterial() const;
 	void Link(SurfaceLinker & linker);
-	void PrepareRender(TGen::Renderer & renderer) const;
-	void Render(TGen::Renderer & renderer) const;
+	void prepareRender(TGen::Renderer & renderer) const;
+	void render(TGen::Renderer & renderer) const;
 	SceneNode * getSceneNode() const;
 	TGen::Vector3 getMin() const;
 	TGen::Vector3 getMax() const;

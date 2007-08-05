@@ -53,21 +53,21 @@ namespace TGen {
 		virtual void setColor(const Color & color) abstract;
 		virtual void setRenderContext(const RenderContext & context, TGen::Texture ** textureTypes) abstract;
 		
-		virtual void Clear(ushort buffers) abstract;
+		virtual void clearBuffers(ushort buffers) abstract;
 		
-		virtual void DrawPrimitive(PrimitiveType type, uint startVertex, uint vertexCount) abstract;
-		virtual void DrawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) abstract;
+		virtual void drawPrimitive(PrimitiveType type, uint startVertex, uint vertexCount) abstract;
+		virtual void drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) abstract;
 		
-		virtual VertexBuffer * CreateVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
-		virtual IndexBuffer * CreateIndexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
-		virtual Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags = 0) abstract;
-		virtual Texture * CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags = 0) abstract;
-		virtual FrameBuffer * CreateFrameBuffer() abstract;
-		virtual Shader * CreateVertexShader(const char * code) abstract;
-		virtual Shader * CreateFragmentShader(const char * code) abstract;
-		virtual Shader * CreateGeometryShader(const char * code) abstract;
-		virtual ShaderProgram * CreateShaderProgram() abstract;
-		virtual ShaderProgram * CreateShaderProgram(const char * code) abstract;
+		virtual VertexBuffer * createVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
+		virtual IndexBuffer * createIndexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
+		virtual Texture * createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags = 0) abstract;
+		virtual Texture * createTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags = 0) abstract;
+		virtual FrameBuffer * createFrameBuffer() abstract;
+		virtual Shader * createVertexShader(const char * code) abstract;
+		virtual Shader * createFragmentShader(const char * code) abstract;
+		virtual Shader * createGeometryShader(const char * code) abstract;
+		virtual ShaderProgram * createShaderProgram() abstract;
+		virtual ShaderProgram * createShaderProgram(const char * code) abstract;
 		
 	protected:
 		TGen::RendererCaps caps;

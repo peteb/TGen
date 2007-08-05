@@ -47,7 +47,7 @@ const void * TGen::Canvas::getData() const {
 	return data;
 }
 
-void TGen::Canvas::Fill(const TGen::Color & color) {
+void TGen::Canvas::fill(const TGen::Color & color) {
 	int bytesPerPixel = TGen::FormatTypeSize(componentFormat) * ImageFormatComponents(format);
 	int bytesTotal = bytesPerPixel * size.width * size.height;
 	//int elementsTotal = size.width * size.height;
@@ -95,7 +95,7 @@ void TGen::Canvas::setPixelRaw(const TGen::Vector2 & pos, void * data, uint bpp)
 	memcpy(dataPos, data, bpp);
 }
 
-void TGen::Canvas::DrawLine(const TGen::Vector2 & start, const TGen::Vector2 & end, const TGen::Color & color) {
+void TGen::Canvas::drawLine(const TGen::Vector2 & start, const TGen::Vector2 & end, const TGen::Color & color) {
 	int bytesPerPixel = TGen::FormatTypeSize(componentFormat) * ImageFormatComponents(format);
 	void * fillWith = malloc(bytesPerPixel);
 	if (!fillWith)

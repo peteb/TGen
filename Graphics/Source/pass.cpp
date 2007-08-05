@@ -15,16 +15,10 @@
 #include "shadervariable.h"
 #include "generator.h"
 #include "texture.h"
+#include "textureunit.h"
 #include <iostream>
 
-TGen::PassList::PassList() {
-	
-}
 
-TGen::PassList::~PassList() {
-	for (int i = 0; i < passes.size(); ++i)
-		delete passes[i];
-}
 
 TGen::Pass::Pass() 
 	: colorGen(NULL)
@@ -38,27 +32,7 @@ TGen::Pass::~Pass() {
 	delete alphaGen;
 }
 
-void TGen::PassList::addPass(TGen::Pass * pass) {
-	passes.push_back(pass);
-}
 
-void TGen::PassList::Render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes) {
-	if (passes.empty())
-		return;
-	
-	//	throw TGen::RuntimeException("PassList::Render", "no passes to render");
-	
-	TGen::Time start = TGen::Time::Now();
-	renderable.PrepareRender(renderer);
-	//std::cout << "prepare: " << std::fixed << TGen::Time::Now() - start << std::endl;
-
-	start = TGen::Time::Now();
-	for (int i = 0; i < passes.size(); ++i) {
-		renderer.setRenderContext(passes[i]->getRenderContext(), textureTypes);
-		renderable.Render(renderer);
-	}
-	//std::cout << "render: " << std::fixed << TGen::Time::Now() - start << std::endl;
-}
 
 const TGen::RenderContext & TGen::Pass::getRenderContext() const {
 	return renderContext;
@@ -108,26 +82,13 @@ void TGen::Pass::setAlphaGenerator(TGen::ScalarGenerator * gen) {
 	alphaGen = gen;
 }
 
-void TGen::Pass::AddTextureUnit(TGen::PassTextureUnit * textureUnit) {
+void TGen::Pass::addTextureUnit(TGen::PassTextureUnit * textureUnit) {
 	textureUnits.push_back(textureUnit);
 }
 
 
-void TGen::PassList::Link(TGen::MaterialLinkCallback & callback) {
-	PassVector::iterator iter = passes.begin();
-	for (; iter != passes.end(); ++iter) {
-		(*iter)->Link(callback);
-	}
-}
 
-void TGen::PassList::Update(scalar time) {
-	PassVector::iterator iter = passes.begin();
-	for (; iter != passes.end(); ++iter) {
-		(*iter)->Update(time);
-	}	
-}
-
-void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
+void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 	//std::cout << "linking shader " << shaderName << std::endl;
 	if (shaderName == "fixed")
 		renderContext.shader = NULL;
@@ -158,7 +119,7 @@ void TGen::Pass::Link(TGen::MaterialLinkCallback & callback) {
 		newUnit->genV = (*iter)->genV;
 		(*iter)->texunit = newUnit;
 		
-		renderContext.AddTextureUnit(newUnit);		
+		renderContext.addTextureUnit(newUnit);		
 		
 		if (renderContext.shader && !(*iter)->samplerName.empty()) {
 			std::cout << "setting '" << (*iter)->samplerName << "' to " << (*iter)->unit << std::endl;
@@ -323,7 +284,7 @@ TGen::BlendFunc TGen::Pass::StringToBlendFunc(const std::string & blend) {
 	throw TGen::RuntimeException("Pass::StringToBlendFunc", "invalid blend func: '" + blend + "'!");		
 }
 
-void TGen::Pass::Update(scalar time) {
+void TGen::Pass::update(scalar time) {
 	if (colorGen) {
 		TGen::Color newColor = colorGen->getColor(time, 1.0);
 		renderContext.frontColor.r = newColor.r;
@@ -336,15 +297,15 @@ void TGen::Pass::Update(scalar time) {
 	}
 	
 	for (int i = 0; i < textureUnits.size(); ++i) {
-		textureUnits[i]->Update(time);
+		textureUnits[i]->update(time);
 	}
 }
 
-void TGen::PassTextureUnit::AddTexCoordTransformer(TGen::TextureCoordTransformer * transformer) {
+void TGen::PassTextureUnit::addTexCoordTransformer(TGen::TextureCoordTransformer * transformer) {
 	transformers.push_back(transformer);
 }
 
-void TGen::PassTextureUnit::Update(scalar time) {
+void TGen::PassTextureUnit::update(scalar time) {
 	if (!texunit)
 		return;
 	
@@ -361,7 +322,7 @@ void TGen::PassTextureUnit::Update(scalar time) {
 
 		lastCentered = transformers[i]->centered;
 		
-		transformers[i]->ApplyTransform(texunit->transform, time);
+		transformers[i]->applyTransform(texunit->transform, time);
 		texunit->transformed = true;
 	}
 	
@@ -402,7 +363,7 @@ TGen::TextureCoordTranslate::TextureCoordTranslate(TGen::ScalarGenerator * genU,
 {
 }
 
-void TGen::TextureCoordTranslate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
+void TGen::TextureCoordTranslate::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
 	if (!scroll) {
 		float fixedU = 0.0f, fixedV = 0.0f;
 		
@@ -456,7 +417,7 @@ TGen::TextureCoordScale::TextureCoordScale(TGen::ScalarGenerator * genU, TGen::S
 {
 }
 
-void TGen::TextureCoordScale::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
+void TGen::TextureCoordScale::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
 	float fixedU = 0.0f, fixedV = 0.0f;
 	
 	if (!genU)
@@ -491,7 +452,7 @@ TGen::TextureCoordRotate::TextureCoordRotate(TGen::ScalarGenerator * genRot, boo
 {
 }
 
-void TGen::TextureCoordRotate::ApplyTransform(TGen::Matrix4x4 & matrix, scalar time) {
+void TGen::TextureCoordRotate::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
 	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
 
 	if (!genU) {

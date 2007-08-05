@@ -65,36 +65,36 @@ namespace TGen {
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;
 			
-			void Clear(ushort buffers);
+			void clearBuffers(ushort buffers);
 			
-			void DrawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount);
-			void DrawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount);
+			void drawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount);
+			void drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount);
 			
-			TGen::VertexBuffer * CreateVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
-			TGen::IndexBuffer * CreateIndexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
-			TGen::Texture * CreateTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
-			TGen::Texture * CreateTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags);
-			TGen::FrameBuffer * CreateFrameBuffer();
-			TGen::Shader * CreateVertexShader(const char * code);
-			TGen::Shader * CreateFragmentShader(const char * code);
-			TGen::Shader * CreateGeometryShader(const char * code);
-			TGen::ShaderProgram * CreateShaderProgram();
-			TGen::ShaderProgram * CreateShaderProgram(const char * code);
+			TGen::VertexBuffer * createVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
+			TGen::IndexBuffer * createIndexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
+			TGen::Texture * createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
+			TGen::Texture * createTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags);
+			TGen::FrameBuffer * createFrameBuffer();
+			TGen::Shader * createVertexShader(const char * code);
+			TGen::Shader * createFragmentShader(const char * code);
+			TGen::Shader * createGeometryShader(const char * code);
+			TGen::ShaderProgram * createShaderProgram();
+			TGen::ShaderProgram * createShaderProgram(const char * code);
 			
 			static bool isExtensionAvailable(const std::string & extension);
 			
 		private:
-			void ParseExtensions();
-			void ReadCaps();
-			void CheckCompatibility();
+			void parseExtensions();
+			void readCaps();
+			void checkCompatibility();
 			
-			TGen::Texture * CreateTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
-			TGen::Shader * CreateShader(const char * code, int type);
+			TGen::Texture * createTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
+			TGen::Shader * createShader(const char * code, int type);
 
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
 			void setDepthFunc(TGen::CompareFunc compare);
 			
-			void ApplyVertexStructure(const TGen::VertexStructure & vertstruct);
+			void applyVertexStructure(const TGen::VertexStructure & vertstruct);
 			
 		private:			
 			typedef std::map<std::string, bool> ExtensionMap;

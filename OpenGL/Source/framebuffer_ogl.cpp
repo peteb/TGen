@@ -31,7 +31,7 @@ TGen::OpenGL::FrameBuffer::~FrameBuffer() {
 	}
 }
 
-void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) {
+void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) {
 	TGen::OpenGL::Texture * fixedTexture = static_cast<TGen::OpenGL::Texture *>(texture);
 	
 	GLenum attachment = 0;
@@ -110,8 +110,8 @@ void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::Framebuffe
 			if (status != GL_FRAMEBUFFER_COMPLETE_EXT)
 				throw TGen::RuntimeException("OpenGL::FrameBuffer::Attach", "framebuffer is not complete: unknown error");
 	}
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 }
 
 GLuint TGen::OpenGL::FrameBuffer::getInternalID() const {
@@ -147,6 +147,6 @@ GLuint TGen::OpenGL::FrameBuffer::getInternalID() const {
 }
 */
 
-void TGen::OpenGL::FrameBuffer::SetupDrawBuffers() {
+void TGen::OpenGL::FrameBuffer::setupDrawBuffers() {
 	glDrawBuffersARB(pointsTaken.size(), &pointsTaken[0]);
 }

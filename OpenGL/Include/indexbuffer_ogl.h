@@ -24,9 +24,9 @@ namespace TGen {
 		public:
 			~IndexBuffer();
 			
-			void * Lock(ushort flags);
-			void Unlock();
-			void BufferData(void * data, uint size, void * offset);
+			void * lock(ushort flags);
+			void unlock();
+			void bufferData(void * data, uint size, void * offset);
 			bool isLocked();
 			TGen::VertexStructure & getVertexStructure();
 			

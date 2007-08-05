@@ -29,7 +29,7 @@ TGen::OpenGL::IndexBuffer::~IndexBuffer() {
 	}	
 }
 
-void * TGen::OpenGL::IndexBuffer::Lock(ushort flags) {
+void * TGen::OpenGL::IndexBuffer::lock(ushort flags) {
 	GLenum fixedAccess = 0;
 	
 	if (flags & TGen::LockReadWrite)
@@ -55,12 +55,12 @@ void * TGen::OpenGL::IndexBuffer::Lock(ushort flags) {
 
 // TODO: glGetError()
 
-void TGen::OpenGL::IndexBuffer::Unlock() {
+void TGen::OpenGL::IndexBuffer::unlock() {
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);	
 }
 
-void TGen::OpenGL::IndexBuffer::BufferData(void * data, uint size, void * offset) {
+void TGen::OpenGL::IndexBuffer::bufferData(void * data, uint size, void * offset) {
 	GLenum fixedUsage = usage;	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 	

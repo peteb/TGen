@@ -132,7 +132,7 @@ App::App()
 	glPointSize(90.0f);
 	
 	
-	renderer->Clear(TGen::ColorBuffer);
+	renderer->clearBuffers(TGen::ColorBuffer);
 
 	lastFrame = TGen::Time::Now();
 
@@ -187,7 +187,7 @@ void App::Update() {
 		if (moveLeft)
 			dir += TGen::Vector3(-1.0f, 0.0f, 0.0f);
 		
-		dir.Normalize();
+		dir.normalize();
 		camera->Move(dir * 5.0 * dt);
 	}
 }
@@ -232,7 +232,7 @@ void App::Render() {
 
 	cubeNode->setOrientation(newOrientation);
 	
-	renderer->Clear(TGen::DepthBuffer /*| TGen::ColorBuffer*/);
+	renderer->clearBuffers(TGen::DepthBuffer /*| TGen::ColorBuffer*/);
 	
 
 
@@ -253,9 +253,9 @@ void App::Render() {
 	// render aabbs ---------------------------------------	
 	AABBRenderer aabbRenderer(*aabbBatch, *camera);
 
-	aabbBatch->BeginBatch();	
+	aabbBatch->beginBatch();	
 	if (scene) scene->getSceneRoot()->Accept(aabbRenderer);
-	aabbBatch->EndBatch();
+	aabbBatch->endBatch();
 	
 	renderer->setColor(TGen::Color::Red);
 	renderer->setTransform(TGen::TransformProjection, camera->getProjection());
@@ -264,7 +264,7 @@ void App::Render() {
 	//glDepthFunc(GL_ALWAYS);
 	glLineWidth(2.0f);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	aabbBatch->Render(renderer);
+	aabbBatch->render(renderer);
 
 	
 	

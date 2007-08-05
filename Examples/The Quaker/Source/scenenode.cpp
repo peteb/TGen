@@ -149,7 +149,7 @@ void SceneNode::CalculateSurfacesObjectBV() {
 	}
 	
 	objectBoundingSphere.radius = std::max(min.getMagnitude(), max.getMagnitude());
-	objectBoundingBox.Calculate(min, max);	
+	objectBoundingBox.calculate(min, max);	
 }
 
 void SceneNode::CalculateWorldBV() {
@@ -175,7 +175,7 @@ void SceneNode::CalculateWorldBV() {
 		
 	}
 	
-	worldBoundingBox.Calculate(min, max);
+	worldBoundingBox.calculate(min, max);
 }
 
 TGen::Vector3 SceneNode::getWorldPosition() const {

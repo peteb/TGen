@@ -37,7 +37,7 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 	
 	int surfs = surfers;
 	
-	if (surfs > surfaces.size())
+	//if (surfs > surfaces.size())
 		surfs = surfaces.size();
 	
 	for (int i = 0; i < surfs; ++i) {
@@ -48,7 +48,7 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 		}
 		
 		TGen::Material * mat = surfaces[i]->getMaterial();
-		mat->Render(renderer, *surfaces[i], "default", 9, NULL);
+		mat->render(renderer, *surfaces[i], "default", 9, NULL);
 	}
 }
 

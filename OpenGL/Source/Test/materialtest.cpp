@@ -17,13 +17,13 @@ public:
 		delete ib;
 	}
 	
-	void PrepareRender(TGen::Renderer & renderer) const {
+	void prepareRender(TGen::Renderer & renderer) const {
 		renderer.setVertexBuffer(vb);
 		renderer.setIndexBuffer(ib);		
 	}
 	
-	void Render(TGen::Renderer & renderer) const {
-		renderer.DrawIndexedPrimitive(PrimitiveTriangles, 0, 6);
+	void render(TGen::Renderer & renderer) const {
+		renderer.drawIndexedPrimitive(PrimitiveTriangles, 0, 6);
 	}
 	
 	void LoadData(TGen::Renderer & renderer) {
@@ -36,11 +36,11 @@ public:
 		
 		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
 		
-		vb = renderer.CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
-		vb->BufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
+		vb = renderer.createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
+		vb->bufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
 		
-		ib = renderer.CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
-		ib->BufferData(indicies, sizeof(MyIndex::Type) * 6, 0);		
+		ib = renderer.createIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
+		ib->bufferData(indicies, sizeof(MyIndex::Type) * 6, 0);		
 	}
 	
 private:
@@ -146,8 +146,8 @@ public:
 		std::cout << "getting shader '" << name << "'" << std::endl;
 		std::string data = ReadFile(name);
 		
-		TGen::ShaderProgram * ret = renderer->CreateShaderProgram(data.c_str());
-		ret->Link();
+		TGen::ShaderProgram * ret = renderer->createShaderProgram(data.c_str());
+		ret->link();
 		return ret;
 	}
 	
@@ -164,7 +164,7 @@ public:
 		if (!ilLoadImage(name.c_str()))
 			throw TGen::RuntimeException("App::getTexture", "image failed to load");
 		
-		TGen::Texture * newTexture = renderer->CreateTexture(DevILImage(imageName), TGen::RGBA);
+		TGen::Texture * newTexture = renderer->createTexture(DevILImage(imageName), TGen::RGBA);
 		
 		ilDeleteImages(1, &imageName);
 		
@@ -187,7 +187,7 @@ public:
 	void Render() {
 		//time += 0.01f;
 		renderer->setClearColor(Color::White);
-		renderer->Clear(ColorBuffer | DepthBuffer);
+		renderer->clearBuffers(ColorBuffer | DepthBuffer);
 		
 		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(TGen::Degree(90.0f), windowSize.width / windowSize.height, 0.1f, 100.0f));
 		renderer->setTransform(TransformWorldView, Matrix4x4::Translation(Vector3(0.0f, 0.0f, -2.0f)) * Matrix4x4::Rotation(Vector3(0.0f, 1.0f, 0.0f), Radian(time)));
@@ -195,8 +195,8 @@ public:
 		if (material) {
 			TGen::Texture * textureTypes[] = {NULL, NULL};
 			
-			material->Update(scalar(glutGet(GLUT_ELAPSED_TIME)) / 1000.0);
-			material->Render(*renderer, myObject, "default", 9, textureTypes);
+			material->update(scalar(glutGet(GLUT_ELAPSED_TIME)) / 1000.0);
+			material->render(*renderer, myObject, "default", 9, textureTypes);
 		}
 		
 		glutSwapBuffers();
@@ -207,11 +207,11 @@ public:
 
 		std::list<Material *> materials;
 		Q3MaterialParser parser;
-		parser.Parse(ReadFile("test.shader").c_str(), materials); // material.mat
+		parser.parse(ReadFile("test.shader").c_str(), materials); // material.mat
 		
 		for (std::list<Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
 			std::cout << (*iter)->getName() << ": " << std::endl;
-			(*iter)->Link(*this);
+			(*iter)->link(*this);
 			
 			if ((*iter)->getName() == "textures/base_wall/metalfloor_wall_15ow") {
 				material = *iter;

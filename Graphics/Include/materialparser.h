@@ -40,22 +40,22 @@ namespace TGen {
 		MaterialParser();
 		~MaterialParser();
 		
-		void Parse(const char * code, std::list<TGen::Material *> & materials);
+		void parse(const char * code, std::list<TGen::Material *> & materials);
 	
 	private:
-		void ParseGlobalBlock();
-		void ParseParamsBlock(TGen::Material * material);
-		void ParseMaterialBlock(TGen::Material * material);
-		void ParseLodBlock(TGen::PassList * lod, TGen::Material * material);
-		void ParsePassBlock(TGen::Pass * pass, TGen::Material * material);
-		void ParseTexunitBlock(TGen::PassTextureUnit * unit, TGen::Material * material);
-		TGen::WaveGenerator * ParseWaveGenerator();
+		void parseGlobalBlock();
+		void parseParamsBlock(TGen::Material * material);
+		void parseMaterialBlock(TGen::Material * material);
+		void parseLodBlock(TGen::PassList * lod, TGen::Material * material);
+		void parsePassBlock(TGen::Pass * pass, TGen::Material * material);
+		void parseTexunitBlock(TGen::PassTextureUnit * unit, TGen::Material * material);
+		TGen::WaveGenerator * parseWaveGenerator();
 		
 	
 		TGen::Material * getMaterial(const std::string & name);
 		std::string getStringToken(const std::string & name, bool ignorelf = false, bool quote = true);
 		std::string getNumericToken(const std::string & name, bool ignorelf = false, bool quote = true);
-		void StepToken();
+		void stepToken();
 		
 		typedef std::map<std::string, TGen::Material *> MaterialMap;
 		MaterialMap materials;

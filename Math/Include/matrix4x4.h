@@ -35,8 +35,8 @@ namespace TGen {
 
 		operator std::string() const;
 		
-		Matrix4x4 & Transpose();
-		Matrix4x4 & Inverse();
+		Matrix4x4 & transpose();
+		Matrix4x4 & invert();
 		Matrix4x4 getInverse() const;
 		void setOrigin(const TGen::Vector3 & origin);
 		void setScale(const TGen::Vector3 & scale);

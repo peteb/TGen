@@ -26,9 +26,9 @@ namespace TGen {
 		public:	
 			~FrameBuffer();
 		
-			void Attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint);
+			void attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint);
 			GLuint getInternalID() const;
-			void SetupDrawBuffers();
+			void setupDrawBuffers();
 		
 			friend class TGen::OpenGL::Renderer;
 			

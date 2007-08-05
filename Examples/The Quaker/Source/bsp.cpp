@@ -49,7 +49,7 @@ BSPNode::BSPNode()
 
 }
 
-void BSPGeometry::PrepareRender(TGen::Renderer & renderer) const {
+void BSPGeometry::prepareRender(TGen::Renderer & renderer) const {
 	/*if (!vb)
 		renderer.setVertexBuffer(tree.vb);
 	else*/
@@ -64,7 +64,7 @@ void BSPGeometry::PrepareRender(TGen::Renderer & renderer) const {
 
 #include <GLUT/GLUT.h>
 
-void BSPGeometry::Render(TGen::Renderer & renderer) const {
+void BSPGeometry::render(TGen::Renderer & renderer) const {
 	//if (polygon)
 	//	renderer.DrawIndexedPrimitive(TGen::PrimitiveTriangleFan, startIndex, numIndices);
 	//else
@@ -81,16 +81,16 @@ void BSPGeometry::Render(TGen::Renderer & renderer) const {
 	
 	if (multidraw.empty()) {
 		if (ib)
-			renderer.DrawIndexedPrimitive(type, startIndex, numIndices);
+			renderer.drawIndexedPrimitive(type, startIndex, numIndices);
 		else
-			renderer.DrawPrimitive(type, startIndex, numIndices);
+			renderer.drawPrimitive(type, startIndex, numIndices);
 	}
 	else {
 		for (int i = 0; i < multidraw.size(); ++i) {
 			int count = multidraw[i].second;
 			
 			renderer.setIndexBuffer(multidraw[i].first);
-			renderer.DrawIndexedPrimitive(type, 0, count);
+			renderer.drawIndexedPrimitive(type, 0, count);
 		}
 	}
 	

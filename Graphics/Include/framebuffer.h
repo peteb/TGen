@@ -26,7 +26,7 @@ namespace TGen {
 		FrameBuffer() {}
 		virtual ~FrameBuffer() {}
 		
-		virtual	void Attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) abstract;
+		virtual	void attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) abstract;
 	};
 } // !TGen
 

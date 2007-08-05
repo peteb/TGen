@@ -10,20 +10,22 @@
 #include "q3materialparser.h"
 #include "material.h"
 #include "technique.h"
+#include "techniquelist.h"
 #include "pass.h"
 #include "generator.h"
+#include "passlist.h"
 
 TGen::Q3MaterialParser::Q3MaterialParser() {}
 TGen::Q3MaterialParser::~Q3MaterialParser() {}
 
-void TGen::Q3MaterialParser::Parse(const char * code, std::list<TGen::Material *> & materials) {
+void TGen::Q3MaterialParser::parse(const char * code, std::list<TGen::Material *> & materials) {
 	TGen::Q3MaterialTokenizer tokenizer;	
-	tokenizer.TokenizeString(code, tokens, false);
+	tokenizer.tokenizeString(code, tokens, false);
 	
 	currentToken = tokens.getFirstToken();
 	endIter = tokens.getEndToken();
 
-	ParseGlobalBlock();
+	parseGlobalBlock();
 	
 	std::list<TGen::Material *>::iterator iter = this->materials.begin();
 	for (; iter != this->materials.end(); ++iter) {
@@ -31,11 +33,11 @@ void TGen::Q3MaterialParser::Parse(const char * code, std::list<TGen::Material *
 	}	
 }
 
-void TGen::Q3MaterialParser::ParseGlobalBlock() {
+void TGen::Q3MaterialParser::parseGlobalBlock() {
 	while (currentToken != endIter) {
 		if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote) {
 			std::string materialName = currentToken->second;
-			StepOverLF();
+			stepOverLF();
 			
 			if (currentToken->first != TGen::Q3MaterialTokenBlockStart)
 				throw TGen::RuntimeException("Q3MaterialParser::ParseGlobalBlock", "expecting block start, not '" + currentToken->second + "'!");
@@ -51,11 +53,11 @@ void TGen::Q3MaterialParser::ParseGlobalBlock() {
 
 			materials.push_back(newMaterial);
 			
-			StepToken();
+			stepToken();
 
 			std::cout << "entering material block '" << materialName << "'..." << std::endl;
 			
-			ParseMaterialBlock(newMaterial, newLod);
+			parseMaterialBlock(newMaterial, newLod);
 			
 			std::cout << "left material block" << std::endl;
 		}
@@ -63,16 +65,14 @@ void TGen::Q3MaterialParser::ParseGlobalBlock() {
 			throw TGen::RuntimeException("Q3MaterialParser::ParseGlobalBlock", "expecting material name, not '" + currentToken->second + "'!");
 		}
 	
-		StepToken();
-	}
-	
-	
+		stepToken();
+	}	
 }
 
-void TGen::Q3MaterialParser::ParseMaterialBlock(TGen::Material * material, TGen::PassList * passes) {
+void TGen::Q3MaterialParser::parseMaterialBlock(TGen::Material * material, TGen::PassList * passes) {
 	while (currentToken != endIter && currentToken->first != TGen::Q3MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::Q3MaterialTokenBlockStart) {
-			StepToken();
+			stepToken();
 			
 			TGen::Pass * newPass = new TGen::Pass;
 			newPass->setShader("fixed");
@@ -82,21 +82,21 @@ void TGen::Q3MaterialParser::ParseMaterialBlock(TGen::Material * material, TGen:
 			TGen::PassTextureUnit * newUnit = new TGen::PassTextureUnit(0, "");
 			
 			std::cout << "entering pass block" << std::endl;
-			ParsePassBlock(newPass, newUnit, material);
+			parsePassBlock(newPass, newUnit, material);
 			std::cout << "left pass block" << std::endl;
 			
-			newPass->AddTextureUnit(newUnit);
+			newPass->addTextureUnit(newUnit);
 		}
 		else if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote) {
 			// it's a parameter...
 			std::string paramName = currentToken->second;
-			StepToken();
+			stepToken();
 			
 			std::vector<std::string> values;
 			
 			while (currentToken->first != TGen::Q3MaterialTokenEndOfLine && currentToken != endIter && currentToken->first != TGen::Q3MaterialTokenBlockEnd) {
 				values.push_back(currentToken->second);
-				StepToken();
+				stepToken();
 			}
 			
 			material->setParameter(paramName, values);
@@ -106,22 +106,23 @@ void TGen::Q3MaterialParser::ParseMaterialBlock(TGen::Material * material, TGen:
 		else if (currentToken->first != TGen::Q3MaterialTokenEndOfLine) {
 			throw TGen::RuntimeException("Q3MaterialParser::ParseMaterialBlock", "not expecting '" + currentToken->second + "'!");			
 		}		
-		StepToken();
+		
+		stepToken();
 	}
 	
 	if (currentToken->first == TGen::Q3MaterialTokenBlockEnd)
-		StepToken();
+		stepToken();
 }
 
-void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material) {
+void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::Q3MaterialTokenBlockEnd) {
 		std::string tokenInLower = TGen::toLower(currentToken->second);
 		
 		if (tokenInLower == "blendfunc") {
-			StepToken();
+			stepToken();
 			std::string source, dest;
 			source = getStringToken("pass.blendFunc: expecting string value for source");
-			StepToken();
+			stepToken();
 			
 			if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote)
 				dest = currentToken->second;
@@ -130,26 +131,26 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			pass->setBlendFunc(source, dest);			
 		}
 		else if (tokenInLower == "tcgen") {
-			StepToken();
+			stepToken();
 			std::string gen = getStringToken("pass.tcGen: expecting string value for tex coord gen");
 			
 			unit->setTexCoordGen(gen, gen);
 		}
 		else if (tokenInLower == "tcmod") {
-			StepToken();
+			stepToken();
 			std::string modType = TGen::toLower(getStringToken("pass.tcMod: expecting string value for tex coord mod type"));
-			StepToken();
+			stepToken();
 			
 			if (modType == "scale" || modType == "stretch") {
 				std::string u, v;
 				float uNum = 0.0f, vNum = 0.0f;
-				bool centered = modType == "STRETCH";
+				bool centered = modType == "stretch";
 				
 				TGen::ScalarGenerator * genU = NULL, * genV = NULL;
 				
 				if (currentToken->second == "sin" || currentToken->second == "saw" || currentToken->second == "inversesaw") {
 					//std::cout << "SIN GEN" << std::endl;
-					genU = ParseWaveGenerator();
+					genU = parseWaveGenerator();
 				}
 				else {
 					u = getNumericToken("pass.tcMod.scale: expecting numeric or wave value for U");
@@ -161,14 +162,14 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				
 				//std::cout << "current token = " << currentToken->second << std::endl;
 				
-				StepToken();
+				stepToken();
 				if (currentToken->first == TGen::Q3MaterialTokenEndOfLine) {
 					genV = genU;
 					vNum = uNum;
 				}
 				else {
 					if (currentToken->second == "sin") {
-						genV = ParseWaveGenerator();
+						genV = parseWaveGenerator();
 					}
 					else {
 						v = getNumericToken("pass.tcMod.scale: expecting numeric or wave value for V");
@@ -179,20 +180,18 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 					}
 				}
 				
-				
 				TGen::TextureCoordScale * scaler = new TGen::TextureCoordScale(genU, genV, centered);
 				scaler->u = uNum;
 				scaler->v = vNum;
 				
-				unit->AddTexCoordTransformer(scaler);
-				
+				unit->addTexCoordTransformer(scaler);
 			}
 			else if (modType == "scroll") {
 				std::string offU, offV;
 				float U, V;
 				
 				offU = getNumericToken("texunit.tcMod.scroll: expecting numeric value for U");
-				StepToken();
+				stepToken();
 				offV = getNumericToken("texunit.tcMod.scroll: expecting numeric value for V");
 
 				U = TGen::lexical_cast<float>(offU);
@@ -201,28 +200,27 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				TGen::TextureCoordTranslate * translator = new TGen::TextureCoordTranslate((TGen::ScalarGenerator *)NULL, NULL, true);
 				translator->u = U;
 				translator->v = V;
-				unit->AddTexCoordTransformer(translator);
+				unit->addTexCoordTransformer(translator);
 			}
 			else if (modType == "rotate") {
 				std::string rotSpeed;
 				float rotSpeedNum;
 				
 				rotSpeed = getNumericToken("texunit.tcMod.rotate: expecting numeric value for rotation speed");
-				
 				rotSpeedNum = TGen::lexical_cast<float>(rotSpeed);
 				
 				TGen::TextureCoordRotate * rotator = new TGen::TextureCoordRotate(rotSpeedNum, true);
-				unit->AddTexCoordTransformer(rotator);
+				unit->addTexCoordTransformer(rotator);
 			}
 			else {
 				throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "tcMod type not supported '" + modType + "'!");
 			}
 		}
 		else if (tokenInLower == "rgbgen") {
-			StepToken();
+			stepToken();
 			if (currentToken->second == "wave") {
-				StepToken();
-				pass->setColorGenerator(ParseWaveGenerator());					
+				stepToken();
+				pass->setColorGenerator(parseWaveGenerator());					
 			}
 			else {
 				if (currentToken->second == "identity") {
@@ -235,9 +233,9 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 					std::string r, g, b;
 
 					r = getNumericToken("pass.rgbgen: expecting numeric R value ");
-					StepToken();
+					stepToken();
 					g = getNumericToken("pass.rgbgen: expecting numeric G value ");
-					StepToken();
+					stepToken();
 					b = getNumericToken("pass.rgbgen: expecting numeric B value ");
 					pass->setColor(r, g, b);
 				}
@@ -245,7 +243,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 		}
 		else if (tokenInLower == "map" || tokenInLower == "clampmap") {
 			bool clampmap = currentToken->second == "clampmap";
-			StepToken();
+			stepToken();
 			std::string texName = getStringToken("pass.map: expecting string value for texture name");
 			
 			unit->setTextureName(texName);
@@ -257,11 +255,11 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "unexpected symbol: '" + currentToken->second + "'");
 		}
 		
-		StepToken();
+		stepToken();
 	}
 
 	if (currentToken->first == TGen::Q3MaterialTokenBlockEnd)
-		StepToken();
+		stepToken();
 }
 
 std::string TGen::Q3MaterialParser::getStringToken(const std::string & name, bool ignorelf, bool quote) {
@@ -269,7 +267,7 @@ std::string TGen::Q3MaterialParser::getStringToken(const std::string & name, boo
 	
 	if (ignorelf) {
 		while(currentToken->first == TGen::Q3MaterialTokenEndOfLine) {
-			tokens.NextToken(currentToken, endIter);
+			tokens.stepToken(currentToken, endIter);
 		}
 	}
 	
@@ -286,7 +284,7 @@ std::string TGen::Q3MaterialParser::getNumericToken(const std::string & name, bo
 	
 	if (ignorelf) {
 		while(currentToken->first == TGen::Q3MaterialTokenEndOfLine) {
-			tokens.NextToken(currentToken, endIter);
+			tokens.stepToken(currentToken, endIter);
 		}
 	}
 	
@@ -298,28 +296,28 @@ std::string TGen::Q3MaterialParser::getNumericToken(const std::string & name, bo
 	return ret;
 }
 
-void TGen::Q3MaterialParser::StepOverLF() {
+void TGen::Q3MaterialParser::stepOverLF() {
 	do {
-		StepToken();
+		stepToken();
 	} while(currentToken->first == TGen::Q3MaterialTokenEndOfLine);	
 }
 
-void TGen::Q3MaterialParser::StepToken() {
-	tokens.NextToken(currentToken, endIter);
+void TGen::Q3MaterialParser::stepToken() {
+	tokens.stepToken(currentToken, endIter);
 }
 
-TGen::WaveGenerator * TGen::Q3MaterialParser::ParseWaveGenerator() {
+TGen::WaveGenerator * TGen::Q3MaterialParser::parseWaveGenerator() {
 	TGen::WaveGenerator * ret = NULL;
 	
 	std::string type, base, amplitude, phase, frequency;
 	type = getStringToken("wave: expecting string value for wave type", true);
-	StepToken();
+	stepToken();
 	base = getNumericToken("wave: expecting numeric value for base", true);
-	StepToken();
+	stepToken();
 	amplitude = getNumericToken("wave: expecting numeric value for amplitude", true);
-	StepToken();
+	stepToken();
 	phase = getNumericToken("wave: expecting numeric value for phase", true);
-	StepToken();
+	stepToken();
 	frequency = getNumericToken("wave: expecting numeric value for frequency", true);
 	
 	std::stringstream ss;

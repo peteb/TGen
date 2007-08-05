@@ -18,24 +18,14 @@
 namespace TGen {
 	class ShaderProgram;
 	class Texture;
-	
-	class TextureUnit {
-	public:
-		TextureUnit(int unit, TGen::Texture * texture);
-		
-		int unit;
-		TGen::Texture * texture;
-		TGen::TextureCoordGen genU, genV;
-		TGen::Matrix4x4 transform;
-		bool transformed;
-		int textureType;
-	};
+	class TextureUnit;
+
 	
 	class RenderContext {
 	public:
 		RenderContext();
 		
-		void AddTextureUnit(TGen::TextureUnit * unit);
+		void addTextureUnit(TGen::TextureUnit * unit);
 		
 		bool depthWrite;
 		TGen::Color frontColor;

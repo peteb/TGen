@@ -71,10 +71,10 @@ scalar TGen::Quaternion4::getMagnitude() const {
 }
 
 TGen::Quaternion4 TGen::Quaternion4::getNormalized() const {
-	return TGen::Quaternion4(*this).Normalize();
+	return TGen::Quaternion4(*this).normalize();
 }
 
-TGen::Quaternion4 & TGen::Quaternion4::Normalize() {
+TGen::Quaternion4 & TGen::Quaternion4::normalize() {
 	scalar magnitude = getMagnitude();
 	x /= magnitude;
 	y /= magnitude;
@@ -106,7 +106,7 @@ TGen::Quaternion4 TGen::Quaternion4::Slerp(const TGen::Quaternion4 & q1, const T
 	const scalar DOT_TRESHOLD = scalar(0.9995);
 	if (dot > DOT_TRESHOLD) {
 		TGen::Quaternion4 ret = q1 + (q2 - q1) * t;
-		ret.Normalize();
+		ret.normalize();
 		return ret;
 	}
 	
@@ -115,7 +115,7 @@ TGen::Quaternion4 TGen::Quaternion4::Slerp(const TGen::Quaternion4 & q1, const T
 	double theta = theta_0 * t;
 	
 	Quaternion4 q3 = q2 - q1 * dot;
-	q3.Normalize();
+	q3.normalize();
 	
 	return q1 * static_cast<scalar>(::cos(theta)) + q3 * static_cast<scalar>(::sin(theta));
 }

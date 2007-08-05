@@ -30,9 +30,9 @@ namespace TGen {
 	public:
 		Frustum(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview);
 		
-		void Calculate(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview);
-		int Intersects(const TGen::Sphere & sphere) const;
-		int Intersects(const TGen::AABB & aabb) const;
+		void calculate(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview);
+		int intersects(const TGen::Sphere & sphere) const;
+		int intersects(const TGen::AABB & aabb) const;
 
 		
 		TGen::Plane3 nearPlane, farPlane, rightPlane, leftPlane, topPlane, bottomPlane;

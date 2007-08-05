@@ -75,7 +75,7 @@ TGen::Vector2 TGen::Vector2::operator - (const TGen::Vector2 & vector) const {
 }
 
 TGen::Vector2 TGen::Vector2::operator * (scalar scalar) const {
-	return TGen::Vector2(x * scalar, y * scalar/*, z * scalar*/);
+	return TGen::Vector2(x * scalar, y * scalar);
 }
 
 TGen::Vector2 TGen::Vector2::operator / (scalar scalar) const {
@@ -91,10 +91,10 @@ scalar TGen::Vector2::getMagnitude() const {
 }
 
 TGen::Vector2 TGen::Vector2::getNormalized() const {
-	return TGen::Vector2(*this).Normalize();
+	return TGen::Vector2(*this).normalize();
 }
 
-TGen::Vector2 & TGen::Vector2::Normalize() {
+TGen::Vector2 & TGen::Vector2::normalize() {
 	scalar magnitude = getMagnitude();
 	x /= magnitude;
 	y /= magnitude;

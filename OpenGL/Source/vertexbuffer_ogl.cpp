@@ -31,7 +31,7 @@ TGen::OpenGL::VertexBuffer::~VertexBuffer() {
 	}	
 }
 
-void * TGen::OpenGL::VertexBuffer::Lock(ushort flags) {
+void * TGen::OpenGL::VertexBuffer::lock(ushort flags) {
 	GLenum fixedAccess = 0;
 	
 	if (flags & TGen::LockReadWrite)
@@ -55,12 +55,12 @@ void * TGen::OpenGL::VertexBuffer::Lock(ushort flags) {
 	return data;
 }
 
-void TGen::OpenGL::VertexBuffer::Unlock() {
+void TGen::OpenGL::VertexBuffer::unlock() {
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);		
 }
 
-void TGen::OpenGL::VertexBuffer::BufferData(void * data, uint size, void * offset) {
+void TGen::OpenGL::VertexBuffer::bufferData(void * data, uint size, void * offset) {
 	GLenum fixedUsage = usage;
 
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);

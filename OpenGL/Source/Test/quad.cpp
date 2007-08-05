@@ -62,7 +62,7 @@ public:
 		
 
 		renderer->setClearColor(Color::White);
-		renderer->Clear(ColorBuffer | DepthBuffer);
+		renderer->clearBuffers(ColorBuffer | DepthBuffer);
 		
 		Matrix4x4 view = Matrix4x4::Identity;
 		view *= Matrix4x4::Translation(Vector3(0.0f, 0.0f, -3.0f));
@@ -75,8 +75,8 @@ public:
 		renderer->setIndexBuffer(ib);
 		renderer->setColor(Color::Red);
 
-		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 0, 3);	// draw triangle #1
-		renderer->DrawIndexedPrimitive(PrimitiveTriangles, 3, 3);	//     --|--     #2
+		renderer->drawIndexedPrimitive(PrimitiveTriangles, 0, 3);	// draw triangle #1
+		renderer->drawIndexedPrimitive(PrimitiveTriangles, 3, 3);	//     --|--     #2
 		
 		glutSwapBuffers();
 	}
@@ -91,11 +91,11 @@ public:
 		
 		MyIndex::Type indices[6] = {0, 1, 3, 1, 2, 3};
 		
-		vb = renderer->CreateVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
-		vb->BufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
+		vb = renderer->createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
+		vb->bufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
 		
-		ib = renderer->CreateIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
-		ib->BufferData(indices, sizeof(MyIndex::Type) * 6, 0);
+		ib = renderer->createIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
+		ib->bufferData(indices, sizeof(MyIndex::Type) * 6, 0);
 	}
 	
 private:

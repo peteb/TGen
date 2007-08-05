@@ -27,9 +27,9 @@ namespace TGen {
 		TGen::FormatType getComponentFormat() const;
 		const void * getData() const;
 		
-		void Fill(const TGen::Color & color);
+		void fill(const TGen::Color & color);
 		void setPixel(const TGen::Vector2 & pos, const TGen::Color & color);
-		void DrawLine(const TGen::Vector2 & start, const TGen::Vector2 & end, const TGen::Color & color);
+		void drawLine(const TGen::Vector2 & start, const TGen::Vector2 & end, const TGen::Color & color);
 		
 		
 	private:

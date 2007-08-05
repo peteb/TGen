@@ -174,11 +174,10 @@ void TGen::Matrix4x4::setScale(const TGen::Vector3 & scale) {
 }
 
 void TGen::Matrix4x4::get4x4(scalar * elements) const {
-	//std::cout << "HEJ" << std::endl;
 	memcpy(elements, this->elements, sizeof(scalar) * 4 * 4);
 }
 
-TGen::Matrix4x4 & TGen::Matrix4x4::Transpose() {
+TGen::Matrix4x4 & TGen::Matrix4x4::transpose() {
 	
 	
 	return *this;
@@ -286,10 +285,10 @@ TGen::Matrix4x4 TGen::Matrix4x4::RotationZ(const TGen::Angle & angle) {
 
 TGen::Matrix4x4 TGen::Matrix4x4::LookAt(const TGen::Vector3 & position, const TGen::Vector3 & eye, const TGen::Vector3 & up) {
 	Matrix4x4 ret = Matrix4x4::Identity;
-	Vector3 forward = (eye - position).Normalize();
+	Vector3 forward = (eye - position).normalize();
 	Vector3 UP = up.getNormalized();
-	Vector3 right = Vector3::CrossProduct(forward, UP).Normalize();
-	Vector3 newUp = Vector3::CrossProduct(forward, right).Normalize();
+	Vector3 right = Vector3::CrossProduct(forward, UP).normalize();
+	Vector3 newUp = Vector3::CrossProduct(forward, right).normalize();
 	
 	ret = Matrix4x4(right, -newUp, -forward);
 	//ret = ret.Transpose();
@@ -311,7 +310,7 @@ void TGen::Matrix4x4::Clear() {
 	memset(&elements, 0, 4 * 4 * sizeof(scalar));
 }
 
-TGen::Matrix4x4 & TGen::Matrix4x4::Inverse() {
+TGen::Matrix4x4 & TGen::Matrix4x4::invert() {
 	TGen::Matrix4x4 mat;
 	
 	scalar wg;
@@ -367,6 +366,6 @@ TGen::Matrix4x4 & TGen::Matrix4x4::Inverse() {
 
 TGen::Matrix4x4 TGen::Matrix4x4::getInverse() const {
 	TGen::Matrix4x4 ret(*this);
-	return ret.Inverse();
+	return ret.invert();
 }
 

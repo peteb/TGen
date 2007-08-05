@@ -24,19 +24,7 @@ TGen::RenderContext::RenderContext()
 
 }
 
-void TGen::RenderContext::AddTextureUnit(TGen::TextureUnit * unit) {
+void TGen::RenderContext::addTextureUnit(TGen::TextureUnit * unit) {
 	textureUnits.push_back(unit);
-}
-
-TGen::TextureUnit::TextureUnit(int unit, TGen::Texture * texture) 
-	: unit(unit)
-	, texture(texture)
-	, transformed(false)
-	, transform(TGen::Matrix4x4::Identity)
-	, genU(TGen::TextureCoordGenBase)
-	, genV(TGen::TextureCoordGenBase)
-	, textureType(0) 
-{
-
 }
 

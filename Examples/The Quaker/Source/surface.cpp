@@ -46,12 +46,12 @@ void Surface::Link(SurfaceLinker & linker) {
 		material = linker.getMaterial(materialName);
 }
 
-void Surface::PrepareRender(TGen::Renderer & renderer) const {
-	geometry->PrepareRender(renderer);
+void Surface::prepareRender(TGen::Renderer & renderer) const {
+	geometry->prepareRender(renderer);
 }
 
-void Surface::Render(TGen::Renderer & renderer) const {
-	geometry->Render(renderer);
+void Surface::render(TGen::Renderer & renderer) const {
+	geometry->render(renderer);
 }
 
 TGen::Vector3 Surface::getMin() const {

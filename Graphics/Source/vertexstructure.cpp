@@ -110,7 +110,7 @@ int TGen::VertexStructure::getStride() const {
 	return getSize() % align;
 }
 
-void TGen::VertexStructure::AddElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) {
+void TGen::VertexStructure::addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) {
 	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit));
 }
 
@@ -120,7 +120,7 @@ void TGen::VertexStructure::AddElement(TGen::VertexElementType type, FormatType 
 	usc4 = unsigned short coord 4
  */
 
-void TGen::VertexStructure::AddElement(const std::string & format) {
+void TGen::VertexStructure::addElement(const std::string & format) {
 	TGen::VertexElementType elType;
 	TGen::FormatType type;
 	uchar count = 0, unit = 0;

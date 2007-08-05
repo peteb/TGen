@@ -26,7 +26,7 @@ namespace TGen {
 		
 		scalar getMagnitude() const;
 		Quaternion4 getNormalized() const;
-		Quaternion4 & Normalize();
+		Quaternion4 & normalize();
 		
 		Quaternion4 & operator *= (const TGen::Quaternion4 & quat);
 		Quaternion4 operator * (const TGen::Quaternion4 & quat) const;

@@ -28,7 +28,7 @@ namespace TGen {
 			, cursor(NULL)
 			, mapped(NULL) 
 		{
-			vb = renderer->CreateVertexBuffer(format(), sizeof(typename format::Type) * size, usage);
+			vb = renderer->createVertexBuffer(format(), sizeof(typename format::Type) * size, usage);
 			verticesPerDraw = renderer->getCaps().maxVertexBufferVertices;
 		}
 		
@@ -37,30 +37,30 @@ namespace TGen {
 			vb = NULL;
 		}
 		
-		void Render(TGen::Renderer * renderer) {
+		void render(TGen::Renderer * renderer) {
 			if (verticesWritten > 0) {
 				renderer->setVertexBuffer(vb);
 				
 				for (int i = 0; i < verticesWritten; i += verticesPerDraw)
-					renderer->DrawPrimitive(type, i, std::min(verticesPerDraw, verticesWritten));
+					renderer->drawPrimitive(type, i, std::min(verticesPerDraw, verticesWritten));
 				//renderer->DrawPrimitive(type, 0, verticesWritten);
 			}
 			
 		}
 		
-		void BeginBatch() {
-			mapped = vb->Lock(TGen::LockDiscard | TGen::LockWrite);
+		void beginBatch() {
+			mapped = vb->lock(TGen::LockDiscard | TGen::LockWrite);
 			cursor = mapped;
 			verticesWritten = 0; 
 			full = false;			
 		}
 		
-		void EndBatch() {
-			vb->Unlock();
+		void endBatch() {
+			vb->unlock();
 			mapped = NULL;			
 		}
 		
-		bool WritePrimitive(typename format::Type vertex[vertsPerPrimitive], bool returnOnFull = false) {
+		bool writePrimitive(typename format::Type vertex[vertsPerPrimitive], bool returnOnFull = false) {
 			if (!mapped || !cursor)
 				throw TGen::RuntimeException("Batch::WritePrimitive", "batch is not ready");
 			

@@ -56,9 +56,9 @@ void Camera::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 	right = -right;
 	up = -up;
 	
-	look.Normalize();
-	up = TGen::Vector3::CrossProduct(look, right).Normalize();
-	right = TGen::Vector3::CrossProduct(up, look).Normalize();
+	look.normalize();
+	up = TGen::Vector3::CrossProduct(look, right).normalize();
+	right = TGen::Vector3::CrossProduct(up, look).normalize();
 	
 	moveMatrix = TGen::Matrix4x4(-right, -up, look);
 	transform = TGen::Matrix4x4(right, up, look).getInverse() * TGen::Matrix4x4::Translation(getPosition());
@@ -68,7 +68,7 @@ void Camera::CalculateBV() {
 	TGen::Vector3 min(-0.1f, -0.1f, -0.1f), max(0.1f, 0.1f, 0.1f);
 	
 	objectBoundingSphere.radius = std::max(min.getMagnitude(), max.getMagnitude());
-	objectBoundingBox.Calculate(min, max);	
+	objectBoundingBox.calculate(min, max);	
 	
 	//CalculateWorldBV();
 }

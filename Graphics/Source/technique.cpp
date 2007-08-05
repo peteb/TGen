@@ -9,6 +9,7 @@
 
 #include "technique.h"
 #include "pass.h"
+#include "passlist.h"
 #include <iostream>
 
 TGen::Technique::Technique() 
@@ -23,40 +24,6 @@ TGen::Technique::~Technique() {
 		delete lods[i];
 }
 
-TGen::TechniqueList::TechniqueList() {
-	for (int i = 0; i < 10; ++i)
-		techniques.push_back(NULL);
-}
-
-TGen::TechniqueList::~TechniqueList() {
-	for (int i = 0; i < techniques.size(); ++i)
-		delete techniques[i];
-}
-
-TGen::Technique * TGen::TechniqueList::getTechnique(int minreqs) {
-	for (int i = minreqs; i >= 0; --i) {
-		if (techniques[i]) {
-			//std::cout << "technique " << i << " chosen" << std::endl;
-			return techniques[i];
-		}
-	}
-	
-	for (int i = minreqs; i < 10; ++i) {
-		if (techniques[i]) {
-			//std::cout << "no lower technique, chosing " << i << std::endl;
-			return techniques[i];
-		}
-	}
-	
-	return NULL;
-}
-
-void TGen::TechniqueList::setTechnique(TGen::Technique * tech, int reqs) {
-	if (techniques[reqs])
-		delete techniques[reqs];
-	
-	techniques[reqs] = tech;
-}
 
 void TGen::Technique::setPassList(PassList * pass, int lod) {
 	if (lods[lod])
@@ -97,35 +64,19 @@ TGen::PassList * TGen::Technique::getPassList(int lod) {
 	return NULL;
 }
 
-void TGen::Technique::Link(TGen::MaterialLinkCallback & callback) {
+void TGen::Technique::link(TGen::MaterialLinkCallback & callback) {
 	PassVector::iterator iter = lods.begin();
 	for (; iter != lods.end(); ++iter) {
 		if (*iter)
-			(*iter)->Link(callback);
+			(*iter)->link(callback);
 	}
 }
 
-void TGen::TechniqueList::Link(TGen::MaterialLinkCallback & callback) {
-	TechniqueVector::iterator iter = techniques.begin();
-	for (; iter != techniques.end(); ++iter) {
-		if (*iter)
-			(*iter)->Link(callback);
-	}
-}
-
-void TGen::TechniqueList::Update(scalar time) {
-	TechniqueVector::iterator iter = techniques.begin();
-	for (; iter != techniques.end(); ++iter) {
-		if (*iter)
-			(*iter)->Update(time);
-	}	
-}
-
-void TGen::Technique::Update(scalar time) {
+void TGen::Technique::update(scalar time) {
 	PassVector::iterator iter = lods.begin();
 	for (; iter != lods.end(); ++iter) {
 		if (*iter)
-			(*iter)->Update(time);
+			(*iter)->update(time);
 	}
 }
 

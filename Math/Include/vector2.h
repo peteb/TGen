@@ -38,9 +38,9 @@ namespace TGen {
 		
 		scalar getMagnitude() const;
 		Vector2 getNormalized() const;
-		Vector2 & Normalize();
-		
+		Vector2 & normalize();
 		Vector2 getPerpendicular() const;
+		
 		static scalar DotProduct(const TGen::Vector2 & v1, const TGen::Vector2 & v2);
 		static TGen::Vector2 CrossProduct(const TGen::Vector2 & v1, const TGen::Vector2 & v2);
 		static TGen::Vector2 Identity;

@@ -33,18 +33,18 @@ namespace TGen {
 		Q3MaterialParser();
 		~Q3MaterialParser();
 		
-		void Parse(const char * code, std::list<TGen::Material *> & materials);
+		void parse(const char * code, std::list<TGen::Material *> & materials);
 		
 	private:
-		void ParseGlobalBlock();
-		void ParseMaterialBlock(TGen::Material * material, TGen::PassList * passes);
-		void ParsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material);
+		void parseGlobalBlock();
+		void parseMaterialBlock(TGen::Material * material, TGen::PassList * passes);
+		void parsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material);
 		std::string getStringToken(const std::string & name, bool ignorelf = false, bool quote = true);
 		std::string getNumericToken(const std::string & name, bool ignorelf = false, bool quote = true);
-		TGen::WaveGenerator * ParseWaveGenerator();
+		TGen::WaveGenerator * parseWaveGenerator();
 		
-		void StepToken();
-		void StepOverLF();
+		void stepToken();
+		void stepOverLF();
 		
 		std::list<TGen::Material *> materials;
 		TGen::TokenStream::TokenList::iterator currentToken, endIter;

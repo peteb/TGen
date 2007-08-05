@@ -25,6 +25,7 @@
 #include "shadervariable.h"
 #include "framebuffer.h"
 #include "rendercontext.h"
+#include "textureunit.h"
 
 #include "image.h"
 #include "canvas.h"
@@ -38,6 +39,8 @@
 #include "pass.h"
 #include "renderable.h"
 #include "generator.h"
+#include "techniquelist.h"
+#include "passlist.h"
 
 namespace TGen {
 	bool isGraphicsDebug();
