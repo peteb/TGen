@@ -32,8 +32,9 @@ bool TGen::Plane3::isParallelTo(const TGen::Plane3 & plane) const {
 }
 
 scalar TGen::Plane3::getDistanceTo(const TGen::Vector3 & p) const {
-	return TGen::Vector3::DotProduct(normal, p) * distance;	// TODO: testa, * var + förut
+	return TGen::Vector3::DotProduct(normal, p) + distance;	
 }
+
 
 TGen::Vector3 TGen::Plane3::RayIntersection(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const {
 	scalar a = TGen::Vector3::DotProduct(normal, dir);
@@ -55,6 +56,6 @@ void TGen::Plane3::Normalize() {
 	normal.Normalize();
 }
 
-int TGen::Plane3::PointPos(const TGen::Vector3 & p) const {
-	return normal.x * p.x + normal.y * p.y + normal.z * p.z - distance;	
+scalar TGen::Plane3::getPointSide(const TGen::Vector3 & p) const {
+	return TGen::Vector3::DotProduct(p, normal) - distance;	
 }

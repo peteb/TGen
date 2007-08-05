@@ -110,7 +110,7 @@ void TGen::Tokenizer::TokenizeString(const char * str, TGen::TokenStream & strea
 			if (endOfQuoteSize > 0) {
 				if (!(currentChar != str && *(currentChar - 1) == '\\')) {
 					currentChar += endOfQuoteSize;
-					stream.AddToken(TGen::TokenQuote, quote);
+					stream.addToken(TGen::TokenQuote, quote);
 					inQuote = false;
 					startOfQuote = "";
 				
@@ -162,7 +162,7 @@ int TGen::Tokenizer::getToken(char * text, TGen::TokenStream & stream) {
 	
 	for (StringUintMap::iterator it = tokens.begin(); it != tokens.end(); it++) {
 		if (strncmp(text, it->first.c_str(), it->first.size()) == 0) {
-			stream.AddToken(it->second, it->first);
+			stream.addToken(it->second, it->first);
 			
 			return it->first.size();
 		}
@@ -250,9 +250,9 @@ int TGen::Tokenizer::getAutoAdd(char * text, TGen::TokenStream & stream) {
 		if (ignoreSize > 0) {
 			if (!ProcessSpecialToken(value, stream)) {
 				if (!isNumeric(value))
-					stream.AddToken(TokenValueString, value);
+					stream.addToken(TokenValueString, value);
 				else
-					stream.AddToken(TokenValueNumeric, value);					
+					stream.addToken(TokenValueNumeric, value);					
 			}
 			return num + ignoreSize;			
 		}

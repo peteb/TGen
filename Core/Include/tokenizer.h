@@ -37,13 +37,13 @@ namespace TGen {
 		uint type;
 	};
 	
-	class TokenStream {	// ska kunna ha en position i tokenstreamen så man kan läsa relativt
+	class TokenStream {	// ska kunna ha en position i tokenstreamen så man kan läsa relativt. det här är gammal skräpkod!!
 	public:
 		virtual ~TokenStream() {currentToken = tokens.begin(); }
 		
 		typedef std::list<std::pair<uint, std::string> > TokenList;
 		
-		virtual void AddToken(uint token, const std::string & value) {tokens.push_back(std::pair<uint, std::string>(token, value)); }
+		virtual void addToken(uint token, const std::string & value) {tokens.push_back(std::pair<uint, std::string>(token, value)); }
 		
 		void NextToken(TokenList::iterator & iter, TokenList::iterator & end) {
 			if (iter == end)

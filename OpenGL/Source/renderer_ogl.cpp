@@ -663,13 +663,13 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 		
 		
 		switch (element.type) {
-			case TGen::CoordElement:
+			case TGen::VertexElementCoord:
 				//std::cout << "vertex pointer count: " << int(element.count) << " type: " << fixedType << " stride: " << stride << " pos: " << pos << std::endl;
 				glEnableClientState(GL_VERTEX_ARRAY);
 				glVertexPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
-			case TGen::TexCoordElement:
+			case TGen::VertexElementTexCoord:
 				//std::cout << "texcoord pointer count: " << int(element.count) << " type: " << fixedType << " unit: " << int(element.unit) << " stride: " << stride << " pos: " << pos << std::endl;
 				
 				glClientActiveTexture(GL_TEXTURE0 + element.unit);	// NOTE
@@ -677,12 +677,12 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 				glTexCoordPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
-			case TGen::NormalElement:
+			case TGen::VertexElementNormal:
 				glEnableClientState(GL_NORMAL_ARRAY);
 				glNormalPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
-			case TGen::ColorElement:
+			case TGen::VertexElementColor:
 				//std::cout << "color pointer count: " << int(element.count) << " type: " << fixedType << " stride: " << stride << " pos: " << pos << std::endl;
 				if (colorFromVertex) {
 					glEnableClientState(GL_COLOR_ARRAY);
@@ -691,14 +691,14 @@ void TGen::OpenGL::Renderer::ApplyVertexStructure(const TGen::VertexStructure & 
 				
 				break;
 				
-			case TGen::ColorIndexElement:
+			case TGen::VertexElementColorIndex:
 				if (colorFromVertex) {
 					glEnableClientState(GL_INDEX_ARRAY);
 					glIndexPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				}
 				break;
 				
-			case TGen::EdgeFlagElement:
+			case TGen::VertexElementEdgeFlag:
 				glEnableClientState(GL_EDGE_FLAG_ARRAY);
 				glEdgeFlagPointer(stride, reinterpret_cast<GLvoid *>(pos));
 				break;

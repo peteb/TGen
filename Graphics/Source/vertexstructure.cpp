@@ -184,27 +184,27 @@ void TGen::VertexStructure::AddElement(const std::string & format) {
 	
 	switch (typeName) {
 		case 'v':
-			elType = TGen::CoordElement;
+			elType = TGen::VertexElementCoord;
 			break;
 			
 		case 'n':
-			elType = TGen::NormalElement;
+			elType = TGen::VertexElementNormal;
 			break;
 			
 		case 'c':
-			elType = TGen::ColorElement;
+			elType = TGen::VertexElementColor;
 			break;
 			
 		case 'i':
-			elType = TGen::ColorIndexElement;
+			elType = TGen::VertexElementColorIndex;
 			break;
 		
 		case 'e':
-			elType = TGen::EdgeFlagElement;
+			elType = TGen::VertexElementEdgeFlag;
 			break;
 			
 		case 't':
-			elType = TGen::TexCoordElement;
+			elType = TGen::VertexElementTexCoord;
 			break;
 			
 		default:

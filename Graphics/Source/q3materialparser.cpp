@@ -115,7 +115,9 @@ void TGen::Q3MaterialParser::ParseMaterialBlock(TGen::Material * material, TGen:
 
 void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::Q3MaterialTokenBlockEnd) {
-		if (TGen::toUpper(currentToken->second) == "BLENDFUNC") {
+		std::string tokenInLower = TGen::toLower(currentToken->second);
+		
+		if (tokenInLower == "blendfunc") {
 			StepToken();
 			std::string source, dest;
 			source = getStringToken("pass.blendFunc: expecting string value for source");
@@ -127,18 +129,18 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			material->setSortLevel(TGen::MaterialSortTransparent); 
 			pass->setBlendFunc(source, dest);			
 		}
-		else if (TGen::toUpper(currentToken->second) == "TCGEN") {
+		else if (tokenInLower == "tcgen") {
 			StepToken();
 			std::string gen = getStringToken("pass.tcGen: expecting string value for tex coord gen");
 			
 			unit->setTexCoordGen(gen, gen);
 		}
-		else if (TGen::toUpper(currentToken->second) == "TCMOD") {
+		else if (tokenInLower == "tcmod") {
 			StepToken();
-			std::string modType = TGen::toUpper(getStringToken("pass.tcMod: expecting string value for tex coord mod type"));
+			std::string modType = TGen::toLower(getStringToken("pass.tcMod: expecting string value for tex coord mod type"));
 			StepToken();
 			
-			if (modType == "SCALE" || modType == "STRETCH") {
+			if (modType == "scale" || modType == "stretch") {
 				std::string u, v;
 				float uNum = 0.0f, vNum = 0.0f;
 				bool centered = modType == "STRETCH";
@@ -185,7 +187,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				unit->AddTexCoordTransformer(scaler);
 				
 			}
-			else if (modType == "SCROLL") {
+			else if (modType == "scroll") {
 				std::string offU, offV;
 				float U, V;
 				
@@ -201,7 +203,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				translator->v = V;
 				unit->AddTexCoordTransformer(translator);
 			}
-			else if (modType == "ROTATE") {
+			else if (modType == "rotate") {
 				std::string rotSpeed;
 				float rotSpeedNum;
 				
@@ -216,7 +218,7 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "tcMod type not supported '" + modType + "'!");
 			}
 		}
-		else if (TGen::toUpper(currentToken->second) == "RGBGEN") {
+		else if (tokenInLower == "rgbgen") {
 			StepToken();
 			if (currentToken->second == "wave") {
 				StepToken();
@@ -241,13 +243,12 @@ void TGen::Q3MaterialParser::ParsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				}
 			}
 		}
-		else if (currentToken->second == "map" || currentToken->second == "clampmap") {
+		else if (tokenInLower == "map" || tokenInLower == "clampmap") {
 			bool clampmap = currentToken->second == "clampmap";
 			StepToken();
 			std::string texName = getStringToken("pass.map: expecting string value for texture name");
 			
 			unit->setTextureName(texName);
-			
 			
 			if (clampmap)
 				unit->setWrap("clamp", "clamp");

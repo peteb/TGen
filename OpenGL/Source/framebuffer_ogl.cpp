@@ -31,7 +31,7 @@ TGen::OpenGL::FrameBuffer::~FrameBuffer() {
 	}
 }
 
-void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FrameBufferAttachment attachpoint) {
+void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) {
 	TGen::OpenGL::Texture * fixedTexture = static_cast<TGen::OpenGL::Texture *>(texture);
 	
 	GLenum attachment = 0;
@@ -57,7 +57,7 @@ void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FrameBuffe
 		GL_COLOR_ATTACHMENT15_EXT};
 	
 	switch (attachpoint) {
-		case TGen::ColorAttachment:
+		case TGen::FramebufferAttachmentColor:
 			if (colorPointsTaken < maxBuffers && colorPointsTaken < 16)
 				attachment = pointNames[colorPointsTaken++];
 			else
@@ -65,11 +65,11 @@ void TGen::OpenGL::FrameBuffer::Attach(TGen::Texture * texture, TGen::FrameBuffe
 		
 			break;
 			
-		case TGen::DepthAttachment:
+		case TGen::FramebufferAttachmentDepth:
 			attachment = GL_DEPTH_ATTACHMENT_EXT;
 			break;
 			
-		case TGen::StencilAttachment:
+		case TGen::FramebufferAttachmentStencil:
 			attachment = GL_STENCIL_ATTACHMENT_EXT;
 			break;
 		

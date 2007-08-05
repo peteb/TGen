@@ -60,7 +60,7 @@ int main(int argc, char ** const argv) {
 						
 	// 14.
 	std::cout << "14. I^-1 == " << std::endl << std::string(TGen::Matrix4x4::Identity.Inverse()) << std::endl;
-	
+		
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

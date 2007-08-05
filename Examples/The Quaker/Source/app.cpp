@@ -232,7 +232,7 @@ void App::Render() {
 
 	cubeNode->setOrientation(newOrientation);
 	
-	renderer->Clear(TGen::DepthBuffer/* | TGen::ColorBuffer*/);
+	renderer->Clear(TGen::DepthBuffer /*| TGen::ColorBuffer*/);
 	
 
 

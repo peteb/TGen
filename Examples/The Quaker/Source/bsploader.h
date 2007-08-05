@@ -22,6 +22,9 @@ enum BSPLumps {
 	BSPLumpEffects = 12,	
 	BSPLumpFaces = 13,
 	BSPLumpNodes = 3,
+	BSPLumpPlanes = 2,
+	BSPLumpLeaves = 4,
+	BSPLumpLeafFaces = 5,
 };
 
 enum BSPFaceType {
@@ -43,14 +46,23 @@ public:
 	void Parse(std::ifstream & file);
 	BSPTree * CreateTree(TGen::Renderer & renderer, SurfaceLinker & linker);
 	
+	void CreateNodes(TGen::Renderer & renderer, BSPNode * node, int nodeIndex, SurfaceLinker & linker);
+	void CreateLeaf(TGen::Renderer & renderer, BSPLeaf * leaf, BSPNode * node, int leafIndex, SurfaceLinker & linker);
+	void CreateFace(TGen::Renderer & renderer, BSPLeaf * leaf, BSPNode * node, int faceIndex, SurfaceLinker & linker);
+	
 	void ReadHeader(std::ifstream & file);
 	void ReadTextures(std::ifstream & file);
 	void ReadFaces(std::ifstream & file);
 	void ReadVertices(std::ifstream & file);
 	void ReadMeshverts(std::ifstream & file);
 	void ReadNodes(std::ifstream & file);
+	void ReadPlanes(std::ifstream & file);
+	void ReadLeaves(std::ifstream & file);
+	void ReadLeafFaces(std::ifstream & file);
 	
 	const StringList & getTextures() const;
+	
+	TGen::VertexBuffer * globalVB;
 	
 private:
 	typedef TGen::JoinVertex5<TGen::Vertex3<float>, TGen::TexCoord2<float, 0>, TGen::TexCoord2<float, 1>, TGen::Normal3<float>, TGen::Color4<uint8> > MyVertex;
@@ -60,7 +72,7 @@ private:
 	StringList materialDeps;
 	
 	TGen::Vector3 getQuadratic(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2, scalar t);
-	
+	const scalar SCALE;
 	
 	struct Face {
 		int texture, effect, type, vertex, num_vertices, meshvert, num_meshvertices, lm_index;
@@ -78,6 +90,24 @@ private:
 		int children[2];
 		int mins[3];
 		int maxs[3];
+	};
+	
+	struct Leaf {
+		int cluster, area;
+		int mins[3], maxs[3];
+		int leafface;
+		int n_leaffaces;
+		int leafbrush;
+		int n_leafbrushes;
+	};
+	
+	struct Plane {
+		float normal[3];
+		float dist;
+	};
+	
+	struct LeafFace {
+		int face;
 	};
 	
 	struct Vertex {
@@ -153,8 +183,11 @@ private:
 	Vertex * vertices;
 	Meshvert * meshverts;
 	Node * nodes;
+	Plane * planes;
+	Leaf * leaves;
+	LeafFace * leafFaces;
 	
-	int numTextures, numFaces, numVertices, numMeshverts, numNodes;
+	int numTextures, numFaces, numVertices, numMeshverts, numNodes, numPlanes, numLeaves, numLeafFaces;
 };
 
 #endif // !_THEQUAKER_BSPLOADER_H

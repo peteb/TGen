@@ -11,8 +11,15 @@
 #define _TGEN_RENDERER_TYPES_H
 
 namespace TGen {
-
-	enum Buffers {
+	enum TextureCreationFlags {
+		TextureCompressed =				0x0001,		// first four bits are compression. 0xF
+		TextureS3TCDXT1Compressed =		0x0003,
+		TextureS3TCDXT3Compressed =		0x0005,
+		TextureS3TCDXT5Compressed =		0x0007,
+		TextureNoMipmaps =				0x0010,
+	};
+		
+	enum BufferType {
 		ColorBuffer		= 0x0001,
 		DepthBuffer		= 0x0002,
 		StencilBuffer	= 0x0004,

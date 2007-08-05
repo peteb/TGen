@@ -98,6 +98,6 @@ void SceneNodeRenderer::Visit(SceneNode & node) {
 }
 
 void SceneNodeRenderer::Visit(BSPTree & node) {
-	
+	node.getNodes(camera, list);
 }
 

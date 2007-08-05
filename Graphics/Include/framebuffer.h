@@ -13,10 +13,10 @@
 #include "types.h"
 
 namespace TGen {
-	enum FrameBufferAttachment {
-		ColorAttachment = 1,
-		DepthAttachment,
-		StencilAttachment,		
+	enum FramebufferAttachment {
+		FramebufferAttachmentColor = 1,
+		FramebufferAttachmentDepth,
+		FramebufferAttachmentStencil,		
 	};
 	
 	class Texture;
@@ -26,7 +26,7 @@ namespace TGen {
 		FrameBuffer() {}
 		virtual ~FrameBuffer() {}
 		
-		virtual	void Attach(TGen::Texture * texture, TGen::FrameBufferAttachment attachpoint) abstract;
+		virtual	void Attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) abstract;
 	};
 } // !TGen
 

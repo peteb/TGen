@@ -29,9 +29,11 @@ public:
 	int start, indices;	
 };*/
 
+class BSPNode;
+
 class BSPGeometry : public Geometry {
 public:
-	BSPGeometry(BSPTree & tree, bool wire);
+	BSPGeometry(BSPNode & tree, bool wire);
 	~BSPGeometry();
 	
 	void PrepareRender(TGen::Renderer & renderer) const;
@@ -40,7 +42,7 @@ public:
 	TGen::Vector3 getMin() const;
 	
 	int startIndex, numIndices;
-	BSPTree & tree;
+	BSPNode & tree;
 	TGen::IndexBuffer * ib;
 	TGen::VertexBuffer * vb;
 	bool wire;
@@ -51,14 +53,24 @@ public:
 class BSPLeaf {
 public:	
 	
+	void AddToList(RenderList & list);
+	void AddSurface(const Surface & surf);
+	
+	typedef std::vector<Surface> SurfaceList;
+	SurfaceList surfaces;
 };
 
 class BSPNode {
 public:	
 	BSPNode();
+
+	void Traverse(const TGen::Vector3 & position, RenderList & list);
 	
-	BSPNode * children[2];
-	BSPLeaf * leaf;
+	TGen::Plane3 plane;
+	BSPNode * front, * back;
+	BSPLeaf * leaf1, * leaf2;
+	TGen::Vector3 min, max;
+	TGen::AABB aabb;
 };
 
 class BSPTree : public SceneNode {
@@ -67,6 +79,8 @@ public:
 	~BSPTree();
 	
 	void Accept(SceneNodeVisitor & visitor);
+	void getNodes(const Camera & camera, RenderList & list);
+	
 	
 	TGen::VertexBuffer * vb;
 	TGen::IndexBuffer * ib;

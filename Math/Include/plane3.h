@@ -24,7 +24,7 @@ namespace TGen {
 		TGen::Vector3 RayIntersection(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const;
 		TGen::Vector3 PlaneIntersection(const TGen::Plane3 & plane) const;
 		TGen::Vector3 Project(const TGen::Vector3 & p) const;
-		int PointPos(const TGen::Vector3 & p) const;
+		scalar getPointSide(const TGen::Vector3 & p) const;
 		void Normalize();
 		
 		TGen::Vector3 normal;
