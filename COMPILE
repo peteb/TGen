@@ -1,4 +1,0 @@
-Hello.
-To compile with gcc use the scripts in the projects called "other".
-Every project in release mode will output binaries and header files to Combined/.
-
