@@ -60,7 +60,7 @@ void TGen::OpenGL::VertexBuffer::unlock() {
 	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);		
 }
 
-void TGen::OpenGL::VertexBuffer::bufferData(void * data, uint size, void * offset) {
+void TGen::OpenGL::VertexBuffer::bufferData(const void * data, uint size, void * offset) {
 	GLenum fixedUsage = usage;
 
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);

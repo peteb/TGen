@@ -20,91 +20,102 @@ int main(int argc, char ** argv) {
 	
 	Uint32 initflags = SDL_INIT_VIDEO;
 	Uint32 videoflags = SDL_HWSURFACE | SDL_OPENGL;// | SDL_FULLSCREEN;
+	
+	SDL_Surface * screen = NULL;
+	Uint8 video_bpp = 0;
+	
+	if (SDL_Init(initflags) < 0)
+		throw TGen::RuntimeException("main", "failed to initialize SDL: ") << SDL_GetError();
+	
+	// SDL_GL_SetAttribute( SDL_GL_SWAP_CONTROL, 0 );
+	SDL_GL_SetAttribute (SDL_GL_DEPTH_SIZE, 16);
+	SDL_GL_SetAttribute (SDL_GL_DOUBLEBUFFER, 1);
+	SDL_WM_SetCaption("TGen 'The Quaker' demo", NULL);
+	//SDL_GrabMode(SDL_GRAB_ON);
+	SDL_WM_GrabInput(SDL_GRAB_ON);
+	SDL_ShowCursor(0);
+	
+	screen = SDL_SetVideoMode(800, 600, video_bpp, videoflags);
+	if (!screen) {
+		throw TGen::RuntimeException("main", "failed to set video mode: ") << SDL_GetError();
+		//SDL_Quit();
+	}
+	
+	
+	SDL_GetRelativeMouseState(NULL, NULL);
+	
+	SDL_Event event;
+	gApp = new App;
+	std::cout << "======================== running ========================" << std::endl;
+	
+	while (gApp->isRunning()) {
+		int events = 0;
 		
-		SDL_Surface * screen = NULL;
-		Uint8 video_bpp = 0;
-		
-		if (SDL_Init(initflags) < 0)
-			throw TGen::RuntimeException("main", "failed to initialize SDL: ") << SDL_GetError();
-		
-		SDL_GL_SetAttribute (SDL_GL_DEPTH_SIZE, 16);
-		SDL_GL_SetAttribute (SDL_GL_DOUBLEBUFFER, 1);
-		SDL_WM_SetCaption("TGen 'The Quaker' demo", NULL);
-		//SDL_GrabMode(SDL_GRAB_ON);
-		SDL_WM_GrabInput(SDL_GRAB_ON);
-		SDL_ShowCursor(0);
-		
-		screen = SDL_SetVideoMode(800, 600, video_bpp, videoflags);
-		if (!screen) {
-			throw TGen::RuntimeException("main", "failed to set video mode: ") << SDL_GetError();
-			//SDL_Quit();
-		}
-		
-		
-		SDL_GetRelativeMouseState(NULL, NULL);
-		
-		SDL_Event event;
-		gApp = new App;
-		std::cout << "======================== running ========================" << std::endl;
-		
-		while (gApp->isRunning()) {
-			int events = 0;
-			
-			while (SDL_PollEvent(&event) && events < 100) {
-				switch (event.type) {
-					case SDL_KEYDOWN:
-						gApp->KeyDown(event.key.keysym);
-						break;
-						
-					case SDL_KEYUP:
-						gApp->KeyUp(event.key.keysym);					
-						break;
-						
-					case SDL_MOUSEMOTION:
-						gApp->MouseMove(event.motion);
-						break;
-						
-					case SDL_QUIT:
-						gApp->Quit();
-						break;
-						
-				}
-				
-				events++;
-			}
-			
-			gApp->Update();
-			gApp->Render();
-		}
-		
-		std::cout << "===================== shutting down =====================" << std::endl;
-		
-		delete gApp;
-		
-		/*done = 0;
-		while ( !done ) {
-			
-			while ( SDL_PollEvent(&event) ) {
-				switch (event.type) {
+		while (SDL_PollEvent(&event) && events < 100) {
+			switch (event.type) {
+				case SDL_KEYDOWN:
+					gApp->KeyDown(event.key.keysym);
+					break;
 					
-					case SDL_MOUSEMOTION:
-						break;
-					case SDL_MOUSEBUTTONDOWN:
-						break;
-					case SDL_KEYDOWN:
-					case SDL_QUIT:
-						done = 1;
-						break;
-					default:
-						break;
-				}
+				case SDL_KEYUP:
+					gApp->KeyUp(event.key.keysym);					
+					break;
+					
+				case SDL_MOUSEMOTION:
+					gApp->MouseMove(event.motion);
+					break;
+					
+				case SDL_QUIT:
+					gApp->Quit();
+					break;
+					
+			}
+			
+			events++;
+		}
+		
+		gApp->Update();
+		gApp->Render();
+	}
+	
+	std::cout << "===================== shutting down =====================" << std::endl;
+	
+	// void Map_Traverse(scene::Node& root, const scene::Traversable::Walker& walker);
+
+	/*
+	 class entity_updateworldspawn : public scene::Traversable::Walker
+	 {
+public:
+		 bool pre(scene::Node& node) const, void post
+
+		 */
+	
+	delete gApp;
+	
+	/*done = 0;
+	while ( !done ) {
+		
+		while ( SDL_PollEvent(&event) ) {
+			switch (event.type) {
+				
+				case SDL_MOUSEMOTION:
+					break;
+				case SDL_MOUSEBUTTONDOWN:
+					break;
+				case SDL_KEYDOWN:
+				case SDL_QUIT:
+					done = 1;
+					break;
+				default:
+					break;
 			}
 		}
-		*/
-		
-		SDL_Quit();
-		
-		return EXIT_SUCCESS;
+	}
+	*/
+	
+	SDL_Quit();
+	
+	return EXIT_SUCCESS;
 }
 
 

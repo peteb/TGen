@@ -11,6 +11,7 @@
 #define _THEQUAKER_BSP_H
 
 #include "scenenode.h"
+#include <map>
 
 class BSPTree;
 
@@ -55,16 +56,21 @@ public:
 	
 	void AddToList(RenderList & list);
 	void AddSurface(const Surface & surf);
+	void Print(int level);
 	
 	typedef std::vector<Surface> SurfaceList;
 	SurfaceList surfaces;
+	
+	int index;
+	std::vector<int> faces;
 };
 
 class BSPNode {
 public:	
 	BSPNode();
 
-	void Traverse(const TGen::Vector3 & position, RenderList & list);
+	void Traverse(const TGen::Vector3 & position, RenderList & list, int level = 0);
+	void Print(std::string name = "root", int level = 0);
 	
 	TGen::Plane3 plane;
 	BSPNode * front, * back;

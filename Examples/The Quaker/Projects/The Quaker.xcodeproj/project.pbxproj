@@ -94,6 +94,12 @@
 		D072273A0C4BC09C00E6E64B /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227360C4BC09C00E6E64B /* libjpeg.a */; };
 		D072273B0C4BC09C00E6E64B /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227370C4BC09C00E6E64B /* libpng12.a */; };
 		D072273C0C4BC09C00E6E64B /* libode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D07227380C4BC09C00E6E64B /* libode.a */; };
+		D07A31290C66F204009CABCA /* area.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07A31270C66F204009CABCA /* area.h */; };
+		D07A312A0C66F204009CABCA /* area.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A31280C66F204009CABCA /* area.cpp */; };
+		D07A31390C66F4C7009CABCA /* areageometry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07A31370C66F4C7009CABCA /* areageometry.h */; };
+		D07A313A0C66F4C7009CABCA /* areageometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A31380C66F4C7009CABCA /* areageometry.cpp */; };
+		D07A314F0C66F62A009CABCA /* vertexchunk.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D07A314D0C66F62A009CABCA /* vertexchunk.h */; };
+		D07A31500C66F62A009CABCA /* vertexchunk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A314E0C66F62A009CABCA /* vertexchunk.cpp */; };
 		D0A9CEEC0C4E62B400D7DFDB /* app.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9CEEA0C4E62B400D7DFDB /* app.h */; };
 		D0A9D0320C4E66BA00D7DFDB /* renderlist.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D0300C4E66BA00D7DFDB /* renderlist.h */; };
 		D0A9D0670C4E6CC000D7DFDB /* surface.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0A9D0650C4E6CC000D7DFDB /* surface.h */; };
@@ -125,6 +131,9 @@
 		D0EF94140C60E62B00A474F5 /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06DBB3B0C52450A00C10D29 /* mesh.cpp */; };
 		D0EF94A50C60EEC000A474F5 /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9CEEB0C4E62B400D7DFDB /* app.cpp */; };
 		D0EF982D0C612E0D00A474F5 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
+		D0FECB1A0C688EC700B6AEA5 /* test.bsp in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0FECB190C688EC700B6AEA5 /* test.bsp */; };
+		D0FED3EB0C6A6AB700B6AEA5 /* bannertest.bsp in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0FED3EA0C6A6AB700B6AEA5 /* bannertest.bsp */; };
+		D0FED4010C6A702600B6AEA5 /* spacemap.bsp in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0FED4000C6A702600B6AEA5 /* spacemap.bsp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -261,6 +270,12 @@
 				D06DD36C0C52A98C00C10D29 /* flare.jpg in CopyFiles */,
 				D06DD4440C52AB6200C10D29 /* black.jpg in CopyFiles */,
 				D06DD6860C52B83A00C10D29 /* smallfont.tga in CopyFiles */,
+				D07A31290C66F204009CABCA /* area.h in CopyFiles */,
+				D07A31390C66F4C7009CABCA /* areageometry.h in CopyFiles */,
+				D07A314F0C66F62A009CABCA /* vertexchunk.h in CopyFiles */,
+				D0FECB1A0C688EC700B6AEA5 /* test.bsp in CopyFiles */,
+				D0FED3EB0C6A6AB700B6AEA5 /* bannertest.bsp in CopyFiles */,
+				D0FED4010C6A702600B6AEA5 /* spacemap.bsp in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +376,12 @@
 		D07227360C4BC09C00E6E64B /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
 		D07227370C4BC09C00E6E64B /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
 		D07227380C4BC09C00E6E64B /* libode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libode.a; sourceTree = "<group>"; };
+		D07A31270C66F204009CABCA /* area.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = area.h; sourceTree = "<group>"; };
+		D07A31280C66F204009CABCA /* area.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = area.cpp; sourceTree = "<group>"; };
+		D07A31370C66F4C7009CABCA /* areageometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = areageometry.h; sourceTree = "<group>"; };
+		D07A31380C66F4C7009CABCA /* areageometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = areageometry.cpp; sourceTree = "<group>"; };
+		D07A314D0C66F62A009CABCA /* vertexchunk.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = vertexchunk.h; sourceTree = "<group>"; };
+		D07A314E0C66F62A009CABCA /* vertexchunk.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexchunk.cpp; sourceTree = "<group>"; };
 		D0A9CEEA0C4E62B400D7DFDB /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
 		D0A9CEEB0C4E62B400D7DFDB /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
 		D0A9D0300C4E66BA00D7DFDB /* renderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = renderlist.h; sourceTree = "<group>"; };
@@ -388,6 +409,9 @@
 		D0EF934F0C60E4FB00A474F5 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = SOURCE_ROOT; };
 		D0EF935E0C60E51E00A474F5 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D0EF93790C60E57600A474F5 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D0FECB190C688EC700B6AEA5 /* test.bsp */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.bsp; sourceTree = "<group>"; };
+		D0FED3EA0C6A6AB700B6AEA5 /* bannertest.bsp */ = {isa = PBXFileReference; lastKnownFileType = file; path = bannertest.bsp; sourceTree = "<group>"; };
+		D0FED4000C6A702600B6AEA5 /* spacemap.bsp */ = {isa = PBXFileReference; lastKnownFileType = file; path = spacemap.bsp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -455,6 +479,12 @@
 				D06DB8230C523A4E00C10D29 /* bsploader.h */,
 				D06DBB3B0C52450A00C10D29 /* mesh.cpp */,
 				D06DBB3A0C52450A00C10D29 /* mesh.h */,
+				D07A31280C66F204009CABCA /* area.cpp */,
+				D07A31270C66F204009CABCA /* area.h */,
+				D07A31380C66F4C7009CABCA /* areageometry.cpp */,
+				D07A31370C66F4C7009CABCA /* areageometry.h */,
+				D07A314E0C66F62A009CABCA /* vertexchunk.cpp */,
+				D07A314D0C66F62A009CABCA /* vertexchunk.h */,
 			);
 			name = Source;
 			path = ../Source;
@@ -504,6 +534,7 @@
 		D0A9D7400C4E8D8900D7DFDB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0FECB190C688EC700B6AEA5 /* test.bsp */,
 				D06DB7650C52321400C10D29 /* q3dm17.bsp */,
 				D0EE62F90C50F21F00D55B42 /* metalfloor_wall_15ow.tga */,
 				D06DC8DA0C5282B400C10D29 /* stars_ss_31.jpg */,
@@ -582,6 +613,8 @@
 				D06DCE2B0C52954F00C10D29 /* bouncepad01b_layer1.jpg */,
 				D06DCE300C52955C00C10D29 /* jumppadsmall.jpg */,
 				D06DD6850C52B83A00C10D29 /* smallfont.tga */,
+				D0FED3EA0C6A6AB700B6AEA5 /* bannertest.bsp */,
+				D0FED4000C6A702600B6AEA5 /* spacemap.bsp */,
 				D0EE62FA0C50F21F00D55B42 /* test.shader */,
 			);
 			name = Resources;
@@ -670,6 +703,9 @@
 				D0EF94130C60E62B00A474F5 /* bsploader.cpp in Sources */,
 				D0EF94140C60E62B00A474F5 /* mesh.cpp in Sources */,
 				D0EF93E60C60E5C400A474F5 /* SDLMain.m in Sources */,
+				D07A312A0C66F204009CABCA /* area.cpp in Sources */,
+				D07A313A0C66F4C7009CABCA /* areageometry.cpp in Sources */,
+				D07A31500C66F62A009CABCA /* vertexchunk.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

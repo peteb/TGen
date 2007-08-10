@@ -40,6 +40,7 @@ App::App()
 	, moveBack(false)
 	, moveLeft(false)
 	, moveRight(false)
+	, objectsRender(-1)
 {
 	std::cout << "[app]: initializing..." << std::endl;
 	
@@ -69,19 +70,20 @@ App::App()
 	BSPLoader bspLoader;
 	
 	std::ifstream file;
-	file.open("q3dm17.bsp", std::ios::in | std::ios::binary);
+	file.open("spacemap.bsp", std::ios::in | std::ios::binary);
 	bspLoader.Parse(file);
 	file.close();
 
 	resources->LoadMaterials("test.shader");
 	
 	level = bspLoader.CreateTree(*renderer, *resources);
+	level->root->Print();
 	
 	//if (!level)
 	//	throw TGen::RuntimeException("App::App", "failed to load bsp!");
 	
 	scene->getSceneRoot()->AddChild(level);	
-	
+	// ändra level och i CreateTree bara till NewBSPTree
 	myCube = new Cube(*renderer);
 	
 	cubeNode = new SceneNode("cubenode");
@@ -231,8 +233,10 @@ void App::Render() {
 
 
 	cubeNode->setOrientation(newOrientation);
+	//cubeNode->setPosition(camera->getPosition() + TGen::Vector3(0.0f, 0.0f, 2.0f));
 	
-	renderer->clearBuffers(TGen::DepthBuffer /*| TGen::ColorBuffer*/);
+	renderer->setClearColor(TGen::Color::Red);
+	renderer->clearBuffers(TGen::DepthBuffer | TGen::ColorBuffer);
 	
 
 
@@ -242,7 +246,7 @@ void App::Render() {
 	if (scene) scene->getSceneRoot()->Accept(nodeRenderer);
 	
 	renderList.Sort();
-	renderList.Render(*renderer, *camera);
+	renderList.Render(*renderer, *camera, objectsRender);
 	renderList.Clear();
 	
 	
@@ -269,6 +273,7 @@ void App::Render() {
 	
 	
 	SDL_GL_SwapBuffers();
+	SDL_Delay(20);
 	frames++;
 }
 
@@ -320,6 +325,14 @@ void App::KeyDown(const SDL_keysym & keysym) {
 			
 		case SDLK_d:
 			moveRight = true;
+			break;
+			
+		case SDLK_h:
+			objectsRender++;
+			break;
+			
+		case SDLK_g:
+			objectsRender--;
 			break;
 	}
 }

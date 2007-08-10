@@ -62,6 +62,7 @@ private:
 	scalar time;
 	
 	bool moveForward, moveBack, moveLeft, moveRight;
+	int objectsRender;
 	
 	Cube * myCube;
 };

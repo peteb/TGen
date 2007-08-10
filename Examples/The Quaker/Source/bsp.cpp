@@ -71,7 +71,7 @@ void BSPGeometry::render(TGen::Renderer & renderer) const {
 	//glCullFace(GL_FRONT);
 	//if (polygon)
 	
-	glDisable(GL_CULL_FACE);
+	//glDisable(GL_CULL_FACE);
 	
 	TGen::PrimitiveType type = TGen::PrimitiveTriangles;
 	if (wire) {
@@ -127,30 +127,68 @@ void BSPTree::getNodes(const Camera & camera, RenderList & list) {
 		root->Traverse(camera.getPosition(), list);
 }
 
-void BSPNode::Traverse(const TGen::Vector3 & position, RenderList & list) {
-	if (!front && !back) {
-//		if (leaf1) leaf1->AddToList(list);
-//		if (leaf2) leaf2->AddToList(list);
-		
-	}
+void BSPNode::Traverse(const TGen::Vector3 & position, RenderList & list, int level) {
+	if (!front && !back && !leaf1 && !leaf2)
+		return;
 	
-
+	/*if (!front && !back) {
+		if (leaf1) leaf1->AddToList(list);
+		if (leaf2) leaf2->AddToList(list);
+		return;
+	}*/
+	
+	std::string levelName;
+	for (int i = 0; i < level; ++i)
+		levelName += "   ";
+	
+	//std::cout << levelName << this << std::endl;
+	
 	scalar location = plane.getPointSide(position);
 	
 	if (location > 0.0) {
-		if (back) back->Traverse(position, list);
+	//	std::cout << levelName << "   front: " << std::endl;
+		if (back) back->Traverse(position, list, level + 1);
 		if (leaf1) leaf1->AddToList(list);
 		if (leaf2) leaf2->AddToList(list);
-		if (front) front->Traverse(position, list);
+		if (front) front->Traverse(position, list, level + 1);
 	}
 	else if (location < 0.0) {
-		if (front) front->Traverse(position, list);
+	//	std::cout << levelName << "   back: " << std::endl;
+		if (front) front->Traverse(position, list, level + 1);
 		if (leaf1) leaf1->AddToList(list);
 		if (leaf2) leaf2->AddToList(list);
-		if (back) back->Traverse(position, list);
+		if (back) back->Traverse(position, list, level + 1);
 	}
 	else {
-		if (back) back->Traverse(position, list);
-		if (front) front->Traverse(position, list);
+	//	std::cout << levelName << "   intersect: " << std::endl;
+		if (back) back->Traverse(position, list, level + 1);
+		if (front) front->Traverse(position, list, level + 1);
 	}
 }
+
+void BSPNode::Print(std::string name, int level) {
+	std::string levelName;
+	for (int i = 0; i < level; ++i)
+		levelName += "   ";
+	
+	std::cout << levelName << name << " node" << std::endl;
+	if (leaf1) leaf1->Print(level + 1);
+	if (leaf2) leaf2->Print(level + 1);
+	if (front) front->Print("front", level + 1);
+	if (back) back->Print("back", level + 1);
+	
+	
+}
+
+void BSPLeaf::Print(int level) {
+	std::string levelName;
+	for (int i = 0; i < level; ++i)
+		levelName += "   ";
+
+	std::cout << levelName << "leaf " << index << ": " << surfaces.size() << " surfaces:" << std::endl;
+	
+	for (int i = 0; i < faces.size(); ++i)
+		std::cout << levelName << "   " << faces[i] << std::endl;
+	
+}
+

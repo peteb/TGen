@@ -34,7 +34,8 @@ public:
 	SceneNode * getSceneNode() const;
 	TGen::Vector3 getMin() const;
 	TGen::Vector3 getMax() const;
-	
+	Geometry * getGeometry() const;
+
 private:
 	std::string materialName;
 	TGen::Material * material;

@@ -37,9 +37,8 @@ public:
 		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
 		
 		vb = renderer.createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
-		vb->bufferData(vertices, sizeof(MyVertex::Type) * 4, 0);
-		
 		ib = renderer.createIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
+		vb->bufferData(vertices, sizeof(MyVertex::Type) * 4, 0);		
 		ib->bufferData(indicies, sizeof(MyIndex::Type) * 6, 0);		
 	}
 	

@@ -23,9 +23,7 @@ RenderList::~RenderList() {
 	
 }
 
-void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
-	std::cout << "surfaces to render: " << surfaces.size() << std::endl;
-	
+void RenderList::Render(TGen::Renderer & renderer, const Camera & camera, int num) {
 	TGen::Matrix4x4 baseMat = camera.getTransform();
 	renderer.setTransform(TGen::TransformProjection, camera.getProjection());
 	
@@ -33,12 +31,15 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 	TGen::Material * lastMaterial = NULL;
 	
 	static float surfers = 0.0f;
-	surfers += 0.01f;
+	surfers += 0.001f;
 	
-	int surfs = surfers;
+	int surfs = num;
 	
-	//if (surfs > surfaces.size())
+	if (surfs > surfaces.size() || num == -1)
 		surfs = surfaces.size();
+	
+	std::cout << "surfaces to render: " << surfs << std::endl;
+	
 	
 	for (int i = 0; i < surfs; ++i) {
 		SceneNode * thisNode = surfaces[i]->getSceneNode();
@@ -53,11 +54,17 @@ void RenderList::Render(TGen::Renderer & renderer, const Camera & camera) {
 }
 
 void RenderList::AddSurface(const Surface * surface) {
+	if (surfacesAdded.find(surface->getGeometry()) != surfacesAdded.end())
+		return;
+	
+	surfacesAdded.insert(surface->getGeometry());
+		
 	surfaces.push_back(surface);
 }
 
 void RenderList::Clear() {
 	surfaces.clear();  // Testa nu: vanliga material-batchningen men transparenter blir egna objekt. sen sorteras allt med radix
+	surfacesAdded.clear();
 }
 
 void RenderList::Sort() {

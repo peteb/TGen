@@ -25,6 +25,7 @@ enum BSPLumps {
 	BSPLumpPlanes = 2,
 	BSPLumpLeaves = 4,
 	BSPLumpLeafFaces = 5,
+	BSPLumpEntities = 0,
 };
 
 enum BSPFaceType {
@@ -49,6 +50,7 @@ public:
 	void CreateNodes(TGen::Renderer & renderer, BSPNode * node, int nodeIndex, SurfaceLinker & linker);
 	void CreateLeaf(TGen::Renderer & renderer, BSPLeaf * leaf, BSPNode * node, int leafIndex, SurfaceLinker & linker);
 	void CreateFace(TGen::Renderer & renderer, BSPLeaf * leaf, BSPNode * node, int faceIndex, SurfaceLinker & linker);
+	void CreateFaces(TGen::Renderer & renderer, BSPNode * node);
 	
 	void ReadHeader(std::ifstream & file);
 	void ReadTextures(std::ifstream & file);
@@ -59,6 +61,7 @@ public:
 	void ReadPlanes(std::ifstream & file);
 	void ReadLeaves(std::ifstream & file);
 	void ReadLeafFaces(std::ifstream & file);
+	void ReadEntities(std::ifstream & file);
 	
 	const StringList & getTextures() const;
 	
@@ -68,8 +71,12 @@ private:
 	typedef TGen::JoinVertex5<TGen::Vertex3<float>, TGen::TexCoord2<float, 0>, TGen::TexCoord2<float, 1>, TGen::Normal3<float>, TGen::Color4<uint8> > MyVertex;
 	typedef TGen::Index<uint> MyIndex;
 	typedef std::map<std::string, std::vector<MyIndex::Type> > IndexMap;
-	
+	typedef std::map<int, bool> FaceAddedMap;
+
+	FaceAddedMap facesAdded;
 	StringList materialDeps;
+	
+	BSPGeometry ** loadedFaces;
 	
 	TGen::Vector3 getQuadratic(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2, scalar t);
 	const scalar SCALE;
@@ -186,6 +193,7 @@ private:
 	Plane * planes;
 	Leaf * leaves;
 	LeafFace * leafFaces;
+	char * entities;
 	
 	int numTextures, numFaces, numVertices, numMeshverts, numNodes, numPlanes, numLeaves, numLeafFaces;
 };

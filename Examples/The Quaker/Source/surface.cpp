@@ -47,11 +47,13 @@ void Surface::Link(SurfaceLinker & linker) {
 }
 
 void Surface::prepareRender(TGen::Renderer & renderer) const {
-	geometry->prepareRender(renderer);
+	if (geometry)
+		geometry->prepareRender(renderer);
 }
 
 void Surface::render(TGen::Renderer & renderer) const {
-	geometry->render(renderer);
+	if (geometry)
+		geometry->render(renderer);
 }
 
 TGen::Vector3 Surface::getMin() const {
@@ -65,3 +67,8 @@ TGen::Vector3 Surface::getMax() const {
 SceneNode * Surface::getSceneNode() const {
 	return sceneNode;
 }
+
+Geometry * Surface::getGeometry() const {
+	return geometry;
+}
+

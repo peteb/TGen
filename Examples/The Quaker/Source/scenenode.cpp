@@ -103,6 +103,8 @@ void SceneNode::AddChild(SceneNode * node) {
 	node->Attached(this);
 }
 
+// TODO: en SceneNode's bounding volume ska innehålla dess barn också
+
 void SceneNode::RemoveChild(SceneNode * node) {
 	SceneNodeList::iterator iter = children.begin();
 	for (; iter != children.end(); ++iter) {

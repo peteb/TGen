@@ -12,6 +12,7 @@
 
 #include <tgen_graphics.h>
 #include "surface.h"
+#include <set>
 
 class Camera;
 
@@ -25,14 +26,16 @@ public:
 	RenderList();
 	~RenderList();
 	
-	void Render(TGen::Renderer & renderer, const Camera & camera);
+	void Render(TGen::Renderer & renderer, const Camera & camera, int num = -1);
 	void AddSurface(const Surface * surface);
 	void Clear();
 	void Sort();
 	
 private:
 	typedef std::vector<const Surface *> SurfaceList; 
+	typedef std::set<const Geometry *> SurfaceSet;
 	
+	SurfaceSet surfacesAdded;
 	SurfaceList surfaces;
 };
 
