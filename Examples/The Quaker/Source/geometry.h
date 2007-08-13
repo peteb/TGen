@@ -17,7 +17,7 @@ public:
 	Geometry() {}
 	virtual ~Geometry() {}
 	
-	virtual void prepareRender(TGen::Renderer & renderer) const abstract; // once per geometry
+	virtual void preRender(TGen::Renderer & renderer) const abstract; // once per geometry
 	virtual void render(TGen::Renderer & renderer) const abstract; // once per pass
 	virtual TGen::Vector3 getMax() const abstract;
 	virtual TGen::Vector3 getMin() const abstract;

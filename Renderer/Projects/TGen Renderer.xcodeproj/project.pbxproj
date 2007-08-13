@@ -11,6 +11,14 @@
 		8DD76F6A0486A84900D96B5E /* TGen Renderer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Renderer.1 */; };
 		D0F3713E0C6D02EB00C11F87 /* tgen_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */; };
 		D0F371430C6D02F800C11F87 /* tgen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F371420C6D02F800C11F87 /* tgen_renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */; };
+		D0F50B3E0C6FB302005DB68D /* geometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50B3D0C6FB302005DB68D /* geometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F50CCC0C707E64005DB68D /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50CCB0C707E64005DB68D /* camera.h */; };
+		D0F50CCE0C707E6F005DB68D /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50CCD0C707E6F005DB68D /* camera.cpp */; };
+		D0F50CD60C707ED2005DB68D /* scenenode.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50CD50C707ED2005DB68D /* scenenode.h */; };
+		D0F50CD80C707EDA005DB68D /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50CD70C707EDA005DB68D /* scenenode.cpp */; };
+		D0F50DD60C7097B7005DB68D /* face.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50DD50C7097B7005DB68D /* face.h */; };
+		D0F50DD80C7097C1005DB68D /* face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50DD70C7097C1005DB68D /* face.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -18,8 +26,71 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D0F371390C6D02CE00C11F87 /* tgen_renderer */;
+			remoteGlobalIDString = D0F371390C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
+		};
+		D0F371B00C6D057000C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Math";
+		};
+		D0F371B20C6D057000C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
+			remoteInfo = tgen_math;
+		};
+		D0F371B90C6D057400C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Core";
+		};
+		D0F371BB0C6D057400C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
+			remoteInfo = tgen_core;
+		};
+		D0F371C20C6D057D00C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Graphics";
+		};
+		D0F371C40C6D057D00C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D00FF6CC0C39391D00668773;
+			remoteInfo = tgen_graphics;
+		};
+		D0F371C60C6D058800C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978;
+			remoteInfo = tgen_math;
+		};
+		D0F371C80C6D058800C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
+			remoteInfo = tgen_core;
+		};
+		D0F371CA0C6D058800C11F87 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D00FF6CB0C39391D00668773;
+			remoteInfo = tgen_graphics;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -40,9 +111,19 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/Test/main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Renderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Renderer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Renderer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Renderer.1"; sourceTree = "<group>"; };
-		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libtgen_renderer.a; path = build/Debug/libtgen_renderer.a; sourceTree = "<group>"; };
+		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
+		D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core.xcodeproj"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Graphics.xcodeproj"; path = "../../Graphics/Projects/TGen Graphics.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F50B3D0C6FB302005DB68D /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geometry.h; path = Include/geometry.h; sourceTree = "<group>"; };
+		D0F50CCB0C707E64005DB68D /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = Include/camera.h; sourceTree = "<group>"; };
+		D0F50CCD0C707E6F005DB68D /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = Source/camera.cpp; sourceTree = "<group>"; };
+		D0F50CD50C707ED2005DB68D /* scenenode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenenode.h; path = Include/scenenode.h; sourceTree = "<group>"; };
+		D0F50CD70C707EDA005DB68D /* scenenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scenenode.cpp; path = Source/scenenode.cpp; sourceTree = "<group>"; };
+		D0F50DD50C7097B7005DB68D /* face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = face.h; path = Include/face.h; sourceTree = "<group>"; };
+		D0F50DD70C7097C1005DB68D /* face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = face.cpp; path = Source/face.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,6 +162,12 @@
 				D0F371220C6D024400C11F87 /* Test */,
 				D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */,
 				D0F371420C6D02F800C11F87 /* tgen_renderer.h */,
+				D0F50B3D0C6FB302005DB68D /* geometry.h */,
+				D0F50DD70C7097C1005DB68D /* face.cpp */,
+				D0F50DD50C7097B7005DB68D /* face.h */,
+				D0F371A20C6D049500C11F87 /* bsp */,
+				D0F371A30C6D049C00C11F87 /* md3 */,
+				D0F371A40C6D04AF00C11F87 /* Scene Graph */,
 			);
 			name = Renderer;
 			path = ..;
@@ -112,9 +200,64 @@
 		D0F371550C6D034500C11F87 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */,
+				D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */,
+				D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */,
 				D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */,
 			);
 			name = Dependencies;
+			sourceTree = "<group>";
+		};
+		D0F371A20C6D049500C11F87 /* bsp */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = bsp;
+			sourceTree = "<group>";
+		};
+		D0F371A30C6D049C00C11F87 /* md3 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = md3;
+			sourceTree = "<group>";
+		};
+		D0F371A40C6D04AF00C11F87 /* Scene Graph */ = {
+			isa = PBXGroup;
+			children = (
+				D0F50CCD0C707E6F005DB68D /* camera.cpp */,
+				D0F50CCB0C707E64005DB68D /* camera.h */,
+				D0F50CD70C707EDA005DB68D /* scenenode.cpp */,
+				D0F50CD50C707ED2005DB68D /* scenenode.h */,
+			);
+			name = "Scene Graph";
+			sourceTree = "<group>";
+		};
+		D0F371AC0C6D057000C11F87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0F371B10C6D057000C11F87 /* TGen Math */,
+				D0F371B30C6D057000C11F87 /* libtgen_math.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0F371B50C6D057400C11F87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0F371BA0C6D057400C11F87 /* TGen Core */,
+				D0F371BC0C6D057400C11F87 /* libtgen_core.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0F371BE0C6D057D00C11F87 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0F371C30C6D057D00C11F87 /* TGen Graphics */,
+				D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +268,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F371430C6D02F800C11F87 /* tgen_renderer.h in Headers */,
+				D0F50B3E0C6FB302005DB68D /* geometry.h in Headers */,
+				D0F50CCC0C707E64005DB68D /* camera.h in Headers */,
+				D0F50CD60C707ED2005DB68D /* scenenode.h in Headers */,
+				D0F50DD60C7097B7005DB68D /* face.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,6 +308,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0F371C70C6D058800C11F87 /* PBXTargetDependency */,
+				D0F371C90C6D058800C11F87 /* PBXTargetDependency */,
+				D0F371CB0C6D058800C11F87 /* PBXTargetDependency */,
 			);
 			name = tgen_renderer;
 			productName = tgen_renderer;
@@ -176,12 +326,71 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* TGen Renderer */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D0F371B50C6D057400C11F87 /* Products */;
+					ProjectRef = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+				},
+				{
+					ProductGroup = D0F371BE0C6D057D00C11F87 /* Products */;
+					ProjectRef = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
+				},
+				{
+					ProductGroup = D0F371AC0C6D057000C11F87 /* Products */;
+					ProjectRef = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+				},
+			);
 			targets = (
 				8DD76F620486A84900D96B5E /* TGen Renderer */,
 				D0F371390C6D02CE00C11F87 /* tgen_renderer */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D0F371B10C6D057000C11F87 /* TGen Math */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Math";
+			remoteRef = D0F371B00C6D057000C11F87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0F371B30C6D057000C11F87 /* libtgen_math.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_math.a;
+			remoteRef = D0F371B20C6D057000C11F87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0F371BA0C6D057400C11F87 /* TGen Core */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Core";
+			remoteRef = D0F371B90C6D057400C11F87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0F371BC0C6D057400C11F87 /* libtgen_core.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_core.a;
+			remoteRef = D0F371BB0C6D057400C11F87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0F371C30C6D057D00C11F87 /* TGen Graphics */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Graphics";
+			remoteRef = D0F371C20C6D057D00C11F87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_graphics.a;
+			remoteRef = D0F371C40C6D057D00C11F87 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DD76F640486A84900D96B5E /* Sources */ = {
@@ -197,6 +406,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0F3713E0C6D02EB00C11F87 /* tgen_renderer.cpp in Sources */,
+				D0F50CCE0C707E6F005DB68D /* camera.cpp in Sources */,
+				D0F50CD80C707EDA005DB68D /* scenenode.cpp in Sources */,
+				D0F50DD80C7097C1005DB68D /* face.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,6 +419,21 @@
 			isa = PBXTargetDependency;
 			target = D0F371390C6D02CE00C11F87 /* tgen_renderer */;
 			targetProxy = D0F3714F0C6D033200C11F87 /* PBXContainerItemProxy */;
+		};
+		D0F371C70C6D058800C11F87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_math;
+			targetProxy = D0F371C60C6D058800C11F87 /* PBXContainerItemProxy */;
+		};
+		D0F371C90C6D058800C11F87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_core;
+			targetProxy = D0F371C80C6D058800C11F87 /* PBXContainerItemProxy */;
+		};
+		D0F371CB0C6D058800C11F87 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_graphics;
+			targetProxy = D0F371CA0C6D058800C11F87 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -219,7 +446,19 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					../../OpenGL/Include/,
+					../../Core/Include/,
+					../../Math/Include/,
+					../../Graphics/Include/,
+					/usr/local/include/,
+				);
 				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
 				PRODUCT_NAME = "TGen Renderer";
 				ZERO_LINK = YES;
 			};
@@ -234,7 +473,19 @@
 				);
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				HEADER_SEARCH_PATHS = (
+					../../OpenGL/Include/,
+					../../Core/Include/,
+					../../Math/Include/,
+					../../Graphics/Include/,
+					/usr/local/include/,
+				);
 				INSTALL_PATH = "$(HOME)/bin";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+				);
+				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
 				PRODUCT_NAME = "TGen Renderer";
 			};
 			name = Release;
@@ -268,9 +519,17 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				HEADER_SEARCH_PATHS = (
+					../../OpenGL/Include/,
+					../../Core/Include/,
+					../../Math/Include/,
+					../../Graphics/Include/,
+				);
 				INSTALL_PATH = /usr/local/lib;
+				OTHER_CFLAGS = "-D_DEBUG";
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_renderer;
+				USER_HEADER_SEARCH_PATHS = "";
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -282,9 +541,16 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
+				HEADER_SEARCH_PATHS = (
+					../../OpenGL/Include/,
+					../../Core/Include/,
+					../../Math/Include/,
+					../../Graphics/Include/,
+				);
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_renderer;
+				USER_HEADER_SEARCH_PATHS = "";
 				ZERO_LINK = NO;
 			};
 			name = Release;

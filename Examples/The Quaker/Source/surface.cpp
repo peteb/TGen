@@ -46,9 +46,9 @@ void Surface::Link(SurfaceLinker & linker) {
 		material = linker.getMaterial(materialName);
 }
 
-void Surface::prepareRender(TGen::Renderer & renderer) const {
+void Surface::preRender(TGen::Renderer & renderer) const {
 	if (geometry)
-		geometry->prepareRender(renderer);
+		geometry->preRender(renderer);
 }
 
 void Surface::render(TGen::Renderer & renderer) const {

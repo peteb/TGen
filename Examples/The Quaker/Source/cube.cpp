@@ -55,7 +55,7 @@ Cube::~Cube() {
 }
 
 
-void Cube::prepareRender(TGen::Renderer & renderer) const {
+void Cube::preRender(TGen::Renderer & renderer) const {
 	renderer.setVertexBuffer(vb);
 	renderer.setIndexBuffer(ib);			
 }

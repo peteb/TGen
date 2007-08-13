@@ -20,7 +20,7 @@ namespace TGen {
 		Renderable() {}
 		virtual ~Renderable() {}
 		
-		virtual void prepareRender(TGen::Renderer & renderer) const abstract; // once per geometry
+		virtual void preRender(TGen::Renderer & renderer) const abstract; // once per geometry
 		virtual void render(TGen::Renderer & renderer) const abstract; // once per pass
 	};
 } // !TGen

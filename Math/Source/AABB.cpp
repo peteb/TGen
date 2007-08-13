@@ -57,3 +57,35 @@ void TGen::AABB::getCorners(TGen::Vector3 * array) const {
 	array[7] = TGen::Vector3(min.x, max.y, max.z);
 }
 
+TGen::Vector3 TGen::AABB::getMin() const {
+	return center - TGen::Vector3(width / 2.0f, height / 2.0f, depth / 2.0f);
+}
+
+TGen::Vector3 TGen::AABB::getMax() const {
+	return center + TGen::Vector3(width / 2.0f, height / 2.0f, depth / 2.0f);	
+}
+
+
+TGen::AABB & TGen::AABB::operator += (const TGen::AABB & box) {
+	TGen::Vector3 min, max;
+	TGen::Vector3 min1 = getMin();
+	TGen::Vector3 max1 = getMax();
+	TGen::Vector3 min2 = box.getMin();
+	TGen::Vector3 max2 = box.getMax();
+	
+	min.x = std::min(min1.x, min2.x);
+	min.y = std::min(min1.y, min2.y);
+	min.z = std::min(min1.z, min2.z);
+	
+	max.x = std::max(max1.x, max2.x);
+	max.y = std::max(max1.y, max2.y);
+	max.z = std::max(max1.z, max2.z);
+
+	calculate(min, max);
+	
+	return *this;
+}
+
+TGen::AABB TGen::AABB::operator + (const TGen::AABB & box) const {
+	return TGen::AABB(*this) += box;
+}

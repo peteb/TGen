@@ -21,6 +21,11 @@ namespace TGen {
 		
 		void calculate(const TGen::Vector3 & min, const TGen::Vector3 & max);
 		void getCorners(TGen::Vector3 * array) const;
+		TGen::Vector3 getMin() const;
+		TGen::Vector3 getMax() const;
+		
+		TGen::AABB & operator += (const TGen::AABB & box);
+		TGen::AABB operator + (const TGen::AABB & box) const;
 		
 		TGen::Vector3 center;
 		scalar width, height, depth;

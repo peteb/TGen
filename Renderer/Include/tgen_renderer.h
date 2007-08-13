@@ -7,12 +7,16 @@
  *
  */
 
-#ifndef _TGEN_RENDERER_H
-#define _TGEN_RENDERER_H
+#ifndef _TGEN_RENDERER_RENDERER_H
+#define _TGEN_RENDERER_RENDERER_H
 
+#include "geometry.h"
+#include "camera.h"
+#include "scenenode.h"
+#include "face.h"
 
 namespace TGen {
 	bool isRendererDebug();
 }
 
-#endif // !_TGEN_RENDERER_H
+#endif // !_TGEN_RENDERER_RENDERER_H

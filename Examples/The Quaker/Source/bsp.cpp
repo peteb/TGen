@@ -49,7 +49,7 @@ BSPNode::BSPNode()
 
 }
 
-void BSPGeometry::prepareRender(TGen::Renderer & renderer) const {
+void BSPGeometry::preRender(TGen::Renderer & renderer) const {
 	/*if (!vb)
 		renderer.setVertexBuffer(tree.vb);
 	else*/

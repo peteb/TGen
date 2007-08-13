@@ -32,7 +32,7 @@ void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	//	throw TGen::RuntimeException("PassList::Render", "no passes to render");
 	
 	TGen::Time start = TGen::Time::Now();
-	renderable.prepareRender(renderer);
+	renderable.preRender(renderer);
 	//std::cout << "prepare: " << std::fixed << TGen::Time::Now() - start << std::endl;
 	
 	start = TGen::Time::Now();

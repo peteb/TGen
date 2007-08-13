@@ -18,7 +18,7 @@ public:
 	Cube(TGen::Renderer & renderer);
 	~Cube();
 	
-	void prepareRender(TGen::Renderer & renderer) const;
+	void preRender(TGen::Renderer & renderer) const;
 	void render(TGen::Renderer & renderer) const;
 	TGen::Vector3 getMax() const;
 	TGen::Vector3 getMin() const;
