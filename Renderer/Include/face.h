@@ -11,13 +11,25 @@
 #define _TGEN_RENDERER_FACE_H
 
 #include <tgen_math.h>
+#include <string>
 
 namespace TGen {
+	class Material;
+	class MaterialSource;
+	
 	class Face {
 	public:
+		Face();
+		~Face();
 		
 		TGen::Vector3 getMin() const;
 		TGen::Vector3 getMax() const;
+		void linkMaterial(TGen::MaterialSource & source);
+		TGen::Material * getMaterial() const;
+		
+	private:
+		std::string materialName;
+		TGen::Material * material;
 	}; 
 	
 	

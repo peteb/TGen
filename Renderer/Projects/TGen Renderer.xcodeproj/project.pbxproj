@@ -13,12 +13,19 @@
 		D0F371430C6D02F800C11F87 /* tgen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F371420C6D02F800C11F87 /* tgen_renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */; };
 		D0F50B3E0C6FB302005DB68D /* geometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50B3D0C6FB302005DB68D /* geometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0F50CCC0C707E64005DB68D /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50CCB0C707E64005DB68D /* camera.h */; };
+		D0F50CCC0C707E64005DB68D /* camera.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50CCB0C707E64005DB68D /* camera.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F50CCE0C707E6F005DB68D /* camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50CCD0C707E6F005DB68D /* camera.cpp */; };
-		D0F50CD60C707ED2005DB68D /* scenenode.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50CD50C707ED2005DB68D /* scenenode.h */; };
+		D0F50CD60C707ED2005DB68D /* scenenode.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50CD50C707ED2005DB68D /* scenenode.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F50CD80C707EDA005DB68D /* scenenode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50CD70C707EDA005DB68D /* scenenode.cpp */; };
-		D0F50DD60C7097B7005DB68D /* face.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50DD50C7097B7005DB68D /* face.h */; };
+		D0F50DD60C7097B7005DB68D /* face.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50DD50C7097B7005DB68D /* face.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F50DD80C7097C1005DB68D /* face.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50DD70C7097C1005DB68D /* face.cpp */; };
+		D0F50F960C70A925005DB68D /* fpscamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F50F950C70A925005DB68D /* fpscamera.cpp */; };
+		D0F50F980C70A92E005DB68D /* fpscamera.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F50F970C70A92E005DB68D /* fpscamera.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F511210C70EE76005DB68D /* materialsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F511200C70EE76005DB68D /* materialsource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F511B00C70F3FD005DB68D /* printscene.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F511AF0C70F3FD005DB68D /* printscene.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F511B20C70F405005DB68D /* printscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F511B10C70F405005DB68D /* printscene.cpp */; };
+		D0F512010C70F50B005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371BC0C6D057400C11F87 /* libtgen_core.a */; };
+		D0F512D30C70F782005DB68D /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371B30C6D057000C11F87 /* libtgen_math.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,7 +118,7 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/Test/main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Renderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Renderer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Renderer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Renderer.1"; sourceTree = "<group>"; };
-		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libtgen_renderer.a; path = build/Debug/libtgen_renderer.a; sourceTree = "<group>"; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
 		D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -124,6 +131,11 @@
 		D0F50CD70C707EDA005DB68D /* scenenode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scenenode.cpp; path = Source/scenenode.cpp; sourceTree = "<group>"; };
 		D0F50DD50C7097B7005DB68D /* face.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = face.h; path = Include/face.h; sourceTree = "<group>"; };
 		D0F50DD70C7097C1005DB68D /* face.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = face.cpp; path = Source/face.cpp; sourceTree = "<group>"; };
+		D0F50F950C70A925005DB68D /* fpscamera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fpscamera.cpp; path = Source/fpscamera.cpp; sourceTree = "<group>"; };
+		D0F50F970C70A92E005DB68D /* fpscamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fpscamera.h; path = Include/fpscamera.h; sourceTree = "<group>"; };
+		D0F511200C70EE76005DB68D /* materialsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialsource.h; path = Include/materialsource.h; sourceTree = "<group>"; };
+		D0F511AF0C70F3FD005DB68D /* printscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = printscene.h; path = Include/printscene.h; sourceTree = "<group>"; };
+		D0F511B10C70F405005DB68D /* printscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = printscene.cpp; path = Source/printscene.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +151,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F512D30C70F782005DB68D /* libtgen_math.a in Frameworks */,
+				D0F512010C70F50B005DB68D /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -165,6 +179,7 @@
 				D0F50B3D0C6FB302005DB68D /* geometry.h */,
 				D0F50DD70C7097C1005DB68D /* face.cpp */,
 				D0F50DD50C7097B7005DB68D /* face.h */,
+				D0F511200C70EE76005DB68D /* materialsource.h */,
 				D0F371A20C6D049500C11F87 /* bsp */,
 				D0F371A30C6D049C00C11F87 /* md3 */,
 				D0F371A40C6D04AF00C11F87 /* Scene Graph */,
@@ -176,6 +191,7 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
+				D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */,
 				8DD76F6C0486A84900D96B5E /* TGen Renderer */,
 			);
 			name = Products;
@@ -203,7 +219,6 @@
 				D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */,
 				D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */,
 				D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */,
-				D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -225,10 +240,13 @@
 		D0F371A40C6D04AF00C11F87 /* Scene Graph */ = {
 			isa = PBXGroup;
 			children = (
+				D0F511A40C70F3B1005DB68D /* Walkers */,
 				D0F50CCD0C707E6F005DB68D /* camera.cpp */,
 				D0F50CCB0C707E64005DB68D /* camera.h */,
 				D0F50CD70C707EDA005DB68D /* scenenode.cpp */,
 				D0F50CD50C707ED2005DB68D /* scenenode.h */,
+				D0F50F950C70A925005DB68D /* fpscamera.cpp */,
+				D0F50F970C70A92E005DB68D /* fpscamera.h */,
 			);
 			name = "Scene Graph";
 			sourceTree = "<group>";
@@ -260,6 +278,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D0F511A40C70F3B1005DB68D /* Walkers */ = {
+			isa = PBXGroup;
+			children = (
+				D0F511B10C70F405005DB68D /* printscene.cpp */,
+				D0F511AF0C70F3FD005DB68D /* printscene.h */,
+			);
+			name = Walkers;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -272,6 +299,9 @@
 				D0F50CCC0C707E64005DB68D /* camera.h in Headers */,
 				D0F50CD60C707ED2005DB68D /* scenenode.h in Headers */,
 				D0F50DD60C7097B7005DB68D /* face.h in Headers */,
+				D0F50F980C70A92E005DB68D /* fpscamera.h in Headers */,
+				D0F511210C70EE76005DB68D /* materialsource.h in Headers */,
+				D0F511B00C70F3FD005DB68D /* printscene.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -409,6 +439,8 @@
 				D0F50CCE0C707E6F005DB68D /* camera.cpp in Sources */,
 				D0F50CD80C707EDA005DB68D /* scenenode.cpp in Sources */,
 				D0F50DD80C7097C1005DB68D /* face.cpp in Sources */,
+				D0F50F960C70A925005DB68D /* fpscamera.cpp in Sources */,
+				D0F511B20C70F405005DB68D /* printscene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

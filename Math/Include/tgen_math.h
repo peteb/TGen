@@ -25,7 +25,15 @@
 #include "sphere.h"
 
 namespace TGen {
-	bool isMathDebug();	
+	bool isMathDebug();
+	
+	template<typename T>
+	void Clamp(T & value, const T & low, const T & high) {
+		if (value < low)
+			value = low;
+		else if (value > high)
+			value = high;
+	}
 }
 
 #endif // !_TGEN_MATH_H

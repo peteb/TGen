@@ -14,6 +14,8 @@
 #include "camera.h"
 #include "scenenode.h"
 #include "face.h"
+#include "materialsource.h"
+#include "printscene.h"
 
 namespace TGen {
 	bool isRendererDebug();

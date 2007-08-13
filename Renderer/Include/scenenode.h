@@ -18,31 +18,48 @@ namespace TGen {
 	
 	class SceneNode {
 	public:
+		class Walker;
+		
 		SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
 		virtual ~SceneNode();
 		
-		virtual void update(); 
+		virtual void update();
+		void updateChildren();
 		virtual void calculateFacesBV();
 		virtual void calculateWorldBV();
 		
 		void addChild(TGen::SceneNode * node);
 		void removeChild(TGen::SceneNode * node);
 		void addFace(TGen::Face * face);
+		
 		TGen::AABB getChildrenBoundingBox() const;
 		
 		TGen::Vector3 getLocalPosition() const;
 		TGen::Quaternion4 getLocalOrientation() const;
-		
 		TGen::Vector3 getWorldPosition() const;
 		TGen::Quaternion4 getWorldOrientation() const;
 		
+		bool hasChanged() const;
 		const std::string & getName() const;
 		const TGen::Matrix4x4 & getTransform() const;		
 		const TGen::AABB & getLocalBoundingBox() const;
 		const TGen::AABB & getWorldBoundingBox() const;
 		const TGen::Sphere & getLocalBoundingSphere() const;
 		const TGen::Sphere & getWorldBoundingSphere() const;
-	
+
+		//void traverse(TGen::SceneNode::Walker & walker);
+		void traverse(const TGen::SceneNode::Walker & walker);
+
+		
+		class Walker {
+		public:
+			Walker() {}
+			virtual ~Walker() {}
+			
+			virtual bool pre(TGen::SceneNode & node) const abstract;
+			virtual void post(TGen::SceneNode & node) const {}
+		};		
+		
 	private:
 		void attached(TGen::SceneNode * parent);
 		void detached();

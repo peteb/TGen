@@ -44,9 +44,7 @@ void TGen::SceneNode::update() {
 		this->changed = true;
 	}
 	
-	for (int i = 0; i < children.size(); ++i) {
-		children[i]->update();
-	}
+	updateChildren();
 
 	if (this->changed) {
 		calculateFacesBV();
@@ -54,6 +52,12 @@ void TGen::SceneNode::update() {
 	}
 	
 	this->changed = false;	
+}
+
+void TGen::SceneNode::updateChildren() {
+	for (int i = 0; i < children.size(); ++i) {
+		children[i]->update();
+	}	
 }
 
 const std::string & TGen::SceneNode::getName() const {
@@ -185,3 +189,16 @@ void TGen::SceneNode::detached() {
 	parent = NULL;
 }
 
+bool TGen::SceneNode::hasChanged() const {
+	return changed;
+}
+
+void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
+	if (walker.pre(*this)) {
+		for (int i = 0; i < children.size(); ++i) {
+			children[i]->traverse(walker);
+		}
+	}
+	
+	walker.post(*this);
+}

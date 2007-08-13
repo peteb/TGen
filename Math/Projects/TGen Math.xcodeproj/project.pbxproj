@@ -13,7 +13,6 @@
 		D00158D90C5D6546001086D3 /* vector4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00158D80C5D6546001086D3 /* vector4.cpp */; };
 		D0015A160C5E2C35001086D3 /* quaternion4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0015A150C5E2C35001086D3 /* quaternion4.cpp */; };
 		D0015A180C5E2C42001086D3 /* quaternion4.h in Headers */ = {isa = PBXBuildFile; fileRef = D0015A170C5E2C42001086D3 /* quaternion4.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */; };
 		D0A9D2350C4E760D00D7DFDB /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2340C4E760D00D7DFDB /* AABB.cpp */; };
 		D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A9D2360C4E761E00D7DFDB /* AABB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0D89CBB0C4FA14A00ACB21A /* plane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */; };
@@ -130,7 +129,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D00FF8480C393DEC00668773 /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

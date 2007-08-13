@@ -16,14 +16,22 @@ namespace TGen {
 	class Camera : public TGen::SceneNode {
 	public:
 		Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
-		~Camera();
+		virtual ~Camera();
 		
+		void update();
+		void calculateWorldBV();
+		void setAspectRatio(scalar ratio);
+		void setFOV(const TGen::Degree & angle);
+		void setClip(scalar near, scalar far);
+		void setLOD(scalar near, scalar far);
 		
+		const TGen::Matrix4x4 & getProjection() const;
+
 	protected:
 		TGen::Degree fov;
-		scalar aspectRatio, near, far, lodNear, lodFar;
-		bool projectionNeedUpdate;
-		TGen::Matrix4x4 projectionMatrix, moveMatrix;		
+		scalar aspectRatio, clipNear, clipFar, lodNear, lodFar;
+		bool projectionChanged;
+		TGen::Matrix4x4 projectionMatrix;		
 	};	
 	
 } // !TGen
