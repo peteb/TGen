@@ -8,6 +8,7 @@
  */
 
 #include "printscene.h"
+#include "face.h"
 
 TGen::ScenePrinter::ScenePrinter(std::ostream & stream) 
 	: stream(stream)
@@ -17,10 +18,21 @@ TGen::ScenePrinter::ScenePrinter(std::ostream & stream)
 }
 
 bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
-	for (int i = 0; i < level; ++i)
-		stream << "   ";
+	std::string levelName;
 	
-	stream << node.getName() << std::endl;
+	for (int i = 0; i < level; ++i)
+		levelName += "   ";
+	
+	stream << levelName << (node.hasChanged() ? "!" : "") << node.getName();
+	stream << " [" << std::string(node.getLocalPosition()) << ", " << std::string(node.getWorldPosition()) << "]";	
+	stream << " [" << std::string(TGen::Vector3(node.getLocalOrientation())) << ", " << std::string(TGen::Vector3(node.getWorldOrientation())) << "]";
+	stream << std::endl;
+	
+	for (int i = 0; i < node.getFaces().size(); ++i) {
+		stream << levelName << "   " << i << " ";
+		stream << "[" << (node.getFaces()[i]->getMaterial() ? "" : "!") << node.getFaces()[i]->getMaterialName() << "]";
+		stream << std::endl;
+	}
 	
 	level++;
 	

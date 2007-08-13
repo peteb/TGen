@@ -16,20 +16,31 @@
 namespace TGen {
 	class Material;
 	class MaterialSource;
+	class Geometry;
+	class SceneNode;
 	
 	class Face {
 	public:
-		Face();
+		Face(TGen::Geometry * geometry, const std::string & materialName);
 		~Face();
 		
-		TGen::Vector3 getMin() const;
-		TGen::Vector3 getMax() const;
 		void linkMaterial(TGen::MaterialSource & source);
+		void unlinkMaterial();
+				
+		TGen::Geometry * getGeometry() const;
 		TGen::Material * getMaterial() const;
+		TGen::SceneNode * getSceneNode() const;
+		std::string getMaterialName() const;
+		
+		friend class TGen::SceneNode;
 		
 	private:
+		void attached(TGen::SceneNode * node);
+		
 		std::string materialName;
 		TGen::Material * material;
+		TGen::Geometry * geometry;
+		TGen::SceneNode * sceneNode;
 	}; 
 	
 	

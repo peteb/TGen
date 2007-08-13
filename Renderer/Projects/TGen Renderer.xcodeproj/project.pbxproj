@@ -24,8 +24,13 @@
 		D0F511210C70EE76005DB68D /* materialsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F511200C70EE76005DB68D /* materialsource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F511B00C70F3FD005DB68D /* printscene.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F511AF0C70F3FD005DB68D /* printscene.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F511B20C70F405005DB68D /* printscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F511B10C70F405005DB68D /* printscene.cpp */; };
-		D0F512010C70F50B005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371BC0C6D057400C11F87 /* libtgen_core.a */; };
-		D0F512D30C70F782005DB68D /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371B30C6D057000C11F87 /* libtgen_math.a */; };
+		D0F5146C0C7108B9005DB68D /* facelinker.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F5146B0C7108B9005DB68D /* facelinker.h */; };
+		D0F5146E0C7108C1005DB68D /* facelinker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F5146D0C7108C1005DB68D /* facelinker.cpp */; };
+		D0F515230C71150B005DB68D /* renderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F515220C71150B005DB68D /* renderlist.cpp */; };
+		D0F515250C711518005DB68D /* renderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F515240C711518005DB68D /* renderlist.h */; };
+		D0F516490C711A1A005DB68D /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */; };
+		D0F516B40C711CB3005DB68D /* renderfill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F516B30C711CB3005DB68D /* renderfill.cpp */; };
+		D0F516B60C711CBD005DB68D /* renderfill.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F516B50C711CBD005DB68D /* renderfill.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,7 +123,7 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/Test/main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Renderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Renderer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Renderer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Renderer.1"; sourceTree = "<group>"; };
-		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libtgen_renderer.a; path = build/Debug/libtgen_renderer.a; sourceTree = "<group>"; };
+		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
 		D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -136,6 +141,12 @@
 		D0F511200C70EE76005DB68D /* materialsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialsource.h; path = Include/materialsource.h; sourceTree = "<group>"; };
 		D0F511AF0C70F3FD005DB68D /* printscene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = printscene.h; path = Include/printscene.h; sourceTree = "<group>"; };
 		D0F511B10C70F405005DB68D /* printscene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = printscene.cpp; path = Source/printscene.cpp; sourceTree = "<group>"; };
+		D0F5146B0C7108B9005DB68D /* facelinker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = facelinker.h; path = Include/facelinker.h; sourceTree = "<group>"; };
+		D0F5146D0C7108C1005DB68D /* facelinker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = facelinker.cpp; path = Source/facelinker.cpp; sourceTree = "<group>"; };
+		D0F515220C71150B005DB68D /* renderlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderlist.cpp; path = Source/renderlist.cpp; sourceTree = "<group>"; };
+		D0F515240C711518005DB68D /* renderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderlist.h; path = Include/renderlist.h; sourceTree = "<group>"; };
+		D0F516B30C711CB3005DB68D /* renderfill.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderfill.cpp; path = Source/renderfill.cpp; sourceTree = "<group>"; };
+		D0F516B50C711CBD005DB68D /* renderfill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderfill.h; path = Include/renderfill.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F512D30C70F782005DB68D /* libtgen_math.a in Frameworks */,
-				D0F512010C70F50B005DB68D /* libtgen_core.a in Frameworks */,
+				D0F516490C711A1A005DB68D /* libtgen_graphics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +187,8 @@
 				D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */,
 				D0F371420C6D02F800C11F87 /* tgen_renderer.h */,
 				D0F50B3D0C6FB302005DB68D /* geometry.h */,
+				D0F515220C71150B005DB68D /* renderlist.cpp */,
+				D0F515240C711518005DB68D /* renderlist.h */,
 				D0F50DD70C7097C1005DB68D /* face.cpp */,
 				D0F50DD50C7097B7005DB68D /* face.h */,
 				D0F511200C70EE76005DB68D /* materialsource.h */,
@@ -283,6 +295,10 @@
 			children = (
 				D0F511B10C70F405005DB68D /* printscene.cpp */,
 				D0F511AF0C70F3FD005DB68D /* printscene.h */,
+				D0F5146D0C7108C1005DB68D /* facelinker.cpp */,
+				D0F5146B0C7108B9005DB68D /* facelinker.h */,
+				D0F516B30C711CB3005DB68D /* renderfill.cpp */,
+				D0F516B50C711CBD005DB68D /* renderfill.h */,
 			);
 			name = Walkers;
 			sourceTree = "<group>";
@@ -302,6 +318,9 @@
 				D0F50F980C70A92E005DB68D /* fpscamera.h in Headers */,
 				D0F511210C70EE76005DB68D /* materialsource.h in Headers */,
 				D0F511B00C70F3FD005DB68D /* printscene.h in Headers */,
+				D0F5146C0C7108B9005DB68D /* facelinker.h in Headers */,
+				D0F515250C711518005DB68D /* renderlist.h in Headers */,
+				D0F516B60C711CBD005DB68D /* renderfill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +460,9 @@
 				D0F50DD80C7097C1005DB68D /* face.cpp in Sources */,
 				D0F50F960C70A925005DB68D /* fpscamera.cpp in Sources */,
 				D0F511B20C70F405005DB68D /* printscene.cpp in Sources */,
+				D0F5146E0C7108C1005DB68D /* facelinker.cpp in Sources */,
+				D0F515230C71150B005DB68D /* renderlist.cpp in Sources */,
+				D0F516B40C711CB3005DB68D /* renderfill.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

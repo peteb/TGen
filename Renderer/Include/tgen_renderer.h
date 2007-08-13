@@ -16,6 +16,9 @@
 #include "face.h"
 #include "materialsource.h"
 #include "printscene.h"
+#include "facelinker.h"
+#include "renderlist.h"
+#include "renderfill.h"
 
 namespace TGen {
 	bool isRendererDebug();

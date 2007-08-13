@@ -42,7 +42,6 @@
 		D00FF6F40C39396400668773 /* vertexbuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6760C39369F00668773 /* vertexbuffer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF6F50C39396400668773 /* vertexstructure.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF6770C39369F00668773 /* vertexstructure.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF6CC0C39391D00668773 /* libtgen_graphics.a */; };
-		D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 		D01F77BB0C4D0B1C007618C6 /* q3materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01F77BA0C4D0B1C007618C6 /* q3materialparser.cpp */; };
 		D01F77BD0C4D0B27007618C6 /* q3materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01F77BC0C4D0B27007618C6 /* q3materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04270470C40FFBC004CB60C /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D04270460C40FFBC004CB60C /* generator.cpp */; };
@@ -64,6 +63,9 @@
 		D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */; };
 		D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CEF2640C3BDABE007D4B18 /* materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */; };
+		D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
+		D0F5134A0C70FC9D005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
+		D0F513540C70FCB9005DB68D /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +200,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */,
 				D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,7 +209,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D00FF8770C393E5400668773 /* libtgen_math.a in Frameworks */,
+				D0F513540C70FCB9005DB68D /* libtgen_math.a in Frameworks */,
+				D0F5134A0C70FC9D005DB68D /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,6 +9,7 @@
 
 #include "scenenode.h"
 #include "face.h"
+#include "geometry.h"
 
 TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
 	: name(name)
@@ -37,9 +38,9 @@ void TGen::SceneNode::update() {
 		TGen::Quaternion4 result = orientation * front * -orientation;
 		
 		if (parent)
-			this->transform = parent->getTransform() * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(result, up);
+			this->transform = parent->getTransform() * TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up);
 		else
-			this->transform = TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(result, up);
+			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up);
 		
 		this->changed = true;
 	}
@@ -100,6 +101,10 @@ const TGen::Sphere & TGen::SceneNode::getWorldBoundingSphere() const {
 	return worldBoundingSphere;
 }
 
+const TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() const {
+	return faces;
+}
+
 void TGen::SceneNode::addChild(TGen::SceneNode * node) {
 	children.push_back(node);
 	node->attached(this);
@@ -118,20 +123,32 @@ void TGen::SceneNode::removeChild(TGen::SceneNode * node) {
 
 void TGen::SceneNode::addFace(TGen::Face * face) {
 	faces.push_back(face);
+	face->attached(this);
 }
 
 
 void TGen::SceneNode::calculateFacesBV() {
 	TGen::Vector3 min, max;
+	bool first = true;
 	
 	for (int i = 0; i < faces.size(); ++i) {
-		min.x = std::min(faces[i]->getMin().x, min.x);
-		min.y = std::min(faces[i]->getMin().y, min.y);
-		min.z = std::min(faces[i]->getMin().z, min.z);
+		TGen::Geometry * geom = faces[i]->getGeometry();
+		assert(geom);
 		
-		max.x = std::max(faces[i]->getMax().x, max.x);
-		max.y = std::max(faces[i]->getMax().y, max.y);
-		max.z = std::max(faces[i]->getMax().z, max.z);
+		if (first) {
+			min = geom->getMin();
+			max = geom->getMax();
+			first = false;
+		}
+		else {
+			min.x = std::min(geom->getMin().x, min.x);
+			min.y = std::min(geom->getMin().y, min.y);
+			min.z = std::min(geom->getMin().z, min.z);
+		
+			max.x = std::max(geom->getMax().x, max.x);
+			max.y = std::max(geom->getMax().y, max.y);
+			max.z = std::max(geom->getMax().z, max.z);
+		}
 	}
 	
 	TGen::AABB local(min, max);

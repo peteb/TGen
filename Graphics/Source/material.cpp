@@ -20,7 +20,7 @@ TGen::Material::SpecializationMap TGen::Material::specializations;
 
 TGen::Material::Material(const std::string & name) 
 	: minimumTechnique(0)
-	, sortLevel(10)    // 0-19 = front to back 20 - 39 = back to front    
+	, sortLevel(TGen::MaterialSortOpaque)    // 0-19 = front to back 20 - 39 = back to front    
 	, name(name) 
 {
 	/*TGen::TechniqueList * newTechniques = new TGen::TechniqueList;

@@ -18,12 +18,13 @@ namespace TGen {
 		Geometry() {}
 		virtual ~Geometry() {}
 		
-		virtual void preRenderer(TGen::Renderer & renderer) const abstract;		// set vb's, ib's
+		virtual void preRender(TGen::Renderer & renderer) const abstract;		// set vb's, ib's
 		virtual void render(TGen::Renderer & renderer) const abstract;
 		virtual void update(/*const TGen::Camera & camera,*/ const TGen::Vector3 & position) {}	// LOD, billboards, etc
 		
 		virtual TGen::Vector3 getMax() const abstract;
 		virtual TGen::Vector3 getMin() const abstract;
+		virtual TGen::Vector3 getOrigin() const abstract;
 		
 	};
 	

@@ -10,8 +10,11 @@
 #include "face.h"
 #include "materialsource.h"
 
-TGen::Face::Face()
+TGen::Face::Face(TGen::Geometry * geometry, const std::string & materialName)
 	: material(NULL)
+	, materialName(materialName)
+	, geometry(geometry)
+	, sceneNode(NULL)
 {
 		
 }
@@ -20,12 +23,12 @@ TGen::Face::~Face() {
 	
 }
 
-TGen::Vector3 TGen::Face::getMin() const {
-	return TGen::Vector3(0.0f, 0.0f, 0.0f);
+TGen::SceneNode * TGen::Face::getSceneNode() const {
+	return sceneNode;
 }
 
-TGen::Vector3 TGen::Face::getMax() const {
-	return TGen::Vector3(0.0f, 0.0f, 0.0f);
+void TGen::Face::attached(TGen::SceneNode * node) {
+	sceneNode = node;
 }
 
 void TGen::Face::linkMaterial(TGen::MaterialSource & source) {
@@ -33,6 +36,18 @@ void TGen::Face::linkMaterial(TGen::MaterialSource & source) {
 		material = source.getMaterial(materialName);
 }
 
+void TGen::Face::unlinkMaterial() {
+	material = NULL;
+}
+
+TGen::Geometry * TGen::Face::getGeometry() const {
+	return geometry;
+}
+
 TGen::Material * TGen::Face::getMaterial() const {
 	return material;
+}
+
+std::string TGen::Face::getMaterialName() const {
+	return materialName;
 }

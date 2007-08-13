@@ -18,6 +18,7 @@ namespace TGen {
 	
 	class SceneNode {
 	public:
+		typedef std::vector<Face *> FaceList;
 		class Walker;
 		
 		SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
@@ -40,6 +41,7 @@ namespace TGen {
 		TGen::Quaternion4 getWorldOrientation() const;
 		
 		bool hasChanged() const;
+		const FaceList & getFaces() const;
 		const std::string & getName() const;
 		const TGen::Matrix4x4 & getTransform() const;		
 		const TGen::AABB & getLocalBoundingBox() const;
@@ -66,7 +68,6 @@ namespace TGen {
 		
 	protected:
 		typedef std::vector<SceneNode *> SceneNodeList;
-		typedef std::vector<Face *> FaceList;
 		
 		std::string name;
 		SceneNode * parent;
