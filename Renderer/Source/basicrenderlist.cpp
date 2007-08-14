@@ -88,8 +88,7 @@ bool TGen::BasicRenderList::needSorting() {
 	return true;
 }
 
-TGen::BasicRenderList::Sorter::Sorter()
-{
+TGen::BasicRenderList::Sorter::Sorter() {
 }
 
 TGen::BasicRenderList::SortedFace::SortedFace(const TGen::Face * face)
@@ -99,12 +98,7 @@ TGen::BasicRenderList::SortedFace::SortedFace(const TGen::Face * face)
 }
 
 bool TGen::BasicRenderList::Sorter::operator() (const TGen::BasicRenderList::SortedFace & face1, const TGen::BasicRenderList::SortedFace & face2) {
-	//TGen::Vector3 origin1 = face1->getWorldOrigin();
-	//TGen::Vector3 origin2 = face2->getWorldOrigin();
-	
-	return (face1.distanceToCamera > face2.distanceToCamera); //(origin1 - origin).getMagnitude() > (origin2 - origin).getMagnitude();
-	// TODO: spara undan origin i world för face!
-	
+	return (face1.distanceToCamera > face2.distanceToCamera);
 }
 
 
