@@ -91,16 +91,24 @@ int main(int argc, char ** argv) {
 	bsp->addFace(wallFace3);
 	bsp->addFace(wallFace4);
 	
-	root->update();
+	TGen::Camera * camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, 0.0f));
+	root->addChild(camera);
+	
 	root->traverse(TGen::FaceLinker(resources));
 	root->traverse(TGen::ScenePrinter(std::cout));
+
+	TGen::BasicRenderList renderList;
+	root->traverse(TGen::RenderFiller(renderList, *camera));
 	
-	TGen::RenderList renderList;
-	root->traverse(TGen::RenderFiller(renderList));
 	
-	renderList.sort(TGen::Vector3(0.0f, 0.0f, 0.0f));
-	//renderList.render();
-	renderList.print();
+	for (int i = 0; i < 5; ++i) {
+		camera->setPosition(TGen::Vector3(0.0f, i * 5, 0.0f));
+		root->update();
+		std::cout << "cam position: " << std::string(camera->getWorldPosition()) << std::endl;
+		renderList.sort(*camera);
+		renderList.print();
+		std::cout << std::endl;
+	}
 	
 	delete bsp;
 	delete player;

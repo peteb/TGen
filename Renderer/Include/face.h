@@ -31,6 +31,7 @@ namespace TGen {
 		TGen::Material * getMaterial() const;
 		TGen::SceneNode * getSceneNode() const;
 		std::string getMaterialName() const;
+		TGen::Vector3 getWorldOrigin() const;
 		
 		friend class TGen::SceneNode;
 		

@@ -19,6 +19,7 @@
 #include "facelinker.h"
 #include "renderlist.h"
 #include "renderfill.h"
+#include "basicrenderlist.h"
 
 namespace TGen {
 	bool isRendererDebug();

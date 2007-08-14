@@ -10,16 +10,15 @@
 #include "renderfill.h"
 #include "renderlist.h"
 
-TGen::RenderFiller::RenderFiller(TGen::RenderList & list)
+TGen::RenderFiller::RenderFiller(TGen::RenderList & list, const TGen::Camera & camera)
 	: list(list)
+	, camera(camera)
 {
 	
 }
 
 bool TGen::RenderFiller::pre(TGen::SceneNode & node) const {
-	for (int i = 0; i < node.getFaces().size(); ++i) {
-		list.addFace(node.getFaces()[i]);
-	}
+	node.fillFaces(list, camera);
 	
 	return true;
 }

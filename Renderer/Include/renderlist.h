@@ -11,6 +11,8 @@
 #define _TGEN_RENDERER_RENDERLIST_H
 
 #include <vector>
+#include <tgen_core.h>
+#include <tgen_math.h>
 
 namespace TGen {
 	class Face;
@@ -18,33 +20,16 @@ namespace TGen {
 	class Renderer;
 	
 	class RenderList {
-	public:	
-		RenderList();
-		~RenderList();
+	public:
+		RenderList() {}
+		virtual ~RenderList() {}
 		
-		void render(TGen::Renderer & renderer, const TGen::Camera & camera);
-		void addFace(const TGen::Face * face);
-		void clear();
-		void sort(const TGen::Vector3 & position);
-		void print();
-		
-	private:
-		typedef std::vector<const TGen::Face *> FaceList;
-		
-		FaceList opaqueFaces, transparentFaces;
+		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera) abstract;
+		virtual void addFace(const TGen::Face * face) abstract;
+		virtual void sort(const TGen::Camera & camera) abstract;
+		virtual void clear() abstract;
+		virtual bool needSorting() abstract;
 	};
-	
-	
-	class Sorter {
-	public:	
-		Sorter(const TGen::Vector3 & position);
-		
-		bool operator() (const TGen::Face * face1, const TGen::Face * face2);
-		
-	private:
-		TGen::Vector3 position;
-	};
-	
 } // !TGen
 
 #endif // !_TGEN_RENDERER_RENDERLIST_H

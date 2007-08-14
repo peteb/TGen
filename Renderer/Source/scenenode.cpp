@@ -10,6 +10,7 @@
 #include "scenenode.h"
 #include "face.h"
 #include "geometry.h"
+#include "renderlist.h"
 
 TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
 	: name(name)
@@ -103,6 +104,11 @@ const TGen::Sphere & TGen::SceneNode::getWorldBoundingSphere() const {
 
 const TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() const {
 	return faces;
+}
+
+void TGen::SceneNode::setPosition(const TGen::Vector3 & position) {
+	this->position = position;
+	changed = true;
 }
 
 void TGen::SceneNode::addChild(TGen::SceneNode * node) {
@@ -218,4 +224,10 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 	}
 	
 	walker.post(*this);
+}
+
+void TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
+	for (int i = 0; i < faces.size(); ++i) {
+		list.addFace(faces[i]);
+	}
 }

@@ -15,6 +15,8 @@
 
 namespace TGen {
 	class Face;
+	class RenderList;
+	class Camera;
 	
 	class SceneNode {
 	public:
@@ -25,16 +27,18 @@ namespace TGen {
 		virtual ~SceneNode();
 		
 		virtual void update();
-		void updateChildren();
 		virtual void calculateFacesBV();
 		virtual void calculateWorldBV();
-		
+		virtual void fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
+
+		void updateChildren();
 		void addChild(TGen::SceneNode * node);
 		void removeChild(TGen::SceneNode * node);
 		void addFace(TGen::Face * face);
 		
 		TGen::AABB getChildrenBoundingBox() const;
 		
+		void setPosition(const TGen::Vector3 & position);
 		TGen::Vector3 getLocalPosition() const;
 		TGen::Quaternion4 getLocalOrientation() const;
 		TGen::Vector3 getWorldPosition() const;

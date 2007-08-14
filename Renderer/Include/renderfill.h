@@ -14,16 +14,18 @@
 
 namespace TGen {
 	class RenderList;
+	class Camera;
 	
 	class RenderFiller : public TGen::SceneNode::Walker {
 	public:	
-		RenderFiller(TGen::RenderList & list);
+		RenderFiller(TGen::RenderList & list, const TGen::Camera & camera);
 		
 		bool pre(TGen::SceneNode & node) const;
 		void post(TGen::SceneNode & node) const;
 		
 	private:
 		TGen::RenderList & list;
+		const TGen::Camera & camera;
 	};
 	
 	

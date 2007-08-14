@@ -9,6 +9,8 @@
 
 #include "face.h"
 #include "materialsource.h"
+#include "scenenode.h"
+#include "geometry.h"
 
 TGen::Face::Face(TGen::Geometry * geometry, const std::string & materialName)
 	: material(NULL)
@@ -51,3 +53,11 @@ TGen::Material * TGen::Face::getMaterial() const {
 std::string TGen::Face::getMaterialName() const {
 	return materialName;
 }
+
+TGen::Vector3 TGen::Face::getWorldOrigin() const {
+	if (!sceneNode || !geometry)
+		throw TGen::RuntimeException("Face::getOrigin", "face not associated with either scene node or geometry!");
+	
+	return sceneNode->getTransform() * geometry->getOrigin();
+}
+
