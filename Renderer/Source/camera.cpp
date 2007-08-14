@@ -45,7 +45,7 @@ void TGen::Camera::setAspectRatio(scalar ratio) {
 	projectionChanged = true;
 }
 
-void TGen::Camera::setFOV(const TGen::Degree & angle) {
+void TGen::Camera::setFov(const TGen::Degree & angle) {
 	fov = angle;
 	projectionChanged = true;
 }
@@ -56,10 +56,26 @@ void TGen::Camera::setClip(scalar near, scalar far) {
 	projectionChanged = true;
 }
 
-void TGen::Camera::setLOD(scalar near, scalar far) {
+void TGen::Camera::setLod(scalar near, scalar far) {
 	lodNear = near;
 	lodFar = far;
 	projectionChanged = true;
+}
+
+scalar TGen::Camera::getLodNear() const {
+	return lodNear;
+}
+
+scalar TGen::Camera::getLodFar() const {
+	return lodFar;
+}
+
+scalar TGen::Camera::getClipNear() const {
+	return clipNear;
+}
+
+scalar TGen::Camera::getClipFar() const {
+	return clipFar;
 }
 
 const TGen::Matrix4x4 & TGen::Camera::getProjection() const {

@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* TGen Renderer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Renderer.1 */; };
+		D009E5030C71D92D00A5CBE7 /* lodgeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009E5020C71D92D00A5CBE7 /* lodgeometry.cpp */; };
+		D009E5050C71D93900A5CBE7 /* lodgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E5040C71D93900A5CBE7 /* lodgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D009E58B0C71DBC300A5CBE7 /* staticgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E58A0C71DBC300A5CBE7 /* staticgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D009E5910C71DBCF00A5CBE7 /* staticgeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009E5900C71DBCF00A5CBE7 /* staticgeometry.cpp */; };
+		D009E5BB0C71DC4C00A5CBE7 /* meshgeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009E5BA0C71DC4C00A5CBE7 /* meshgeometry.cpp */; };
+		D009E5BD0C71DC5600A5CBE7 /* meshgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E5BC0C71DC5600A5CBE7 /* meshgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D009E5E60C71DD7D00A5CBE7 /* meshsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E5E50C71DD7D00A5CBE7 /* meshsource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D009E6420C71E38700A5CBE7 /* animatingmeshgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D009E6440C71E39200A5CBE7 /* animatingmeshgeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */; };
 		D0F3713E0C6D02EB00C11F87 /* tgen_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */; };
 		D0F371430C6D02F800C11F87 /* tgen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F371420C6D02F800C11F87 /* tgen_renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */; };
@@ -24,15 +33,18 @@
 		D0F511210C70EE76005DB68D /* materialsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F511200C70EE76005DB68D /* materialsource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F511B00C70F3FD005DB68D /* printscene.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F511AF0C70F3FD005DB68D /* printscene.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F511B20C70F405005DB68D /* printscene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F511B10C70F405005DB68D /* printscene.cpp */; };
-		D0F5146C0C7108B9005DB68D /* facelinker.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F5146B0C7108B9005DB68D /* facelinker.h */; };
+		D0F5146C0C7108B9005DB68D /* facelinker.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F5146B0C7108B9005DB68D /* facelinker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F5146E0C7108C1005DB68D /* facelinker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F5146D0C7108C1005DB68D /* facelinker.cpp */; };
 		D0F515230C71150B005DB68D /* renderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F515220C71150B005DB68D /* renderlist.cpp */; };
-		D0F515250C711518005DB68D /* renderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F515240C711518005DB68D /* renderlist.h */; };
+		D0F515250C711518005DB68D /* renderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F515240C711518005DB68D /* renderlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F516490C711A1A005DB68D /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */; };
 		D0F516B40C711CB3005DB68D /* renderfill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F516B30C711CB3005DB68D /* renderfill.cpp */; };
-		D0F516B60C711CBD005DB68D /* renderfill.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F516B50C711CBD005DB68D /* renderfill.h */; };
-		D0F518610C71B781005DB68D /* basicrenderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F518600C71B781005DB68D /* basicrenderlist.h */; };
+		D0F516B60C711CBD005DB68D /* renderfill.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F516B50C711CBD005DB68D /* renderfill.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F518610C71B781005DB68D /* basicrenderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F518600C71B781005DB68D /* basicrenderlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F518630C71B789005DB68D /* basicrenderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F518620C71B789005DB68D /* basicrenderlist.cpp */; };
+		D0F51B850C71C781005DB68D /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F51B840C71C77B005DB68D /* libtgen_opengl.a */; };
+		D0F51B8E0C71C799005DB68D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F51B8D0C71C799005DB68D /* OpenGL.framework */; };
+		D0F51BAB0C71C7C0005DB68D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F51BAA0C71C7C0005DB68D /* GLUT.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -106,6 +118,20 @@
 			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
+		D0F51B810C71C77B005DB68D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen OpenGL";
+		};
+		D0F51B830C71C77B005DB68D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D00FF8E60C3940E900668773;
+			remoteInfo = tgen_opengl;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,6 +151,15 @@
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/Test/main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Renderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Renderer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Renderer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Renderer.1"; sourceTree = "<group>"; };
+		D009E5020C71D92D00A5CBE7 /* lodgeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lodgeometry.cpp; path = Source/lodgeometry.cpp; sourceTree = "<group>"; };
+		D009E5040C71D93900A5CBE7 /* lodgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lodgeometry.h; path = Include/lodgeometry.h; sourceTree = "<group>"; };
+		D009E58A0C71DBC300A5CBE7 /* staticgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = staticgeometry.h; path = Include/staticgeometry.h; sourceTree = "<group>"; };
+		D009E5900C71DBCF00A5CBE7 /* staticgeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = staticgeometry.cpp; path = Source/staticgeometry.cpp; sourceTree = "<group>"; };
+		D009E5BA0C71DC4C00A5CBE7 /* meshgeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeometry.cpp; path = Source/meshgeometry.cpp; sourceTree = "<group>"; };
+		D009E5BC0C71DC5600A5CBE7 /* meshgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeometry.h; path = Include/meshgeometry.h; sourceTree = "<group>"; };
+		D009E5E50C71DD7D00A5CBE7 /* meshsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshsource.h; path = Include/meshsource.h; sourceTree = "<group>"; };
+		D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animatingmeshgeometry.h; path = Include/animatingmeshgeometry.h; sourceTree = "<group>"; };
+		D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animatingmeshgeometry.cpp; path = Source/animatingmeshgeometry.cpp; sourceTree = "<group>"; };
 		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
@@ -151,6 +186,9 @@
 		D0F516B50C711CBD005DB68D /* renderfill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderfill.h; path = Include/renderfill.h; sourceTree = "<group>"; };
 		D0F518600C71B781005DB68D /* basicrenderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = basicrenderlist.h; path = Include/basicrenderlist.h; sourceTree = "<group>"; };
 		D0F518620C71B789005DB68D /* basicrenderlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = basicrenderlist.cpp; path = Source/basicrenderlist.cpp; sourceTree = "<group>"; };
+		D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F51B8D0C71C799005DB68D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		D0F51BAA0C71C7C0005DB68D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +196,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0F51B850C71C781005DB68D /* libtgen_opengl.a in Frameworks */,
 				D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */,
+				D0F51B8E0C71C799005DB68D /* OpenGL.framework in Frameworks */,
+				D0F51BAB0C71C7C0005DB68D /* GLUT.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,9 +232,19 @@
 				D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */,
 				D0F371420C6D02F800C11F87 /* tgen_renderer.h */,
 				D0F50B3D0C6FB302005DB68D /* geometry.h */,
+				D009E5020C71D92D00A5CBE7 /* lodgeometry.cpp */,
+				D009E5040C71D93900A5CBE7 /* lodgeometry.h */,
+				D009E5900C71DBCF00A5CBE7 /* staticgeometry.cpp */,
+				D009E58A0C71DBC300A5CBE7 /* staticgeometry.h */,
+				D009E5BA0C71DC4C00A5CBE7 /* meshgeometry.cpp */,
+				D009E5BC0C71DC5600A5CBE7 /* meshgeometry.h */,
+				D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */,
+				D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */,
+				D0F516B50C711CBD005DB68D /* renderfill.h */,
 				D0F50DD70C7097C1005DB68D /* face.cpp */,
 				D0F50DD50C7097B7005DB68D /* face.h */,
 				D0F511200C70EE76005DB68D /* materialsource.h */,
+				D009E5E50C71DD7D00A5CBE7 /* meshsource.h */,
 				D0F5185F0C71B756005DB68D /* Render Lists */,
 				D0F371A20C6D049500C11F87 /* bsp */,
 				D0F371A30C6D049C00C11F87 /* md3 */,
@@ -231,6 +282,9 @@
 		D0F371550C6D034500C11F87 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D0F51BAA0C71C7C0005DB68D /* GLUT.framework */,
+				D0F51B8D0C71C799005DB68D /* OpenGL.framework */,
+				D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */,
 				D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */,
 				D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */,
 				D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */,
@@ -301,7 +355,6 @@
 				D0F5146D0C7108C1005DB68D /* facelinker.cpp */,
 				D0F5146B0C7108B9005DB68D /* facelinker.h */,
 				D0F516B30C711CB3005DB68D /* renderfill.cpp */,
-				D0F516B50C711CBD005DB68D /* renderfill.h */,
 			);
 			name = Walkers;
 			sourceTree = "<group>";
@@ -315,6 +368,15 @@
 				D0F518600C71B781005DB68D /* basicrenderlist.h */,
 			);
 			name = "Render Lists";
+			sourceTree = "<group>";
+		};
+		D0F51B7D0C71C77B005DB68D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D0F51B820C71C77B005DB68D /* TGen OpenGL */,
+				D0F51B840C71C77B005DB68D /* libtgen_opengl.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,6 +398,11 @@
 				D0F515250C711518005DB68D /* renderlist.h in Headers */,
 				D0F516B60C711CBD005DB68D /* renderfill.h in Headers */,
 				D0F518610C71B781005DB68D /* basicrenderlist.h in Headers */,
+				D009E5050C71D93900A5CBE7 /* lodgeometry.h in Headers */,
+				D009E58B0C71DBC300A5CBE7 /* staticgeometry.h in Headers */,
+				D009E5BD0C71DC5600A5CBE7 /* meshgeometry.h in Headers */,
+				D009E5E60C71DD7D00A5CBE7 /* meshsource.h in Headers */,
+				D009E6420C71E38700A5CBE7 /* animatingmeshgeometry.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +470,10 @@
 					ProductGroup = D0F371AC0C6D057000C11F87 /* Products */;
 					ProjectRef = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
 				},
+				{
+					ProductGroup = D0F51B7D0C71C77B005DB68D /* Products */;
+					ProjectRef = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
+				},
 			);
 			targets = (
 				8DD76F620486A84900D96B5E /* TGen Renderer */,
@@ -454,6 +525,20 @@
 			remoteRef = D0F371C40C6D057D00C11F87 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D0F51B820C71C77B005DB68D /* TGen OpenGL */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen OpenGL";
+			remoteRef = D0F51B810C71C77B005DB68D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0F51B840C71C77B005DB68D /* libtgen_opengl.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_opengl.a;
+			remoteRef = D0F51B830C71C77B005DB68D /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -479,6 +564,10 @@
 				D0F515230C71150B005DB68D /* renderlist.cpp in Sources */,
 				D0F516B40C711CB3005DB68D /* renderfill.cpp in Sources */,
 				D0F518630C71B789005DB68D /* basicrenderlist.cpp in Sources */,
+				D009E5030C71D92D00A5CBE7 /* lodgeometry.cpp in Sources */,
+				D009E5910C71DBCF00A5CBE7 /* staticgeometry.cpp in Sources */,
+				D009E5BB0C71DC4C00A5CBE7 /* meshgeometry.cpp in Sources */,
+				D009E6440C71E39200A5CBE7 /* animatingmeshgeometry.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,6 @@
 #include <iostream>
 #include "tgen_renderer.h"
+#include <tgen_opengl.h>
 
 class ResourceManager : public TGen::MaterialSource {
 public:
@@ -64,6 +65,13 @@ private:
 int main(int argc, char ** argv) {
 	std::cout << "TGen Renderer (debug binary: " << std::boolalpha << TGen::isRendererDebug() << ")" << std::endl;
 
+	// We need a context...
+	glutInit(&argc, argv);
+	glutInitWindowSize(400, 300);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+	glutCreateWindow("TGen Renderer");
+
+	
 	ResourceManager resources;
 	Shubniggurath * enemy1 = new Shubniggurath(TGen::Vector3(0.0f, 10.0f, 0.0f));
 	Shubniggurath * enemy2 = new Shubniggurath(TGen::Vector3(0.0f, 15.0f, 0.0f));
@@ -92,6 +100,9 @@ int main(int argc, char ** argv) {
 	bsp->addFace(wallFace4);
 	
 	TGen::Camera * camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, 0.0f));
+	//camera->setClip(1.0f, 25.0f);
+	camera->setLod(0.0f, 25.0f);
+	
 	root->addChild(camera);
 	
 	root->traverse(TGen::FaceLinker(resources));
@@ -100,6 +111,7 @@ int main(int argc, char ** argv) {
 	TGen::BasicRenderList renderList;
 	root->traverse(TGen::RenderFiller(renderList, *camera));
 	
+	TGen::Renderer * renderer = new TGen::OpenGL::Renderer;
 	
 	for (int i = 0; i < 5; ++i) {
 		camera->setPosition(TGen::Vector3(0.0f, i * 5, 0.0f));
@@ -107,6 +119,7 @@ int main(int argc, char ** argv) {
 		std::cout << "cam position: " << std::string(camera->getWorldPosition()) << std::endl;
 		renderList.sort(*camera);
 		renderList.print();
+		renderList.render(*renderer, *camera);
 		std::cout << std::endl;
 	}
 	

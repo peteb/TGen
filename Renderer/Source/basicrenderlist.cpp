@@ -53,18 +53,34 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	renderer.setTransform(TGen::TransformProjection, camera.getProjection());
 
 	TGen::SceneNode * lastNode = NULL;
-
+	std::cout << ">>RENDER<<" << std::endl;
+	
+	scalar lodNear = camera.getLodNear();
+	scalar lodFar = camera.getLodFar();
+	scalar clipFar = camera.getClipFar();
+	
 	for (int i = 0; i < list.size(); ++i) {
-		const TGen::Face * face = list[i].face;
-		TGen::SceneNode * node = face->getSceneNode();
-		
-		if (node && lastNode != node) {
-			renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
-			lastNode = node;
+		if (list[i].distanceToCamera < clipFar) {
+			// TODO: få bounding sphere på geometry och ta bort radien från distanceToCamera
+			const TGen::Face * face = list[i].face;
+			TGen::SceneNode * node = face->getSceneNode();
+			
+			if (node && lastNode != node) {
+				renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
+				lastNode = node;
+			}
+			
+			int lod = 9 - int(((list[i].distanceToCamera - lodNear) / lodFar) * 10.0 - 1.0);
+			TGen::Clamp(lod, 0, 9);
+			
+			std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
+			
+			TGen::Material * material = face->getMaterial();
+			material->render(renderer, *face->getGeometry(), "default", lod, NULL);
 		}
-		
-		TGen::Material * material = face->getMaterial();
-		material->render(renderer, *face->getGeometry(), "default", 9, NULL);
+		else {
+			std::cout << "face discarded, too far away" << std::endl;
+		}
 	}
 }
 

@@ -11,10 +11,15 @@
 #define _TGEN_RENDERER_RENDERER_H
 
 #include "geometry.h"
+#include "lodgeometry.h"
+#include "staticgeometry.h"
+#include "meshgeometry.h"
+#include "animatingmeshgeometry.h"
 #include "camera.h"
 #include "scenenode.h"
 #include "face.h"
 #include "materialsource.h"
+#include "meshsource.h"
 #include "printscene.h"
 #include "facelinker.h"
 #include "renderlist.h"

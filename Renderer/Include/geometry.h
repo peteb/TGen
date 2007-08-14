@@ -13,14 +13,16 @@
 #include <tgen_graphics.h>
 
 namespace TGen {
+	class Camera;
+	
 	class Geometry : public TGen::Renderable {
 	public:	
 		Geometry() {}
 		virtual ~Geometry() {}
 		
-		virtual void preRender(TGen::Renderer & renderer) const abstract;		// set vb's, ib's
+		virtual void preRender(TGen::Renderer & renderer) const abstract;		// set vb's, ib's, etc.
 		virtual void render(TGen::Renderer & renderer) const abstract;
-		virtual void update(/*const TGen::Camera & camera,*/ const TGen::Vector3 & position) {}	// LOD, billboards, etc
+		virtual void update(const TGen::Camera & camera, scalar distance, scalar time) {}	// LOD, billboards, etc. called on geoms in render list, animating meshes
 		
 		virtual TGen::Vector3 getMax() const abstract;
 		virtual TGen::Vector3 getMin() const abstract;

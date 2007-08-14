@@ -21,9 +21,13 @@ namespace TGen {
 		void update();
 		void calculateWorldBV();
 		void setAspectRatio(scalar ratio);
-		void setFOV(const TGen::Degree & angle);
+		void setFov(const TGen::Degree & angle);
 		void setClip(scalar near, scalar far);
-		void setLOD(scalar near, scalar far);
+		void setLod(scalar near, scalar far);
+		scalar getLodNear() const;
+		scalar getLodFar() const;
+		scalar getClipNear() const;
+		scalar getClipFar() const;
 		
 		const TGen::Matrix4x4 & getProjection() const;
 
