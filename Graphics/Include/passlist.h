@@ -20,7 +20,7 @@ namespace TGen {
 	class Texture;
 	class Renderable;
 	
-	class PassList {
+	class PassList {	// aka "LOD"
 	public:
 		PassList();
 		~PassList();
@@ -29,10 +29,14 @@ namespace TGen {
 		void addPass(TGen::Pass * pass);
 		void link(TGen::MaterialLinkCallback & callback);
 		void update(scalar time);
-		
+		void setSortLevel(int level);
+		int getSortLevel() const;
+	
 	private:
 		typedef std::vector<Pass *> PassVector;
 		PassVector passes;
+		
+		int sortLevel;
 	};	
 	
 } // !TGen

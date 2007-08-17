@@ -47,7 +47,7 @@ namespace TGen {
 		void parseParamsBlock(TGen::Material * material);
 		void parseMaterialBlock(TGen::Material * material);
 		void parseLodBlock(TGen::PassList * lod, TGen::Material * material);
-		void parsePassBlock(TGen::Pass * pass, TGen::Material * material);
+		void parsePassBlock(TGen::Pass * pass, TGen::PassList * lod, TGen::Material * material);
 		void parseTexunitBlock(TGen::PassTextureUnit * unit, TGen::Material * material);
 		TGen::WaveGenerator * parseWaveGenerator();
 		

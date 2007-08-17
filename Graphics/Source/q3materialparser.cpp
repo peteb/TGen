@@ -82,7 +82,7 @@ void TGen::Q3MaterialParser::parseMaterialBlock(TGen::Material * material, TGen:
 			TGen::PassTextureUnit * newUnit = new TGen::PassTextureUnit(0, "");
 			
 			std::cout << "entering pass block" << std::endl;
-			parsePassBlock(newPass, newUnit, material);
+			parsePassBlock(newPass, newUnit, passes, material);
 			std::cout << "left pass block" << std::endl;
 			
 			newPass->addTextureUnit(newUnit);
@@ -114,7 +114,7 @@ void TGen::Q3MaterialParser::parseMaterialBlock(TGen::Material * material, TGen:
 		stepToken();
 }
 
-void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material) {
+void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::PassList * lod, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::Q3MaterialTokenBlockEnd) {
 		std::string tokenInLower = TGen::toLower(currentToken->second);
 		
@@ -127,7 +127,7 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote)
 				dest = currentToken->second;
 			
-			material->setSortLevel(TGen::MaterialSortTransparent); 
+			lod->setSortLevel(TGen::MaterialSortTransparent); 
 			pass->setBlendFunc(source, dest);			
 		}
 		else if (tokenInLower == "tcgen") {

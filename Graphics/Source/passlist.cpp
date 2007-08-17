@@ -11,8 +11,11 @@
 #include "renderer.h"
 #include "renderable.h"
 #include "pass.h"
+#include "material.h"
 
-TGen::PassList::PassList() {
+TGen::PassList::PassList()
+	: sortLevel(TGen::MaterialSortOpaque)
+{
 	
 }
 
@@ -56,3 +59,12 @@ void TGen::PassList::update(scalar time) {
 		(*iter)->update(time);
 	}	
 }
+
+void TGen::PassList::setSortLevel(int level) {
+	sortLevel = level;
+}
+
+int TGen::PassList::getSortLevel() const {
+	return sortLevel;
+}
+

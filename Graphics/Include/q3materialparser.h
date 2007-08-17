@@ -38,7 +38,7 @@ namespace TGen {
 	private:
 		void parseGlobalBlock();
 		void parseMaterialBlock(TGen::Material * material, TGen::PassList * passes);
-		void parsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::Material * material);
+		void parsePassBlock(TGen::Pass * pass, TGen::PassTextureUnit * unit, TGen::PassList * lod, TGen::Material * material);
 		std::string getStringToken(const std::string & name, bool ignorelf = false, bool quote = true);
 		std::string getNumericToken(const std::string & name, bool ignorelf = false, bool quote = true);
 		TGen::WaveGenerator * parseWaveGenerator();

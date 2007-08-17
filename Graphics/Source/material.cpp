@@ -60,7 +60,7 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 }
 
 void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
-	TGen::TechniqueList * techniques = NULL;
+	/*TGen::TechniqueList * techniques = NULL;
 	int specialization = getSpecializationID(mode);
 	
 	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: man ska kunna ange specnum direkt också
@@ -71,11 +71,29 @@ void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	
 	TGen::Technique * technique = techniques->getTechnique(minimumTechnique);
 	if (!technique) throw TGen::RuntimeException("Material::Render", "no techniques");
+	*/
+	TGen::Technique * technique = getSpecialization(mode);
 	
 	TGen::PassList * passes = technique->getPassList(lod);
 	if (!passes) throw TGen::RuntimeException("Material::Render", "no passes");
 	
 	passes->render(renderer, renderable, textureTypes);
+}
+
+TGen::Technique * TGen::Material::getSpecialization(const std::string & name) {
+	TGen::TechniqueList * techniques = NULL;
+	int specialization = getSpecializationID(name);
+	
+	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: man ska kunna ange specnum direkt också
+	if (iter == this->techniques.end())
+		throw TGen::RuntimeException("Material::getSpecialization", "material doesn't contain specialization \"" + name + "\"");
+	
+	techniques = iter->second;
+	
+	TGen::Technique * technique = techniques->getTechnique(minimumTechnique);
+	if (!technique) throw TGen::RuntimeException("Material::getSpecialization", "no techniques");
+	
+	return technique;
 }
 
 void TGen::Material::update(scalar time) {
@@ -108,7 +126,7 @@ std::vector<std::string> & TGen::Material::getParameter(const std::string & name
 	return parameters[name];
 }
 
-void TGen::Material::setSortLevel(int level) {
+/*void TGen::Material::setSortLevel(int level) {
 	sortLevel = level;	// render: 001234555555556789
 }
 
@@ -117,4 +135,4 @@ int TGen::Material::getSortLevel() const {
 }
 
 
-
+*/

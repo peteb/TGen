@@ -15,6 +15,7 @@
 #include <tgen_graphics.h>
 
 TGen::BasicRenderList::BasicRenderList() {
+	faces.reserve(11000);
 	opaqueFaces.reserve(10000);
 	transparentFaces.reserve(1000);
 }
@@ -25,21 +26,38 @@ void TGen::BasicRenderList::addFace(const TGen::Face * face) {
 	if (!face->getMaterial())
 		throw TGen::RuntimeException("BasicRenderList::addFace", "no material linked!");
 	
-	if (face->getMaterial()->getSortLevel() == TGen::MaterialSortOpaque)
+	/*if (face->getMaterial()->getSortLevel() == TGen::MaterialSortOpaque)
 		opaqueFaces.push_back(face);
 	else
-		transparentFaces.push_back(face);
+		transparentFaces.push_back(face);*/
+	
+	faces.push_back(face);
 }
 
 void TGen::BasicRenderList::clear() {
+	faces.clear();
 	opaqueFaces.clear();
 	transparentFaces.clear();
 }
 
-void TGen::BasicRenderList::sort(const TGen::Camera & camera) {
+void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string & specialization) {
+	float lodNear = camera.getLodNear();
+	float lodFar = camera.getLodFar();
+	
 	if (needSorting()) {
-		calculateCameraDistance(transparentFaces, camera);
-		calculateCameraDistance(opaqueFaces, camera);
+		for (int i = 0; i < faces.size(); ++i) {
+			scalar distance = (faces[i]->getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
+			int lod = 9 - int(((distance - lodNear) / lodFar) * 10.0 - 1.0);
+			int sortLevel = faces[i]->getMaterial()->getSpecialization(specialization)->getPassList(lod)->getSortLevel();	// ouch vilken rad
+		
+			if (sortLevel == TGen::MaterialSortOpaque)
+				opaqueFaces.push_back(SortedFace(faces[i], distance));
+			else
+				transparentFaces.push_back(SortedFace(faces[i], distance));
+		}
+		
+		//calculateCameraDistance(transparentFaces, camera);
+		//calculateCameraDistance(opaqueFaces, camera);
 		std::sort(transparentFaces.begin(), transparentFaces.end(), TGen::BasicRenderList::Sorter());
 	}
 }
@@ -109,9 +127,9 @@ bool TGen::BasicRenderList::needSorting() {
 TGen::BasicRenderList::Sorter::Sorter() {
 }
 
-TGen::BasicRenderList::SortedFace::SortedFace(const TGen::Face * face)
+TGen::BasicRenderList::SortedFace::SortedFace(const TGen::Face * face, scalar distance)
 	: face(face)
-	, distanceToCamera(0.0f)
+	, distanceToCamera(distance)
 {
 }
 

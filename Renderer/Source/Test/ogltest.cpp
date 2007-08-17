@@ -111,13 +111,13 @@ public:
 					 "   lod 5 {                \n"
 					 "      pass fixed {             \n"
 					 "         color 0 0 1             \n"
-					 "         alpha 0.3				\n"
+					 "         //alpha 0.3				\n"
 					 "      }               \n"
 					 "   }        \n"
 					 "   lod 0 {                \n"
 					 "      pass fixed {             \n"
 					 "         color 0 1 0             \n"
-					 "         alpha 0.3			\n"
+					 "          alpha 0.3			\n"
 					 "      }               \n"
 					 "   }        \n"
 					 "}									\n  "
@@ -199,7 +199,7 @@ public:
 		
 		renderList.clear();
 		sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));
-		renderList.sort(*camera);
+		renderList.sort(*camera, "default");
 		renderList.print();
 		renderList.render(*renderer, *camera);
 		

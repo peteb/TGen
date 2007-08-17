@@ -21,6 +21,7 @@ namespace TGen {
 	class Renderer;
 	class ShaderProgram;
 	class Texture;
+	class Technique;
 	
 	enum MaterialSort {
 		MaterialSortOpaque = 10,
@@ -48,8 +49,7 @@ namespace TGen {
 		void setMaximumTechnique(int minreqs);
 		void setParameter(const std::string & name, const std::vector<std::string> & values);
 		void setSpecialization(const std::string & name, TGen::TechniqueList * techniques);
-		void setSortLevel(int level);
-		int getSortLevel() const;
+		TGen::Technique * getSpecialization(const std::string & name);
 		
 		std::vector<std::string> & getParameter(const std::string & name);
 		

@@ -266,7 +266,7 @@ void TGen::MaterialParser::parseLodBlock(TGen::PassList * lod, TGen::Material * 
 			std::cout << "entering pass block" << std::endl;
 			#endif
 			
-			parsePassBlock(newPass, material);
+			parsePassBlock(newPass, lod, material);
 			
 			#ifdef _MATPARSER_VERBOSE
 			std::cout << "left pass block" << std::endl;
@@ -283,7 +283,7 @@ void TGen::MaterialParser::parseLodBlock(TGen::PassList * lod, TGen::Material * 
 		tokens.stepToken(currentToken, endIter);
 }
 
-void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::Material * material) {
+void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lod, TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::TokenValueString) {
 			if (currentToken->second == "texunit") {
@@ -342,7 +342,7 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::Material * ma
 			}
 			else if (currentToken->second == "alpha") {
 				std::string a;
-				material->setSortLevel(TGen::MaterialSortTransparent);
+				lod->setSortLevel(TGen::MaterialSortTransparent);
 				
 				stepToken();
 				if (currentToken->second == "wave") {
