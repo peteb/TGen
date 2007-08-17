@@ -21,7 +21,8 @@ TGen::MaterialParser::~MaterialParser() {}
 
 void TGen::MaterialParser::parse(const char * code, std::list<TGen::Material *> & materials) {
 	TGen::MaterialTokenizer tokenizer;	
-	tokenizer.tokenizeString(code, tokens, false);
+	tokenizer.tokenizeString(code, tokens, true);
+
 	
 	currentToken = tokens.getFirstToken();
 	endIter = tokens.getEndToken();
@@ -37,8 +38,6 @@ void TGen::MaterialParser::parse(const char * code, std::list<TGen::Material *> 
 	for (; iter != this->materials.end(); ++iter) {
 		materials.push_back(iter->second);
 	}	
-	
-	materials.clear();
 }
 
 void TGen::MaterialParser::parseGlobalBlock() {
@@ -343,6 +342,7 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::Material * ma
 			}
 			else if (currentToken->second == "alpha") {
 				std::string a;
+				material->setSortLevel(TGen::MaterialSortTransparent);
 				
 				stepToken();
 				if (currentToken->second == "wave") {

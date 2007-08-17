@@ -18,7 +18,7 @@ namespace TGen {
 		Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
 		virtual ~Camera();
 		
-		void update();
+		virtual void update();
 		void calculateWorldBV();
 		void setAspectRatio(scalar ratio);
 		void setFov(const TGen::Degree & angle);

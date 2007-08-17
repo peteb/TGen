@@ -24,7 +24,7 @@ namespace TGen {
 		void rotate(const TGen::Vector2 & rot);
 		
 	private:
-		TGen::Radian orientationX, orientationY;
+		scalar orientationX, orientationY;
 		TGen::Matrix4x4 moveMatrix;
 	};
 } // !TGen

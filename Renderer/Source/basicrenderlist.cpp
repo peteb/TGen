@@ -39,21 +39,23 @@ void TGen::BasicRenderList::clear() {
 void TGen::BasicRenderList::sort(const TGen::Camera & camera) {
 	if (needSorting()) {
 		calculateCameraDistance(transparentFaces, camera);
+		calculateCameraDistance(opaqueFaces, camera);
 		std::sort(transparentFaces.begin(), transparentFaces.end(), TGen::BasicRenderList::Sorter());
 	}
 }
 
 void TGen::BasicRenderList::render(TGen::Renderer & renderer, const TGen::Camera & camera) {
+	renderer.setTransform(TGen::TransformProjection, camera.getProjection());
+
 	renderList(opaqueFaces, renderer, camera);
 	renderList(transparentFaces, renderer, camera);
 }
 
 void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera) {
 	TGen::Matrix4x4 baseMat = camera.getTransform();
-	renderer.setTransform(TGen::TransformProjection, camera.getProjection());
 
 	TGen::SceneNode * lastNode = NULL;
-	std::cout << ">>RENDER<<" << std::endl;
+	//std::cout << ">>RENDER<<" << std::endl;
 	
 	scalar lodNear = camera.getLodNear();
 	scalar lodFar = camera.getLodFar();

@@ -17,7 +17,7 @@ public:
 		delete ib;
 	}
 	
-	void prepareRender(TGen::Renderer & renderer) const {
+	void preRender(TGen::Renderer & renderer) const {
 		renderer.setVertexBuffer(vb);
 		renderer.setIndexBuffer(ib);		
 	}

@@ -12,11 +12,11 @@
 #include "scenenode.h"
 #include "geometry.h"
 
-TGen::Face::Face(TGen::Geometry * geometry, const std::string & materialName)
+TGen::Face::Face(TGen::Geometry * geometry, const std::string & materialName, TGen::SceneNode * node)
 	: material(NULL)
 	, materialName(materialName)
 	, geometry(geometry)
-	, sceneNode(NULL)
+	, sceneNode(node)
 {
 		
 }

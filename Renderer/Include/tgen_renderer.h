@@ -16,6 +16,7 @@
 #include "meshgeometry.h"
 #include "animatingmeshgeometry.h"
 #include "camera.h"
+#include "fpscamera.h"
 #include "scenenode.h"
 #include "face.h"
 #include "materialsource.h"

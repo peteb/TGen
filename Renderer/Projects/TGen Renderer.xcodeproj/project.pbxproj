@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
 		8DD76F6A0486A84900D96B5E /* TGen Renderer.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Renderer.1 */; };
+		D00907900C75FBED00A5CBE7 /* SDLMain.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D009078E0C75FBED00A5CBE7 /* SDLMain.h */; };
+		D00907910C75FBED00A5CBE7 /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D009078F0C75FBED00A5CBE7 /* SDLMain.m */; };
 		D009E5030C71D92D00A5CBE7 /* lodgeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009E5020C71D92D00A5CBE7 /* lodgeometry.cpp */; };
 		D009E5050C71D93900A5CBE7 /* lodgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E5040C71D93900A5CBE7 /* lodgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D009E58B0C71DBC300A5CBE7 /* staticgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E58A0C71DBC300A5CBE7 /* staticgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -18,6 +19,9 @@
 		D009E5E60C71DD7D00A5CBE7 /* meshsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E5E50C71DD7D00A5CBE7 /* meshsource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D009E6420C71E38700A5CBE7 /* animatingmeshgeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D009E6440C71E39200A5CBE7 /* animatingmeshgeometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */; };
+		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
+		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
+		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
 		D0F3713E0C6D02EB00C11F87 /* tgen_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */; };
 		D0F371430C6D02F800C11F87 /* tgen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F371420C6D02F800C11F87 /* tgen_renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */; };
@@ -48,6 +52,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D00900770C75E76B00A5CBE7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D00FF6CB0C39391D00668773 /* tgen_graphics */;
+			remoteInfo = tgen_graphics;
+		};
 		D0F3714F0C6D033200C11F87 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
@@ -142,15 +153,18 @@
 			dstSubfolderSpec = 0;
 			files = (
 				8DD76F6A0486A84900D96B5E /* TGen Renderer.1 in CopyFiles */,
+				D00907900C75FBED00A5CBE7 /* SDLMain.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Source/Test/main.cpp; sourceTree = "<group>"; };
+		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8DD76F6C0486A84900D96B5E /* TGen Renderer */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Renderer"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Renderer.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Renderer.1"; sourceTree = "<group>"; };
+		D009078E0C75FBED00A5CBE7 /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = SDLMain.h; sourceTree = "<group>"; };
+		D009078F0C75FBED00A5CBE7 /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; path = SDLMain.m; sourceTree = "<group>"; };
 		D009E5020C71D92D00A5CBE7 /* lodgeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lodgeometry.cpp; path = Source/lodgeometry.cpp; sourceTree = "<group>"; };
 		D009E5040C71D93900A5CBE7 /* lodgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lodgeometry.h; path = Include/lodgeometry.h; sourceTree = "<group>"; };
 		D009E58A0C71DBC300A5CBE7 /* staticgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = staticgeometry.h; path = Include/staticgeometry.h; sourceTree = "<group>"; };
@@ -160,6 +174,9 @@
 		D009E5E50C71DD7D00A5CBE7 /* meshsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshsource.h; path = Include/meshsource.h; sourceTree = "<group>"; };
 		D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = animatingmeshgeometry.h; path = Include/animatingmeshgeometry.h; sourceTree = "<group>"; };
 		D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = animatingmeshgeometry.cpp; path = Source/animatingmeshgeometry.cpp; sourceTree = "<group>"; };
+		D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ogltest.cpp; sourceTree = "<group>"; };
+		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
+		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
@@ -200,6 +217,8 @@
 				D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */,
 				D0F51B8E0C71C799005DB68D /* OpenGL.framework in Frameworks */,
 				D0F51BAB0C71C7C0005DB68D /* GLUT.framework in Frameworks */,
+				D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */,
+				D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,14 +293,20 @@
 		D0F371220C6D024400C11F87 /* Test */ = {
 			isa = PBXGroup;
 			children = (
+				D009078E0C75FBED00A5CBE7 /* SDLMain.h */,
+				D009078F0C75FBED00A5CBE7 /* SDLMain.m */,
 				08FB7796FE84155DC02AAC07 /* main.cpp */,
+				D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */,
 			);
 			name = Test;
+			path = Source/Test;
 			sourceTree = "<group>";
 		};
 		D0F371550C6D034500C11F87 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */,
+				D009FEC00C75E17D00A5CBE7 /* SDL.framework */,
 				D0F51BAA0C71C7C0005DB68D /* GLUT.framework */,
 				D0F51B8D0C71C799005DB68D /* OpenGL.framework */,
 				D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */,
@@ -421,6 +446,7 @@
 			);
 			dependencies = (
 				D0F371500C6D033200C11F87 /* PBXTargetDependency */,
+				D00900780C75E76B00A5CBE7 /* PBXTargetDependency */,
 			);
 			name = "TGen Renderer";
 			productInstallPath = "$(HOME)/bin";
@@ -546,7 +572,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */,
+				D00907910C75FBED00A5CBE7 /* SDLMain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -574,6 +601,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D00900780C75E76B00A5CBE7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_graphics;
+			targetProxy = D00900770C75E76B00A5CBE7 /* PBXContainerItemProxy */;
+		};
 		D0F371500C6D033200C11F87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0F371390C6D02CE00C11F87 /* tgen_renderer */;

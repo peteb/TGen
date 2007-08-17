@@ -21,12 +21,14 @@ TGen::FPSCamera::~FPSCamera() {
 }
 
 void TGen::FPSCamera::update() {
-	TGen::Clamp(orientationY.angle, -TGen::HALF_PI, TGen::HALF_PI);
+	TGen::Clamp(orientationY, -TGen::HALF_PI, TGen::HALF_PI);
 	
 	if ((parent && parent->hasChanged()) || this->changed) {
 		TGen::Vector3 up(0.0f, 1.0f, 0.0f), look(0.0f, 0.0f, 1.0f), right(1.0f, 0.0f, 0.0f);
 		TGen::Matrix4x4 rot;
+
 		rot = TGen::Matrix4x4::Rotation(right, TGen::Radian(orientationY));
+		
 		look = rot * look;
 		up = rot * up;
 		
@@ -35,10 +37,12 @@ void TGen::FPSCamera::update() {
 		right = rot * right;
 		right = -right;
 		up = -up;
-		
+
 		look.normalize();
 		up = TGen::Vector3::CrossProduct(look, right).normalize();
 		right = TGen::Vector3::CrossProduct(up, look).normalize();
+		
+		std::cout << "look: " << std::string(look) << std::endl;
 		
 		moveMatrix = TGen::Matrix4x4(-right, -up, look);
 		
@@ -61,8 +65,8 @@ void TGen::FPSCamera::move(const TGen::Vector3 & direction) {
 }
 
 void TGen::FPSCamera::rotate(const TGen::Vector2 & rot) {
-	orientationX.angle += rot.x;
-	orientationY.angle += rot.y;
+	orientationX += rot.x;
+	orientationY += rot.y;
 	this->changed = true;
 }
 

@@ -21,7 +21,7 @@ namespace TGen {
 	
 	class Face {
 	public:
-		Face(TGen::Geometry * geometry, const std::string & materialName);
+		Face(TGen::Geometry * geometry, const std::string & materialName, TGen::SceneNode * node = NULL);
 		~Face();
 		
 		void linkMaterial(TGen::MaterialSource & source);

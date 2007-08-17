@@ -33,7 +33,21 @@ void TGen::Camera::update() {
 		projectionChanged = false;
 	}
 	
-	TGen::SceneNode::update();
+	if ((parent && parent->hasChanged()) || this->changed) {
+		TGen::Quaternion4 front(0.0f, 0.0f, -1.0f);
+		TGen::Quaternion4 result = orientation * front * -orientation;
+		
+		if (parent)
+			this->transform = parent->getTransform() * (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up));
+		else
+			this->transform = (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up));
+		
+		this->changed = true;
+	}
+	
+	updateChildren();
+	
+	this->changed = false;
 }
 
 void TGen::Camera::calculateWorldBV() {

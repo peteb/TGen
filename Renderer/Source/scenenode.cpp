@@ -47,7 +47,7 @@ void TGen::SceneNode::update() {
 	}
 	
 	updateChildren();
-
+	
 	if (this->changed) {
 		calculateFacesBV();
 		calculateWorldBV();
@@ -102,7 +102,11 @@ const TGen::Sphere & TGen::SceneNode::getWorldBoundingSphere() const {
 	return worldBoundingSphere;
 }
 
-const TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() const {
+/*const TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() const {
+	return faces;
+}
+*/
+TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() {
 	return faces;
 }
 
@@ -116,6 +120,16 @@ void TGen::SceneNode::addChild(TGen::SceneNode * node) {
 	node->attached(this);
 }
 
+TGen::SceneNode * TGen::SceneNode::getChild(const std::string & name) {
+	for (SceneNodeList::iterator iter = children.begin(); iter != children.end(); ++iter) {
+		if ((*iter)->getName() == name)
+			return *iter;
+	}
+	
+	throw TGen::RuntimeException("SceneNode::getChild", "no child named '" + name + "' found!");
+}
+
+
 void TGen::SceneNode::removeChild(TGen::SceneNode * node) {
 	SceneNodeList::iterator iter = children.begin();
 	for (; iter != children.end(); ++iter) {
@@ -127,9 +141,8 @@ void TGen::SceneNode::removeChild(TGen::SceneNode * node) {
 	}	
 }
 
-void TGen::SceneNode::addFace(TGen::Face * face) {
-	faces.push_back(face);
-	face->attached(this);
+void TGen::SceneNode::addFace(const TGen::Face & face) {
+	faces.push_back(TGen::Face(face.getGeometry(), face.getMaterialName(), this));
 }
 
 
@@ -138,7 +151,7 @@ void TGen::SceneNode::calculateFacesBV() {
 	bool first = true;
 	
 	for (int i = 0; i < faces.size(); ++i) {
-		TGen::Geometry * geom = faces[i]->getGeometry();
+		TGen::Geometry * geom = faces[i].getGeometry();
 		assert(geom);
 		
 		if (first) {
@@ -228,6 +241,6 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 
 void TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < faces.size(); ++i) {
-		list.addFace(faces[i]);
+		list.addFace(&faces[i]);
 	}
 }

@@ -46,20 +46,21 @@ void TGen::Technique::setPassList(PassList * pass, int lod) {
 TGen::PassList * TGen::Technique::getPassList(int lod) {
 	if (expressLane)
 		return expressLane;
+
+	for (int i = lod; i < 10; ++i) {
+		if (lods[i]) {
+			return lods[i];
+		}
+	}	
 	
 	for (int i = lod; i >= 0; --i) {
 		if (lods[i]) {
-			//std::cout << "lod " << i << " chosen" << std::endl;
+			std::cout << "no higher lod, chosing " << i << std::endl;
 			return lods[i];
 		}
 	}
 	
-	for (int i = lod; i < 10; ++i) {
-		if (lods[i]) {
-			std::cout << "no lower lod, chosing " << i << std::endl;
-			return lods[i];
-		}
-	}	
+
 	
 	return NULL;
 }
