@@ -18,9 +18,7 @@ TGen::RenderFiller::RenderFiller(TGen::RenderList & list, const TGen::Camera & c
 }
 
 bool TGen::RenderFiller::pre(TGen::SceneNode & node) const {
-	node.fillFaces(list, camera);
-	
-	return true;
+	return node.fillFaces(list, camera);
 }
 
 void TGen::RenderFiller::post(TGen::SceneNode & node) const {

@@ -56,7 +56,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D00FF6CB0C39391D00668773 /* tgen_graphics */;
+			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
 		D0F3714F0C6D033200C11F87 /* PBXContainerItemProxy */ = {
@@ -259,7 +259,6 @@
 				D009E5BC0C71DC5600A5CBE7 /* meshgeometry.h */,
 				D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */,
 				D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */,
-				D0F516B50C711CBD005DB68D /* renderfill.h */,
 				D0F50DD70C7097C1005DB68D /* face.cpp */,
 				D0F50DD50C7097B7005DB68D /* face.h */,
 				D0F511200C70EE76005DB68D /* materialsource.h */,
@@ -380,6 +379,7 @@
 				D0F5146D0C7108C1005DB68D /* facelinker.cpp */,
 				D0F5146B0C7108B9005DB68D /* facelinker.h */,
 				D0F516B30C711CB3005DB68D /* renderfill.cpp */,
+				D0F516B50C711CBD005DB68D /* renderfill.h */,
 			);
 			name = Walkers;
 			sourceTree = "<group>";

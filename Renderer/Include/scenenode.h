@@ -7,6 +7,11 @@
  *
  */
 
+//// summary ///////////////////////////////////////////////////////////////////////////////////////
+// A Scene Node stores relative positions and orientations in a tree and bounding volumes (sphere
+// and AABB, one node's BV is big enough to hold everything in it + it's children):
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifndef _TGEN_RENDERER_SCENENODE_H
 #define _TGEN_RENDERER_SCENENODE_H
 
@@ -29,7 +34,7 @@ namespace TGen {
 		virtual void update();
 		virtual void calculateFacesBV();
 		virtual void calculateWorldBV();
-		virtual void fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
+		virtual bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
 
 		void updateChildren();
 		void addChild(TGen::SceneNode * node);
@@ -40,6 +45,7 @@ namespace TGen {
 		TGen::AABB getChildrenBoundingBox() const;
 		
 		void setPosition(const TGen::Vector3 & position);
+		void setOrientation(const TGen::Vector3 & orientation);
 		TGen::Vector3 getLocalPosition() const;
 		TGen::Quaternion4 getLocalOrientation() const;
 		TGen::Vector3 getWorldPosition() const;

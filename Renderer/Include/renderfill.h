@@ -7,6 +7,15 @@
  *
  */
 
+//// summary ///////////////////////////////////////////////////////////////////////////////////////
+// The RenderFiller is a scene graph walker that asks ech node to add it's faces to the list.
+// A class inherited from the SceneNode class can override this method to provide own functionality,
+// like a space partition traverser.
+//
+// see also: SceneNode::Walker, scenenode.h
+// keywords: walker
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifndef _TGEN_RENDERER_RENDERFILL_H
 #define _TGEN_RENDERER_RENDERFILL_H
 

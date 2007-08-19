@@ -52,10 +52,10 @@ TGen::Quaternion4 TGen::Quaternion4::operator * (const TGen::Quaternion4 & quat)
 }
 
 TGen::Quaternion4::operator TGen::Matrix4x4 () const {
-	return TGen::Matrix4x4(1 - (2 * y * y + 2 * z * z), 2 * x * y + 2 * z * w, 2 * x * z - 2 * y * w, 0,
-						   2 * x * y - 2 * z * w, 1 - (2 * x * x + 2 * z * z), 2 * y * z + 2 * x * w, 0,
-						   2 * x * z + 2 * y * w, 2 * y * z - 2 * x * w, 1 - (2 * x * x + 2 * y * y), 0,
-						   0, 0, 0, 1);		
+	return TGen::Matrix4x4(1.0 - (2.0 * y * y + 2.0 * z * z), 2.0 * x * y + 2.0 * z * w, 2.0 * x * z - 2.0 * y * w, 0,
+						   2.0 * x * y - 2.0 * z * w, 1.0 - (2.0 * x * x + 2.0 * z * z), 2.0 * y * z + 2.0 * x * w, 0,
+						   2.0 * x * z + 2.0 * y * w, 2.0 * y * z - 2.0 * x * w, 1.0 - (2.0 * x * x + 2.0 * y * y), 0,
+						   0, 0, 0, 1.0);		
 }
 
 TGen::Quaternion4::operator TGen::Vector3 () const {

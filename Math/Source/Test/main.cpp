@@ -61,6 +61,15 @@ int main(int argc, char ** const argv) {
 	// 14.
 	std::cout << "14. I^-1 == " << std::endl << std::string(TGen::Matrix4x4::Identity.invert()) << std::endl;
 		
+	// 15.
+	TGen::Vector3 orient(0.0f, 0.0f, 1.0f);
+	
+	orient = TGen::Matrix4x4(TGen::Quaternion4::Rotation(TGen::Vector3(0.0f, 1.0f, 0.0f), TGen::Radian(TGen::PI))) * orient;
+	
+	TGen::Quaternion4 kord = orient; //orient * TGen::Vector3(0.0f, 0.0f, 1.0f) * -orient;
+	
+	std::cout << "15. " << std::string(TGen::Vector3(kord)) << std::endl;
+	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

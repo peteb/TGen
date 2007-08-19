@@ -155,25 +155,26 @@ public:
 		renderer = new TGen::OpenGL::Renderer;
 		resources = new ResourceManager;
 		
-		camera = new TGen::Camera("cam", TGen::Vector3(0.6f, 0.6f, 0.0f));	// TODO: bara +Z är korrekt..... måste inverse
-		camera->setClip(1.0f, 100.0f);
+		camera = new TGen::Camera("cam", TGen::Vector3(1.0f, 1.0f, 0.0f));	// TODO: bara +Z är korrekt..... måste inverse
+		camera->setClip(0.1f, 10.0f);
 		camera->setLod(0.0f, 20.0f);
+		camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).normalize());
 		
 		sceneRoot.addChild(camera);
 		sceneRoot.addChild(new TGen::SceneNode("cube1", TGen::Vector3(0.0f, 0.0f, 2.0f)));
-		sceneRoot.addChild(new TGen::SceneNode("cube2", TGen::Vector3(0.0f, 0.0f, 7.0f)));
-		sceneRoot.addChild(new TGen::SceneNode("cube3", TGen::Vector3(0.0f, 0.0f, 15.0f)));
-		sceneRoot.addChild(new TGen::SceneNode("cube4", TGen::Vector3(0.0f, 0.0f, 20.0f)));
+		//sceneRoot.addChild(new TGen::SceneNode("cube2", TGen::Vector3(0.0f, 0.0f, 7.0f)));
+		//sceneRoot.addChild(new TGen::SceneNode("cube3", TGen::Vector3(0.0f, 0.0f, 15.0f)));
+		//sceneRoot.addChild(new TGen::SceneNode("cube4", TGen::Vector3(0.0f, 0.0f, 20.0f)));
 		
 		sceneRoot.getChild("cube1")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
-		sceneRoot.getChild("cube2")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
-		sceneRoot.getChild("cube3")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
-		sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
-				
+		//sceneRoot.getChild("cube2")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
+		//sceneRoot.getChild("cube3")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
+		//sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 		sceneRoot.update();
 		sceneRoot.traverse(TGen::FaceLinker(*resources));
 		sceneRoot.traverse(TGen::ScenePrinter(std::cout));
 	}
+	// SceneNode ska ha en setDirection eller lookAt..
 	
 	~App() {
 		delete camera;
@@ -195,13 +196,33 @@ public:
 				
 	
 	void render() {
+		static float time = 0.0f;
 		renderer->clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 		
 		renderList.clear();
 		sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));
 		renderList.sort(*camera, "default");
-		renderList.print();
+		//renderList.print();
 		renderList.render(*renderer, *camera);
+		
+		
+		
+		time += 0.001f;
+		TGen::Vector3 orient;
+		orient.x = TGen::Cos(TGen::Radian(time / 2.0f));
+		orient.y = 0.0f;
+		orient.z = TGen::Sin(TGen::Radian(time / 2.0f));
+		orient.normalize();
+		
+		std::cout << "time : " << time << std::endl;
+		
+		
+		sceneRoot.getChild("cube1")->setOrientation(orient);
+		
+		
+		//sceneRoot.getChild("cube1")->setPosition(TGen::Vector3(0.0f, 0.0f, 5.0f - time));
+		sceneRoot.update();
+		
 		
 		SDL_GL_SwapBuffers();
 		SDL_Delay(20);

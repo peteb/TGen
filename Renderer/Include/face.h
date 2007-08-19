@@ -7,6 +7,16 @@
  *
  */
 
+//// summary ///////////////////////////////////////////////////////////////////////////////////////
+// The face is the "atom" of the renderer, it has everything needed to render something.
+// It has a Material, a SceneNode and a Geom. The material provides the properties for the rendering,
+// like color and gpu programs, the scene node provides position and orientation, and the geom contains
+// the shape of the face. All these can be shared between faces, but a face can only be attached
+// to one scene node at a given time.
+//
+// keywords: synergy, facade
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifndef _TGEN_RENDERER_FACE_H
 #define _TGEN_RENDERER_FACE_H
 

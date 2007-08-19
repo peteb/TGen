@@ -17,7 +17,8 @@ namespace TGen {
 	public:
 		Sphere();
 		Sphere(const TGen::Vector3 & center, scalar radius);
-
+		Sphere(const TGen::Vector3 & min, const TGen::Vector3 & max);
+		
 		void calculate(const TGen::Vector3 & min, const TGen::Vector3 & max);
 		
 		TGen::Vector3 center;

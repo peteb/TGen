@@ -31,3 +31,6 @@ void TGen::Sphere::calculate(const TGen::Vector3 & min, const TGen::Vector3 & ma
 	center = TGen::Vector3(min.x + width / 2.0, min.y + height / 2.0, min.z + depth / 2.0);
 }
 
+TGen::Sphere::Sphere(const TGen::Vector3 & min, const TGen::Vector3 & max) {
+	calculate(min, max);
+}

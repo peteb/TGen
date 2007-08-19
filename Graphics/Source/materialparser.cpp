@@ -21,7 +21,7 @@ TGen::MaterialParser::~MaterialParser() {}
 
 void TGen::MaterialParser::parse(const char * code, std::list<TGen::Material *> & materials) {
 	TGen::MaterialTokenizer tokenizer;	
-	tokenizer.tokenizeString(code, tokens, true);
+	tokenizer.tokenizeString(code, tokens, false);
 
 	
 	currentToken = tokens.getFirstToken();

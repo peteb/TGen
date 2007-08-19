@@ -39,7 +39,7 @@ void TGen::SceneNode::update() {
 		TGen::Quaternion4 result = orientation * front * -orientation;
 		
 		if (parent)
-			this->transform = parent->getTransform() * TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up);
+			this->transform = parent->getTransform() * TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4(result); //::LookInDirection(result, up);
 		else
 			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up);
 		
@@ -112,6 +112,11 @@ TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() {
 
 void TGen::SceneNode::setPosition(const TGen::Vector3 & position) {
 	this->position = position;
+	changed = true;
+}
+
+void TGen::SceneNode::setOrientation(const TGen::Vector3 & orientation) {
+	this->orientation = orientation;
 	changed = true;
 }
 
@@ -239,8 +244,10 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 	walker.post(*this);
 }
 
-void TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
+bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < faces.size(); ++i) {
 		list.addFace(&faces[i]);
 	}
+	
+	return true;
 }

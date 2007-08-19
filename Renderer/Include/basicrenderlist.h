@@ -7,17 +7,22 @@
  *
  */
 
+//// summary ///////////////////////////////////////////////////////////////////////////////////////
+// A basic unoptimized transparent-sorted render list.
+// addFace adds a face to the faces list, which on sort() is sorted into two other lists; opaqueFaces
+// and transparentFaces. transparentFaces will be sorted back-to-front, opaqueFaces won't be sorted.
+// Whether a face needs to be sorted is determined by looking at the sort level of the current lod 
+// of the face's material.
+//
+// algorithm: std::sort
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifndef _TGEN_RENDERER_BASICRENDERLIST_H
 #define _TGEN_RENDERER_BASICRENDERLIST_H
 
 #include "renderlist.h"
 
 namespace TGen {
-	/*
-		A basic unoptimized render list.
-		Sorting algorithm: std::sort	 
-	*/
-	
 	class BasicRenderList : public TGen::RenderList  {
 	public:
 		BasicRenderList();
@@ -30,8 +35,7 @@ namespace TGen {
 		void clear();
 		void print();
 		
-	private:
-			
+	private:			
 		class SortedFace {
 		public:
 			SortedFace(const TGen::Face * face, scalar distance = 0.0f);

@@ -7,8 +7,15 @@
  *
  */
 
+//// summary ///////////////////////////////////////////////////////////////////////////////////////
+// A class that implements the MeshSource interface can be used to link MeshGeometries with their
+// mesh data.
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 #ifndef _TGEN_RENDERER_MESHSOURCE_H
 #define _TGEN_RENDERER_MESHSOURCE_H
+
+#include <tgen_core.h>
 
 namespace TGen {
 	class MeshSource {

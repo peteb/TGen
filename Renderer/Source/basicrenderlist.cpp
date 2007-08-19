@@ -73,22 +73,37 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	TGen::Matrix4x4 baseMat = camera.getTransform();
 
 	TGen::SceneNode * lastNode = NULL;
-	//std::cout << ">>RENDER<<" << std::endl;
+	std::cout << ">>RENDER<<" << std::endl;
+	std::cout << "basemat: " << std::endl << std::string(baseMat) << std::endl;
 	
 	scalar lodNear = camera.getLodNear();
 	scalar lodFar = camera.getLodFar();
 	scalar clipFar = camera.getClipFar();
 	
+	// OPT: allt det här är förmodligen väldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
-		if (list[i].distanceToCamera < clipFar) {
-			// TODO: få bounding sphere på geometry och ta bort radien från distanceToCamera
+		scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
+		TGen::Plane3 cameraPlane(camera.getWorldOrientation(), 0.0f);
+		
+		TGen::Vector3 pos1, pos2;
+		pos1 = list[i].face->getWorldOrigin() - camera.getWorldPosition() - TGen::Vector3(geomRadius, geomRadius, geomRadius);
+		pos2 = list[i].face->getWorldOrigin() - camera.getWorldPosition() + TGen::Vector3(geomRadius, geomRadius, geomRadius);
+		
+		scalar dist1 = cameraPlane.getPointSide(pos1);
+		scalar dist2 = cameraPlane.getPointSide(pos2);
+		
+		//std::cout << "******* " << dist1 << "  " << dist2 << std::endl;
+		
+		if (list[i].distanceToCamera < clipFar + geomRadius) {
 			const TGen::Face * face = list[i].face;
 			TGen::SceneNode * node = face->getSceneNode();
 			
-			if (node && lastNode != node) {
+			if (node && lastNode != node) {	// only set a new transformation if it's another node
 				renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
 				lastNode = node;
 			}
+			
+			std::cout << "POS IN CAM::::::: " << std::string(baseMat * node->getTransform() * face->getGeometry()->getOrigin()) << std::endl;
 			
 			int lod = 9 - int(((list[i].distanceToCamera - lodNear) / lodFar) * 10.0 - 1.0);
 			TGen::Clamp(lod, 0, 9);
@@ -99,7 +114,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			material->render(renderer, *face->getGeometry(), "default", lod, NULL);
 		}
 		else {
-			std::cout << "face discarded, too far away" << std::endl;
+			std::cout << "face discarded, too far away or behind camera" << std::endl;
 		}
 	}
 }
