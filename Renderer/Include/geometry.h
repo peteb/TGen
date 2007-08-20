@@ -32,9 +32,10 @@ namespace TGen {
 		virtual TGen::Vector3 getMin() const abstract;
 		virtual TGen::Vector3 getOrigin() const abstract;
 		
+		virtual std::string getDefaultMaterial() const {return ""; }	// throw istället kanske?
 	};
 	
-	
+	// HUVUDBRY: md3-meshes anger ju material. faces drar material från geometry om facens material är ""
 } // !TGen
 
 #endif // !_TGEN_RENDERER_GEOMETRY_H

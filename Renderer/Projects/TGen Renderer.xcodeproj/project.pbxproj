@@ -22,6 +22,11 @@
 		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
 		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
+		D0F16B430C79D444004B4E19 /* md3struct.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F16B420C79D444004B4E19 /* md3struct.h */; };
+		D0F16B780C79D6AC004B4E19 /* md3struct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F16B770C79D6AC004B4E19 /* md3struct.cpp */; };
+		D0F16BA00C79D73B004B4E19 /* md3parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */; };
+		D0F16BA20C79D745004B4E19 /* md3parser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F16BA10C79D745004B4E19 /* md3parser.h */; };
+		D0F16C830C7A1CF8004B4E19 /* rocketl.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F16C820C7A1CF8004B4E19 /* rocketl.md3 */; };
 		D0F3713E0C6D02EB00C11F87 /* tgen_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */; };
 		D0F371430C6D02F800C11F87 /* tgen_renderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F371420C6D02F800C11F87 /* tgen_renderer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */; };
@@ -157,6 +162,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		D0C0F3960C7A1DF6006ED8B4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				D0F16C830C7A1CF8004B4E19 /* rocketl.md3 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -177,6 +192,11 @@
 		D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ogltest.cpp; sourceTree = "<group>"; };
 		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D0F16B420C79D444004B4E19 /* md3struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3struct.h; path = Include/md3struct.h; sourceTree = "<group>"; };
+		D0F16B770C79D6AC004B4E19 /* md3struct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3struct.cpp; path = Source/md3struct.cpp; sourceTree = "<group>"; };
+		D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3parser.cpp; path = Source/md3parser.cpp; sourceTree = "<group>"; };
+		D0F16BA10C79D745004B4E19 /* md3parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3parser.h; path = Include/md3parser.h; sourceTree = "<group>"; };
+		D0F16C820C7A1CF8004B4E19 /* rocketl.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = rocketl.md3; sourceTree = "<group>"; };
 		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
@@ -236,6 +256,7 @@
 		08FB7794FE84155DC02AAC07 /* TGen Renderer */ = {
 			isa = PBXGroup;
 			children = (
+				D0F16C810C7A1CE7004B4E19 /* Resources */,
 				D0F371550C6D034500C11F87 /* Dependencies */,
 				08FB7795FE84155DC02AAC07 /* Renderer */,
 				C6859E8C029090F304C91782 /* Documentation */,
@@ -289,6 +310,14 @@
 			name = Documentation;
 			sourceTree = "<group>";
 		};
+		D0F16C810C7A1CE7004B4E19 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D0F16C820C7A1CF8004B4E19 /* rocketl.md3 */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		D0F371220C6D024400C11F87 /* Test */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +355,10 @@
 		D0F371A30C6D049C00C11F87 /* md3 */ = {
 			isa = PBXGroup;
 			children = (
+				D0F16B770C79D6AC004B4E19 /* md3struct.cpp */,
+				D0F16B420C79D444004B4E19 /* md3struct.h */,
+				D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */,
+				D0F16BA10C79D745004B4E19 /* md3parser.h */,
 			);
 			name = md3;
 			sourceTree = "<group>";
@@ -428,6 +461,8 @@
 				D009E5BD0C71DC5600A5CBE7 /* meshgeometry.h in Headers */,
 				D009E5E60C71DD7D00A5CBE7 /* meshsource.h in Headers */,
 				D009E6420C71E38700A5CBE7 /* animatingmeshgeometry.h in Headers */,
+				D0F16B430C79D444004B4E19 /* md3struct.h in Headers */,
+				D0F16BA20C79D745004B4E19 /* md3parser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +475,7 @@
 			buildPhases = (
 				8DD76F640486A84900D96B5E /* Sources */,
 				8DD76F660486A84900D96B5E /* Frameworks */,
+				D0C0F3960C7A1DF6006ED8B4 /* CopyFiles */,
 				8DD76F690486A84900D96B5E /* CopyFiles */,
 			);
 			buildRules = (
@@ -595,6 +631,8 @@
 				D009E5910C71DBCF00A5CBE7 /* staticgeometry.cpp in Sources */,
 				D009E5BB0C71DC4C00A5CBE7 /* meshgeometry.cpp in Sources */,
 				D009E6440C71E39200A5CBE7 /* animatingmeshgeometry.cpp in Sources */,
+				D0F16B780C79D6AC004B4E19 /* md3struct.cpp in Sources */,
+				D0F16BA00C79D73B004B4E19 /* md3parser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

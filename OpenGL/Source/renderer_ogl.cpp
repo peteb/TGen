@@ -189,7 +189,7 @@ TGen::Matrix4x4 TGen::OpenGL::Renderer::getTransform(TGen::TransformMode mode) c
 	}
 	
 	TGen::Matrix4x4 ret;
-	glGetFloatv(fixedTransform, (GLfloat *)ret.elements);
+	glGetFloatv(fixedTransform, (GLfloat *)ret.elements);  // TODO: SLOW!!! cache!
 	
 	return ret;
 }

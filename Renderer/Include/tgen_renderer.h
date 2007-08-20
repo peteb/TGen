@@ -27,6 +27,9 @@
 #include "renderfill.h"
 #include "basicrenderlist.h"
 
+#include "md3struct.h"
+#include "md3parser.h"
+
 namespace TGen {
 	bool isRendererDebug();
 }

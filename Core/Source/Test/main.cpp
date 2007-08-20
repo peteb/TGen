@@ -55,7 +55,6 @@ int main(int argc, char ** const argv) {
 	TGen::Time really = TGen::Time::Now();
 	std::cout << "sleep diff: " << double(really - now) << std::endl;
 	
-	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

@@ -24,6 +24,12 @@ typedef unsigned char uchar;
 typedef float scalar;
 
 #define abstract =0
+#define PACKED 
+
+template<typename T>
+void PatchPointer(T & pointer, void * base) {
+	pointer = reinterpret_cast<T>(reinterpret_cast<uint8 *>(pointer) + uint(base));
+}
 
 namespace TGen {
 	enum FormatType {

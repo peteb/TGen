@@ -8,6 +8,7 @@
  */
 
 #include <iostream>
+#include <fstream>
 #include <tgen_opengl.h>
 #include <tgen_core.h>
 #include <tgen_renderer.h>
@@ -173,8 +174,26 @@ public:
 		sceneRoot.update();
 		sceneRoot.traverse(TGen::FaceLinker(*resources));
 		sceneRoot.traverse(TGen::ScenePrinter(std::cout));
+		
+		
+		
+		
+		std::ifstream rocketl;
+		rocketl.open("rocketl.md3", std::ios::binary);
+		if (!rocketl.is_open())
+			throw TGen::RuntimeException("main", "failed to open file");
+		
+		
+		TGen::MD3::Parser parser;
+		TGen::MD3::File * file = parser.parse(rocketl);
+		file->printInfo(std::cout);
+		delete file;
+		
+		rocketl.close();
+
 	}
-	// SceneNode ska ha en setDirection eller lookAt..
+	// SceneNode ska ha en setDirection..
+	// TODO: AABB-walker. MD3!!!!!!!! sen leka runt med olika rendreringstekniker
 	
 	~App() {
 		delete camera;
@@ -182,6 +201,8 @@ public:
 		delete renderer;
 		
 	}	
+	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST)   i ortho
+	// glTexSubImage2D or glTexCopyTexSubImage2D  istället för glTexImage2D om uppdatera ofta
 	
 	bool isRunning() const { return running; }
 	void quit() {running = false; }
@@ -203,11 +224,11 @@ public:
 		sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));
 		renderList.sort(*camera, "default");
 		//renderList.print();
-		renderList.render(*renderer, *camera);
+		//renderList.render(*renderer, *camera);
 		
 		
 		
-		time += 0.001f;
+		/*time += 0.001f;
 		TGen::Vector3 orient;
 		orient.x = TGen::Cos(TGen::Radian(time / 2.0f));
 		orient.y = 0.0f;
@@ -222,7 +243,7 @@ public:
 		
 		//sceneRoot.getChild("cube1")->setPosition(TGen::Vector3(0.0f, 0.0f, 5.0f - time));
 		sceneRoot.update();
-		
+		*/
 		
 		SDL_GL_SwapBuffers();
 		SDL_Delay(20);

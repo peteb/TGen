@@ -18,6 +18,7 @@
 #include "stringman.h"
 #include "hrestimer.h"
 #include "debug.h"
+#include "endian.h"
 
 namespace TGen {
 	bool isCoreDebug();

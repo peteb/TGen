@@ -92,9 +92,9 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 		scalar dist1 = cameraPlane.getPointSide(pos1);
 		scalar dist2 = cameraPlane.getPointSide(pos2);
 		
-		//std::cout << "******* " << dist1 << "  " << dist2 << std::endl;
+	//	std::cout << "******* " << dist1 << "  " << dist2 << std::endl;
 		
-		if (list[i].distanceToCamera < clipFar + geomRadius) {
+		if (list[i].distanceToCamera < clipFar + geomRadius && (dist1 <= 0.0f || dist2 <= 0.0f)) {
 			const TGen::Face * face = list[i].face;
 			TGen::SceneNode * node = face->getSceneNode();
 			

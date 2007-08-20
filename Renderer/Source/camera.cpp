@@ -37,7 +37,7 @@ void TGen::Camera::update() {
 		TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
 		//TGen::Vector3 result = orientation * front * -orientation;
 		
-		TGen::Vector3 result = TGen::Vector3(orientation);
+		TGen::Vector3 result = TGen::Vector3(orientation);   // FULHACK
 		result.z = -result.z;	// FULHACK
 		
 		

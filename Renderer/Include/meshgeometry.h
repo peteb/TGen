@@ -47,3 +47,4 @@ namespace TGen {
 } // !TGen
 
 #endif // !_TGEN_RENDERER_MESHGEOMETRY_H
+// TODO: the mesh class.

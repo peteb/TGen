@@ -13,6 +13,7 @@
 // like color and gpu programs, the scene node provides position and orientation, and the geom contains
 // the shape of the face. All these can be shared between faces, but a face can only be attached
 // to one scene node at a given time.
+// If no material is provided, "", it will inherit the default material from the geometry.
 //
 // keywords: synergy, facade
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +32,7 @@ namespace TGen {
 	
 	class Face {
 	public:
-		Face(TGen::Geometry * geometry, const std::string & materialName, TGen::SceneNode * node = NULL);
+		Face(TGen::Geometry * geometry, const std::string & materialName = "", TGen::SceneNode * node = NULL);
 		~Face();
 		
 		void linkMaterial(TGen::MaterialSource & source);

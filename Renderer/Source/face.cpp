@@ -18,7 +18,8 @@ TGen::Face::Face(TGen::Geometry * geometry, const std::string & materialName, TG
 	, geometry(geometry)
 	, sceneNode(node)
 {
-		
+	if (materialName.empty() && geometry)
+		this->materialName = geometry->getDefaultMaterial();
 }
 
 TGen::Face::~Face() {
