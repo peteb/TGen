@@ -16,7 +16,8 @@
 #include "techniquelist.h"
 #include "passlist.h"
 
-TGen::Material::SpecializationMap TGen::Material::specializations;
+//TGen::Material::SpecializationMap TGen::Material::specializations;
+TGen::SymbolTable TGen::Material::specializations;
 
 TGen::Material::Material(const std::string & name) 
 	: minimumTechnique(0)
@@ -52,11 +53,11 @@ void TGen::Material::link(TGen::MaterialLinkCallback & callback) {
 }
 
 void TGen::Material::setSpecialization(const std::string & name, TGen::TechniqueList * techniques) {
-	TechniqueListMap::iterator iter = this->techniques.find(getSpecializationID(name));
+	TechniqueListMap::iterator iter = this->techniques.find(specializations[name]);
 	if (iter != this->techniques.end())
 		delete iter->second;
 	
-	this->techniques[getSpecializationID(name)] = techniques;
+	this->techniques[specializations[name]] = techniques;
 }
 
 void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
@@ -82,7 +83,7 @@ void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & 
 
 TGen::Technique * TGen::Material::getSpecialization(const std::string & name) {
 	TGen::TechniqueList * techniques = NULL;
-	int specialization = getSpecializationID(name);
+	int specialization = specializations[name];
 	
 	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: man ska kunna ange specnum direkt också
 	if (iter == this->techniques.end())
@@ -103,7 +104,7 @@ void TGen::Material::update(scalar time) {
 	}
 }
 
-int TGen::Material::getSpecializationID(const std::string & name) {
+/*int TGen::Material::getSpecializationID(const std::string & name) {
 	SpecializationMap::iterator iter = specializations.find(name);
 	if (iter == specializations.end()) {
 		int newId = specializations.size() + 1;
@@ -112,7 +113,7 @@ int TGen::Material::getSpecializationID(const std::string & name) {
 	}
 	
 	return iter->second;
-}
+}*/
 
 void TGen::Material::setMaximumTechnique(int minreqs)  {
 	minimumTechnique = minreqs;

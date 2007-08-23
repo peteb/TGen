@@ -47,4 +47,4 @@ namespace TGen {
 } // !TGen
 
 #endif // !_TGEN_RENDERER_MESHGEOMETRY_H
-// TODO: the mesh class.
+// TODO: MeshGeometry pekar på en Geometry.......... lättast... sen kanske man ska strunta i alla animatinggeometry, staticgeom, animatingmeshgeom, osv

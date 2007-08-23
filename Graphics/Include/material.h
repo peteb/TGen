@@ -55,12 +55,13 @@ namespace TGen {
 		
 	private:
 		typedef std::map<int, TGen::TechniqueList *> TechniqueListMap;
-		typedef std::map<std::string, int> SpecializationMap;
+		//typedef std::map<std::string, int> SpecializationMap;
 		typedef std::map<std::string, std::vector<std::string> > ParameterMap;
 		
-		int getSpecializationID(const std::string & name);
+		//int getSpecializationID(const std::string & name);
 		
-		static SpecializationMap specializations;  // map specialization name to id		
+		//static SpecializationMap specializations;  // map specialization name to id		
+		static TGen::SymbolTable specializations;
 		ParameterMap parameters;
 		TechniqueListMap techniques;
 		int minimumTechnique, sortLevel;
