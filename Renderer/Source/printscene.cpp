@@ -29,7 +29,7 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 	stream << std::endl;
 	
 	for (int i = 0; i < node.getFaces().size(); ++i) {
-		stream << levelName << "   " << i << " ";
+		stream << levelName << "   face " << i << " ";
 		stream << "[" << (node.getFaces()[i].getMaterial() ? "" : "!") << node.getFaces()[i].getMaterialName() << "]";
 		stream << std::endl;
 	}

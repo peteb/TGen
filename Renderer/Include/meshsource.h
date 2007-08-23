@@ -18,11 +18,13 @@
 #include <tgen_core.h>
 
 namespace TGen {
+	class Mesh;
+	
 	class MeshSource {
 	public:
 		virtual ~MeshSource() {}
 		
-		virtual void * getMesh(const std::string & name) abstract;
+		virtual TGen::Mesh * getMesh(const std::string & name) abstract;
 	};
 	
 } // !TGen

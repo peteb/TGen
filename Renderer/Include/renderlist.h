@@ -38,7 +38,7 @@ namespace TGen {
 		RenderList() {}
 		virtual ~RenderList() {}
 		
-		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera) abstract;
+		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) abstract;
 		virtual void addFace(const TGen::Face * face) abstract;
 		virtual void sort(const TGen::Camera & camera, const std::string & specialization) abstract;
 		virtual void clear() abstract;

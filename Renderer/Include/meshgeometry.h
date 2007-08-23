@@ -18,6 +18,15 @@
 
 namespace TGen {
 	class MeshSource;
+	class Mesh;
+	class MeshGeometry;
+	
+	class MeshGeometryObserver {
+	public:
+		virtual ~MeshGeometryObserver() {}
+		
+		virtual void onRemoved(MeshGeometry & geometry) abstract;
+	};
 	
 	class MeshGeometry : public TGen::Geometry {
 	public:	
@@ -27,7 +36,7 @@ namespace TGen {
 		virtual void linkMesh(TGen::MeshSource & source);
 		virtual void unlinkMesh();
 		
-		void * getMesh() const;
+		TGen::Mesh * getMesh() const;
 		std::string getMeshName() const;
 	
 		virtual void preRender(TGen::Renderer & renderer) const;
@@ -38,9 +47,17 @@ namespace TGen {
 		virtual TGen::Vector3 getMin() const;
 		virtual TGen::Vector3 getOrigin() const;
 		
+		void attachedToObserver(MeshGeometryObserver * observer);
+		void detachedFromObserver(MeshGeometryObserver * observer);
+		
 	protected:
+		void testLinkedMesh(const std::string & place) const;
+			
+		typedef std::vector<MeshGeometryObserver *> ObserverList;
+
 		std::string meshName;
-		void * mesh;
+		TGen::Mesh * mesh;
+		ObserverList observers;
 	};
 	
 	

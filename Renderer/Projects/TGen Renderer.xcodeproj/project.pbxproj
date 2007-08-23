@@ -22,6 +22,10 @@
 		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
 		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
+		D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD1DB0C7DC55A001E861E /* mesh.h */; };
+		D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD1DF0C7DC56A001E861E /* mesh.cpp */; };
+		D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */; };
+		D0EFD3270C7DCBD6001E861E /* meshgeomlinklist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */; };
 		D0F16B430C79D444004B4E19 /* md3struct.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F16B420C79D444004B4E19 /* md3struct.h */; };
 		D0F16B780C79D6AC004B4E19 /* md3struct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F16B770C79D6AC004B4E19 /* md3struct.cpp */; };
 		D0F16BA00C79D73B004B4E19 /* md3parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */; };
@@ -192,6 +196,10 @@
 		D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ogltest.cpp; sourceTree = "<group>"; };
 		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D0EFD1DB0C7DC55A001E861E /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Include/mesh.h; sourceTree = "<group>"; };
+		D0EFD1DF0C7DC56A001E861E /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = Source/mesh.cpp; sourceTree = "<group>"; };
+		D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeomlinklist.h; path = Include/meshgeomlinklist.h; sourceTree = "<group>"; };
+		D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeomlinklist.cpp; path = Source/meshgeomlinklist.cpp; sourceTree = "<group>"; };
 		D0F16B420C79D444004B4E19 /* md3struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3struct.h; path = Include/md3struct.h; sourceTree = "<group>"; };
 		D0F16B770C79D6AC004B4E19 /* md3struct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3struct.cpp; path = Source/md3struct.cpp; sourceTree = "<group>"; };
 		D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3parser.cpp; path = Source/md3parser.cpp; sourceTree = "<group>"; };
@@ -278,6 +286,10 @@
 				D009E58A0C71DBC300A5CBE7 /* staticgeometry.h */,
 				D009E5BA0C71DC4C00A5CBE7 /* meshgeometry.cpp */,
 				D009E5BC0C71DC5600A5CBE7 /* meshgeometry.h */,
+				D0EFD1DF0C7DC56A001E861E /* mesh.cpp */,
+				D0EFD1DB0C7DC55A001E861E /* mesh.h */,
+				D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */,
+				D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */,
 				D009E6430C71E39200A5CBE7 /* animatingmeshgeometry.cpp */,
 				D009E6410C71E38700A5CBE7 /* animatingmeshgeometry.h */,
 				D0F50DD70C7097C1005DB68D /* face.cpp */,
@@ -463,6 +475,8 @@
 				D009E6420C71E38700A5CBE7 /* animatingmeshgeometry.h in Headers */,
 				D0F16B430C79D444004B4E19 /* md3struct.h in Headers */,
 				D0F16BA20C79D745004B4E19 /* md3parser.h in Headers */,
+				D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */,
+				D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,6 +647,8 @@
 				D009E6440C71E39200A5CBE7 /* animatingmeshgeometry.cpp in Sources */,
 				D0F16B780C79D6AC004B4E19 /* md3struct.cpp in Sources */,
 				D0F16BA00C79D73B004B4E19 /* md3parser.cpp in Sources */,
+				D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */,
+				D0EFD3270C7DCBD6001E861E /* meshgeomlinklist.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

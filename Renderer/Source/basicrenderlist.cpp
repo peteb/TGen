@@ -26,6 +26,9 @@ void TGen::BasicRenderList::addFace(const TGen::Face * face) {
 	if (!face->getMaterial())
 		throw TGen::RuntimeException("BasicRenderList::addFace", "no material linked!");
 	
+	if  (!face->getGeometry())
+		throw TGen::RuntimeException("BasicRenderList::addFace", "no geometry!");
+		
 	/*if (face->getMaterial()->getSortLevel() == TGen::MaterialSortOpaque)
 		opaqueFaces.push_back(face);
 	else
@@ -62,19 +65,19 @@ void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string 
 	}
 }
 
-void TGen::BasicRenderList::render(TGen::Renderer & renderer, const TGen::Camera & camera) {
+void TGen::BasicRenderList::render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) {
 	renderer.setTransform(TGen::TransformProjection, camera.getProjection());
 
-	renderList(opaqueFaces, renderer, camera);
-	renderList(transparentFaces, renderer, camera);
+	renderList(opaqueFaces, renderer, camera, specialization);
+	renderList(transparentFaces, renderer, camera, specialization);
 }
 
-void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera) {
+void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) {
 	TGen::Matrix4x4 baseMat = camera.getTransform();
 
 	TGen::SceneNode * lastNode = NULL;
-	std::cout << ">>RENDER<<" << std::endl;
-	std::cout << "basemat: " << std::endl << std::string(baseMat) << std::endl;
+	//std::cout << ">>RENDER<<" << std::endl;
+	//std::cout << "basemat: " << std::endl << std::string(baseMat) << std::endl;
 	
 	scalar lodNear = camera.getLodNear();
 	scalar lodFar = camera.getLodFar();
@@ -103,15 +106,15 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 				lastNode = node;
 			}
 			
-			std::cout << "POS IN CAM::::::: " << std::string(baseMat * node->getTransform() * face->getGeometry()->getOrigin()) << std::endl;
+			//std::cout << "POS IN CAM::::::: " << std::string(baseMat * node->getTransform() * face->getGeometry()->getOrigin()) << std::endl;
 			
 			int lod = 9 - int(((list[i].distanceToCamera - lodNear) / lodFar) * 10.0 - 1.0);
 			TGen::Clamp(lod, 0, 9);
 			
-			std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
+			//std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
 			
 			TGen::Material * material = face->getMaterial();
-			material->render(renderer, *face->getGeometry(), "default", lod, NULL);
+			material->render(renderer, *face->getGeometry(), specialization, lod, NULL);	// TODO: opt specialization, symbol look-up before loop
 		}
 		else {
 			std::cout << "face discarded, too far away or behind camera" << std::endl;

@@ -98,7 +98,7 @@ private:
 	TGen::IndexBuffer * ib;
 };
 
-class ResourceManager : public TGen::MaterialSource {
+class ResourceManager : public TGen::MaterialSource, public TGen::MeshSource {
 public:	
 	ResourceManager() {
 		TGen::MaterialParser parser;
@@ -127,10 +127,40 @@ public:
 		
 		
 		std::cout << "[res]: " << materials.size() << " materials created" << std::endl;
+		
+		
+		
+		
+		
+		std::ifstream rocketl;
+		rocketl.open("rocketl.md3", std::ios::binary);
+		if (!rocketl.is_open())
+			throw TGen::RuntimeException("main", "failed to open file");
+		
+		
+		TGen::MD3::Parser modelParser;
+		TGen::MD3::File * file = modelParser.parse(rocketl);
+		rocketl.close();
+		
+		
+		file->printInfo(std::cout);
+		TGen::Mesh * newMesh = file->createMesh(0.001);
+		delete file;
+		
+		if (newMesh)
+			meshes.push_back(newMesh);
+
+		
+		
+		
 	}
 	
 	~ResourceManager() {
-		// delete materials
+		for (std::list<TGen::Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter)
+			delete *iter;
+		
+		for (std::list<TGen::Mesh *>::iterator iter = meshes.begin(); iter != meshes.end(); ++iter)
+			delete *iter;
 	}
 	
 	TGen::Material * getMaterial(const std::string & name) {
@@ -142,9 +172,19 @@ public:
 		throw TGen::RuntimeException("ResourceManager::getMaterial", "material '" + name + "' not loaded");
 	}
 	
+	TGen::Mesh * getMesh(const std::string & name) {
+		for (std::list<TGen::Mesh *>::iterator iter = meshes.begin(); iter != meshes.end(); ++iter) {
+			if ((*iter)->getName() == name)
+				return *iter;
+		}
+		
+		throw TGen::RuntimeException("ResourceManager::getMesh", "mesh '" + name + "' not loaded");		
+	}
+	
 	
 private:
 	std::list<TGen::Material *> materials;
+	std::list<TGen::Mesh *> meshes;
 };
 
 class App {
@@ -156,7 +196,7 @@ public:
 		renderer = new TGen::OpenGL::Renderer;
 		resources = new ResourceManager;
 		
-		camera = new TGen::Camera("cam", TGen::Vector3(1.0f, 1.0f, 0.0f));	// TODO: bara +Z är korrekt..... måste inverse
+		camera = new TGen::Camera("cam", TGen::Vector3(1.0f, 0.0f, 0.0f));	// TODO: bara +Z är korrekt..... måste inverse
 		camera->setClip(0.1f, 10.0f);
 		camera->setLod(0.0f, 20.0f);
 		camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).normalize());
@@ -167,29 +207,21 @@ public:
 		//sceneRoot.addChild(new TGen::SceneNode("cube3", TGen::Vector3(0.0f, 0.0f, 15.0f)));
 		//sceneRoot.addChild(new TGen::SceneNode("cube4", TGen::Vector3(0.0f, 0.0f, 20.0f)));
 		
-		sceneRoot.getChild("cube1")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
+		//sceneRoot.getChild("cube1")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 		//sceneRoot.getChild("cube2")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 		//sceneRoot.getChild("cube3")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 		//sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
+
+		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher", TGen::Vector3(0.0f, 0.0f, 2.0f)));
+		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/rocketl/rocketl.md3")), "myMat"));
+		
+		
+		
 		sceneRoot.update();
 		sceneRoot.traverse(TGen::FaceLinker(*resources));
 		sceneRoot.traverse(TGen::ScenePrinter(std::cout));
+		meshList.relink(*resources);
 		
-		
-		
-		
-		std::ifstream rocketl;
-		rocketl.open("rocketl.md3", std::ios::binary);
-		if (!rocketl.is_open())
-			throw TGen::RuntimeException("main", "failed to open file");
-		
-		
-		TGen::MD3::Parser parser;
-		TGen::MD3::File * file = parser.parse(rocketl);
-		file->printInfo(std::cout);
-		delete file;
-		
-		rocketl.close();
 
 	}
 	// SceneNode ska ha en setDirection..
@@ -224,7 +256,7 @@ public:
 		sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));
 		renderList.sort(*camera, "default");
 		//renderList.print();
-		//renderList.render(*renderer, *camera);
+		renderList.render(*renderer, *camera, "default");
 		
 		
 		
@@ -254,7 +286,8 @@ private:
 	TGen::Renderer * renderer;
 	ResourceManager * resources;
 	TGen::BasicRenderList renderList;
-
+	TGen::MeshGeometryLinkList meshList;
+	
 	TGen::SceneNode sceneRoot;
 	TGen::Camera * camera;
 };

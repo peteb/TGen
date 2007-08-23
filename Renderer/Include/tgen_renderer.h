@@ -14,6 +14,7 @@
 #include "lodgeometry.h"
 #include "staticgeometry.h"
 #include "meshgeometry.h"
+#include "mesh.h"
 #include "animatingmeshgeometry.h"
 #include "camera.h"
 #include "fpscamera.h"
@@ -26,6 +27,7 @@
 #include "renderlist.h"
 #include "renderfill.h"
 #include "basicrenderlist.h"
+#include "meshgeomlinklist.h"
 
 #include "md3struct.h"
 #include "md3parser.h"

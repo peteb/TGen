@@ -25,6 +25,6 @@ bool TGen::FaceLinker::pre(TGen::SceneNode & node) const {
 }
 
 void TGen::FaceLinker::post(TGen::SceneNode & node) const {
-	
+	// MeshGeomLinkList
 }
 

@@ -28,7 +28,7 @@ namespace TGen {
 		BasicRenderList();
 		~BasicRenderList();
 		
-		void render(TGen::Renderer & renderer, const TGen::Camera & camera);
+		void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
 		void addFace(const TGen::Face * face);
 		void sort(const TGen::Camera & camera, const std::string & specialization);
 		bool needSorting();
@@ -54,7 +54,7 @@ namespace TGen {
 		typedef std::vector<SortedFace> SortedFaceList;
 		typedef std::vector<const Face *> FaceList;
 		
-		void renderList(SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera);
+		void renderList(SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
 		void calculateCameraDistance(SortedFaceList & list, const TGen::Camera & camera);
 		
 		FaceList faces;
