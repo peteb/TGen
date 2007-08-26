@@ -9,13 +9,16 @@
 
 #include "md3parser.h"
 #include "md3struct.h"
+#include "md3mesh.h"
+#include "md3submesh.h"
 #include "mesh.h"
 
 TGen::MD3::Parser::Parser() {}
 TGen::MD3::Parser::~Parser() {}
 
-TGen::MD3::File::File(TGen::MD3::Header * header)
+TGen::MD3::File::File(TGen::MD3::Header * header, const TGen::MD3::SurfaceList & surfaces)
 	: header(header)
+	, surfaces(surfaces)
 {
 }
 
@@ -37,10 +40,10 @@ TGen::MD3::File * TGen::MD3::Parser::parse(std::istream & source) {
 		throw TGen::RuntimeException("MD3::Parser::parse", "file can't possibly be valid, not enough room for header! Size: ") << size;
 	
 	DEBUG_PRINT("[md3]: size: " << size);
-	
+		
 	TGen::MD3::Header * header = reinterpret_cast<TGen::MD3::Header *>(malloc(size));
 	source.read(reinterpret_cast<char *>(header), size);
-	
+		
 	SwapLocalLe32(header->ident);
 	SwapLocalLe32(header->version);
 	SwapLocalLe32(header->flags);
@@ -55,23 +58,27 @@ TGen::MD3::File * TGen::MD3::Parser::parse(std::istream & source) {
 
 	if (header->ident != TGen::MD3::MAGIC)
 		throw TGen::RuntimeException("MD3::Parser", "header invalid!");
-		
+	
 	PatchPointer(header->frames, header);
 	PatchPointer(header->tags, header);
-	PatchPointer(header->surfaces, header);
+	PatchPointer(header->first_surface, header);
 	PatchPointer(header->eof, header);
 	
+	TGen::MD3::SurfaceList surfaces;
+	TGen::MD3::Surface * surface = header->first_surface;
+
 	for (int i = 0; i < header->num_surfaces; ++i) {
-		TGen::MD3::Surface * surface = &header->surfaces[i];
-		
 		PatchPointer(surface->triangles, surface);
 		PatchPointer(surface->shaders, surface);
 		PatchPointer(surface->texCoords, surface);
 		PatchPointer(surface->vertices, surface);
-		PatchPointer(surface->end, surface);
-	}	
-
-	return new TGen::MD3::File(header);
+		PatchPointer(surface->next, surface);
+		
+		surfaces.push_back(surface);
+		surface = surface->next;
+	}
+	
+	return new TGen::MD3::File(header, surfaces);
 }
 
 void TGen::MD3::File::printInfo(std::ostream & stream) const {
@@ -98,8 +105,8 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 	
 	stream << "surfaces: " << header->num_surfaces << "\n";
 	
-	for (int i = 0; i < header->num_surfaces; ++i) {
-		TGen::MD3::Surface * surface = &header->surfaces[i];
+	for (int i = 0; i < surfaces.size(); ++i) {
+		TGen::MD3::Surface * surface = surfaces[i];
 		
 		if (surface->ident == TGen::MD3::MAGIC) {
 			stream << " * ident: " << surface->ident << "\n";
@@ -110,11 +117,14 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 			stream << "   shaders: " << surface->num_shaders << "\n";
 		
 			for (int a = 0; a < surface->num_shaders; ++a) {
-				stream << "      name: " << surface->shaders[a].name << "\n";
+				stream << "    * name: " << surface->shaders[a].name << "\n";
 				stream << "      index: " << surface->shaders[a].shader_index << "\n";
 			}
 			
 			stream << "\n";
+		}
+		else {
+			stream << " * invalid ident\n\n";
 		}
 	}
 	
@@ -122,9 +132,60 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 }
 
 
-TGen::Mesh * TGen::MD3::File::createMesh(scalar scale) const {
-	TGen::Mesh * newMesh = new TGen::Mesh(reinterpret_cast<const char *>(header->name));
+TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar scale) const {
+	TGen::MD3::Mesh * newMesh = new TGen::MD3::Mesh(reinterpret_cast<const char *>(header->name));
+
+	DEBUG_PRINT("[md3]: creating surfaces...");
 	
+	
+	for (int i = 0; i < surfaces.size(); ++i) {
+		TGen::MD3::Surface * surface = surfaces[i];
+		
+		if (surface->ident == TGen::MD3::MAGIC) {
+			TGen::MD3::Submesh * submesh = new TGen::MD3::Submesh;
+			
+			int numIndices = surface->num_triangles * 3;
+			int numVertices = surface->num_verts;
+			
+			submesh->vb = renderer.createVertexBuffer(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStatic);
+			submesh->ib = renderer.createIndexBuffer(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
+			submesh->indexCount = numIndices;
+			
+			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(submesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));
+			
+			for (int i = 0; i < surface->num_verts; ++i) {
+				TGen::MD3::TexCoord * texCoord = &surface->texCoords[i];
+				TGen::MD3::Vertex * vertex = &surface->vertices[i];
+			
+				vbpos->x = float(vertex->x) * scale;
+				vbpos->y = float(vertex->z) * scale;
+				vbpos->z = float(vertex->y) * scale;
+				vbpos->u = texCoord->st[0];
+				vbpos->v = texCoord->st[1];
+				vbpos->nx = 1.0f;
+				vbpos->ny = 0.0f;
+				vbpos->nz = 0.0f;
+				
+				vbpos++;
+			}
+			
+			submesh->vb->unlock();
+			
+			TGen::MD3::IndexDecl::Type * ibpos = reinterpret_cast<TGen::MD3::IndexDecl::Type *>(submesh->ib->lock(TGen::LockDiscard | TGen::LockWrite));
+			
+			for (int i = 0; i < surface->num_triangles; ++i) {
+				TGen::MD3::Triangle * triangle = &surface->triangles[i];
+				*(ibpos++) = triangle->indexes[2];
+				*(ibpos++) = triangle->indexes[1];
+				*(ibpos++) = triangle->indexes[0];
+			}
+			
+			submesh->ib->unlock();
+			
+			newMesh->addLeaf(submesh);
+		}
+	}
+		
 	return newMesh;
 }
 

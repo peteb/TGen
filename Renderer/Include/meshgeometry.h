@@ -46,7 +46,8 @@ namespace TGen {
 		virtual TGen::Vector3 getMax() const;
 		virtual TGen::Vector3 getMin() const;
 		virtual TGen::Vector3 getOrigin() const;
-		
+		const TGen::Geometry::SubfaceList * getLeaves() const;
+			
 		void attachedToObserver(MeshGeometryObserver * observer);
 		void detachedFromObserver(MeshGeometryObserver * observer);
 		

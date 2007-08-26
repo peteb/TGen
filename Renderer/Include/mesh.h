@@ -11,11 +11,13 @@
 #define _TGEN_RENDERER_MESH_H
 
 #include <string>
+#include "geometry.h"
 
 namespace TGen {
-	class Mesh {
+	class Mesh : public TGen::Geometry {
 	public:	
 		Mesh(const std::string & name);
+		virtual ~Mesh() {}
 		
 		std::string getName() const;
 		

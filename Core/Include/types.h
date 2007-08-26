@@ -24,7 +24,7 @@ typedef unsigned char uchar;
 typedef float scalar;
 
 #define abstract =0
-#define PACKED 
+#define PACKED __attribute__((packed))
 
 template<typename T>
 void PatchPointer(T & pointer, void * base) {

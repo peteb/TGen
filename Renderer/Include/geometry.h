@@ -19,10 +19,21 @@
 namespace TGen {
 	class Camera;
 	
+	class Subface : public TGen::Renderable {
+	public:	
+		virtual ~Subface() {}
+	
+		virtual void preRender(TGen::Renderer & renderer) const abstract;
+		virtual void render(TGen::Renderer & renderer) const abstract;
+		
+	};
+	
 	class Geometry : public TGen::Renderable {
 	public:	
 		Geometry() {}
 		virtual ~Geometry() {}
+		
+		typedef std::vector<TGen::Subface *> SubfaceList;
 		
 		virtual void preRender(TGen::Renderer & renderer) const abstract;		// set vb's, ib's, etc.
 		virtual void render(TGen::Renderer & renderer) const abstract;
@@ -32,7 +43,13 @@ namespace TGen {
 		virtual TGen::Vector3 getMin() const abstract;
 		virtual TGen::Vector3 getOrigin() const abstract;
 		
-		virtual std::string getDefaultMaterial() const {return ""; }	// throw istället kanske?
+		virtual std::string getDefaultMaterial() const {return ""; }	// throw istället kanske? BORT KANSKE!
+		
+		virtual const SubfaceList * getLeaves() const;
+		void addLeaf(TGen::Subface * leaf);
+		
+	protected:
+		SubfaceList leaves;
 	};
 	
 	// HUVUDBRY: md3-meshes anger ju material. faces drar material från geometry om facens material är ""

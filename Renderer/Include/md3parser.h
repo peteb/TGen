@@ -12,12 +12,16 @@
 
 #include <istream>
 #include <tgen_core.h>
+#include <vector>
+#include "md3struct.h"
 
 namespace TGen {
 	class Mesh;
+	class Renderer;
 	
 	namespace MD3 {
 		class File;
+		class Mesh;
 		struct Header;
 		
 		class Parser {
@@ -31,18 +35,19 @@ namespace TGen {
 		
 		class File {
 		private:
-			File(TGen::MD3::Header * header);
+			File(TGen::MD3::Header * header, const TGen::MD3::SurfaceList & surfaces);
 			
 		public:
 			~File();
 			
 			void printInfo(std::ostream & stream) const;
-			TGen::Mesh * createMesh(scalar scale) const;
+			TGen::MD3::Mesh * createMesh(TGen::Renderer & renderer, scalar scale) const;
 			
 			friend class TGen::MD3::Parser;
 			
 		private:
 			TGen::MD3::Header * header;
+			TGen::MD3::SurfaceList surfaces;
 		};
 	} // !MD3
 } // !TGen

@@ -9,6 +9,7 @@
 
 #include "printscene.h"
 #include "face.h"
+#include "geometry.h"
 
 TGen::ScenePrinter::ScenePrinter(std::ostream & stream) 
 	: stream(stream)
@@ -30,7 +31,18 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 	
 	for (int i = 0; i < node.getFaces().size(); ++i) {
 		stream << levelName << "   face " << i << " ";
-		stream << "[" << (node.getFaces()[i].getMaterial() ? "" : "!") << node.getFaces()[i].getMaterialName() << "]";
+		stream << "[" << (node.getFaces()[i].getMaterial() ? "" : "!") << node.getFaces()[i].getMaterialName() << ", ";
+		
+		if (!node.getFaces()[i].getGeometry()) {
+			stream << "no geometry]";
+		}
+		else {
+			if (node.getFaces()[i].getGeometry()->getLeaves())
+				stream << node.getFaces()[i].getGeometry()->getLeaves()->size() << " submeshes]";
+			else
+				stream << "no submeshes]";
+		}
+		
 		stream << std::endl;
 	}
 	

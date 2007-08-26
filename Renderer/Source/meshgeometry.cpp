@@ -9,6 +9,7 @@
 
 #include "meshgeometry.h"
 #include "meshsource.h"
+#include "mesh.h"
 
 TGen::MeshGeometry::MeshGeometry(const std::string & mesh)
 	: meshName(mesh)
@@ -39,26 +40,32 @@ std::string TGen::MeshGeometry::getMeshName() const {
 
 void TGen::MeshGeometry::preRender(TGen::Renderer & renderer) const {
 	testLinkedMesh("preRender");	
+	mesh->preRender(renderer);
 }
 
 void TGen::MeshGeometry::render(TGen::Renderer & renderer) const {
 	testLinkedMesh("render");
+	mesh->render(renderer);
 }
 
 void TGen::MeshGeometry::update(const TGen::Camera & camera, scalar distance, scalar time) {
 	testLinkedMesh("update");
+	mesh->update(camera, distance, time);
 }
 
 TGen::Vector3 TGen::MeshGeometry::getMax() const {
-	return TGen::Vector3(0.0f, 0.0f, 0.0f);
+	testLinkedMesh("getMax");
+	return mesh->getMax();
 }
 
 TGen::Vector3 TGen::MeshGeometry::getMin() const {
-	return TGen::Vector3(0.0f, 0.0f, 0.0f);
+	testLinkedMesh("getMin");
+	return mesh->getMin();
 }
 
 TGen::Vector3 TGen::MeshGeometry::getOrigin() const {
-	return TGen::Vector3(0.0f, 0.0f, 0.0f);
+	testLinkedMesh("getOrigin");
+	return mesh->getOrigin();
 }
 
 void TGen::MeshGeometry::attachedToObserver(MeshGeometryObserver * observer) {
@@ -75,4 +82,10 @@ void TGen::MeshGeometry::testLinkedMesh(const std::string & place) const {
 	if (!mesh)
 		throw TGen::RuntimeException("MeshGeometry::" + place, "mesh '" + meshName + "' not linked!");
 }
+
+const TGen::Geometry::SubfaceList * TGen::MeshGeometry::getLeaves() const {
+	testLinkedMesh("getLeaves");
+	return mesh->getLeaves();
+}
+
 

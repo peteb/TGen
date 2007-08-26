@@ -61,18 +61,6 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 }
 
 void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
-	/*TGen::TechniqueList * techniques = NULL;
-	int specialization = getSpecializationID(mode);
-	
-	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: man ska kunna ange specnum direkt också
-	if (iter == this->techniques.end())
-		throw TGen::RuntimeException("Material::Render", "material doesn't contain specialization \"" + mode + "\"");
-	
-	techniques = iter->second;
-	
-	TGen::Technique * technique = techniques->getTechnique(minimumTechnique);
-	if (!technique) throw TGen::RuntimeException("Material::Render", "no techniques");
-	*/
 	TGen::Technique * technique = getSpecialization(mode);
 	
 	TGen::PassList * passes = technique->getPassList(lod);

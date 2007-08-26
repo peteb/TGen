@@ -31,6 +31,7 @@
 
 #include "md3struct.h"
 #include "md3parser.h"
+#include "md3mesh.h"
 
 namespace TGen {
 	bool isRendererDebug();

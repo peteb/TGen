@@ -100,13 +100,15 @@ private:
 
 class ResourceManager : public TGen::MaterialSource, public TGen::MeshSource {
 public:	
-	ResourceManager() {
+	ResourceManager(TGen::Renderer & renderer) {
 		TGen::MaterialParser parser;
 		parser.parse("    \n material myMat default 0 {					\n "
 					 "   lod 9 {								\n "
 					 "      pass fixed {						\n"
-					 "         color 1 0 0						\n"
-					 "         alpha 0.3						\n"
+					 "         color 1 1 1						\n"
+				//	 "         alpha 0.3						\n"
+					 "         texunit 0 rocketl.jpg {			\n"
+					 "         }								\n"
 					 "      }								\n"
 					 "   }								\n  "
 					 "   lod 5 {                \n"
@@ -133,7 +135,7 @@ public:
 		
 		
 		std::ifstream rocketl;
-		rocketl.open("rocketl.md3", std::ios::binary);
+		rocketl.open("railgun.md3", std::ios::binary | std::ios::in);
 		if (!rocketl.is_open())
 			throw TGen::RuntimeException("main", "failed to open file");
 		
@@ -144,7 +146,7 @@ public:
 		
 		
 		file->printInfo(std::cout);
-		TGen::Mesh * newMesh = file->createMesh(0.001);
+		TGen::Mesh * newMesh = file->createMesh(renderer, 0.001);
 		delete file;
 		
 		if (newMesh)
@@ -194,9 +196,9 @@ public:
 		, sceneRoot("root", TGen::Vector3(0.0f, 0.0f, 0.0f))
 	{
 		renderer = new TGen::OpenGL::Renderer;
-		resources = new ResourceManager;
+		resources = new ResourceManager(*renderer);
 		
-		camera = new TGen::Camera("cam", TGen::Vector3(1.0f, 0.0f, 0.0f));	// TODO: bara +Z är korrekt..... måste inverse
+		camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, -1.0f));	// TODO: bara +Z är korrekt..... måste inverse
 		camera->setClip(0.1f, 10.0f);
 		camera->setLod(0.0f, 20.0f);
 		camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).normalize());
@@ -213,14 +215,14 @@ public:
 		//sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 
 		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher", TGen::Vector3(0.0f, 0.0f, 2.0f)));
-		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/rocketl/rocketl.md3")), "myMat"));
+		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
 		
 		
+		meshList.relink(*resources);
 		
 		sceneRoot.update();
 		sceneRoot.traverse(TGen::FaceLinker(*resources));
 		sceneRoot.traverse(TGen::ScenePrinter(std::cout));
-		meshList.relink(*resources);
 		
 
 	}
@@ -251,6 +253,10 @@ public:
 	void render() {
 		static float time = 0.0f;
 		renderer->clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+		
+		time += 0.01f;
+		sceneRoot.getChild("rocketlauncher")->setOrientation(TGen::Vector3(TGen::Cos(TGen::Radian(time)), 0.0f, TGen::Sin(TGen::Radian(time))));
+		sceneRoot.update();
 		
 		renderList.clear();
 		sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));

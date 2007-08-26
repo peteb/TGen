@@ -13,6 +13,11 @@
 #include <tgen_core.h>
 #include <vector>
 
+#ifdef PACKED
+#undef PACKED
+#define PACKED
+#endif
+
 namespace TGen {
 	namespace MD3 {
 		
@@ -37,11 +42,26 @@ namespace TGen {
 		// filestructure /////////////////////////////////////////////////////////////////////////////////
 		struct Frame;
 		struct Tag;
-		struct Surface;
 		struct Shader;
 		struct Triangle;
 		struct TexCoord;
 		struct Vertex;
+		struct Surface;
+		
+		struct Surface {
+			S32 ident;
+			U8 name[MAX_QPATH];
+			S32 flags;
+			S32 num_frames;
+			S32 num_shaders;
+			S32 num_verts;
+			S32 num_triangles;
+			Triangle * triangles;
+			Shader * shaders;
+			TexCoord * texCoords;
+			Vertex * vertices;
+			Surface * next;
+		} PACKED;
 		
 		struct Header {
 			S32 ident;
@@ -54,7 +74,7 @@ namespace TGen {
 			S32 num_skins;
 			Frame * frames;		// S32 ofs_frames
 			Tag * tags;
-			Surface * surfaces;
+			Surface * first_surface;
 			void * eof;
 		} PACKED;
 		
@@ -72,20 +92,7 @@ namespace TGen {
 			VEC3 axis[3];
 		} PACKED;
 		
-		struct Surface {
-			S32 ident;
-			U8 name[MAX_QPATH];
-			S32 flags;
-			S32 num_frames;
-			S32 num_shaders;
-			S32 num_verts;
-			S32 num_triangles;
-			Triangle * triangles;
-			Shader * shaders;
-			TexCoord * texCoords;
-			Vertex * vertices;
-			void * end;
-		} PACKED;
+
 
 		struct Shader {
 			U8 name[MAX_QPATH];
@@ -102,7 +109,9 @@ namespace TGen {
 		
 		struct Vertex {
 			S16 x, y, z, normal;
-		} PACKED;		
+		} PACKED;	
+		
+		typedef std::vector<TGen::MD3::Surface *> SurfaceList;
 	} // !MD3	
 } // !TGen
 

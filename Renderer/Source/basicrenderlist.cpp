@@ -112,9 +112,22 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			TGen::Clamp(lod, 0, 9);
 			
 			//std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
-			
-			TGen::Material * material = face->getMaterial();
-			material->render(renderer, *face->getGeometry(), specialization, lod, NULL);	// TODO: opt specialization, symbol look-up before loop
+			const TGen::Geometry::SubfaceList * subfaces = face->getGeometry()->getLeaves();			
+
+			TGen::Material * globalMaterial = face->getMaterial();
+
+			if (!subfaces) {	// render the face
+				globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL);	// TODO: opt specialization, symbol look-up before loop
+			}
+			else {	// render the leaves
+				face->getGeometry()->preRender(renderer);
+				
+				for (int i = 0; i < subfaces->size(); ++i) {
+					// material = subfaces[i]->getMaterial
+					globalMaterial->render(renderer, *(*subfaces)[i], specialization, lod, NULL);
+					
+				}				
+			}
 		}
 		else {
 			std::cout << "face discarded, too far away or behind camera" << std::endl;
