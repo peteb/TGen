@@ -23,6 +23,11 @@
 		D0EF62220C82DCC40085C17B /* tgen_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62210C82DCC40085C17B /* tgen_engine.cpp */; };
 		D0EF62BB0C82DFFE0085C17B /* setting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62B90C82DFFE0085C17B /* setting.cpp */; };
 		D0EF62E00C82E08F0085C17B /* settingsregistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */; };
+		D0EF63EB0C82EA460085C17B /* sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF63EA0C82EA460085C17B /* sdl.cpp */; };
+		D0EF65220C82F5120085C17B /* filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65210C82F5120085C17B /* filesystem.cpp */; };
+		D0EF65270C82F5530085C17B /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65260C82F5530085C17B /* file.cpp */; };
+		D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF656B0C82F6A40085C17B /* IOKit.framework */; };
+		D0EF67200C82FA160085C17B /* adrift in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF67150C82FA160085C17B /* adrift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,108 +35,121 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen OpenGL */;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen OpenGL";
 		};
 		D0EF617E0C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D00FF8E60C3940E900668773 /* libtgen_opengl.a */;
+			remoteGlobalIDString = D00FF8E60C3940E900668773;
 			remoteInfo = tgen_opengl;
 		};
 		D0EF61820C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen Math */;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen Math";
 		};
 		D0EF61840C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */;
+			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
 			remoteInfo = tgen_math;
 		};
 		D0EF61880C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen Core */;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen Core";
 		};
 		D0EF618A0C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
 			remoteInfo = tgen_core;
 		};
 		D0EF618E0C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen Graphics */;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen Graphics";
 		};
 		D0EF61900C82D9F20085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D00FF6CC0C39391D00668773 /* libtgen_graphics.a */;
+			remoteGlobalIDString = D00FF6CC0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
 		D0EF61920C82D9FF0085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D00FF6CB0C39391D00668773 /* tgen_graphics */;
+			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
 		D0EF61940C82D9FF0085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978 /* tgen_core */;
+			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
 			remoteInfo = tgen_core;
 		};
 		D0EF61960C82D9FF0085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978 /* tgen_math */;
+			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978;
 			remoteInfo = tgen_math;
 		};
 		D0EF61980C82D9FF0085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D00FF8E50C3940E900668773 /* tgen_opengl */;
+			remoteGlobalIDString = D00FF8E50C3940E900668773;
 			remoteInfo = tgen_opengl;
 		};
 		D0EF61A40C82DA090085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen Renderer */;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen Renderer";
 		};
 		D0EF61A60C82DA090085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */;
+			remoteGlobalIDString = D0F3713A0C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
 		};
 		D0EF61A80C82DA110085C17B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D0F371390C6D02CE00C11F87 /* tgen_renderer */;
+			remoteGlobalIDString = D0F371390C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D0EF67CA0C82FDDF0085C17B /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 16;
+			files = (
+				D0EF67200C82FA160085C17B /* adrift in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0867D6ABFE840B52C02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -142,7 +160,7 @@
 		5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineTarget.xcconfig"; sourceTree = "<group>"; };
 		508344B209E5C41E0093A071 /* TGen Engine Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
-		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../../Source/main.cpp; sourceTree = SOURCE_ROOT; };
+		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
 		D0EF60F80C8222670085C17B /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = ../Projects/Xcode/SDLMain.m; sourceTree = "<group>"; };
 		D0EF60FC0C8222810085C17B /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
@@ -162,6 +180,14 @@
 		D0EF62BA0C82DFFE0085C17B /* setting.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = setting.h; sourceTree = "<group>"; };
 		D0EF62DE0C82E08F0085C17B /* settingsregistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingsregistry.h; sourceTree = "<group>"; };
 		D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = settingsregistry.cpp; sourceTree = "<group>"; };
+		D0EF63E90C82EA460085C17B /* sdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdl.h; sourceTree = "<group>"; };
+		D0EF63EA0C82EA460085C17B /* sdl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl.cpp; sourceTree = "<group>"; };
+		D0EF65200C82F5120085C17B /* filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesystem.h; sourceTree = "<group>"; };
+		D0EF65210C82F5120085C17B /* filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filesystem.cpp; sourceTree = "<group>"; };
+		D0EF65250C82F5530085C17B /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		D0EF65260C82F5530085C17B /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
+		D0EF656B0C82F6A40085C17B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		D0EF67150C82FA160085C17B /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +204,7 @@
 				D0EF60FD0C8222810085C17B /* SDL.framework in Frameworks */,
 				D0EF61340C8222A40085C17B /* Cocoa.framework in Frameworks */,
 				D0EF614B0C82D0AB0085C17B /* libphysfs.a in Frameworks */,
+				D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,17 +234,7 @@
 		20286C2AFDCF999611CA2CEA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF60F70C8222670085C17B /* SDLMain.h */,
-				D0EF60F80C8222670085C17B /* SDLMain.m */,
-				D0EF60E30C8222350085C17B /* main.cpp */,
-				D0EF61500C82D8E20085C17B /* app.cpp */,
-				D0EF614F0C82D8E20085C17B /* app.h */,
-				D0EF62210C82DCC40085C17B /* tgen_engine.cpp */,
-				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
-				D0EF62B90C82DFFE0085C17B /* setting.cpp */,
-				D0EF62BA0C82DFFE0085C17B /* setting.h */,
-				D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */,
-				D0EF62DE0C82E08F0085C17B /* settingsregistry.h */,
+				D0EF64910C82F4CF0085C17B /* Core */,
 			);
 			name = Source;
 			path = ../../Source;
@@ -226,6 +243,7 @@
 		20286C2CFDCF999611CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0EF67150C82FA160085C17B /* adrift */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
 				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
 			);
@@ -241,6 +259,7 @@
 				D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */,
 				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
 				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
+				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
 				D0EF614A0C82D0AB0085C17B /* libphysfs.a */,
 				D0EF61330C8222A40085C17B /* Cocoa.framework */,
 				D0EF60FC0C8222810085C17B /* SDL.framework */,
@@ -313,6 +332,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D0EF64910C82F4CF0085C17B /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF60F70C8222670085C17B /* SDLMain.h */,
+				D0EF60F80C8222670085C17B /* SDLMain.m */,
+				D0EF60E30C8222350085C17B /* main.cpp */,
+				D0EF61500C82D8E20085C17B /* app.cpp */,
+				D0EF614F0C82D8E20085C17B /* app.h */,
+				D0EF62210C82DCC40085C17B /* tgen_engine.cpp */,
+				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
+				D0EF62B90C82DFFE0085C17B /* setting.cpp */,
+				D0EF62BA0C82DFFE0085C17B /* setting.h */,
+				D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */,
+				D0EF62DE0C82E08F0085C17B /* settingsregistry.h */,
+				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
+				D0EF63E90C82EA460085C17B /* sdl.h */,
+				D0EF65210C82F5120085C17B /* filesystem.cpp */,
+				D0EF65200C82F5120085C17B /* filesystem.h */,
+				D0EF65260C82F5530085C17B /* file.cpp */,
+				D0EF65250C82F5530085C17B /* file.h */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -323,6 +366,7 @@
 				8D0C4E8C0486CD37000505A6 /* Resources */,
 				8D0C4E8F0486CD37000505A6 /* Sources */,
 				8D0C4E910486CD37000505A6 /* Frameworks */,
+				D0EF67CA0C82FDDF0085C17B /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -471,6 +515,9 @@
 				D0EF62220C82DCC40085C17B /* tgen_engine.cpp in Sources */,
 				D0EF62BB0C82DFFE0085C17B /* setting.cpp in Sources */,
 				D0EF62E00C82E08F0085C17B /* settingsregistry.cpp in Sources */,
+				D0EF63EB0C82EA460085C17B /* sdl.cpp in Sources */,
+				D0EF65220C82F5120085C17B /* filesystem.cpp in Sources */,
+				D0EF65270C82F5530085C17B /* file.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +575,7 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "-D_DEBUG";
+				OTHER_LDFLAGS = "-lz";
 				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
 			};
 			name = Debug;
@@ -544,6 +592,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				OTHER_LDFLAGS = "-lz";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
 			};

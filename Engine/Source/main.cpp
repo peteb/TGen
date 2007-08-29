@@ -7,7 +7,6 @@
  *
  */
 
-#include <SDL/SDL.h>
 #include <iostream>
 #include <iomanip>
 #include <tgen_core.h>
@@ -19,6 +18,10 @@
 #include "app.h"
 #include "tgen_engine.h"
 #include "settingsregistry.h"
+#include "sdl.h"
+#include "filesystem.h"
+#include "file.h"
+#include <SDL/SDL.h>
 
 int main(int argc, char ** argv) {
 	uint8 debuglibs = (TGen::isCoreDebug() & 1) | (TGen::isMathDebug() & 1) << 1 | (TGen::isGraphicsDebug() & 1) << 2 
@@ -30,84 +33,41 @@ int main(int argc, char ** argv) {
 	
 	std::cout << "===================== initializing ======================" << std::endl;
 	
+	// setup settings
 	TGen::Engine::SettingsRegistry settings;
 	
 	settings.addSetting(TGen::Engine::Setting("env_width", "800", "800", TGen::Engine::SettingConfigWriteOnly | TGen::Engine::SettingDump));
 	settings.addSetting(TGen::Engine::Setting("env_height", "600", "600", TGen::Engine::SettingConfigWriteOnly | TGen::Engine::SettingDump));
 	settings.addSetting(TGen::Engine::Setting("env_fullscreen", "false", "false", TGen::Engine::SettingConfigWriteOnly | TGen::Engine::SettingDump));
 	settings.addSetting(TGen::Engine::Setting("fs_game", "adrift", "adrift", TGen::Engine::SettingConfigWriteOnly));
+	settings.addSetting(TGen::Engine::Setting("game_name", "TGen Engine", "TGen Engine", TGen::Engine::SettingConfigWriteOnly));
 
+	// TODO: ConfigWriteOnly should only be writable until the game starts
 	
-	bool fullscreen = bool(settings.getSetting("env_fullscreen"));
-	int width = int(settings.getSetting("env_width")), height = int(settings.getSetting("env_height"));
-	uint8 bpp = 0;
+	// setup filesystem
+	TGen::Engine::Filesystem * fs = new TGen::Engine::Filesystem(argv[0]);
 	
-	std::cout << "[sdl]: initializing..." << std::endl;
-	std::cout << "[sdl]: width: " << width << " height: " << height << " bpp: " << int(bpp) << std::endl;
+	fs->addSearchPath(settings.getSetting("fs_game").getValue(), true);
 	
-	uint32 initflags = SDL_INIT_VIDEO;
-	uint32 videoflags = SDL_HWSURFACE | SDL_OPENGL | (fullscreen ? SDL_FULLSCREEN : 0);
-		
-	SDL_Surface * screen = NULL;
-		
-	if (SDL_Init(initflags) < 0)
-		throw TGen::RuntimeException("main", "failed to initialize SDL: ") << SDL_GetError();
-		
-	// SDL_GL_SetAttribute( SDL_GL_SWAP_CONTROL, 0 );
-	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
-	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	SDL_WM_SetCaption("TGen Engine", NULL);
-	//SDL_GrabMode(SDL_GRAB_ON);
-	//SDL_WM_GrabInput(SDL_GRAB_ON);
-	//SDL_ShowCursor(0);
-		
-	screen = SDL_SetVideoMode(width, height, bpp, videoflags);
-	if (!screen)
-		throw TGen::RuntimeException("main", "failed to set video mode: ") << SDL_GetError();
+	TGen::Engine::File * infoFile = fs->openRead("info");
+	if (!infoFile)
+		throw TGen::RuntimeException("main", "no info file!");
 	
-	std::cout << "[sdl]: initialized" << std::endl;
+	std::cout << infoFile->readAll() << std::endl;
+	// det här ska in i App::App.... PropertyFileParser
+	delete infoFile;
 	
-	std::cout << "[app]: initializing..." << std::endl;
-	TGen::Engine::App * app = new TGen::Engine::App;
-	std::cout << "[app]: initialized" << std::endl;
+	// setup env
+	TGen::Engine::SDL * sdl = new TGen::Engine::SDL(settings);
 	
 	std::cout << "======================== running ========================" << std::endl;
 	
-	SDL_Event event;
-	
-	while (app->isRunning()) {
-		int events = 0;
-		
-		while (SDL_PollEvent(&event) && events < 100) {
-			switch (event.type) {
-				case SDL_KEYDOWN:
-					//app->keyDown(event.key.keysym);
-					break;
-					
-				case SDL_KEYUP:
-					//gApp->KeyUp(event.key.keysym);					
-					break;
-					
-				case SDL_MOUSEMOTION:
-					//gApp->MouseMove(event.motion);
-					break;
-					
-				case SDL_QUIT:
-					app->quit();
-					break;
-					
-			}
-			
-			events++;
-		}
-		
-		app->tick();
-	}
+	sdl->run();
 	
 	std::cout << "===================== shutting down =====================" << std::endl;
 	
-	delete app;
-	SDL_Quit();
+	delete sdl;
+	delete fs;
 	
 	std::cout << "Goodbye." << std::endl;
 	

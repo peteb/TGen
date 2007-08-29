@@ -189,3 +189,4 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar 
 	return newMesh;
 }
 
+// TODO: OPT: VertexCache, IndexCache
