@@ -21,8 +21,8 @@
 		D0EF61DB0C82DAA30085C17B /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF61910C82D9F20085C17B /* libtgen_graphics.a */; };
 		D0EF61DC0C82DAA50085C17B /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF61A70C82DA090085C17B /* libtgen_renderer.a */; };
 		D0EF62220C82DCC40085C17B /* tgen_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62210C82DCC40085C17B /* tgen_engine.cpp */; };
-		D0EF62BB0C82DFFE0085C17B /* setting.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62B90C82DFFE0085C17B /* setting.cpp */; };
-		D0EF62E00C82E08F0085C17B /* settingsregistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */; };
+		D0EF62BB0C82DFFE0085C17B /* variable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62B90C82DFFE0085C17B /* variable.cpp */; };
+		D0EF62E00C82E08F0085C17B /* variablesregistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */; };
 		D0EF63EB0C82EA460085C17B /* sdl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF63EA0C82EA460085C17B /* sdl.cpp */; };
 		D0EF65220C82F5120085C17B /* filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65210C82F5120085C17B /* filesystem.cpp */; };
 		D0EF65270C82F5530085C17B /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65260C82F5530085C17B /* file.cpp */; };
@@ -167,24 +167,24 @@
 		D0EF61330C8222A40085C17B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D0EF614A0C82D0AB0085C17B /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF614D0C82D0C20085C17B /* physfs.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = physfs.h; sourceTree = "<group>"; };
-		D0EF614F0C82D8E20085C17B /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = app.h; sourceTree = "<group>"; };
+		D0EF614F0C82D8E20085C17B /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = app.h; path = ../Include/app.h; sourceTree = "<group>"; };
 		D0EF61500C82D8E20085C17B /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
 		D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core.xcodeproj"; path = "../../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Graphics.xcodeproj"; path = "../../../Graphics/Projects/TGen Graphics.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Renderer.xcodeproj"; path = "../../../Renderer/Projects/TGen Renderer.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		D0EF620F0C82DC3F0085C17B /* tgen_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tgen_engine.h; sourceTree = "<group>"; };
+		D0EF620F0C82DC3F0085C17B /* tgen_engine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_engine.h; path = ../Include/tgen_engine.h; sourceTree = "<group>"; };
 		D0EF62210C82DCC40085C17B /* tgen_engine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = tgen_engine.cpp; sourceTree = "<group>"; };
-		D0EF62B90C82DFFE0085C17B /* setting.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = setting.cpp; sourceTree = "<group>"; };
-		D0EF62BA0C82DFFE0085C17B /* setting.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = setting.h; sourceTree = "<group>"; };
-		D0EF62DE0C82E08F0085C17B /* settingsregistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = settingsregistry.h; sourceTree = "<group>"; };
-		D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = settingsregistry.cpp; sourceTree = "<group>"; };
-		D0EF63E90C82EA460085C17B /* sdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdl.h; sourceTree = "<group>"; };
+		D0EF62B90C82DFFE0085C17B /* variable.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = variable.cpp; sourceTree = "<group>"; };
+		D0EF62BA0C82DFFE0085C17B /* variable.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = variable.h; path = ../Include/variable.h; sourceTree = "<group>"; };
+		D0EF62DE0C82E08F0085C17B /* variablesregistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = variablesregistry.h; path = ../Include/variablesregistry.h; sourceTree = "<group>"; };
+		D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = variablesregistry.cpp; sourceTree = "<group>"; };
+		D0EF63E90C82EA460085C17B /* sdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdl.h; path = ../Include/sdl.h; sourceTree = "<group>"; };
 		D0EF63EA0C82EA460085C17B /* sdl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdl.cpp; sourceTree = "<group>"; };
-		D0EF65200C82F5120085C17B /* filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = filesystem.h; sourceTree = "<group>"; };
+		D0EF65200C82F5120085C17B /* filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filesystem.h; path = ../Include/filesystem.h; sourceTree = "<group>"; };
 		D0EF65210C82F5120085C17B /* filesystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filesystem.cpp; sourceTree = "<group>"; };
-		D0EF65250C82F5530085C17B /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = file.h; sourceTree = "<group>"; };
+		D0EF65250C82F5530085C17B /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = file.h; path = ../Include/file.h; sourceTree = "<group>"; };
 		D0EF65260C82F5530085C17B /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		D0EF656B0C82F6A40085C17B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		D0EF67150C82FA160085C17B /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
@@ -279,6 +279,16 @@
 			name = "Configuration Files";
 			sourceTree = "<group>";
 		};
+		D0064FBF0C86E88800A42B3A /* Init */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF60F70C8222670085C17B /* SDLMain.h */,
+				D0EF60F80C8222670085C17B /* SDLMain.m */,
+				D0EF60E30C8222350085C17B /* main.cpp */,
+			);
+			name = Init;
+			sourceTree = "<group>";
+		};
 		D0EF614C0C82D0C20085C17B /* physfs */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,17 +345,15 @@
 		D0EF64910C82F4CF0085C17B /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF60F70C8222670085C17B /* SDLMain.h */,
-				D0EF60F80C8222670085C17B /* SDLMain.m */,
-				D0EF60E30C8222350085C17B /* main.cpp */,
+				D0064FBF0C86E88800A42B3A /* Init */,
 				D0EF61500C82D8E20085C17B /* app.cpp */,
 				D0EF614F0C82D8E20085C17B /* app.h */,
 				D0EF62210C82DCC40085C17B /* tgen_engine.cpp */,
 				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
-				D0EF62B90C82DFFE0085C17B /* setting.cpp */,
-				D0EF62BA0C82DFFE0085C17B /* setting.h */,
-				D0EF62DF0C82E08F0085C17B /* settingsregistry.cpp */,
-				D0EF62DE0C82E08F0085C17B /* settingsregistry.h */,
+				D0EF62B90C82DFFE0085C17B /* variable.cpp */,
+				D0EF62BA0C82DFFE0085C17B /* variable.h */,
+				D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */,
+				D0EF62DE0C82E08F0085C17B /* variablesregistry.h */,
 				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
 				D0EF63E90C82EA460085C17B /* sdl.h */,
 				D0EF65210C82F5120085C17B /* filesystem.cpp */,
@@ -513,8 +521,8 @@
 				D0EF60F90C8222670085C17B /* SDLMain.m in Sources */,
 				D0EF61510C82D8E20085C17B /* app.cpp in Sources */,
 				D0EF62220C82DCC40085C17B /* tgen_engine.cpp in Sources */,
-				D0EF62BB0C82DFFE0085C17B /* setting.cpp in Sources */,
-				D0EF62E00C82E08F0085C17B /* settingsregistry.cpp in Sources */,
+				D0EF62BB0C82DFFE0085C17B /* variable.cpp in Sources */,
+				D0EF62E00C82E08F0085C17B /* variablesregistry.cpp in Sources */,
 				D0EF63EB0C82EA460085C17B /* sdl.cpp in Sources */,
 				D0EF65220C82F5120085C17B /* filesystem.cpp in Sources */,
 				D0EF65270C82F5530085C17B /* file.cpp in Sources */,
