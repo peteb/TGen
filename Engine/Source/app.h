@@ -12,9 +12,13 @@
 
 namespace TGen {
 	namespace Engine {
+		class SDL;
+		class Filesystem;
+		class VariablesRegistry;
+		
 		class App {
 		public:
-			App();
+			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs);
 			~App();
 			
 			bool isRunning() const;

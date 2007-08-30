@@ -1,5 +1,5 @@
 /*
- *  settingsregistry.h
+ *  variablesregistry.h
  *  TGen Engine
  *
  *  Created by Peter Backman on 8/27/07.
@@ -10,22 +10,22 @@
 #ifndef _TGEN_ENGINE_SETTINGSREGISTRY_H
 #define _TGEN_ENGINE_SETTINGSREGISTRY_H
 
-#include "setting.h"
+#include "variable.h"
 
 namespace TGen {
 	namespace Engine {
-		class SettingsRegistry {
+		class VariablesRegistry {
 		public:
-			SettingsRegistry();
-			~SettingsRegistry();
+			VariablesRegistry();
+			~VariablesRegistry();
 			
-			const TGen::Engine::Setting & getSetting(const std::string & name) const;
-			TGen::Engine::Setting & getSetting(const std::string & name);
-			void addSetting(const TGen::Engine::Setting & setting);
+			const TGen::Engine::Variable & getVariable(const std::string & name) const;
+			TGen::Engine::Variable & getVariable(const std::string & name);
+			void addVariable(const TGen::Engine::Variable & variable);
 
 		private:
-			typedef std::map<std::string, TGen::Engine::Setting> SettingMap;
-			SettingMap settings;
+			typedef std::map<std::string, TGen::Engine::Variable> VariableMap;
+			VariableMap variables;
 		};
 		
 	} // !Engine

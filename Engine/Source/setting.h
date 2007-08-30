@@ -1,6 +1,6 @@
 /*
- *  setting.h
- *  settingregistry
+ *  variable.h
+ *  variableregistry
  *
  *  Created by Peter Backman on 8/9/07.
  *  Copyright 2007 Peter Backman. All rights reserved.
@@ -16,34 +16,34 @@
 
 namespace TGen {
 	namespace Engine {
-		enum SettingFlags {
-			SettingReadOnly =			0x00000001,
-			SettingDump =				0x00000002,
-			SettingConfigWriteOnly =	0x00000004,
-			SettingUser =				0x00000010,		// base line for extensions
+		enum VariableFlags {
+			VariableReadOnly =			0x00000001,
+			VariableDump =				0x00000002,
+			VariableConfigWriteOnly =	0x00000004,
+			VariableUser =				0x00000010,		// base line for extensions
 		};
 
 
-		class Setting;
+		class Variable;
 
-		class SettingObserver {
-			typedef std::vector<Setting *> SettingList;
-			SettingList settingsObserving;
+		class VariableObserver {
+			typedef std::vector<Variable *> VariableList;
+			VariableList variablesObserving;
 			
-			void addSettingObserved(Setting * setting);
+			void addVariableObserved(Variable * variable);
 			
-			friend class Setting;
+			friend class Variable;
 			
 		public:
-			virtual ~SettingObserver();
+			virtual ~VariableObserver();
 			
-			virtual void preSettingChange(const Setting & setting, const std::string & newValue) {}
-			virtual void onSettingRemoved(const Setting & setting) {}
+			virtual void preVariableChange(const Variable & variable, const std::string & newValue) {}
+			virtual void onVariableRemoved(const Variable & variable) {}
 		};
 
 
-		class Setting {
-			typedef std::vector<SettingObserver *> ObserverList;
+		class Variable {
+			typedef std::vector<VariableObserver *> ObserverList;
 			
 			ObserverList observers;
 			std::string name, value, defaultValue;
@@ -53,17 +53,17 @@ namespace TGen {
 			void triggerRemoved();
 
 		public:
-			Setting(const std::string & name, const std::string & value, const std::string & defaultValue, uint flags);
-			~Setting();
+			Variable(const std::string & name, const std::string & value, const std::string & defaultValue, uint flags);
+			~Variable();
 			
-			void addObserver(SettingObserver * observer);
-			void removeObserver(SettingObserver * observer);
+			void addObserver(VariableObserver * observer);
+			void removeObserver(VariableObserver * observer);
 			
 
 			std::string getName() const;
 			uint getFlags() const;
 			
-			template<typename T> Setting & operator = (const T & value) {
+			template<typename T> Variable & operator = (const T & value) {
 				std::string newValue = TGen::lexical_cast<std::string>(value);
 				triggerPreChange(newValue);
 				this->value = newValue;
@@ -79,7 +79,7 @@ namespace TGen {
 				return value;
 			}
 			
-			Setting & operator = (const std::string & value) {
+			Variable & operator = (const std::string & value) {
 				triggerPreChange(value);
 				this->value = value;
 				return *this;
@@ -96,9 +96,9 @@ namespace TGen {
 		}; 
 
 
-		class SettingChangeRejected : public TGen::RuntimeException {
+		class VariableChangeRejected : public TGen::RuntimeException {
 		public:
-			SettingChangeRejected(const Setting & setting, const std::string & description = "");
+			VariableChangeRejected(const Variable & variable, const std::string & description = "");
 			
 		};
 

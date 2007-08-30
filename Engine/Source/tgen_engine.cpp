@@ -8,6 +8,7 @@
  */
 
 #include "tgen_engine.h"
+#include "variablesregistry.h"
 
 bool TGen::isEngineDebug() {
 	#ifdef _DEBUG
@@ -15,4 +16,8 @@ bool TGen::isEngineDebug() {
 	#else
 	return false;
 	#endif
+}
+
+std::string TGen::Engine::getVersionString() {
+	return "";
 }

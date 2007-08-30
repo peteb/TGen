@@ -1,15 +1,15 @@
 /*
- *  setting.cpp
- *  settingregistry
+ *  variable.cpp
+ *  variableregistry
  *
  *  Created by Peter Backman on 8/9/07.
  *  Copyright 2007 Peter Backman. All rights reserved.
  *
  */
 
-#include "setting.h"
+#include "variable.h"
 
-TGen::Engine::Setting::Setting(const std::string & name, const std::string & value, const std::string & defaultValue, uint flags)
+TGen::Engine::Variable::Variable(const std::string & name, const std::string & value, const std::string & defaultValue, uint flags)
 	: name(name)
 	, value(value)
 	, defaultValue(defaultValue)
@@ -18,55 +18,55 @@ TGen::Engine::Setting::Setting(const std::string & name, const std::string & val
 	observers.reserve(1);	
 }
 
-TGen::Engine::Setting::~Setting() {
+TGen::Engine::Variable::~Variable() {
 	triggerRemoved();
 }
 
-TGen::Engine::SettingChangeRejected::SettingChangeRejected(const Setting & setting, const std::string & description)
-	: TGen::RuntimeException(setting.getName(), description)
+TGen::Engine::VariableChangeRejected::VariableChangeRejected(const Variable & variable, const std::string & description)
+	: TGen::RuntimeException(variable.getName(), description)
 {		
 }
 
-TGen::Engine::SettingObserver::~SettingObserver() {
-	for (int i = 0; i < settingsObserving.size(); ++i) {
-		settingsObserving[i]->removeObserver(this);
+TGen::Engine::VariableObserver::~VariableObserver() {
+	for (int i = 0; i < variablesObserving.size(); ++i) {
+		variablesObserving[i]->removeObserver(this);
 	}
 }
 
-void TGen::Engine::SettingObserver::addSettingObserved(Setting * setting) {
-	settingsObserving.push_back(setting);
+void TGen::Engine::VariableObserver::addVariableObserved(Variable * variable) {
+	variablesObserving.push_back(variable);
 }
 
-void TGen::Engine::Setting::addObserver(SettingObserver * observer) {
+void TGen::Engine::Variable::addObserver(VariableObserver * observer) {
 	if (std::find(observers.begin(), observers.end(), observer) != observers.end())
 		return;
 	
 	observers.push_back(observer);
-	observer->addSettingObserved(this);
+	observer->addVariableObserved(this);
 }
 
-void TGen::Engine::Setting::removeObserver(SettingObserver * observer) {
+void TGen::Engine::Variable::removeObserver(VariableObserver * observer) {
 	ObserverList::iterator iter = std::find(observers.begin(), observers.end(), observer);
 	if (iter != observers.end())
 		observers.erase(iter);
 }
 
-void TGen::Engine::Setting::triggerPreChange(const std::string & newValue) {
+void TGen::Engine::Variable::triggerPreChange(const std::string & newValue) {
 	for (int i = 0; i < observers.size(); ++i) {
-		observers[i]->preSettingChange(*this, newValue);
+		observers[i]->preVariableChange(*this, newValue);
 	}
 }
 
-void TGen::Engine::Setting::triggerRemoved() {
+void TGen::Engine::Variable::triggerRemoved() {
 	for (int i = 0; i < observers.size(); ++i) {
-		observers[i]->onSettingRemoved(*this);
+		observers[i]->onVariableRemoved(*this);
 	}	
 }
 
-std::string TGen::Engine::Setting::getName() const {
+std::string TGen::Engine::Variable::getName() const {
 	return name;
 }
 
-uint TGen::Engine::Setting::getFlags() const {
+uint TGen::Engine::Variable::getFlags() const {
 	return flags;
 }

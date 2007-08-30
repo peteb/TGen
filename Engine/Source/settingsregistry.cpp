@@ -1,5 +1,5 @@
 /*
- *  settingsregistry.cpp
+ *  variablesregistry.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 8/27/07.
@@ -7,40 +7,40 @@
  *
  */
 
-#include "settingsregistry.h"
+#include "variablesregistry.h"
 #include <tgen_core.h>
 
-TGen::Engine::SettingsRegistry::SettingsRegistry() {
+TGen::Engine::VariablesRegistry::VariablesRegistry() {
 	
 }
 
-TGen::Engine::SettingsRegistry::~SettingsRegistry() {
+TGen::Engine::VariablesRegistry::~VariablesRegistry() {
 	
 }
 
-const TGen::Engine::Setting & TGen::Engine::SettingsRegistry::getSetting(const std::string & name) const {
-	SettingMap::const_iterator iter = settings.find(name);
+const TGen::Engine::Variable & TGen::Engine::VariablesRegistry::getVariable(const std::string & name) const {
+	VariableMap::const_iterator iter = variables.find(name);
 	
-	if (iter == settings.end())
-		throw TGen::RuntimeException("SettingsRegistry::getSetting", "setting '" + name + "' does not exist");
+	if (iter == variables.end())
+		throw TGen::RuntimeException("VariablesRegistry::getVariable", "variable '" + name + "' does not exist");
 	
 	return iter->second;
 }
 
-TGen::Engine::Setting & TGen::Engine::SettingsRegistry::getSetting(const std::string & name) {
-	SettingMap::iterator iter = settings.find(name);
+TGen::Engine::Variable & TGen::Engine::VariablesRegistry::getVariable(const std::string & name) {
+	VariableMap::iterator iter = variables.find(name);
 	
-	if (iter == settings.end())
-		throw TGen::RuntimeException("SettingsRegistry::getSetting", "setting '" + name + "' does not exist");
+	if (iter == variables.end())
+		throw TGen::RuntimeException("VariablesRegistry::getVariable", "variable '" + name + "' does not exist");
 	
 	return iter->second;	
 }
 
-void TGen::Engine::SettingsRegistry::addSetting(const TGen::Engine::Setting & setting) {
-	SettingMap::const_iterator iter = settings.find(setting.getName());
+void TGen::Engine::VariablesRegistry::addVariable(const TGen::Engine::Variable & variable) {
+	VariableMap::const_iterator iter = variables.find(variable.getName());
 	
-	if (iter != settings.end())	// TODO: check whether the setting has a "remove on new"-flag
-		throw TGen::RuntimeException("SettingsRegistry::addSetting", "setting '" + setting.getName() + "' already exists");
+	if (iter != variables.end())	// TODO: check whether the variable has a "remove on new"-flag
+		throw TGen::RuntimeException("VariablesRegistry::addVariable", "variable '" + variable.getName() + "' already exists");
 	
-	settings.insert(SettingMap::value_type(setting.getName(), setting));
+	variables.insert(VariableMap::value_type(variable.getName(), variable));
 }

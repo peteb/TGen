@@ -9,7 +9,7 @@
 
 #include "app.h"
 
-TGen::Engine::App::App()
+TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs)
 	: running(true)
 {
 }
@@ -27,6 +27,6 @@ void TGen::Engine::App::quit() {
 }
 
 void TGen::Engine::App::tick() {
-	
+
 }
 

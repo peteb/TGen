@@ -10,13 +10,17 @@
 #ifndef _TGEN_ENGINE_VERSION_H
 #define _TGEN_ENGINE_VERSION_H
 
+#include <string>
+
 namespace TGen {
 	bool isEngineDebug();
 	
 	namespace Engine {
+		class VariablesRegistry;
+		
 		const unsigned int VersionMajor = 0, VersionMinor = 0, VersionRevision = 1;
 		
-		
+		std::string getVersionString(); 
 	} // !Engine
 } // !TGen
 
