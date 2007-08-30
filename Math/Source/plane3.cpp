@@ -23,8 +23,28 @@ TGen::Plane3::Plane3(const TGen::Vector3 & n, scalar d)
 // TODO: test plane code
 
 TGen::Plane3::Plane3(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const TGen::Vector3 & p2) {
-	normal = TGen::Vector3::CrossProduct(p1 - p0, p2 - p0);
-	distance = (normal * p0).getMagnitude();	
+	//normal = TGen::Vector3::CrossProduct(p1 - p0, p2 - p0);
+	//distance = (normal * p0).getMagnitude();	
+	
+	TGen::Vector3 v1, v2;
+	v1 = p2 - p0;
+	v2 = p1 - p0;
+	normal = TGen::Vector3::CrossProduct(v1, v2).normalize();
+	distance = -TGen::Vector3::DotProduct(normal, p2);
+	/*
+	 
+	 TGen::Vector3 p1 = TGen::Vector3(-2.0f, 2.0f, 4.0f), p2 = TGen::Vector3(2.0f, 0.0f, 4.0f), p3 = TGen::Vector3(2.0f, 2.0f, 4.0f);
+	 
+	 TGen::Vector3 v1, v2, n;
+	 v1 = p3 - p1;
+	 v2 = p2 - p1;
+	 n = TGen::Vector3::CrossProduct(v1, v2).normalize();
+	 
+	 planet.normal = n;
+	 planet.distance = -(n.x * p3.x + n.y * p3.y + n.z * p3.z);
+
+	 */
+	
 }
 
 bool TGen::Plane3::isParallelTo(const TGen::Plane3 & plane) const {
