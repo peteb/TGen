@@ -55,6 +55,16 @@ int main(int argc, char ** const argv) {
 	TGen::Time really = TGen::Time::Now();
 	std::cout << "sleep diff: " << double(really - now) << std::endl;
 	
+	// 9.
+	TGen::PropertyTree props;
+	props.addNode(TGen::PropertyTree("game"));
+	props.getNode("game").addNode(TGen::PropertyTree("env"));
+	props.getNode("game").getNode("env").addProperty(TGen::PropertyTree::Property("width", "1024"));
+	std::cout << "9. 1024 = " << props.getProperty("game/env/width").second << std::endl;
+	
+	
+	
+	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

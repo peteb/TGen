@@ -289,6 +289,28 @@
 			name = Init;
 			sourceTree = "<group>";
 		};
+		D01B6CED0C8A149200D8943C /* fs */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF65210C82F5120085C17B /* filesystem.cpp */,
+				D0EF65200C82F5120085C17B /* filesystem.h */,
+				D0EF65260C82F5530085C17B /* file.cpp */,
+				D0EF65250C82F5530085C17B /* file.h */,
+			);
+			name = fs;
+			sourceTree = "<group>";
+		};
+		D01B6CF60C8A14C700D8943C /* data */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF62B90C82DFFE0085C17B /* variable.cpp */,
+				D0EF62BA0C82DFFE0085C17B /* variable.h */,
+				D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */,
+				D0EF62DE0C82E08F0085C17B /* variablesregistry.h */,
+			);
+			name = data;
+			sourceTree = "<group>";
+		};
 		D0EF614C0C82D0C20085C17B /* physfs */ = {
 			isa = PBXGroup;
 			children = (
@@ -345,21 +367,15 @@
 		D0EF64910C82F4CF0085C17B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D01B6CF60C8A14C700D8943C /* data */,
+				D01B6CED0C8A149200D8943C /* fs */,
 				D0064FBF0C86E88800A42B3A /* Init */,
 				D0EF61500C82D8E20085C17B /* app.cpp */,
 				D0EF614F0C82D8E20085C17B /* app.h */,
 				D0EF62210C82DCC40085C17B /* tgen_engine.cpp */,
 				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
-				D0EF62B90C82DFFE0085C17B /* variable.cpp */,
-				D0EF62BA0C82DFFE0085C17B /* variable.h */,
-				D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */,
-				D0EF62DE0C82E08F0085C17B /* variablesregistry.h */,
 				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
 				D0EF63E90C82EA460085C17B /* sdl.h */,
-				D0EF65210C82F5120085C17B /* filesystem.cpp */,
-				D0EF65200C82F5120085C17B /* filesystem.h */,
-				D0EF65260C82F5530085C17B /* file.cpp */,
-				D0EF65250C82F5530085C17B /* file.h */,
 			);
 			name = Core;
 			sourceTree = "<group>";

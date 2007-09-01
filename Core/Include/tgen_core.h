@@ -20,6 +20,7 @@
 #include "debug.h"
 #include "endian.h"
 #include "symboltable.h"
+#include "propertytree.h"
 
 namespace TGen {
 	bool isCoreDebug();

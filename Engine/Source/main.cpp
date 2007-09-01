@@ -44,7 +44,6 @@ int main(int argc, char ** argv) {
 	variables.addVariable(TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly));
 
 	// TODO: ConfigWriteOnly should only be writable until the game starts
-	// TODO: s/variable/variable
 	
 	// setup filesystem
 	TGen::Engine::Filesystem * fs = new TGen::Engine::Filesystem(argv[0]);
