@@ -62,8 +62,10 @@ int main(int argc, char ** const argv) {
 	props.getNode("game").getNode("env").addProperty(TGen::PropertyTree::Property("width", "1024"));
 	std::cout << "9. 1024 = " << props.getProperty("game/env/width").second << std::endl;
 	
-	
-	
+	// 10.
+	char code[] = "game {env {width 2048}\nstuff {name peter}}";
+	TGen::PropertyTreeParser parser;
+	std::cout << "10. 2048 = " << parser.parse(code).getProperty("game/env/width").second << std::endl;
 	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;

@@ -21,6 +21,7 @@
 #include "endian.h"
 #include "symboltable.h"
 #include "propertytree.h"
+#include "propertytreeparser.h"
 
 namespace TGen {
 	bool isCoreDebug();

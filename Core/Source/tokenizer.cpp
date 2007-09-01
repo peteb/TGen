@@ -85,12 +85,12 @@ void TGen::Tokenizer::tokenizeString(const char * str, TGen::TokenStream & strea
 			
 			if (autoAddTilNextIgnore) {
 				int autoAddSize = getAutoAdd(currentChar, stream);	
-				if (autoAddSize > 0) {
+				if (autoAddSize > 1) {	// 1 was 0
 					autoAddSize--;
 					currentChar += autoAddSize;
 					
 					if (_verbose)
-						std::cout << "AUTOADD: " << autoAddSize;
+						std::cout << "AUTOADD: '" << autoAddSize << "'";
 					
 					continue;
 				}

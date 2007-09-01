@@ -14,7 +14,7 @@ TGen::PropertyTree::PropertyTree(const std::string & name)
 	: name(name)
 {		
 }
-#include <iostream>
+
 void TGen::PropertyTree::addProperty(const TGen::PropertyTree::Property & property) {
 	properties.insert(property);	
 }

@@ -11,6 +11,8 @@
 		8DD76F6A0486A84900D96B5E /* TGen Core.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Core.1 */; };
 		D01B6D070C8A159600D8943C /* propertytree.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6D060C8A159600D8943C /* propertytree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D01B6D0D0C8A15FC00D8943C /* propertytree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */; };
+		D01B6EB00C8A1D0000D8943C /* propertytreeparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */; };
+		D01B6EB20C8A1D0A00D8943C /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; };
 		D067DA850C57F0810078E141 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258910C4C372000909B4E /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258CB0C4C388100909B4E /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -62,6 +64,8 @@
 		C6859E8B029090EE04C91782 /* TGen Core.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Core.1"; sourceTree = "<group>"; };
 		D01B6D060C8A159600D8943C /* propertytree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = propertytree.h; path = Include/propertytree.h; sourceTree = "<group>"; };
 		D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = propertytree.cpp; path = Source/propertytree.cpp; sourceTree = "<group>"; };
+		D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = propertytreeparser.cpp; path = Source/propertytreeparser.cpp; sourceTree = "<group>"; };
+		D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = propertytreeparser.h; path = Include/propertytreeparser.h; sourceTree = "<group>"; };
 		D067DA840C57F0810078E141 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = debug.h; path = Include/debug.h; sourceTree = "<group>"; };
 		D07258900C4C372000909B4E /* cast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cast.h; path = Include/cast.h; sourceTree = "<group>"; };
 		D07258CA0C4C388100909B4E /* stringman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringman.h; path = Include/stringman.h; sourceTree = "<group>"; };
@@ -138,6 +142,8 @@
 				D0EFD14B0C7DBFFF001E861E /* symboltable.h */,
 				D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */,
 				D01B6D060C8A159600D8943C /* propertytree.h */,
+				D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */,
+				D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */,
 			);
 			name = Core;
 			path = ..;
@@ -188,6 +194,7 @@
 				D07A2B690C666EBF009CABCA /* endian.h in Headers */,
 				D0EFD14C0C7DBFFF001E861E /* symboltable.h in Headers */,
 				D01B6D070C8A159600D8943C /* propertytree.h in Headers */,
+				D01B6EB20C8A1D0A00D8943C /* propertytreeparser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +275,7 @@
 				D07A2B670C666EB2009CABCA /* endian.cpp in Sources */,
 				D0EFD14E0C7DC00B001E861E /* symboltable.cpp in Sources */,
 				D01B6D0D0C8A15FC00D8943C /* propertytree.cpp in Sources */,
+				D01B6EB00C8A1D0000D8943C /* propertytreeparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
