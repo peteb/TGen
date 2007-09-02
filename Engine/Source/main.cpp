@@ -55,7 +55,31 @@ int main(int argc, char ** argv) {
 		throw TGen::RuntimeException("main", "no info file!");
 	
 	std::cout << infoFile->readAll() << std::endl;
-	// det här ska in i App::App.... PropertyFileParser
+	// App::properties
+	/*
+		game {
+			name "The Cool Game"  // alias for game_name
+			author duhman		 // game_author
+		}
+	 
+		search {
+			data1.pak
+			data2.pak
+		}
+	 
+		vars {	// set last - after dumps have been read.
+			env_fullscreen no
+		}
+	 
+	 
+	 
+	 */
+	
+	// TODO: numrera props som inte har namn och så man kan enumrera props (returnera iterator och gör typedef för map public)
+	// parsa props här och passa till new App
+	// TODO: riktigt logsystem med targets
+	// ska vara subsystems, graphics::init, sound::init, physics::init, etc. initieras av App::App
+	
 	delete infoFile;
 	
 	// setup env

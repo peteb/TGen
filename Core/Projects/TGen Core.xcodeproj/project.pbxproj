@@ -12,7 +12,7 @@
 		D01B6D070C8A159600D8943C /* propertytree.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6D060C8A159600D8943C /* propertytree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D01B6D0D0C8A15FC00D8943C /* propertytree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */; };
 		D01B6EB00C8A1D0000D8943C /* propertytreeparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */; };
-		D01B6EB20C8A1D0A00D8943C /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; };
+		D01B6EB20C8A1D0A00D8943C /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D067DA850C57F0810078E141 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258910C4C372000909B4E /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07258CB0C4C388100909B4E /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; settings = {ATTRIBUTES = (Public, ); }; };
