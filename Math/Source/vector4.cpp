@@ -13,6 +13,14 @@
 
 TGen::Vector4 TGen::Vector4::Identity(1.0, 1.0, 1.0, 1.0);
 
+TGen::Vector4::Vector4()
+	: x(0.0f)
+	, y(0.0f)
+	, z(0.0f)
+	, w(0.0f)
+{
+}
+
 TGen::Vector4::Vector4(scalar x, scalar y, scalar z, scalar w)
 	: x(x)
 	, y(y)

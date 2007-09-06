@@ -23,6 +23,7 @@
 #include "rectangle.h"
 #include "AABB.h"
 #include "sphere.h"
+#include "frustum.h"
 
 namespace TGen {
 	bool isMathDebug();

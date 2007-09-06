@@ -68,3 +68,42 @@ TGen::Vector2 TGen::Rectangle::getUpperLeft() const {
 TGen::Vector2 TGen::Rectangle::getLowerRight() const {
 	return TGen::Vector2(center.x + width / 2.0f, center.y + height / 2.0f);	
 }
+
+bool TGen::Rectangle::intersects(const TGen::Rectangle & rect) const {
+	TGen::Vector2 utop1, utop2, ubot1, ubot2;
+	utop1 = rect.getUpperLeft();
+	ubot1 = rect.getLowerRight();
+	utop2 = getUpperLeft();
+	ubot2 = getLowerRight();
+	
+	if (ubot1.y < utop2.y) return false;
+	if (utop1.y > ubot2.y) return false;
+	if (ubot1.x < utop2.x) return false;
+	if (utop1.x > ubot2.x) return false;
+	
+	return true;
+}
+#include <iostream>
+void TGen::Rectangle::calculate(const TGen::Vector2 * vectors, int vectorcount) {
+	TGen::Vector2 min(1336.0f, 1336.0f), max(1336.0f, 1336.0f);
+	bool first = true;
+	for (int i = 0; i < vectorcount; ++i) {
+		if (first) {
+			min = vectors[i];
+			max = vectors[i];
+			first = false;
+		}
+		else {
+			min.x = std::min(vectors[i].x, min.x);
+			min.y = std::min(vectors[i].y, min.y);
+			max.x = std::max(vectors[i].x, max.x);
+			max.y = std::max(vectors[i].y, max.y);
+		}
+	}
+	
+	std::cout << "min: " << std::string(min) << " max: " << std::string(max) << std::endl;
+	
+	width = (max.x - min.x);
+	height = (max.y - min.y);
+	center = min + (max - min) / 2.0f;
+}

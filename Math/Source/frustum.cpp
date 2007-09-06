@@ -9,6 +9,9 @@
 
 #include "frustum.h"
 #include "matrix4x4.h"
+#include "vector3.h"
+
+#include <iostream>
 
 TGen::Frustum::Frustum(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview) {
 	calculate(projection, worldview);
@@ -35,6 +38,9 @@ void TGen::Frustum::calculate(const TGen::Matrix4x4 & projection, const TGen::Ma
 	
 	nearPlane.normal = combined.getOrigin() + combined.getZ();
 	nearPlane.distance = combined.elements[3][3] + combined.elements[2][3];
+	nearPlane.normalize();
+	std::cout << "DIST::::::::::: " << nearPlane.distance << std::endl;
+	
 	
 	rightPlane.normalize();
 	leftPlane.normalize();
@@ -42,6 +48,8 @@ void TGen::Frustum::calculate(const TGen::Matrix4x4 & projection, const TGen::Ma
 	topPlane.normalize();
 	nearPlane.normalize();
 	farPlane.normalize();
+	
+	//farPlane.normal.normalize();
 }
 
 int TGen::Frustum::intersects(const TGen::Sphere & sphere) const {
@@ -53,4 +61,13 @@ int TGen::Frustum::intersects(const TGen::AABB & aabb) const {
 	return 0;
 }
 
+int TGen::Frustum::intersects(const TGen::Vector3 & point) const {
+	std::cout << "FAR: " << std::string(farPlane.normal) << " - " << farPlane.distance << std::endl;
+	
+	if (nearPlane.getDistanceTo(point) >= 0.0f && farPlane.getDistanceTo(point) >= 0.0f && rightPlane.getDistanceTo(point) >= 0.0f && leftPlane.getDistanceTo(point) >= 0.0f
+		&& topPlane.getDistanceTo(point) >= 0.0f && bottomPlane.getDistanceTo(point) >= 0.0f)
+		return 0;
+	
+	return 1;
+}
 

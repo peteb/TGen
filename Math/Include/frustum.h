@@ -16,6 +16,7 @@ namespace TGen {
 	class Matrix4x4;
 	class Sphere;
 	class AABB;
+	class Vector3;
 	
 	enum Planes {
 		FarPlane = 0,
@@ -33,7 +34,7 @@ namespace TGen {
 		void calculate(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview);
 		int intersects(const TGen::Sphere & sphere) const;
 		int intersects(const TGen::AABB & aabb) const;
-
+		int intersects(const TGen::Vector3 & point) const;
 		
 		TGen::Plane3 nearPlane, farPlane, rightPlane, leftPlane, topPlane, bottomPlane;
 	};

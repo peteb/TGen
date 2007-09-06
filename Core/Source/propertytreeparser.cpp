@@ -30,7 +30,7 @@ TGen::PropertyTreeTokenizer::PropertyTreeTokenizer() {
 int TGen::PropertyTreeTokenizer::getSpecialToken(char * text, TGen::TokenStream & stream) {
 	return 0;
 }
-#include <iostream>
+//#include <iostream>
 
 TGen::PropertyTree TGen::PropertyTreeParser::parse(const char * code) {
 	TGen::PropertyTreeTokenizer tokenizer;
@@ -91,6 +91,8 @@ void TGen::PropertyTreeParser::parseBlock(TGen::PropertyTree & node) {
 	if (!line.empty())
 		addLine(line, node);
 }
+
+// TODO: element i en nod, som en array. och så man kan iterera!
 
 void TGen::PropertyTreeParser::addLine(const std::vector<std::string> & line, TGen::PropertyTree & node) {
 	std::string name = line.at(0);

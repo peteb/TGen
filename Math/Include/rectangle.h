@@ -24,6 +24,9 @@ namespace TGen {
 		Rectangle & operator = (const TGen::Rectangle & rectangle);
 		operator std::string() const;
 		
+		bool intersects(const TGen::Rectangle & rect) const;
+		void calculate(const TGen::Vector2 * vectors, int vectorcount);
+		
 		static TGen::Rectangle FromUpperLeft(const TGen::Vector2 & topleft, scalar width, scalar height);
 		TGen::Vector2 getUpperLeft() const;
 		TGen::Vector2 getLowerRight() const;

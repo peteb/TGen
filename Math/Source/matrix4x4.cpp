@@ -9,6 +9,7 @@
 
 #include "matrix4x4.h"
 #include "matrix3x3.h"
+#include "vector4.h"
 #include "vector3.h"
 #include "vector2.h"
 #include "rectangle.h"
@@ -120,6 +121,16 @@ TGen::Vector3 TGen::Matrix4x4::operator * (const TGen::Vector3 & vector) const {
 	ret.y = vector.x * elements[0][1] + vector.y * elements[1][1] + vector.z * elements[2][1] + elements[3][1];
 	ret.z = vector.x * elements[0][2] + vector.y * elements[1][2] + vector.z * elements[2][2] + elements[3][2];
 	
+	return ret;
+}
+
+TGen::Vector4 TGen::Matrix4x4::operator * (const TGen::Vector4 & vector) const {
+	TGen::Vector4 ret;
+	ret.x = vector.x * elements[0][0] + vector.y * elements[1][0] + vector.z * elements[2][0] + vector.w * elements[3][0];
+	ret.y = vector.x * elements[0][1] + vector.y * elements[1][1] + vector.z * elements[2][1] + vector.w * elements[3][1];
+	ret.z = vector.x * elements[0][2] + vector.y * elements[1][2] + vector.z * elements[2][2] + vector.w * elements[3][2];
+	ret.w = vector.x * elements[0][3] + vector.y * elements[1][3] + vector.z * elements[2][3] + vector.w * elements[3][3];
+
 	return ret;
 }
 

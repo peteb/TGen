@@ -95,6 +95,14 @@ TGen::Vector3 & TGen::Vector3::operator -= (const TGen::Vector3 & vector) {
 	return *this;
 }
 
+TGen::Vector3 & TGen::Vector3::operator /= (scalar scal) {
+	x /= scal;
+	y /= scal;
+	z /= scal;
+	
+	return *this;
+}
+
 TGen::Vector3 & TGen::Vector3::operator = (const TGen::Vector3 & vector) {
 	x = vector.x;
 	y = vector.y;

@@ -16,6 +16,7 @@
 namespace TGen {
 	class Matrix3x3;
 	class Vector3;
+	class Vector4;
 	class Rectangle;
 	class Angle;
 	class Degree;
@@ -30,6 +31,8 @@ namespace TGen {
 		
 		TGen::Matrix4x4 & operator = (const TGen::Matrix4x4 & matrix);
 		TGen::Vector3 operator * (const TGen::Vector3 & vector) const;
+		TGen::Vector4 operator * (const TGen::Vector4 & vector) const;
+
 		TGen::Matrix4x4 operator * (const TGen::Matrix4x4 & matrix) const;
 		TGen::Matrix4x4 & operator *= (const TGen::Matrix4x4 & matrix);
 

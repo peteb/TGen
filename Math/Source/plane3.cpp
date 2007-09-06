@@ -73,7 +73,9 @@ TGen::Vector3 TGen::Plane3::project(const TGen::Vector3 & p) const {
 }
 
 void TGen::Plane3::normalize() {
-	normal.normalize();
+	scalar mag = normal.getMagnitude();
+	normal /= mag;
+	distance /= mag;
 }
 
 scalar TGen::Plane3::getPointSide(const TGen::Vector3 & p) const {

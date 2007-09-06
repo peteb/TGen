@@ -27,6 +27,7 @@ namespace TGen {
 		Vector3 & operator += (const TGen::Vector3 & vector);
 		Vector3 & operator -= (const TGen::Vector3 & vector);
 		Vector3 & operator = (const TGen::Vector3 & vector);
+		Vector3 & operator /= (scalar scal);
 		Vector3 & operator *= (scalar scalar);
 		
 		Vector3 operator + (const TGen::Vector3 & vector) const;

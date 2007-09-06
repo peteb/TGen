@@ -19,6 +19,7 @@ namespace TGen {
 	
 	class Vector4 {
 	public:
+		Vector4();
 		Vector4(scalar x, scalar y, scalar z, scalar w);
 		Vector4(const Vector3 & vector);
 		Vector4(const Vector2 & vector);
