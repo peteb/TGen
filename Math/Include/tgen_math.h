@@ -21,9 +21,11 @@
 #include "vector4.h"
 
 #include "rectangle.h"
-#include "AABB.h"
+#include "AABB.h"	// box.h?
 #include "sphere.h"
 #include "frustum.h"
+#include "quad3.h"
+#include "coordset3.h"
 
 namespace TGen {
 	bool isMathDebug();
