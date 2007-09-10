@@ -101,7 +101,7 @@ void TGen::Rectangle::calculate(const TGen::Vector2 * vectors, int vectorcount) 
 		}
 	}
 	
-	std::cout << "min: " << std::string(min) << " max: " << std::string(max) << std::endl;
+//	std::cout << "min: " << std::string(min) << " max: " << std::string(max) << std::endl;
 	
 	width = (max.x - min.x);
 	height = (max.y - min.y);

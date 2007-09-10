@@ -25,7 +25,8 @@ namespace TGen {
 		TGen::Vector3 planeIntersection(const TGen::Plane3 & plane) const;
 		TGen::Vector3 project(const TGen::Vector3 & p) const;
 		scalar getPointSide(const TGen::Vector3 & p) const;
-		void normalize();
+		TGen::Plane3 & normalize();
+		TGen::Plane3 & invert();
 		
 		TGen::Vector3 normal;
 		scalar distance;

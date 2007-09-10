@@ -68,7 +68,16 @@ int main(int argc, char ** const argv) {
 	
 	TGen::Quaternion4 kord = orient; //orient * TGen::Vector3(0.0f, 0.0f, 1.0f) * -orient;
 	
-	std::cout << "15. " << std::string(TGen::Vector3(kord)) << std::endl;
+	std::cout << "15. " << std::string(TGen::Vector3(kord)) << std::endl << std::endl;
+	
+	// 16.
+	TGen::Vector3 vectors[3];
+	vectors[0] = TGen::Vector3(10.0f, 0.0f, 0.0f);
+	vectors[1] = TGen::Vector3(10.0f, 5.0f, 10.0f);
+	vectors[2] = TGen::Vector3(10.0f, -5.0f, 10.0f);
+	
+	TGen::Plane3 plane(vectors[0], vectors[1], vectors[2]);
+	std::cout << "16. " << std::string(plane.normal) << " " << plane.distance << std::endl;
 	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;

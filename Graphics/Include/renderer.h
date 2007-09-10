@@ -27,6 +27,7 @@ namespace TGen {
 	class Shader;
 	class ShaderProgram;
 	class RenderContext;
+	class Plane3;
 	
 	class Renderer {
 	protected:
@@ -50,6 +51,8 @@ namespace TGen {
 		virtual void setRenderTarget(FrameBuffer * buffer) abstract;
 		virtual void setShaderProgram(ShaderProgram * program) abstract;
 		
+		virtual void disableClipPlane(int id) abstract;
+		virtual void setClipPlane(int id, const TGen::Plane3 & plane) abstract;
 		virtual void setColor(const Color & color) abstract;
 		virtual void setRenderContext(const RenderContext & context, TGen::Texture ** textureTypes) abstract;
 		

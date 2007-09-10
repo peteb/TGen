@@ -11,6 +11,8 @@
 #define _TGEN_ENGINE_APP_H
 
 namespace TGen {
+	class PropertyTree;
+	
 	namespace Engine {
 		class SDL;
 		class Filesystem;
@@ -18,7 +20,7 @@ namespace TGen {
 		
 		class App {
 		public:
-			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs);
+			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props);
 			~App();
 			
 			bool isRunning() const;

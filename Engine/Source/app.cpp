@@ -9,7 +9,7 @@
 
 #include "app.h"
 
-TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs)
+TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props)
 	: running(true)
 {
 }

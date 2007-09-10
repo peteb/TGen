@@ -11,13 +11,15 @@
 #define _TGEN_ENGINE_SDL_H
 
 namespace TGen {
+	class PropertyTree;
+	
 	namespace Engine {
 		class VariablesRegistry;
 		class App;
 		
 		class SDL {
 		public:
-			SDL(TGen::Engine::VariablesRegistry & variables);
+			SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props);
 			~SDL();
 	
 			int run(TGen::Engine::App * app);

@@ -62,3 +62,10 @@ std::string TGen::PropertyTree::getName() const {
 	return name;
 }
 
+int TGen::PropertyTree::getNumProperties() const {
+	return properties.size();
+}
+
+const TGen::PropertyTree::PropertyMap & TGen::PropertyTree::getProperties() const {
+	return properties;
+}

@@ -84,6 +84,10 @@ namespace TGen {
 			Type() {}
 			Type(const TGen::Vector3 & vector) : x(vector.x), y(vector.y), z(vector.z) {}
 			
+			operator TGen::Vector3() const {
+				return TGen::Vector3(x, y, z);
+			}
+			
 			T x, y, z;
 		};
 	};	
@@ -97,7 +101,11 @@ namespace TGen {
 		public:
 			Type() {}
 			Type(const TGen::Vector2 & vector) : x(vector.x), y(vector.y) {}
-				
+			
+			operator TGen::Vector2() const {
+				return TGen::Vector2(x, y);
+			}
+			
 			T x, y;
 		};
 	};	
@@ -113,6 +121,10 @@ namespace TGen {
 			Type() {}
 			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b) {}
 				
+			operator TGen::Color() const {
+				return TGen::Color(r, g, b);
+			}
+			
 			T r, g, b;
 		};
 	};	
@@ -127,6 +139,10 @@ namespace TGen {
 			Type() {}
 			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b), a(color.a) {}
 			
+			operator TGen::Color() const {
+				return TGen::Color(r, g, b, a);
+			}			
+			
 			T r, g, b, a;
 		};
 	};
@@ -140,7 +156,11 @@ namespace TGen {
 		public:
 			Type() {}
 			Type(const TGen::Vector3 & normal) : nx(normal.x), ny(normal.y), nz(normal.z) {}
-				
+
+			operator TGen::Vector3() const {
+				return TGen::Vector3(nx, ny, nz);
+			}
+			
 			T nx, ny, nz;
 		};
 	};
@@ -168,6 +188,10 @@ namespace TGen {
 		public:
 			Type() {}
 			Type(const TGen::Vector2 & texcoord) : u(texcoord.x), v(texcoord.y) {}
+			
+			operator TGen::Vector2() const {
+				return TGen::Vector2(u, v);
+			}
 			
 			T u, v;
 		};

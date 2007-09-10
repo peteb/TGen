@@ -612,8 +612,16 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 }
 
 // TODO: kolla om texturen är för stor med PROXY_TEX
+void TGen::OpenGL::Renderer::setClipPlane(int id, const TGen::Plane3 & plane) {
+	glEnable(GL_CLIP_PLANE0 + id);
+	
+	GLdouble eq[4] = {plane.normal.x, plane.normal.y, plane.normal.z, plane.distance};
+	glClipPlane(GL_CLIP_PLANE0 + id, eq);
+}
 
-
+void TGen::OpenGL::Renderer::disableClipPlane(int id) {
+	glDisable(GL_CLIP_PLANE0 + id);
+}
 
 void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes) {
 	if (context.depthWrite)

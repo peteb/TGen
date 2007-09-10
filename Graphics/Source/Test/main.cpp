@@ -17,3 +17,6 @@ int main(int argc, char ** argv) {
 
 	return EXIT_SUCCESS;
 }
+
+// TODO: rendreraren ska komma ihåg staten och inte ändra den i ogl om det inte behövs
+// TODO: render states ska kunna ha en override-state, så man kan sätta wireframe på front och back även fast materialet säger annat

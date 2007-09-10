@@ -8,6 +8,7 @@
  */
 
 #include "propertytreeparser.h"
+#include "cast.h"
 
 TGen::PropertyTreeTokenizer::PropertyTreeTokenizer() {
 	autoAddTilNextIgnore = true;
@@ -95,8 +96,15 @@ void TGen::PropertyTreeParser::parseBlock(TGen::PropertyTree & node) {
 // TODO: element i en nod, som en array. och så man kan iterera!
 
 void TGen::PropertyTreeParser::addLine(const std::vector<std::string> & line, TGen::PropertyTree & node) {
-	std::string name = line.at(0);
-	std::string value = line.at(1);
+	if (line.size() > 1) {
+		std::string name = line.at(0);
+		std::string value = line.at(1);
 	
-	node.addProperty(TGen::PropertyTree::Property(name, value));
+		node.addProperty(TGen::PropertyTree::Property(name, value));
+	}
+	else {
+		std::string value = line.at(0);
+
+		node.addProperty(TGen::PropertyTree::Property(TGen::lexical_cast<std::string>(node.getNumProperties()), value));
+	}
 }

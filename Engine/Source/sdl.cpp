@@ -12,7 +12,7 @@
 #include "app.h"
 #include <SDL/SDL.h>
 
-TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables)
+TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props)
 	: variables(variables)
 {
 	bool fullscreen = bool(variables.getVariable("env_fullscreen"));
