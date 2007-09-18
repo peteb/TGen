@@ -343,32 +343,32 @@ TGen::Matrix4x4 & TGen::Matrix4x4::invert() {
 	wg = 1.0f / wg;
 	mat.elements[0][0] *= wg; mat.elements[1][0] *= wg; mat.elements[2][0] *= wg; mat.elements[3][0] *= wg;
 	
-	b1=elements[3][2]*elements[0][3]-elements[3][3]*elements[0][2]; b2=elements[3][0]*elements[0][3]-elements[3][3]*elements[0][0];
-	b3=elements[3][0]*elements[0][1]-elements[3][1]*elements[0][0]; b4=elements[3][2]*elements[0][1]-elements[3][1]*elements[0][2];
-	b5=elements[3][3]*elements[0][1]-elements[3][1]*elements[0][3]; b6=elements[3][2]*elements[0][0]-elements[3][0]*elements[0][2];
+	b1=elements[3][2] * elements[0][3] - elements[3][3] * elements[0][2]; b2 = elements[3][0] * elements[0][3] - elements[3][3] * elements[0][0];
+	b3=elements[3][0] * elements[0][1] - elements[3][1] * elements[0][0]; b4 = elements[3][2] * elements[0][1] - elements[3][1] * elements[0][2];
+	b5=elements[3][3] * elements[0][1] - elements[3][1] * elements[0][3]; b6 = elements[3][2] * elements[0][0] - elements[3][0] * elements[0][2];
 	
-	mat.elements[0][1]=wg*(-elements[2][1]*b1-elements[2][2]*b5+elements[2][3]*b4);
-	mat.elements[1][1]=wg*(-elements[2][2]*b2-elements[2][3]*b6+elements[2][0]*b1);
-	mat.elements[2][1]=wg*(-elements[2][3]*b3+elements[2][0]*b5+elements[2][1]*b2);
-	mat.elements[3][1]=wg*(-elements[2][0]*b4+elements[2][1]*b6+elements[2][2]*b3);
+	mat.elements[0][1] = wg * (-elements[2][1] * b1 - elements[2][2] * b5 + elements[2][3] * b4);
+	mat.elements[1][1] = wg * (-elements[2][2] * b2 - elements[2][3] * b6 + elements[2][0] * b1);
+	mat.elements[2][1] = wg * (-elements[2][3] * b3 + elements[2][0] * b5 + elements[2][1] * b2);
+	mat.elements[3][1] = wg * (-elements[2][0] * b4 + elements[2][1] * b6 + elements[2][2] * b3);
 	
-	b1=elements[0][2]*elements[1][3]-elements[0][3]*elements[1][2]; b2=elements[0][0]*elements[1][3]-elements[0][3]*elements[1][0];
-	b3=elements[0][0]*elements[1][1]-elements[0][1]*elements[1][0]; b4=elements[0][2]*elements[1][1]-elements[0][1]*elements[1][2];
-	b5=elements[0][3]*elements[1][1]-elements[0][1]*elements[1][3]; b6=elements[0][2]*elements[1][0]-elements[0][0]*elements[1][2];
+	b1=elements[0][2] * elements[1][3] - elements[0][3] * elements[1][2]; b2 = elements[0][0] * elements[1][3] - elements[0][3] * elements[1][0];
+	b3=elements[0][0] * elements[1][1] - elements[0][1] * elements[1][0]; b4 = elements[0][2] * elements[1][1] - elements[0][1] * elements[1][2];
+	b5=elements[0][3] * elements[1][1] - elements[0][1] * elements[1][3]; b6 = elements[0][2] * elements[1][0] - elements[0][0] * elements[1][2];
 	
-	mat.elements[0][2]=wg*(elements[3][1]*b1+elements[3][2]*b5-elements[3][3]*b4);
-	mat.elements[1][2]=wg*(elements[3][2]*b2+elements[3][3]*b6-elements[3][0]*b1);
-	mat.elements[2][2]=wg*(elements[3][3]*b3-elements[3][0]*b5-elements[3][1]*b2);
-	mat.elements[3][2]=wg*(elements[3][0]*b4-elements[3][1]*b6-elements[3][2]*b3);
+	mat.elements[0][2] = wg * (elements[3][1] * b1 + elements[3][2] * b5 - elements[3][3] * b4);
+	mat.elements[1][2] = wg * (elements[3][2] * b2 + elements[3][3] * b6 - elements[3][0] * b1);
+	mat.elements[2][2] = wg * (elements[3][3] * b3 - elements[3][0] * b5 - elements[3][1] * b2);
+	mat.elements[3][2] = wg * (elements[3][0] * b4 - elements[3][1] * b6 - elements[3][2] * b3);
 	
-	b1=elements[1][2]*elements[2][3]-elements[1][3]*elements[2][2]; b2=elements[1][0]*elements[2][3]-elements[1][3]*elements[2][0];
-	b3=elements[1][0]*elements[2][1]-elements[1][1]*elements[2][0]; b4=elements[1][2]*elements[2][1]-elements[1][1]*elements[2][2];
-	b5=elements[1][3]*elements[2][1]-elements[1][1]*elements[2][3]; b6=elements[1][2]*elements[2][0]-elements[1][0]*elements[2][2];
+	b1 = elements[1][2] * elements[2][3] - elements[1][3] * elements[2][2]; b2 = elements[1][0] * elements[2][3] - elements[1][3] * elements[2][0];
+	b3 = elements[1][0] * elements[2][1] - elements[1][1] * elements[2][0]; b4 = elements[1][2] * elements[2][1] - elements[1][1] * elements[2][2];
+	b5 = elements[1][3] * elements[2][1] - elements[1][1] * elements[2][3]; b6 = elements[1][2] * elements[2][0] - elements[1][0] * elements[2][2];
 	
-	mat.elements[0][3]=wg*(-elements[0][1]*b1-elements[0][2]*b5+elements[0][3]*b4);
-	mat.elements[1][3]=wg*(-elements[0][2]*b2-elements[0][3]*b6+elements[0][0]*b1);
-	mat.elements[2][3]=wg*(-elements[0][3]*b3+elements[0][0]*b5+elements[0][1]*b2);
-	mat.elements[3][3]=wg*(-elements[0][0]*b4+elements[0][1]*b6+elements[0][2]*b3);		
+	mat.elements[0][3] = wg * (-elements[0][1] * b1 - elements[0][2] * b5 + elements[0][3] * b4);
+	mat.elements[1][3] = wg * (-elements[0][2] * b2 - elements[0][3] * b6 + elements[0][0] * b1);
+	mat.elements[2][3] = wg * (-elements[0][3] * b3 + elements[0][0] * b5 + elements[0][1] * b2);
+	mat.elements[3][3] = wg * (-elements[0][0] * b4 + elements[0][1] * b6 + elements[0][2] * b3);		
 	
 	*this = mat;
 	

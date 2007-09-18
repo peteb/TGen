@@ -17,7 +17,7 @@ TGen::Vector4::Vector4()
 	: x(0.0f)
 	, y(0.0f)
 	, z(0.0f)
-	, w(0.0f)
+	, w(1.0f)
 {
 }
 
@@ -34,7 +34,7 @@ TGen::Vector4::Vector4(const Vector3 & vector)
 	: x(vector.x)
 	, y(vector.y)
 	, z(vector.z)
-	, w(0.0)
+	, w(1.0)
 {
 		
 }
@@ -43,7 +43,7 @@ TGen::Vector4::Vector4(const Vector2 & vector)
 	: x(vector.x)
 	, y(vector.y)
 	, z(0.0)
-	, w(0.0)
+	, w(1.0)
 {
 		
 }

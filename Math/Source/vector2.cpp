@@ -67,27 +67,31 @@ TGen::Vector2 & TGen::Vector2::operator *= (scalar scalar) {
 }
 
 TGen::Vector2 TGen::Vector2::operator + (const TGen::Vector2 & vector) const {
-	return TGen::Vector2(x + vector.x, y + vector.y/*, z + vector.z*/);
+	return TGen::Vector2(x + vector.x, y + vector.y);
 }
 
 TGen::Vector2 TGen::Vector2::operator - (const TGen::Vector2 & vector) const {
-	return TGen::Vector2(x - vector.x, y - vector.y/*, z - vector.z*/);	
+	return TGen::Vector2(x - vector.x, y - vector.y);	
 }
 
-TGen::Vector2 TGen::Vector2::operator * (scalar scalar) const {
-	return TGen::Vector2(x * scalar, y * scalar);
+TGen::Vector2 TGen::Vector2::operator * (scalar _scalar) const {
+	return TGen::Vector2(x * _scalar, y * _scalar);
+}
+
+TGen::Vector2 TGen::Vector2::operator * (const TGen::Vector2 & vector) const {
+	return TGen::Vector2(x * vector.x, y * vector.y);
 }
 
 TGen::Vector2 TGen::Vector2::operator / (scalar scalar) const {
-	return TGen::Vector2(x / scalar, y / scalar/*, z / scalar*/);
+	return TGen::Vector2(x / scalar, y / scalar);
 }
 
 TGen::Vector2 TGen::Vector2::operator - () const {
-	return TGen::Vector2(-x, -y/*, -z*/);
+	return TGen::Vector2(-x, -y);
 }
 
 scalar TGen::Vector2::getMagnitude() const {
-	return fabs(sqrt(x * x + y * y /* + z * z*/));
+	return fabs(sqrt(x * x + y * y));
 }
 
 TGen::Vector2 TGen::Vector2::getNormalized() const {

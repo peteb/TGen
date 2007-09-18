@@ -19,6 +19,16 @@ TGen::Quaternion4::Quaternion4(scalar x, scalar y, scalar z, scalar w)
 {		
 }
 
+TGen::Quaternion4::Quaternion4(const TGen::Vector3 & axis, const TGen::Angle & angle) {
+	scalar radianAngle = TGen::Radian(angle).angle * 0.5;
+	scalar sinAngle = TGen::Sin(TGen::Radian(radianAngle));
+	
+	x = axis.x * sinAngle;
+	y = axis.y * sinAngle;
+	z = axis.z * sinAngle;
+	w = TGen::Cos(TGen::Radian(radianAngle));
+}
+
 TGen::Quaternion4::Quaternion4()
 	: x(0.0)
 	, y(0.0)
@@ -134,5 +144,34 @@ TGen::Quaternion4 TGen::Quaternion4::operator - (const TGen::Quaternion4 & quat)
 
 TGen::Quaternion4 TGen::Quaternion4::operator * (scalar value) const {
 	return TGen::Quaternion4(x * value, y * value, z * value, w * value);
+}
+
+TGen::Quaternion4 & TGen::Quaternion4::invert() {
+	scalar length = (1.0 / (x * x + y * y + z * z + w * w));
+	x *= -length;
+	y *= -length;
+	z *= -length;
+	w *= length;
+	
+	return *this;
+}
+
+TGen::Quaternion4 & TGen::Quaternion4::getInverse() const {
+	return TGen::Quaternion4(*this).invert();
+}
+
+TGen::Vector3 TGen::Quaternion4::operator * (const TGen::Vector3 & vector) const {
+	TGen::Quaternion4 vectorQuat(vector), inverseQuat, resultQuat;
+	TGen::Vector3 ret;
+	
+	inverseQuat = getInverse();
+	resultQuat = vectorQuat * inverseQuat;
+	resultQuat = *this * resultQuat;
+	
+	ret.x = resultQuat.x;
+	ret.y = resultQuat.y;
+	ret.z = resultQuat.z;
+	
+	return ret;
 }
 

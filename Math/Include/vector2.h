@@ -30,8 +30,9 @@ namespace TGen {
 		
 		Vector2 operator + (const TGen::Vector2 & vector) const;
 		Vector2 operator - (const TGen::Vector2 & vector) const;
-		Vector2 operator * (scalar scalar) const;
-		Vector2 operator / (scalar scalar) const;
+		Vector2 operator * (const TGen::Vector2 & vector) const;		
+		Vector2 operator * (scalar _scalar) const;
+		Vector2 operator / (scalar _scalar) const;
 		Vector2 operator - () const;
 		
 		operator std::string() const;
