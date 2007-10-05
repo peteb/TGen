@@ -24,7 +24,7 @@ namespace TGen {
 		Vector4(const Vector3 & vector);
 		Vector4(const Vector2 & vector);
 		
-
+		
 		static Vector4 Identity;
 		
 		scalar x, y, z, w;		

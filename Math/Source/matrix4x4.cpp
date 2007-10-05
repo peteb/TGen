@@ -376,7 +376,6 @@ TGen::Matrix4x4 & TGen::Matrix4x4::invert() {
 }
 
 TGen::Matrix4x4 TGen::Matrix4x4::getInverse() const {
-	TGen::Matrix4x4 ret(*this);
-	return ret.invert();
+	return TGen::Matrix4x4(*this).invert();
 }
 

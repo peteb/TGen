@@ -15,9 +15,11 @@
 
 namespace TGen {
 	class Vector2;
+	class Vector4;
 	
 	class Vector3 {
 	public:	
+		Vector3(const TGen::Vector4 & vector);
 		Vector3(const TGen::Vector3 & vector);
 		Vector3(const TGen::Vector2 & vector);
 		Vector3(scalar x, scalar y, scalar z);
