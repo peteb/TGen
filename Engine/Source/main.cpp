@@ -45,6 +45,7 @@ int main(int argc, char ** argv) {
 	variables.addVariable(TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly));
 
 	// TODO: ConfigWriteOnly should only be writable until the game starts
+	// TODO: dump variables to file
 	
 	// setup filesystem
 	TGen::Engine::Filesystem * fs = new TGen::Engine::Filesystem(argv[0]);
@@ -68,7 +69,7 @@ int main(int argc, char ** argv) {
 	
 	// setup env
 	TGen::Engine::SDL * sdl = new TGen::Engine::SDL(variables, props);
-	TGen::Engine::App * app = new TGen::Engine::App(variables, sdl, fs, props);
+	TGen::Engine::App * app = new TGen::Engine::App(variables, *sdl, fs, props, sdl->getRenderer());
 	
 	std::cout << "======================== running ========================" << std::endl;
 	

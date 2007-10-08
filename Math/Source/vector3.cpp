@@ -8,6 +8,7 @@
  */
 
 #include "vector3.h"
+#include "vector4.h"
 #include "vector2.h"
 #include <sstream>
 #include <cmath>

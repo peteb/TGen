@@ -77,7 +77,28 @@ int main(int argc, char ** const argv) {
 	vectors[2] = TGen::Vector3(10.0f, -5.0f, 10.0f);
 	
 	TGen::Plane3 plane(vectors[0], vectors[1], vectors[2]);
-	std::cout << "16. " << std::string(plane.normal) << " " << plane.distance << std::endl;
+	std::cout << "16. " << std::string(plane.normal) << " " << plane.distance << std::endl << std::endl;
+	
+	
+	// 17.
+	std::cout << "17. " << std::endl;
+	
+	TGen::CoordSet3 box1, box2;
+	box1.addCoord(TGen::Vector3(-1.0f, -1.0f, 0.0f));
+	box1.addCoord(TGen::Vector3( 1.0f, -1.0f, 0.0f));
+	box1.addCoord(TGen::Vector3( 1.0f,  1.0f, 0.0f));
+	box1.addCoord(TGen::Vector3(-1.0f,  1.0f, 0.0f));
+	
+	box2.addCoord(TGen::Vector3(-1.0f, -1.0f, 0.0f));
+	box2.addCoord(TGen::Vector3( 1.0f, -1.0f, 0.0f));
+	box2.addCoord(TGen::Vector3( 1.0f,  1.0f, 0.0f));
+	box2.addCoord(TGen::Vector3(-1.0f,  1.0f, 0.0f));
+	
+	box2 *= TGen::Matrix4x4::Translation(TGen::Vector2::Identity * 2);
+	
+	std::cout << std::string(box1) << std::endl;
+	std::cout << std::string(box2) << std::endl;
+	
 	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;

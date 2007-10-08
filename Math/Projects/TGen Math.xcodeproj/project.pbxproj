@@ -245,8 +245,8 @@
 				D0EE69330C512CEF00D55B42 /* frustum.h */,
 				D0EB0C8D0C9576EC00258B80 /* quad3.cpp */,
 				D0EB0C8B0C9576DF00258B80 /* quad3.h */,
-				D0EB0D2E0C957A4A00258B80 /* coordset3.h */,
 				D0EB0D3A0C957C9500258B80 /* coordset3.cpp */,
+				D0EB0D2E0C957A4A00258B80 /* coordset3.h */,
 			);
 			name = Geometry;
 			sourceTree = "<group>";

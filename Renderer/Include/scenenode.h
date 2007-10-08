@@ -28,7 +28,7 @@ namespace TGen {
 		typedef std::vector<Face> FaceList;
 		class Walker;
 		
-		SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
+		SceneNode(const std::string & name, const TGen::Vector3 & position = TGen::Vector3(0.0f, 0.0f, 0.0f), const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
 		virtual ~SceneNode();
 		
 		virtual void update();

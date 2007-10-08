@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_SETTING_H
-#define _TGEN_ENGINE_SETTING_H
+#ifndef _TGEN_ENGINE_VARIABLE_H
+#define _TGEN_ENGINE_VARIABLE_H
 
 #include <string>
 #include <vector>
@@ -105,4 +105,4 @@ namespace TGen {
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_SETTING_H
+#endif // !_TGEN_ENGINE_VARIABLE_H

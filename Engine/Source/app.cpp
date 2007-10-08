@@ -8,14 +8,25 @@
  */
 
 #include "app.h"
+#include "state.h"
+#include "game.h"
+#include <iostream>
 
-TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::SDL * sdl, TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props)
+TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer)
 	: running(true)
+	, currentState(NULL)
+	, env(env)
+	, variables(variables)
+	, filesystem(*fs)
+	, loadProps(props)
+	, renderer(renderer)
 {
+	currentState = new TGen::Engine::GameState(*this);
 }
 
+
 TGen::Engine::App::~App() {
-	
+	delete currentState;
 }
 
 bool TGen::Engine::App::isRunning() const {
@@ -27,6 +38,7 @@ void TGen::Engine::App::quit() {
 }
 
 void TGen::Engine::App::tick() {
-
+	if (currentState)
+		currentState->tick();
 }
 

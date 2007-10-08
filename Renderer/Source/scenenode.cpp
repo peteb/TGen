@@ -41,7 +41,7 @@ void TGen::SceneNode::update() {
 		if (parent)
 			this->transform = parent->getTransform() * TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4(result); //::LookInDirection(result, up);
 		else
-			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up);
+			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(TGen::Vector3(result.x, result.y, result.z), up);
 		
 		this->changed = true;
 	}

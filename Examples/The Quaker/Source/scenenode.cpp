@@ -44,7 +44,7 @@ void SceneNode::Update(const TGen::Matrix4x4 & parent, bool parentUpdated) {
 		//std::cout << std::string(TGen::Vector3(result)) << std::endl;
 		
 		updated = true;
-		transform = parent * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(result, up); //TGen::Matrix4x4::LookAt(position, position + orientation, up);
+		//transform = parent * TGen::Matrix4x4::Translation(-position) * TGen::Matrix4x4::LookInDirection(result, up); //TGen::Matrix4x4::LookAt(position, position + orientation, up);
 		/*std::cout << name << " position: " << std::string(TGen::Vector3(position)) << std::endl;
 		std::cout << name << " up: " << std::string(TGen::Vector3(up)) << std::endl;
 		std::cout << name << " orientation: " << std::string(TGen::Vector3(orientation)) << std::endl;

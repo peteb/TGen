@@ -11,9 +11,11 @@
 #include "variablesregistry.h"
 #include "app.h"
 #include <SDL/SDL.h>
+#include <tgen_opengl.h>
 
 TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props)
 	: variables(variables)
+	, renderer(NULL)
 {
 	bool fullscreen = bool(variables.getVariable("env_fullscreen"));
 	int width = int(variables.getVariable("env_width")), height = int(variables.getVariable("env_height"));
@@ -44,12 +46,11 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	
 	std::cout << "[sdl]: initialized" << std::endl;	
 	
-	//std::cout << "[app]: initializing..." << std::endl;
-	//app = new TGen::Engine::App;
-	//std::cout << "[app]: initialized" << std::endl;
+	renderer = new TGen::OpenGL::Renderer;
 }
 
 TGen::Engine::SDL::~SDL() {
+	delete renderer;
 	//delete app;
 }
 
@@ -88,3 +89,14 @@ int TGen::Engine::SDL::run(TGen::Engine::App * app) {
 	return 1;
 }
 
+
+TGen::Renderer & TGen::Engine::SDL::getRenderer() {
+	if (!renderer)
+		throw TGen::RuntimeException("SDL::getRenderer", "no renderer created!");
+	
+	return *renderer;
+}
+
+void TGen::Engine::SDL::swapBuffers() {
+	SDL_GL_SwapBuffers();
+}

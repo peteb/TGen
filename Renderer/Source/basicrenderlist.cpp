@@ -86,7 +86,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	// OPT: allt det här är förmodligen väldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 		scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
-		TGen::Plane3 cameraPlane(camera.getWorldOrientation(), 0.0f);
+		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);
 		
 		TGen::Vector3 pos1, pos2;
 		pos1 = list[i].face->getWorldOrigin() - camera.getWorldPosition() - TGen::Vector3(geomRadius, geomRadius, geomRadius);

@@ -41,7 +41,7 @@ namespace TGen {
 		
 		Quaternion4 operator - () const;
 		operator TGen::Matrix4x4 () const;
-		operator TGen::Vector3 () const;
+		//operator TGen::Vector3 () const;
 		operator TGen::Vector4 () const;
 		
 		static Quaternion4 Rotation(const TGen::Vector3 axis, const TGen::Angle & angle);

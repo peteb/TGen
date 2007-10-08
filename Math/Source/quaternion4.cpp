@@ -68,9 +68,9 @@ TGen::Quaternion4::operator TGen::Matrix4x4 () const {
 						   0, 0, 0, 1.0);		
 }
 
-TGen::Quaternion4::operator TGen::Vector3 () const {
-	return TGen::Vector3(x, y, z);
-}
+//TGen::Quaternion4::operator TGen::Vector3 () const {
+//	return TGen::Vector3(x, y, z);
+//}
 
 TGen::Quaternion4::operator TGen::Vector4 () const {
 	return TGen::Vector4(x, y, z, w);

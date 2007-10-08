@@ -28,6 +28,16 @@
 		D0EF65270C82F5530085C17B /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65260C82F5530085C17B /* file.cpp */; };
 		D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF656B0C82F6A40085C17B /* IOKit.framework */; };
 		D0EF67200C82FA160085C17B /* adrift in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF67150C82FA160085C17B /* adrift */; };
+		D0F835850CBA5B6100FF4467 /* procmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835840CBA5B6100FF4467 /* procmap.cpp */; };
+		D0F835870CBA5B6B00FF4467 /* procmap.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835860CBA5B6B00FF4467 /* procmap.h */; };
+		D0F835D20CBA5C5100FF4467 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835D10CBA5C5100FF4467 /* game.cpp */; };
+		D0F835D40CBA5C5B00FF4467 /* game.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835D30CBA5C5B00FF4467 /* game.h */; };
+		D0F835DB0CBA5CB900FF4467 /* state.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835DA0CBA5CB900FF4467 /* state.h */; };
+		D0F836870CBA5E5900FF4467 /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F836860CBA5E5900FF4467 /* state.cpp */; };
+		D0F8393D0CBA67A100FF4467 /* view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F8393C0CBA67A100FF4467 /* view.cpp */; };
+		D0F8393F0CBA67AD00FF4467 /* view.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F8393E0CBA67AD00FF4467 /* view.h */; };
+		D0F83A680CBA6DC200FF4467 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F83A670CBA6DC200FF4467 /* OpenGL.framework */; };
+		D0F83ACC0CBA729D00FF4467 /* environment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83ACB0CBA729D00FF4467 /* environment.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -146,6 +156,11 @@
 			dstSubfolderSpec = 16;
 			files = (
 				D0EF67200C82FA160085C17B /* adrift in CopyFiles */,
+				D0F835870CBA5B6B00FF4467 /* procmap.h in CopyFiles */,
+				D0F835D40CBA5C5B00FF4467 /* game.h in CopyFiles */,
+				D0F835DB0CBA5CB900FF4467 /* state.h in CopyFiles */,
+				D0F8393F0CBA67AD00FF4467 /* view.h in CopyFiles */,
+				D0F83ACC0CBA729D00FF4467 /* environment.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +203,16 @@
 		D0EF65260C82F5530085C17B /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		D0EF656B0C82F6A40085C17B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		D0EF67150C82FA160085C17B /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
+		D0F835840CBA5B6100FF4467 /* procmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = procmap.cpp; sourceTree = "<group>"; };
+		D0F835860CBA5B6B00FF4467 /* procmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = procmap.h; path = ../../Include/procmap.h; sourceTree = SOURCE_ROOT; };
+		D0F835D10CBA5C5100FF4467 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
+		D0F835D30CBA5C5B00FF4467 /* game.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = game.h; path = ../../Include/game.h; sourceTree = SOURCE_ROOT; };
+		D0F835DA0CBA5CB900FF4467 /* state.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = state.h; path = ../../Include/state.h; sourceTree = SOURCE_ROOT; };
+		D0F836860CBA5E5900FF4467 /* state.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = state.cpp; sourceTree = "<group>"; };
+		D0F8393C0CBA67A100FF4467 /* view.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = view.cpp; sourceTree = "<group>"; };
+		D0F8393E0CBA67AD00FF4467 /* view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = view.h; path = ../../Include/view.h; sourceTree = SOURCE_ROOT; };
+		D0F83A670CBA6DC200FF4467 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		D0F83ACB0CBA729D00FF4467 /* environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = environment.h; path = ../../Include/environment.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +230,7 @@
 				D0EF61340C8222A40085C17B /* Cocoa.framework in Frameworks */,
 				D0EF614B0C82D0AB0085C17B /* libphysfs.a in Frameworks */,
 				D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */,
+				D0F83A680CBA6DC200FF4467 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +279,7 @@
 		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				D0F83A670CBA6DC200FF4467 /* OpenGL.framework */,
 				D0EF614C0C82D0C20085C17B /* physfs */,
 				D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */,
 				D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */,
@@ -279,14 +306,14 @@
 			name = "Configuration Files";
 			sourceTree = "<group>";
 		};
-		D0064FBF0C86E88800A42B3A /* Init */ = {
+		D0064FBF0C86E88800A42B3A /* init */ = {
 			isa = PBXGroup;
 			children = (
 				D0EF60F70C8222670085C17B /* SDLMain.h */,
 				D0EF60F80C8222670085C17B /* SDLMain.m */,
 				D0EF60E30C8222350085C17B /* main.cpp */,
 			);
-			name = Init;
+			name = init;
 			sourceTree = "<group>";
 		};
 		D01B6CED0C8A149200D8943C /* fs */ = {
@@ -367,17 +394,50 @@
 		D0EF64910C82F4CF0085C17B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D0F835D70CBA5C8B00FF4467 /* platform */,
+				D0F835810CBA5B4300FF4467 /* map */,
 				D01B6CF60C8A14C700D8943C /* data */,
 				D01B6CED0C8A149200D8943C /* fs */,
-				D0064FBF0C86E88800A42B3A /* Init */,
+				D0064FBF0C86E88800A42B3A /* init */,
+				D0F8393B0CBA679200FF4467 /* game */,
 				D0EF61500C82D8E20085C17B /* app.cpp */,
 				D0EF614F0C82D8E20085C17B /* app.h */,
+				D0F836860CBA5E5900FF4467 /* state.cpp */,
+				D0F835DA0CBA5CB900FF4467 /* state.h */,
 				D0EF62210C82DCC40085C17B /* tgen_engine.cpp */,
 				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
-				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
-				D0EF63E90C82EA460085C17B /* sdl.h */,
 			);
 			name = Core;
+			sourceTree = "<group>";
+		};
+		D0F835810CBA5B4300FF4467 /* map */ = {
+			isa = PBXGroup;
+			children = (
+				D0F835840CBA5B6100FF4467 /* procmap.cpp */,
+				D0F835860CBA5B6B00FF4467 /* procmap.h */,
+			);
+			name = map;
+			sourceTree = "<group>";
+		};
+		D0F835D70CBA5C8B00FF4467 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
+				D0EF63E90C82EA460085C17B /* sdl.h */,
+				D0F83ACB0CBA729D00FF4467 /* environment.h */,
+			);
+			name = platform;
+			sourceTree = "<group>";
+		};
+		D0F8393B0CBA679200FF4467 /* game */ = {
+			isa = PBXGroup;
+			children = (
+				D0F835D10CBA5C5100FF4467 /* game.cpp */,
+				D0F835D30CBA5C5B00FF4467 /* game.h */,
+				D0F8393C0CBA67A100FF4467 /* view.cpp */,
+				D0F8393E0CBA67AD00FF4467 /* view.h */,
+			);
+			name = game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -542,6 +602,10 @@
 				D0EF63EB0C82EA460085C17B /* sdl.cpp in Sources */,
 				D0EF65220C82F5120085C17B /* filesystem.cpp in Sources */,
 				D0EF65270C82F5530085C17B /* file.cpp in Sources */,
+				D0F835850CBA5B6100FF4467 /* procmap.cpp in Sources */,
+				D0F835D20CBA5C5100FF4467 /* game.cpp in Sources */,
+				D0F836870CBA5E5900FF4467 /* state.cpp in Sources */,
+				D0F8393D0CBA67A100FF4467 /* view.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
