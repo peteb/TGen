@@ -19,7 +19,7 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0) {
 	if (!PHYSFS_init(argv0))
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to initialize: ") << PHYSFS_getLastError();
 	
-	std::cout << "[vfs]: base: " << PHYSFS_getBaseDir() << std::endl;
+	std::cout << "[vfs]:    base: " << PHYSFS_getBaseDir() << std::endl;
 	std::cout << "[vfs]: initialized" << std::endl;
 }
 

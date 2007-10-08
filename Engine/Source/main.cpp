@@ -24,14 +24,30 @@
 #include <SDL/SDL.h>
 
 int main(int argc, char ** argv) {
+	// initialize log system
+	TGen::Engine::CombinedLogTargets logtargets;
+	TGen::Engine::Log info(TGen::Engine::Info), warning(TGen::Engine::Warning), error(TGen::Engine::Error);
+	
+	logtargets.addTarget(new TGen::Engine::StreamOutput(std::cout));
+	
+	info.addTarget(&logtargets);
+	warning.addTarget(&logtargets);
+	error.addTarget(&logtargets);
+
+	std::ios_base::sync_with_stdio(false);
+	
+
 	uint8 debuglibs = (TGen::isCoreDebug() & 1) | (TGen::isMathDebug() & 1) << 1 | (TGen::isGraphicsDebug() & 1) << 2 
 		| (TGen::isOpenGLDebug() & 1) << 3 | (TGen::isRendererDebug() & 1) << 4 | (TGen::isEngineDebug() & 1) << 5;
 	
-	std::cout << "TGen Engine (debug binary: " << std::boolalpha << TGen::isEngineDebug() << ")" << std::endl;
-	std::cout << "   debug flags: 0x" << std::hex << std::setw(2) << std::setfill('0') << int(debuglibs) << std::endl;
-	std::cout << "   version: " << TGen::Engine::VersionMajor << "." << TGen::Engine::VersionMinor << "." << TGen::Engine::VersionRevision << std::endl;
 	
-	std::cout << "===================== initializing ======================" << std::endl;
+	info["ini"] << "TGen Engine (debug binary: " << std::boolalpha << TGen::isEngineDebug() << ")" << endl();
+	info["ini"] << "   debug flags: 0x" << std::hex << std::setw(2) << std::setfill('0') << int(debuglibs) << endl();
+	info["ini"] << "   version: " << TGen::Engine::VersionMajor << "." << TGen::Engine::VersionMinor << "." << TGen::Engine::VersionRevision << endl();
+	
+	info << "===================== initializing ======================" << endl();
+	
+	// TODO: info << separator("initializing");
 	
 	// setup variables
 	TGen::Engine::VariablesRegistry variables;
@@ -63,19 +79,16 @@ int main(int argc, char ** argv) {
 	variables.getVariable("game_name") = props.getProperty("game/name").second;
 	variables.getVariable("game_author") = props.getProperty("game/author").second;
 	
-	// TODO: riktigt logsystem med targets
-	// ska vara subsystems, graphics::init, sound::init, physics::init, etc. initieras av App::App
-	
 	
 	// setup env
 	TGen::Engine::SDL * sdl = new TGen::Engine::SDL(variables, props);
-	TGen::Engine::App * app = new TGen::Engine::App(variables, *sdl, fs, props, sdl->getRenderer());
+	TGen::Engine::App * app = new TGen::Engine::App(variables, *sdl, fs, props, sdl->getRenderer(), info, warning, error);
 	
-	std::cout << "======================== running ========================" << std::endl;
+	info << "======================== running ========================" << endl();
 	
 	sdl->run(app);
 	
-	std::cout << "===================== shutting down =====================" << std::endl;
+	info << "===================== shutting down =====================" << endl();
 	
 	delete app;
 	delete sdl;

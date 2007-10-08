@@ -12,7 +12,9 @@
 #include "game.h"
 #include <iostream>
 
-TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer)
+TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, 
+					   TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, 
+					   TGen::Engine::Log & info, TGen::Engine::Log & warning, TGen::Engine::Log & error)
 	: running(true)
 	, currentState(NULL)
 	, env(env)
@@ -20,8 +22,12 @@ TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine
 	, filesystem(*fs)
 	, loadProps(props)
 	, renderer(renderer)
+	, info(info), warning(warning), error(error)
 {
 	currentState = new TGen::Engine::GameState(*this);
+		
+	
+	info.output("hej", "hej");
 }
 
 

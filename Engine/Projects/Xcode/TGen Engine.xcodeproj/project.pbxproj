@@ -38,6 +38,12 @@
 		D0F8393F0CBA67AD00FF4467 /* view.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F8393E0CBA67AD00FF4467 /* view.h */; };
 		D0F83A680CBA6DC200FF4467 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F83A670CBA6DC200FF4467 /* OpenGL.framework */; };
 		D0F83ACC0CBA729D00FF4467 /* environment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83ACB0CBA729D00FF4467 /* environment.h */; };
+		D0F83B4B0CBA747200FF4467 /* gamestatevars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */; };
+		D0F83B4D0CBA747E00FF4467 /* gamestatevars.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */; };
+		D0F83DFF0CBAD62900FF4467 /* log.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83DFE0CBAD62900FF4467 /* log.h */; };
+		D0F83E060CBAD6B300FF4467 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83E050CBAD6B300FF4467 /* log.cpp */; };
+		D0F83E6A0CBAD7FC00FF4467 /* logtarget.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83E690CBAD7FC00FF4467 /* logtarget.h */; };
+		D0F83F0B0CBADBAE00FF4467 /* logtarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +167,9 @@
 				D0F835DB0CBA5CB900FF4467 /* state.h in CopyFiles */,
 				D0F8393F0CBA67AD00FF4467 /* view.h in CopyFiles */,
 				D0F83ACC0CBA729D00FF4467 /* environment.h in CopyFiles */,
+				D0F83B4D0CBA747E00FF4467 /* gamestatevars.h in CopyFiles */,
+				D0F83DFF0CBAD62900FF4467 /* log.h in CopyFiles */,
+				D0F83E6A0CBAD7FC00FF4467 /* logtarget.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +222,12 @@
 		D0F8393E0CBA67AD00FF4467 /* view.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = view.h; path = ../../Include/view.h; sourceTree = SOURCE_ROOT; };
 		D0F83A670CBA6DC200FF4467 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D0F83ACB0CBA729D00FF4467 /* environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = environment.h; path = ../../Include/environment.h; sourceTree = SOURCE_ROOT; };
+		D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gamestatevars.cpp; sourceTree = "<group>"; };
+		D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gamestatevars.h; path = ../../Include/gamestatevars.h; sourceTree = SOURCE_ROOT; };
+		D0F83DFE0CBAD62900FF4467 /* log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = log.h; path = ../../Include/log.h; sourceTree = SOURCE_ROOT; };
+		D0F83E050CBAD6B300FF4467 /* log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
+		D0F83E690CBAD7FC00FF4467 /* logtarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = logtarget.h; path = ../../Include/logtarget.h; sourceTree = SOURCE_ROOT; };
+		D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logtarget.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -394,6 +409,7 @@
 		D0EF64910C82F4CF0085C17B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D0F83E020CBAD68600FF4467 /* log */,
 				D0F835D70CBA5C8B00FF4467 /* platform */,
 				D0F835810CBA5B4300FF4467 /* map */,
 				D01B6CF60C8A14C700D8943C /* data */,
@@ -436,8 +452,21 @@
 				D0F835D30CBA5C5B00FF4467 /* game.h */,
 				D0F8393C0CBA67A100FF4467 /* view.cpp */,
 				D0F8393E0CBA67AD00FF4467 /* view.h */,
+				D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */,
+				D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */,
 			);
 			name = game;
+			sourceTree = "<group>";
+		};
+		D0F83E020CBAD68600FF4467 /* log */ = {
+			isa = PBXGroup;
+			children = (
+				D0F83E050CBAD6B300FF4467 /* log.cpp */,
+				D0F83DFE0CBAD62900FF4467 /* log.h */,
+				D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */,
+				D0F83E690CBAD7FC00FF4467 /* logtarget.h */,
+			);
+			name = log;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -606,6 +635,9 @@
 				D0F835D20CBA5C5100FF4467 /* game.cpp in Sources */,
 				D0F836870CBA5E5900FF4467 /* state.cpp in Sources */,
 				D0F8393D0CBA67A100FF4467 /* view.cpp in Sources */,
+				D0F83B4B0CBA747200FF4467 /* gamestatevars.cpp in Sources */,
+				D0F83E060CBAD6B300FF4467 /* log.cpp in Sources */,
+				D0F83F0B0CBADBAE00FF4467 /* logtarget.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

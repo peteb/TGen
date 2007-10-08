@@ -13,41 +13,24 @@
 #include <tgen_renderer.h>
 #include "state.h"
 #include "variable.h"
+#include "gamestatevars.h"
 
 namespace TGen {
 	namespace Engine {
 		class GameView;
 		
-		class GameState : public TGen::Engine::State, public TGen::Engine::VariableObserver {
+		class GameState : public TGen::Engine::State {
 		public:	
 			GameState(TGen::Engine::App & app);
 			~GameState();
 			
-			// State:
 			void tick();
-			
-			// VariableObserver:
-			void preVariableChange(const TGen::Engine::Variable & variable, const std::string & newValue);
-			void onVariableRemoved(const TGen::Engine::Variable & variable);
-			
-			
-			
 			void render(scalar dt);
 			
-			
 		private:
-			// Variables:
-			void loadVariables();
-			
-			scalar maxRefreshInterval;
-			bool syncVtrace;
-			
-			
-			// Timing members:
+			TGen::Engine::GameStateVars vars;
+
 			TGen::Time lastRender;
-			
-			
-			
 			
 			TGen::SceneNode sceneRoot;
 			TGen::Camera * camera;

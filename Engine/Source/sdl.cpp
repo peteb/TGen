@@ -22,7 +22,7 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	uint8 bpp = 0;
 	
 	std::cout << "[sdl]: initializing..." << std::endl;
-	std::cout << "[sdl]: width: " << width << " height: " << height << " bpp: " << int(bpp) << std::endl;
+	std::cout << "[sdl]:    width: " << width << " height: " << height << " bpp: " << int(bpp) << std::endl;
 	
 	uint32 initflags = SDL_INIT_VIDEO;
 	uint32 videoflags = SDL_HWSURFACE | SDL_OPENGL | (fullscreen ? SDL_FULLSCREEN : 0);
