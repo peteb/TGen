@@ -26,6 +26,7 @@
 #include "frustum.h"
 #include "quad3.h"
 #include "coordset3.h"
+#include "coordset2.h"
 
 namespace TGen {
 	bool isMathDebug();

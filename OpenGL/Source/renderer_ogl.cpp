@@ -115,7 +115,7 @@ void TGen::OpenGL::Renderer::setClearColor(const TGen::Color & color) {
 }
 
 void TGen::OpenGL::Renderer::setViewport(const TGen::Rectangle & viewport) {
-	TGen::Vector2 upperLeft = viewport.getUpperLeft();
+	TGen::Vector2 upperLeft = viewport.getMin();
 	
 	glViewport(upperLeft.x, upperLeft.y, viewport.width, viewport.height);	// NOTE: ogl origo is lower-left corner
 }

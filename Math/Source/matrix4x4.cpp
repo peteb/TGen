@@ -221,7 +221,7 @@ TGen::Matrix4x4 TGen::Matrix4x4::OrthogonalProjection(scalar left, scalar top, s
 }
 
 TGen::Matrix4x4 TGen::Matrix4x4::OrthogonalProjection(const TGen::Rectangle & area, scalar near, scalar far) {
-	TGen::Vector2 upperLeft = area.getUpperLeft();
+	TGen::Vector2 upperLeft = area.getMin();
 
 	return OrthogonalProjection(upperLeft.x, upperLeft.y, upperLeft.x + area.width, upperLeft.y + area.height, near, far);
 }

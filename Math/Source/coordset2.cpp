@@ -7,23 +7,24 @@
  *
  */
 
-#include "coordset3.h"
+#include "coordset2.h"
 #include "matrix4x4.h"
+#include "vector3.h"
 #include <sstream>
 
-void TGen::CoordSet3::addCoord(const TGen::Vector3 & coord) {
+void TGen::CoordSet2::addCoord(const TGen::Vector2 & coord) {
 	coords.push_back(coord);
 }
 
-TGen::CoordSet3 & TGen::CoordSet3::operator *= (const TGen::Matrix4x4 & mat) {
+TGen::CoordSet2 & TGen::CoordSet2::operator *= (const TGen::Matrix4x4 & mat) {
 	for (int i = 0; i < coords.size(); ++i) {
-		coords[i] = mat * coords[i];		
+		coords[i] = mat * TGen::Vector3(coords[i]);		
 	}
 	
 	return *this;
 }
 
-TGen::CoordSet3::operator std::string() const {
+TGen::CoordSet2::operator std::string() const {
 	std::stringstream ss;
 	for (int i = 0; i < coords.size(); ++i) {
 		ss << i << ". " << std::string(coords[i]) << std::endl;
@@ -32,27 +33,32 @@ TGen::CoordSet3::operator std::string() const {
 	return ss.str();
 }
 
-int TGen::CoordSet3::size() const {
+int TGen::CoordSet2::size() const {
 	return coords.size();
 }
 
-const TGen::Vector3 & TGen::CoordSet3::operator [] (int index) const {
+const TGen::Vector2 & TGen::CoordSet2::operator [] (int index) const {
 	return coords[index];
 }
 
-TGen::CoordSet3 & TGen::CoordSet3::operator += (const TGen::CoordSet3 & set) {
+TGen::CoordSet2 & TGen::CoordSet2::operator += (const TGen::CoordSet2 & set) {
 	for (int i = 0; i < set.size(); ++i)
 		addCoord(set[i]);
 	
 	return *this;
 }
 
-TGen::AABB TGen::CoordSet3::getBoundingBox() const {
-	return TGen::AABB(getMin(), getMax());	
+TGen::Rectangle TGen::CoordSet2::getBoundingBox() const {
+	return TGen::Rectangle(getMin(), getMax());
 }
 
-TGen::Vector3 TGen::CoordSet3::getMin() const {
-	TGen::Vector3 min;
+
+/*TGen::AABB TGen::CoordSet2::getBoundingBox() const {
+	return TGen::AABB(getMin(), getMax());	
+}*/
+
+TGen::Vector2 TGen::CoordSet2::getMin() const {
+	TGen::Vector2 min;
 	bool first = true;
 	
 	for (int i = 0; i < coords.size(); ++i) {
@@ -63,15 +69,14 @@ TGen::Vector3 TGen::CoordSet3::getMin() const {
 		else {
 			min.x = std::min(min.x, coords[i].x);
 			min.y = std::min(min.y, coords[i].y);
-			min.z = std::min(min.z, coords[i].z);
 		}
 	}
 	
 	return min;
 }
 
-TGen::Vector3 TGen::CoordSet3::getMax() const {
-	TGen::Vector3 max;
+TGen::Vector2 TGen::CoordSet2::getMax() const {
+	TGen::Vector2 max;
 	bool first = true;
 	
 	for (int i = 0; i < coords.size(); ++i) {
@@ -82,32 +87,29 @@ TGen::Vector3 TGen::CoordSet3::getMax() const {
 		else {
 			max.x = std::max(max.x, coords[i].x);
 			max.y = std::max(max.y, coords[i].y);
-			max.z = std::max(max.z, coords[i].z);
 		}
 	}
 	
 	return max;
 }
 
-// TODO: replace getUpperLeft, getLowerRight with getMin, getMax in rectangle or wherever
-
-TGen::Vector3 TGen::CoordSet3::getNormal(int index) const {
+TGen::Vector2 TGen::CoordSet2::getNormal(int index) const {
 	int nextI = (index + 1) % coords.size();
-	return TGen::Vector3::CrossProduct(coords[nextI], coords[index]);
+	return TGen::Vector2::CrossProduct(coords[nextI], coords[index]);
 }
 
-TGen::Vector3 TGen::CoordSet3::getEdge(int index) const {
+TGen::Vector2 TGen::CoordSet2::getEdge(int index) const {
 	int nextI = (index + 1) % coords.size();
 	return coords[nextI] - coords[index];	
 }
 
-bool TGen::CoordSet3::intersects(const CoordSet3 & otherPolygon) const {
+bool TGen::CoordSet2::intersects(const CoordSet2 & otherPolygon) const {
 	scalar mina, maxa, minb, maxb;
 
 	for (int i = 0; i < size(); ++i) {
-		TGen::Vector3 axis = getNormal(i);
-		//axis.z = 0.0f;
-		//axis.normalize();
+		TGen::Vector2 axis = getNormal(i);
+//		axis.z = 0.0f;
+	//	axis.normalize();
 		
 		projectOnAxis(axis, mina, maxa);
 		otherPolygon.projectOnAxis(axis, minb, maxb);
@@ -117,7 +119,7 @@ bool TGen::CoordSet3::intersects(const CoordSet3 & otherPolygon) const {
 	}
 	
 	for (int i = 0; i < otherPolygon.size(); ++i) {
-		TGen::Vector3 axis = otherPolygon.getNormal(i);
+		TGen::Vector2 axis = otherPolygon.getNormal(i);
 		//axis.z = 0.0f;
 		//axis.normalize();
 		
@@ -131,11 +133,11 @@ bool TGen::CoordSet3::intersects(const CoordSet3 & otherPolygon) const {
 	return true;
 }
 
-void TGen::CoordSet3::projectOnAxis(const TGen::Vector3 & axis, scalar & min, scalar & max) const {
-	min = max = TGen::Vector3::DotProduct(axis, coords[0]);
+void TGen::CoordSet2::projectOnAxis(const TGen::Vector2 & axis, scalar & min, scalar & max) const {
+	min = max = TGen::Vector2::DotProduct(axis, coords[0]);
 	
 	for (int i = 1; i < size(); ++i) {
-		scalar v = TGen::Vector3::DotProduct(coords[i], axis);
+		scalar v = TGen::Vector2::DotProduct(coords[i], axis);
 		
 		if (v < min)
 			min = v;

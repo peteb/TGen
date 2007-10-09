@@ -37,6 +37,14 @@ TGen::Rectangle::Rectangle(scalar width, scalar height)
 {	
 }
 
+TGen::Rectangle::Rectangle(const TGen::Vector2 & min, const TGen::Vector2 & max)
+	: center(min + (max - min) / 2.0)
+	, width(max.x - min.x)
+	, height(max.y - min.y)
+{	
+}
+
+
 TGen::Rectangle & TGen::Rectangle::operator = (const TGen::Rectangle & rectangle) {
 	center = rectangle.center;
 	width = rectangle.width;
@@ -61,20 +69,20 @@ TGen::Rectangle::operator std::string() const {
 	return ss.str();
 }
 
-TGen::Vector2 TGen::Rectangle::getUpperLeft() const {
+TGen::Vector2 TGen::Rectangle::getMin() const {
 	return TGen::Vector2(center.x - width / 2.0f, center.y - height / 2.0f);
 }
 
-TGen::Vector2 TGen::Rectangle::getLowerRight() const {
+TGen::Vector2 TGen::Rectangle::getMax() const {
 	return TGen::Vector2(center.x + width / 2.0f, center.y + height / 2.0f);	
 }
 
 bool TGen::Rectangle::intersects(const TGen::Rectangle & rect) const {
 	TGen::Vector2 utop1, utop2, ubot1, ubot2;
-	utop1 = rect.getUpperLeft();
-	ubot1 = rect.getLowerRight();
-	utop2 = getUpperLeft();
-	ubot2 = getLowerRight();
+	utop1 = rect.getMin();
+	ubot1 = rect.getMax();
+	utop2 = getMin();
+	ubot2 = getMax();
 	
 	if (ubot1.y < utop2.y) return false;
 	if (utop1.y > ubot2.y) return false;
