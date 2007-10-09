@@ -29,8 +29,7 @@ namespace TGen {
 		bool intersects(const CoordSet2 & otherPolygon) const;
 		void projectOnAxis(const TGen::Vector2 & axis, scalar & min, scalar & max) const;
 		
-		//TGen::AABB getBoundingBox() const;
-		TGen::Rectangle getBoundingBox() const;
+		TGen::Rectangle getBoundingRect() const;
 		TGen::Vector2 getNormal(int index) const;
 		TGen::Vector2 getEdge(int index) const;
 		

@@ -66,6 +66,10 @@
 		D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
 		D0F5134A0C70FC9D005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
 		D0F513540C70FCB9005DB68D /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
+		D0F845BA0CBBD8C900FF4467 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845B90CBBD8C900FF4467 /* font.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845BB0CBBD8D000FF4467 /* fonttext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0F845D50CBBDA3000FF4467 /* fonttext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F845D40CBBDA3000FF4467 /* fonttext.cpp */; };
+		D0F845D70CBBDA4200FF4467 /* font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F845D60CBBDA4200FF4467 /* font.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -193,6 +197,10 @@
 		D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = technique.cpp; path = Source/technique.cpp; sourceTree = "<group>"; };
 		D0CEF2640C3BDABE007D4B18 /* materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialparser.h; path = Include/materialparser.h; sourceTree = "<group>"; };
 		D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = materialparser.cpp; path = Source/materialparser.cpp; sourceTree = "<group>"; };
+		D0F845B90CBBD8C900FF4467 /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = font.h; path = Include/font.h; sourceTree = "<group>"; };
+		D0F845BB0CBBD8D000FF4467 /* fonttext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fonttext.h; path = Include/fonttext.h; sourceTree = "<group>"; };
+		D0F845D40CBBDA3000FF4467 /* fonttext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fonttext.cpp; path = Source/fonttext.cpp; sourceTree = "<group>"; };
+		D0F845D60CBBDA4200FF4467 /* font.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = font.cpp; path = Source/font.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -307,6 +315,10 @@
 				D00FF6490C39368E00668773 /* batch.cpp */,
 				D00FF6690C39369F00668773 /* batch.h */,
 				D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */,
+				D0F845D60CBBDA4200FF4467 /* font.cpp */,
+				D0F845B90CBBD8C900FF4467 /* font.h */,
+				D0F845D40CBBDA3000FF4467 /* fonttext.cpp */,
+				D0F845BB0CBBD8D000FF4467 /* fonttext.h */,
 			);
 			name = "Renderer Aux";
 			sourceTree = "<group>";
@@ -401,6 +413,8 @@
 				D07A2B7C0C666F96009CABCA /* techniquelist.h in Headers */,
 				D07A2CEB0C667EBA009CABCA /* textureunit.h in Headers */,
 				D07A2EF50C668753009CABCA /* passlist.h in Headers */,
+				D0F845BA0CBBD8C900FF4467 /* font.h in Headers */,
+				D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -541,6 +555,8 @@
 				D07A2B7E0C666FF4009CABCA /* techniquelist.cpp in Sources */,
 				D07A2CED0C667EC9009CABCA /* textureunit.cpp in Sources */,
 				D07A2EF30C668749009CABCA /* passlist.cpp in Sources */,
+				D0F845D50CBBDA3000FF4467 /* fonttext.cpp in Sources */,
+				D0F845D70CBBDA4200FF4467 /* font.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

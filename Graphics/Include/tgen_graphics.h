@@ -42,6 +42,9 @@
 #include "techniquelist.h"
 #include "passlist.h"
 
+#include "font.h"
+#include "fonttext.h"
+
 namespace TGen {
 	bool isGraphicsDebug();
 }

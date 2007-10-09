@@ -48,14 +48,10 @@ TGen::CoordSet2 & TGen::CoordSet2::operator += (const TGen::CoordSet2 & set) {
 	return *this;
 }
 
-TGen::Rectangle TGen::CoordSet2::getBoundingBox() const {
+TGen::Rectangle TGen::CoordSet2::getBoundingRect() const {
 	return TGen::Rectangle(getMin(), getMax());
 }
 
-
-/*TGen::AABB TGen::CoordSet2::getBoundingBox() const {
-	return TGen::AABB(getMin(), getMax());	
-}*/
 
 TGen::Vector2 TGen::CoordSet2::getMin() const {
 	TGen::Vector2 min;

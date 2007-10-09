@@ -45,7 +45,7 @@ int main(int argc, char ** argv) {
 	info["ini"] << "   debug flags: 0x" << std::hex << std::setw(2) << std::setfill('0') << int(debuglibs) << endl();
 	info["ini"] << "   version: " << TGen::Engine::VersionMajor << "." << TGen::Engine::VersionMinor << "." << TGen::Engine::VersionRevision << endl();
 	
-	info << "===================== initializing ======================" << endl();
+	info << separator("initializing");
 	
 	// TODO: info << separator("initializing");
 	
@@ -84,11 +84,11 @@ int main(int argc, char ** argv) {
 	TGen::Engine::SDL * sdl = new TGen::Engine::SDL(variables, props);
 	TGen::Engine::App * app = new TGen::Engine::App(variables, *sdl, fs, props, sdl->getRenderer(), info, warning, error);
 	
-	info << "======================== running ========================" << endl();
+	info << separator("running");
 	
 	sdl->run(app);
 	
-	info << "===================== shutting down =====================" << endl();
+	info << separator("shutting down");
 	
 	delete app;
 	delete sdl;
