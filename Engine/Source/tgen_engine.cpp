@@ -19,5 +19,7 @@ bool TGen::isEngineDebug() {
 }
 
 std::string TGen::Engine::getVersionString() {
-	return "";
+	std::stringstream ss;
+	ss << VersionMajor << "." << VersionMinor << "." << VersionRevision;
+	return ss.str();
 }

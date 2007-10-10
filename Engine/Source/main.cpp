@@ -64,33 +64,39 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	logs.info["str+"] << "TGen Engine (debug binary: " << std::boolalpha << TGen::isEngineDebug() << ")" << TGen::endl;
 	logs.info["str+"] << "   debug flags: 0x" << std::hex << std::setw(2) << std::setfill('0') << int(debuglibs) << TGen::endl;
-	logs.info["str+"] << "   version: " << TGen::Engine::VersionMajor << "." << TGen::Engine::VersionMinor << "." << TGen::Engine::VersionRevision << TGen::endl;
+	logs.info["str+"] << "   version: " << TGen::Engine::getVersionString() << TGen::endl;
 	
 	logs.info << TGen::separator("initializing");
 	
 	
 	
 	
-	// setup variables
+	// setup variables, should probably be done elsewhere...
 	TGen::Engine::VariablesRegistry variables;
 	
-	variables.addVariable(TGen::Engine::Variable("env_width", "800", "800", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump));
-	variables.addVariable(TGen::Engine::Variable("env_height", "600", "600", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump));
-	variables.addVariable(TGen::Engine::Variable("env_fullscreen", "false", "false", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump));
-	variables.addVariable(TGen::Engine::Variable("fs_game", "adrift", "adrift", TGen::Engine::VariableConfigWriteOnly));
-	variables.addVariable(TGen::Engine::Variable("game_name", "TGen Engine", "TGen Engine", TGen::Engine::VariableConfigWriteOnly));
-	variables.addVariable(TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly));
-	variables.addVariable(TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly));
+	variables += TGen::Engine::Variable("env_width", "800", "800", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
+	variables += TGen::Engine::Variable("env_height", "600", "600", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
+	variables += TGen::Engine::Variable("env_fullscreen", "false", "false", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
+	variables += TGen::Engine::Variable("fs_game", "adrift", "adrift", TGen::Engine::VariableConfigWriteOnly);
+	variables += TGen::Engine::Variable("game_name", "TGen Engine", "TGen Engine", TGen::Engine::VariableConfigWriteOnly);
+	variables += TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly);
+	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
 	
-	// TODO: ConfigWriteOnly should only be writable until the game starts
-	// TODO: dump variables to file
+	// TODO: CommandInterpreter
+	// TODO: dump variables to file on exit, read variables from files on launch (autoexec format, set game_name coolness, etc.)
+	// TODO: ConfigWriteOnly should only be writable until the game starts, until "running"
 	
+	/*
+	 
+	 app.commands["set"].execute(paramlist, caller);     // caller är där resultatet ska visas, t ex StandardLogs eller en nätverkskoppling
+	 
+	 
+	 */
 	
 	
 	// setup filesystem
 	TGen::Engine::Filesystem * fs = new TGen::Engine::Filesystem(argv[0], logs);
-	
-	fs->addSearchPath(variables.getVariable("fs_game").getValue(), true);
+	fs->addSearchPath(variables["fs_game"].getValue(), true);
 	
 	
 	
@@ -104,33 +110,32 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	TGen::PropertyTree props = propParser.parse(infoFile->readAll().c_str());
 	delete infoFile;
 	
-	variables["game_name"] = props.getProperty("game/name").second;
-	variables["game_author"] = props.getProperty("game/author").second;
+	variables["game_name"] = props["game/name"].second;
+	variables["game_author"] = props["game/author"].second;
 	
 	
 	
 	
 	
 	// setup env
-	TGen::Engine::SDL * sdl = new TGen::Engine::SDL(variables, props, logs);
-	TGen::Engine::App * app = new TGen::Engine::App(variables, *sdl, fs, props, sdl->getRenderer(), logs);
+	TGen::Engine::Environment * env = new TGen::Engine::SDL(variables, props, logs);
+	TGen::Engine::App * app = new TGen::Engine::App(variables, *env, fs, props, env->getRenderer(), logs);
 	
 	
 	
 	
-	// run forrest
+	// run forrest, run.....
 	logs.info << TGen::separator("running");
 	
-	sdl->run(app);
+	env->run(app);
 	
 	logs.info << TGen::separator("shutting down");
 	
 	
 	
 	// shut down
-	
 	delete app;
-	delete sdl;
+	delete env;
 	delete fs;
 	
 	logs.info["str-"] << "Goodbye, have a nice day!" << TGen::endl;

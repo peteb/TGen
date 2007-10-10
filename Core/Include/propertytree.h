@@ -31,6 +31,8 @@ namespace TGen {
 		int getNumProperties() const;
 		const PropertyMap & getProperties() const;
 		
+		const ConstProperty & operator [] (const std::string & name) const;
+		
 		std::string getName() const;
 		
 	private:

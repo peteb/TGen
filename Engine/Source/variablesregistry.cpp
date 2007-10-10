@@ -36,17 +36,18 @@ TGen::Engine::Variable & TGen::Engine::VariablesRegistry::getVariable(const std:
 	return iter->second;	
 }
 
-void TGen::Engine::VariablesRegistry::addVariable(const TGen::Engine::Variable & variable, bool doThrow) {
+TGen::Engine::VariablesRegistry & TGen::Engine::VariablesRegistry::addVariable(const TGen::Engine::Variable & variable, bool doThrow) {
 	VariableMap::const_iterator iter = variables.find(variable.getName());
 	
 	if (iter != variables.end()) {	// TODO: check whether the variable has a "remove on new"-flag
 		if (doThrow)
 			throw TGen::RuntimeException("VariablesRegistry::addVariable", "variable '" + variable.getName() + "' already exists");
 		else
-			return;
+			return *this;
 	}
 	
 	variables.insert(VariableMap::value_type(variable.getName(), variable));
+	return *this;
 }
 
 const TGen::Engine::Variable & TGen::Engine::VariablesRegistry::operator [] (const std::string & name) const {
@@ -57,3 +58,6 @@ TGen::Engine::Variable & TGen::Engine::VariablesRegistry::operator [] (const std
 	return getVariable(name);
 }
 
+TGen::Engine::VariablesRegistry & TGen::Engine::VariablesRegistry::operator += (const TGen::Engine::Variable & var) {
+	return addVariable(var);
+}

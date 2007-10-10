@@ -45,9 +45,12 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	if (!screen)
 		throw TGen::RuntimeException("SDL::SDL", "failed to set video mode: ") << SDL_GetError();
 	
-	logs.info["sdl+"] << "initialized" << TGen::endl;	
 	
 	renderer = new TGen::OpenGL::Renderer;
+	logs.info["sdl+"] << "created renderer: " << TGen::endl;
+	logs.info["sdl+"] << std::string(renderer->getCaps()) << TGen::endl;
+	logs.info["sdl+"] << "initialized" << TGen::endl;	
+
 }
 
 TGen::Engine::SDL::~SDL() {

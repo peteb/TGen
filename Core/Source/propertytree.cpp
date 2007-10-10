@@ -69,3 +69,7 @@ int TGen::PropertyTree::getNumProperties() const {
 const TGen::PropertyTree::PropertyMap & TGen::PropertyTree::getProperties() const {
 	return properties;
 }
+
+const TGen::PropertyTree::ConstProperty & TGen::PropertyTree::operator [] (const std::string & name) const {
+	return getProperty(name);
+}
