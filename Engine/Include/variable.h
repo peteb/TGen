@@ -38,6 +38,7 @@ namespace TGen {
 			virtual ~VariableObserver();
 			
 			virtual void preVariableChange(const Variable & variable, const std::string & newValue) {}
+			virtual void postVariableChange(const Variable & variable) {}
 			virtual void onVariableRemoved(const Variable & variable) {}
 		};
 
@@ -50,6 +51,7 @@ namespace TGen {
 			uint flags;
 			
 			void triggerPreChange(const std::string & newValue);
+			void triggerPostChange();
 			void triggerRemoved();
 
 		public:
@@ -67,6 +69,7 @@ namespace TGen {
 				std::string newValue = TGen::lexical_cast<std::string>(value);
 				triggerPreChange(newValue);
 				this->value = newValue;
+				triggerPostChange();
 				return *this;
 			}
 
@@ -82,6 +85,7 @@ namespace TGen {
 			Variable & operator = (const std::string & value) {
 				triggerPreChange(value);
 				this->value = value;
+				triggerPostChange();
 				return *this;
 			}
 				

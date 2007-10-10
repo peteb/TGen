@@ -14,7 +14,7 @@
 
 TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, 
 					   TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, 
-					   TGen::Engine::Log & info, TGen::Engine::Log & warning, TGen::Engine::Log & error)
+					   TGen::Engine::StandardLogs & logs)
 	: running(true)
 	, currentState(NULL)
 	, env(env)
@@ -22,17 +22,19 @@ TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine
 	, filesystem(*fs)
 	, loadProps(props)
 	, renderer(renderer)
-	, info(info), warning(warning), error(error)
+	, logs(logs)
 {
-	currentState = new TGen::Engine::GameState(*this);
+	logs.info["app+"] << "initializing..." << TGen::endl;
 		
+	currentState = new TGen::Engine::GameState(*this);
 	
-	info.output("hej", "hej");
+	logs.info["app+"] << "initialized" << TGen::endl;
 }
 
 
 TGen::Engine::App::~App() {
 	delete currentState;
+	logs.info["app-"] << "shut down" << TGen::endl;
 }
 
 bool TGen::Engine::App::isRunning() const {

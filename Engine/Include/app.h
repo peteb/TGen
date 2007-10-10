@@ -27,14 +27,14 @@ namespace TGen {
 		class App {
 		public:
 			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, TGen::Engine::Filesystem * fs, 
-				const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::Log & info, TGen::Engine::Log & warning, TGen::Engine::Log & error);
+				const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs);
 			~App();
 			
 			bool isRunning() const;
 			void quit();
 			void tick();
 			
-			TGen::Engine::Log & info, & warning, & error;
+			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::Environment & env;
 			TGen::Engine::VariablesRegistry & variables;
 			TGen::Engine::Filesystem & filesystem;

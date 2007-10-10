@@ -22,6 +22,9 @@ namespace TGen {
 		
 		virtual const char* what() const throw();
 		
+		std::string getWhere() const;
+		std::string getDescription() const;
+		
 		template<typename T>
 		TGen::RuntimeException & operator << (const T & value) {
 			std::stringstream ss;

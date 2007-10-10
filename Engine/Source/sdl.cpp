@@ -13,16 +13,17 @@
 #include <SDL/SDL.h>
 #include <tgen_opengl.h>
 
-TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props)
+TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props, TGen::Engine::StandardLogs & logs)
 	: variables(variables)
 	, renderer(NULL)
+	, logs(logs)
 {
 	bool fullscreen = bool(variables.getVariable("env_fullscreen"));
 	int width = int(variables.getVariable("env_width")), height = int(variables.getVariable("env_height"));
 	uint8 bpp = 0;
 	
-	std::cout << "[sdl]: initializing..." << std::endl;
-	std::cout << "[sdl]:    width: " << width << " height: " << height << " bpp: " << int(bpp) << std::endl;
+	logs.info["sdl+"] << "initializing..." << endl;
+	logs.info["sdl+"] << "   width: " << width << " height: " << height << " bpp: " << int(bpp) << TGen::endl;
 	
 	uint32 initflags = SDL_INIT_VIDEO;
 	uint32 videoflags = SDL_HWSURFACE | SDL_OPENGL | (fullscreen ? SDL_FULLSCREEN : 0);
@@ -44,14 +45,15 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	if (!screen)
 		throw TGen::RuntimeException("SDL::SDL", "failed to set video mode: ") << SDL_GetError();
 	
-	std::cout << "[sdl]: initialized" << std::endl;	
+	logs.info["sdl+"] << "initialized" << TGen::endl;	
 	
 	renderer = new TGen::OpenGL::Renderer;
 }
 
 TGen::Engine::SDL::~SDL() {
 	delete renderer;
-	//delete app;
+
+	logs.info["sdl-"] << "shut down" << TGen::endl;
 }
 
 int TGen::Engine::SDL::run(TGen::Engine::App * app) {

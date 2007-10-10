@@ -52,3 +52,8 @@ void TGen::Engine::VariablesRegistry::addVariable(const TGen::Engine::Variable &
 const TGen::Engine::Variable & TGen::Engine::VariablesRegistry::operator [] (const std::string & name) const {
 	return getVariable(name);
 }
+
+TGen::Engine::Variable & TGen::Engine::VariablesRegistry::operator [] (const std::string & name) {
+	return getVariable(name);
+}
+

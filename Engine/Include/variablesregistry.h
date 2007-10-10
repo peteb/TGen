@@ -24,6 +24,7 @@ namespace TGen {
 			void addVariable(const TGen::Engine::Variable & variable, bool doThrow = true);
 
 			const TGen::Engine::Variable & operator [] (const std::string & name) const;
+			TGen::Engine::Variable & operator [] (const std::string & name);
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Variable> VariableMap;

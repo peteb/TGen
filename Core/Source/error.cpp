@@ -30,3 +30,11 @@ const char * TGen::RuntimeException::what() const throw() {
 }
 
 
+std::string TGen::RuntimeException::getWhere() const {
+	return where;
+}
+
+std::string TGen::RuntimeException::getDescription() const {
+	return description;
+}
+

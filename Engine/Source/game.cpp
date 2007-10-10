@@ -19,12 +19,11 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	, sceneRoot("root")
 	, vars(app)
 {
-	std::cout << "[gam]: entering game state..." << std::endl;
-	app.info.output("gam", "hej");
+	app.logs.info["gst+"] << "entering game state..." << endl;
 }
 
 TGen::Engine::GameState::~GameState() {
-	std::cout << "[gam]: leaving game state..." << std::endl;
+	app.logs.info["gst-"] << "leaving game state..." << endl;
 }
 
 
@@ -37,7 +36,7 @@ void TGen::Engine::GameState::tick() {
 		render(sinceLastRender);
 	}
 	else {
-		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render times
+		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render updates
 			TGen::Sleep(sinceLastRender);
 	}
 	
@@ -48,6 +47,12 @@ void TGen::Engine::GameState::tick() {
 void TGen::Engine::GameState::render(scalar dt) {
 	//std::cout << "dt: " << dt << std::endl;
 
+	// do stuff
+	static bool first = true;
+	if (first) {
+		app.variables["r_maxRefresh"] = 2;
+		first = false;
+	}
 	
 	app.renderer.clearBuffers(TGen::ColorBuffer);
 	app.env.swapBuffers();

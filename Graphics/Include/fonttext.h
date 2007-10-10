@@ -10,6 +10,9 @@
 #ifndef _TGEN_GRAPHICS_FONTTEXT_H
 #define _TGEN_GRAPHICS_FONTTEXT_H
 
+#include "color.h"
+#include <tgen_core.h>
+
 namespace TGen {
 	enum FontTextFormat {
 		

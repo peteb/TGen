@@ -57,6 +57,12 @@ void TGen::Engine::Variable::triggerPreChange(const std::string & newValue) {
 	}
 }
 
+void TGen::Engine::Variable::triggerPostChange() {
+	for (int i = 0; i < observers.size(); ++i) {
+		observers[i]->postVariableChange(*this);
+	}	
+}
+
 void TGen::Engine::Variable::triggerRemoved() {
 	for (int i = 0; i < observers.size(); ++i) {
 		observers[i]->onVariableRemoved(*this);

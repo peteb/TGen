@@ -19,10 +19,11 @@ namespace TGen {
 	namespace Engine {
 		class VariablesRegistry;
 		class App;
+		class StandardLogs;
 		
 		class SDL : public TGen::Engine::Environment {
 		public:
-			SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props);
+			SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props, TGen::Engine::StandardLogs & logs);
 			~SDL();
 	
 			int run(TGen::Engine::App * app);
@@ -30,6 +31,7 @@ namespace TGen {
 			void swapBuffers();
 			
 		private:
+			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::VariablesRegistry & variables;			
 			TGen::Engine::App * app;
 			TGen::Renderer * renderer;

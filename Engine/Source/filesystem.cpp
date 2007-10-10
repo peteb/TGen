@@ -7,24 +7,26 @@
  *
  */
 
-#include <iostream>
 #include <tgen_core.h>
 #include "filesystem.h"
 #include "physfs.h"
 #include "file.h"
+#include "log.h"
 
-TGen::Engine::Filesystem::Filesystem(const char * argv0) {
-	std::cout << "[vfs]: initializing... " << std::endl;
+TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardLogs & logs) 
+	: logs(logs)
+{
+	logs.info["vfs+"] << "initializing... " << TGen::endl;
 	
 	if (!PHYSFS_init(argv0))
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to initialize: ") << PHYSFS_getLastError();
 	
-	std::cout << "[vfs]:    base: " << PHYSFS_getBaseDir() << std::endl;
-	std::cout << "[vfs]: initialized" << std::endl;
+	logs.info["vfs+"] << "   base: " << PHYSFS_getBaseDir() << TGen::endl;
+	logs.info["vfs+"] << "initialized" << TGen::endl;	
 }
 
 TGen::Engine::Filesystem::~Filesystem() {
-	std::cout << "[vfs]: shutting down..." << std::endl;
+	logs.info["vfs-"] << "shut down" << TGen::endl;
 	PHYSFS_deinit();
 }
 

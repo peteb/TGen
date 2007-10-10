@@ -13,10 +13,11 @@
 namespace TGen {
 	namespace Engine {
 		class File;
+		class StandardLogs;
 		
 		class Filesystem {
 		public:
-			Filesystem(const char * argv0);
+			Filesystem(const char * argv0, TGen::Engine::StandardLogs & logs);
 			~Filesystem();
 			
 			TGen::Engine::File * openRead(const std::string & path);
@@ -25,6 +26,9 @@ namespace TGen {
 
 			void addSearchPath(const std::string & path, bool override);
 			bool exists(const std::string & path);
+			
+		private:
+			TGen::Engine::StandardLogs & logs;
 		};
 		
 	} // !Engine
