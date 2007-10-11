@@ -18,9 +18,11 @@
 #include "app.h"
 #include "tgen_engine.h"
 #include "variablesregistry.h"
+#include "commandregistry.h"
 #include "sdl.h"
 #include "filesystem.h"
 #include "file.h"
+#include "cmdset.h"
 #include <SDL/SDL.h>
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
@@ -73,6 +75,7 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	// setup variables, should probably be done elsewhere...
 	TGen::Engine::VariablesRegistry variables;
+	TGen::Engine::CommandRegistry commands;
 	
 	variables += TGen::Engine::Variable("env_width", "800", "800", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
 	variables += TGen::Engine::Variable("env_height", "600", "600", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
@@ -82,13 +85,18 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	variables += TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
 	
+	commands.addCommand(new TGen::Engine::Command("set", new TGen::Engine::CommandSet));
+	
+	std::vector<std::string> params;
+	commands["set"].execute(params, logs);
+	
 	// TODO: CommandInterpreter
 	// TODO: dump variables to file on exit, read variables from files on launch (autoexec format, set game_name coolness, etc.)
 	// TODO: ConfigWriteOnly should only be writable until the game starts, until "running"
 	
 	/*
 	 
-	 app.commands["set"].execute(paramlist, caller);     // caller är där resultatet ska visas, t ex StandardLogs eller en nätverkskoppling
+	 app.commands["set"].execute(paramlist, caller);     // caller är där resultatet ska visas, t ex StandardLogs eller en nätverkskoppling. fixa ett interface
 	 
 	 
 	 */
@@ -119,16 +127,14 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	// setup env
 	TGen::Engine::Environment * env = new TGen::Engine::SDL(variables, props, logs);
-	TGen::Engine::App * app = new TGen::Engine::App(variables, *env, fs, props, env->getRenderer(), logs);
+	TGen::Engine::App * app = new TGen::Engine::App(variables, commands, *env, fs, props, env->getRenderer(), logs);
 	
 	
 	
 	
 	// run forrest, run.....
 	logs.info << TGen::separator("running");
-	
 	env->run(app);
-	
 	logs.info << TGen::separator("shutting down");
 	
 	

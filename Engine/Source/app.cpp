@@ -12,13 +12,14 @@
 #include "game.h"
 #include <iostream>
 
-TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, 
+TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::CommandRegistry & commands, TGen::Engine::Environment & env, 
 					   TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, 
 					   TGen::Engine::StandardLogs & logs)
 	: running(true)
 	, currentState(NULL)
 	, env(env)
 	, variables(variables)
+	, commands(commands)
 	, filesystem(*fs)
 	, loadProps(props)
 	, renderer(renderer)

@@ -21,13 +21,14 @@ namespace TGen {
 		class SDL;
 		class Filesystem;
 		class VariablesRegistry;
+		class CommandRegistry;
 		class State;
 		class Environment;
-		
+	
 		class App {
 		public:
-			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::Environment & env, TGen::Engine::Filesystem * fs, 
-				const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs);
+			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::CommandRegistry & commands, TGen::Engine::Environment & env, 
+				TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs);
 			~App();
 			
 			bool isRunning() const;
@@ -37,6 +38,7 @@ namespace TGen {
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::Environment & env;
 			TGen::Engine::VariablesRegistry & variables;
+			TGen::Engine::CommandRegistry & commands;
 			TGen::Engine::Filesystem & filesystem;
 			const TGen::PropertyTree & loadProps;
 			TGen::Renderer & renderer;

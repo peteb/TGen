@@ -47,6 +47,7 @@ TGen::Engine::VariablesRegistry & TGen::Engine::VariablesRegistry::addVariable(c
 	}
 	
 	variables.insert(VariableMap::value_type(variable.getName(), variable));
+	
 	return *this;
 }
 

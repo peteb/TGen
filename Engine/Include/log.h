@@ -14,6 +14,7 @@
 #include <vector>
 #include <sstream>
 #include <tgen_core.h>
+#include "textoutput.h"
 
 namespace TGen {
 	class separator {
@@ -50,14 +51,14 @@ namespace TGen {
 		
 
 		
-		class Log {
+		class Log : public TGen::Engine::TextOutputer {
 		public:	
 			Log(LogMessageType type);
 			~Log();
 			
 			void addTarget(TGen::Engine::LogTarget * target);
 			TGen::Engine::Log & output(const std::string & area, const std::string & text);
-			
+			void outputText(const std::string & text, uint user);
 			
 	
 			
@@ -108,10 +109,12 @@ namespace TGen {
 		
 		class CombinedLogTargets;
 		
-		class StandardLogs {
+		class StandardLogs : public TGen::Engine::TextOutputer {
 		public:	
 			StandardLogs();
 			~StandardLogs();
+			
+			void outputText(const std::string & text, uint user);
 			
 			TGen::Engine::Log info, warning, error;
 			

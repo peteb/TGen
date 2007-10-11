@@ -58,6 +58,10 @@ TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const st
 	return *this;
 }
 
+void TGen::Engine::Log::outputText(const std::string & text, uint user) {
+	output("", text);
+}
+
 TGen::Engine::StandardLogs::StandardLogs()
 	: info(TGen::Engine::Info)
 	, warning(TGen::Engine::Warning)
@@ -75,3 +79,8 @@ TGen::Engine::StandardLogs::StandardLogs()
 TGen::Engine::StandardLogs::~StandardLogs() {
 	delete logtargets;
 }
+
+void TGen::Engine::StandardLogs::outputText(const std::string & text, uint user) {
+	info.output("", text);
+}
+

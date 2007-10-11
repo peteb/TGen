@@ -28,6 +28,13 @@
 		D0EF65270C82F5530085C17B /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65260C82F5530085C17B /* file.cpp */; };
 		D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF656B0C82F6A40085C17B /* IOKit.framework */; };
 		D0EF67200C82FA160085C17B /* adrift in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF67150C82FA160085C17B /* adrift */; };
+		D0F491D80CBE55D40080CB46 /* command.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F491D70CBE55D40080CB46 /* command.h */; };
+		D0F491DA0CBE55DD0080CB46 /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F491D90CBE55DD0080CB46 /* command.cpp */; };
+		D0F491E60CBE57050080CB46 /* textoutput.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F491E50CBE57050080CB46 /* textoutput.h */; };
+		D0F4924C0CBE59470080CB46 /* commandregistry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F4924B0CBE59470080CB46 /* commandregistry.h */; };
+		D0F4924E0CBE59530080CB46 /* commandregistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4924D0CBE59530080CB46 /* commandregistry.cpp */; };
+		D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F493080CBE89660080CB46 /* cmdset.h */; };
+		D0F4930D0CBE89760080CB46 /* cmdset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4930C0CBE89760080CB46 /* cmdset.cpp */; };
 		D0F835850CBA5B6100FF4467 /* procmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835840CBA5B6100FF4467 /* procmap.cpp */; };
 		D0F835870CBA5B6B00FF4467 /* procmap.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835860CBA5B6B00FF4467 /* procmap.h */; };
 		D0F835D20CBA5C5100FF4467 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835D10CBA5C5100FF4467 /* game.cpp */; };
@@ -170,6 +177,10 @@
 				D0F83B4D0CBA747E00FF4467 /* gamestatevars.h in CopyFiles */,
 				D0F83DFF0CBAD62900FF4467 /* log.h in CopyFiles */,
 				D0F83E6A0CBAD7FC00FF4467 /* logtarget.h in CopyFiles */,
+				D0F491D80CBE55D40080CB46 /* command.h in CopyFiles */,
+				D0F491E60CBE57050080CB46 /* textoutput.h in CopyFiles */,
+				D0F4924C0CBE59470080CB46 /* commandregistry.h in CopyFiles */,
+				D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +223,13 @@
 		D0EF65260C82F5530085C17B /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		D0EF656B0C82F6A40085C17B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
 		D0EF67150C82FA160085C17B /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
+		D0F491D70CBE55D40080CB46 /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command.h; path = ../../Include/command.h; sourceTree = SOURCE_ROOT; };
+		D0F491D90CBE55DD0080CB46 /* command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = command.cpp; sourceTree = "<group>"; };
+		D0F491E50CBE57050080CB46 /* textoutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textoutput.h; path = ../../Include/textoutput.h; sourceTree = SOURCE_ROOT; };
+		D0F4924B0CBE59470080CB46 /* commandregistry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = commandregistry.h; path = ../../Include/commandregistry.h; sourceTree = SOURCE_ROOT; };
+		D0F4924D0CBE59530080CB46 /* commandregistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = commandregistry.cpp; sourceTree = "<group>"; };
+		D0F493080CBE89660080CB46 /* cmdset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmdset.h; path = ../../Include/cmdset.h; sourceTree = SOURCE_ROOT; };
+		D0F4930C0CBE89760080CB46 /* cmdset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cmdset.cpp; sourceTree = "<group>"; };
 		D0F835840CBA5B6100FF4467 /* procmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = procmap.cpp; sourceTree = "<group>"; };
 		D0F835860CBA5B6B00FF4467 /* procmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = procmap.h; path = ../../Include/procmap.h; sourceTree = SOURCE_ROOT; };
 		D0F835D10CBA5C5100FF4467 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
@@ -349,6 +367,10 @@
 				D0EF62BA0C82DFFE0085C17B /* variable.h */,
 				D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */,
 				D0EF62DE0C82E08F0085C17B /* variablesregistry.h */,
+				D0F491D90CBE55DD0080CB46 /* command.cpp */,
+				D0F491D70CBE55D40080CB46 /* command.h */,
+				D0F4924B0CBE59470080CB46 /* commandregistry.h */,
+				D0F4924D0CBE59530080CB46 /* commandregistry.cpp */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -413,6 +435,7 @@
 				D0F835D70CBA5C8B00FF4467 /* platform */,
 				D0F835810CBA5B4300FF4467 /* map */,
 				D01B6CF60C8A14C700D8943C /* data */,
+				D0F493070CBE89500080CB46 /* commands */,
 				D01B6CED0C8A149200D8943C /* fs */,
 				D0064FBF0C86E88800A42B3A /* init */,
 				D0F8393B0CBA679200FF4467 /* game */,
@@ -424,6 +447,15 @@
 				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
 			);
 			name = Core;
+			sourceTree = "<group>";
+		};
+		D0F493070CBE89500080CB46 /* commands */ = {
+			isa = PBXGroup;
+			children = (
+				D0F4930C0CBE89760080CB46 /* cmdset.cpp */,
+				D0F493080CBE89660080CB46 /* cmdset.h */,
+			);
+			name = commands;
 			sourceTree = "<group>";
 		};
 		D0F835810CBA5B4300FF4467 /* map */ = {
@@ -465,6 +497,7 @@
 				D0F83DFE0CBAD62900FF4467 /* log.h */,
 				D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */,
 				D0F83E690CBAD7FC00FF4467 /* logtarget.h */,
+				D0F491E50CBE57050080CB46 /* textoutput.h */,
 			);
 			name = log;
 			sourceTree = "<group>";
@@ -638,6 +671,9 @@
 				D0F83B4B0CBA747200FF4467 /* gamestatevars.cpp in Sources */,
 				D0F83E060CBAD6B300FF4467 /* log.cpp in Sources */,
 				D0F83F0B0CBADBAE00FF4467 /* logtarget.cpp in Sources */,
+				D0F491DA0CBE55DD0080CB46 /* command.cpp in Sources */,
+				D0F4924E0CBE59530080CB46 /* commandregistry.cpp in Sources */,
+				D0F4930D0CBE89760080CB46 /* cmdset.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
