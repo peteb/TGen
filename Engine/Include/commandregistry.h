@@ -11,9 +11,16 @@
 #define _TGEN_ENGINE_COMMANDREGISTRY_H
 
 #include "command.h"
+#include "tokenizer.h"
 
 namespace TGen {
 	namespace Engine {
+		class Filesystem;
+		
+		enum CommandTokens {
+			CommandTokenEOL = 20,
+		};	
+		
 		class CommandRegistry {
 		public:	
 			CommandRegistry();
@@ -23,10 +30,18 @@ namespace TGen {
 			TGen::Engine::Command & getCommand(const std::string & name);
 			
 			TGen::Engine::Command & operator [] (const std::string & name);
-
+			void executeFile(const std::string & filename, TGen::Engine::Filesystem & fs, TGen::Engine::TextOutputer & output);
+			void execute(const std::string & text, TGen::Engine::TextOutputer & output);
+			
 		private:
 			typedef std::map<std::string, TGen::Engine::Command *> CommandMap;
 			CommandMap commands;
+		};
+		
+		class CommandTokenizer : public TGen::Tokenizer {
+		public:
+			CommandTokenizer();
+			
 		};
 		
 	} // !Engine

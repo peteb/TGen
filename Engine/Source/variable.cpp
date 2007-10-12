@@ -73,6 +73,17 @@ std::string TGen::Engine::Variable::getName() const {
 	return name;
 }
 
+std::string TGen::Engine::Variable::getDefaultValue() const {
+	return defaultValue;
+}
+
 uint TGen::Engine::Variable::getFlags() const {
 	return flags;
 }
+
+void TGen::Engine::Variable::takeDefaults(const TGen::Engine::Variable & var) {
+	defaultValue = var.getDefaultValue();
+	flags = var.getFlags();
+}
+
+														

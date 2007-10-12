@@ -50,7 +50,7 @@ void TGen::Engine::GameState::render(scalar dt) {
 	// do stuff
 	static bool first = true;
 	if (first) {
-		app.variables["r_maxRefresh"] = 2;
+		//app.variables["r_maxRefresh"] = 2;
 		first = false;
 	}
 	

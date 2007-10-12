@@ -30,3 +30,18 @@ void TGen::Engine::Command::execute(TGen::Engine::CommandExecuter::ParameterList
 std::string TGen::Engine::Command::getName() const {
 	return name;
 }
+
+TGen::Engine::CommandException::CommandException(const TGen::Engine::Command & command, const std::string & description) 
+	: TGen::RuntimeException("cmd_" + command.getName(), description)
+	, command(command)
+{
+}
+
+TGen::Engine::CommandException::~CommandException() throw() {
+	
+}
+
+
+const TGen::Engine::Command & TGen::Engine::CommandException::getCommand() const {
+	return command;
+}

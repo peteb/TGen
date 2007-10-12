@@ -48,3 +48,11 @@ std::string TGen::Engine::File::readAll() {
 	
 	return ret;
 }
+
+int64 TGen::Engine::File::write(const void * buffer, uint32 size, uint32 count) {
+	int64 ret = PHYSFS_write(file, buffer, size, count);
+	if (ret < count)
+		throw TGen::RuntimeException("File::write", "failed to write: ") << PHYSFS_getLastError();
+	
+	return ret;
+}

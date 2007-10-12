@@ -14,6 +14,14 @@
 
 namespace TGen {
 	namespace Engine {
+		class Filesystem;
+		
+		enum AddVariableFlags {
+			AddNoThrow			= 0x0001,
+			AddOverrideDefaults	= 0x0002,
+			AddOverrideValue	= 0x0004,
+		};
+		
 		class VariablesRegistry {
 		public:
 			VariablesRegistry();
@@ -21,11 +29,14 @@ namespace TGen {
 			
 			const TGen::Engine::Variable & getVariable(const std::string & name) const;
 			TGen::Engine::Variable & getVariable(const std::string & name);
-			TGen::Engine::VariablesRegistry & addVariable(const TGen::Engine::Variable & variable, bool doThrow = true);
+			TGen::Engine::VariablesRegistry & addVariable(const TGen::Engine::Variable & variable, uint flags = 0);
 
 			const TGen::Engine::Variable & operator [] (const std::string & name) const;
 			TGen::Engine::Variable & operator [] (const std::string & name);
 			TGen::Engine::VariablesRegistry & operator += (const TGen::Engine::Variable & var);
+			
+			void getVariables(std::vector<std::string> & vars);
+			void dumpVariables(TGen::Engine::Filesystem & fs);
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Variable> VariableMap;

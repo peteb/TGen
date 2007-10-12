@@ -17,6 +17,17 @@ namespace TGen {
 		class TextOutputer;
 		class Command;
 		
+		class CommandException : public TGen::RuntimeException {
+		public:
+			CommandException(const TGen::Engine::Command & command, const std::string & description);
+			~CommandException() throw();
+			
+			const TGen::Engine::Command & getCommand() const;
+			
+		private:
+			const TGen::Engine::Command & command;
+		};
+		
 		class CommandExecuter {
 		public:
 			virtual ~CommandExecuter() {}

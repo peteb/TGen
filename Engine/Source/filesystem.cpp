@@ -21,7 +21,49 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	if (!PHYSFS_init(argv0))
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to initialize: ") << PHYSFS_getLastError();
 	
+	std::string userDir = PHYSFS_getUserDir();
+	std::string writeDir = userDir;
+	
+	// BUGLY CODE!!!!!! TODO
+	
+#ifdef _PLATFORM_OSX
+	writeDir += "Library/Application Support/";
+
+	if (!PHYSFS_setWriteDir(writeDir.c_str()))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to set write dir: ") << PHYSFS_getLastError();
+
+	if (!PHYSFS_mkdir("TGen"))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to mkdir TGen");
+	
+	writeDir += "TGen/";
+	
+#elif defined(_PLATFORM_WIN)
+	throw TGen::NotImplemented("Filesystem::Filesystem", "windows not implemented");
+#else
+
+	if (!PHYSFS_setWriteDir(writeDir.c_str()))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to set write dir: ") << PHYSFS_getLastError();
+
+	if (!PHYSFS_mkdir(".tgen"))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to mkdir .tgen");
+
+	writeDir += ".tgen/";
+#endif
+	
+	if (!PHYSFS_setWriteDir(writeDir.c_str()))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to set write dir: ") << PHYSFS_getLastError();
+	
+	if (!PHYSFS_addToSearchPath(writeDir.c_str(), 1))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to add write dir as search dir: ") << PHYSFS_getLastError();
+	
 	logs.info["vfs+"] << "   base: " << PHYSFS_getBaseDir() << TGen::endl;
+	logs.info["vfs+"] << "   home: " << PHYSFS_getUserDir() << TGen::endl;
+	
+	if (PHYSFS_getWriteDir())
+		logs.info["vfs+"] << "   writedir: " << PHYSFS_getWriteDir() << TGen::endl;
+	else
+		logs.info["vfs+"] << "   writedir: none" << TGen::endl;
+		
 	logs.info["vfs+"] << "initialized" << TGen::endl;	
 }
 

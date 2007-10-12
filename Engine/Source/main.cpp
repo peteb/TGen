@@ -23,6 +23,7 @@
 #include "filesystem.h"
 #include "file.h"
 #include "cmdset.h"
+#include "cmddumpvars.h"
 #include <SDL/SDL.h>
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
@@ -85,21 +86,26 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	variables += TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
 	
-	commands.addCommand(new TGen::Engine::Command("set", new TGen::Engine::CommandSet));
+	commands.addCommand(new TGen::Engine::Command("set", new TGen::Engine::CommandSet(variables)));
+	commands.addCommand(new TGen::Engine::Command("dumpvars", new TGen::Engine::CommandDumpVars(variables)));
+	
+	try {
+		std::vector<std::string> params;
+		params.push_back("r_maxRefresh");
+		params.push_back("666");
+		commands["set"].execute(params, logs);
+	}
+	catch (TGen::Engine::CommandException & e) {
+		logs.info << e.what() << TGen::endl;
+	}
 	
 	std::vector<std::string> params;
-	commands["set"].execute(params, logs);
+	commands["dumpvars"].execute(params, logs);
 	
 	// TODO: CommandInterpreter
 	// TODO: dump variables to file on exit, read variables from files on launch (autoexec format, set game_name coolness, etc.)
 	// TODO: ConfigWriteOnly should only be writable until the game starts, until "running"
 	
-	/*
-	 
-	 app.commands["set"].execute(paramlist, caller);     // caller är där resultatet ska visas, t ex StandardLogs eller en nätverkskoppling. fixa ett interface
-	 
-	 
-	 */
 	
 	
 	// setup filesystem
@@ -123,6 +129,29 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	
 	
+	// autoexecs
+	std::vector<std::string> autoexecs;
+	autoexecs.push_back("vardump");
+	
+	TGen::PropertyTree & autos = props.getNode("game").getNode("autoexec");
+	TGen::PropertyTree::PropertyMap::const_iterator iter = autos.getProperties().begin();
+	
+	for (; iter != autos.getProperties().end(); ++iter) {
+		if (std::find(autoexecs.begin(), autoexecs.end(), iter->second) == autoexecs.end())
+			autoexecs.push_back(iter->second);
+	}
+	
+	for (int i = 0; i < autoexecs.size(); ++i) {
+		try {
+			commands.executeFile(autoexecs[i], *fs, logs);
+		}
+		catch (std::exception & e) {
+			logs.warning["str+"] << e.what() << TGen::endl;
+		}
+	}
+	
+	
+	
 	
 	
 	// setup env
@@ -137,14 +166,19 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	env->run(app);
 	logs.info << TGen::separator("shutting down");
 	
+	commands["dumpvars"].execute(params, logs);
 	
 	
 	// shut down
 	delete app;
 	delete env;
+	
+	logs.info["str-"] << "dumping variables..." << TGen::endl;
+	variables.dumpVariables(*fs);
+	
 	delete fs;
 	
-	logs.info["str-"] << "Goodbye, have a nice day!" << TGen::endl;
+	logs.info["str-"] << "goodbye, have a nice day!" << TGen::endl;
 	
 	return EXIT_SUCCESS;	
 }

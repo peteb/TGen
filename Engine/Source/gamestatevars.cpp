@@ -17,9 +17,9 @@ TGen::Engine::GameStateVars::GameStateVars(TGen::Engine::App & app)
 	, syncVtrace(false)	
 	, conserveCPU(true)
 {
-	app.variables.addVariable(TGen::Engine::Variable("r_maxRefresh", "40", "-1", TGen::Engine::VariableDump), false);
-	app.variables.addVariable(TGen::Engine::Variable("r_syncVtrace", "false", "false", TGen::Engine::VariableDump), false);
-	app.variables.addVariable(TGen::Engine::Variable("r_conserveCPU", "true", "true", TGen::Engine::VariableDump), false);
+	app.variables.addVariable(TGen::Engine::Variable("r_maxRefresh", "40", "-1", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("r_syncVtrace", "false", "false", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("r_conserveCPU", "true", "true", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	
 	app.variables["r_maxRefresh"].addObserver(this);
 	app.variables["r_syncVtrace"].addObserver(this);
@@ -48,7 +48,8 @@ void TGen::Engine::GameStateVars::loadVariables() {
 	syncVtrace = bool(app.variables["r_syncVtrace"]);
 	conserveCPU = bool(app.variables["r_conserveCPU"]);
 	
-	app.logs.info["game"] << "maxRefreshInterval: " << maxRefreshInterval << TGen::endl;
-	app.logs.info["game"] << "syncVtrace: " << syncVtrace << TGen::endl;
-	app.logs.info["game"] << "conserveCPU: " << conserveCPU << TGen::endl;
+	// plocka ihop till renderer? hmmmmmmm
+	app.logs.info["rend"] << "maxRefreshInterval: " << maxRefreshInterval << TGen::endl;
+	app.logs.info["rend"] << "syncVtrace: " << syncVtrace << TGen::endl;
+	app.logs.info["rend"] << "conserveCPU: " << conserveCPU << TGen::endl;
 }

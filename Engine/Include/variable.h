@@ -17,10 +17,12 @@
 namespace TGen {
 	namespace Engine {
 		enum VariableFlags {
-			VariableReadOnly =			0x00000001,
-			VariableDump =				0x00000002,
-			VariableConfigWriteOnly =	0x00000004,
-			VariableUser =				0x00000010,		// base line for extensions
+			VariableReadOnly =			0x00000001,		// read only, forever. Can't be changed by dev
+			VariableCheat =				0x00000002,		// read only, can be changed by dev
+			VariableDump =				0x00000004,		// dumped to file when app is quitting
+			VariableConfigWriteOnly =	0x00000008,		// only writable until the app starts
+			VariableNonInit =			0x00000010,		// not initialized; created by set but never initialized.
+			VariableUser =				0x00000100,		// base line for extensions
 		};
 
 
@@ -53,16 +55,18 @@ namespace TGen {
 			void triggerPreChange(const std::string & newValue);
 			void triggerPostChange();
 			void triggerRemoved();
-
+			
 		public:
 			Variable(const std::string & name, const std::string & value, const std::string & defaultValue, uint flags);
 			~Variable();
 			
 			void addObserver(VariableObserver * observer);
 			void removeObserver(VariableObserver * observer);
+			void takeDefaults(const TGen::Engine::Variable & var);
 			
 
 			std::string getName() const;
+			std::string getDefaultValue() const;
 			uint getFlags() const;
 			
 			template<typename T> Variable & operator = (const T & value) {

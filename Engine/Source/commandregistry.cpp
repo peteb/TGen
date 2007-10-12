@@ -8,6 +8,9 @@
  */
 
 #include "commandregistry.h"
+#include "log.h"
+#include "filesystem.h"
+#include "file.h"
 
 TGen::Engine::CommandRegistry::CommandRegistry() {
 	
@@ -46,3 +49,66 @@ TGen::Engine::Command & TGen::Engine::CommandRegistry::getCommand(const std::str
 TGen::Engine::Command & TGen::Engine::CommandRegistry::operator [] (const std::string & name) {
 	return getCommand(name);
 }
+
+void TGen::Engine::CommandRegistry::executeFile(const std::string & filename, TGen::Engine::Filesystem & fs, TGen::Engine::TextOutputer & output) {
+	output.outputText("executing " + filename + "...", 0);
+	
+	TGen::Engine::File * file = fs.openRead(filename);
+	if (!file)
+		throw TGen::RuntimeException("CommandRegistry::executeFile", "couldn't open file " + filename);
+	
+	std::string text = file->readAll();
+	delete file;
+	
+	execute(text, output);
+}
+
+void TGen::Engine::CommandRegistry::execute(const std::string & text, TGen::Engine::TextOutputer & output) {
+	//output.outputText("EXEC: " + text, 0);
+	
+	TGen::Engine::CommandTokenizer tokenizer;
+	TGen::TokenStream tokens;
+	TGen::TokenStream::TokenList::iterator currentToken, endIter;		
+
+	tokenizer.tokenizeString(text, tokens, false);
+	currentToken = tokens.getFirstToken();
+	endIter = tokens.getEndToken();
+	
+	std::string commandName;
+	std::vector<std::string> parameters;
+	parameters.reserve(4);
+	
+	while (currentToken != endIter) {
+		if (currentToken->first == TGen::Engine::CommandTokenEOL) {
+			if (!commandName.empty()) {
+				getCommand(commandName).execute(parameters, output);
+				commandName = "";
+				parameters.clear();
+			}
+		}
+		else {
+			if (commandName.empty())
+				commandName = currentToken->second;
+			else
+				parameters.push_back(currentToken->second);
+		}
+		
+		currentToken++;
+	}
+}
+
+TGen::Engine::CommandTokenizer::CommandTokenizer() {
+	autoAddTilNextIgnore = true;
+	
+	ignores.push_back(" ");
+	ignores.push_back("\t");
+	ignores.push_back("\r");
+	
+	quotes.push_back(StringPair("\"", "\""));
+	comments.push_back(StringPair("//", "\n"));
+	comments.push_back(StringPair("/*", "*/"));
+	
+	tokens["\n"] = TGen::Engine::CommandTokenEOL;
+	tokens[";"] = TGen::Engine::CommandTokenEOL;
+}
+

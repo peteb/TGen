@@ -35,6 +35,8 @@
 		D0F4924E0CBE59530080CB46 /* commandregistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4924D0CBE59530080CB46 /* commandregistry.cpp */; };
 		D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F493080CBE89660080CB46 /* cmdset.h */; };
 		D0F4930D0CBE89760080CB46 /* cmdset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4930C0CBE89760080CB46 /* cmdset.cpp */; };
+		D0F4961D0CBF8C8D0080CB46 /* cmddumpvars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4961C0CBF8C8D0080CB46 /* cmddumpvars.cpp */; };
+		D0F4961F0CBF8C990080CB46 /* cmddumpvars.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F4961E0CBF8C990080CB46 /* cmddumpvars.h */; };
 		D0F835850CBA5B6100FF4467 /* procmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835840CBA5B6100FF4467 /* procmap.cpp */; };
 		D0F835870CBA5B6B00FF4467 /* procmap.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835860CBA5B6B00FF4467 /* procmap.h */; };
 		D0F835D20CBA5C5100FF4467 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835D10CBA5C5100FF4467 /* game.cpp */; };
@@ -181,6 +183,7 @@
 				D0F491E60CBE57050080CB46 /* textoutput.h in CopyFiles */,
 				D0F4924C0CBE59470080CB46 /* commandregistry.h in CopyFiles */,
 				D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */,
+				D0F4961F0CBF8C990080CB46 /* cmddumpvars.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +233,8 @@
 		D0F4924D0CBE59530080CB46 /* commandregistry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = commandregistry.cpp; sourceTree = "<group>"; };
 		D0F493080CBE89660080CB46 /* cmdset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmdset.h; path = ../../Include/cmdset.h; sourceTree = SOURCE_ROOT; };
 		D0F4930C0CBE89760080CB46 /* cmdset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cmdset.cpp; sourceTree = "<group>"; };
+		D0F4961C0CBF8C8D0080CB46 /* cmddumpvars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cmddumpvars.cpp; sourceTree = "<group>"; };
+		D0F4961E0CBF8C990080CB46 /* cmddumpvars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cmddumpvars.h; path = ../../Include/cmddumpvars.h; sourceTree = SOURCE_ROOT; };
 		D0F835840CBA5B6100FF4467 /* procmap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = procmap.cpp; sourceTree = "<group>"; };
 		D0F835860CBA5B6B00FF4467 /* procmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = procmap.h; path = ../../Include/procmap.h; sourceTree = SOURCE_ROOT; };
 		D0F835D10CBA5C5100FF4467 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
@@ -369,8 +374,8 @@
 				D0EF62DE0C82E08F0085C17B /* variablesregistry.h */,
 				D0F491D90CBE55DD0080CB46 /* command.cpp */,
 				D0F491D70CBE55D40080CB46 /* command.h */,
-				D0F4924B0CBE59470080CB46 /* commandregistry.h */,
 				D0F4924D0CBE59530080CB46 /* commandregistry.cpp */,
+				D0F4924B0CBE59470080CB46 /* commandregistry.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -454,6 +459,8 @@
 			children = (
 				D0F4930C0CBE89760080CB46 /* cmdset.cpp */,
 				D0F493080CBE89660080CB46 /* cmdset.h */,
+				D0F4961C0CBF8C8D0080CB46 /* cmddumpvars.cpp */,
+				D0F4961E0CBF8C990080CB46 /* cmddumpvars.h */,
 			);
 			name = commands;
 			sourceTree = "<group>";
@@ -674,6 +681,7 @@
 				D0F491DA0CBE55DD0080CB46 /* command.cpp in Sources */,
 				D0F4924E0CBE59530080CB46 /* commandregistry.cpp in Sources */,
 				D0F4930D0CBE89760080CB46 /* cmdset.cpp in Sources */,
+				D0F4961D0CBF8C8D0080CB46 /* cmddumpvars.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

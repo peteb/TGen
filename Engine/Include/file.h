@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_FILE_H
 
 #include <iostream>
+#include <tgen_core.h>
 #include "physfs.h"
 
 namespace TGen {
@@ -23,6 +24,7 @@ namespace TGen {
 
 			void close();
 			std::string readAll();
+			int64 write(const void * buffer, uint32 size, uint32 count);
 			
 			friend class Filesystem;
 			
