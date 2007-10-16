@@ -39,6 +39,15 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::setInt(int value) {
 	return *this;	
 }
 
+TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (float value) {
+	glUseProgram(program);
+	
+	if (type == TGen::OpenGL::Uniform)
+		glUniform1f(location, value);
+	
+	return *this;
+}
+
 TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Color & color) {
 	glUseProgram(program);
 

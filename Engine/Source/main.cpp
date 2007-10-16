@@ -102,8 +102,8 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	std::vector<std::string> params;
 	commands["dumpvars"].execute(params, logs);
 	
-	// TODO: CommandInterpreter
-	// TODO: dump variables to file on exit, read variables from files on launch (autoexec format, set game_name coolness, etc.)
+	// TODO: materials, resource manager
+	// TODO: fonts
 	// TODO: ConfigWriteOnly should only be writable until the game starts, until "running"
 	
 	

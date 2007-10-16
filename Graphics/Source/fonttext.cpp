@@ -8,3 +8,16 @@
  */
 
 #include "fonttext.h"
+
+TGen::FontText::FontText(const std::string & text, const TGen::Color & color, bool dynamic)
+	: text(text)
+	, color(color)
+	, dynamic(dynamic) 
+{
+		
+}
+
+void TGen::FontText::render(TGen::Renderer & renderer, const TGen::Vector3 & position) {
+	
+}
+

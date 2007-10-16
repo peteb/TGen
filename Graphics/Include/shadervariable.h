@@ -26,6 +26,7 @@ namespace TGen {
 		virtual ShaderVariable & operator = (int value) abstract;
 		virtual ShaderVariable & setInt(int value) abstract;
 
+		virtual ShaderVariable & operator = (float value) abstract;
 		virtual ShaderVariable & operator = (const TGen::Color & color) abstract;
 		virtual ShaderVariable & operator = (const TGen::Vector3 & vector) abstract;
 		virtual ShaderVariable & operator = (const TGen::Vector2 & vector) abstract;

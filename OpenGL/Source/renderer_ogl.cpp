@@ -138,22 +138,7 @@ void TGen::OpenGL::Renderer::clearBuffers(ushort buffers) {
 }
 
 void TGen::OpenGL::Renderer::setTransform(TGen::TransformMode mode, const TGen::Matrix4x4 & transformation) {
-	switch (mode) {
-		case TransformProjection:
-			glMatrixMode(GL_PROJECTION);
-			break;
-			
-		case TransformWorldView:
-			glMatrixMode(GL_MODELVIEW);
-			break;
-			
-		case TransformTexture:
-			glMatrixMode(GL_TEXTURE);
-			break;
-		
-		default:
-			throw TGen::NotImplemented("OpenGL::Renderer::setTransform", "transform mode invalid");
-	}
+	glMatrixMode(TgenTransformModeToOpenGL(mode));
 
 	if (mode != TransformTexture)
 		TGen::Renderer::setTransform(mode, transformation);
@@ -189,11 +174,15 @@ TGen::Matrix4x4 TGen::OpenGL::Renderer::getTransform(TGen::TransformMode mode) c
 	}
 	
 	TGen::Matrix4x4 ret;
-	glGetFloatv(fixedTransform, (GLfloat *)ret.elements);  // TODO: SLOW!!! cache!
+	glGetFloatv(fixedTransform, (GLfloat *)ret.elements);  // TODO: SYNCPOINT!!! cache!
 	
 	return ret;
 }
 
+void TGen::OpenGL::Renderer::multiplyTransform(TGen::TransformMode mode, const TGen::Matrix4x4 & transform) {
+	glMatrixMode(TgenTransformModeToOpenGL(mode));
+	glMultMatrixf((GLfloat *)transform.elements);		
+}
 
 TGen::VertexBuffer * TGen::OpenGL::Renderer::createVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage) {
 	GLuint newVBO = 0;
@@ -296,9 +285,12 @@ TGen::Texture * TGen::OpenGL::Renderer::createTexture(const TGen::Image & image,
 TGen::Texture * TGen::OpenGL::Renderer::createTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
 	GLuint newTex = 0;
 	
+	
 	GLenum imgFormat = TGen::OpenGL::TgenImageFormatToOpenGL(format);
 	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
 	GLenum internalFormat = 0;
+	GLint prevTex = 0;
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, &prevTex);
 	
 	glGenTextures(1, &newTex);
 	glBindTexture(GL_TEXTURE_2D, newTex);
@@ -323,6 +315,7 @@ TGen::Texture * TGen::OpenGL::Renderer::createTexture(const void * data, const T
 					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
 				else
 					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
+				
 				break;
 				
 			default:
@@ -345,6 +338,7 @@ TGen::Texture * TGen::OpenGL::Renderer::createTexture(const void * data, const T
 	}
 	
 	DEBUG_PRINT("[opengl]: created texture " << newTex);
+	glBindTexture(GL_TEXTURE_2D, prevTex);
 	
 	return new TGen::OpenGL::Texture(*this, newTex, size);
 }

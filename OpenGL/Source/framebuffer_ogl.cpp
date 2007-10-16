@@ -62,7 +62,9 @@ void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::Framebuffe
 				attachment = pointNames[colorPointsTaken++];
 			else
 				throw TGen::RuntimeException("OpenGL::FrameBuffer::Attach", "can't attach more color textures");
-		
+
+			pointsTaken.push_back(attachment);
+
 			break;
 			
 		case TGen::FramebufferAttachmentDepth:
@@ -77,7 +79,6 @@ void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::Framebuffe
 			throw TGen::RuntimeException("OpenGL::FrameBuffer::Attach", "invalid attachpoint");
 	}
 	
-	pointsTaken.push_back(attachment);
 	
 	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fboId);
 	glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, attachment, GL_TEXTURE_2D, fixedTexture->getInternalID(), 0);

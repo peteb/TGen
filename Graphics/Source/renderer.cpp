@@ -75,3 +75,6 @@ TGen::Matrix4x4 TGen::Renderer::getTransform(TGen::TransformMode mode) const {
 	throw TGen::RuntimeException("Renderer::getTransform", "invalid transformation mode");
 }
 
+void TGen::Renderer::multiplyTransform(TGen::TransformMode mode, const TGen::Matrix4x4 & transform) {
+	
+}

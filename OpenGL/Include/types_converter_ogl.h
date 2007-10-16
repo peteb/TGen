@@ -24,6 +24,7 @@ namespace TGen {
 		uint TgenTextureFilterToOpenGL(TGen::TextureFilter filter);
 		uint TgenTextureCoordGenToOpenGL(TGen::TextureCoordGen tcgen);
 		uint TgenCompareFuncToOpenGL(TGen::CompareFunc func);
+		uint TgenTransformModeToOpenGL(TGen::TransformMode mode);
 		
 	} // !OpenGL
 } // !TGen

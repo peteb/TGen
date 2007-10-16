@@ -20,11 +20,11 @@ TGen::MD3::Mesh::~Mesh() {
 }
 
 void TGen::MD3::Mesh::preRender(TGen::Renderer & renderer) const {
-	
+
 }
 
 void TGen::MD3::Mesh::render(TGen::Renderer & renderer) const {
-	
+
 }
 
 void TGen::MD3::Mesh::update(const TGen::Camera & camera, scalar distance, scalar time) {

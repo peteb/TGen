@@ -14,18 +14,23 @@
 #include <tgen_core.h>
 
 namespace TGen {
+	class Renderer;
+	
 	enum FontTextFormat {
-		
+		// color osv?
 	};
 	
 	class FontText {
 	public:
+		FontText(const std::string & text, const TGen::Color & color, bool dynamic);
 		
+		void render(TGen::Renderer & renderer, const TGen::Vector3 & position);
 		
 	private:
+		std::string text;
 		TGen::Color color, shadowColor;
 		FontTextFormat format;
-		bool shadow;
+		bool shadow, dynamic;
 		scalar size;
 	};
 	

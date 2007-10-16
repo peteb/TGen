@@ -156,15 +156,24 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar 
 			for (int i = 0; i < surface->num_verts; ++i) {
 				TGen::MD3::TexCoord * texCoord = &surface->texCoords[i];
 				TGen::MD3::Vertex * vertex = &surface->vertices[i];
-			
+				
+				scalar lat = ((vertex->normal >> 8) & 255) * (2 * TGen::PI) / 255;
+				scalar lng = (vertex->normal & 255) * (2 * TGen::PI) / 255;
+				
+				TGen::Vector3 normal;
+				normal.x = cos(lat) * sin(lng);
+				normal.y = cos(lng);
+				normal.z = sin(lat) * sin(lng);
+				normal.normalize();
+				
 				vbpos->x = float(vertex->x) * scale;
 				vbpos->y = float(vertex->z) * scale;
 				vbpos->z = float(vertex->y) * scale;
 				vbpos->u = texCoord->st[0];
 				vbpos->v = texCoord->st[1];
-				vbpos->nx = 1.0f;
-				vbpos->ny = 0.0f;
-				vbpos->nz = 0.0f;
+				vbpos->nx = normal.x;
+				vbpos->ny = normal.y;
+				vbpos->nz = normal.z;
 				
 				vbpos++;
 			}

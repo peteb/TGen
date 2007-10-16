@@ -44,6 +44,7 @@ namespace TGen {
 		virtual TGen::Rectangle getViewport() const;
 		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 		virtual TGen::Matrix4x4 getTransform(TransformMode mode) const;
+		virtual void multiplyTransform(TransformMode mode, const Matrix4x4 & transform);
 		
 		virtual void setVertexBuffer(VertexBuffer * buffer, VertexStructure * override = NULL) abstract;
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;

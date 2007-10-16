@@ -8,3 +8,13 @@
  */
 
 #include "font.h"
+
+TGen::Font::Font(TGen::Material * material)
+	: material(material)
+{
+		
+}
+
+TGen::FontText * TGen::Font::createText(const std::string & text) {
+	return NULL;
+}

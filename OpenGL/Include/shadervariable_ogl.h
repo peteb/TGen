@@ -34,6 +34,7 @@ namespace TGen {
 			TGen::ShaderVariable & operator = (int value);
 			TGen::ShaderVariable & setInt(int value);
 			
+			TGen::ShaderVariable & operator = (float value);
 			TGen::ShaderVariable & operator = (const TGen::Color & color);
 			TGen::ShaderVariable & operator = (const TGen::Vector3 & vector);
 			TGen::ShaderVariable & operator = (const TGen::Vector2 & vector);

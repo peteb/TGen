@@ -67,6 +67,7 @@ namespace TGen {
 			void setColor(const TGen::Color & color);
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;
+			void multiplyTransform(TransformMode mode, const Matrix4x4 & transform);
 			
 			void clearBuffers(ushort buffers);
 			

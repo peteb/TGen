@@ -251,3 +251,22 @@ uint TGen::OpenGL::TgenCompareFuncToOpenGL(TGen::CompareFunc func) {
 	
 	throw TGen::NotImplemented("TgenCompareFuncToOpenGL", "func not supported");			
 }
+
+uint TGen::OpenGL::TgenTransformModeToOpenGL(TGen::TransformMode mode) {
+	switch (mode) {
+		case TGen::TransformWorldView:
+			return GL_MODELVIEW;
+			
+		case TGen::TransformProjection:
+			return GL_PROJECTION;
+			
+		case TGen::TransformTexture:
+			return GL_TEXTURE;
+			
+		case TGen::TransformColor:
+			return GL_COLOR;
+	}	
+
+	throw TGen::NotImplemented("TgenTransformModeToOpenGL", "transform mode invalid");
+}
+
