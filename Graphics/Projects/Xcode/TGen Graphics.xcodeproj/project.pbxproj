@@ -79,6 +79,13 @@
 			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
+		D0450B9A0CCA4BC400832ABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF7090C3939A100668773 /* TGen Math.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978 /* tgen_math */;
+			remoteInfo = tgen_math;
+		};
 		D04C80ED0CCA455F00794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D00FF7090C3939A100668773 /* TGen Math.xcodeproj */;
@@ -166,7 +173,7 @@
 		D04270460C40FFBC004CB60C /* generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = generator.cpp; path = Source/generator.cpp; sourceTree = "<group>"; };
 		D04270480C40FFC9004CB60C /* generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generator.h; path = Include/generator.h; sourceTree = "<group>"; };
 		D07A2B7B0C666F96009CABCA /* techniquelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = techniquelist.h; path = Include/techniquelist.h; sourceTree = "<group>"; };
-		D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = techniquelist.cpp; path = Include/techniquelist.cpp; sourceTree = "<group>"; };
+		D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = techniquelist.cpp; path = Source/techniquelist.cpp; sourceTree = "<group>"; };
 		D07A2CEA0C667EBA009CABCA /* textureunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textureunit.h; path = Include/textureunit.h; sourceTree = "<group>"; };
 		D07A2CEC0C667EC9009CABCA /* textureunit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textureunit.cpp; path = Source/textureunit.cpp; sourceTree = "<group>"; };
 		D07A2EF20C668749009CABCA /* passlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = passlist.cpp; path = Source/passlist.cpp; sourceTree = "<group>"; };
@@ -435,6 +442,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0450B9B0CCA4BC400832ABC /* PBXTargetDependency */,
 			);
 			name = tgen_graphics;
 			productName = tgen_graphics;
@@ -549,6 +557,11 @@
 			isa = PBXTargetDependency;
 			target = D00FF6CB0C39391D00668773 /* tgen_graphics */;
 			targetProxy = D00FF77A0C393AD400668773 /* PBXContainerItemProxy */;
+		};
+		D0450B9B0CCA4BC400832ABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_math;
+			targetProxy = D0450B9A0CCA4BC400832ABC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

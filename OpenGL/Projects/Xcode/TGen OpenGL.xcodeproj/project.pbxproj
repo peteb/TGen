@@ -63,6 +63,13 @@
 			remoteGlobalIDString = D00FF8E50C3940E900668773;
 			remoteInfo = tgen_opengl;
 		};
+		D0450B830CCA4B9F00832ABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF91B0C39413C00668773 /* TGen Graphics.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D00FF6CB0C39391D00668773 /* tgen_graphics */;
+			remoteInfo = tgen_graphics;
+		};
 		D04C811A0CCA45E200794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D00FF92D0C39414D00668773 /* TGen Core.xcodeproj */;
@@ -417,6 +424,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0450B840CCA4B9F00832ABC /* PBXTargetDependency */,
 			);
 			name = tgen_opengl;
 			productName = tgen_opengl;
@@ -532,6 +540,11 @@
 			isa = PBXTargetDependency;
 			target = D00FF8E50C3940E900668773 /* tgen_opengl */;
 			targetProxy = D00FF93E0C39416F00668773 /* PBXContainerItemProxy */;
+		};
+		D0450B840CCA4B9F00832ABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_graphics;
+			targetProxy = D0450B830CCA4B9F00832ABC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

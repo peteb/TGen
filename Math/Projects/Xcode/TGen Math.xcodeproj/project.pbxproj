@@ -45,6 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D0450BA30CCA4BDE00832ABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978 /* tgen_core */;
+			remoteInfo = tgen_core;
+		};
 		D04C80CF0CCA44F600794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
@@ -318,6 +325,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0450BA40CCA4BDE00832ABC /* PBXTargetDependency */,
 			);
 			name = tgen_math;
 			productName = tgen_math;
@@ -398,6 +406,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		D0450BA40CCA4BDE00832ABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_core;
+			targetProxy = D0450BA30CCA4BDE00832ABC /* PBXContainerItemProxy */;
+		};
 		D0EE96FF0C35E52500CB2978 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0EE96EE0C35E4FC00CB2978 /* tgen_math */;

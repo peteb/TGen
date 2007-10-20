@@ -56,6 +56,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D0450C430CCA4CDD00832ABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0F371390C6D02CE00C11F87 /* tgen_renderer */;
+			remoteInfo = tgen_renderer;
+		};
+		D0450C4E0CCA4CFC00832ABC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D00FF8E50C3940E900668773 /* tgen_opengl */;
+			remoteInfo = tgen_opengl;
+		};
 		D04C81C90CCA46DA00794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */;
@@ -489,6 +503,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				D0450C440CCA4CDD00832ABC /* PBXTargetDependency */,
+				D0450C4F0CCA4CFC00832ABC /* PBXTargetDependency */,
 			);
 			name = "TGen Engine";
 			productInstallPath = "$(HOME)/Applications";
@@ -646,6 +662,19 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D0450C440CCA4CDD00832ABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_renderer;
+			targetProxy = D0450C430CCA4CDD00832ABC /* PBXContainerItemProxy */;
+		};
+		D0450C4F0CCA4CFC00832ABC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_opengl;
+			targetProxy = D0450C4E0CCA4CFC00832ABC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */ = {
