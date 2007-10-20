@@ -29,6 +29,8 @@ namespace TGen {
 			void unlock();
 			void bufferData(const void * data, uint size, void * offset);
 			bool isLocked();
+			void bindShaderVariable(int id, const TGen::ShaderVariable & var);
+			
 			TGen::VertexStructure & getVertexStructure();
 			
 			GLuint getInternalID() const;

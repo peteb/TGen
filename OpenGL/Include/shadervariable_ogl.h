@@ -41,6 +41,8 @@ namespace TGen {
 			TGen::ShaderVariable & operator = (const TGen::Vector2 & vector);
 			TGen::ShaderVariable & operator = (const TGen::Matrix4x4 & matrix);
 			
+			GLint getInternalID() const;
+
 			friend class TGen::OpenGL::ShaderProgram;
 				
 		private:

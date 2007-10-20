@@ -34,7 +34,7 @@ namespace TGen {
 		
 		
 		
-		typedef TGen::JoinVertex3<TGen::Vertex3<float>, TGen::Normal3<float>, TGen::TexCoord2<float, 0> > VertexDecl;
+		typedef TGen::JoinVertexElements3<TGen::Vertex3<float>, TGen::Normal3<float>, TGen::TexCoord2<float, 0> > VertexDecl;
 		typedef TGen::Index<unsigned int> IndexDecl;
 		
 	} // !MD3	

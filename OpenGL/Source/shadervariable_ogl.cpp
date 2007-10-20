@@ -110,4 +110,7 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Vec
 	return *this;
 }
 
+GLint TGen::OpenGL::ShaderVariable::getInternalID() const {
+	return location;
+}
 

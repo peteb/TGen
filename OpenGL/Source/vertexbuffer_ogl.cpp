@@ -11,6 +11,7 @@
 #include <tgen_core.h>
 #include "prefix_ogl.h"
 #include "binder_ogl.h"
+#include "shadervariable_ogl.h"
 
 #include "vertexbuffer_ogl.h"
 #include "renderer.h"
@@ -81,4 +82,16 @@ TGen::VertexStructure & TGen::OpenGL::VertexBuffer::getVertexStructure() {
 
 GLuint TGen::OpenGL::VertexBuffer::getInternalID() const {
 	return vboId;
+}
+
+void TGen::OpenGL::VertexBuffer::bindShaderVariable(int id, const TGen::ShaderVariable & var) {
+	for (int i = 0; i < vertstruct.getElementCount(); ++i) {
+		TGen::VertexElement & element = vertstruct.getElementAt(i);
+
+		if (element.type == TGen::VertexElementAttribute && element.unit == id) {
+			std::cout << "FOUND!! at " << i << std::endl;
+			element.bound = true;
+			element.boundValue = dynamic_cast<const TGen::OpenGL::ShaderVariable &>(var).getInternalID();
+		}
+	}
 }

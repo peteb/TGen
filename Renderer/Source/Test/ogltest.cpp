@@ -91,7 +91,7 @@ public:
 	
 private:
 	typedef TGen::Index<unsigned short> MyIndex;
-	typedef TGen::JoinVertex2<TGen::Vertex3<float>, TGen::TexCoord2<float, 0> > MyVertex;
+	typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::TexCoord2<float, 0> > MyVertex;
 
 	scalar width, height, depth;
 	TGen::VertexBuffer * vb;

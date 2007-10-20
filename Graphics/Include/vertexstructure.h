@@ -11,6 +11,7 @@
 #define _TGEN_VERTEXSTRUCTURE_H
 
 #include "types.h"
+#include "vector4.h"
 #include "vector3.h"
 #include "vector2.h"
 #include "color.h"
@@ -52,7 +53,8 @@ namespace TGen {
 		VertexElement getElementAtComponent(int component) const;
 		void getElement(int num, TGen::VertexElement & ret);
 		void getElement(int num, TGen::VertexElement & ret) const;
-	
+		TGen::VertexElement & getElementAt(int num);
+		
 		int getStride() const;
 		int getSize() const;
 		int getComponentCount() const;
@@ -224,14 +226,59 @@ namespace TGen {
 			Type(T value) : value(value) {}
 			
 			T value;			
-		};
+		};			
+	};
+	
+	template<int name, typename T>
+	class VertexAttribute2 : public virtual TGen::VertexStructure {
+	public:
+		VertexAttribute2() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 2, false, name); }
 			
+		class Type {
+		public:
+			Type() {}
+			Type(T x, T y) : x(x), y(y) {}
+			Type(const TGen::Vector2 & vector) : x(vector.x), y(vector.y) {}
+			
+			operator TGen::Vector2() const {
+				return TGen::Vector2(x, y);
+			}
+			
+			T x, y;			
+		};			
+	};
+	
+	template<int name, typename T>
+	class VertexAttribute4 : public virtual TGen::VertexStructure {
+	public:
+		VertexAttribute4() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 4, false, name); }
+			
+		class Type {
+		public:
+			Type() {}
+			Type(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
+			Type(const TGen::Vector4 & vector) : x(vector.x), y(vector.y), y(vector.y), z(vector.z) {}
+			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b), a(color.a) {}
+			
+			operator TGen::Vector4() const {
+				return TGen::Vector4(x, y, z, w);
+			}
+			
+			operator TGen::Color() const {
+				return TGen::Color(r, g, b, a);
+			}
+			
+			union {T x, r; };
+			union {T y, g; };
+			union {T z, b; };
+			union {T w, a; };
+		};			
 	};
 	
 	template<class A, class B>
-	class JoinVertex2 : public A, public B {
+	class JoinVertexElements2 : public A, public B {
 	public:
-		JoinVertex2() : A(), B() {}
+		JoinVertexElements2() : A(), B() {}
 			
 		class Type : public A::Type, public B::Type {
 		public:
@@ -241,9 +288,9 @@ namespace TGen {
 	};
 	
 	template<class A, class B, class C>
-	class JoinVertex3 : public A, public B, public C {
+	class JoinVertexElements3 : public A, public B, public C {
 	public:
-		JoinVertex3() : A(), B(), C() {}
+		JoinVertexElements3() : A(), B(), C() {}
 			
 		class Type : public A::Type, public B::Type, public C::Type {
 		public:
@@ -253,9 +300,9 @@ namespace TGen {
 	};
 	
 	template<class A, class B, class C, class D>
-	class JoinVertex4 : public A, public B, public C, public D {
+	class JoinVertexElements4 : public A, public B, public C, public D {
 	public:
-		JoinVertex4() : A(), B(), C(), D() {}
+		JoinVertexElements4() : A(), B(), C(), D() {}
 			
 		class Type : public A::Type, public B::Type, public C::Type, public D::Type {
 		public:
@@ -265,9 +312,9 @@ namespace TGen {
 	};
 
 	template<class A, class B, class C, class D, class E>
-	class JoinVertex5 : public A, public B, public C, public D, public E {
+	class JoinVertexElements5 : public A, public B, public C, public D, public E {
 	public:
-		JoinVertex5() : A(), B(), C(), D(), E() {}
+		JoinVertexElements5() : A(), B(), C(), D(), E() {}
 			
 		class Type : public A::Type, public B::Type, public C::Type, public D::Type, public E::Type {
 		public:
@@ -277,11 +324,11 @@ namespace TGen {
 	};	
 	
 	
-	typedef JoinVertex2<Vertex3<float>, Color4<float> > Vertex3Color4;
-	typedef JoinVertex3<Vertex3<float>, Color4<float>, TexCoord2<float, 0> > Vertex3Color4TexCoord02;
-	typedef JoinVertex4<Vertex3<float>, Color4<float>, TexCoord2<float, 0>, Normal3<float> > Vertex3Color4TexCoord02Normal3;
-	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > Vertex3TexCoord02;
-	typedef JoinVertex3<Vertex3<float>, TexCoord2<float, 0>, Normal3<float> > Vertex3TexCoord02Normal3;
+	typedef JoinVertexElements2<Vertex3<float>, Color4<float> > Vertex3Color4;
+	typedef JoinVertexElements3<Vertex3<float>, Color4<float>, TexCoord2<float, 0> > Vertex3Color4TexCoord02;
+	typedef JoinVertexElements4<Vertex3<float>, Color4<float>, TexCoord2<float, 0>, Normal3<float> > Vertex3Color4TexCoord02Normal3;
+	typedef JoinVertexElements2<Vertex3<float>, TexCoord2<float, 0> > Vertex3TexCoord02;
+	typedef JoinVertexElements3<Vertex3<float>, TexCoord2<float, 0>, Normal3<float> > Vertex3TexCoord02Normal3;
 	typedef Index<unsigned int> Index32;
 	typedef Index<unsigned short> Index16;
 	typedef Index<unsigned char> Index8;

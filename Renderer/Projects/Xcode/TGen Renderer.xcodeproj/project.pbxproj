@@ -75,14 +75,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D00FF8E50C3940E900668773 /* tgen_opengl */;
+			remoteGlobalIDString = D00FF8E50C3940E900668773;
 			remoteInfo = tgen_opengl;
 		};
 		D0450BFA0CCA4CBE00832ABC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D00FF6CB0C39391D00668773 /* tgen_graphics */;
+			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
 		D04C815D0CCA468400794CEA /* PBXContainerItemProxy */ = {

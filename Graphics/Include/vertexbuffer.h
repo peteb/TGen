@@ -15,6 +15,7 @@
 namespace TGen {
 	class Renderer;
 	class VertexStructure;
+	class ShaderVariable;
 	
 	class VertexBuffer {
 	protected:
@@ -27,6 +28,7 @@ namespace TGen {
 		virtual void unlock() abstract;
 		virtual void bufferData(const void * data, uint size, void * offset) abstract;
 		virtual bool isLocked() abstract;
+		virtual void bindShaderVariable(int id, const TGen::ShaderVariable & var) abstract;
 		virtual TGen::VertexStructure & getVertexStructure() abstract;
 		
 		uint getSize() const;

@@ -64,6 +64,10 @@ TGen::FormatType TGen::VertexStructure::getElementDataType(int num) const {
 	return elements[num].dataType;
 }
 
+TGen::VertexElement & TGen::VertexStructure::getElementAt(int num) {
+	return elements[num];
+}
+
 TGen::VertexElement TGen::VertexStructure::getElementAtComponent(int component) const {
 	int compPos = 0;
 	for (int i = 0; i < int(elements.size()); ++i) {
