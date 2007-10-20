@@ -45,33 +45,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D04C80CF0CCA44F600794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen Core */;
+			remoteInfo = "TGen Core";
+		};
+		D04C80D10CCA44F600794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */;
+			remoteInfo = tgen_core;
+		};
 		D0EE96FE0C35E52500CB2978 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978;
 			remoteInfo = tgen_math;
-		};
-		D0EE978B0C35E6EA00CB2978 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Core";
-		};
-		D0EE978D0C35E6EA00CB2978 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core */;
-			proxyType = 2;
-			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
-			remoteInfo = tgen_core;
-		};
-		D0EE978F0C35E6FD00CB2978 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core */;
-			proxyType = 1;
-			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
-			remoteInfo = tgen_core;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -122,7 +115,7 @@
 		D0EE96AF0C35E44500CB2978 /* rectangle.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = rectangle.cpp; path = Source/rectangle.cpp; sourceTree = "<group>"; };
 		D0EE96B10C35E44D00CB2978 /* rectangle.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = rectangle.h; path = Include/rectangle.h; sourceTree = "<group>"; };
 		D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_math.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D0EE97860C35E6EA00CB2978 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core.xcodeproj"; path = "../../../Core/Projects/Xcode/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0EE98010C35E94900CB2978 /* tgen_math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_math.cpp; path = Source/tgen_math.cpp; sourceTree = "<group>"; };
 		D0F843CE0CBBC30500FF4467 /* coordset2.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = coordset2.cpp; path = Source/coordset2.cpp; sourceTree = "<group>"; };
 		D0F843D00CBBC30E00FF4467 /* coordset2.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = coordset2.h; path = Include/coordset2.h; sourceTree = "<group>"; };
@@ -175,7 +168,7 @@
 				D0EE96CD0C35E4BB00CB2978 /* Geometry */,
 			);
 			name = Math;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
@@ -222,9 +215,18 @@
 		D00FF7230C3939D100668773 /* TGen Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				D0EE97860C35E6EA00CB2978 /* TGen Core */,
+				D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */,
 			);
 			name = "TGen Dependencies";
+			sourceTree = "<group>";
+		};
+		D04C80CB0CCA44F600794CEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04C80D00CCA44F600794CEA /* TGen Core */,
+				D04C80D20CCA44F600794CEA /* libtgen_core.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D0EE96670C35E2A000CB2978 /* Test */ = {
@@ -255,15 +257,6 @@
 				D0F843D00CBBC30E00FF4467 /* coordset2.h */,
 			);
 			name = Geometry;
-			sourceTree = "<group>";
-		};
-		D0EE97870C35E6EA00CB2978 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0EE978C0C35E6EA00CB2978 /* TGen Core */,
-				D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,7 +318,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D0EE97900C35E6FD00CB2978 /* PBXTargetDependency */,
 			);
 			name = tgen_math;
 			productName = tgen_math;
@@ -343,8 +335,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D0EE97870C35E6EA00CB2978 /* Products */;
-					ProjectRef = D0EE97860C35E6EA00CB2978 /* TGen Core */;
+					ProductGroup = D04C80CB0CCA44F600794CEA /* Products */;
+					ProjectRef = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
 				},
 			);
 			targets = (
@@ -355,18 +347,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D0EE978C0C35E6EA00CB2978 /* TGen Core */ = {
+		D04C80D00CCA44F600794CEA /* TGen Core */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = "TGen Core";
-			remoteRef = D0EE978B0C35E6EA00CB2978 /* PBXContainerItemProxy */;
+			remoteRef = D04C80CF0CCA44F600794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D0EE978E0C35E6EA00CB2978 /* libtgen_core.a */ = {
+		D04C80D20CCA44F600794CEA /* libtgen_core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libtgen_core.a;
-			remoteRef = D0EE978D0C35E6EA00CB2978 /* PBXContainerItemProxy */;
+			remoteRef = D04C80D10CCA44F600794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -410,11 +402,6 @@
 			isa = PBXTargetDependency;
 			target = D0EE96EE0C35E4FC00CB2978 /* tgen_math */;
 			targetProxy = D0EE96FE0C35E52500CB2978 /* PBXContainerItemProxy */;
-		};
-		D0EE97900C35E6FD00CB2978 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_core;
-			targetProxy = D0EE978F0C35E6FD00CB2978 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
