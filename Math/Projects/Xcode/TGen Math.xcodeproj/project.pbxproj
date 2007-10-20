@@ -49,14 +49,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E /* TGen Core */;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
 			remoteInfo = "TGen Core";
 		};
 		D04C80D10CCA44F600794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
 			remoteInfo = tgen_core;
 		};
 		D0EE96FE0C35E52500CB2978 /* PBXContainerItemProxy */ = {
@@ -421,7 +421,7 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
 				PRODUCT_NAME = "TGen Math";
-				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				USER_HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -442,7 +442,7 @@
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
 				PRODUCT_NAME = "TGen Math";
-				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				USER_HEADER_SEARCH_PATHS = ../../../Core/Include/;
 			};
 			name = Release;
 		};
@@ -479,7 +479,7 @@
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_math;
-				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				USER_HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				ZERO_LINK = YES;
 			};
 			name = Debug;
@@ -493,7 +493,7 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = ../../Combined/;
+				DSTROOT = ../../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
@@ -502,7 +502,7 @@
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_math;
 				PUBLIC_HEADERS_FOLDER_PATH = /include/;
-				USER_HEADER_SEARCH_PATHS = ../../Core/Include/;
+				USER_HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				ZERO_LINK = NO;
 			};
 			name = Release;

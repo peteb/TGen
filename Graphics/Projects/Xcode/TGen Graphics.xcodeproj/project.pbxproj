@@ -46,7 +46,8 @@
 		D01F77BD0C4D0B27007618C6 /* q3materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01F77BC0C4D0B27007618C6 /* q3materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04270470C40FFBC004CB60C /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D04270460C40FFBC004CB60C /* generator.cpp */; };
 		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D04C7FC10CCA420100794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
+		D04C82920CCA48F900794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C80F00CCA455F00794CEA /* libtgen_math.a */; };
+		D04C82A30CCA491D00794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C80FD0CCA456F00794CEA /* libtgen_core.a */; };
 		D07A2B7C0C666F96009CABCA /* techniquelist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B7B0C666F96009CABCA /* techniquelist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07A2B7E0C666FF4009CABCA /* techniquelist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */; };
 		D07A2CEB0C667EBA009CABCA /* textureunit.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2CEA0C667EBA009CABCA /* textureunit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,7 +65,6 @@
 		D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */; };
 		D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CEF2640C3BDABE007D4B18 /* materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */; };
-		D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
 		D0F845BA0CBBD8C900FF4467 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845B90CBBD8C900FF4467 /* font.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845BB0CBBD8D000FF4467 /* fonttext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F845D50CBBDA3000FF4467 /* fonttext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F845D40CBBDA3000FF4467 /* fonttext.cpp */; };
@@ -72,54 +72,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D00FF70E0C3939A100668773 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF7090C3939A100668773 /* TGen Math */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Math";
-		};
-		D00FF7100C3939A100668773 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF7090C3939A100668773 /* TGen Math */;
-			proxyType = 2;
-			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
-			remoteInfo = tgen_math;
-		};
-		D00FF71D0C3939B500668773 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF7180C3939B500668773 /* TGen Core */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Core";
-		};
-		D00FF71F0C3939B500668773 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF7180C3939B500668773 /* TGen Core */;
-			proxyType = 2;
-			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
-			remoteInfo = tgen_core;
-		};
-		D00FF7240C3939E200668773 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF7180C3939B500668773 /* TGen Core */;
-			proxyType = 1;
-			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
-			remoteInfo = tgen_core;
-		};
-		D00FF7260C3939E200668773 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF7090C3939A100668773 /* TGen Math */;
-			proxyType = 1;
-			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978;
-			remoteInfo = tgen_math;
-		};
 		D00FF77A0C393AD400668773 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
+		};
+		D04C80ED0CCA455F00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF7090C3939A100668773 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Math";
+		};
+		D04C80EF0CCA455F00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF7090C3939A100668773 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
+			remoteInfo = tgen_math;
+		};
+		D04C80FA0CCA456F00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF7180C3939B500668773 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Core";
+		};
+		D04C80FC0CCA456F00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF7180C3939B500668773 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
+			remoteInfo = tgen_core;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -173,8 +159,8 @@
 		D00FF6A20C39380C00668773 /* color.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = color.cpp; path = Source/color.cpp; sourceTree = "<group>"; };
 		D00FF6A40C39381400668773 /* color.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = color.h; path = Include/color.h; sourceTree = "<group>"; };
 		D00FF6CC0C39391D00668773 /* libtgen_graphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_graphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D00FF7090C3939A100668773 /* TGen Math */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		D00FF7180C3939B500668773 /* TGen Core */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D00FF7090C3939A100668773 /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../../Math/Projects/Xcode/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D00FF7180C3939B500668773 /* TGen Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core.xcodeproj"; path = "../../../Core/Projects/Xcode/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D01F77BA0C4D0B1C007618C6 /* q3materialparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3materialparser.cpp; path = Source/q3materialparser.cpp; sourceTree = "<group>"; };
 		D01F77BC0C4D0B27007618C6 /* q3materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3materialparser.h; path = Include/q3materialparser.h; sourceTree = "<group>"; };
 		D04270460C40FFBC004CB60C /* generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = generator.cpp; path = Source/generator.cpp; sourceTree = "<group>"; };
@@ -208,8 +194,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */,
-				D04C7FC10CCA420100794CEA /* libtgen_math.a in Frameworks */,
-				D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */,
+				D04C82920CCA48F900794CEA /* libtgen_math.a in Frameworks */,
+				D04C82A30CCA491D00794CEA /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,7 +236,7 @@
 				D08DCB560C3BBF2D00C0AB3F /* Renderer Aux */,
 			);
 			name = Graphics;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
@@ -279,31 +265,31 @@
 			path = Source/Test;
 			sourceTree = "<group>";
 		};
-		D00FF70A0C3939A100668773 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D00FF70F0C3939A100668773 /* TGen Math */,
-				D00FF7110C3939A100668773 /* libtgen_math.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D00FF7190C3939B500668773 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D00FF71E0C3939B500668773 /* TGen Core */,
-				D00FF7200C3939B500668773 /* libtgen_core.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D00FF7210C3939BB00668773 /* TGen Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				D00FF7090C3939A100668773 /* TGen Math */,
-				D00FF7180C3939B500668773 /* TGen Core */,
+				D00FF7090C3939A100668773 /* TGen Math.xcodeproj */,
+				D00FF7180C3939B500668773 /* TGen Core.xcodeproj */,
 			);
 			name = "TGen Dependencies";
+			sourceTree = "<group>";
+		};
+		D04C80E90CCA455F00794CEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04C80EE0CCA455F00794CEA /* TGen Math */,
+				D04C80F00CCA455F00794CEA /* libtgen_math.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D04C80F60CCA456F00794CEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04C80FB0CCA456F00794CEA /* TGen Core */,
+				D04C80FD0CCA456F00794CEA /* libtgen_core.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		D08DCB560C3BBF2D00C0AB3F /* Renderer Aux */ = {
@@ -449,8 +435,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D00FF7250C3939E200668773 /* PBXTargetDependency */,
-				D00FF7270C3939E200668773 /* PBXTargetDependency */,
 			);
 			name = tgen_graphics;
 			productName = tgen_graphics;
@@ -468,12 +452,12 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D00FF7190C3939B500668773 /* Products */;
-					ProjectRef = D00FF7180C3939B500668773 /* TGen Core */;
+					ProductGroup = D04C80F60CCA456F00794CEA /* Products */;
+					ProjectRef = D00FF7180C3939B500668773 /* TGen Core.xcodeproj */;
 				},
 				{
-					ProductGroup = D00FF70A0C3939A100668773 /* Products */;
-					ProjectRef = D00FF7090C3939A100668773 /* TGen Math */;
+					ProductGroup = D04C80E90CCA455F00794CEA /* Products */;
+					ProjectRef = D00FF7090C3939A100668773 /* TGen Math.xcodeproj */;
 				},
 			);
 			targets = (
@@ -484,32 +468,32 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D00FF70F0C3939A100668773 /* TGen Math */ = {
+		D04C80EE0CCA455F00794CEA /* TGen Math */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = "TGen Math";
-			remoteRef = D00FF70E0C3939A100668773 /* PBXContainerItemProxy */;
+			remoteRef = D04C80ED0CCA455F00794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D00FF7110C3939A100668773 /* libtgen_math.a */ = {
+		D04C80F00CCA455F00794CEA /* libtgen_math.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libtgen_math.a;
-			remoteRef = D00FF7100C3939A100668773 /* PBXContainerItemProxy */;
+			remoteRef = D04C80EF0CCA455F00794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D00FF71E0C3939B500668773 /* TGen Core */ = {
+		D04C80FB0CCA456F00794CEA /* TGen Core */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = "TGen Core";
-			remoteRef = D00FF71D0C3939B500668773 /* PBXContainerItemProxy */;
+			remoteRef = D04C80FA0CCA456F00794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D00FF7200C3939B500668773 /* libtgen_core.a */ = {
+		D04C80FD0CCA456F00794CEA /* libtgen_core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libtgen_core.a;
-			remoteRef = D00FF71F0C3939B500668773 /* PBXContainerItemProxy */;
+			remoteRef = D04C80FC0CCA456F00794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -561,16 +545,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D00FF7250C3939E200668773 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_core;
-			targetProxy = D00FF7240C3939E200668773 /* PBXContainerItemProxy */;
-		};
-		D00FF7270C3939E200668773 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_math;
-			targetProxy = D00FF7260C3939E200668773 /* PBXContainerItemProxy */;
-		};
 		D00FF77B0C393AD400668773 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D00FF6CB0C39391D00668773 /* tgen_graphics */;
@@ -589,9 +563,9 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
-					../../Core/Include/,
-					../../Math/Include/,
-					../../Graphics/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = "TGen Graphics";
@@ -609,9 +583,9 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
-					../../Core/Include/,
-					../../Math/Include/,
-					../../Graphics/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
 				PRODUCT_NAME = "TGen Graphics";
@@ -650,8 +624,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				HEADER_SEARCH_PATHS = (
-					../../Core/Include/,
-					../../Math/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "";
@@ -670,13 +644,13 @@
 				);
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = ../../Combined/;
+				DSTROOT = ../../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
-					../../Core/Include/,
-					../../Math/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
 				);
 				INSTALL_PATH = /lib/;
 				PREBINDING = NO;

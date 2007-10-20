@@ -22,10 +22,13 @@
 		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
 		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
-		D04C7F8D0CCA413200794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */; };
+		D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D04C814F0CCA466000794CEA /* railgun.md3 */; };
+		D04C83470CCA4A6B00794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C818A0CCA46A700794CEA /* libtgen_graphics.a */; };
+		D04C83480CCA4A7500794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C817B0CCA469B00794CEA /* libtgen_core.a */; };
+		D04C83490CCA4A7F00794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C816E0CCA468E00794CEA /* libtgen_math.a */; };
+		D04C834A0CCA4A8A00794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81600CCA468400794CEA /* libtgen_opengl.a */; };
 		D0EF57EE0C81C0620085C17B /* md3submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF57ED0C81C0620085C17B /* md3submesh.cpp */; };
 		D0EF57F00C81C06E0085C17B /* md3submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EF57EF0C81C06E0085C17B /* md3submesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EF5EED0C81EA800085C17B /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF5EEC0C81EA800085C17B /* railgun.md3 */; };
 		D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD1DB0C7DC55A001E861E /* mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD1DF0C7DC56A001E861E /* mesh.cpp */; };
 		D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -61,7 +64,6 @@
 		D0F516B60C711CBD005DB68D /* renderfill.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F516B50C711CBD005DB68D /* renderfill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F518610C71B781005DB68D /* basicrenderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F518600C71B781005DB68D /* basicrenderlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F518630C71B789005DB68D /* basicrenderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F518620C71B789005DB68D /* basicrenderlist.cpp */; };
-		D0F51B850C71C781005DB68D /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F51B840C71C77B005DB68D /* libtgen_opengl.a */; };
 		D0F51B8E0C71C799005DB68D /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F51B8D0C71C799005DB68D /* OpenGL.framework */; };
 		D0F51BAB0C71C7C0005DB68D /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F51BAA0C71C7C0005DB68D /* GLUT.framework */; };
 		D0F9E9060C8DD8F10055D5CB /* rocketl.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */; };
@@ -69,11 +71,60 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D00900770C75E76B00A5CBE7 /* PBXContainerItemProxy */ = {
+		D04C815D0CCA468400794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen OpenGL";
+		};
+		D04C815F0CCA468400794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D00FF8E60C3940E900668773;
+			remoteInfo = tgen_opengl;
+		};
+		D04C816B0CCA468E00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Math";
+		};
+		D04C816D0CCA468E00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
+			remoteInfo = tgen_math;
+		};
+		D04C81780CCA469B00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Core";
+		};
+		D04C817A0CCA469B00794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
+			remoteInfo = tgen_core;
+		};
+		D04C81870CCA46A700794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D00FF6CB0C39391D00668773;
+			proxyType = 2;
+			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
+			remoteInfo = "TGen Graphics";
+		};
+		D04C81890CCA46A700794CEA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D00FF6CC0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
 		D0F3714F0C6D033200C11F87 /* PBXContainerItemProxy */ = {
@@ -82,83 +133,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D0F371390C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
-		};
-		D0F371B00C6D057000C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Math";
-		};
-		D0F371B20C6D057000C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
-			remoteInfo = tgen_math;
-		};
-		D0F371B90C6D057400C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Core";
-		};
-		D0F371BB0C6D057400C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D0EE95AA0C35DFFC00CB2978;
-			remoteInfo = tgen_core;
-		};
-		D0F371C20C6D057D00C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Graphics";
-		};
-		D0F371C40C6D057D00C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D00FF6CC0C39391D00668773;
-			remoteInfo = tgen_graphics;
-		};
-		D0F371C60C6D058800C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D0EE96EE0C35E4FC00CB2978;
-			remoteInfo = tgen_math;
-		};
-		D0F371C80C6D058800C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
-			remoteInfo = tgen_core;
-		};
-		D0F371CA0C6D058800C11F87 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = D00FF6CB0C39391D00668773;
-			remoteInfo = tgen_graphics;
-		};
-		D0F51B810C71C77B005DB68D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen OpenGL";
-		};
-		D0F51B830C71C77B005DB68D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = D00FF8E60C3940E900668773;
-			remoteInfo = tgen_opengl;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -181,9 +155,9 @@
 			dstSubfolderSpec = 16;
 			files = (
 				D0F16C830C7A1CF8004B4E19 /* rocketl.md3 in CopyFiles */,
-				D0EF5EED0C81EA800085C17B /* railgun.md3 in CopyFiles */,
 				D0F9E9060C8DD8F10055D5CB /* rocketl.jpg in CopyFiles */,
 				D0F9E9080C8DD8FC0055D5CB /* shotgun.md3 in CopyFiles */,
+				D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,9 +181,9 @@
 		D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ogltest.cpp; sourceTree = "<group>"; };
 		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
 		D0EF57ED0C81C0620085C17B /* md3submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3submesh.cpp; path = Source/md3submesh.cpp; sourceTree = "<group>"; };
 		D0EF57EF0C81C06E0085C17B /* md3submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3submesh.h; path = Include/md3submesh.h; sourceTree = "<group>"; };
-		D0EF5EEC0C81EA800085C17B /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = railgun.md3; path = ../../../../Lead/resources/railgun.md3; sourceTree = SOURCE_ROOT; };
 		D0EFD1DB0C7DC55A001E861E /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Include/mesh.h; sourceTree = "<group>"; };
 		D0EFD1DF0C7DC56A001E861E /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = Source/mesh.cpp; sourceTree = "<group>"; };
 		D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeomlinklist.h; path = Include/meshgeomlinklist.h; sourceTree = "<group>"; };
@@ -225,9 +199,9 @@
 		D0F3713A0C6D02CE00C11F87 /* libtgen_renderer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_renderer.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0F3713D0C6D02EB00C11F87 /* tgen_renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_renderer.cpp; path = Source/tgen_renderer.cpp; sourceTree = "<group>"; };
 		D0F371420C6D02F800C11F87 /* tgen_renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_renderer.h; path = Include/tgen_renderer.h; sourceTree = "<group>"; };
-		D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../Math/Projects/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core.xcodeproj"; path = "../../Core/Projects/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
-		D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Graphics.xcodeproj"; path = "../../Graphics/Projects/TGen Graphics.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Math.xcodeproj"; path = "../../../Math/Projects/Xcode/TGen Math.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Core.xcodeproj"; path = "../../../Core/Projects/Xcode/TGen Core.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen Graphics.xcodeproj"; path = "../../../Graphics/Projects/Xcode/TGen Graphics.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0F50B3D0C6FB302005DB68D /* geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geometry.h; path = Include/geometry.h; sourceTree = "<group>"; };
 		D0F50CCB0C707E64005DB68D /* camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camera.h; path = Include/camera.h; sourceTree = "<group>"; };
 		D0F50CCD0C707E6F005DB68D /* camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = camera.cpp; path = Source/camera.cpp; sourceTree = "<group>"; };
@@ -248,7 +222,7 @@
 		D0F516B50C711CBD005DB68D /* renderfill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderfill.h; path = Include/renderfill.h; sourceTree = "<group>"; };
 		D0F518600C71B781005DB68D /* basicrenderlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = basicrenderlist.h; path = Include/basicrenderlist.h; sourceTree = "<group>"; };
 		D0F518620C71B789005DB68D /* basicrenderlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = basicrenderlist.cpp; path = Source/basicrenderlist.cpp; sourceTree = "<group>"; };
-		D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../OpenGL/Projects/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
+		D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/Xcode/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
 		D0F51B8D0C71C799005DB68D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
 		D0F51BAA0C71C7C0005DB68D /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = /System/Library/Frameworks/GLUT.framework; sourceTree = "<absolute>"; };
 		D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = rocketl.jpg; sourceTree = "<group>"; };
@@ -260,9 +234,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F51B850C71C781005DB68D /* libtgen_opengl.a in Frameworks */,
 				D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */,
-				D04C7F8D0CCA413200794CEA /* libtgen_graphics.a in Frameworks */,
+				D04C834A0CCA4A8A00794CEA /* libtgen_opengl.a in Frameworks */,
+				D04C83470CCA4A6B00794CEA /* libtgen_graphics.a in Frameworks */,
+				D04C83490CCA4A7F00794CEA /* libtgen_math.a in Frameworks */,
+				D04C83480CCA4A7500794CEA /* libtgen_core.a in Frameworks */,
 				D0F51B8E0C71C799005DB68D /* OpenGL.framework in Frameworks */,
 				D0F51BAB0C71C7C0005DB68D /* GLUT.framework in Frameworks */,
 				D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */,
@@ -283,7 +259,7 @@
 		08FB7794FE84155DC02AAC07 /* TGen Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				D0F16C810C7A1CE7004B4E19 /* Resources */,
+				D0F16C810C7A1CE7004B4E19 /* Projects */,
 				D0F371550C6D034500C11F87 /* Dependencies */,
 				08FB7795FE84155DC02AAC07 /* Renderer */,
 				C6859E8C029090F304C91782 /* Documentation */,
@@ -322,7 +298,7 @@
 				D0F371A40C6D04AF00C11F87 /* Scene Graph */,
 			);
 			name = Renderer;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
@@ -342,15 +318,52 @@
 			name = Documentation;
 			sourceTree = "<group>";
 		};
-		D0F16C810C7A1CE7004B4E19 /* Resources */ = {
+		D04C81590CCA468400794CEA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF5EEC0C81EA800085C17B /* railgun.md3 */,
+				D04C815E0CCA468400794CEA /* TGen OpenGL */,
+				D04C81600CCA468400794CEA /* libtgen_opengl.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D04C81670CCA468E00794CEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04C816C0CCA468E00794CEA /* TGen Math */,
+				D04C816E0CCA468E00794CEA /* libtgen_math.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D04C81740CCA469B00794CEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04C81790CCA469B00794CEA /* TGen Core */,
+				D04C817B0CCA469B00794CEA /* libtgen_core.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D04C81830CCA46A700794CEA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D04C81880CCA46A700794CEA /* TGen Graphics */,
+				D04C818A0CCA46A700794CEA /* libtgen_graphics.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D0F16C810C7A1CE7004B4E19 /* Projects */ = {
+			isa = PBXGroup;
+			children = (
+				D04C814F0CCA466000794CEA /* railgun.md3 */,
 				D0F16C820C7A1CF8004B4E19 /* rocketl.md3 */,
 				D0F9E9070C8DD8FC0055D5CB /* shotgun.md3 */,
 				D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */,
 			);
-			name = Resources;
+			name = Projects;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		D0F371220C6D024400C11F87 /* Test */ = {
@@ -416,33 +429,6 @@
 			name = "Scene Graph";
 			sourceTree = "<group>";
 		};
-		D0F371AC0C6D057000C11F87 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0F371B10C6D057000C11F87 /* TGen Math */,
-				D0F371B30C6D057000C11F87 /* libtgen_math.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D0F371B50C6D057400C11F87 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0F371BA0C6D057400C11F87 /* TGen Core */,
-				D0F371BC0C6D057400C11F87 /* libtgen_core.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D0F371BE0C6D057D00C11F87 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0F371C30C6D057D00C11F87 /* TGen Graphics */,
-				D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		D0F511A40C70F3B1005DB68D /* Walkers */ = {
 			isa = PBXGroup;
 			children = (
@@ -465,15 +451,6 @@
 				D0F518600C71B781005DB68D /* basicrenderlist.h */,
 			);
 			name = "Render Lists";
-			sourceTree = "<group>";
-		};
-		D0F51B7D0C71C77B005DB68D /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D0F51B820C71C77B005DB68D /* TGen OpenGL */,
-				D0F51B840C71C77B005DB68D /* libtgen_opengl.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,7 +502,6 @@
 			);
 			dependencies = (
 				D0F371500C6D033200C11F87 /* PBXTargetDependency */,
-				D00900780C75E76B00A5CBE7 /* PBXTargetDependency */,
 			);
 			name = "TGen Renderer";
 			productInstallPath = "$(HOME)/bin";
@@ -544,9 +520,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				D0F371C70C6D058800C11F87 /* PBXTargetDependency */,
-				D0F371C90C6D058800C11F87 /* PBXTargetDependency */,
-				D0F371CB0C6D058800C11F87 /* PBXTargetDependency */,
 			);
 			name = tgen_renderer;
 			productName = tgen_renderer;
@@ -564,19 +537,19 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D0F371B50C6D057400C11F87 /* Products */;
+					ProductGroup = D04C81740CCA469B00794CEA /* Products */;
 					ProjectRef = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
 				},
 				{
-					ProductGroup = D0F371BE0C6D057D00C11F87 /* Products */;
+					ProductGroup = D04C81830CCA46A700794CEA /* Products */;
 					ProjectRef = D0F371BD0C6D057D00C11F87 /* TGen Graphics.xcodeproj */;
 				},
 				{
-					ProductGroup = D0F371AC0C6D057000C11F87 /* Products */;
+					ProductGroup = D04C81670CCA468E00794CEA /* Products */;
 					ProjectRef = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
 				},
 				{
-					ProductGroup = D0F51B7D0C71C77B005DB68D /* Products */;
+					ProductGroup = D04C81590CCA468400794CEA /* Products */;
 					ProjectRef = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
 				},
 			);
@@ -588,60 +561,60 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D0F371B10C6D057000C11F87 /* TGen Math */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "TGen Math";
-			remoteRef = D0F371B00C6D057000C11F87 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F371B30C6D057000C11F87 /* libtgen_math.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libtgen_math.a;
-			remoteRef = D0F371B20C6D057000C11F87 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F371BA0C6D057400C11F87 /* TGen Core */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "TGen Core";
-			remoteRef = D0F371B90C6D057400C11F87 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F371BC0C6D057400C11F87 /* libtgen_core.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libtgen_core.a;
-			remoteRef = D0F371BB0C6D057400C11F87 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F371C30C6D057D00C11F87 /* TGen Graphics */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "TGen Graphics";
-			remoteRef = D0F371C20C6D057D00C11F87 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libtgen_graphics.a;
-			remoteRef = D0F371C40C6D057D00C11F87 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		D0F51B820C71C77B005DB68D /* TGen OpenGL */ = {
+		D04C815E0CCA468400794CEA /* TGen OpenGL */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = "TGen OpenGL";
-			remoteRef = D0F51B810C71C77B005DB68D /* PBXContainerItemProxy */;
+			remoteRef = D04C815D0CCA468400794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D0F51B840C71C77B005DB68D /* libtgen_opengl.a */ = {
+		D04C81600CCA468400794CEA /* libtgen_opengl.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libtgen_opengl.a;
-			remoteRef = D0F51B830C71C77B005DB68D /* PBXContainerItemProxy */;
+			remoteRef = D04C815F0CCA468400794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D04C816C0CCA468E00794CEA /* TGen Math */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Math";
+			remoteRef = D04C816B0CCA468E00794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D04C816E0CCA468E00794CEA /* libtgen_math.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_math.a;
+			remoteRef = D04C816D0CCA468E00794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D04C81790CCA469B00794CEA /* TGen Core */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Core";
+			remoteRef = D04C81780CCA469B00794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D04C817B0CCA469B00794CEA /* libtgen_core.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_core.a;
+			remoteRef = D04C817A0CCA469B00794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D04C81880CCA46A700794CEA /* TGen Graphics */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Graphics";
+			remoteRef = D04C81870CCA46A700794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D04C818A0CCA46A700794CEA /* libtgen_graphics.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libtgen_graphics.a;
+			remoteRef = D04C81890CCA46A700794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -687,30 +660,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D00900780C75E76B00A5CBE7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_graphics;
-			targetProxy = D00900770C75E76B00A5CBE7 /* PBXContainerItemProxy */;
-		};
 		D0F371500C6D033200C11F87 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D0F371390C6D02CE00C11F87 /* tgen_renderer */;
 			targetProxy = D0F3714F0C6D033200C11F87 /* PBXContainerItemProxy */;
-		};
-		D0F371C70C6D058800C11F87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_math;
-			targetProxy = D0F371C60C6D058800C11F87 /* PBXContainerItemProxy */;
-		};
-		D0F371C90C6D058800C11F87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_core;
-			targetProxy = D0F371C80C6D058800C11F87 /* PBXContainerItemProxy */;
-		};
-		D0F371CB0C6D058800C11F87 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = tgen_graphics;
-			targetProxy = D0F371CA0C6D058800C11F87 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -724,10 +677,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
-					../../OpenGL/Include/,
-					../../Core/Include/,
-					../../Math/Include/,
-					../../Graphics/Include/,
+					../../../OpenGL/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
 					/usr/local/include/,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
@@ -748,10 +701,10 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
-					../../OpenGL/Include/,
-					../../Core/Include/,
-					../../Math/Include/,
-					../../Graphics/Include/,
+					../../../OpenGL/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
 					/usr/local/include/,
 				);
 				INSTALL_PATH = "$(HOME)/bin";
@@ -794,10 +747,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				HEADER_SEARCH_PATHS = (
-					../../OpenGL/Include/,
-					../../Core/Include/,
-					../../Math/Include/,
-					../../Graphics/Include/,
+					../../../OpenGL/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
 				);
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_CFLAGS = "-D_DEBUG";
@@ -813,15 +766,15 @@
 			buildSettings = {
 				COPY_PHASE_STRIP = YES;
 				DEPLOYMENT_LOCATION = YES;
-				DSTROOT = ../../Combined/;
+				DSTROOT = ../../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (
-					../../OpenGL/Include/,
-					../../Core/Include/,
-					../../Math/Include/,
-					../../Graphics/Include/,
+					../../../OpenGL/Include/,
+					../../../Core/Include/,
+					../../../Math/Include/,
+					../../../Graphics/Include/,
 				);
 				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
