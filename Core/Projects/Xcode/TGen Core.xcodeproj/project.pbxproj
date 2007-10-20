@@ -146,7 +146,7 @@
 				D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */,
 			);
 			name = Core;
-			path = ..;
+			path = ../..;
 			sourceTree = "<group>";
 		};
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
