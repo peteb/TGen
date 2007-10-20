@@ -45,6 +45,7 @@ namespace TGen {
 		TypeUnsignedByte,
 		TypeBool,
 		TypeNone,
+		TypeEnd = 0xFF,
 	};
 	
 	int FormatTypeSize(FormatType type);

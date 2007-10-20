@@ -14,6 +14,7 @@
 
 namespace TGen {
 	class Color;
+	class Vector4;
 	class Vector3;
 	class Vector2;
 	class Matrix4x4;
@@ -28,6 +29,7 @@ namespace TGen {
 
 		virtual ShaderVariable & operator = (float value) abstract;
 		virtual ShaderVariable & operator = (const TGen::Color & color) abstract;
+		virtual ShaderVariable & operator = (const TGen::Vector4 & vector) abstract;		
 		virtual ShaderVariable & operator = (const TGen::Vector3 & vector) abstract;
 		virtual ShaderVariable & operator = (const TGen::Vector2 & vector) abstract;
 		virtual ShaderVariable & operator = (const TGen::Matrix4x4 & matrix) abstract;

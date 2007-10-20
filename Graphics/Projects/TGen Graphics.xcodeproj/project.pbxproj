@@ -46,6 +46,7 @@
 		D01F77BD0C4D0B27007618C6 /* q3materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01F77BC0C4D0B27007618C6 /* q3materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04270470C40FFBC004CB60C /* generator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D04270460C40FFBC004CB60C /* generator.cpp */; };
 		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D04C7FC10CCA420100794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 		D07A2B7C0C666F96009CABCA /* techniquelist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B7B0C666F96009CABCA /* techniquelist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07A2B7E0C666FF4009CABCA /* techniquelist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */; };
 		D07A2CEB0C667EBA009CABCA /* textureunit.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2CEA0C667EBA009CABCA /* textureunit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -64,8 +65,6 @@
 		D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CEF2640C3BDABE007D4B18 /* materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */; };
 		D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
-		D0F5134A0C70FC9D005DB68D /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7200C3939B500668773 /* libtgen_core.a */; };
-		D0F513540C70FCB9005DB68D /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF7110C3939A100668773 /* libtgen_math.a */; };
 		D0F845BA0CBBD8C900FF4467 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845B90CBBD8C900FF4467 /* font.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845BB0CBBD8D000FF4467 /* fonttext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F845D50CBBDA3000FF4467 /* fonttext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F845D40CBBDA3000FF4467 /* fonttext.cpp */; };
@@ -208,8 +207,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */,
 				D00FF78C0C393AE900668773 /* libtgen_graphics.a in Frameworks */,
+				D04C7FC10CCA420100794CEA /* libtgen_math.a in Frameworks */,
+				D0F5131E0C70FC26005DB68D /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,8 +217,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F513540C70FCB9005DB68D /* libtgen_math.a in Frameworks */,
-				D0F5134A0C70FC9D005DB68D /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

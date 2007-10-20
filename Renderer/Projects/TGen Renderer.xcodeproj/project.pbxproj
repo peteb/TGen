@@ -22,6 +22,7 @@
 		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
 		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
+		D04C7F8D0CCA413200794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */; };
 		D0EF57EE0C81C0620085C17B /* md3submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF57ED0C81C0620085C17B /* md3submesh.cpp */; };
 		D0EF57F00C81C06E0085C17B /* md3submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EF57EF0C81C06E0085C17B /* md3submesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EF5EED0C81EA800085C17B /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF5EEC0C81EA800085C17B /* railgun.md3 */; };
@@ -56,7 +57,6 @@
 		D0F5146E0C7108C1005DB68D /* facelinker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F5146D0C7108C1005DB68D /* facelinker.cpp */; };
 		D0F515230C71150B005DB68D /* renderlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F515220C71150B005DB68D /* renderlist.cpp */; };
 		D0F515250C711518005DB68D /* renderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F515240C711518005DB68D /* renderlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0F516490C711A1A005DB68D /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F371C50C6D057D00C11F87 /* libtgen_graphics.a */; };
 		D0F516B40C711CB3005DB68D /* renderfill.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F516B30C711CB3005DB68D /* renderfill.cpp */; };
 		D0F516B60C711CBD005DB68D /* renderfill.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F516B50C711CBD005DB68D /* renderfill.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F518610C71B781005DB68D /* basicrenderlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F518600C71B781005DB68D /* basicrenderlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -262,6 +262,7 @@
 			files = (
 				D0F51B850C71C781005DB68D /* libtgen_opengl.a in Frameworks */,
 				D0F371870C6D044400C11F87 /* libtgen_renderer.a in Frameworks */,
+				D04C7F8D0CCA413200794CEA /* libtgen_graphics.a in Frameworks */,
 				D0F51B8E0C71C799005DB68D /* OpenGL.framework in Frameworks */,
 				D0F51BAB0C71C7C0005DB68D /* GLUT.framework in Frameworks */,
 				D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */,
@@ -273,7 +274,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0F516490C711A1A005DB68D /* libtgen_graphics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

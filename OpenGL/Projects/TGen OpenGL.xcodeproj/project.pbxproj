@@ -31,7 +31,6 @@
 		D00FF9150C39412500668773 /* types_converter_ogl.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF8C80C393FF400668773 /* types_converter_ogl.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D00FF9160C39412500668773 /* vertexbuffer_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FF8B50C393FEC00668773 /* vertexbuffer_ogl.cpp */; };
 		D00FF9170C39412500668773 /* vertexbuffer_ogl.h in Headers */ = {isa = PBXBuildFile; fileRef = D00FF8C90C393FF400668773 /* vertexbuffer_ogl.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D00FF9420C39417E00668773 /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9230C39413C00668773 /* libtgen_graphics.a */; };
 		D00FFA290C39431600668773 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9C50C39429C00668773 /* GLUT.framework */; };
 		D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9760C39423600668773 /* OpenGL.framework */; };
 		D01F790D0C4D113C007618C6 /* base.shader in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F790C0C4D113C007618C6 /* base.shader */; };
@@ -40,6 +39,7 @@
 		D01F7A840C4D2AD2007618C6 /* hologirl.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D01F7A830C4D2AD2007618C6 /* hologirl.tga */; };
 		D0426E850C406FE6004CB60C /* pent_glow.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426E830C406FE6004CB60C /* pent_glow.jpg */; };
 		D0426EB20C407304004CB60C /* metalbridge06_pent.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */; };
+		D04C7C870CC8E40700794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF9230C39413C00668773 /* libtgen_graphics.a */; };
 		D067DC670C57FB940078E141 /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
 		D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
 		D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02520C3D9F3D007D4B18 /* libIL.a */; };
@@ -220,6 +220,7 @@
 				D00FFA290C39431600668773 /* GLUT.framework in Frameworks */,
 				D00FFA2A0C39431600668773 /* OpenGL.framework in Frameworks */,
 				D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */,
+				D04C7C870CC8E40700794CEA /* libtgen_graphics.a in Frameworks */,
 				D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */,
 				D0CE02710C3D9FBA007D4B18 /* libjpeg.a in Frameworks */,
 				D0CE027A0C3D9FDC007D4B18 /* libpng12.a in Frameworks */,
@@ -230,7 +231,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D00FF9420C39417E00668773 /* libtgen_graphics.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

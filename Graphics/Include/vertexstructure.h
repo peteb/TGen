@@ -25,30 +25,34 @@ namespace TGen {
 		VertexElementColorIndex,
 		VertexElementEdgeFlag,
 		VertexElementTexCoord,
+		VertexElementAttribute,
+		VertexElementEnd = 0xFF,
 	};
 		
 	class VertexElement {
 	public:
-		VertexElement() {}
-		VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
+		VertexElement();
+		VertexElement(TGen::VertexElementType type, TGen::FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
 		
 		VertexElementType type;
 		FormatType dataType;
 		uchar count, unit;
-		bool shared;
+		bool shared, bound;
+		uint boundValue;
 	};
 	
 	class VertexStructure {
 	public:	
 		VertexStructure();
-		VertexStructure(TGen::VertexElement * elements);
-		~VertexStructure() {}
+		//VertexStructure(TGen::VertexElement * elements);
+		~VertexStructure();
 		
 		int getElementCount() const;
 		FormatType getElementDataType(int num) const;
 		VertexElement getElementAtComponent(int component) const;
 		void getElement(int num, TGen::VertexElement & ret);
 		void getElement(int num, TGen::VertexElement & ret) const;
+	
 		int getStride() const;
 		int getSize() const;
 		int getComponentCount() const;
@@ -209,6 +213,20 @@ namespace TGen {
 		};
 	};
 
+	template<int name, typename T>
+	class VertexAttribute1 : public virtual TGen::VertexStructure {
+	public:
+		VertexAttribute1() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 1, false, name); }
+		
+		class Type {
+		public:
+			Type() {}
+			Type(T value) : value(value) {}
+			
+			T value;			
+		};
+			
+	};
 	
 	template<class A, class B>
 	class JoinVertex2 : public A, public B {

@@ -9,6 +9,7 @@
 
 #include "shadervariable_ogl.h"
 #include "color.h"
+#include "vector4.h"
 #include "vector3.h"
 #include "vector2.h"
 #include "matrix4x4.h"
@@ -35,6 +36,8 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::setInt(int value) {
 	
 	if (type == TGen::OpenGL::Uniform)
 		glUniform1i(location, value);
+	else
+		glVertexAttrib1f(location, float(value));
 	
 	return *this;	
 }
@@ -44,6 +47,8 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (float value) {
 	
 	if (type == TGen::OpenGL::Uniform)
 		glUniform1f(location, value);
+	else
+		glVertexAttrib1f(location, value);
 	
 	return *this;
 }
@@ -93,4 +98,16 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Mat
 	
 	return *this;		
 }
+
+TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Vector4 & vector) {
+	glUseProgram(program);
+	
+	if (type == TGen::OpenGL::Uniform)
+		glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
+	else
+		glVertexAttrib4f(location, vector.x, vector.y, vector.z, vector.w);
+	
+	return *this;
+}
+
 

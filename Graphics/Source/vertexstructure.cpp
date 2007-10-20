@@ -11,16 +11,25 @@
 #include "error.h"
 #include <iostream>
 
-TGen::VertexStructure::VertexStructure() : align(4) {
+TGen::VertexStructure::VertexStructure() 
+	: align(4) 
+{
 	
 }
 
-TGen::VertexStructure::VertexStructure(TGen::VertexElement * elements) {
+/*TGen::VertexStructure::VertexStructure(TGen::VertexElement * elements) {
 	uchar elementCount = elements[0].count;
 	
 	for (int i = 0; i < elementCount; ++i) {
 		this->elements.push_back(elements[i + 1]);
 	}
+}*/
+
+TGen::VertexElement::VertexElement()
+	: bound(false)
+	, boundValue(0)
+{
+
 }
 
 TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) 
@@ -29,10 +38,15 @@ TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType data
 	, count(count)
 	, unit(unit)
 	, shared(shared) 
+	, bound(false)
+	, boundValue(0)
 {
 	
 }
 
+TGen::VertexStructure::~VertexStructure() {
+	
+}
 
 int TGen::VertexStructure::getElementCount() const {
 	return int(elements.size());
@@ -239,3 +253,7 @@ void TGen::VertexStructure::addElement(const std::string & format) {
 	elements.push_back(TGen::VertexElement(elType, type, count, shared, unit));
 }
 
+/*TGen::VertexStructure::~VertexStructure() {
+	
+}
+*/
