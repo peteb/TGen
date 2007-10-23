@@ -33,12 +33,12 @@ namespace TGen {
 	class VertexElement {
 	public:
 		VertexElement();
-		VertexElement(TGen::VertexElementType type, TGen::FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
+		VertexElement(TGen::VertexElementType type, TGen::FormatType dataType, uchar count, bool shared = false, uchar unit = 0, bool normalize = false);
 		
 		VertexElementType type;
 		FormatType dataType;
 		uchar count, unit;
-		bool shared, bound;
+		bool shared, bound, normalize;
 		uint boundValue;
 	};
 	
@@ -215,10 +215,10 @@ namespace TGen {
 		};
 	};
 
-	template<int name, typename T>
+	template<int name, typename T, bool normalize = false>
 	class VertexAttribute1 : public virtual TGen::VertexStructure {
 	public:
-		VertexAttribute1() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 1, false, name); }
+		VertexAttribute1() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 1, false, name, normalize); }
 		
 		class Type {
 		public:
@@ -229,10 +229,10 @@ namespace TGen {
 		};			
 	};
 	
-	template<int name, typename T>
+	template<int name, typename T, bool normalize = false>
 	class VertexAttribute2 : public virtual TGen::VertexStructure {
 	public:
-		VertexAttribute2() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 2, false, name); }
+		VertexAttribute2() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 2, false, name, normalize); }
 			
 		class Type {
 		public:
@@ -247,17 +247,36 @@ namespace TGen {
 			T x, y;			
 		};			
 	};
+
+	template<int name, typename T, bool normalize = false>
+	class VertexAttribute3 : public virtual TGen::VertexStructure {
+	public:
+		VertexAttribute3() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 3, false, name, normalize); }
+		
+		class Type {
+		public:
+			Type() {}
+			Type(T x, T y, T z) : x(x), y(y), z(z) {}
+			Type(const TGen::Vector3 & vector) : x(vector.x), y(vector.y), z(vector.z) {}
+			
+			operator TGen::Vector3() const {
+				return TGen::Vector3(x, y, z);
+			}
+			
+			T x, y, z;
+		};			
+	};
 	
-	template<int name, typename T>
+	template<int name, typename T, bool normalize = false>
 	class VertexAttribute4 : public virtual TGen::VertexStructure {
 	public:
-		VertexAttribute4() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 4, false, name); }
+		VertexAttribute4() {addElement(TGen::VertexElementAttribute, TGenDataType<T>().type, 4, false, name, normalize); }
 			
 		class Type {
 		public:
 			Type() {}
 			Type(T x, T y, T z, T w) : x(x), y(y), z(z), w(w) {}
-			Type(const TGen::Vector4 & vector) : x(vector.x), y(vector.y), y(vector.y), z(vector.z) {}
+			Type(const TGen::Vector4 & vector) : x(vector.x), y(vector.y), z(vector.z), w(vector.w) {}
 			Type(const TGen::Color & color) : r(color.r), g(color.g), b(color.b), a(color.a) {}
 			
 			operator TGen::Vector4() const {

@@ -601,8 +601,8 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 					throw TGen::RuntimeException("OpenGL::Renderer::ApplyVertexStructure", "trying to use a vertex structure with unbound vertex attribute unit");
 				
 				//std::cout << "ddddddBOUND UNIT: " << int(element.boundUnit) << std::endl;
-				
-				glVertexAttribPointer(element.boundValue, element.count, fixedType, GL_FALSE, stride, reinterpret_cast<GLvoid *>(pos));
+								
+				glVertexAttribPointer(element.boundValue, element.count, fixedType, (element.normalize ? GL_TRUE : GL_FALSE), stride, reinterpret_cast<GLvoid *>(pos));
 				glEnableVertexAttribArray(element.boundValue);
 				
 				break;

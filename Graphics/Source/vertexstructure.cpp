@@ -28,11 +28,12 @@ TGen::VertexStructure::VertexStructure()
 TGen::VertexElement::VertexElement()
 	: bound(false)
 	, boundValue(0)
+	, normalize(false)
 {
 
 }
 
-TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) 
+TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit, bool normalize) 
 	: type(type)
 	, dataType(dataType)
 	, count(count)
@@ -40,6 +41,7 @@ TGen::VertexElement::VertexElement(TGen::VertexElementType type, FormatType data
 	, shared(shared) 
 	, bound(false)
 	, boundValue(0)
+	, normalize(normalize)
 {
 	
 }
