@@ -21,6 +21,7 @@ namespace TGen {
 		Font(TGen::Material * material);
 		
 		TGen::FontText * createText(const std::string & text);
+		TGen::Material * getMaterial() const;
 		
 	private:
 		TGen::Material * material;

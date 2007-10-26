@@ -107,7 +107,7 @@ private:
 
 class App : public TGen::MaterialLinkCallback {
 public:
-	App(int argc, char ** argv) : renderer(NULL), time(0), material(NULL) {
+	App(int argc, char ** argv) : renderer(NULL), time(0), material(NULL), font(NULL), helloText(NULL) {
 		windowSize.width = 640;
 		windowSize.height = 480;
 		
@@ -137,6 +137,8 @@ public:
 	}
 	
 	~App() {
+		delete helloText;
+		delete font;
 		delete material;
 		delete renderer;
 	}
@@ -185,7 +187,7 @@ public:
 	
 	void Render() {
 		//time += 0.01f;
-		renderer->setClearColor(Color::White);
+		renderer->setClearColor(Color::Black);
 		renderer->clearBuffers(ColorBuffer | DepthBuffer);
 		
 		renderer->setTransform(TransformProjection, Matrix4x4::PerspectiveProjection(TGen::Degree(90.0f), windowSize.width / windowSize.height, 0.1f, 100.0f));
@@ -197,6 +199,13 @@ public:
 			material->update(scalar(glutGet(GLUT_ELAPSED_TIME)) / 1000.0);
 			material->render(*renderer, myObject, "default", 9, textureTypes);
 		}
+		
+		renderer->setTransform(TransformProjection, Matrix4x4::OrthogonalProjection(windowSize));
+		renderer->setTransform(TransformWorldView, Matrix4x4::Identity);
+		
+		helloText->update(*renderer);
+		
+		font->getMaterial()->render(*renderer, *helloText, "default", 9, NULL);
 		
 		glutSwapBuffers();
 	}
@@ -215,7 +224,12 @@ public:
 			if ((*iter)->getName() == "textures/base_wall/metalfloor_wall_15ow") {
 				material = *iter;
 			}
-			else {
+			else if ((*iter)->getName() == "testfont") {
+				font = new TGen::Font(*iter);
+				helloText = font->createText("hello!!! 1 2 3 4 + 4 ?");
+				
+				helloText->setPosition(TGen::Vector2(10.0f, 10.0f));
+				std::cout << "loaded font" << std::endl;
 				//delete *iter;
 			}
 		}
@@ -251,6 +265,9 @@ private:
 	Material * material;
 	Rectangle windowSize;
 	Renderer * renderer;
+	Font * font;
+	FontText * helloText;
+	
 	float time;
 };
 
@@ -268,6 +285,9 @@ void Render() {
 
 int main(int argc, char ** argv) {
 	ilInit();
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_UPPER_LEFT);
+
 	std::cout << "TGen OpenGL (debug binary: " << std::boolalpha << isOpenGLDebug() << ")" << std::endl << std::endl;
 	
 	app = new App(argc, argv);

@@ -78,6 +78,13 @@ TGen::Vector2 TGen::Vector2::operator * (scalar _scalar) const {
 	return TGen::Vector2(x * _scalar, y * _scalar);
 }
 
+TGen::Vector2 & TGen::Vector2::operator *= (const TGen::Vector2 & vector) {
+	x *= vector.x;
+	y *= vector.y;
+	
+	return *this;
+}
+
 TGen::Vector2 TGen::Vector2::operator * (const TGen::Vector2 & vector) const {
 	return TGen::Vector2(x * vector.x, y * vector.y);
 }

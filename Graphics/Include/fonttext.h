@@ -11,26 +11,39 @@
 #define _TGEN_GRAPHICS_FONTTEXT_H
 
 #include "color.h"
+#include "vertexstructure.h"
+#include "vertexbuffer.h"
+#include "renderable.h"
 #include <tgen_core.h>
 
 namespace TGen {
 	class Renderer;
+	class Font;
 	
 	enum FontTextFormat {
 		// color osv?
 	};
 	
-	class FontText {
+	class FontText : public TGen::Renderable {
 	public:
-		FontText(const std::string & text, const TGen::Color & color, bool dynamic);
+		FontText(const std::string & text, Font * font, const TGen::Color & color, bool dynamic);
+		~FontText();
 		
-		void render(TGen::Renderer & renderer, const TGen::Vector3 & position);
-		
+		void setPosition(const TGen::Vector2 & pos);
+		void update(TGen::Renderer & renderer);
+		void preRender(TGen::Renderer & renderer) const;
+		void render(TGen::Renderer & renderer) const;
+
 	private:
+		typedef TGen::JoinVertexElements3<TGen::Vertex2<float>, Color4<float>, TexCoord2<float, 0> > VertexDecl;
+
 		std::string text;
+		TGen::Vector2 position, charSize, charSpacing;
 		TGen::Color color, shadowColor;
 		FontTextFormat format;
-		bool shadow, dynamic;
+		VertexBuffer * vb;
+		Font * font;
+		bool shadow, dynamic, needUpdate;
 		scalar size;
 	};
 	

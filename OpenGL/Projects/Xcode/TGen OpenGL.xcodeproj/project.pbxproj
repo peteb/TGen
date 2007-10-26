@@ -53,6 +53,7 @@
 		D0CE09000C3FE4AB007D4B18 /* shader.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */; };
 		D0CE0ABE0C3FE94D007D4B18 /* material.mat in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE0ABD0C3FE94D007D4B18 /* material.mat */; };
 		D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
+		D0FC2EA90CD29D44001B5A75 /* smallfont.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0FC2EA80CD29D44001B5A75 /* smallfont.tga */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,7 @@
 				D01F7A340C4D291B007618C6 /* test.shader in CopyFiles */,
 				D01F7A790C4D2AB2007618C6 /* metalfloor_wall_15ow.tga in CopyFiles */,
 				D01F7A840C4D2AD2007618C6 /* hologirl.tga in CopyFiles */,
+				D0FC2EA90CD29D44001B5A75 /* smallfont.tga in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,6 +200,7 @@
 		D0CE07B80C3E584B007D4B18 /* proto_comp.tga */ = {isa = PBXFileReference; explicitFileType = image; path = proto_comp.tga; sourceTree = "<group>"; };
 		D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */ = {isa = PBXFileReference; explicitFileType = sourcecode.glsl; fileEncoding = 4; path = shader.glsl; sourceTree = "<group>"; };
 		D0CE0ABD0C3FE94D007D4B18 /* material.mat */ = {isa = PBXFileReference; explicitFileType = sourcecode.material; fileEncoding = 4; path = material.mat; sourceTree = "<group>"; };
+		D0FC2EA80CD29D44001B5A75 /* smallfont.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = smallfont.tga; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -360,6 +363,7 @@
 				D0CE01360C3D9633007D4B18 /* envmap.jpg */,
 				D0CE07B70C3E584B007D4B18 /* proto_comp2.jpg */,
 				D0CE07B80C3E584B007D4B18 /* proto_comp.tga */,
+				D0FC2EA80CD29D44001B5A75 /* smallfont.tga */,
 				D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */,
 				D0CE0ABD0C3FE94D007D4B18 /* material.mat */,
 				D01F7A330C4D291B007618C6 /* test.shader */,

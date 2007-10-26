@@ -25,6 +25,7 @@ namespace TGen {
 		
 		Vector2 & operator += (const TGen::Vector2 & vector);
 		Vector2 & operator -= (const TGen::Vector2 & vector);
+		Vector2 & operator *= (const TGen::Vector2 & vector);
 		Vector2 & operator = (const TGen::Vector2 & vector);
 		Vector2 & operator *= (scalar scalar);
 		

@@ -8,6 +8,8 @@
  */
 
 #include "font.h"
+#include "color.h"
+#include "fonttext.h"
 
 TGen::Font::Font(TGen::Material * material)
 	: material(material)
@@ -16,5 +18,9 @@ TGen::Font::Font(TGen::Material * material)
 }
 
 TGen::FontText * TGen::Font::createText(const std::string & text) {
-	return NULL;
+	return new TGen::FontText(text, this, TGen::Color::Red, true);
+}
+
+TGen::Material * TGen::Font::getMaterial() const {
+	return material;
 }
