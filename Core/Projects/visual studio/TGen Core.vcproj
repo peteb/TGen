@@ -149,6 +149,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath="..\..\Source\endian.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\error.cpp"
 				>
 			</File>
@@ -157,7 +161,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\propertytree.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\propertytreeparser.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\stringman.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\symboltable.cpp"
 				>
 			</File>
 			<File
@@ -187,6 +203,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\endian.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\error.h"
 				>
 			</File>
@@ -199,7 +219,19 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\propertytree.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\propertytreeparser.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\stringman.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\symboltable.h"
 				>
 			</File>
 			<File

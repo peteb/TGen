@@ -25,11 +25,6 @@ namespace TGen {
 		SymbolMap symbols;
 		int id;
 	};
-	
-	
-	
-	
-	
 } // !TGen
 
 #endif // !_TGEN_SYMBOLTABLE_H
