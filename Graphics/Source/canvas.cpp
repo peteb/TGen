@@ -24,6 +24,10 @@ TGen::Canvas::Canvas(const TGen::Rectangle & size, TGen::ImageFormat format, TGe
 		throw TGen::RuntimeException("Canvas::Canvas", "failed to allocated memory for canvas (size=") << TGen::FormatTypeSize(componentFormat) * ImageFormatComponents(format) * size.width * size.height << ")";
 }
 
+TGen::Canvas::Canvas(const TGen::Image & image) {
+
+}
+
 TGen::Canvas::~Canvas() {
 	if (data)
 		free(data);
@@ -78,7 +82,7 @@ void TGen::Canvas::fill(const TGen::Color & color) {
 
 void TGen::Canvas::setPixel(const TGen::Vector2 & pos, const TGen::Color & color) {
 	int bytesPerPixel = TGen::FormatTypeSize(componentFormat) * ImageFormatComponents(format);
-	void * fillWith = malloc(bytesPerPixel);
+	void * fillWith = malloc(bytesPerPixel);  // TODO: malloc? wtf. 
 	if (!fillWith)
 		throw TGen::RuntimeException("Canvas::setPixel", "failed to allocate template for setting pixel (bytes per pixel=") << bytesPerPixel << ")";
 	
@@ -105,8 +109,8 @@ void TGen::Canvas::drawLine(const TGen::Vector2 & start, const TGen::Vector2 & e
 	color.getFormatted(format, componentFormat, fillWith);
 	
 	TGen::Vector2 pos = start;
-	float mag = (end - start).getMagnitude();
-	
+
+	float mag = (end - start).getMagnitude();	// TODO: we need bresenham
 	float dx = (end - start).x / mag;
 	float dy = (end - start).y / mag;
 	

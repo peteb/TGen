@@ -9,6 +9,14 @@
 
 #include "image.h"
 
+TGen::Image::Image() {
+
+}
+
+TGen::Image::~Image() {
+
+}
+
 int TGen::ImageFormatComponents(ImageFormat format) {
 	switch (format) {
 		case TGen::BGR:

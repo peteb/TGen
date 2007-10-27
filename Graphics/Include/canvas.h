@@ -20,6 +20,8 @@ namespace TGen {
 	class Canvas : public TGen::Image {
 	public:
 		Canvas(const TGen::Rectangle & size, TGen::ImageFormat format = TGen::RGBA, TGen::FormatType componentFormat = TGen::TypeUnsignedByte);
+		Canvas(const TGen::Image & image);
+
 		~Canvas();
 		
 		TGen::Rectangle getSize() const;

@@ -36,8 +36,8 @@ namespace TGen {
 	
 	class Image {
 	public:
-		Image() {}	
-		virtual ~Image() {}
+		Image();
+		virtual ~Image();
 		
 		virtual TGen::Rectangle getSize() const abstract;
 		virtual TGen::ImageFormat getFormat() const abstract;

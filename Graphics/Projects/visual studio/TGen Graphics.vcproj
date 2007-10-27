@@ -161,6 +161,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\font.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\fonttext.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\framebuffer.cpp"
 				>
 			</File>
@@ -256,6 +264,14 @@
 			</File>
 			<File
 				RelativePath="..\..\Include\color.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\font.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\fonttext.h"
 				>
 			</File>
 			<File
