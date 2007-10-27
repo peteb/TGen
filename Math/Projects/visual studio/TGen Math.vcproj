@@ -157,6 +157,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\coordset2.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\coordset3.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\frustum.cpp"
 				>
 			</File>
@@ -170,6 +178,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Source\plane3.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\quad3.cpp"
 				>
 			</File>
 			<File
@@ -215,6 +227,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\coordset2.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\coordset3.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\frustum.h"
 				>
 			</File>
@@ -228,6 +248,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Include\plane3.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\quad3.h"
 				>
 			</File>
 			<File
