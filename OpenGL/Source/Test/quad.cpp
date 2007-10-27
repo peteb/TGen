@@ -100,7 +100,7 @@ public:
 	
 private:
 	typedef Index<unsigned short> MyIndex;
-	typedef JoinVertex2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
+	typedef JoinVertexElements2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
 	
 	TGen::Time lastFrame;
 	TGen::Rectangle windowSize;

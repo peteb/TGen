@@ -52,12 +52,22 @@ typedef GLint (GLAPIENTRY *GetUniformLocationPtr) (GLuint program, const GLchar 
 typedef GLint (GLAPIENTRY *GetAttribLocationPtr) (GLuint program, const GLchar *name);
 typedef void (GLAPIENTRY *UseProgramPtr) (GLuint program);
 typedef void (GLAPIENTRY *Uniform1iPtr) (GLint location, GLint v0);
+typedef void (GLAPIENTRY *Uniform1fPtr) (GLint location, GLfloat v0);
 typedef void (GLAPIENTRY *Uniform4fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
+typedef void (GLAPIENTRY *VertexAttrib1fPtr) (GLuint index, GLfloat x);
 typedef void (GLAPIENTRY *VertexAttrib4fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z, GLfloat w);
 typedef void (GLAPIENTRY *Uniform3fPtr) (GLint location, GLfloat v0, GLfloat v1, GLfloat v2);
 typedef void (GLAPIENTRY *VertexAttrib3fPtr) (GLuint index, GLfloat x, GLfloat y, GLfloat z);
 typedef void (GLAPIENTRY *Uniform2fPtr) (GLint location, GLfloat v0, GLfloat v1);
 typedef void (GLAPIENTRY *VertexAttrib2fPtr) (GLuint index, GLfloat x, GLfloat y);
+typedef void (GLAPIENTRY *VertexAttribPointerPtr) (GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const GLvoid * pointer);
+
+typedef void (GLAPIENTRY *UniformMatrix3fvPtr) (GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+typedef void (GLAPIENTRY *UniformMatrix4fvPtr) (GLint location, GLsizei count, GLboolean transpose, const GLfloat * value);
+
+typedef void (GLAPIENTRY *EnableVertexAttribArrayPtr) (GLuint index);
+typedef void (GLAPIENTRY *DisableVertexAttribArrayPtr) (GLuint index);
+
 typedef GLuint (GLAPIENTRY *CreateShaderPtr) (GLenum type);
 typedef void (GLAPIENTRY *ShaderSourcePtr) (GLuint shader, GLsizei count, const GLchar* *string, const GLint *length);
 typedef void (GLAPIENTRY *CompileShaderPtr) (GLuint shader);
@@ -228,9 +238,18 @@ extern GetUniformLocationPtr glGetUniformLocation;
 extern GetAttribLocationPtr glGetAttribLocation;
 extern UseProgramPtr glUseProgram;
 extern Uniform1iPtr glUniform1i;
+extern Uniform1fPtr glUniform1f;
 extern Uniform4fPtr glUniform4f;
 extern VertexAttrib4fPtr glVertexAttrib4f;
 extern Uniform3fPtr glUniform3f;
+extern VertexAttribPointerPtr glVertexAttribPointer;
+extern EnableVertexAttribArrayPtr glEnableVertexAttribArray;
+extern DisableVertexAttribArrayPtr glDisableVertexAttribArray;
+
+extern UniformMatrix3fvPtr glUniformMatrix3fv;
+extern UniformMatrix4fvPtr glUniformMatrix4fv;
+
+extern VertexAttrib1fPtr glVertexAttrib1f;
 extern VertexAttrib3fPtr glVertexAttrib3f;
 extern Uniform2fPtr glUniform2f;
 extern VertexAttrib2fPtr glVertexAttrib2f;

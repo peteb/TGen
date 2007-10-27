@@ -62,8 +62,18 @@ CheckFramebufferStatusEXTPtr glCheckFramebufferStatusEXT = NULL;
 
 DrawBuffersARBPtr glDrawBuffersARB = NULL;
 
+VertexAttribPointerPtr glVertexAttribPointer = NULL;
+EnableVertexAttribArrayPtr glEnableVertexAttribArray = NULL;
+DisableVertexAttribArrayPtr glDisableVertexAttribArray = NULL;
+
+UniformMatrix3fvPtr glUniformMatrix3fv = NULL;
+UniformMatrix4fvPtr glUniformMatrix4fv = NULL;
+Uniform1fPtr glUniform1f = NULL;
+VertexAttrib1fPtr glVertexAttrib1f = NULL;
+
+
 void TGen::OpenGL::BindFunctions() {
-	DEBUG_PRINT("[opengl]: binding functions... :(");
+	DEBUG_PRINT("[ogl]: binding functions... :(");
 
 	glBindBufferARB = (BindBufferARBPtr)_GET_EXT("glBindBufferARB");
 	glGenBuffersARB = (GenBuffersARBPtr)_GET_EXT("glGenBuffersARB");
@@ -87,8 +97,10 @@ void TGen::OpenGL::BindFunctions() {
 	glGetAttribLocation = (GetAttribLocationPtr)_GET_EXT("glGetAttribLocationARB");
 	glUseProgram = (UseProgramPtr)_GET_EXT("glUseProgramARB");
 
+	glUniform1f = (Uniform1fPtr)_GET_EXT("glUniform1fARB");
 	glUniform1i = (Uniform1iPtr)_GET_EXT("glUniform1iARB");
 	glUniform4f = (Uniform4fPtr)_GET_EXT("glUniform4fARB");
+	glVertexAttrib1f = (VertexAttrib1fPtr)_GET_EXT("glVertexAttrib1fARB");
 	glVertexAttrib4f = (VertexAttrib4fPtr)_GET_EXT("glVertexAttrib4fARB");
 	glUniform3f = (Uniform3fPtr)_GET_EXT("glUniform3fARB");
 	glVertexAttrib3f = (VertexAttrib3fPtr)_GET_EXT("glVertexAttrib3fARB");
@@ -100,6 +112,12 @@ void TGen::OpenGL::BindFunctions() {
 	glGetShaderiv = (GetShaderivPtr)_GET_EXT("glGetShaderivARB");
 	glGetShaderInfoLog = (GetShaderInfoLogPtr)_GET_EXT("glGetShaderInfoLogARB");
 	glCreateProgram = (CreateProgramPtr)_GET_EXT("glCreateProgramARB");
+	glVertexAttribPointer = (VertexAttribPointerPtr)_GET_EXT("glVertexAttribPointerARB");
+	glEnableVertexAttribArray = (EnableVertexAttribArrayPtr)_GET_EXT("glEnableVertexAttribArrayARB");
+	glDisableVertexAttribArray = (DisableVertexAttribArrayPtr)_GET_EXT("glDisableVertexAttribArrayARB");
+
+	glUniformMatrix3fv = (UniformMatrix3fvPtr)_GET_EXT("glUniformMatrix3fvARB");
+	glUniformMatrix4fv = (UniformMatrix4fvPtr)_GET_EXT("glUniformMatrix4fvARB");
 
 	glDeleteFramebuffersEXT = (DeleteFramebuffersEXTPtr)_GET_EXT("glDeleteFramebuffersEXT");
 	glGenFramebuffersEXT = (GenFramebuffersEXTPtr)_GET_EXT("glGenFramebuffersEXT");
