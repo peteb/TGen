@@ -17,6 +17,7 @@
 #include "cast.h"
 #include "stringman.h"
 #include "hrestimer.h"
+#include "timeinterval.h"
 #include "debug.h"
 #include "endian.h"
 #include "symboltable.h"

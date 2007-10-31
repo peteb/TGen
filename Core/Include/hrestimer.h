@@ -19,7 +19,7 @@ namespace TGen {
 		Time(int secs, int usecs);
 		Time(double secs);
 		
-		operator double() const;
+		operator double() const;				// TODO: operator -, returns TimeInterval
 		int getMicroseconds() const;
 		int getSeconds() const;
 		
@@ -29,7 +29,6 @@ namespace TGen {
 		int secs, usecs;
 	};
 	
-	void Sleep(const TGen::Time & time);
 } // !TGen
 
 #endif // !_TGEN_HRESTIMER_H

@@ -69,12 +69,4 @@ TGen::Time TGen::Time::Now() {
 	#endif	
 }
 
-void TGen::Sleep(const TGen::Time & time) {
-	#ifdef _PLATFORM_WIN
-		::Sleep(static_cast<DWORD>(double(time) * 1000.0));
-	#else
-		usleep(time.getMicroseconds() + time.getSeconds() * 1000000);
-		//sleep(time.getSeconds());
-	#endif	
-}
 
