@@ -14,6 +14,8 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D083958C0CD927E100C94467 /* deferredscenerenderer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D083958B0CD927E100C94467 /* deferredscenerenderer.h */; };
+		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0EF60E40C8222350085C17B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60E30C8222350085C17B /* main.cpp */; };
 		D0EF60F90C8222670085C17B /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60F80C8222670085C17B /* SDLMain.m */; };
 		D0EF60FD0C8222810085C17B /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
@@ -60,14 +62,14 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D0F371390C6D02CE00C11F87 /* tgen_renderer */;
+			remoteGlobalIDString = D0F371390C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
 		};
 		D0450C4E0CCA4CFC00832ABC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D00FF8E50C3940E900668773 /* tgen_opengl */;
+			remoteGlobalIDString = D00FF8E50C3940E900668773;
 			remoteInfo = tgen_opengl;
 		};
 		D04C81C90CCA46DA00794CEA /* PBXContainerItemProxy */ = {
@@ -163,6 +165,7 @@
 				D0F4924C0CBE59470080CB46 /* commandregistry.h in CopyFiles */,
 				D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */,
 				D0F4961F0CBF8C990080CB46 /* cmddumpvars.h in CopyFiles */,
+				D083958C0CD927E100C94467 /* deferredscenerenderer.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,6 +180,8 @@
 		5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineTarget.xcconfig"; sourceTree = "<group>"; };
 		508344B209E5C41E0093A071 /* TGen Engine Release.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine Release.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
+		D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredscenerenderer.cpp; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
 		D0EF60F80C8222670085C17B /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = ../Projects/Xcode/SDLMain.m; sourceTree = "<group>"; };
@@ -404,6 +409,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D08395710CD9266900C94467 /* renderer */ = {
+			isa = PBXGroup;
+			children = (
+				D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */,
+				D083958B0CD927E100C94467 /* deferredscenerenderer.h */,
+			);
+			name = renderer;
+			sourceTree = "<group>";
+		};
 		D0EF614C0C82D0C20085C17B /* physfs */ = {
 			isa = PBXGroup;
 			children = (
@@ -423,6 +437,7 @@
 				D01B6CED0C8A149200D8943C /* fs */,
 				D0064FBF0C86E88800A42B3A /* init */,
 				D0F8393B0CBA679200FF4467 /* game */,
+				D08395710CD9266900C94467 /* renderer */,
 				D0EF61500C82D8E20085C17B /* app.cpp */,
 				D0EF614F0C82D8E20085C17B /* app.h */,
 				D0F836860CBA5E5900FF4467 /* state.cpp */,
@@ -658,6 +673,7 @@
 				D0F4924E0CBE59530080CB46 /* commandregistry.cpp in Sources */,
 				D0F4930D0CBE89760080CB46 /* cmdset.cpp in Sources */,
 				D0F4961D0CBF8C8D0080CB46 /* cmddumpvars.cpp in Sources */,
+				D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

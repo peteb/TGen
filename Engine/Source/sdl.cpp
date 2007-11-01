@@ -21,9 +21,9 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	bool fullscreen = bool(variables.getVariable("env_fullscreen"));
 	int width = int(variables.getVariable("env_width")), height = int(variables.getVariable("env_height"));
 	uint8 bpp = 0;
-	
+		
 	logs.info["sdl+"] << "initializing..." << endl;
-	logs.info["sdl+"] << "   width: " << width << " height: " << height << " bpp: " << int(bpp) << TGen::endl;
+	logs.info["sdl+"] << std::dec << "   width: " << width << " height: " << height << " bpp: " << int(bpp) << TGen::endl;
 	
 	uint32 initflags = SDL_INIT_VIDEO;
 	uint32 videoflags = SDL_HWSURFACE | SDL_OPENGL | (fullscreen ? SDL_FULLSCREEN : 0);

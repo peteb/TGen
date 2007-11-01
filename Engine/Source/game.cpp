@@ -18,6 +18,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	, lastRender(TGen::Time::Now())
 	, sceneRoot("root")
 	, vars(app)
+	, sceneRenderer(app.renderer)
 {
 	app.logs.info["gst+"] << "entering game state..." << endl;
 }
@@ -37,7 +38,7 @@ void TGen::Engine::GameState::tick() {
 	}
 	else {
 		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render updates
-			TGen::Sleep(sinceLastRender);
+			TGen::Sleep(TGen::Time(sinceLastRender));
 	}
 	
 	
@@ -48,13 +49,10 @@ void TGen::Engine::GameState::render(scalar dt) {
 	//std::cout << "dt: " << dt << std::endl;
 
 	// do stuff
-	static bool first = true;
-	if (first) {
-		//app.variables["r_maxRefresh"] = 2;
-		first = false;
-	}
+
 	
-	app.renderer.clearBuffers(TGen::ColorBuffer);
+	sceneRenderer.renderScene();
+	
 	app.env.swapBuffers();
 }
 
