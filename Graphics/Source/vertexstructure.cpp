@@ -130,8 +130,8 @@ int TGen::VertexStructure::getStride() const {
 	return getSize() % align;
 }
 
-void TGen::VertexStructure::addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit) {
-	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit));
+void TGen::VertexStructure::addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit, bool normalize) {
+	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit, normalize));
 }
 
 /*

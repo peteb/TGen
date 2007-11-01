@@ -19,7 +19,7 @@
 		D07258CF0C4C389C00909B4E /* stringman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07258CE0C4C389C00909B4E /* stringman.cpp */; };
 		D07A2B670C666EB2009CABCA /* endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B660C666EB2009CABCA /* endian.cpp */; };
 		D07A2B690C666EBF009CABCA /* endian.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B680C666EBF009CABCA /* endian.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08393230CD91C0A00C94467 /* timeinterval.h in Headers */ = {isa = PBXBuildFile; fileRef = D08393220CD91C0A00C94467 /* timeinterval.h */; };
+		D08393230CD91C0A00C94467 /* timeinterval.h in Headers */ = {isa = PBXBuildFile; fileRef = D08393220CD91C0A00C94467 /* timeinterval.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D083932E0CD91CEC00C94467 /* timeinterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083932D0CD91CEC00C94467 /* timeinterval.cpp */; };
 		D08DD29E0C3BD71D00C0AB3F /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DD29D0C3BD71D00C0AB3F /* tokenizer.cpp */; };
 		D08DD2A00C3BD72600C0AB3F /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DD29F0C3BD72600C0AB3F /* tokenizer.h */; settings = {ATTRIBUTES = (Public, ); }; };

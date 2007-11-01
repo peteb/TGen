@@ -58,7 +58,7 @@ namespace TGen {
 		int getStride() const;
 		int getSize() const;
 		int getComponentCount() const;
-		void addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0);
+		void addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0, bool normalize = false);
 		void addElement(const std::string & format);
 		
 	private:
