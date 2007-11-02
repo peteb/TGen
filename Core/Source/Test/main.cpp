@@ -9,7 +9,6 @@ int main(int argc, char ** const argv) {
 	if (TGen::TGenDataType<float>().type == TGen::TypeFloat)
 		std::cout << "1. OK" << std::endl;
 	
-	std::cout << "hej" << std::endl;
 	// 2.
 	std::cout << "2. " << sizeof(float) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<float>().type) << std::endl;
 	std::cout << "   " << sizeof(long long) << " == " << TGen::FormatTypeSize(TGen::TGenDataType<long long>().type) << std::endl;
