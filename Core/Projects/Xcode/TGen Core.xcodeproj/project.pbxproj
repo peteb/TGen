@@ -7,62 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8DD76F650486A84900D96B5E /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; settings = {ATTRIBUTES = (); }; };
-		8DD76F6A0486A84900D96B5E /* TGen Core.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = C6859E8B029090EE04C91782 /* TGen Core.1 */; };
-		D01B6D070C8A159600D8943C /* propertytree.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6D060C8A159600D8943C /* propertytree.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D01B6D0D0C8A15FC00D8943C /* propertytree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */; };
-		D01B6EB00C8A1D0000D8943C /* propertytreeparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */; };
-		D01B6EB20C8A1D0A00D8943C /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D067DA850C57F0810078E141 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D07258910C4C372000909B4E /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D07258CB0C4C388100909B4E /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D07258CF0C4C389C00909B4E /* stringman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07258CE0C4C389C00909B4E /* stringman.cpp */; };
-		D07A2B670C666EB2009CABCA /* endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B660C666EB2009CABCA /* endian.cpp */; };
-		D07A2B690C666EBF009CABCA /* endian.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B680C666EBF009CABCA /* endian.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D08393230CD91C0A00C94467 /* timeinterval.h in Headers */ = {isa = PBXBuildFile; fileRef = D08393220CD91C0A00C94467 /* timeinterval.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D083932E0CD91CEC00C94467 /* timeinterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083932D0CD91CEC00C94467 /* timeinterval.cpp */; };
-		D08DD29E0C3BD71D00C0AB3F /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DD29D0C3BD71D00C0AB3F /* tokenizer.cpp */; };
-		D08DD2A00C3BD72600C0AB3F /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DD29F0C3BD72600C0AB3F /* tokenizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EE95AD0C35E00900CB2978 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95780C35DF0F00CB2978 /* error.cpp */; };
-		D0EE95B00C35E00F00CB2978 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95790C35DF0F00CB2978 /* types.cpp */; };
-		D0EE95FB0C35E10600CB2978 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95800C35DF3100CB2978 /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EE96000C35E10D00CB2978 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95820C35DF3100CB2978 /* types.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EE96030C35E11200CB2978 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EE96060C35E11600CB2978 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EE961A0C35E15900CB2978 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */; };
-		D0EE97D80C35E85800CB2978 /* tgen_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE97D70C35E85800CB2978 /* tgen_core.cpp */; };
-		D0EFD14C0C7DBFFF001E861E /* symboltable.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD14B0C7DBFFF001E861E /* symboltable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EFD14E0C7DC00B001E861E /* symboltable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD14D0C7DC00B001E861E /* symboltable.cpp */; };
-		D0F2A7380C563DA700E3A05B /* hrestimer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F2A7370C563DA700E3A05B /* hrestimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0F2A73A0C563DB400E3A05B /* hrestimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F2A7390C563DB400E3A05B /* hrestimer.cpp */; };
+		D0E8B78A0CE26A20009EC7F4 /* tgen_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE97D70C35E85800CB2978 /* tgen_core.cpp */; };
+		D0E8B78B0CE26A20009EC7F4 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; };
+		D0E8B78C0CE26A20009EC7F4 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; };
+		D0E8B78D0CE26A20009EC7F4 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95780C35DF0F00CB2978 /* error.cpp */; };
+		D0E8B78E0CE26A20009EC7F4 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95800C35DF3100CB2978 /* error.h */; };
+		D0E8B78F0CE26A20009EC7F4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95790C35DF0F00CB2978 /* types.cpp */; };
+		D0E8B7900CE26A20009EC7F4 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95820C35DF3100CB2978 /* types.h */; };
+		D0E8B7910CE26A20009EC7F4 /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DD29D0C3BD71D00C0AB3F /* tokenizer.cpp */; };
+		D0E8B7920CE26A20009EC7F4 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DD29F0C3BD72600C0AB3F /* tokenizer.h */; };
+		D0E8B7930CE26A20009EC7F4 /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; };
+		D0E8B7940CE26A20009EC7F4 /* stringman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07258CE0C4C389C00909B4E /* stringman.cpp */; };
+		D0E8B7950CE26A20009EC7F4 /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; };
+		D0E8B7960CE26A20009EC7F4 /* hrestimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F2A7390C563DB400E3A05B /* hrestimer.cpp */; };
+		D0E8B7970CE26A20009EC7F4 /* hrestimer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F2A7370C563DA700E3A05B /* hrestimer.h */; };
+		D0E8B7980CE26A20009EC7F4 /* timeinterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083932D0CD91CEC00C94467 /* timeinterval.cpp */; };
+		D0E8B7990CE26A20009EC7F4 /* timeinterval.h in Headers */ = {isa = PBXBuildFile; fileRef = D08393220CD91C0A00C94467 /* timeinterval.h */; };
+		D0E8B79A0CE26A20009EC7F4 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; };
+		D0E8B79B0CE26A20009EC7F4 /* endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B660C666EB2009CABCA /* endian.cpp */; };
+		D0E8B79C0CE26A20009EC7F4 /* endian.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B680C666EBF009CABCA /* endian.h */; };
+		D0E8B79D0CE26A20009EC7F4 /* symboltable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD14D0C7DC00B001E861E /* symboltable.cpp */; };
+		D0E8B79E0CE26A20009EC7F4 /* symboltable.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD14B0C7DBFFF001E861E /* symboltable.h */; };
+		D0E8B79F0CE26A20009EC7F4 /* propertytree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */; };
+		D0E8B7A00CE26A20009EC7F4 /* propertytree.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6D060C8A159600D8943C /* propertytree.h */; };
+		D0E8B7A10CE26A20009EC7F4 /* propertytreeparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */; };
+		D0E8B7A20CE26A20009EC7F4 /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; };
+		D0E8B7C10CE26C2B009EC7F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
+		D0E8B7C30CE26C39009EC7F4 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E8B7830CE269BD009EC7F4 /* libtgen_core.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D0EE95C10C35E04500CB2978 /* PBXContainerItemProxy */ = {
+		D0E8B7C40CE26C3F009EC7F4 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 08FB7793FE84155DC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D0EE95A90C35DFFC00CB2978;
+			remoteGlobalIDString = D0E8B7820CE269BD009EC7F4;
 			remoteInfo = tgen_core;
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		8DD76F690486A84900D96B5E /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 8;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
-			files = (
-				8DD76F6A0486A84900D96B5E /* TGen Core.1 in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 1;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		08FB7796FE84155DC02AAC07 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		8DD76F6C0486A84900D96B5E /* TGen Core */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Core"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C6859E8B029090EE04C91782 /* TGen Core.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = "TGen Core.1"; sourceTree = "<group>"; };
 		D01B6D060C8A159600D8943C /* propertytree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = propertytree.h; path = Include/propertytree.h; sourceTree = "<group>"; };
 		D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = propertytree.cpp; path = Source/propertytree.cpp; sourceTree = "<group>"; };
@@ -78,13 +63,14 @@
 		D083932D0CD91CEC00C94467 /* timeinterval.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timeinterval.cpp; path = Source/timeinterval.cpp; sourceTree = "<group>"; };
 		D08DD29D0C3BD71D00C0AB3F /* tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tokenizer.cpp; path = Source/tokenizer.cpp; sourceTree = "<group>"; };
 		D08DD29F0C3BD72600C0AB3F /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tokenizer.h; path = Include/tokenizer.h; sourceTree = "<group>"; };
+		D0E8B7830CE269BD009EC7F4 /* libtgen_core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_core.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Core Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EE95780C35DF0F00CB2978 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = error.cpp; path = Source/error.cpp; sourceTree = "<group>"; };
 		D0EE95790C35DF0F00CB2978 /* types.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = types.cpp; path = Source/types.cpp; sourceTree = "<group>"; };
 		D0EE95800C35DF3100CB2978 /* error.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = error.h; path = Include/error.h; sourceTree = "<group>"; };
 		D0EE95810C35DF3100CB2978 /* platform.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = platform.h; path = Include/platform.h; sourceTree = "<group>"; };
 		D0EE95820C35DF3100CB2978 /* types.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = types.h; path = Include/types.h; sourceTree = "<group>"; };
 		D0EE958C0C35DF7700CB2978 /* tgen_core.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tgen_core.h; path = Include/tgen_core.h; sourceTree = "<group>"; };
-		D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EE97D70C35E85800CB2978 /* tgen_core.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tgen_core.cpp; path = Source/tgen_core.cpp; sourceTree = "<group>"; };
 		D0EFD14B0C7DBFFF001E861E /* symboltable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = symboltable.h; path = Include/symboltable.h; sourceTree = "<group>"; };
 		D0EFD14D0C7DC00B001E861E /* symboltable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = symboltable.cpp; path = Source/symboltable.cpp; sourceTree = "<group>"; };
@@ -93,18 +79,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		8DD76F660486A84900D96B5E /* Frameworks */ = {
+		D0E8B7810CE269BD009EC7F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0EE961A0C35E15900CB2978 /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0EE95A80C35DFFC00CB2978 /* Frameworks */ = {
+		D0E8B7B80CE26BBA009EC7F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0E8B7C30CE26C39009EC7F4 /* libtgen_core.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,8 +144,8 @@
 		1AB674ADFE9D54B511CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8DD76F6C0486A84900D96B5E /* TGen Core */,
-				D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */,
+				D0E8B7830CE269BD009EC7F4 /* libtgen_core.a */,
+				D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -184,56 +170,37 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		D0EE95A60C35DFFC00CB2978 /* Headers */ = {
+		D0E8B77F0CE269BD009EC7F4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0EE95FB0C35E10600CB2978 /* error.h in Headers */,
-				D0EE96000C35E10D00CB2978 /* types.h in Headers */,
-				D0EE96030C35E11200CB2978 /* tgen_core.h in Headers */,
-				D0EE96060C35E11600CB2978 /* platform.h in Headers */,
-				D08DD2A00C3BD72600C0AB3F /* tokenizer.h in Headers */,
-				D07258910C4C372000909B4E /* cast.h in Headers */,
-				D07258CB0C4C388100909B4E /* stringman.h in Headers */,
-				D0F2A7380C563DA700E3A05B /* hrestimer.h in Headers */,
-				D067DA850C57F0810078E141 /* debug.h in Headers */,
-				D07A2B690C666EBF009CABCA /* endian.h in Headers */,
-				D0EFD14C0C7DBFFF001E861E /* symboltable.h in Headers */,
-				D01B6D070C8A159600D8943C /* propertytree.h in Headers */,
-				D01B6EB20C8A1D0A00D8943C /* propertytreeparser.h in Headers */,
-				D08393230CD91C0A00C94467 /* timeinterval.h in Headers */,
+				D0E8B78B0CE26A20009EC7F4 /* tgen_core.h in Headers */,
+				D0E8B78C0CE26A20009EC7F4 /* platform.h in Headers */,
+				D0E8B78E0CE26A20009EC7F4 /* error.h in Headers */,
+				D0E8B7900CE26A20009EC7F4 /* types.h in Headers */,
+				D0E8B7920CE26A20009EC7F4 /* tokenizer.h in Headers */,
+				D0E8B7930CE26A20009EC7F4 /* cast.h in Headers */,
+				D0E8B7950CE26A20009EC7F4 /* stringman.h in Headers */,
+				D0E8B7970CE26A20009EC7F4 /* hrestimer.h in Headers */,
+				D0E8B7990CE26A20009EC7F4 /* timeinterval.h in Headers */,
+				D0E8B79A0CE26A20009EC7F4 /* debug.h in Headers */,
+				D0E8B79C0CE26A20009EC7F4 /* endian.h in Headers */,
+				D0E8B79E0CE26A20009EC7F4 /* symboltable.h in Headers */,
+				D0E8B7A00CE26A20009EC7F4 /* propertytree.h in Headers */,
+				D0E8B7A20CE26A20009EC7F4 /* propertytreeparser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Core */ = {
+		D0E8B7820CE269BD009EC7F4 /* tgen_core */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Core" */;
+			buildConfigurationList = D0E8B7870CE269C6009EC7F4 /* Build configuration list for PBXNativeTarget "tgen_core" */;
 			buildPhases = (
-				8DD76F640486A84900D96B5E /* Sources */,
-				8DD76F660486A84900D96B5E /* Frameworks */,
-				8DD76F690486A84900D96B5E /* CopyFiles */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				D0EE95C20C35E04500CB2978 /* PBXTargetDependency */,
-			);
-			name = "TGen Core";
-			productInstallPath = "$(HOME)/bin";
-			productName = "TGen Core";
-			productReference = 8DD76F6C0486A84900D96B5E /* TGen Core */;
-			productType = "com.apple.product-type.tool";
-		};
-		D0EE95A90C35DFFC00CB2978 /* tgen_core */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = D0EE95D50C35E06300CB2978 /* Build configuration list for PBXNativeTarget "tgen_core" */;
-			buildPhases = (
-				D0EE95A60C35DFFC00CB2978 /* Headers */,
-				D0EE95A70C35DFFC00CB2978 /* Sources */,
-				D0EE95A80C35DFFC00CB2978 /* Frameworks */,
+				D0E8B77F0CE269BD009EC7F4 /* Headers */,
+				D0E8B7800CE269BD009EC7F4 /* Sources */,
+				D0E8B7810CE269BD009EC7F4 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -241,8 +208,25 @@
 			);
 			name = tgen_core;
 			productName = tgen_core;
-			productReference = D0EE95AA0C35DFFC00CB2978 /* libtgen_core.a */;
+			productReference = D0E8B7830CE269BD009EC7F4 /* libtgen_core.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		D0E8B7B90CE26BBA009EC7F4 /* TGen Core Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0E8B7BF0CE26BD1009EC7F4 /* Build configuration list for PBXNativeTarget "TGen Core Test" */;
+			buildPhases = (
+				D0E8B7B70CE26BBA009EC7F4 /* Sources */,
+				D0E8B7B80CE26BBA009EC7F4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D0E8B7C50CE26C3F009EC7F4 /* PBXTargetDependency */,
+			);
+			name = "TGen Core Test";
+			productName = "TGen Core Test";
+			productReference = D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */;
+			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
@@ -256,86 +240,50 @@
 			projectDirPath = "";
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Core */,
-				D0EE95A90C35DFFC00CB2978 /* tgen_core */,
+				D0E8B7820CE269BD009EC7F4 /* tgen_core */,
+				D0E8B7B90CE26BBA009EC7F4 /* TGen Core Test */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		8DD76F640486A84900D96B5E /* Sources */ = {
+		D0E8B7800CE269BD009EC7F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+				D0E8B78A0CE26A20009EC7F4 /* tgen_core.cpp in Sources */,
+				D0E8B78D0CE26A20009EC7F4 /* error.cpp in Sources */,
+				D0E8B78F0CE26A20009EC7F4 /* types.cpp in Sources */,
+				D0E8B7910CE26A20009EC7F4 /* tokenizer.cpp in Sources */,
+				D0E8B7940CE26A20009EC7F4 /* stringman.cpp in Sources */,
+				D0E8B7960CE26A20009EC7F4 /* hrestimer.cpp in Sources */,
+				D0E8B7980CE26A20009EC7F4 /* timeinterval.cpp in Sources */,
+				D0E8B79B0CE26A20009EC7F4 /* endian.cpp in Sources */,
+				D0E8B79D0CE26A20009EC7F4 /* symboltable.cpp in Sources */,
+				D0E8B79F0CE26A20009EC7F4 /* propertytree.cpp in Sources */,
+				D0E8B7A10CE26A20009EC7F4 /* propertytreeparser.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		D0EE95A70C35DFFC00CB2978 /* Sources */ = {
+		D0E8B7B70CE26BBA009EC7F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0EE95AD0C35E00900CB2978 /* error.cpp in Sources */,
-				D0EE95B00C35E00F00CB2978 /* types.cpp in Sources */,
-				D0EE97D80C35E85800CB2978 /* tgen_core.cpp in Sources */,
-				D08DD29E0C3BD71D00C0AB3F /* tokenizer.cpp in Sources */,
-				D07258CF0C4C389C00909B4E /* stringman.cpp in Sources */,
-				D0F2A73A0C563DB400E3A05B /* hrestimer.cpp in Sources */,
-				D07A2B670C666EB2009CABCA /* endian.cpp in Sources */,
-				D0EFD14E0C7DC00B001E861E /* symboltable.cpp in Sources */,
-				D01B6D0D0C8A15FC00D8943C /* propertytree.cpp in Sources */,
-				D01B6EB00C8A1D0000D8943C /* propertytreeparser.cpp in Sources */,
-				D083932E0CD91CEC00C94467 /* timeinterval.cpp in Sources */,
+				D0E8B7C10CE26C2B009EC7F4 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D0EE95C20C35E04500CB2978 /* PBXTargetDependency */ = {
+		D0E8B7C50CE26C3F009EC7F4 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D0EE95A90C35DFFC00CB2978 /* tgen_core */;
-			targetProxy = D0EE95C10C35E04500CB2978 /* PBXContainerItemProxy */;
+			target = D0E8B7820CE269BD009EC7F4 /* tgen_core */;
+			targetProxy = D0E8B7C40CE26C3F009EC7F4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		1DEB923208733DC60010E9CD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = i386;
-				COPY_PHASE_STRIP = NO;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_MODEL_TUNING = G5;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				INSTALL_PATH = "$(HOME)/bin";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
-				PRODUCT_NAME = "TGen Core";
-				ZERO_LINK = YES;
-			};
-			name = Debug;
-		};
-		1DEB923308733DC60010E9CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = i386;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_MODEL_TUNING = G5;
-				INSTALL_PATH = "$(HOME)/bin";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
-				);
-				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)/build/Debug\"";
-				PRODUCT_NAME = "TGen Core";
-			};
-			name = Release;
-		};
 		1DEB923608733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -356,16 +304,14 @@
 			};
 			name = Release;
 		};
-		D0EE95D60C35E06300CB2978 /* Debug */ = {
+		D0E8B7840CE269BD009EC7F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_core;
@@ -373,18 +319,13 @@
 			};
 			name = Debug;
 		};
-		D0EE95D70C35E06300CB2978 /* Release */ = {
+		D0E8B7850CE269BD009EC7F4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					"$(NATIVE_ARCH)",
-				);
 				COPY_PHASE_STRIP = YES;
-				DEPLOYMENT_LOCATION = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DSTROOT = ../../../Combined/;
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
@@ -394,18 +335,46 @@
 			};
 			name = Release;
 		};
+		D0E8B7BC0CE26BBB009EC7F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/build/Release\"",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "TGen Core Test";
+				ZERO_LINK = YES;
+			};
+			name = Debug;
+		};
+		D0E8B7BD0CE26BBB009EC7F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				INSTALL_PATH = /usr/local/bin;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/build/Release\"",
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = "TGen Core Test";
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Core" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1DEB923208733DC60010E9CD /* Debug */,
-				1DEB923308733DC60010E9CD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "TGen Core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -415,11 +384,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D0EE95D50C35E06300CB2978 /* Build configuration list for PBXNativeTarget "tgen_core" */ = {
+		D0E8B7870CE269C6009EC7F4 /* Build configuration list for PBXNativeTarget "tgen_core" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D0EE95D60C35E06300CB2978 /* Debug */,
-				D0EE95D70C35E06300CB2978 /* Release */,
+				D0E8B7840CE269BD009EC7F4 /* Debug */,
+				D0E8B7850CE269BD009EC7F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0E8B7BF0CE26BD1009EC7F4 /* Build configuration list for PBXNativeTarget "TGen Core Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0E8B7BC0CE26BBB009EC7F4 /* Debug */,
+				D0E8B7BD0CE26BBB009EC7F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

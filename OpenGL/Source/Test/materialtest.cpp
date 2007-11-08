@@ -111,6 +111,8 @@ public:
 		windowSize.width = 640;
 		windowSize.height = 480;
 		
+		system("pwd");
+		
 		// We need a context...
 		glutInit(&argc, argv);
 		glutInitWindowSize(windowSize.width, windowSize.height);
@@ -163,7 +165,7 @@ public:
 		ilBindImage(imageName);
 		
 		if (!ilLoadImage(name.c_str()))
-			throw TGen::RuntimeException("App::getTexture", "image failed to load");
+			throw TGen::RuntimeException("App::getTexture", "image failed to load") << ilGetError();
 		
 		TGen::Texture * newTexture = renderer->createTexture(DevILImage(imageName), TGen::RGBA);
 		
@@ -245,7 +247,7 @@ public:
 		
 		FILE * file = fopen(name.c_str(), "r");
 		if (!file)
-			throw TGen::RuntimeException("App::ReadFile", "file not found");
+			throw TGen::RuntimeException("App::ReadFile", "file not found: " + name);
 		
 		char buffer[1024];
 		while (!feof(file)) {

@@ -27,7 +27,6 @@ TGen::Engine::GameState::~GameState() {
 	app.logs.info["gst-"] << "leaving game state..." << endl;
 }
 
-
 void TGen::Engine::GameState::tick() {
 	TGen::Time now = TGen::Time::Now();
 	double sinceLastRender = double(now) - double(lastRender);
@@ -40,8 +39,6 @@ void TGen::Engine::GameState::tick() {
 		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render updates
 			TGen::Sleep(TGen::Time(sinceLastRender));
 	}
-	
-	
 }
 
 

@@ -14,6 +14,7 @@
 #include <vector>
 #include <map>
 
+
 namespace TGen {
 	class PropertyTree {
 	public:	
@@ -29,8 +30,8 @@ namespace TGen {
 		const PropertyTree & getNode(const std::string & name) const;
 		PropertyTree & getNode(const std::string & name);
 		int getNumProperties() const;
-		const PropertyMap & getProperties() const;
 		
+		const PropertyMap & getProperties() const;
 		const ConstProperty & operator [] (const std::string & name) const;
 		
 		std::string getName() const;

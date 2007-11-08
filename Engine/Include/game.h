@@ -36,7 +36,6 @@ namespace TGen {
 			
 			TGen::SceneNode sceneRoot;
 			TGen::Camera * camera;
-			
 		};
 		
 	} // !Engine

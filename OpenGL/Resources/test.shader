@@ -1,7 +1,7 @@
 textures/base_wall/metalfloor_wall_15ow
 {
        {
-			map pent_glow.jpg
+			map pent_glow.png
             blendFunc GL_ONE GL_ZERO
            // rgbGen wave sin 0.5 0.5 0 1
 			tcmod rotate 180

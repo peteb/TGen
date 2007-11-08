@@ -42,7 +42,7 @@
 		D04C82F40CCA49B900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C811D0CCA45E200794CEA /* libtgen_core.a */; };
 		D04C82F50CCA49C400794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C812B0CCA45F000794CEA /* libtgen_math.a */; };
 		D04C82FC0CCA49E100794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81380CCA45FB00794CEA /* libtgen_graphics.a */; };
-		D067DC670C57FB940078E141 /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
+		D0682B5C0CE3516700835F01 /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
 		D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
 		D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02520C3D9F3D007D4B18 /* libIL.a */; };
 		D0CE02710C3D9FBA007D4B18 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02700C3D9FBA007D4B18 /* libjpeg.a */; };
@@ -53,6 +53,7 @@
 		D0CE09000C3FE4AB007D4B18 /* shader.glsl in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */; };
 		D0CE0ABE0C3FE94D007D4B18 /* material.mat in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE0ABD0C3FE94D007D4B18 /* material.mat */; };
 		D0CEF3930C3BF7C7007D4B18 /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00FF8E60C3940E900668773 /* libtgen_opengl.a */; };
+		D0EC699E0CE354A300EA9683 /* pent_glow.png in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EC698E0CE3521E00EA9683 /* pent_glow.png */; };
 		D0FC2EA90CD29D44001B5A75 /* smallfont.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0FC2EA80CD29D44001B5A75 /* smallfont.tga */; };
 /* End PBXBuildFile section */
 
@@ -70,13 +71,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = D00FF6CB0C39391D00668773;
 			remoteInfo = tgen_graphics;
-		};
-		D04C811A0CCA45E200794CEA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D00FF92D0C39414D00668773 /* TGen Core.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Core";
 		};
 		D04C811C0CCA45E200794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -113,6 +107,13 @@
 			remoteGlobalIDString = D00FF6CC0C39391D00668773;
 			remoteInfo = tgen_graphics;
 		};
+		D0E8B8010CE26F3D009EC7F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF92D0C39414D00668773 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4;
+			remoteInfo = "TGen Core Test";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -132,6 +133,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				D0EC699E0CE354A300EA9683 /* pent_glow.png in CopyFiles */,
 				D0426EB20C407304004CB60C /* metalbridge06_pent.jpg in CopyFiles */,
 				D0426E850C406FE6004CB60C /* pent_glow.jpg in CopyFiles */,
 				D0CE0ABE0C3FE94D007D4B18 /* material.mat in CopyFiles */,
@@ -200,6 +202,7 @@
 		D0CE07B80C3E584B007D4B18 /* proto_comp.tga */ = {isa = PBXFileReference; explicitFileType = image; path = proto_comp.tga; sourceTree = "<group>"; };
 		D0CE08FF0C3FE4AB007D4B18 /* shader.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shader.glsl; sourceTree = "<group>"; };
 		D0CE0ABD0C3FE94D007D4B18 /* material.mat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = material.mat; sourceTree = "<group>"; };
+		D0EC698E0CE3521E00EA9683 /* pent_glow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pent_glow.png; sourceTree = "<group>"; };
 		D0FC2EA80CD29D44001B5A75 /* smallfont.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = smallfont.tga; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -328,8 +331,8 @@
 		D04C81160CCA45E200794CEA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D04C811B0CCA45E200794CEA /* TGen Core */,
 				D04C811D0CCA45E200794CEA /* libtgen_core.a */,
+				D0E8B8020CE26F3D009EC7F4 /* TGen Core Test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 		D0CE01340C3D962A007D4B18 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0EC698E0CE3521E00EA9683 /* pent_glow.png */,
 				D01F790C0C4D113C007618C6 /* base.shader */,
 				D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */,
 				D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */,
@@ -468,13 +472,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D04C811B0CCA45E200794CEA /* TGen Core */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "TGen Core";
-			remoteRef = D04C811A0CCA45E200794CEA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D04C811D0CCA45E200794CEA /* libtgen_core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -510,6 +507,13 @@
 			remoteRef = D04C81370CCA45FB00794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		D0E8B8020CE26F3D009EC7F4 /* TGen Core Test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Core Test";
+			remoteRef = D0E8B8010CE26F3D009EC7F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -517,7 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D067DC670C57FB940078E141 /* materialtest.cpp in Sources */,
+				D0682B5C0CE3516700835F01 /* materialtest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
