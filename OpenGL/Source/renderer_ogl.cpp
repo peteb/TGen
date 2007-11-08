@@ -27,6 +27,7 @@ TGen::OpenGL::Renderer::ExtensionMap TGen::OpenGL::Renderer::extensionsAvailable
 
 TGen::OpenGL::Renderer::Renderer()
 	: colorFromVertex(true)
+	, hasColorArray(false)
 	, lastVb(NULL)
 	, lastIb(NULL)
 {
@@ -532,6 +533,8 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 	
 	int elementCount = vertstruct.getElementCount();
 	
+	hasColorArray = false;
+	
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_COLOR_ARRAY);
@@ -577,10 +580,11 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 				
 			case TGen::VertexElementColor:
 				//std::cout << "color pointer count: " << int(element.count) << " type: " << fixedType << " stride: " << stride << " pos: " << pos << std::endl;
-				if (colorFromVertex) {
+				//if (colorFromVertex) {
 					glEnableClientState(GL_COLOR_ARRAY);
 					glColorPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
-				}
+				//}
+				hasColorArray = true;
 				
 				break;
 				
@@ -724,7 +728,13 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "back polygon mode not supported");						
 	}
 	
+	// hm... setRenderContext sätts per pass, applyVertexStructure sätts preRender. så colorFromVertex gör inget...
 	colorFromVertex = context.colorFromVertex;
+	
+	if (colorFromVertex && hasColorArray)
+		glEnableClientState(GL_COLOR_ARRAY);
+	else
+		glDisableClientState(GL_COLOR_ARRAY);
 }
 
 

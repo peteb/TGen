@@ -53,7 +53,7 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	if (!PHYSFS_setWriteDir(writeDir.c_str()))
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to set write dir: ") << PHYSFS_getLastError();
 	
-	if (!PHYSFS_addToSearchPath(writeDir.c_str(), 1))
+	if (!PHYSFS_addToSearchPath(writeDir.c_str(), 0))
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to add write dir as search dir: ") << PHYSFS_getLastError();
 	
 	logs.info["vfs+"] << "   base: " << PHYSFS_getBaseDir() << TGen::endl;
@@ -65,6 +65,15 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 		logs.info["vfs+"] << "   writedir: none" << TGen::endl;
 		
 	logs.info["vfs+"] << "initialized" << TGen::endl;	
+	
+	
+	char **rc = PHYSFS_enumerateFiles("/");
+	char **i;
+	
+	for (i = rc; *i != NULL; i++)
+		printf(" * We've got [%s].\n", *i);
+	
+	PHYSFS_freeList(rc);
 }
 
 TGen::Engine::Filesystem::~Filesystem() {
@@ -73,6 +82,10 @@ TGen::Engine::Filesystem::~Filesystem() {
 }
 
 TGen::Engine::File * TGen::Engine::Filesystem::openRead(const std::string & path) {
+	std::cout << "opening " << path << std::endl;
+	if (PHYSFS_exists(path.c_str()))
+		std::cout << "EXISTS!!!!!!" << std::endl;
+	
 	PHYSFS_File * file = PHYSFS_openRead(path.c_str());
 	if (!file)
 		throw TGen::RuntimeException("Filesystem::openRead", "file '" + path + "' failed to open: ") << PHYSFS_getLastError();

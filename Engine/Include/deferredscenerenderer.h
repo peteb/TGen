@@ -10,19 +10,26 @@
 #ifndef _TGEN_ENGINE_DEFERREDSCENERENDERER_H
 #define _TGEN_ENGINE_DEFERREDSCENERENDERER_H
 
-namespace TGen {
-	class Renderer;
+#include <string>
+
+namespace TGen {	
+	class ShaderProgram;
 	
 	namespace Engine {
+		class App;
+		
 		class DeferredSceneRenderer {
 		public:	
-			DeferredSceneRenderer(TGen::Renderer & renderer);
+			DeferredSceneRenderer(TGen::Engine::App & renderer);
 			~DeferredSceneRenderer();
 			
 			void renderScene();
 			
 		private:
-			TGen::Renderer & renderer;
+			TGen::ShaderProgram * loadShader(const std::string & filename);
+			
+			TGen::Engine::App & app;
+			TGen::ShaderProgram * rhwNoTransformShader;
 		};
 	}
 }

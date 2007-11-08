@@ -8,20 +8,35 @@
  */
 
 #include "deferredscenerenderer.h"
+#include "app.h"
+#include "filesystem.h"
+#include "file.h"
 #include <tgen_graphics.h>
 
-TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Renderer & renderer) 
-	: renderer(renderer)
+TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Engine::App & app) 
+	: app(app)
+	, rhwNoTransformShader(NULL)
 {
-	
+	rhwNoTransformShader = loadShader("rhwNoTransform.shader");
 }
 
 TGen::Engine::DeferredSceneRenderer::~DeferredSceneRenderer() {
-	
+	delete rhwNoTransformShader;
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderScene() {
-	renderer.clearBuffers(TGen::ColorBuffer);
+	app.renderer.clearBuffers(TGen::ColorBuffer);
 	
 }
 
+TGen::ShaderProgram * TGen::Engine::DeferredSceneRenderer::loadShader(const std::string & filename) {
+	app.logs.info["dfre"] << "loading shader " << filename << "..." << TGen::endl;
+	
+	TGen::Engine::File * file = app.filesystem.openRead("/shaders/" + filename);
+	std::string contents = file->readAll();
+	delete file;
+	
+	TGen::ShaderProgram * program = app.renderer.createShaderProgram(contents.c_str());
+	program->link();
+	return program;
+}

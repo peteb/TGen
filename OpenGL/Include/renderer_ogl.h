@@ -104,7 +104,7 @@ namespace TGen {
 			typedef std::map<std::string, bool> ExtensionMap;
 			static ExtensionMap extensionsAvailable;
 			
-			bool colorFromVertex;
+			bool colorFromVertex, hasColorArray;
 			uint indexBufferFormat;
 			TGen::VertexBuffer * lastVb;
 			TGen::IndexBuffer * lastIb;

@@ -111,8 +111,15 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D00FF7180C3939B500668773 /* TGen Core.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */;
+			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4;
 			remoteInfo = "TGen Core Test";
+		};
+		D0E9D5DC0CE3636F0050B530 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF7180C3939B500668773 /* TGen Core.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D0E8B7820CE269BD009EC7F4 /* tgen_core */;
+			remoteInfo = tgen_core;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -434,6 +441,7 @@
 			);
 			dependencies = (
 				D00FF77B0C393AD400668773 /* PBXTargetDependency */,
+				D0E9D5DD0CE3636F0050B530 /* PBXTargetDependency */,
 			);
 			name = "TGen Graphics";
 			productInstallPath = "$(HOME)/bin";
@@ -575,13 +583,18 @@
 			name = tgen_math;
 			targetProxy = D0450B9A0CCA4BC400832ABC /* PBXContainerItemProxy */;
 		};
+		D0E9D5DD0CE3636F0050B530 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = tgen_core;
+			targetProxy = D0E9D5DC0CE3636F0050B530 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1DEB923208733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(NATIVE_ARCH)";
+				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -601,10 +614,7 @@
 		1DEB923308733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = i386;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				HEADER_SEARCH_PATHS = (

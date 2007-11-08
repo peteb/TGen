@@ -14,13 +14,14 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
-		D083958C0CD927E100C94467 /* deferredscenerenderer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D083958B0CD927E100C94467 /* deferredscenerenderer.h */; };
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
+		D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
+		D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E9D5A50CE356DE0050B530 /* libphysfs.a */; };
+		D0E9D5B60CE357CE0050B530 /* adrift in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF67150C82FA160085C17B /* adrift */; };
 		D0EF60E40C8222350085C17B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60E30C8222350085C17B /* main.cpp */; };
 		D0EF60F90C8222670085C17B /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60F80C8222670085C17B /* SDLMain.m */; };
 		D0EF60FD0C8222810085C17B /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
 		D0EF61340C8222A40085C17B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF61330C8222A40085C17B /* Cocoa.framework */; };
-		D0EF614B0C82D0AB0085C17B /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF614A0C82D0AB0085C17B /* libphysfs.a */; };
 		D0EF61510C82D8E20085C17B /* app.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF61500C82D8E20085C17B /* app.cpp */; };
 		D0EF62220C82DCC40085C17B /* tgen_engine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62210C82DCC40085C17B /* tgen_engine.cpp */; };
 		D0EF62BB0C82DFFE0085C17B /* variable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF62B90C82DFFE0085C17B /* variable.cpp */; };
@@ -29,31 +30,17 @@
 		D0EF65220C82F5120085C17B /* filesystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65210C82F5120085C17B /* filesystem.cpp */; };
 		D0EF65270C82F5530085C17B /* file.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF65260C82F5530085C17B /* file.cpp */; };
 		D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF656B0C82F6A40085C17B /* IOKit.framework */; };
-		D0EF67200C82FA160085C17B /* adrift in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF67150C82FA160085C17B /* adrift */; };
-		D0F491D80CBE55D40080CB46 /* command.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F491D70CBE55D40080CB46 /* command.h */; };
 		D0F491DA0CBE55DD0080CB46 /* command.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F491D90CBE55DD0080CB46 /* command.cpp */; };
-		D0F491E60CBE57050080CB46 /* textoutput.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F491E50CBE57050080CB46 /* textoutput.h */; };
-		D0F4924C0CBE59470080CB46 /* commandregistry.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F4924B0CBE59470080CB46 /* commandregistry.h */; };
 		D0F4924E0CBE59530080CB46 /* commandregistry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4924D0CBE59530080CB46 /* commandregistry.cpp */; };
-		D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F493080CBE89660080CB46 /* cmdset.h */; };
 		D0F4930D0CBE89760080CB46 /* cmdset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4930C0CBE89760080CB46 /* cmdset.cpp */; };
 		D0F4961D0CBF8C8D0080CB46 /* cmddumpvars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F4961C0CBF8C8D0080CB46 /* cmddumpvars.cpp */; };
-		D0F4961F0CBF8C990080CB46 /* cmddumpvars.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F4961E0CBF8C990080CB46 /* cmddumpvars.h */; };
 		D0F835850CBA5B6100FF4467 /* procmap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835840CBA5B6100FF4467 /* procmap.cpp */; };
-		D0F835870CBA5B6B00FF4467 /* procmap.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835860CBA5B6B00FF4467 /* procmap.h */; };
 		D0F835D20CBA5C5100FF4467 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F835D10CBA5C5100FF4467 /* game.cpp */; };
-		D0F835D40CBA5C5B00FF4467 /* game.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835D30CBA5C5B00FF4467 /* game.h */; };
-		D0F835DB0CBA5CB900FF4467 /* state.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F835DA0CBA5CB900FF4467 /* state.h */; };
 		D0F836870CBA5E5900FF4467 /* state.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F836860CBA5E5900FF4467 /* state.cpp */; };
 		D0F8393D0CBA67A100FF4467 /* view.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F8393C0CBA67A100FF4467 /* view.cpp */; };
-		D0F8393F0CBA67AD00FF4467 /* view.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F8393E0CBA67AD00FF4467 /* view.h */; };
 		D0F83A680CBA6DC200FF4467 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0F83A670CBA6DC200FF4467 /* OpenGL.framework */; };
-		D0F83ACC0CBA729D00FF4467 /* environment.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83ACB0CBA729D00FF4467 /* environment.h */; };
 		D0F83B4B0CBA747200FF4467 /* gamestatevars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */; };
-		D0F83B4D0CBA747E00FF4467 /* gamestatevars.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */; };
-		D0F83DFF0CBAD62900FF4467 /* log.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83DFE0CBAD62900FF4467 /* log.h */; };
 		D0F83E060CBAD6B300FF4467 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83E050CBAD6B300FF4467 /* log.cpp */; };
-		D0F83E6A0CBAD7FC00FF4467 /* logtarget.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0F83E690CBAD7FC00FF4467 /* logtarget.h */; };
 		D0F83F0B0CBADBAE00FF4467 /* logtarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */; };
 /* End PBXBuildFile section */
 
@@ -100,13 +87,6 @@
 			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
 			remoteInfo = tgen_math;
 		};
-		D04C81E40CCA46EC00794CEA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Core";
-		};
 		D04C81E60CCA46EC00794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
@@ -142,30 +122,34 @@
 			remoteGlobalIDString = D0F3713A0C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
 		};
+		D0E9D58B0CE355D90050B530 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */;
+			remoteInfo = "TGen Core Test";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		D0E9D5A40CE3560B0050B530 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0EF67CA0C82FDDF0085C17B /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				D0EF67200C82FA160085C17B /* adrift in CopyFiles */,
-				D0F835870CBA5B6B00FF4467 /* procmap.h in CopyFiles */,
-				D0F835D40CBA5C5B00FF4467 /* game.h in CopyFiles */,
-				D0F835DB0CBA5CB900FF4467 /* state.h in CopyFiles */,
-				D0F8393F0CBA67AD00FF4467 /* view.h in CopyFiles */,
-				D0F83ACC0CBA729D00FF4467 /* environment.h in CopyFiles */,
-				D0F83B4D0CBA747E00FF4467 /* gamestatevars.h in CopyFiles */,
-				D0F83DFF0CBAD62900FF4467 /* log.h in CopyFiles */,
-				D0F83E6A0CBAD7FC00FF4467 /* logtarget.h in CopyFiles */,
-				D0F491D80CBE55D40080CB46 /* command.h in CopyFiles */,
-				D0F491E60CBE57050080CB46 /* textoutput.h in CopyFiles */,
-				D0F4924C0CBE59470080CB46 /* commandregistry.h in CopyFiles */,
-				D0F493090CBE89660080CB46 /* cmdset.h in CopyFiles */,
-				D0F4961F0CBF8C990080CB46 /* cmddumpvars.h in CopyFiles */,
-				D083958C0CD927E100C94467 /* deferredscenerenderer.h in CopyFiles */,
+				D0E9D5B60CE357CE0050B530 /* adrift in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -182,12 +166,12 @@
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
 		D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredscenerenderer.cpp; sourceTree = "<group>"; };
+		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
 		D0EF60F80C8222670085C17B /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = ../Projects/Xcode/SDLMain.m; sourceTree = "<group>"; };
-		D0EF60FC0C8222810085C17B /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
+		D0EF60FC0C8222810085C17B /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D0EF61330C8222A40085C17B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		D0EF614A0C82D0AB0085C17B /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF614D0C82D0C20085C17B /* physfs.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = physfs.h; sourceTree = "<group>"; };
 		D0EF614F0C82D8E20085C17B /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = app.h; path = ../Include/app.h; sourceTree = "<group>"; };
 		D0EF61500C82D8E20085C17B /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
@@ -250,9 +234,9 @@
 				8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */,
 				D0EF60FD0C8222810085C17B /* SDL.framework in Frameworks */,
 				D0EF61340C8222A40085C17B /* Cocoa.framework in Frameworks */,
-				D0EF614B0C82D0AB0085C17B /* libphysfs.a in Frameworks */,
 				D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */,
 				D0F83A680CBA6DC200FF4467 /* OpenGL.framework in Frameworks */,
+				D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,7 +293,7 @@
 				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
 				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
 				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
-				D0EF614A0C82D0AB0085C17B /* libphysfs.a */,
+				D0E9D5A50CE356DE0050B530 /* libphysfs.a */,
 				D0EF61330C8222A40085C17B /* Cocoa.framework */,
 				D0EF60FC0C8222810085C17B /* SDL.framework */,
 				20286C33FDCF999611CA2CEA /* Carbon.framework */,
@@ -385,8 +369,8 @@
 		D04C81E00CCA46EC00794CEA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D04C81E50CCA46EC00794CEA /* TGen Core */,
 				D04C81E70CCA46EC00794CEA /* libtgen_core.a */,
+				D0E9D58C0CE355D90050B530 /* TGen Core Test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -514,6 +498,7 @@
 				8D0C4E8F0486CD37000505A6 /* Sources */,
 				8D0C4E910486CD37000505A6 /* Frameworks */,
 				D0EF67CA0C82FDDF0085C17B /* CopyFiles */,
+				D0E9D5A40CE3560B0050B530 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -595,13 +580,6 @@
 			remoteRef = D04C81D90CCA46E400794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D04C81E50CCA46EC00794CEA /* TGen Core */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "TGen Core";
-			remoteRef = D04C81E40CCA46EC00794CEA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D04C81E70CCA46EC00794CEA /* libtgen_core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -635,6 +613,13 @@
 			fileType = archive.ar;
 			path = libtgen_renderer.a;
 			remoteRef = D04C82060CCA470100794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0E9D58C0CE355D90050B530 /* TGen Core Test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Core Test";
+			remoteRef = D0E9D58B0CE355D90050B530 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -716,8 +701,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "-D_DEBUG";
 				OTHER_LDFLAGS = "-lz";
 				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
@@ -735,8 +722,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				OTHER_LDFLAGS = "-lz";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";

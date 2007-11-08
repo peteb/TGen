@@ -43,8 +43,8 @@ void TGen::FontText::update(TGen::Renderer & renderer) {
 		
 		TGen::Vector2 pos = position;
 		
-		charSize = TGen::Vector2::Identity * 32.0f;
-		charSpacing = charSize * 0.7;
+		charSize = TGen::Vector2::Identity * 32.0f;		// borde sättas när man initierar
+		charSpacing = charSize * 0.6;
 		
 		TGen::Vector2 texSize = TGen::Vector2(1.0f / 16.0f, 1.0f / 16.0f);
 		

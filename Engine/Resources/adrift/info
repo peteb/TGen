@@ -1,0 +1,20 @@
+game {
+	version 0 0 1
+	name "Adrift"	
+	author "Adrift team"
+
+	search {
+		file1.pak
+		file3.pak
+	}
+	
+	vars {
+	
+	}
+	
+	autoexec {
+		autoexec.cfg
+		vardump
+	
+	}
+}

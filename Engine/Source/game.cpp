@@ -18,7 +18,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	, lastRender(TGen::Time::Now())
 	, sceneRoot("root")
 	, vars(app)
-	, sceneRenderer(app.renderer)
+	, sceneRenderer(app)
 {
 	app.logs.info["gst+"] << "entering game state..." << endl;
 }
