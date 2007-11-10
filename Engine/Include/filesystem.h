@@ -26,6 +26,7 @@ namespace TGen {
 
 			void addSearchPath(const std::string & path, bool override);
 			bool exists(const std::string & path);
+			void outputPath(const std::string & path);
 			
 		private:
 			TGen::Engine::StandardLogs & logs;

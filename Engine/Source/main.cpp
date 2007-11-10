@@ -110,9 +110,10 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	// setup filesystem
 	TGen::Engine::Filesystem * fs = new TGen::Engine::Filesystem(argv[0], logs);
-	fs->addSearchPath(variables["fs_game"].getValue(), true);
-	
-	
+	fs->addSearchPath(variables["fs_game"].getValue(), false);
+
+	fs->outputPath("/");
+	fs->outputPath("/shaders/");
 	
 	
 	// read info file

@@ -66,14 +66,6 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 		
 	logs.info["vfs+"] << "initialized" << TGen::endl;	
 	
-	
-	char **rc = PHYSFS_enumerateFiles("/");
-	char **i;
-	
-	for (i = rc; *i != NULL; i++)
-		printf(" * We've got [%s].\n", *i);
-	
-	PHYSFS_freeList(rc);
 }
 
 TGen::Engine::Filesystem::~Filesystem() {
@@ -117,3 +109,26 @@ void TGen::Engine::Filesystem::addSearchPath(const std::string & path, bool over
 bool TGen::Engine::Filesystem::exists(const std::string & path) {
 	return PHYSFS_exists(path.c_str());
 }
+
+
+
+void TGen::Engine::Filesystem::outputPath(const std::string & path) {
+	char **rc = PHYSFS_enumerateFiles(path.c_str());
+	char **i;
+	
+	for (i = rc; *i != NULL; i++) {
+		printf("[%s]: ", (path + *i).c_str());
+		if (PHYSFS_isDirectory((path + *i).c_str()))
+			 printf("dir\n");
+		else
+			 printf("file\n");
+			
+	}
+	
+	PHYSFS_freeList(rc);
+	
+	if (PHYSFS_isDirectory("/shaders/rhwNoTransform.shader"))
+		printf("IS DIR!!!!!!!\n");
+}
+
+
