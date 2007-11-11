@@ -1,7 +1,7 @@
-material deferred/fillScreen default 9 {
+material deferred/screenFill default 9 {
 	lod 0 {
-		pass fixed {
-
+		pass rhwNoTransform {
+			color 0 1 0			
 
 		}
 	}
