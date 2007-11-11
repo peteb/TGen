@@ -14,6 +14,7 @@
 
 namespace TGen {	
 	class ShaderProgram;
+	class Mesh;
 	
 	namespace Engine {
 		class App;
@@ -26,10 +27,14 @@ namespace TGen {
 			void renderScene();
 			
 		private:
-			TGen::ShaderProgram * loadShader(const std::string & filename);
 			
 			TGen::Engine::App & app;
+			
+			
+			
+			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;
+			TGen::Mesh * screenFillMesh;
 		};
 	}
 }

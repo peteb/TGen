@@ -16,12 +16,14 @@
 TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Engine::App & app) 
 	: app(app)
 	, rhwNoTransformShader(NULL)
+	, screenFillMesh(NULL)
 {
-	rhwNoTransformShader = loadShader("rhwNoTransform.shader");
+	rhwNoTransformShader = app.globalResources.getShaderProgram("rhwNoTransform.shader");
+	screenFillMesh = app.globalResources.getMesh("gen:fillquad");
 }
 
 TGen::Engine::DeferredSceneRenderer::~DeferredSceneRenderer() {
-	delete rhwNoTransformShader;
+	
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderScene() {
@@ -29,14 +31,3 @@ void TGen::Engine::DeferredSceneRenderer::renderScene() {
 	
 }
 
-TGen::ShaderProgram * TGen::Engine::DeferredSceneRenderer::loadShader(const std::string & filename) {
-	app.logs.info["dfre"] << "loading shader " << filename << "..." << TGen::endl;
-	
-	TGen::Engine::File * file = app.filesystem.openRead("/shaders/" + filename);
-	std::string contents = file->readAll();
-	delete file;
-	
-	TGen::ShaderProgram * program = app.renderer.createShaderProgram(contents.c_str());
-	program->link();
-	return program;
-}

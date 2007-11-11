@@ -74,10 +74,6 @@ TGen::Engine::Filesystem::~Filesystem() {
 }
 
 TGen::Engine::File * TGen::Engine::Filesystem::openRead(const std::string & path) {
-	std::cout << "opening " << path << std::endl;
-	if (PHYSFS_exists(path.c_str()))
-		std::cout << "EXISTS!!!!!!" << std::endl;
-	
 	PHYSFS_File * file = PHYSFS_openRead(path.c_str());
 	if (!file)
 		throw TGen::RuntimeException("Filesystem::openRead", "file '" + path + "' failed to open: ") << PHYSFS_getLastError();

@@ -24,6 +24,7 @@ TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine
 	, loadProps(props)
 	, renderer(renderer)
 	, logs(logs)
+	, globalResources(logs, filesystem, renderer)
 {
 	logs.info["app+"] << "initializing..." << TGen::endl;
 		

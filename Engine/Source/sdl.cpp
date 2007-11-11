@@ -50,7 +50,6 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	logs.info["sdl+"] << "created renderer: " << TGen::endl;
 	logs.info["sdl+"] << std::string(renderer->getCaps()) << TGen::endl;
 	logs.info["sdl+"] << "initialized" << TGen::endl;	
-
 }
 
 TGen::Engine::SDL::~SDL() {
