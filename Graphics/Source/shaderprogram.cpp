@@ -119,8 +119,8 @@ void TGen::ShaderProgram::parseShaders(TGen::Renderer & renderer, char * code) {
 					break;				
 			}
 			
-			std::cout << "SECTION " << i << ": " << std::endl;
-			std::cout << sectionCode[i] << std::endl;
+			//std::cout << "SECTION " << i << ": " << std::endl;
+			//std::cout << sectionCode[i] << std::endl;
 		}
 		
 		if (sectionCode[i])

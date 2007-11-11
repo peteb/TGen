@@ -23,6 +23,7 @@ TGen::Material::Material(const std::string & name)
 	: minimumTechnique(0)
 	, sortLevel(TGen::MaterialSortOpaque)    // 0-19 = front to back 20 - 39 = back to front    
 	, name(name) 
+	, linked(false)
 {
 	/*TGen::TechniqueList * newTechniques = new TGen::TechniqueList;
 	TGen::Technique * newTechnique = new TGen::Technique;
@@ -50,6 +51,12 @@ void TGen::Material::link(TGen::MaterialLinkCallback & callback) {
 	for (; iter != techniques.end(); ++iter) {
 		iter->second->link(callback);
 	}
+	
+	linked = true;
+}
+
+bool TGen::Material::isLinked() const {
+	return linked;
 }
 
 void TGen::Material::setSpecialization(const std::string & name, TGen::TechniqueList * techniques) {

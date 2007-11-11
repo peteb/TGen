@@ -1,0 +1,14 @@
+
+
+material nomat default 9 {
+	lod 0 {
+		pass fixed {
+			front fill
+			back fill
+
+			color 1 0 0
+		}
+	}
+}
+
+

@@ -15,11 +15,10 @@
 
 TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Engine::App & app) 
 	: app(app)
-	, rhwNoTransformShader(NULL)
-	, screenFillMesh(NULL)
 {
 	rhwNoTransformShader = app.globalResources.getShaderProgram("rhwNoTransform.shader");
 	screenFillMesh = app.globalResources.getMesh("gen:fillquad");
+	screenFillMaterial = app.globalResources.getMaterial("deferred/screenFill");
 }
 
 TGen::Engine::DeferredSceneRenderer::~DeferredSceneRenderer() {
@@ -27,7 +26,11 @@ TGen::Engine::DeferredSceneRenderer::~DeferredSceneRenderer() {
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderScene() {
-	app.renderer.clearBuffers(TGen::ColorBuffer);
+	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	
+	renderFillQuad();
 }
 
+void TGen::Engine::DeferredSceneRenderer::renderFillQuad() {
+	screenFillMaterial->render(app.renderer, *screenFillMesh, "default", 9, NULL);
+}

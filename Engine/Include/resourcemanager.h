@@ -20,7 +20,7 @@ namespace TGen {
 		class StandardLogs;
 		class Renderer;
 		
-		class ResourceManager : public TGen::MaterialLinkCallback {
+		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource {
 		public:
 			ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer);
 			~ResourceManager();
@@ -28,16 +28,20 @@ namespace TGen {
 			TGen::ShaderProgram * getShaderProgram(const std::string & name);
 			TGen::Texture * getTexture(const std::string & name);
 			TGen::Mesh * getMesh(const std::string & name);
+			TGen::Material * getMaterial(const std::string & name);
 			int getTextureType(const std::string & name);
+			void loadMaterials(const std::string & filename);
 			
 		private:
 			typedef std::map<std::string, TGen::ShaderProgram *> ShaderMap;
 			typedef std::map<std::string, TGen::Texture *> TextureMap;
 			typedef std::map<std::string, TGen::Mesh *> MeshMap;
+			typedef std::map<std::string, TGen::Material *> MaterialMap;
 			
 			ShaderMap shaders;
 			TextureMap textures;
 			MeshMap meshes;
+			MaterialMap materials;
 			
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;

@@ -64,7 +64,7 @@ void TGen::MaterialParser::parseGlobalBlock() {
 			if (currentToken->first == TGen::TokenValueNumeric)
 				technique = currentToken->second;
 			else
-				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting numeric value for technique!");
+				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting numeric value for technique, not ") << currentToken->second;
 			
 			int techniqueNumber = 0;
 			std::stringstream ss;

@@ -1,0 +1,9 @@
+material deferred/fillScreen default 9 {
+	lod 0 {
+		pass fixed {
+
+
+		}
+	}
+}
+

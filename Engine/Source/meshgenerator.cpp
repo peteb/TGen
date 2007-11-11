@@ -8,10 +8,15 @@
  */
 
 #include "meshgenerator.h"
+#include "fillquad.h"
 #include <iostream>
 
-TGen::Mesh * TGen::Engine::MeshGenerator::generateMesh(const std::string & name) {
+TGen::Mesh * TGen::Engine::MeshGenerator::generateMesh(const std::string & name, TGen::Renderer & renderer) {
 	std::cout << "GENERATE MESH '" << name << "'" << std::endl;
+	
+	if (name == "fillquad") {
+		return new TGen::Engine::FillQuad(TGen::Vector2(-1.0f, -1.0f), TGen::Vector2(1.0f, 1.0f), renderer);
+	}
 	
 	return NULL;
 }

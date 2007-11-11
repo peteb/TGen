@@ -118,7 +118,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D00FF7180C3939B500668773 /* TGen Core.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D0E8B7820CE269BD009EC7F4 /* tgen_core */;
+			remoteGlobalIDString = D0E8B7820CE269BD009EC7F4;
 			remoteInfo = tgen_core;
 		};
 /* End PBXContainerItemProxy section */

@@ -44,6 +44,7 @@ namespace TGen {
 		
 		std::string getName() const;
 		void link(MaterialLinkCallback & callback);
+		bool isLinked() const;
 		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes);
 		void update(scalar time);
 		void setMaximumTechnique(int minreqs);
@@ -66,6 +67,7 @@ namespace TGen {
 		TechniqueListMap techniques;
 		int minimumTechnique, sortLevel;
 		std::string name;
+		bool linked;
 	};
 	
 } // !TGen

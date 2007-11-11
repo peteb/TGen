@@ -10,6 +10,7 @@
 		8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
 		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
+		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
 		D04C83AC0CCA4AE900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81E70CCA46EC00794CEA /* libtgen_core.a */; };
 		D04C83AF0CCA4AEE00794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81DA0CCA46E400794CEA /* libtgen_math.a */; };
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
@@ -168,6 +169,8 @@
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
+		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
+		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
 		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
 		D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredscenerenderer.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -352,10 +355,19 @@
 				D0F4924B0CBE59470080CB46 /* commandregistry.h */,
 				D0B649A00CE696F500B93A85 /* resourcemanager.cpp */,
 				D0B649A20CE6970300B93A85 /* resourcemanager.h */,
-				D03988B80CE740A90070438B /* meshgenerator.cpp */,
-				D03988BA0CE740B90070438B /* meshgenerator.h */,
 			);
 			name = data;
+			sourceTree = "<group>";
+		};
+		D048B94C0CE743F700607EBA /* meshes */ = {
+			isa = PBXGroup;
+			children = (
+				D03988B80CE740A90070438B /* meshgenerator.cpp */,
+				D03988BA0CE740B90070438B /* meshgenerator.h */,
+				D048B9500CE7441200607EBA /* fillquad.cpp */,
+				D048B9520CE7441F00607EBA /* fillquad.h */,
+			);
+			name = meshes;
 			sourceTree = "<group>";
 		};
 		D04C81C50CCA46DA00794CEA /* Products */ = {
@@ -426,6 +438,7 @@
 				D0F83E020CBAD68600FF4467 /* log */,
 				D0F835D70CBA5C8B00FF4467 /* platform */,
 				D0F835810CBA5B4300FF4467 /* map */,
+				D048B94C0CE743F700607EBA /* meshes */,
 				D01B6CF60C8A14C700D8943C /* data */,
 				D0F493070CBE89500080CB46 /* commands */,
 				D01B6CED0C8A149200D8943C /* fs */,
@@ -673,6 +686,7 @@
 				D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */,
 				D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */,
 				D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */,
+				D048B9510CE7441200607EBA /* fillquad.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -113,13 +113,6 @@
 			remoteGlobalIDString = D0EE96EF0C35E4FC00CB2978;
 			remoteInfo = tgen_math;
 		};
-		D04C81780CCA469B00794CEA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DD76F6C0486A84900D96B5E;
-			remoteInfo = "TGen Core";
-		};
 		D04C817A0CCA469B00794CEA /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
@@ -140,6 +133,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = D00FF6CC0C39391D00668773;
 			remoteInfo = tgen_graphics;
+		};
+		D0B6499D0CE6959700B93A85 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371B40C6D057400C11F87 /* TGen Core.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4;
+			remoteInfo = "TGen Core Test";
 		};
 		D0F3714F0C6D033200C11F87 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -353,8 +353,8 @@
 		D04C81740CCA469B00794CEA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D04C81790CCA469B00794CEA /* TGen Core */,
 				D04C817B0CCA469B00794CEA /* libtgen_core.a */,
+				D0B6499E0CE6959700B93A85 /* TGen Core Test */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -503,7 +503,7 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Renderer */ = {
+		8DD76F620486A84900D96B5E /* TGen Graphics */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Renderer" */;
 			buildPhases = (
@@ -572,7 +572,7 @@
 			);
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Renderer */,
+				8DD76F620486A84900D96B5E /* TGen Graphics */,
 				D0F371390C6D02CE00C11F87 /* tgen_renderer */,
 			);
 		};
@@ -607,13 +607,6 @@
 			remoteRef = D04C816D0CCA468E00794CEA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		D04C81790CCA469B00794CEA /* TGen Core */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = "TGen Core";
-			remoteRef = D04C81780CCA469B00794CEA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		D04C817B0CCA469B00794CEA /* libtgen_core.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -633,6 +626,13 @@
 			fileType = archive.ar;
 			path = libtgen_graphics.a;
 			remoteRef = D04C81890CCA46A700794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0B6499E0CE6959700B93A85 /* TGen Core Test */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = "TGen Core Test";
+			remoteRef = D0B6499D0CE6959700B93A85 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

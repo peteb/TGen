@@ -18,7 +18,11 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	, filesystem(filesystem)
 	, renderer(renderer)
 {
-	logs.info["res+"] << "..." << TGen::endl;
+	logs.info["res+"] << "initializing resource manager..." << TGen::endl;
+	
+	loadMaterials("/materials/stuff.material");
+	loadMaterials("/materials/deferred.material");
+
 }
 
 TGen::Engine::ResourceManager::~ResourceManager() {
@@ -32,6 +36,10 @@ TGen::Engine::ResourceManager::~ResourceManager() {
 	
 	logs.info["res-"] << "removing shaders..." << TGen::endl;
 	for (ShaderMap::iterator iter = shaders.begin(); iter != shaders.end(); ++iter)
+		delete iter->second;
+	
+	logs.info["res-"] << "removing materials..." << TGen::endl;
+	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
 		delete iter->second;
 	
 	
@@ -53,12 +61,20 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	TGen::ShaderProgram * ret = renderer.createShaderProgram(contents.c_str());
 	ret->link();
 	
+	shaders[name] = ret;
+	
 	return ret;
 }
 
 TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & name) {
 	
 	return NULL;
+}
+
+int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
+	// return 1 if the type is sent to the material as aux
+	
+	return 0;
 }
 
 TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
@@ -75,7 +91,7 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	
 	if (name.substr(0, strlen("gen:")) == "gen:") {
 		TGen::Engine::MeshGenerator generator;
-		newMesh = generator.generateMesh(name.substr(strlen("gen:"), name.size() - strlen("gen:")));
+		newMesh = generator.generateMesh(name.substr(strlen("gen:"), name.size() - strlen("gen:")), renderer);
 	}
 	else {
 		
@@ -86,9 +102,59 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	return newMesh;
 }
 
-int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
-	// return 1 if the type is sent to the material as aux
+
+TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & name) {
+	MaterialMap::iterator iter = materials.find(name);
 	
-	return 0;
+	if (iter != materials.end()) {
+		TGen::Material * material = iter->second;
+		
+		if (!material->isLinked())
+			material->link(*this);
+
+		return material;
+	}
+	
+	logs.warning["res"] << "material '" << name << "' is not loaded, using 'nomat'" << TGen::endl;
+	
+	iter = materials.find("nomat");
+	if (iter != materials.end())
+		return iter->second;
+	
+	logs.error["res"] << "material '" << name << "' is not loaded and there's no 'nomat'!" << TGen::endl;
+	
+	return NULL;
+}
+
+void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) {
+	logs.info["res"] << "loading materials from '" << filename << "'..." << TGen::endl;
+	
+	std::string contents;
+	TGen::Engine::File * file = filesystem.openRead(filename);
+	contents = file->readAll();
+	delete file;
+	
+	std::list<TGen::Material *> materialsLoaded;
+	TGen::MaterialParser parser;
+	parser.parse(contents.c_str(), materialsLoaded);
+	
+	logs.info["res"] << "loaded " << materialsLoaded.size() << " materials:\n";
+	int i = 0;
+	
+	for (std::list<TGen::Material *>::iterator iter = materialsLoaded.begin(); iter != materialsLoaded.end(); ++iter) {
+		MaterialMap::iterator iter2 = materials.find((*iter)->getName());
+		if (iter2 != materials.end())
+			delete iter2->second;
+		
+		materials[(*iter)->getName()] = *iter;
+		logs.info["res"] << (*iter)->getName() << "  ";
+		
+		if (i++ > 4) {
+			logs.info["res"] << "\n";
+			i = 0;
+		}
+	}
+	
+	logs.info["res"] << TGen::endl;
 }
 

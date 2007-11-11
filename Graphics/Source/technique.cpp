@@ -55,7 +55,7 @@ TGen::PassList * TGen::Technique::getPassList(int lod) {
 	
 	for (int i = lod; i >= 0; --i) {
 		if (lods[i]) {
-			std::cout << "no higher lod, chosing " << i << std::endl;
+			//std::cout << "no higher lod, chosing " << i << std::endl;  // TODO: mark somewhere as speed penalty
 			return lods[i];
 		}
 	}

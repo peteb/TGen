@@ -14,11 +14,12 @@
 
 namespace TGen {
 	class Mesh;
+	class Renderer;
 	
 	namespace Engine {
 		class MeshGenerator {
 		public:
-			TGen::Mesh * generateMesh(const std::string & name);
+			TGen::Mesh * generateMesh(const std::string & name, TGen::Renderer & renderer);
 			
 		};
 		
