@@ -23,6 +23,7 @@
 #include "symboltable.h"
 #include "propertytree.h"
 #include "propertytreeparser.h"
+#include "streams.h"
 
 namespace TGen {
 	bool isCoreDebug();

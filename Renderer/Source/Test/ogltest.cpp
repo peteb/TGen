@@ -139,9 +139,9 @@ public:
 		if (!rocketl.is_open())
 			throw TGen::RuntimeException("main", "failed to open file");
 		
-		
+		TGen::IstreamAdaptor stream(rocketl);
 		TGen::MD3::Parser modelParser;
-		TGen::MD3::File * file = modelParser.parse(rocketl);
+		TGen::MD3::File * file = modelParser.parse(stream);
 		rocketl.close();
 		
 		

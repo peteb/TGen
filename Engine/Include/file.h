@@ -16,7 +16,7 @@
 
 namespace TGen {
 	namespace Engine {
-		class File {
+		class File : public TGen::InputStream {
 			File(PHYSFS_File * file);
 			
 		public:
@@ -25,6 +25,11 @@ namespace TGen {
 			void close();
 			std::string readAll();
 			int64 write(const void * buffer, uint32 size, uint32 count);
+			
+			uint getReadPos();
+			void seekReadPos(uint pos, TGen::Seek rel);
+			void read(char * data, uint size);
+			uint getSize();
 			
 			friend class Filesystem;
 			

@@ -7,31 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D079E6330CE8B00100FA3FDB /* streams.h in Headers */ = {isa = PBXBuildFile; fileRef = D079E6320CE8B00100FA3FDB /* streams.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B78A0CE26A20009EC7F4 /* tgen_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE97D70C35E85800CB2978 /* tgen_core.cpp */; };
-		D0E8B78B0CE26A20009EC7F4 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; };
-		D0E8B78C0CE26A20009EC7F4 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; };
+		D0E8B78B0CE26A20009EC7F4 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0E8B78C0CE26A20009EC7F4 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B78D0CE26A20009EC7F4 /* error.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95780C35DF0F00CB2978 /* error.cpp */; };
-		D0E8B78E0CE26A20009EC7F4 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95800C35DF3100CB2978 /* error.h */; };
+		D0E8B78E0CE26A20009EC7F4 /* error.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95800C35DF3100CB2978 /* error.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B78F0CE26A20009EC7F4 /* types.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE95790C35DF0F00CB2978 /* types.cpp */; };
-		D0E8B7900CE26A20009EC7F4 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95820C35DF3100CB2978 /* types.h */; };
+		D0E8B7900CE26A20009EC7F4 /* types.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95820C35DF3100CB2978 /* types.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B7910CE26A20009EC7F4 /* tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DD29D0C3BD71D00C0AB3F /* tokenizer.cpp */; };
-		D0E8B7920CE26A20009EC7F4 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DD29F0C3BD72600C0AB3F /* tokenizer.h */; };
-		D0E8B7930CE26A20009EC7F4 /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; };
+		D0E8B7920CE26A20009EC7F4 /* tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DD29F0C3BD72600C0AB3F /* tokenizer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0E8B7930CE26A20009EC7F4 /* cast.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258900C4C372000909B4E /* cast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B7940CE26A20009EC7F4 /* stringman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07258CE0C4C389C00909B4E /* stringman.cpp */; };
-		D0E8B7950CE26A20009EC7F4 /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; };
+		D0E8B7950CE26A20009EC7F4 /* stringman.h in Headers */ = {isa = PBXBuildFile; fileRef = D07258CA0C4C388100909B4E /* stringman.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B7960CE26A20009EC7F4 /* hrestimer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F2A7390C563DB400E3A05B /* hrestimer.cpp */; };
-		D0E8B7970CE26A20009EC7F4 /* hrestimer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F2A7370C563DA700E3A05B /* hrestimer.h */; };
+		D0E8B7970CE26A20009EC7F4 /* hrestimer.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F2A7370C563DA700E3A05B /* hrestimer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B7980CE26A20009EC7F4 /* timeinterval.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083932D0CD91CEC00C94467 /* timeinterval.cpp */; };
-		D0E8B7990CE26A20009EC7F4 /* timeinterval.h in Headers */ = {isa = PBXBuildFile; fileRef = D08393220CD91C0A00C94467 /* timeinterval.h */; };
-		D0E8B79A0CE26A20009EC7F4 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; };
+		D0E8B7990CE26A20009EC7F4 /* timeinterval.h in Headers */ = {isa = PBXBuildFile; fileRef = D08393220CD91C0A00C94467 /* timeinterval.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0E8B79A0CE26A20009EC7F4 /* debug.h in Headers */ = {isa = PBXBuildFile; fileRef = D067DA840C57F0810078E141 /* debug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B79B0CE26A20009EC7F4 /* endian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B660C666EB2009CABCA /* endian.cpp */; };
-		D0E8B79C0CE26A20009EC7F4 /* endian.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B680C666EBF009CABCA /* endian.h */; };
+		D0E8B79C0CE26A20009EC7F4 /* endian.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B680C666EBF009CABCA /* endian.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B79D0CE26A20009EC7F4 /* symboltable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD14D0C7DC00B001E861E /* symboltable.cpp */; };
-		D0E8B79E0CE26A20009EC7F4 /* symboltable.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD14B0C7DBFFF001E861E /* symboltable.h */; };
+		D0E8B79E0CE26A20009EC7F4 /* symboltable.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD14B0C7DBFFF001E861E /* symboltable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B79F0CE26A20009EC7F4 /* propertytree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6D0C0C8A15FC00D8943C /* propertytree.cpp */; };
-		D0E8B7A00CE26A20009EC7F4 /* propertytree.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6D060C8A159600D8943C /* propertytree.h */; };
+		D0E8B7A00CE26A20009EC7F4 /* propertytree.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6D060C8A159600D8943C /* propertytree.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B7A10CE26A20009EC7F4 /* propertytreeparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */; };
-		D0E8B7A20CE26A20009EC7F4 /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; };
+		D0E8B7A20CE26A20009EC7F4 /* propertytreeparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B7C10CE26C2B009EC7F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 08FB7796FE84155DC02AAC07 /* main.cpp */; };
 		D0E8B7C30CE26C39009EC7F4 /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E8B7830CE269BD009EC7F4 /* libtgen_core.a */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		D07258900C4C372000909B4E /* cast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cast.h; path = Include/cast.h; sourceTree = "<group>"; };
 		D07258CA0C4C388100909B4E /* stringman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = stringman.h; path = Include/stringman.h; sourceTree = "<group>"; };
 		D07258CE0C4C389C00909B4E /* stringman.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = stringman.cpp; path = Source/stringman.cpp; sourceTree = "<group>"; };
+		D079E6320CE8B00100FA3FDB /* streams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = streams.h; path = Include/streams.h; sourceTree = "<group>"; };
 		D07A2B660C666EB2009CABCA /* endian.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = endian.cpp; path = Source/endian.cpp; sourceTree = "<group>"; };
 		D07A2B680C666EBF009CABCA /* endian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = endian.h; path = Include/endian.h; sourceTree = "<group>"; };
 		D08393220CD91C0A00C94467 /* timeinterval.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timeinterval.h; path = Include/timeinterval.h; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				D01B6D060C8A159600D8943C /* propertytree.h */,
 				D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */,
 				D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */,
+				D079E6320CE8B00100FA3FDB /* streams.h */,
 			);
 			name = Core;
 			path = ../..;
@@ -188,6 +191,7 @@
 				D0E8B79E0CE26A20009EC7F4 /* symboltable.h in Headers */,
 				D0E8B7A00CE26A20009EC7F4 /* propertytree.h in Headers */,
 				D0E8B7A20CE26A20009EC7F4 /* propertytreeparser.h in Headers */,
+				D079E6330CE8B00100FA3FDB /* streams.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

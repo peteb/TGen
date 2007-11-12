@@ -28,13 +28,8 @@ TGen::MD3::File::~File() {
 }
 
 
-TGen::MD3::File * TGen::MD3::Parser::parse(std::istream & source) {
-	source.seekg(0, std::ios::beg);
-	uint s1 = source.tellg();
-	source.seekg(0, std::ios::end);
-	uint s2 = source.tellg();
-	uint size = s2 - s1;
-	source.seekg(0, std::ios::beg);
+TGen::MD3::File * TGen::MD3::Parser::parse(TGen::InputStream & source) {
+	uint size = source.getSize();
 
 	if (size < sizeof(TGen::MD3::Header))
 		throw TGen::RuntimeException("MD3::Parser::parse", "file can't possibly be valid, not enough room for header! Size: ") << size;

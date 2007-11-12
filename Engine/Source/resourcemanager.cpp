@@ -22,6 +22,7 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	
 	loadMaterials("/materials/stuff.material");
 	loadMaterials("/materials/deferred.material");
+	loadMaterials("/materials/test.material");
 
 }
 
@@ -42,7 +43,7 @@ TGen::Engine::ResourceManager::~ResourceManager() {
 	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
 		delete iter->second;
 	
-	
+	logs.info["res-"] << "shut down" << TGen::endl;
 }
 
 TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std::string & name) {
@@ -50,7 +51,7 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	if (iter != shaders.end())
 		return iter->second;
 	
-	std::string fixedName = "/shaders/" + name;
+	std::string fixedName = "/shaders/" + name + ".shader";
 	
 	logs.info["res"] << "loading shader '" << fixedName << "'..." << TGen::endl;
 	
@@ -81,7 +82,6 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	// hur ska man ladda in fillmeshen? kan ju ha en meshgenerator som kan skapa lite olika meshes
 	// getMesh("gen:quad -1 -1 1 1");
 	// getMesh("gen:fillquad");
-	// MeshGenerator hey; hey.generate("fillquad") -> MeshMap; return;
 	
 	MeshMap::iterator iter = meshes.find(name);
 	if (iter != meshes.end())

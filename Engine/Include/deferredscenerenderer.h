@@ -16,6 +16,8 @@ namespace TGen {
 	class ShaderProgram;
 	class Mesh;
 	class Material;
+	class Texture;
+	class FrameBuffer;
 	
 	namespace Engine {
 		class App;
@@ -38,6 +40,8 @@ namespace TGen {
 			TGen::ShaderProgram * rhwNoTransformShader;
 			TGen::Mesh * screenFillMesh;
 			TGen::Material * screenFillMaterial;
+			TGen::Texture * colorMap, * depthMap, * normalMap;
+			TGen::FrameBuffer * mapTargets;
 		};
 	}
 }

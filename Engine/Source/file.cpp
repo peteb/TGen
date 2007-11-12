@@ -56,3 +56,24 @@ int64 TGen::Engine::File::write(const void * buffer, uint32 size, uint32 count) 
 	
 	return ret;
 }
+
+uint TGen::Engine::File::getReadPos() {
+	return PHYSFS_tell(file);
+}
+
+void TGen::Engine::File::seekReadPos(uint pos, TGen::Seek rel) {
+	if (rel == TGen::beg) {
+		PHYSFS_seek(file, pos);
+	}
+	else {
+		PHYSFS_seek(file, PHYSFS_fileLength(file) - pos);
+	}
+}
+
+void TGen::Engine::File::read(char * data, uint size) {
+	PHYSFS_read(file, data, size, 1);
+}
+
+uint TGen::Engine::File::getSize() {
+	return PHYSFS_fileLength(file);
+}

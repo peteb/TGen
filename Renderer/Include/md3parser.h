@@ -19,6 +19,7 @@ namespace TGen {
 	class Mesh;
 	class Renderer;
 	
+
 	namespace MD3 {
 		class File;
 		class Mesh;
@@ -29,7 +30,7 @@ namespace TGen {
 			Parser();
 			~Parser();
 		
-			File * parse(std::istream & source);
+			File * parse(TGen::InputStream & source);
 		};
 		
 		

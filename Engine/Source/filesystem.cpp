@@ -122,9 +122,6 @@ void TGen::Engine::Filesystem::outputPath(const std::string & path) {
 	}
 	
 	PHYSFS_freeList(rc);
-	
-	if (PHYSFS_isDirectory("/shaders/rhwNoTransform.shader"))
-		printf("IS DIR!!!!!!!\n");
 }
 
 

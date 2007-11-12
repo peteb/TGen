@@ -16,13 +16,34 @@
 TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Engine::App & app) 
 	: app(app)
 {
-	rhwNoTransformShader = app.globalResources.getShaderProgram("rhwNoTransform.shader");
+	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
+	
+	rhwNoTransformShader = app.globalResources.getShaderProgram("rhwNoTransform");
 	screenFillMesh = app.globalResources.getMesh("gen:fillquad");
 	screenFillMaterial = app.globalResources.getMaterial("deferred/screenFill");
+
+	TGen::Rectangle mapSize(512, 512);
+	
+	colorMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	normalMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	
+	mapTargets = app.renderer.createFrameBuffer();
+	mapTargets->attach(colorMap, TGen::FramebufferAttachmentColor);
+	mapTargets->attach(normalMap, TGen::FramebufferAttachmentColor);
+	mapTargets->attach(depthMap, TGen::FramebufferAttachmentDepth);
+	
+	app.logs.info["dfr+"] << "initialized" << TGen::endl;
 }
 
 TGen::Engine::DeferredSceneRenderer::~DeferredSceneRenderer() {
+	delete mapTargets;
 	
+	delete colorMap;
+	delete depthMap;
+	delete normalMap;
+
+	app.logs.info["dfr-"] << "shut down" << TGen::endl;
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderScene() {
