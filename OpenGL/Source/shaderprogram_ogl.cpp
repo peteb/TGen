@@ -13,6 +13,7 @@
 #include "shadervariable_ogl.h"
 #include "binder_ogl.h"
 
+#include <tgen_core.h>
 #include <string>
 #include <iostream>
 
@@ -29,7 +30,7 @@ TGen::OpenGL::ShaderProgram::~ShaderProgram() {
 }
 
 void TGen::OpenGL::ShaderProgram::attach(TGen::Shader * shader) {
-	TGen::OpenGL::Shader * fixedShader = static_cast<TGen::OpenGL::Shader *>(shader);
+	TGen::OpenGL::Shader * fixedShader = dynamic_cast<TGen::OpenGL::Shader *>(shader);
 	
 	glAttachShader(programId, fixedShader->getInternalID());	
 }
@@ -58,10 +59,9 @@ void TGen::OpenGL::ShaderProgram::link() {
 		throw TGen::RuntimeException("OpenGL::ShaderProgram::Link", "failed to link shaders: \"" + infoLogString + "\"");
 	}
 	else {
-		std::cout << "[opengl]: shader program " << programId << " linked: \"" << infoLogString << "\"" << std::endl;
-
+		DEBUG_PRINT("[opengl]: shader program " << programId << " linked: \"" << infoLogString << "\"");
 	}
-		
+
 }
 
 TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getUniform(const std::string & name) {
@@ -74,8 +74,8 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getUniform(const std::string
 			throw TGen::RuntimeException("OpenGL::ShaderProgram::getUniform", "variable \"" + name + "\" not found");
 		
 		TGen::ShaderVariable * newVar = new TGen::OpenGL::ShaderVariable(location, programId, TGen::OpenGL::Uniform);
-		
 		cachedVariables.insert(VariableMap::value_type(name, newVar));
+		
 		return *newVar;
 	}
 		

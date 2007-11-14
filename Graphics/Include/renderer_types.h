@@ -52,7 +52,6 @@ namespace TGen {
 		PrimitiveLineLoop,
 		PrimitiveLines,
 		PrimitivePolygon,
-		
 	};
 
 	enum TextureWrap {

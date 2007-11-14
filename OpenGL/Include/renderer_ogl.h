@@ -53,6 +53,7 @@ namespace TGen {
 			~Renderer();
 			
 			void setClearColor(const TGen::Color & color);
+			void setClearDepth(scalar depth);
 			void setViewport(const TGen::Rectangle & viewport);
 			void setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override = NULL);
 			void setIndexBuffer(TGen::IndexBuffer * buffer);

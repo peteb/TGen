@@ -89,7 +89,6 @@ void TGen::OpenGL::VertexBuffer::bindShaderVariable(int id, const TGen::ShaderVa
 		TGen::VertexElement & element = vertstruct.getElementAt(i);
 
 		if (element.type == TGen::VertexElementAttribute && element.unit == id) {
-			//std::cout << "FOUND!! at " << i << std::endl;
 			element.bound = true;
 			element.boundValue = dynamic_cast<const TGen::OpenGL::ShaderVariable &>(var).getInternalID();
 		}

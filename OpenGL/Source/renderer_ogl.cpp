@@ -115,6 +115,10 @@ void TGen::OpenGL::Renderer::setClearColor(const TGen::Color & color) {
 	glClearColor(color.r, color.g, color.g, color.a);
 }
 
+void TGen::OpenGL::Renderer::setClearDepth(scalar depth) {
+	glClearDepth(depth);
+}
+
 void TGen::OpenGL::Renderer::setViewport(const TGen::Rectangle & viewport) {
 	TGen::Vector2 upperLeft = viewport.getMin();
 	

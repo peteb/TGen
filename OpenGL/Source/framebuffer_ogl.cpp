@@ -32,7 +32,7 @@ TGen::OpenGL::FrameBuffer::~FrameBuffer() {
 }
 
 void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) {
-	TGen::OpenGL::Texture * fixedTexture = static_cast<TGen::OpenGL::Texture *>(texture);
+	TGen::OpenGL::Texture * fixedTexture = dynamic_cast<TGen::OpenGL::Texture *>(texture);
 	
 	GLenum attachment = 0;
 	GLint maxBuffers;
@@ -85,7 +85,7 @@ void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::Framebuffe
 	
 	GLenum status = glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
 	
-	switch (status) {
+	switch (status) {	// TODO: flytta till egen funktion
 		case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_EXT:
 			throw TGen::RuntimeException("OpenGL::FrameBuffer::Attach", "not all attachment points are complete");
 			
@@ -112,7 +112,7 @@ void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::Framebuffe
 				throw TGen::RuntimeException("OpenGL::FrameBuffer::Attach", "framebuffer is not complete: unknown error");
 	}
 	
-	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);	// TODO: reset framebuffer to previous framebuffer
 }
 
 GLuint TGen::OpenGL::FrameBuffer::getInternalID() const {

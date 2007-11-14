@@ -37,13 +37,15 @@ namespace TGen {
 		virtual ~Renderer();
 		
 		TGen::RendererCaps const & getCaps() const;
-		
-		virtual void setClearColor(const Color & color);
+
 		virtual TGen::Color getClearColor() const;
-		virtual void setViewport(const Rectangle & viewport);
 		virtual TGen::Rectangle getViewport() const;
-		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 		virtual TGen::Matrix4x4 getTransform(TransformMode mode) const;
+
+		virtual void setClearColor(const Color & color);
+		virtual void setClearDepth(scalar depth) abstract;
+		virtual void setViewport(const Rectangle & viewport);
+		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 		virtual void multiplyTransform(TransformMode mode, const Matrix4x4 & transform);
 		
 		virtual void setVertexBuffer(VertexBuffer * buffer, VertexStructure * override = NULL) abstract;
