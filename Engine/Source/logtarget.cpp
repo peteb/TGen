@@ -16,6 +16,9 @@ TGen::Engine::StreamOutput::StreamOutput(std::ostream & stream)
 }
 
 void TGen::Engine::StreamOutput::output(LogMessageType type, const std::string & title, const std::string & text) {
+	if (text.empty())
+		return;
+	
 	std::string name;
 	switch (type) {
 		case TGen::Engine::Warning:

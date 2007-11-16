@@ -165,7 +165,7 @@
 		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		5048396D09E3307300765E4B /* TGen EngineProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineProj.xcconfig"; sourceTree = "<group>"; };
 		5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineTarget.xcconfig"; sourceTree = "<group>"; };
-		508344B209E5C41E0093A071 /* TGen Engine Release.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine Release.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		508344B209E5C41E0093A071 /* TGen Engine Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
@@ -255,7 +255,7 @@
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				508344B209E5C41E0093A071 /* TGen Engine Release.app */,
+				508344B209E5C41E0093A071 /* TGen Engine Debug.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -532,7 +532,7 @@
 			name = "TGen Engine";
 			productInstallPath = "$(HOME)/Applications";
 			productName = "TGen Engine";
-			productReference = 508344B209E5C41E0093A071 /* TGen Engine Release.app */;
+			productReference = 508344B209E5C41E0093A071 /* TGen Engine Debug.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */

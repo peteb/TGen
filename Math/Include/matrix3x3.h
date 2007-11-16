@@ -28,6 +28,7 @@ namespace TGen {
 		TGen::Matrix3x3 & operator = (const TGen::Matrix3x3 & matrix);
 		TGen::Vector2 operator * (const TGen::Vector2 & vector) const;
 		TGen::Matrix3x3 operator * (const TGen::Matrix3x3 & matrix) const;
+		scalar & operator () (int x, int y);
 		operator std::string() const;
 		
 		void setOrigin(const TGen::Vector2 & origin);

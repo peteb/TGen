@@ -99,7 +99,6 @@ int main(int argc, char ** const argv) {
 	std::cout << std::string(box1) << std::endl;
 	std::cout << std::string(box2) << std::endl;
 	
-	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

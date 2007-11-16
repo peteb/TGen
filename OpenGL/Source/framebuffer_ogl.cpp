@@ -31,6 +31,18 @@ TGen::OpenGL::FrameBuffer::~FrameBuffer() {
 	}
 }
 
+void TGen::OpenGL::FrameBuffer::attachColor(TGen::Texture * texture) {
+	attach(texture, TGen::FramebufferAttachmentColor);
+}
+
+void TGen::OpenGL::FrameBuffer::attachDepth(TGen::Texture * texture) {
+	attach(texture, TGen::FramebufferAttachmentDepth);
+}
+
+void TGen::OpenGL::FrameBuffer::attachStencil(TGen::Texture * texture) {
+	attach(texture, TGen::FramebufferAttachmentStencil);
+}
+
 void TGen::OpenGL::FrameBuffer::attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) {
 	TGen::OpenGL::Texture * fixedTexture = dynamic_cast<TGen::OpenGL::Texture *>(texture);
 	

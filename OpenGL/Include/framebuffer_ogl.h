@@ -26,6 +26,10 @@ namespace TGen {
 		public:	
 			~FrameBuffer();
 		
+			void attachColor(TGen::Texture * texture);
+			void attachDepth(TGen::Texture * texture);
+			void attachStencil(TGen::Texture * texture);
+			
 			void attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint);
 			GLuint getInternalID() const;
 			void setupDrawBuffers();

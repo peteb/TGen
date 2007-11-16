@@ -18,6 +18,7 @@ namespace TGen {
 	class Material;
 	class Texture;
 	class FrameBuffer;
+	class Rectangle;
 	
 	namespace Engine {
 		class App;
@@ -31,6 +32,9 @@ namespace TGen {
 			
 		private:
 			void renderFillQuad();
+			
+			void createResources(const TGen::Rectangle & mapSize);
+			int ceilPowerOfTwo(int value);
 			
 			TGen::Engine::App & app;
 			

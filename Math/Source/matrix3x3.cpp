@@ -132,6 +132,10 @@ void TGen::Matrix3x3::get4x4(scalar * elements) const {
 	
 }
 
+scalar & TGen::Matrix3x3::operator () (int x, int y) {
+	return elements[x][y];
+}
+
 void TGen::Matrix3x3::setScale(const TGen::Vector2 & scale) {
 	elements[0][0] = scale.x;
 	elements[1][1] = scale.y;
