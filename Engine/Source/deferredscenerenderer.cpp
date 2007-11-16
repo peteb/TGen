@@ -12,10 +12,13 @@
 #include "filesystem.h"
 #include "file.h"
 #include "variablesregistry.h"
+#include "world.h"
 #include <tgen_graphics.h>
 
-TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Engine::App & app) 
+TGen::Engine::DeferredSceneRenderer::DeferredSceneRenderer(TGen::Engine::App & app, TGen::Engine::World & world) 
 	: app(app)
+	, world(world)
+	, mainCamera(NULL)
 {
 	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
@@ -69,11 +72,15 @@ void TGen::Engine::DeferredSceneRenderer::createResources(const TGen::Rectangle 
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderScene() {
+	mainCamera = world.getCamera("maincam");
+
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	
 	// world har scene graph
 	// ha en pekare till aktiv first person-kamera, gettas från world. typ world.getCamera("player_cam") 
 	// input hit: geoms (map, entities, etc), camera, lights
+	
+	// var ligger world? inte i renderer, i app? i game state. samma nivå som renderer typ
 	
 	// det finns bara en screen-cam, men det är en pekare till någon kamera i världen
 	// sen finns det kameror som rendrerar till texturer, men de hanteras åt andra sättet, dvs
@@ -88,7 +95,14 @@ void TGen::Engine::DeferredSceneRenderer::renderScene() {
 	// set frame buffer
 	// set viewport
 	// render
-	renderFillQuad();
+	//renderFillQuad();
+	
+	if (!mainCamera)
+		return;
+	
+	TGen::RenderList & renderList = world.getRenderList(mainCamera);
+	renderList.sort(*mainCamera, "default");
+	renderList.render(app.renderer, *mainCamera, "default");
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderFillQuad() {

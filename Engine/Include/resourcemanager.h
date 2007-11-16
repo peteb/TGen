@@ -20,7 +20,7 @@ namespace TGen {
 		class StandardLogs;
 		class Renderer;
 		
-		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource {
+		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource, public TGen::MeshSource {
 		public:
 			ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer);
 			~ResourceManager();

@@ -94,7 +94,16 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		newMesh = generator.generateMesh(name.substr(strlen("gen:"), name.size() - strlen("gen:")), renderer);
 	}
 	else {
+		// TODO: checka filformat för parser
+		TGen::Engine::File * file = filesystem.openRead(name);
+		TGen::MD3::Parser modelParser;
+		TGen::MD3::File * md3File = modelParser.parse(*file);
+		delete file;
 		
+		//md3File->printInfo(std::cout);
+		
+		newMesh = md3File->createMesh(renderer, 0.001);	// TODO: 0.001 är scale factor
+		delete md3File;		
 	}
 	
 	meshes[name] = newMesh;

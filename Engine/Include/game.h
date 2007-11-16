@@ -15,6 +15,7 @@
 #include "variable.h"
 #include "gamestatevars.h"
 #include "deferredscenerenderer.h"
+#include "world.h"
 
 namespace TGen {
 	namespace Engine {
@@ -31,6 +32,7 @@ namespace TGen {
 		private:
 			TGen::Engine::GameStateVars vars;
 			TGen::Engine::DeferredSceneRenderer sceneRenderer;
+			TGen::Engine::World world;
 			
 			TGen::Time lastRender;
 			

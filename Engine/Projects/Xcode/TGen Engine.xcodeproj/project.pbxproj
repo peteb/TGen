@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
 		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
+		D00343A70CEE14C10066E8A8 /* world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00343A60CEE14C10066E8A8 /* world.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
 		D04C83AC0CCA4AE900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81E70CCA46EC00794CEA /* libtgen_core.a */; };
@@ -167,6 +168,8 @@
 		5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineTarget.xcconfig"; sourceTree = "<group>"; };
 		508344B209E5C41E0093A071 /* TGen Engine Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
+		D00343A60CEE14C10066E8A8 /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
+		D00343B50CEE14FE0066E8A8 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = world.h; path = ../../Include/world.h; sourceTree = SOURCE_ROOT; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
@@ -488,6 +491,8 @@
 		D0F8393B0CBA679200FF4467 /* game */ = {
 			isa = PBXGroup;
 			children = (
+				D00343A60CEE14C10066E8A8 /* world.cpp */,
+				D00343B50CEE14FE0066E8A8 /* world.h */,
 				D0F835D10CBA5C5100FF4467 /* game.cpp */,
 				D0F835D30CBA5C5B00FF4467 /* game.h */,
 				D0F8393C0CBA67A100FF4467 /* view.cpp */,
@@ -687,6 +692,7 @@
 				D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */,
 				D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */,
 				D048B9510CE7441200607EBA /* fillquad.cpp in Sources */,
+				D00343A70CEE14C10066E8A8 /* world.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

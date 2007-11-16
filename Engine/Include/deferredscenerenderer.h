@@ -19,13 +19,15 @@ namespace TGen {
 	class Texture;
 	class FrameBuffer;
 	class Rectangle;
+	class Camera;
 	
 	namespace Engine {
 		class App;
+		class World;
 		
 		class DeferredSceneRenderer {
 		public:	
-			DeferredSceneRenderer(TGen::Engine::App & renderer);
+			DeferredSceneRenderer(TGen::Engine::App & renderer, TGen::Engine::World & world);
 			~DeferredSceneRenderer();
 			
 			void renderScene();
@@ -37,8 +39,9 @@ namespace TGen {
 			int ceilPowerOfTwo(int value);
 			
 			TGen::Engine::App & app;
+			TGen::Engine::World & world;
 			
-			
+			TGen::Camera * mainCamera;
 			
 			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;

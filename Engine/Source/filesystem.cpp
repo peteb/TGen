@@ -24,7 +24,7 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	std::string userDir = PHYSFS_getUserDir();
 	std::string writeDir = userDir;
 	
-	// BUGLY CODE!!!!!! TODO
+	// TODO: BUGLY CODE!!!!!!
 	
 #ifdef _PLATFORM_OSX
 	writeDir += "Library/Application Support/";

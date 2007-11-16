@@ -37,6 +37,9 @@ void TGen::Engine::GameStateVars::onVariableRemoved(const TGen::Engine::Variable
 	
 }
 
+// normalmappad modell: xyz, uv, n, t	// coord texcoord (colormap, nmap, specmap, glowmap, etc) normal tangent
+// tråkig modell: xyz, uv, n
+
 void TGen::Engine::GameStateVars::loadVariables() {
 	scalar r_maxRefresh = scalar(app.variables["r_maxRefresh"]);
 	
