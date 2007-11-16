@@ -1,7 +1,7 @@
 
 
 material nomat default 9 {
-	lod 0 {
+	lod 9 {
 		pass fixed {
 			front fill
 			back fill
@@ -12,3 +12,12 @@ material nomat default 9 {
 }
 
 
+material railgunMaterial default 9 {
+	lod 9 {
+		pass fixed {
+			texunit 0 railgun1.png {
+			
+			}
+		}
+	}
+}

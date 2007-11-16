@@ -13,6 +13,7 @@
 #include <tgen_graphics.h>
 #include <tgen_renderer.h>
 #include <string>
+#include "imageloader.h"
 
 namespace TGen {
 	namespace Engine {
@@ -43,6 +44,7 @@ namespace TGen {
 			MeshMap meshes;
 			MaterialMap materials;
 			
+			TGen::Engine::ImageLoader imageLoader;
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;
 			TGen::Renderer & renderer;

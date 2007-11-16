@@ -12,6 +12,7 @@
 #include "filesystem.h"
 #include "file.h"
 #include "meshgenerator.h"
+#include "devilimage.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer) 
 	: logs(logs)
@@ -23,7 +24,6 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	loadMaterials("/materials/stuff.material");
 	loadMaterials("/materials/deferred.material");
 	loadMaterials("/materials/test.material");
-
 }
 
 TGen::Engine::ResourceManager::~ResourceManager() {
@@ -68,8 +68,23 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 }
 
 TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & name) {
+	ILuint imageName;
+	ilGenImages(1, &imageName);
+	ilBindImage(imageName);
 	
-	return NULL;
+	std::string fixedName = "textures/" + name;
+	
+	logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
+	
+	TGen::Engine::File * file = filesystem.openRead(fixedName);
+	TGen::Image * image = imageLoader.load(file);
+	delete file;
+	
+	TGen::Texture * newTexture = renderer.createTexture(*image, TGen::RGB);
+	delete image;
+	
+	
+	return newTexture;
 }
 
 int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {

@@ -10,6 +10,11 @@
 		8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */; };
 		8D0C4E920486CD37000505A6 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20286C33FDCF999611CA2CEA /* Carbon.framework */; };
 		D00343A70CEE14C10066E8A8 /* world.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00343A60CEE14C10066E8A8 /* world.cpp */; };
+		D00347130CEE25680066E8A8 /* devilimage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00347120CEE25680066E8A8 /* devilimage.cpp */; };
+		D00347590CEE26740066E8A8 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347560CEE26740066E8A8 /* libIL.a */; };
+		D003475A0CEE26740066E8A8 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347570CEE26740066E8A8 /* libjpeg.a */; };
+		D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347580CEE26740066E8A8 /* libpng12.a */; };
+		D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D003482D0CEE29510066E8A8 /* imageloader.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
 		D04C83AC0CCA4AE900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81E70CCA46EC00794CEA /* libtgen_core.a */; };
@@ -170,6 +175,13 @@
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		D00343A60CEE14C10066E8A8 /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
 		D00343B50CEE14FE0066E8A8 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = world.h; path = ../../Include/world.h; sourceTree = SOURCE_ROOT; };
+		D00347120CEE25680066E8A8 /* devilimage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = devilimage.cpp; sourceTree = "<group>"; };
+		D00347140CEE25780066E8A8 /* devilimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = devilimage.h; path = ../../Include/devilimage.h; sourceTree = SOURCE_ROOT; };
+		D00347560CEE26740066E8A8 /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIL.a; sourceTree = "<group>"; };
+		D00347570CEE26740066E8A8 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
+		D00347580CEE26740066E8A8 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
+		D003482D0CEE29510066E8A8 /* imageloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imageloader.cpp; sourceTree = "<group>"; };
+		D003482F0CEE29610066E8A8 /* imageloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imageloader.h; path = ../../Include/imageloader.h; sourceTree = SOURCE_ROOT; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
@@ -249,6 +261,9 @@
 				D0EF656C0C82F6A40085C17B /* IOKit.framework in Frameworks */,
 				D0F83A680CBA6DC200FF4467 /* OpenGL.framework in Frameworks */,
 				D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */,
+				D00347590CEE26740066E8A8 /* libIL.a in Frameworks */,
+				D003475A0CEE26740066E8A8 /* libjpeg.a in Frameworks */,
+				D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +319,9 @@
 				D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */,
 				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
 				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
+				D00347560CEE26740066E8A8 /* libIL.a */,
+				D00347570CEE26740066E8A8 /* libjpeg.a */,
+				D00347580CEE26740066E8A8 /* libpng12.a */,
 				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
 				D0E9D5A50CE356DE0050B530 /* libphysfs.a */,
 				D0EF61330C8222A40085C17B /* Cocoa.framework */,
@@ -358,6 +376,10 @@
 				D0F4924B0CBE59470080CB46 /* commandregistry.h */,
 				D0B649A00CE696F500B93A85 /* resourcemanager.cpp */,
 				D0B649A20CE6970300B93A85 /* resourcemanager.h */,
+				D00347120CEE25680066E8A8 /* devilimage.cpp */,
+				D00347140CEE25780066E8A8 /* devilimage.h */,
+				D003482D0CEE29510066E8A8 /* imageloader.cpp */,
+				D003482F0CEE29610066E8A8 /* imageloader.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -693,6 +715,8 @@
 				D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */,
 				D048B9510CE7441200607EBA /* fillquad.cpp in Sources */,
 				D00343A70CEE14C10066E8A8 /* world.cpp in Sources */,
+				D00347130CEE25680066E8A8 /* devilimage.cpp in Sources */,
+				D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -734,9 +758,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "-D_DEBUG";
 				OTHER_LDFLAGS = "-lz";
 				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
@@ -755,9 +781,11 @@
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
+				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				OTHER_LDFLAGS = "-lz";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
 				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";

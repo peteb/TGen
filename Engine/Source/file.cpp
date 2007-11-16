@@ -63,17 +63,27 @@ uint TGen::Engine::File::getReadPos() {
 
 void TGen::Engine::File::seekReadPos(uint pos, TGen::Seek rel) {
 	if (rel == TGen::beg) {
+		std::cerr << "SEEK BEG" << std::endl;
 		PHYSFS_seek(file, pos);
 	}
+	else if (rel == TGen::cur) {
+		std::cerr << "SEEK CUR" << std::endl;
+		PHYSFS_seek(file, PHYSFS_tell(file) + pos);
+	}
 	else {
+		std::cerr << "SEEK OTHER" << std::endl;
 		PHYSFS_seek(file, PHYSFS_fileLength(file) - pos);
 	}
 }
 
-void TGen::Engine::File::read(char * data, uint size) {
-	PHYSFS_read(file, data, size, 1);
+int TGen::Engine::File::read(char * data, uint size) {
+	return PHYSFS_read(file, data, size, 1);
 }
 
 uint TGen::Engine::File::getSize() {
 	return PHYSFS_fileLength(file);
+}
+
+bool TGen::Engine::File::eof() const {
+	return PHYSFS_eof(file);
 }

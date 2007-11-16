@@ -28,8 +28,9 @@ namespace TGen {
 			
 			uint getReadPos();
 			void seekReadPos(uint pos, TGen::Seek rel);
-			void read(char * data, uint size);
+			int read(char * data, uint size);
 			uint getSize();
+			bool eof() const;
 			
 			friend class Filesystem;
 			

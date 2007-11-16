@@ -14,6 +14,7 @@ namespace TGen {
 	enum Seek {
 		beg = 1,
 		end,
+		cur,
 	};
 	
 	class InputStream {
@@ -23,7 +24,7 @@ namespace TGen {
 		
 		virtual uint getReadPos() abstract;
 		virtual void seekReadPos(uint pos, TGen::Seek rel) abstract;
-		virtual void read(char * data, uint size) abstract;
+		virtual int read(char * data, uint size) abstract;
 		virtual uint getSize() abstract;
 	};
 	
@@ -43,12 +44,16 @@ namespace TGen {
 				stream.seekg(pos, std::ios::beg);
 			else if (rel == TGen::end)
 				stream.seekg(pos, std::ios::end);
+			else if (rel == TGen::cur)
+				stream.seekg(pos, std::ios::cur);
 			else
 				throw TGen::RuntimeException("IstreamAdaptor::seekReadPos", "relative type invalid");
 		}
 		
-		void read(char * data, uint size) {
+		int read(char * data, uint size) {
 			stream.read(data, size);
+			
+			return 0; // TODO: fix!!!!!!!!
 		}
 		
 		uint getSize() {
