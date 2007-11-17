@@ -80,6 +80,10 @@ int TGen::Engine::File::read(char * data, uint size) {
 	return PHYSFS_read(file, data, size, 1);
 }
 
+int64 TGen::Engine::File::read(void * buffer, uint32 size, uint32 count) {
+	return PHYSFS_read(file,  buffer,  size,  count);
+}
+
 uint TGen::Engine::File::getSize() {
 	return PHYSFS_fileLength(file);
 }

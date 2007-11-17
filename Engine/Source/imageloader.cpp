@@ -54,7 +54,7 @@ void TGen::Engine::ImageLoader::Close(ILHANDLE file) {
 ILboolean TGen::Engine::ImageLoader::Eof(ILHANDLE file) {
 	TGen::Engine::File * realFile = static_cast<TGen::Engine::File *>(file);
 	if (realFile)
-		return realFile->eof();
+		return realFile->eof() ? IL_TRUE : IL_FALSE;
 	
 	return true;
 }
@@ -73,7 +73,7 @@ ILint TGen::Engine::ImageLoader::Getc(ILHANDLE file) {
 ILint TGen::Engine::ImageLoader::Read(void * data, ILuint objectSize, ILuint objectCount, ILHANDLE file) {	
 	TGen::Engine::File * realFile = static_cast<TGen::Engine::File *>(file);
 	if (realFile)
-		return realFile->read(reinterpret_cast<char *>(data), objectSize * objectCount);
+		return realFile->read(data, objectSize, objectCount);
 	
 	return 0;
 }

@@ -29,6 +29,8 @@ namespace TGen {
 			uint getReadPos();
 			void seekReadPos(uint pos, TGen::Seek rel);
 			int read(char * data, uint size);
+			int64 read(void * buffer, uint32 size, uint32 count);
+			
 			uint getSize();
 			bool eof() const;
 			
