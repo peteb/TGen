@@ -30,6 +30,7 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::StandardLogs & logs;
+			std::string base;
 		};
 		
 	} // !Engine

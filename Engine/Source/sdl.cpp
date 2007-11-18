@@ -47,6 +47,7 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	
 	
 	renderer = new TGen::OpenGL::Renderer;
+	renderer->setViewport(TGen::Rectangle(width, height));
 	logs.info["sdl+"] << "created renderer: " << TGen::endl;
 	logs.info["sdl+"] << std::string(renderer->getCaps()) << TGen::endl;
 	logs.info["sdl+"] << "initialized" << TGen::endl;	

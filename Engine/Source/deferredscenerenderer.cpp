@@ -61,28 +61,29 @@ TGen::Engine::DeferredSceneRenderer::~DeferredSceneRenderer() {
 }
 
 void TGen::Engine::DeferredSceneRenderer::createResources(const TGen::Rectangle & mapSize) {
-	colorMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);	// TODO: ubyte på depth? wtf?
-	normalMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	colorMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	normalMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH, TGen::TypeUnsignedShort, TGen::TextureNoMipmaps);	// TODO: ubyte på depth? wtf?
 	
 	mapTargets = app.renderer.createFrameBuffer();
 	mapTargets->attachColor(colorMap);
 	mapTargets->attachColor(normalMap);
-	mapTargets->attachDepth(depthMap);	
+	mapTargets->attachDepth(depthMap);
+	
+	mrtSize = mapSize;
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderScene() {
-	mainCamera = world.getCamera("maincam");
-
-	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+	if (!mainCamera) {
+		mainCamera = world.getCamera("maincam");
+		
+		if (!mainCamera)
+			return;
+	}
 	
-	// world har scene graph
-	// ha en pekare till aktiv first person-kamera, gettas från world. typ world.getCamera("player_cam") 
-	// input hit: geoms (map, entities, etc), camera, lights
+	// packa ihop alla ljus som använder samma material (och som har samma timer)
+	// rendrera deras fillquads i något i en metod högre än render och byt ut lampor mellan. men hur får man den nivån?
 	
-	// var ligger world? inte i renderer, i app? i game state. samma nivå som renderer typ
-	
-	// det finns bara en screen-cam, men det är en pekare till någon kamera i världen
 	// sen finns det kameror som rendrerar till texturer, men de hanteras åt andra sättet, dvs
 	// ett material kopplas till en kamera
 	// dvs textursources måste bli mer avancerade i materialsystemet, ska ju kunna ha envmap som uppdateras i realtid
@@ -90,23 +91,38 @@ void TGen::Engine::DeferredSceneRenderer::renderScene() {
 	
 	// vad hanterar map och fiender osv? map? currentMap->fillRenderList(thisList);  
 	// World!!!... ska det var ändå    var är camera? kom ihåg att camera borde hanteras av en playermovement-klass och att kameror ska kunna vara portabla
-	// get current camera, apply view and projection	* TGen::Renderer, scene graph
-	// get render list from map								* TGen::Renderer
-	// set frame buffer
-	// set viewport
-	// render
-	//renderFillQuad();
+	// lampor i portalbana fixas genom att ta lampor från alla synliga rum + anslutande rum (även de som inte syns alltså)
+	// kan sen optimeras genom att kolla lightboxen
 	
-	if (!mainCamera)
-		return;
+	world.prepareLists(mainCamera);
+	TGen::RenderList & renderList = world.getRenderList();
+	TGen::Engine::LightList & lightList = world.getLightList();
 	
-	TGen::RenderList & renderList = world.getRenderList(mainCamera);
 	renderList.sort(*mainCamera, "default");
+
+	TGen::Rectangle viewport = app.renderer.getViewport();
+	
+	
+	// update g-buffers
+	app.renderer.setRenderTarget(mapTargets);
+	app.renderer.setViewport(mrtSize);
+	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+	
 	renderList.render(app.renderer, *mainCamera, "default");
+	
+	
+	// render result
+	app.renderer.setRenderTarget(NULL);
+	app.renderer.setViewport(viewport);
+	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+
+	renderFillQuad();
 }
 
 void TGen::Engine::DeferredSceneRenderer::renderFillQuad() {
-	screenFillMaterial->render(app.renderer, *screenFillMesh, "default", 9, NULL);
+	TGen::Texture * textures[] = {NULL, colorMap, depthMap, normalMap};
+	
+	screenFillMaterial->render(app.renderer, *screenFillMesh, "default", 9, textures);
 }
 
 int TGen::Engine::DeferredSceneRenderer::ceilPowerOfTwo(int value) {

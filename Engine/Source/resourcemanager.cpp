@@ -68,6 +68,10 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 }
 
 TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & name) {
+	TextureMap::iterator iter = textures.find(name);
+	if (iter != textures.end())
+		return iter->second;
+	
 	ILuint imageName;
 	ilGenImages(1, &imageName);
 	ilBindImage(imageName);
@@ -83,12 +87,20 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 	TGen::Texture * newTexture = renderer.createTexture(*image, TGen::RGB);
 	delete image;
 	
+	textures[name] = newTexture;
 	
 	return newTexture;
 }
 
 int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
-	// return 1 if the type is sent to the material as aux
+	// {NULL, colorMap, depthMap, normalMap}
+	
+	if (name == "$colormap")
+		return 1;
+	else if (name == "$depthmap")
+		return 2;
+	else if (name == "$normalmap")
+		return 3;
 	
 	return 0;
 }
@@ -117,7 +129,7 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		
 		//md3File->printInfo(std::cout);
 		
-		newMesh = md3File->createMesh(renderer, 0.001);	// TODO: 0.001 är scale factor
+		newMesh = md3File->createMesh(renderer, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
 		delete md3File;		
 	}
 	

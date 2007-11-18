@@ -19,6 +19,7 @@ namespace TGen {
 	class TextureUnit {
 	public:
 		TextureUnit(int unit, TGen::Texture * texture);
+		TextureUnit(int unit, int textureType);
 		
 		int unit;
 		TGen::Texture * texture;

@@ -36,6 +36,8 @@ void TGen::Engine::GameState::tick() {
 		lastRender = now;
 		world.update(sinceLastRender);
 		render(sinceLastRender);
+		//std::cout << 1.0 / sinceLastRender << std::endl;
+		// dags att undersöka lite fps
 	}
 	else {
 		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render updates

@@ -20,3 +20,14 @@ TGen::TextureUnit::TextureUnit(int unit, TGen::Texture * texture)
 {
 }
 
+TGen::TextureUnit::TextureUnit(int unit, int textureType)
+	: unit(unit)
+	, texture(NULL)
+	, transformed(false)
+	, transform(TGen::Matrix4x4::Identity)
+	, genU(TGen::TextureCoordGenBase)
+	, genV(TGen::TextureCoordGenBase)
+	, textureType(textureType) 
+{
+
+}

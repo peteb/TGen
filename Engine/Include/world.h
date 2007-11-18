@@ -12,6 +12,7 @@
 
 #include <string>
 #include <tgen_renderer.h>
+#include "lightlist.h"
 
 namespace TGen {
 	class Camera;
@@ -25,13 +26,18 @@ namespace TGen {
 			~World();
 			
 			TGen::Camera * getCamera(const std::string & name);
-			TGen::RenderList & getRenderList(TGen::Camera * camera);
+			TGen::RenderList & getRenderList();
+			TGen::Engine::LightList & getLightList();
+			
+			void prepareLists(TGen::Camera * camera);
+			
 			void update(scalar dt);
 			
 		private:
 			TGen::Engine::App & app;
 			TGen::SceneNode sceneRoot;
 			TGen::BasicRenderList renderList;
+			TGen::Engine::LightList lightList;
 			
 			TGen::Camera * mainCam;
 		};

@@ -104,8 +104,11 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		
 		int texType = callback.getTextureType((*iter)->textureName);
 		
-		if ((*iter)->textureName == "none" || texType != 0) {
+		if ((*iter)->textureName == "none") {
 			newUnit = new TGen::TextureUnit((*iter)->unit, NULL);
+		}
+		if (texType > 0) {
+			newUnit = new TGen::TextureUnit((*iter)->unit, texType);
 		}
 		else {
 			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));

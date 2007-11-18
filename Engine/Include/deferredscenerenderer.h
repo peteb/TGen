@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_DEFERREDSCENERENDERER_H
 
 #include <string>
+#include <tgen_math.h>
 
 namespace TGen {	
 	class ShaderProgram;
@@ -40,7 +41,7 @@ namespace TGen {
 			
 			TGen::Engine::App & app;
 			TGen::Engine::World & world;
-			
+			TGen::Rectangle mrtSize;
 			TGen::Camera * mainCamera;
 			
 			// resources

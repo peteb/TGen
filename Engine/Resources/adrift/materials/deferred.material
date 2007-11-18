@@ -1,8 +1,15 @@
 material deferred/screenFill default 9 {
 	lod 0 {
 		pass rhwNoTransform {
-			color 0 1 0			
-
+			back fill
+			front fill
+	//		noDepthWrite	// noDepthWrite stänger av för alltid??
+			depthPass always
+			color 0 1 0	
+		
+			texunit 0 $colormap {
+				sampler colorMap
+			}
 		}
 	}
 }

@@ -63,6 +63,8 @@
 		D08DCBDC0C3BC1CB00C0AB3F /* renderable.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCC3C0C3BC33000C0AB3F /* technique.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCC3B0C3BC33000C0AB3F /* technique.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCC500C3BC37D00C0AB3F /* technique.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */; };
+		D0BDFCC60CF0B8D900A3A3C7 /* light.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BDFCC50CF0B8D900A3A3C7 /* light.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0BDFCCA0CF0B8F000A3A3C7 /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */; };
 		D0CEF2650C3BDABE007D4B18 /* materialparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D0CEF2640C3BDABE007D4B18 /* materialparser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0CEF2690C3BDAD0007D4B18 /* materialparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */; };
 		D0F845BA0CBBD8C900FF4467 /* font.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F845B90CBBD8C900FF4467 /* font.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -203,6 +205,8 @@
 		D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderable.h; path = Include/renderable.h; sourceTree = "<group>"; };
 		D08DCC3B0C3BC33000C0AB3F /* technique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = technique.h; path = Include/technique.h; sourceTree = "<group>"; };
 		D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = technique.cpp; path = Source/technique.cpp; sourceTree = "<group>"; };
+		D0BDFCC50CF0B8D900A3A3C7 /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = Include/light.h; sourceTree = "<group>"; };
+		D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light.cpp; path = Source/light.cpp; sourceTree = "<group>"; };
 		D0CEF2640C3BDABE007D4B18 /* materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialparser.h; path = Include/materialparser.h; sourceTree = "<group>"; };
 		D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = materialparser.cpp; path = Source/materialparser.cpp; sourceTree = "<group>"; };
 		D0F845B90CBBD8C900FF4467 /* font.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = font.h; path = Include/font.h; sourceTree = "<group>"; };
@@ -382,6 +386,8 @@
 				D08DCB650C3BBFD800C0AB3F /* rendercontext.h */,
 				D07A2CEC0C667EC9009CABCA /* textureunit.cpp */,
 				D07A2CEA0C667EBA009CABCA /* textureunit.h */,
+				D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */,
+				D0BDFCC50CF0B8D900A3A3C7 /* light.h */,
 			);
 			name = Renderer;
 			sourceTree = "<group>";
@@ -422,6 +428,7 @@
 				D07A2EF50C668753009CABCA /* passlist.h in Headers */,
 				D0F845BA0CBBD8C900FF4467 /* font.h in Headers */,
 				D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */,
+				D0BDFCC60CF0B8D900A3A3C7 /* light.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,6 +574,7 @@
 				D07A2EF30C668749009CABCA /* passlist.cpp in Sources */,
 				D0F845D50CBBDA3000FF4467 /* fonttext.cpp in Sources */,
 				D0F845D70CBBDA4200FF4467 /* font.cpp in Sources */,
+				D0BDFCCA0CF0B8F000A3A3C7 /* light.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

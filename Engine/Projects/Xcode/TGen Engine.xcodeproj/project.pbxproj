@@ -22,11 +22,12 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
+		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
 		D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E9D5A50CE356DE0050B530 /* libphysfs.a */; };
-		D0E9D5B60CE357CE0050B530 /* adrift in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0EF67150C82FA160085C17B /* adrift */; };
 		D0EF60E40C8222350085C17B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60E30C8222350085C17B /* main.cpp */; };
 		D0EF60F90C8222670085C17B /* SDLMain.m in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60F80C8222670085C17B /* SDLMain.m */; };
 		D0EF60FD0C8222810085C17B /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
@@ -158,7 +159,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
-				D0E9D5B60CE357CE0050B530 /* adrift in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,10 +186,13 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
+		D08005EE0CEF75E100AAED52 /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
 		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
 		D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredscenerenderer.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
+		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/lightlist.h; sourceTree = "<group>"; };
+		D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightlist.cpp; sourceTree = "<group>"; };
 		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
@@ -217,7 +220,6 @@
 		D0EF65250C82F5530085C17B /* file.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = file.h; path = ../Include/file.h; sourceTree = "<group>"; };
 		D0EF65260C82F5530085C17B /* file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = file.cpp; sourceTree = "<group>"; };
 		D0EF656B0C82F6A40085C17B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
-		D0EF67150C82FA160085C17B /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
 		D0F491D70CBE55D40080CB46 /* command.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = command.h; path = ../../Include/command.h; sourceTree = SOURCE_ROOT; };
 		D0F491D90CBE55DD0080CB46 /* command.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = command.cpp; sourceTree = "<group>"; };
 		D0F491E50CBE57050080CB46 /* textoutput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textoutput.h; path = ../../Include/textoutput.h; sourceTree = SOURCE_ROOT; };
@@ -302,7 +304,7 @@
 		20286C2CFDCF999611CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF67150C82FA160085C17B /* adrift */,
+				D08005EE0CEF75E100AAED52 /* adrift */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
 				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
 			);
@@ -445,6 +447,8 @@
 			children = (
 				D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */,
 				D083958B0CD927E100C94467 /* deferredscenerenderer.h */,
+				D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */,
+				D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */,
 			);
 			name = renderer;
 			sourceTree = "<group>";
@@ -679,6 +683,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D08006070CEF75E300AAED52 /* adrift in Resources */,
 				8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -717,6 +722,7 @@
 				D00343A70CEE14C10066E8A8 /* world.cpp in Sources */,
 				D00347130CEE25680066E8A8 /* devilimage.cpp in Sources */,
 				D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */,
+				D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

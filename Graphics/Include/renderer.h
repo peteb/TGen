@@ -28,6 +28,7 @@ namespace TGen {
 	class ShaderProgram;
 	class RenderContext;
 	class Plane3;
+	class Light;
 	
 	class Renderer {
 	protected:
@@ -58,6 +59,9 @@ namespace TGen {
 		virtual void setClipPlane(int id, const TGen::Plane3 & plane) abstract;
 		virtual void setColor(const Color & color) abstract;
 		virtual void setRenderContext(const RenderContext & context, TGen::Texture ** textureTypes) abstract;
+		
+		virtual void setLight(int num, const TGen::Light & light) abstract;
+		virtual void setAmbientLight(const TGen::Color & ambient) abstract;
 		
 		virtual void clearBuffers(ushort buffers) abstract;
 		

@@ -30,7 +30,7 @@ void TGen::Engine::Log::addTarget(TGen::Engine::LogTarget * target) {
 	targets.push_back(target);
 }
 
-TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const std::string & text) {
+TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const std::string & text) {	
 	std::vector<std::string> texts;
 	texts.reserve(2);
 	

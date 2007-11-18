@@ -16,11 +16,11 @@ TGen::Engine::FillQuad::FillQuad(const TGen::Vector2 & min, const TGen::Vector2 
 	, max(max)
 	, vb(NULL)
 {
-	VertexDecl::Type vertices[4] = {
+	VertexDecl::Type vertices[4] = {		// TODO: varför måste det här vara cw när ccw körs globalt?
 		VertexDecl::Type(TGen::Vector2(min.x, min.y), TGen::Vector2(0.0f, 0.0f)),
-		VertexDecl::Type(TGen::Vector2(min.x, max.y), TGen::Vector2(0.0f, 1.0f)),
-		VertexDecl::Type(TGen::Vector2(max.x, max.y), TGen::Vector2(1.0f, 1.0f)),
 		VertexDecl::Type(TGen::Vector2(max.x, min.y), TGen::Vector2(1.0f, 0.0f)),
+		VertexDecl::Type(TGen::Vector2(max.x, max.y), TGen::Vector2(1.0f, 1.0f)),
+		VertexDecl::Type(TGen::Vector2(min.x, max.y), TGen::Vector2(0.0f, 1.0f)),
 	};
 	
 	vb = renderer.createVertexBuffer(VertexDecl(), sizeof(VertexDecl::Type) * 4, TGen::UsageStatic);

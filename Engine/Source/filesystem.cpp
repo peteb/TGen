@@ -17,6 +17,9 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	: logs(logs)
 {
 	logs.info["vfs+"] << "initializing... " << TGen::endl;
+	logs.info["vfs+"] << "   argv0: " << argv0 << TGen::endl;
+	
+
 	
 	if (!PHYSFS_init(argv0))
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to initialize: ") << PHYSFS_getLastError();
@@ -36,6 +39,11 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to mkdir TGen");
 	
 	writeDir += "TGen/";
+	
+	std::string restOfFSBase = std::string(argv0).substr(strlen(PHYSFS_getBaseDir()));
+	std::string bundleName = restOfFSBase.substr(0, restOfFSBase.find("/"));
+	
+	base = bundleName + "/Contents/Resources/";
 	
 #elif defined(_PLATFORM_WIN)
 	throw TGen::NotImplemented("Filesystem::Filesystem", "windows not implemented");
@@ -58,6 +66,7 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	
 	logs.info["vfs+"] << "   base: " << PHYSFS_getBaseDir() << TGen::endl;
 	logs.info["vfs+"] << "   home: " << PHYSFS_getUserDir() << TGen::endl;
+	logs.info["vfs+"] << "   extrabase: " << base << TGen::endl;
 	
 	if (PHYSFS_getWriteDir())
 		logs.info["vfs+"] << "   writedir: " << PHYSFS_getWriteDir() << TGen::endl;
@@ -98,8 +107,8 @@ TGen::Engine::File * TGen::Engine::Filesystem::openAppend(const std::string & pa
 }
 
 void TGen::Engine::Filesystem::addSearchPath(const std::string & path, bool override) {		
-	if (!PHYSFS_addToSearchPath(path.c_str(), override))
-		throw TGen::RuntimeException("Filesystem::addSearchPath", "failed to add '" + path + "' to search path: ") << PHYSFS_getLastError();
+	if (!PHYSFS_addToSearchPath((base + path).c_str(), override))
+		throw TGen::RuntimeException("Filesystem::addSearchPath", "failed to add '" + base + path + "' to search path: ") << PHYSFS_getLastError();
 }
 
 bool TGen::Engine::Filesystem::exists(const std::string & path) {

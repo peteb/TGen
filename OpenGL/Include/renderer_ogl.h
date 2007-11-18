@@ -60,6 +60,8 @@ namespace TGen {
 			void setTexture(int unit, TGen::Texture * texture);
 			void setRenderTarget(TGen::FrameBuffer * buffer);
 			void setShaderProgram(TGen::ShaderProgram * program);
+			void setLight(int num, const TGen::Light & light);
+			void setAmbientLight(const TGen::Color & ambient);
 			
 			void setClipPlane(int id, const TGen::Plane3 & plane);
 			void disableClipPlane(int id);

@@ -14,12 +14,13 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	: app(app)
 	, sceneRoot("root")
 	, mainCam(NULL)
+	, lightList(100)
 {
 	app.logs.info["wrld+"] << "initializing world..." << TGen::endl;
-	mainCam = new TGen::Camera("maincam", TGen::Vector3(0.0f, 0.0f, -1.0f));
+	mainCam = new TGen::Camera("maincam", TGen::Vector3(0.0f, 1.0f, -0.5f));
 	mainCam->setClip(0.1f, 500.0f);
 	mainCam->setLod(0.0f, 500.0f);
-	mainCam->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f));
+	mainCam->setOrientation(TGen::Vector3(0.0f, 0.4f, 1.0f).normalize());
 	
 	sceneRoot.addChild(mainCam);
 	
@@ -32,7 +33,8 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	sceneRoot.traverse(TGen::FaceLinker(app.globalResources));
 	sceneRoot.traverse(TGen::ScenePrinter(std::cout));
 	//
-
+	// börja jobba på portalbanorna
+	
 	sceneRoot.update();
 }
 
@@ -45,10 +47,17 @@ TGen::Camera * TGen::Engine::World::getCamera(const std::string & name) {
 	return mainCam;
 }
 
-TGen::RenderList & TGen::Engine::World::getRenderList(TGen::Camera * camera) {
-	renderList.clear();
-	sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));
+TGen::RenderList & TGen::Engine::World::getRenderList() {
 	return renderList;
+}
+
+TGen::Engine::LightList & TGen::Engine::World::getLightList() {
+	return lightList;
+}
+
+void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
+	renderList.clear();
+	sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));	
 }
 
 void TGen::Engine::World::update(scalar dt) {
@@ -59,3 +68,5 @@ void TGen::Engine::World::update(scalar dt) {
 	sceneRoot.update();
 }
 
+
+// rendreraren ber world att uppdatera sig internt för en viss kamera, sen frågar den efter renderlist, lights, osv

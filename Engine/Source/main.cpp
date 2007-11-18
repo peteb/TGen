@@ -71,9 +71,6 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	logs.info << TGen::separator("initializing");
 	
-	
-	
-	
 	// setup variables, should probably be done elsewhere...
 	TGen::Engine::VariablesRegistry variables;
 	TGen::Engine::CommandRegistry commands;
@@ -150,8 +147,6 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 			logs.warning["str+"] << e.what() << TGen::endl;
 		}
 	}
-	
-	
 	
 	
 	

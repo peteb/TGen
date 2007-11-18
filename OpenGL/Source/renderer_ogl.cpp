@@ -41,7 +41,7 @@ TGen::OpenGL::Renderer::Renderer()
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CW);
+	glFrontFace(GL_CCW);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
@@ -120,6 +120,8 @@ void TGen::OpenGL::Renderer::setClearDepth(scalar depth) {
 }
 
 void TGen::OpenGL::Renderer::setViewport(const TGen::Rectangle & viewport) {
+	TGen::Renderer::setViewport(viewport);
+	
 	TGen::Vector2 upperLeft = viewport.getMin();
 	
 	glViewport(upperLeft.x, upperLeft.y, viewport.width, viewport.height);	// NOTE: ogl origo is lower-left corner
@@ -765,3 +767,29 @@ void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
 }
 
+void TGen::OpenGL::Renderer::setLight(int num, const TGen::Light & light) {
+	GLfloat diffuse[] = {light.diffuse.r, light.diffuse.g, light.diffuse.b, light.diffuse.a};
+	GLfloat specular[] = {light.specular.r, light.specular.g, light.specular.b, light.specular.a};
+	GLfloat position[] = {light.position.x, light.position.y, light.position.z, light.position.w};
+	GLfloat spotDirection[] = {light.spotDirection.x, light.spotDirection.y, light.spotDirection.z};
+	GLfloat spotExponent[] = {light.spotExponent};
+	GLfloat spotCutoff[] = {light.spotCutoff};
+	GLfloat linearAttenuation = light.linearAttenuation;
+	GLfloat quadraticAttenuation = light.quadraticAttenuation;
+	GLfloat constantAttenuation = light.constantAttenuation;
+	
+	glLightfv(GL_LIGHT0 + num, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT0 + num, GL_SPECULAR, specular);
+	glLightfv(GL_LIGHT0 + num, GL_POSITION, position);
+	glLightfv(GL_LIGHT0 + num, GL_SPOT_DIRECTION, spotDirection);
+	glLightfv(GL_LIGHT0 + num, GL_SPOT_EXPONENT, spotExponent);
+	glLightfv(GL_LIGHT0 + num, GL_SPOT_CUTOFF, spotCutoff);
+	glLightfv(GL_LIGHT0 + num, GL_LINEAR_ATTENUATION, &linearAttenuation);
+	glLightfv(GL_LIGHT0 + num, GL_QUADRATIC_ATTENUATION, &quadraticAttenuation);
+	glLightfv(GL_LIGHT0 + num, GL_CONSTANT_ATTENUATION, &constantAttenuation);
+}
+
+void TGen::OpenGL::Renderer::setAmbientLight(const TGen::Color & ambient) {
+	GLfloat color[] = {ambient.r, ambient.g, ambient.b, ambient.a};
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,  color);
+}

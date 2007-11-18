@@ -62,20 +62,20 @@ void TGen::FontText::update(TGen::Renderer & renderer) {
 			vertex[0].u = texOffset.x;
 			vertex[0].v = texOffset.y;
 			
-			vertex[1].x = pos.x + charSize.x;
-			vertex[1].y = pos.y;
-			vertex[1].u = texOffset.x + texSize.x;
-			vertex[1].v = texOffset.y;
+			vertex[3].x = pos.x + charSize.x;
+			vertex[3].y = pos.y;
+			vertex[3].u = texOffset.x + texSize.x;
+			vertex[3].v = texOffset.y;
 
 			vertex[2].x = pos.x + charSize.x;
 			vertex[2].y = pos.y + charSize.y;
 			vertex[2].u = texOffset.x + texSize.x;
 			vertex[2].v = texOffset.y + texSize.y;
 
-			vertex[3].x = pos.x;
-			vertex[3].y = pos.y + charSize.y;
-			vertex[3].u = texOffset.x;
-			vertex[3].v = texOffset.y + texSize.y;
+			vertex[1].x = pos.x;
+			vertex[1].y = pos.y + charSize.y;
+			vertex[1].u = texOffset.x;
+			vertex[1].v = texOffset.y + texSize.y;
 			
 			for (int i = 0; i < 4; ++i) {
 				vertex[i].r = color.r;
