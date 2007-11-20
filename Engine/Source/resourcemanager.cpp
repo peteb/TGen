@@ -97,7 +97,7 @@ int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
 	
 	if (name == "$colormap")
 		return 1;
-	else if (name == "$normalmap")
+	else if (name == "$normalmap" || name == "$bloom")
 		return 2;
 	else if (name == "$miscmap")
 		return 3;

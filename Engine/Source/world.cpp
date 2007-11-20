@@ -97,7 +97,7 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 
 	light.position = TGen::Vector4(0.0f, 0.0f, -1.0f, 0.0f);
 	light.diffuse = TGen::Color(0.0, 0.3, 0.0, 1.0);
-	light.specular = TGen::Color(0.0, 0.3, 0.0, 1.0);
+	light.specular = TGen::Color(1.0, 1.0, 1.0, 0.5);
 	
 	lightList.addLight(light);
 	

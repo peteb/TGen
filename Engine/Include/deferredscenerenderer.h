@@ -38,6 +38,9 @@ namespace TGen {
 		private:
 			void renderFillQuad(TGen::Material * material);
 			void renderPostFillQuad(TGen::Material * material);
+			void renderPost2FillQuad(TGen::Material * material);
+			void renderPost3FillQuad(TGen::Material * material);
+			void renderPostFinalQuad(TGen::Material * material);
 			
 			void createResources(const TGen::Rectangle & mapSize);
 			int ceilPowerOfTwo(int value);
@@ -46,15 +49,15 @@ namespace TGen {
 			TGen::Engine::World & world;
 			TGen::Engine::DeferredRendererVars vars;
 
-			TGen::Rectangle mrtSize;
+			TGen::Rectangle mrtSize, downsampleSize;
 			TGen::Camera * mainCamera;
 			
 			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;
 			TGen::Mesh * screenFillMesh;
-			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial;
-			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1;
-			TGen::FrameBuffer * mapTargets, * postTargets1;
+			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom;
+			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1, * postMap2, * postMap3;
+			TGen::FrameBuffer * mapTargets, * postTargets1, * postTargets2, * postTargets3;
 		};
 	}
 }

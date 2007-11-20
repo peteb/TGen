@@ -26,6 +26,8 @@ namespace TGen {
 			void loadVariables();
 			
 			bool postBloom, postProcessing;
+			int bloomBlurPasses;
+			
 		private:
 			TGen::Engine::App & app;			
 		};
