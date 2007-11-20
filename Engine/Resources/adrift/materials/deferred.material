@@ -48,7 +48,7 @@ material deferred/lightDirectional default 9 {
 	}
 }
 
-material post/bloomLum default 9 {
+material post/luminance default 9 {
 	lod 9 {
 		pass post/luminancePass {
 			depthPass always
@@ -62,6 +62,47 @@ material post/bloomLum default 9 {
 			}
 			
 			
+		}
+	}
+}
+
+material post/gaussianHoriz default 9 {
+	lod 9 {
+		pass post/gaussianHoriz {
+			depthPass always
+
+			texunit 0 $colormap {
+				sampler colorMap
+			}
+		}
+	}
+}
+
+
+material post/gaussianVert default 9 {
+	lod 9 {
+		pass post/gaussianVert {
+			depthPass always
+
+			texunit 0 $colormap {
+				sampler colorMap
+			}
+		}
+	}
+}
+
+material post/finalBloom default 9 {
+	lod 9 {
+		pass post/finalBloom {
+			depthPass always
+
+			texunit 0 $colormap {
+				sampler colorMap
+			}
+
+			texunit 1 $bloom {
+				sampler bloomMap
+			}
 		}
 	}
 }
