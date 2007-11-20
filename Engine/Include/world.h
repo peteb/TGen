@@ -28,6 +28,7 @@ namespace TGen {
 			TGen::Camera * getCamera(const std::string & name);
 			TGen::RenderList & getRenderList();
 			TGen::Engine::LightList & getLightList();
+			TGen::Color getAmbientLight();
 			
 			void prepareLists(TGen::Camera * camera);
 			

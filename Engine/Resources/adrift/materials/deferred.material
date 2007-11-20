@@ -1,5 +1,5 @@
 material deferred/screenFill default 9 {
-	lod 0 {
+	lod 9 {
 		pass rhwNoTransform {
 			back fill
 			front fill
@@ -14,3 +14,54 @@ material deferred/screenFill default 9 {
 	}
 }
 
+material deferred/lightAmbient default 9 {
+	lod 9 {
+		pass deferred/resultAmbient {
+			depthPass always
+			texunit 0 $colormap {
+				sampler colorMap
+			}
+		}
+	}
+}
+
+material deferred/lightDirectional default 9 {
+	lod 9 {
+		pass deferred/lightDirectional {
+			depthPass always
+			blendFunc add
+			//color wave square 0.5 1.0 0 1.0 // strobe!
+
+			texunit 0 $normalmap {
+				sampler normalMap
+			} 
+
+			/*texunit 1 $depthmap {
+				sampler depthMap
+			}*/
+
+			texunit 1 $miscmap {
+				sampler miscMap
+			}
+
+		}
+	}
+}
+
+material post/bloomLum default 9 {
+	lod 9 {
+		pass post/luminancePass {
+			depthPass always
+			
+			texunit 0 $colormap {
+				sampler colorMap
+			}
+			
+			texunit 1 $miscmap {
+				sampler miscMap
+			}
+			
+			
+		}
+	}
+}

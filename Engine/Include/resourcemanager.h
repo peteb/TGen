@@ -32,6 +32,7 @@ namespace TGen {
 			TGen::Material * getMaterial(const std::string & name);
 			int getTextureType(const std::string & name);
 			void loadMaterials(const std::string & filename);
+			void updateMaterials(scalar time);
 			
 		private:
 			typedef std::map<std::string, TGen::ShaderProgram *> ShaderMap;

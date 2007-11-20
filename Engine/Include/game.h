@@ -31,7 +31,7 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::GameStateVars vars;
-			TGen::Engine::DeferredSceneRenderer sceneRenderer;
+			TGen::Engine::DeferredRenderer sceneRenderer;
 			TGen::Engine::World world;
 			
 			TGen::Time lastRender;

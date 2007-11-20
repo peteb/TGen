@@ -18,6 +18,10 @@ material railgunMaterial default 9 {
 			texunit 0 railgun1.png {
 				sampler colorMap
 			}
+
+			texunit 1 sflgratetrans1_d.tga {
+				sampler specularMap
+			}
 		}
 	}
 }

@@ -1,0 +1,5 @@
+install_name_tool -change /usr/local/lib/libIL.1.dylib @executable_path/../Frameworks/libIL.1.dylib MacOS/TGen\ Engine\ Release
+install_name_tool -change /usr/local/lib/libpng12.0.dylib @executable_path/../Frameworks/libpng12.0.dylib MacOS/TGen\ Engine\ Release
+cp /usr/local/lib/libIL.1.0.0.dylib Frameworks/libIL.1.dylib
+install_name_tool -change /usr/local/lib/libpng12.0.dylib @executable_path/../Frameworks/libpng12.0.dylib Frameworks/libIL.1.dylib
+

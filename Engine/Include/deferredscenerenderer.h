@@ -12,6 +12,7 @@
 
 #include <string>
 #include <tgen_math.h>
+#include "deferredrenderervars.h"
 
 namespace TGen {	
 	class ShaderProgram;
@@ -26,30 +27,34 @@ namespace TGen {
 		class App;
 		class World;
 		
-		class DeferredSceneRenderer {
+		class DeferredRenderer {
 		public:	
-			DeferredSceneRenderer(TGen::Engine::App & renderer, TGen::Engine::World & world);
-			~DeferredSceneRenderer();
+			DeferredRenderer(TGen::Engine::App & app, TGen::Engine::World & world);
+			~DeferredRenderer();
 			
-			void renderScene();
+			void renderScene(scalar dt);
+			void postProcessing(const TGen::Rectangle & viewport);
 			
 		private:
-			void renderFillQuad();
+			void renderFillQuad(TGen::Material * material);
+			void renderPostFillQuad(TGen::Material * material);
 			
 			void createResources(const TGen::Rectangle & mapSize);
 			int ceilPowerOfTwo(int value);
 			
 			TGen::Engine::App & app;
 			TGen::Engine::World & world;
+			TGen::Engine::DeferredRendererVars vars;
+
 			TGen::Rectangle mrtSize;
 			TGen::Camera * mainCamera;
 			
 			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;
 			TGen::Mesh * screenFillMesh;
-			TGen::Material * screenFillMaterial;
-			TGen::Texture * colorMap, * depthMap, * normalMap;
-			TGen::FrameBuffer * mapTargets;
+			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial;
+			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1;
+			TGen::FrameBuffer * mapTargets, * postTargets1;
 		};
 	}
 }

@@ -23,6 +23,7 @@
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
 		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
+		D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */; };
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
@@ -187,6 +188,8 @@
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
 		D08005EE0CEF75E100AAED52 /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
+		D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredrenderervars.cpp; sourceTree = "<group>"; };
+		D08212E10CF33155000EFA7E /* deferredrenderervars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredrenderervars.h; path = ../../Include/deferredrenderervars.h; sourceTree = SOURCE_ROOT; };
 		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
 		D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredscenerenderer.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 			children = (
 				D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */,
 				D083958B0CD927E100C94467 /* deferredscenerenderer.h */,
+				D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */,
+				D08212E10CF33155000EFA7E /* deferredrenderervars.h */,
 				D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */,
 				D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */,
 			);
@@ -723,6 +728,7 @@
 				D00347130CEE25680066E8A8 /* devilimage.cpp in Sources */,
 				D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */,
 				D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */,
+				D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

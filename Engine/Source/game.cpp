@@ -50,12 +50,7 @@ void TGen::Engine::GameState::tick() {
 // DeferredSceneRenderer vars
 
 void TGen::Engine::GameState::render(scalar dt) {
-	//std::cout << "dt: " << dt << std::endl;
-
-	// do stuff
-
-	
-	sceneRenderer.renderScene();
+	sceneRenderer.renderScene(dt);
 	
 	app.env.swapBuffers();
 }

@@ -16,6 +16,7 @@ TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine
 					   TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, 
 					   TGen::Engine::StandardLogs & logs)
 	: running(true)
+	, startedAt(TGen::Time::Now())
 	, currentState(NULL)
 	, env(env)
 	, variables(variables)
@@ -50,5 +51,7 @@ void TGen::Engine::App::quit() {
 void TGen::Engine::App::tick() {
 	if (currentState)
 		currentState->tick();
+	
+	globalResources.updateMaterials(TGen::Time::Now() - startedAt);
 }
 

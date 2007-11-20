@@ -97,10 +97,12 @@ int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
 	
 	if (name == "$colormap")
 		return 1;
-	else if (name == "$depthmap")
-		return 2;
 	else if (name == "$normalmap")
+		return 2;
+	else if (name == "$miscmap")
 		return 3;
+	else if (name == "$depthmap")
+		return 4;
 	
 	return 0;
 }
@@ -194,3 +196,9 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	logs.info["res"] << TGen::endl;
 }
 
+void TGen::Engine::ResourceManager::updateMaterials(scalar time) {
+	MaterialMap::iterator iter = materials.begin();
+	for (; iter != materials.end(); ++iter) {
+		iter->second->update(time);
+	}
+}

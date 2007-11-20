@@ -16,7 +16,7 @@ namespace TGen {
 	namespace Engine {
 		class App;
 		
-		class GameStateVars : public TGen::Engine::VariableObserver{
+		class GameStateVars : public TGen::Engine::VariableObserver {
 		public:	
 			GameStateVars(TGen::Engine::App & app);
 			

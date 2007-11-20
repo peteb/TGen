@@ -36,6 +36,8 @@ namespace TGen {
 			void quit();
 			void tick();
 			
+			TGen::Time startedAt;
+			
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::Environment & env;
 			TGen::Engine::VariablesRegistry & variables;
