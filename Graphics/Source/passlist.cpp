@@ -28,7 +28,7 @@ void TGen::PassList::addPass(TGen::Pass * pass) {
 	passes.push_back(pass);
 }
 
-void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes) {
+void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater) {
 	if (passes.empty())
 		return;
 	
@@ -41,6 +41,10 @@ void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	start = TGen::Time::Now();
 	for (int i = 0; i < passes.size(); ++i) {
 		renderer.setRenderContext(passes[i]->getRenderContext(), textureTypes);
+
+		if (varupdater)
+			passes[i]->updateVariables(varupdater);
+				
 		renderable.render(renderer);
 	}
 	//std::cout << "render: " << std::fixed << TGen::Time::Now() - start << std::endl;

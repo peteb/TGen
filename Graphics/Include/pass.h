@@ -20,6 +20,8 @@ namespace TGen {
 	class MaterialLinkCallback;
 	class ColorGenerator;
 	class ScalarGenerator;
+	class PassShaderVariable;
+	class ShaderVariableUpdater;
 	
 	class TextureCoordTransformer {
 	public:
@@ -111,6 +113,8 @@ namespace TGen {
 		
 		void update(scalar dt);
 		
+		void updateVariables(TGen::ShaderVariableUpdater * varupdater);
+		void addShaderVariable(const std::string & varname, const std::string & linkdid);
 		void setShader(const std::string & name);
 		void addTextureUnit(PassTextureUnit * textureUnit);
 		void link(TGen::MaterialLinkCallback & callback);
@@ -119,6 +123,9 @@ namespace TGen {
 		static TGen::BlendFunc StringToBlendFunc(const std::string & blend);
 			
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
+		typedef std::vector<TGen::PassShaderVariable *> ShaderVarList;
+		
+		ShaderVarList shaderVariables;
 		TextureList textureUnits;
 		
 		TGen::RenderContext renderContext;

@@ -22,6 +22,8 @@ namespace TGen {
 		Rectangle(scalar width, scalar height);
 		Rectangle(const TGen::Vector2 & min, const TGen::Vector2 & max);
 		
+		Rectangle operator / (scalar value) const;
+		
 		Rectangle & operator = (const TGen::Rectangle & rectangle);
 		operator std::string() const;
 		

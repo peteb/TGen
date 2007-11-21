@@ -645,9 +645,11 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		glDepthMask(GL_FALSE);
 	
 	setShaderProgram(context.shader);
-	setColor(context.frontColor);	
 	setDepthFunc(context.depthFunc);
 	
+	if (!context.colorFromVertex)
+		setColor(context.frontColor);	
+
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
 	for (; iter != context.textureUnits.end(); ++iter) {
 		glActiveTexture(GL_TEXTURE0 + (*iter)->unit);

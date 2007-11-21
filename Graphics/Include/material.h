@@ -22,6 +22,7 @@ namespace TGen {
 	class ShaderProgram;
 	class Texture;
 	class Technique;
+	class ShaderVariableUpdater;
 	
 	enum MaterialSort {
 		MaterialSortOpaque = 10,
@@ -45,7 +46,7 @@ namespace TGen {
 		std::string getName() const;
 		void link(MaterialLinkCallback & callback);
 		bool isLinked() const;
-		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes);
+		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater = NULL);
 		void update(scalar time);
 		void setMaximumTechnique(int minreqs);
 		void setParameter(const std::string & name, const std::vector<std::string> & values);

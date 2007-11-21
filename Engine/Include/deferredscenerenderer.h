@@ -12,6 +12,7 @@
 
 #include <string>
 #include <tgen_math.h>
+#include <tgen_graphics.h> 
 #include "deferredrenderervars.h"
 
 namespace TGen {	
@@ -22,18 +23,20 @@ namespace TGen {
 	class FrameBuffer;
 	class Rectangle;
 	class Camera;
+	class ShaderVariable;
 	
 	namespace Engine {
 		class App;
 		class World;
 		
-		class DeferredRenderer {
+		class DeferredRenderer : public TGen::ShaderVariableUpdater {
 		public:	
 			DeferredRenderer(TGen::Engine::App & app, TGen::Engine::World & world);
 			~DeferredRenderer();
 			
 			void renderScene(scalar dt);
 			void postProcessing(const TGen::Rectangle & viewport);
+			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
 			
 		private:
 			void renderFillQuad(TGen::Material * material);
@@ -55,7 +58,7 @@ namespace TGen {
 			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;
 			TGen::Mesh * screenFillMesh;
-			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom;
+			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom, * rhwOnlyColorMaterial;
 			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1, * postMap2, * postMap3;
 			TGen::FrameBuffer * mapTargets, * postTargets1, * postTargets2, * postTargets3;
 		};

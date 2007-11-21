@@ -67,13 +67,13 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 	this->techniques[specializations[name]] = techniques;
 }
 
-void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes) {
+void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater) {
 	TGen::Technique * technique = getSpecialization(mode);
 	
 	TGen::PassList * passes = technique->getPassList(lod);
 	if (!passes) throw TGen::RuntimeException("Material::Render", "no passes");
 	
-	passes->render(renderer, renderable, textureTypes);
+	passes->render(renderer, renderable, textureTypes, varupdater);
 }
 
 TGen::Technique * TGen::Material::getSpecialization(const std::string & name) {

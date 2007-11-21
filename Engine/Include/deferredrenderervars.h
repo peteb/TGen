@@ -25,8 +25,9 @@ namespace TGen {
 			
 			void loadVariables();
 			
-			bool postBloom, postProcessing;
-			int bloomBlurPasses;
+			bool postBloom, postProcessing, lumKillTrace;
+			int bloomBlurPasses, bloomDownsampling;
+			float lumMin, lumMultiplier;
 			
 		private:
 			TGen::Engine::App & app;			

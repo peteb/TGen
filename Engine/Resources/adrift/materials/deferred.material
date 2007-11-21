@@ -14,6 +14,15 @@ material deferred/screenFill default 9 {
 	}
 }
 
+material deferred/rhwOnlyColor default 9 {
+	lod 9 {
+		pass rhwOnlyColor {
+			depthPass always
+			color vertex		
+		}
+	}
+}
+
 material deferred/lightAmbient default 9 {
 	lod 9 {
 		pass deferred/resultAmbient {
@@ -30,7 +39,7 @@ material deferred/lightDirectional default 9 {
 		pass deferred/lightDirectional {
 			depthPass always
 			blendFunc add
-			//color wave square 0.5 1.0 0 1.0 // strobe!
+			//color wave square 0.5 1.0 0 20.0 // strobe!
 
 			texunit 0 $normalmap {
 				sampler normalMap
@@ -52,7 +61,10 @@ material post/luminance default 9 {
 	lod 9 {
 		pass post/luminancePass {
 			depthPass always
-			
+			bind lumMin $lummin
+			bind lumMultiplier $lummultiplier
+			bind killTrace $lumkilltrace
+
 			texunit 0 $colormap {
 				sampler colorMap
 			}
@@ -70,6 +82,7 @@ material post/gaussianHoriz default 9 {
 	lod 9 {
 		pass post/gaussianHoriz {
 			depthPass always
+			bind texelSize $texelwidth
 
 			texunit 0 $colormap {
 				sampler colorMap
@@ -83,6 +96,7 @@ material post/gaussianVert default 9 {
 	lod 9 {
 		pass post/gaussianVert {
 			depthPass always
+			bind texelSize $texelheight
 
 			texunit 0 $colormap {
 				sampler colorMap

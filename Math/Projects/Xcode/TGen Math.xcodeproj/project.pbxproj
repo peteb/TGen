@@ -49,7 +49,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
 			proxyType = 1;
-			remoteGlobalIDString = D0E8B7820CE269BD009EC7F4 /* tgen_core */;
+			remoteGlobalIDString = D0E8B7820CE269BD009EC7F4;
 			remoteInfo = tgen_core;
 		};
 		D04C80D10CCA44F600794CEA /* PBXContainerItemProxy */ = {
@@ -63,7 +63,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EE97860C35E6EA00CB2978 /* TGen Core.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */;
+			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4;
 			remoteInfo = "TGen Core Test";
 		};
 		D0EE96FE0C35E52500CB2978 /* PBXContainerItemProxy */ = {

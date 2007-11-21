@@ -115,3 +115,13 @@ void TGen::Rectangle::calculate(const TGen::Vector2 * vectors, int vectorcount) 
 	height = (max.y - min.y);
 	center = min + (max - min) / 2.0f;
 }
+
+TGen::Rectangle TGen::Rectangle::operator / (scalar value) const {
+	TGen::Rectangle ret;
+	ret.center.x = this->center.x / value;
+	ret.center.y = this->center.y / value;
+	ret.width = this->width / value;
+	ret.height = this->height / value;
+	
+	return ret;
+}

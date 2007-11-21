@@ -54,6 +54,7 @@
 		D07A2CED0C667EC9009CABCA /* textureunit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2CEC0C667EC9009CABCA /* textureunit.cpp */; };
 		D07A2EF30C668749009CABCA /* passlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2EF20C668749009CABCA /* passlist.cpp */; };
 		D07A2EF50C668753009CABCA /* passlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2EF40C668753009CABCA /* passlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */ = {isa = PBXBuildFile; fileRef = D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
 		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -196,6 +197,7 @@
 		D07A2CEC0C667EC9009CABCA /* textureunit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = textureunit.cpp; path = Source/textureunit.cpp; sourceTree = "<group>"; };
 		D07A2EF20C668749009CABCA /* passlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = passlist.cpp; path = Source/passlist.cpp; sourceTree = "<group>"; };
 		D07A2EF40C668753009CABCA /* passlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = passlist.h; path = Include/passlist.h; sourceTree = "<group>"; };
+		D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shadervarupdater.h; path = Include/shadervarupdater.h; sourceTree = "<group>"; };
 		D08DCB610C3BBF9700C0AB3F /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = Source/material.cpp; sourceTree = "<group>"; };
 		D08DCB630C3BBFA000C0AB3F /* pass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pass.cpp; path = Source/pass.cpp; sourceTree = "<group>"; };
 		D08DCB650C3BBFD800C0AB3F /* rendercontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendercontext.h; path = Include/rendercontext.h; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				D04270480C40FFC9004CB60C /* generator.h */,
 				D07A2EF20C668749009CABCA /* passlist.cpp */,
 				D07A2EF40C668753009CABCA /* passlist.h */,
+				D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */,
 			);
 			name = Material;
 			sourceTree = "<group>";
@@ -429,13 +432,14 @@
 				D0F845BA0CBBD8C900FF4467 /* font.h in Headers */,
 				D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */,
 				D0BDFCC60CF0B8D900A3A3C7 /* light.h in Headers */,
+				D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Math */ = {
+		8DD76F620486A84900D96B5E /* TGen Graphics */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Graphics" */;
 			buildPhases = (
@@ -496,7 +500,7 @@
 			);
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Math */,
+				8DD76F620486A84900D96B5E /* TGen Graphics */,
 				D00FF6CB0C39391D00668773 /* tgen_graphics */,
 			);
 		};

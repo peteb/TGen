@@ -16,6 +16,7 @@
 #include "generator.h"
 #include "texture.h"
 #include "textureunit.h"
+#include "shadervarupdater.h"
 #include <iostream>
 
 
@@ -28,6 +29,11 @@ TGen::Pass::Pass()
 }
 
 TGen::Pass::~Pass() {
+	for (int i = 0; i < shaderVariables.size(); ++i) {
+		delete shaderVariables[i]->linkedVar;
+		delete shaderVariables[i];
+	}
+	
 	delete colorGen;
 	delete alphaGen;
 }
@@ -124,13 +130,28 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		
 		renderContext.addTextureUnit(newUnit);		
 		
-		if (renderContext.shader && !(*iter)->samplerName.empty()) {
-			std::cout << "setting '" << (*iter)->samplerName << "' to " << (*iter)->unit << std::endl;
-			renderContext.shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+		if (renderContext.shader) {
+			if (!(*iter)->samplerName.empty()) {
+				std::cout << "setting '" << (*iter)->samplerName << "' to " << (*iter)->unit << std::endl;
+				renderContext.shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+			}
+		
+			for (int i = 0; i < shaderVariables.size(); ++i) {
+				if (!shaderVariables[i]->linkedVar) {
+					std::cout << "binding '" << shaderVariables[i]->name << "' to '" << shaderVariables[i]->linkId << "'" << std::endl;
+					shaderVariables[i]->linkedVar = renderContext.shader->createVariable(shaderVariables[i]->name);
+				}				
+			}
 		}
 	}
 	
 	
+}
+
+void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
+	for (int i = 0; i < shaderVariables.size(); ++i) {
+		varupdater->updateShaderVariable(*shaderVariables[i]->linkedVar, shaderVariables[i]->linkId);
+	}
 }
 
 TGen::PassTextureUnit::PassTextureUnit(int unit, const std::string & name) 
@@ -474,5 +495,12 @@ void TGen::TextureCoordRotate::applyTransform(TGen::Matrix4x4 & matrix, scalar t
 	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 }
 
+void TGen::Pass::addShaderVariable(const std::string & varname, const std::string & linkId) {
+	TGen::PassShaderVariable * passVar = new TGen::PassShaderVariable;
+	passVar->name = varname;
+	passVar->linkId = linkId;
+	
+	shaderVariables.push_back(passVar);
+}
 
 

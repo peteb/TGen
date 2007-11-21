@@ -23,7 +23,28 @@ TGen::OpenGL::ShaderVariable::ShaderVariable(GLint location, GLuint program, TGe
 {
 }
 
+TGen::OpenGL::ShaderVariable::ShaderVariable()
+	: location(-1)
+	, type(TGen::OpenGL::VarNone)
+	, program(-1)
+{
+}
+
+TGen::OpenGL::ShaderVariable::ShaderVariable(const TGen::OpenGL::ShaderVariable & var) 
+	: location(var.location)
+	, type(var.type)
+	, program(var.program)
+{
+	
+}
+
 TGen::OpenGL::ShaderVariable::~ShaderVariable() {
+	// varje uniform i pass sparas som varname + namnet den binds till
+	// när man länkat in shader i pass:
+	// bind alla uniforms till variabler i shadern
+	// sen har man kvar namn ($texelsize) -> shadervar
+	// löses upp när man initerar varje pass... men kan bli tungt att köra strings direkt
+	// typ... PassShaderVarUpdater:   void updateVar(ShaderVar & var, string name)
 	
 }
 

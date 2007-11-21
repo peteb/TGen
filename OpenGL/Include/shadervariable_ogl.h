@@ -22,6 +22,7 @@ namespace TGen {
 		enum ShaderVariableType {
 			Uniform,
 			Attribute,
+			VarNone,
 		};
 		
 		class ShaderVariable : public TGen::ShaderVariable {
@@ -29,6 +30,8 @@ namespace TGen {
 			ShaderVariable(GLint location, GLuint program, TGen::OpenGL::ShaderVariableType type);
 
 		public:
+			ShaderVariable(); // unlinked
+			ShaderVariable(const TGen::OpenGL::ShaderVariable & var);
 			~ShaderVariable();
 
 			TGen::ShaderVariable & operator = (int value);

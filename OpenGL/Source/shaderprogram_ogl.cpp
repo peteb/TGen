@@ -100,6 +100,11 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getAttribute(const std::stri
 	return *iter->second;	
 }
 
+TGen::ShaderVariable * TGen::OpenGL::ShaderProgram::createVariable(const std::string & name) {
+	TGen::ShaderVariable * ret = new TGen::OpenGL::ShaderVariable(dynamic_cast<TGen::OpenGL::ShaderVariable &>(getUniform(name)));
+	return ret;
+}
+
 GLuint TGen::OpenGL::ShaderProgram::getInternalID() const {
 	return programId;
 }

@@ -42,6 +42,7 @@
 #include "generator.h"
 #include "techniquelist.h"
 #include "passlist.h"
+#include "shadervarupdater.h"
 
 #include "font.h"
 #include "fonttext.h"

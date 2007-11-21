@@ -32,6 +32,7 @@ namespace TGen {
 			void link();
 			TGen::ShaderVariable & getUniform(const std::string & name);
 			TGen::ShaderVariable & getAttribute(const std::string & name);
+			TGen::ShaderVariable * createVariable(const std::string & name);
 			
 			GLuint getInternalID() const;
 		

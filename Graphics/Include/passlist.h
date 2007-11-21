@@ -19,13 +19,14 @@ namespace TGen {
 	class MaterialLinkCallback;
 	class Texture;
 	class Renderable;
+	class ShaderVariableUpdater;
 	
 	class PassList {	// aka "LOD"
 	public:
 		PassList();
 		~PassList();
 		
-		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes);
+		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater = NULL);
 		void addPass(TGen::Pass * pass);
 		void link(TGen::MaterialLinkCallback & callback);
 		void update(scalar time);

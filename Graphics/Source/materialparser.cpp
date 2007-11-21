@@ -330,6 +330,10 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 					stepToken();
 					pass->setColorGenerator(parseWaveGenerator());					
 				}
+				else if (currentToken->second == "vertex") {
+					stepToken();
+					pass->setColorFromVertex();
+				}
 				else {
 					r = getNumericToken("pass.color: expecting numeric R value ");
 					stepToken();
@@ -354,6 +358,16 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 					
 					pass->setAlpha(a);
 				}
+			}
+			else if (currentToken->second == "bind") {
+				std::string varName, varId;
+				stepToken();
+				varName = getStringToken("pass.bind: expecting string value for variable name to bind");
+				stepToken();
+				varId = getStringToken("pass.bind: expecting string value to bind to");
+				
+				pass->addShaderVariable(varName, varId);
+				stepToken();
 			}
 			else if (currentToken->second == "noDepthWrite") {
 				pass->setNoDepthWrite();
