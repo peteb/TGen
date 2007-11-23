@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Engine", "TGen Engine.vcproj", "{8B3E5D90-CD0B-4EB8-BBB1-07DD3F17A131}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CA3B4832-2DF0-4D9B-AE98-0B531D353D26} = {CA3B4832-2DF0-4D9B-AE98-0B531D353D26}
+		{EA312372-8427-4748-B939-823C72985D26} = {EA312372-8427-4748-B939-823C72985D26}
+		{DF67438A-9AB7-4C86-B073-203E264CFF6C} = {DF67438A-9AB7-4C86-B073-203E264CFF6C}
+		{653F9992-853E-4099-98F7-43CB08D3F8C1} = {653F9992-853E-4099-98F7-43CB08D3F8C1}
+		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1} = {D62E43CB-EBF4-4F61-BBD9-34766C6536A1}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Core", "..\..\..\Core\Projects\visual studio\TGen Core.vcproj", "{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Math", "..\..\..\Math\Projects\visual studio\TGen Math.vcproj", "{653F9992-853E-4099-98F7-43CB08D3F8C1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Graphics", "..\..\..\Graphics\Projects\visual studio\TGen Graphics.vcproj", "{EA312372-8427-4748-B939-823C72985D26}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen OpenGL", "..\..\..\OpenGL\Projects\visual studio\TGen OpenGL.vcproj", "{DF67438A-9AB7-4C86-B073-203E264CFF6C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Renderer", "..\..\..\Renderer\Projects\visual studio\TGen Renderer.vcproj", "{CA3B4832-2DF0-4D9B-AE98-0B531D353D26}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B3E5D90-CD0B-4EB8-BBB1-07DD3F17A131}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8B3E5D90-CD0B-4EB8-BBB1-07DD3F17A131}.Debug|Win32.Build.0 = Debug|Win32
+		{8B3E5D90-CD0B-4EB8-BBB1-07DD3F17A131}.Release|Win32.ActiveCfg = Release|Win32
+		{8B3E5D90-CD0B-4EB8-BBB1-07DD3F17A131}.Release|Win32.Build.0 = Release|Win32
+		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Debug|Win32.Build.0 = Debug|Win32
+		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Release|Win32.ActiveCfg = Release|Win32
+		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Release|Win32.Build.0 = Release|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Debug|Win32.Build.0 = Debug|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Release|Win32.ActiveCfg = Release|Win32
+		{653F9992-853E-4099-98F7-43CB08D3F8C1}.Release|Win32.Build.0 = Release|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Debug|Win32.Build.0 = Debug|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Release|Win32.ActiveCfg = Release|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Release|Win32.Build.0 = Release|Win32
+		{DF67438A-9AB7-4C86-B073-203E264CFF6C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DF67438A-9AB7-4C86-B073-203E264CFF6C}.Debug|Win32.Build.0 = Debug|Win32
+		{DF67438A-9AB7-4C86-B073-203E264CFF6C}.Release|Win32.ActiveCfg = Release|Win32
+		{DF67438A-9AB7-4C86-B073-203E264CFF6C}.Release|Win32.Build.0 = Release|Win32
+		{CA3B4832-2DF0-4D9B-AE98-0B531D353D26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{CA3B4832-2DF0-4D9B-AE98-0B531D353D26}.Debug|Win32.Build.0 = Debug|Win32
+		{CA3B4832-2DF0-4D9B-AE98-0B531D353D26}.Release|Win32.ActiveCfg = Release|Win32
+		{CA3B4832-2DF0-4D9B-AE98-0B531D353D26}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

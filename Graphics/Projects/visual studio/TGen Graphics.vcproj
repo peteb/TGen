@@ -185,6 +185,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\light.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\material.cpp"
 				>
 			</File>
@@ -194,6 +198,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Source\pass.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\passlist.cpp"
 				>
 			</File>
 			<File
@@ -233,7 +241,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\techniquelist.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\texture.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\textureunit.cpp"
 				>
 			</File>
 			<File
@@ -291,6 +307,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\light.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\material.h"
 				>
 			</File>
@@ -300,6 +320,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Include\pass.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\passlist.h"
 				>
 			</File>
 			<File
@@ -339,11 +363,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\shadervarupdater.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\technique.h"
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\techniquelist.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\texture.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\textureunit.h"
 				>
 			</File>
 			<File

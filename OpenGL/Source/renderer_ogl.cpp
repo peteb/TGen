@@ -392,7 +392,7 @@ void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
 		glBindTexture(GL_TEXTURE_2D, 0);
 		return;
 	}
-	
+
 	glBindTexture(GL_TEXTURE_2D, static_cast<TGen::OpenGL::Texture *>(texture)->texId);
 }
 
@@ -656,11 +656,11 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		
 		if ((*iter)->textureType == 0)
 			setTexture((*iter)->unit, (*iter)->texture);
-		else if ((*iter)->textureType > 0)
+		else if ((*iter)->textureType > 0 && textureTypes)
 			setTexture((*iter)->unit, textureTypes[(*iter)->textureType]);
 		else
 			setTexture((*iter)->unit, NULL);
-		
+
 		setTextureCoordGen((*iter)->genU, (*iter)->genV);
 		
 		if ((*iter)->transformed) {
@@ -775,12 +775,12 @@ void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 }
 
 void TGen::OpenGL::Renderer::setLight(int num, const TGen::Light & light) {
-	GLfloat diffuse[] = {light.diffuse.r, light.diffuse.g, light.diffuse.b, light.diffuse.a};
-	GLfloat specular[] = {light.specular.r, light.specular.g, light.specular.b, light.specular.a};
-	GLfloat position[] = {light.position.x, light.position.y, light.position.z, light.position.w};
-	GLfloat spotDirection[] = {light.spotDirection.x, light.spotDirection.y, light.spotDirection.z};
-	GLfloat spotExponent[] = {light.spotExponent};
-	GLfloat spotCutoff[] = {light.spotCutoff};
+	GLfloat diffuse[4] = {light.diffuse.r, light.diffuse.g, light.diffuse.b, light.diffuse.a};
+	GLfloat specular[4] = {light.specular.r, light.specular.g, light.specular.b, light.specular.a};
+	GLfloat position[4] = {light.position.x, light.position.y, light.position.z, light.position.w};
+	GLfloat spotDirection[3] = {light.spotDirection.x, light.spotDirection.y, light.spotDirection.z};
+	GLfloat spotExponent[1] = {light.spotExponent};
+	GLfloat spotCutoff[1] = {light.spotCutoff};
 	GLfloat linearAttenuation = light.linearAttenuation;
 	GLfloat quadraticAttenuation = light.quadraticAttenuation;
 	GLfloat constantAttenuation = light.constantAttenuation;

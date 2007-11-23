@@ -8,6 +8,7 @@
  */
 
 #include "variable.h"
+#include <algorithm>
 
 TGen::Engine::Variable::Variable(const std::string & name, const std::string & value, const std::string & defaultValue, uint flags)
 	: name(name)

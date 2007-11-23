@@ -10,6 +10,7 @@
 #include "meshgeometry.h"
 #include "meshsource.h"
 #include "mesh.h"
+#include <algorithm>
 
 TGen::MeshGeometry::MeshGeometry(const std::string & mesh)
 	: meshName(mesh)

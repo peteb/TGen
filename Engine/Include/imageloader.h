@@ -24,13 +24,13 @@ namespace TGen {
 			
 			TGen::Image * load(TGen::Engine::File * file);
 			
-			static ILHANDLE Open(const char * file);
-			static void Close(ILHANDLE file);
-			static ILboolean Eof(ILHANDLE file);
-			static ILint Getc(ILHANDLE file);
-			static ILint Read(void * data, ILuint objectSize, ILuint objectCount, ILHANDLE file);
-			static ILint Seek(ILHANDLE file, ILint bytes, ILint mode);
-			static ILint Tell(ILHANDLE file);		
+			static ILHANDLE ILAPIENTRY Open(const ILstring file);
+			static void ILAPIENTRY Close(ILHANDLE file);
+			static ILboolean ILAPIENTRY Eof(ILHANDLE file);
+			static ILint ILAPIENTRY Getc(ILHANDLE file);
+			static ILint ILAPIENTRY Read(void * data, ILuint objectSize, ILuint objectCount, ILHANDLE file);
+			static ILint ILAPIENTRY Seek(ILHANDLE file, ILint bytes, ILint mode);
+			static ILint ILAPIENTRY Tell(ILHANDLE file);		
 		};
 		
 		

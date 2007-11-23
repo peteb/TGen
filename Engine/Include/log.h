@@ -60,10 +60,9 @@ namespace TGen {
 			TGen::Engine::Log & output(const std::string & area, const std::string & text);
 			void outputText(const std::string & text, uint user);
 			
-	
 			
 			template<typename T>
-			TGen::Engine::Log & operator << (const T & val) {
+			TGen::Engine::Log & operator << (T val) {
 				ss << val;
 					
 				return *this;				

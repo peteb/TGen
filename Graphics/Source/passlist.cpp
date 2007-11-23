@@ -47,6 +47,7 @@ void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & 
 				
 		renderable.render(renderer);
 	}
+
 	//std::cout << "render: " << std::fixed << TGen::Time::Now() - start << std::endl;
 }
 

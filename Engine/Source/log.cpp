@@ -49,6 +49,12 @@ TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const st
 		texts.push_back(text);
 	}
 	
+	FILE * file = fopen("tgenlog.txt", "a");
+	for (int a = 0; a < texts.size(); ++a) {
+		fprintf(file, std::string(area + ": " +  texts[a] + "\n").c_str());
+	}
+	fclose(file);
+
 	for (int i = 0; i < targets.size(); ++i) {
 		for (int a = 0; a < texts.size(); ++a) {
 			targets[i]->output(type, area, texts[a]);

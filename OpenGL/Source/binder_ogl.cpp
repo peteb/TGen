@@ -14,7 +14,15 @@
 
 #ifdef _PLATFORM_WIN
 #include <windows.h>
-#define _GET_EXT(x) wglGetProcAddress(x)
+//#define _GET_EXT(x) wglGetProcAddress(x)
+
+PROC _GET_EXT(const char * ext) {
+	PROC ret = wglGetProcAddress(ext);
+	if (!ret)
+		throw TGen::RuntimeException("_GET_EXT", std::string("failed to load extension ") + ext);
+
+	return ret;
+}
 #else
 #error this platform is not supported
 #endif
@@ -88,14 +96,14 @@ void TGen::OpenGL::BindFunctions() {
 
 	glDrawRangeElements = (DrawRangeElementsEXTPtr)_GET_EXT("glDrawRangeElementsEXT");
 
-	glDeleteShader = (DeleteShaderPtr)_GET_EXT("glDeleteShaderARB");
-	glAttachShader = (AttachShaderPtr)_GET_EXT("glAttachShaderARB");
+	glDeleteShader = (DeleteShaderPtr)_GET_EXT("glDeleteObjectARB");
+	glAttachShader = (AttachShaderPtr)_GET_EXT("glAttachObjectARB");
 	glLinkProgram = (LinkProgramPtr)_GET_EXT("glLinkProgramARB");
-	glGetProgramiv = (GetProgramivPtr)_GET_EXT("glGetProgramivARB");
-	glGetProgramInfoLog = (GetProgramInfoLogPtr)_GET_EXT("glGetProgramInfoLogARB");
+	glGetProgramiv = (GetProgramivPtr)_GET_EXT("glGetObjectParameterivARB");
+	glGetProgramInfoLog = (GetProgramInfoLogPtr)_GET_EXT("glGetInfoLogARB");
 	glGetUniformLocation = (GetUniformLocationPtr)_GET_EXT("glGetUniformLocationARB");
 	glGetAttribLocation = (GetAttribLocationPtr)_GET_EXT("glGetAttribLocationARB");
-	glUseProgram = (UseProgramPtr)_GET_EXT("glUseProgramARB");
+	glUseProgram = (UseProgramPtr)_GET_EXT("glUseProgramObjectARB");
 
 	glUniform1f = (Uniform1fPtr)_GET_EXT("glUniform1fARB");
 	glUniform1i = (Uniform1iPtr)_GET_EXT("glUniform1iARB");
@@ -106,12 +114,12 @@ void TGen::OpenGL::BindFunctions() {
 	glVertexAttrib3f = (VertexAttrib3fPtr)_GET_EXT("glVertexAttrib3fARB");
 	glUniform2f = (Uniform2fPtr)_GET_EXT("glUniform2fARB");
 	glVertexAttrib2f = (VertexAttrib2fPtr)_GET_EXT("glVertexAttrib2fARB");
-	glCreateShader = (CreateShaderPtr)_GET_EXT("glCreateShaderARB");
+	glCreateShader = (CreateShaderPtr)_GET_EXT("glCreateShaderObjectARB");
 	glShaderSource = (ShaderSourcePtr)_GET_EXT("glShaderSourceARB");
 	glCompileShader = (CompileShaderPtr)_GET_EXT("glCompileShaderARB");
-	glGetShaderiv = (GetShaderivPtr)_GET_EXT("glGetShaderivARB");
-	glGetShaderInfoLog = (GetShaderInfoLogPtr)_GET_EXT("glGetShaderInfoLogARB");
-	glCreateProgram = (CreateProgramPtr)_GET_EXT("glCreateProgramARB");
+	glGetShaderiv = (GetShaderivPtr)_GET_EXT("glGetObjectParameterivARB");
+	glGetShaderInfoLog = (GetShaderInfoLogPtr)_GET_EXT("glGetInfoLogARB");
+	glCreateProgram = (CreateProgramPtr)_GET_EXT("glCreateProgramObjectARB");
 	glVertexAttribPointer = (VertexAttribPointerPtr)_GET_EXT("glVertexAttribPointerARB");
 	glEnableVertexAttribArray = (EnableVertexAttribArrayPtr)_GET_EXT("glEnableVertexAttribArrayARB");
 	glDisableVertexAttribArray = (DisableVertexAttribArrayPtr)_GET_EXT("glDisableVertexAttribArrayARB");

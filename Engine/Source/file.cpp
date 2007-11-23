@@ -8,7 +8,7 @@
  */
 
 #include "file.h"
-#include "physfs.h"
+#include "physfs/physfs.h"
 #include <tgen_core.h>
 
 TGen::Engine::File::File(PHYSFS_File * file)

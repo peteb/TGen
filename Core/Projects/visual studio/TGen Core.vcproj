@@ -181,6 +181,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\timeinterval.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\tokenizer.cpp"
 				>
 			</File>
@@ -227,6 +231,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\streams.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\stringman.h"
 				>
 			</File>
@@ -236,6 +244,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Include\tgen_core.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\timeinterval.h"
 				>
 			</File>
 			<File

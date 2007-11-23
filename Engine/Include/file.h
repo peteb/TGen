@@ -12,7 +12,7 @@
 
 #include <iostream>
 #include <tgen_core.h>
-#include "physfs.h"
+#include "physfs/physfs.h"
 
 namespace TGen {
 	namespace Engine {

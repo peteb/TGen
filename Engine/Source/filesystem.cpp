@@ -9,7 +9,7 @@
 
 #include <tgen_core.h>
 #include "filesystem.h"
-#include "physfs.h"
+#include "physfs/physfs.h"
 #include "file.h"
 #include "log.h"
 
@@ -46,7 +46,16 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	base = bundleName + "/Contents/Resources/";
 	
 #elif defined(_PLATFORM_WIN)
-	throw TGen::NotImplemented("Filesystem::Filesystem", "windows not implemented");
+	std::cout << writeDir << std::endl;
+	writeDir += "Application Data\\";
+
+	if (!PHYSFS_setWriteDir(writeDir.c_str()))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to set write dir: ") << PHYSFS_getLastError();
+
+	if (!PHYSFS_mkdir("TGen"))
+		throw TGen::RuntimeException("Filesystem::Filesystem", "failed to mkdir TGen");
+	
+	writeDir += "TGen/";
 #else
 
 	if (!PHYSFS_setWriteDir(writeDir.c_str()))

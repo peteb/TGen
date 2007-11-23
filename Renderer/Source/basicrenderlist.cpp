@@ -13,6 +13,7 @@
 #include "scenenode.h"
 #include "camera.h"
 #include <tgen_graphics.h>
+#include <algorithm>
 
 TGen::BasicRenderList::BasicRenderList() {
 	faces.reserve(11000);

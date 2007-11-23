@@ -87,7 +87,7 @@ TGen::Engine::DeferredRenderer::~DeferredRenderer() {
 }
 
 void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & mapSize) {
-	downsampleSize = mapSize / scalar(pow(2, vars.bloomDownsampling));
+	downsampleSize = mapSize / scalar(pow(2.0f, vars.bloomDownsampling));
 	
 	// downsampleSize /= scalar(pow(2, vars.downsampleTimes))
 	
@@ -144,7 +144,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// lampor i portalbana fixas genom att ta lampor från alla synliga rum + anslutande rum (även de som inte syns alltså)
 	// kan sen optimeras genom att kolla lightboxen
 	// TODO: kolla vilket kordinatsystem glLightfv använder
-	
+
 	world.prepareLists(mainCamera);
 	TGen::RenderList & renderList = world.getRenderList();
 	TGen::Engine::LightList & lightList = world.getLightList();
@@ -154,15 +154,14 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	TGen::Rectangle viewport = app.renderer.getViewport();
 	
 	
-	
 	// UPDATE MAPS
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	app.renderer.setAmbientLight(world.getAmbientLight());
 	
-	renderList.render(app.renderer, *mainCamera, "default");
 	
+	renderList.render(app.renderer, *mainCamera, "default");
 	
 	if (vars.postProcessing) {
 		app.renderer.setRenderTarget(postTargets1);
@@ -173,14 +172,17 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		app.renderer.setViewport(viewport);
 	}
 	
+
 	// AMBIENT TO RESULT
 	//app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderFillQuad(lightAmbientMaterial);
 	
+
 	// LIGHTING
 	for (int i = 0; i < lightList.getNumLights(); i += 8) {
 		for (int a = 0; a < 8; ++a) {
 			if (i + a < lightList.getNumLights()) {
+				//std::cout << "set light " << a << " to " << i + a << " (" << std::string(lightList.getLight(i + a).specular) << std::endl;
 				app.renderer.setLight(a, lightList.getLight(i + a));
 			}
 		}	
@@ -188,9 +190,11 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		renderFillQuad(lightDirectionalMaterial);
 	}
 	
+
 	if (vars.postProcessing) {
 		postProcessing(viewport);		
 	}
+
 }
 
 // TODO: skicka texelsize genom uniform till shader
@@ -226,6 +230,9 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 }
 
 void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material) {
+	if (!material || !screenFillMesh)
+		throw TGen::RuntimeException("DeferredRenderer::renderFillQuad", "missing resources");
+
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
 	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);

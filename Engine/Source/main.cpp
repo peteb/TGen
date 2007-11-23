@@ -9,13 +9,17 @@
 
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
 #include <tgen_core.h>
 #include <tgen_math.h>
 #include <tgen_graphics.h>
 #include <tgen_opengl.h>
 #include <tgen_renderer.h>
+#include <SDL/SDL.h>
 
 #include "app.h"
+#include "log.h"
+#include "logtarget.h"
 #include "tgen_engine.h"
 #include "variablesregistry.h"
 #include "commandregistry.h"
@@ -24,9 +28,9 @@
 #include "file.h"
 #include "cmdset.h"
 #include "cmddumpvars.h"
-#include <SDL/SDL.h>
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
+void preExit();
 
 int main(int argc, char ** argv) {
 	try {
@@ -40,24 +44,34 @@ int main(int argc, char ** argv) {
 		catch (TGen::RuntimeException & e) {
 			logs.error << e;
 			logs.error << "unhandled exception, quitting..." << TGen::endl;
+			preExit();
 			return EXIT_FAILURE;
 		}
 		catch (std::exception & e) {
 			logs.error["unhandled"] << e.what() << TGen::endl;
 			logs.error << "unhandled exception, quitting..." << TGen::endl;
+			preExit();
 			return EXIT_FAILURE;
 		}
 	}
 	catch (std::exception & e) {
 		std::cerr << "ERROR IN STRAPPER: " << e.what() << std::endl;
 		std::cerr << "unhandled exception, quitting..." << std::endl;
+		preExit();
 		return EXIT_FAILURE;
 	}
 	catch (...) {
 		std::cerr << "UNKNOWN ERROR IN STRAPPER!" << std::endl;
 		std::cerr << "unhandled exception, quitting..." << std::endl;
+		preExit();
 		return EXIT_FAILURE;
 	}
+}
+
+void preExit() {
+	#ifdef _PLATFORM_WINDOWS
+	system("pause");
+	#endif
 }
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
@@ -75,8 +89,8 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	TGen::Engine::VariablesRegistry variables;
 	TGen::Engine::CommandRegistry commands;
 	
-	variables += TGen::Engine::Variable("env_width", "800", "800", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
-	variables += TGen::Engine::Variable("env_height", "600", "600", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
+	variables += TGen::Engine::Variable("env_width", "512", "512", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
+	variables += TGen::Engine::Variable("env_height", "512", "512", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
 	variables += TGen::Engine::Variable("env_fullscreen", "false", "false", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
 	variables += TGen::Engine::Variable("fs_game", "adrift", "adrift", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("game_name", "TGen Engine", "TGen Engine", TGen::Engine::VariableConfigWriteOnly);

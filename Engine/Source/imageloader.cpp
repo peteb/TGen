@@ -35,14 +35,16 @@ TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file) {
 	ilGenImages(1, &newImage);
 	ilBindImage(newImage);
 
-	ilLoadF(0, static_cast<ILHANDLE>(file));
+	if (ilLoadF(0, static_cast<ILHANDLE>(file)) == IL_FALSE) {
+		throw TGen::RuntimeException("ImageLoader::load", "failed to load image");
+	}
 	
 	// TODO: error checking
 	
 	return new TGen::Engine::DevilImage(newImage);
 }
 
-ILHANDLE TGen::Engine::ImageLoader::Open(const char * file) {
+ILHANDLE TGen::Engine::ImageLoader::Open(const ILstring file) {
 	throw TGen::RuntimeException("DevIL::ImageLoader::Open", "can not open file");
 }
 

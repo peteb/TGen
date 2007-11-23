@@ -9,6 +9,7 @@
 
 #include "meshgeomlinklist.h"
 #include "meshsource.h"
+#include <algorithm>
 
 TGen::MeshGeometryLinkList::MeshGeometryLinkList() {
 	

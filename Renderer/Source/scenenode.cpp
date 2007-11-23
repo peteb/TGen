@@ -11,6 +11,7 @@
 #include "face.h"
 #include "geometry.h"
 #include "renderlist.h"
+#include <cassert>
 
 TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
 	: name(name)
