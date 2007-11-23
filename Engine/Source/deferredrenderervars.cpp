@@ -22,10 +22,10 @@ TGen::Engine::DeferredRendererVars::DeferredRendererVars(TGen::Engine::App & app
 	, lumMultiplier(0.7)
 {
 	app.variables.addVariable(TGen::Engine::Variable("r_postBloom", "true", "true", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postBloomBlurPasses", "2", "2", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("r_postBloomBlurPasses", "3", "3", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_postBloomDownsampling", "2", "2", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceMin", "0.7", "0.7", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceMultiplier", "0.7", "0.7", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceMin", "0.65", "0.65", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceMultiplier", "0.6", "0.6", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceKillTrace", "true", "true", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	
 	app.variables["r_postBloom"].addObserver(this);

@@ -672,6 +672,10 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		}
 	}
 	
+	// TODO: introducera noDepth, disablar depth_test
+	// TODO: RenderContext currentState, sen kolla diff. uppdatera den vid varje manuell state change, typ setTexture
+	// se bara till att inte kolla på två ställen.. t ex både här och i setTexture
+	
 	glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendSrc), TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendDst));
 	glEnable(GL_CULL_FACE);
 	
@@ -736,7 +740,8 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "back polygon mode not supported");						
 	}
 	
-	// hm... setRenderContext sätts per pass, applyVertexStructure sätts preRender. så colorFromVertex gör inget...
+	// hm... setRenderContext sätts per pass, applyVertexStructure sätts preRender. så colorFromVertex gör inget... jo då, den gör så man kan sätta färg som en state
+	
 	colorFromVertex = context.colorFromVertex;
 	
 	if (colorFromVertex && hasColorArray)
