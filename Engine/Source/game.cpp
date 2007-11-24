@@ -27,7 +27,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 		sceneRenderer = new TGen::Engine::DeferredRenderer(app, world);
 	}
 	catch (const std::exception & e) {
-		app.logs.error["gst+"] << "failed to create deferred renderer: " << e.what() << " and there is no fallback!" << TGen::endl;
+		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << "\" and there is no fallback!" << TGen::endl;
 		throw;
 	}
 }

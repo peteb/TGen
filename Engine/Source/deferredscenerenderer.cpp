@@ -43,7 +43,6 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 		mapTargets = postTargets1 = postTargets2 = postTargets3 = NULL;
 		
 		createResources(mapSize);
-		//app.logs.info["dfr+"] << "we've got MRTs with the same size as the window. nice!" << TGen::endl;
 	}
 	catch (const TGen::RuntimeException & e) {	// trying power-of-two texture size
 		delete colorMap; delete depthMap; delete normalMap; delete miscMap; delete mapTargets; delete postMap1; delete postMap2; delete postTargets1; delete postTargets2; delete postMap3; delete postTargets3;
