@@ -19,9 +19,17 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	, sceneRoot("root")
 	, vars(app)
 	, world(app)
-	, sceneRenderer(app, world)
+	, sceneRenderer(NULL)
 {
 	app.logs.info["gst+"] << "entering game state..." << endl;
+	
+	try {
+		sceneRenderer = new TGen::Engine::DeferredRenderer(app, world);
+	}
+	catch (const std::exception & e) {
+		app.logs.error["gst+"] << "failed to create deferred renderer: " << e.what() << " and there is no fallback!" << TGen::endl;
+		throw;
+	}
 }
 
 TGen::Engine::GameState::~GameState() {
@@ -50,7 +58,7 @@ void TGen::Engine::GameState::tick() {
 // DeferredSceneRenderer vars
 
 void TGen::Engine::GameState::render(scalar dt) {
-	sceneRenderer.renderScene(dt);
+	sceneRenderer->renderScene(dt);
 	
 	app.env.swapBuffers();
 }

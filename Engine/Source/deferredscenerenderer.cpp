@@ -35,12 +35,15 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 	
 	TGen::Rectangle mapSize(int(app.variables["env_width"]), int(app.variables["env_height"]));
 	
+	if (vars.forceBinaryMRT)
+		mapSize = TGen::Rectangle(ceilPowerOfTwo(mapSize.width), ceilPowerOfTwo(mapSize.height));
+	
 	try {
 		colorMap = depthMap = normalMap = miscMap = postMap1 = postMap2 = postMap3 = NULL;
 		mapTargets = postTargets1 = postTargets2 = postTargets3 = NULL;
 		
 		createResources(mapSize);
-		app.logs.info["dfr+"] << "we've got MRTs with the same size as the window. nice!" << TGen::endl;
+		//app.logs.info["dfr+"] << "we've got MRTs with the same size as the window. nice!" << TGen::endl;
 	}
 	catch (const TGen::RuntimeException & e) {	// trying power-of-two texture size
 		delete colorMap; delete depthMap; delete normalMap; delete miscMap; delete mapTargets; delete postMap1; delete postMap2; delete postTargets1; delete postTargets2; delete postMap3; delete postTargets3;
@@ -55,6 +58,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 		createResources(mapSize);
 	}
 	
+	app.logs.info["dfr+"] << "mrts size: " << std::string(mapSize) << TGen::endl;
 	// TODO: bloom wrappar
 	
 	TGen::Rectangle viewport = app.renderer.getViewport();
@@ -88,8 +92,6 @@ TGen::Engine::DeferredRenderer::~DeferredRenderer() {
 
 void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & mapSize) {
 	downsampleSize = mapSize / scalar(pow(2.0f, vars.bloomDownsampling));
-	
-	// downsampleSize /= scalar(pow(2, vars.downsampleTimes))
 	
 	colorMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	normalMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
@@ -197,18 +199,14 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 
 }
 
-// TODO: skicka texelsize genom uniform till shader
-// TODO: sätt downsampling till r_postBloomDownsample
-
 void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & viewport) {
 	// TODO: flökar säkert sönder depthbuffern.. disabla
-	// TODO: KillTrace -> Trace
 	// TODO: alphan som clearas med ska justeras beroende på fps
 	
 	app.renderer.setViewport(downsampleSize);
 	app.renderer.setRenderTarget(postTargets2);
 	
-	if (!vars.lumKillTrace) {
+	if (vars.lumTrace) {
 		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.3));
 		renderFillQuad(rhwOnlyColorMaterial);
 	}
@@ -276,7 +274,7 @@ void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable &
 		var = vars.lumMultiplier;
 	}
 	else if (name == "$lumkilltrace") {
-		var = vars.lumKillTrace;
+		var = !vars.lumTrace;
 	}
 	else {
 		app.logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;

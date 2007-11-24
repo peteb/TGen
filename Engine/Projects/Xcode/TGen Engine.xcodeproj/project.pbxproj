@@ -777,7 +777,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "-D_DEBUG";
 				OTHER_LDFLAGS = "-lz";
-				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
+				USER_HEADER_SEARCH_PATHS = "../../Include/ ../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
 			};
 			name = Debug;
 		};
@@ -800,7 +800,7 @@
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				OTHER_LDFLAGS = "-lz";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
-				USER_HEADER_SEARCH_PATHS = "../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
+				USER_HEADER_SEARCH_PATHS = "../../Include/ ../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
 			};
 			name = Release;
 		};

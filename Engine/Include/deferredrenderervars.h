@@ -25,7 +25,8 @@ namespace TGen {
 			
 			void loadVariables();
 			
-			bool postBloom, postProcessing, lumKillTrace;
+			bool forceBinaryMRT;
+			bool postBloom, postProcessing, lumTrace;
 			int bloomBlurPasses, bloomDownsampling;
 			float lumMin, lumMultiplier;
 			
