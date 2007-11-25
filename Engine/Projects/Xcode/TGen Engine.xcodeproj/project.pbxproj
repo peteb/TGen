@@ -27,6 +27,7 @@
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
+		D0CC7A5D0CF9D1E6003EE092 /* shaderpreprocess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* shaderpreprocess.cpp */; };
 		D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
 		D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E9D5A50CE356DE0050B530 /* libphysfs.a */; };
 		D0EF60E40C8222350085C17B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60E30C8222350085C17B /* main.cpp */; };
@@ -196,6 +197,8 @@
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
 		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/lightlist.h; sourceTree = "<group>"; };
 		D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightlist.cpp; sourceTree = "<group>"; };
+		D0CC7A5B0CF9D1DD003EE092 /* shaderpreprocess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shaderpreprocess.h; path = ../../Include/shaderpreprocess.h; sourceTree = SOURCE_ROOT; };
+		D0CC7A5C0CF9D1E6003EE092 /* shaderpreprocess.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = shaderpreprocess.cpp; sourceTree = "<group>"; };
 		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
@@ -385,6 +388,8 @@
 				D00347140CEE25780066E8A8 /* devilimage.h */,
 				D003482D0CEE29510066E8A8 /* imageloader.cpp */,
 				D003482F0CEE29610066E8A8 /* imageloader.h */,
+				D0CC7A5C0CF9D1E6003EE092 /* shaderpreprocess.cpp */,
+				D0CC7A5B0CF9D1DD003EE092 /* shaderpreprocess.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -729,6 +734,7 @@
 				D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */,
 				D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */,
 				D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */,
+				D0CC7A5D0CF9D1E6003EE092 /* shaderpreprocess.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

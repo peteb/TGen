@@ -13,6 +13,7 @@
 #include "file.h"
 #include "meshgenerator.h"
 #include "devilimage.h"
+#include "shaderpreprocess.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer) 
 	: logs(logs)
@@ -50,8 +51,18 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	ShaderMap::iterator iter = shaders.find(name);
 	if (iter != shaders.end())
 		return iter->second;
-	
-	std::string fixedName = "/shaders/" + name + ".shader";
+
+	std::string fixedName;
+	bool generate = false;
+		
+	if (name.substr(0, 4) == "gen:") {
+		int colPos = name.rfind(":");
+		fixedName = "/shaders/" + name.substr(4, colPos - 4) + ".shader";
+		generate = true;
+	}
+	else {
+		fixedName = "/shaders/" + name + ".shader";	
+	}
 	
 	logs.info["res"] << "loading shader '" << fixedName << "'..." << TGen::endl;
 	
@@ -59,6 +70,22 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	std::string contents = file->readAll();
 	delete file;
 
+	// gen:directionalLighting:MAX_LIGHTS=1,STUFF=blabla
+
+	
+	if (generate) {
+		int colPos = name.rfind(":");
+		std::string genString = name.substr(colPos + 1, name.size() - colPos - 1);
+		
+		logs.info["res"] << "preprocessing " << fixedName << " with " << genString << TGen::endl;
+		
+		TGen::Engine::ShaderPreProcessor processor;
+		contents = processor.process(contents, genString);
+	}
+	
+	
+	
+	
 	TGen::ShaderProgram * ret = renderer.createShaderProgram(contents.c_str());
 	ret->link();
 	

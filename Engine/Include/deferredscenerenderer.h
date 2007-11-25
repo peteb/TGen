@@ -54,6 +54,7 @@ namespace TGen {
 
 			TGen::Rectangle mrtSize, downsampleSize;
 			TGen::Camera * mainCamera;
+			int lastNumLights;
 			
 			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;

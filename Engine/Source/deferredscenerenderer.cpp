@@ -20,6 +20,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 	, vars(app)
 	, world(world)
 	, mainCamera(NULL)
+	, lastNumLights(0)
 {
 	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
@@ -132,6 +133,8 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 			return;
 	}
 	
+	// TODO: early-z, z-pass first. ska kunna aktiveras/avaktiveras genom variabel
+	
 	// packa ihop alla ljus som använder samma material (och som har samma timer)
 	// rendrera deras fillquads i något i en metod högre än render och byt ut lampor mellan. men hur får man den nivån?
 	
@@ -163,6 +166,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 	
 	renderList.render(app.renderer, *mainCamera, "default");
+	vars.postProcessing = false;
 	
 	if (vars.postProcessing) {
 		app.renderer.setRenderTarget(postTargets1);
@@ -181,9 +185,12 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 
 	// LIGHTING
 	for (int i = 0; i < lightList.getNumLights(); i += 8) {
+		//lastNumLights = 0;
+		
 		for (int a = 0; a < 8; ++a) {
 			if (i + a < lightList.getNumLights()) {
 				//std::cout << "set light " << a << " to " << i + a << " (" << std::string(lightList.getLight(i + a).specular) << std::endl;
+				//lastNumLights++;
 				app.renderer.setLight(a, lightList.getLight(i + a));
 			}
 		}	
@@ -275,11 +282,15 @@ void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable &
 	else if (name == "$lumkilltrace") {
 		var = !vars.lumTrace;
 	}
+	else if (name == "$numlights") {
+		var = lastNumLights;		
+	}
 	else {
 		app.logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;
 	}
-	
 }
+
+// TODO: fixa simpel fps
 
 int TGen::Engine::DeferredRenderer::ceilPowerOfTwo(int value) {
 	int power = 2;
