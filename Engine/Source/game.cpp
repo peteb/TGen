@@ -44,7 +44,7 @@ void TGen::Engine::GameState::tick() {
 		lastRender = now;
 		world.update(sinceLastRender);
 		render(sinceLastRender);
-		//std::cout << 1.0 / sinceLastRender << std::endl;
+	//	std::cout << 1.0 / sinceLastRender << std::endl;
 		// dags att undersöka lite fps
 	}
 	else {

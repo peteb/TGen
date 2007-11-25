@@ -22,19 +22,18 @@ void main() {
 	vec4 specular = vec4(0.0);
 	float NdotVP, NdotHV, power;
 	
-	for (int lightId = 0; lightId < #NUM_LIGHTS#; ++lightId) {
-		//directionalLight(i, normal, 40.0 * gl_LightSource[i].specular.a, diffuse, specular);
-		NdotVP = max(0.0, dot(normal, vec3(gl_LightSource[lightId].position)));
-		NdotHV = max(0.0, dot(normal, vec3(gl_LightSource[lightId].halfVector)));
+	#loop LIGHT_ID 0 #NUM_LIGHTS#
+		NdotVP = max(0.0, dot(normal, vec3(gl_LightSource[#LIGHT_ID#].position)));
+		NdotHV = max(0.0, dot(normal, vec3(gl_LightSource[#LIGHT_ID#].halfVector)));
 	
 		if (NdotVP == 0.0)
 			power = 0.0;
 		else
 			power = pow(NdotHV, 30.0);	// TODO: get frm material or map
 	
-		diffuse += gl_LightSource[lightId].diffuse * NdotVP;
-		specular += gl_LightSource[lightId].specular * power;
-	}
+		diffuse += gl_LightSource[#LIGHT_ID#].diffuse * NdotVP;
+		specular += gl_LightSource[#LIGHT_ID#].specular * power;
+	#end
 
 	gl_FragColor = (diffuse + specular * miscInfo * 10.0) * gl_Color;	// TODO: miscInfo.x ska bara användas
 }

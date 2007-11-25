@@ -28,7 +28,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 	rhwOnlyColorMaterial = app.globalResources.getMaterial("deferred/rhwOnlyColor");
 	screenFillMesh = app.globalResources.getMesh("gen:fillquad");
 	lightAmbientMaterial = app.globalResources.getMaterial("deferred/lightAmbient");
-	lightDirectionalMaterial = app.globalResources.getMaterial("deferred/lightDirectional");
+	lightDirectionalMaterial = app.globalResources.getMaterial("deferred/lightDirectional2");
 	postLuminanceMaterial = app.globalResources.getMaterial("post/luminance");
 	postGaussianHorizMaterial = app.globalResources.getMaterial("post/gaussianHoriz");
 	postGaussianVertMaterial = app.globalResources.getMaterial("post/gaussianVert");
@@ -166,7 +166,6 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 	
 	renderList.render(app.renderer, *mainCamera, "default");
-	vars.postProcessing = false;
 	
 	if (vars.postProcessing) {
 		app.renderer.setRenderTarget(postTargets1);

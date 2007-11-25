@@ -28,6 +28,14 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 }
 
 TGen::Engine::ResourceManager::~ResourceManager() {
+	logs.info["res-"] << "shaders: " << TGen::endl;
+	for (ShaderMap::iterator iter = shaders.begin(); iter != shaders.end(); ++iter)
+		logs.info["res-"] << iter->first << TGen::endl;
+	
+	logs.info["res-"] << "materials: " << TGen::endl;
+	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
+		logs.info["res-"] << iter->first << TGen::endl;
+
 	logs.info["res-"] << "removing meshes..." << TGen::endl;
 	for (MeshMap::iterator iter = meshes.begin(); iter != meshes.end(); ++iter)
 		delete iter->second;
@@ -199,9 +207,12 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	contents = file->readAll();
 	delete file;
 	
+	TGen::Engine::ShaderPreProcessor processor;
+	std::string fixedContents = processor.process(contents, "");
+	
 	std::list<TGen::Material *> materialsLoaded;
 	TGen::MaterialParser parser;
-	parser.parse(contents.c_str(), materialsLoaded);
+	parser.parse(fixedContents.c_str(), materialsLoaded);
 	
 	logs.info["res"] << "loaded " << materialsLoaded.size() << " materials:\n";
 	int i = 0;

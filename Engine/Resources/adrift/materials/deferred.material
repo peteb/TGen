@@ -34,9 +34,10 @@ material deferred/lightAmbient default 9 {
 	}
 }
 
-material deferred/lightDirectional default 9 {
+#loop NUM_LIGHTS 0 8
+material deferred/lightDirectional#NUM_LIGHTS# default 9 {
 	lod 9 {
-		pass gen:deferred/lightDirectional:NUM_LIGHTS=1 {
+		pass gen:deferred/lightDirectional:NUM_LIGHTS=#NUM_LIGHTS# {
 			depthPass always
 			blendFunc add
 			//color wave square 0.5 1.0 0 20.0 // strobe!
@@ -45,10 +46,6 @@ material deferred/lightDirectional default 9 {
 				sampler normalMap
 			} 
 
-			/*texunit 1 $depthmap {
-				sampler depthMap
-			}*/
-
 			texunit 1 $miscmap {
 				sampler miscMap
 			}
@@ -56,6 +53,7 @@ material deferred/lightDirectional default 9 {
 		}
 	}
 }
+#end
 
 material post/luminance default 9 {
 	lod 9 {

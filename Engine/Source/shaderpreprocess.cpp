@@ -43,7 +43,55 @@ std::string TGen::Engine::ShaderPreProcessor::process(const std::string & conten
 		ret = out;
 	}
 	
-	std::cout << "OUT: " << std::endl << std::endl << ret << std::endl << std::endl;
+	//std::cout << "DEFF: " << ret << std::endl;
+	
+	// fix loops
+	int pos = 0;
+	std::string out;
+	while (pos < ret.size() && pos != std::string::npos) {
+		int nextPos = ret.find("#loop", pos);
+		if (nextPos == std::string::npos) {
+			out += ret.substr(pos);
+			break;
+		}
+		
+		out += ret.substr(pos, nextPos - pos);
+		int lineEndPos = ret.find("\n", nextPos);
+		std::string loopLine = ret.substr(nextPos + strlen("#loop "), lineEndPos - nextPos - strlen("#loop "));
+		
+		int firstSpace = loopLine.find(" ");
+		int lastSpace = loopLine.find(" ", firstSpace + 2);
+		std::string loopParamVar = loopLine.substr(0, firstSpace);
+		std::string loopParamStart = loopLine.substr(firstSpace + 1, lastSpace - firstSpace - 1);
+		std::string loopParamEnd = loopLine.substr(lastSpace + 1, loopLine.size() - lastSpace - 1);
+		
+		int loopEnd = ret.find("#end", nextPos);
+		if (loopEnd == std::string::npos)
+			throw TGen::RuntimeException("ShaderPreProcessor::process", "no #end for #loop!");
+		
+		std::string loopContents = ret.substr(lineEndPos + 1, loopEnd - lineEndPos - 1);
+		
+		//std::cout << loopLine << " | " << loopParamStart << " - " << loopParamEnd << std::endl;
+		
+		int startNum = TGen::lexical_cast<int>(loopParamStart);
+		int endNum = TGen::lexical_cast<int>(loopParamEnd);
+		
+		for (int i = startNum; i < endNum; ++i) {
+			std::string ppName = loopParamVar + "=" + TGen::lexical_cast<std::string>(i);
+			std::string fixedContents;
+			
+			TGen::Engine::ShaderPreProcessor processor;
+			fixedContents = processor.process(loopContents, ppName);
+			
+			out += fixedContents;
+		}
+		
+		pos = loopEnd + strlen("#end");
+	}
+	
+	ret = out;
+	
+	//std::cout << "OUT: " << std::endl << std::endl << ret << std::endl << std::endl;
 	
 	return ret;
 }
