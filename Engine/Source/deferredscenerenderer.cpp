@@ -13,6 +13,8 @@
 #include "file.h"
 #include "variablesregistry.h"
 #include "world.h"
+#include "light.h"
+#include "vbrenderable.h"
 #include <tgen_graphics.h>
 
 TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::Engine::World & world) 
@@ -21,6 +23,8 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 	, world(world)
 	, mainCamera(NULL)
 	, lastNumLights(0)
+	, lightBatchSize(8)
+	, lightMaterials(NULL)
 {
 	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
@@ -28,7 +32,8 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 	rhwOnlyColorMaterial = app.globalResources.getMaterial("deferred/rhwOnlyColor");
 	screenFillMesh = app.globalResources.getMesh("gen:fillquad");
 	lightAmbientMaterial = app.globalResources.getMaterial("deferred/lightAmbient");
-	lightDirectionalMaterial = app.globalResources.getMaterial("deferred/lightDirectional2");
+	lightDirectionalMaterial = app.globalResources.getMaterial("deferred/lightDirectional");
+	lightPositionalMaterial = app.globalResources.getMaterial("deferred/lightPositional");
 	postLuminanceMaterial = app.globalResources.getMaterial("post/luminance");
 	postGaussianHorizMaterial = app.globalResources.getMaterial("post/gaussianHoriz");
 	postGaussianVertMaterial = app.globalResources.getMaterial("post/gaussianVert");
@@ -59,7 +64,12 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 	}
 	
 	app.logs.info["dfr+"] << "mrts size: " << std::string(mapSize) << TGen::endl;
-	// TODO: bloom wrappar
+	
+	
+	lightMaterials = new TGen::Material*[lightBatchSize * 3];
+	//loadLightMaterial("deferred/lightDirectional", 0);
+	
+	app.logs.info["dfr+"] << "light batch size: " << lightBatchSize << TGen::endl;
 	
 	TGen::Rectangle viewport = app.renderer.getViewport();
 	app.renderer.setRenderTarget(postTargets2);
@@ -74,6 +84,8 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::
 }
 
 TGen::Engine::DeferredRenderer::~DeferredRenderer() {
+	delete [] lightMaterials;
+	
 	delete mapTargets;
 	delete postTargets1;
 	delete postTargets2;
@@ -90,6 +102,11 @@ TGen::Engine::DeferredRenderer::~DeferredRenderer() {
 	app.logs.info["dfr-"] << "shut down" << TGen::endl;
 }
 
+void TGen::Engine::DeferredRenderer::loadLightMaterial(const std::string & name, int materialId) {
+	for (int i = 0; i < lightBatchSize; ++i)
+		lightMaterials[materialId * lightBatchSize + i] = app.globalResources.getMaterial(name + TGen::lexical_cast<std::string>(i));
+}
+
 void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & mapSize) {
 	downsampleSize = mapSize / scalar(pow(2.0f, vars.bloomDownsampling));
 	
@@ -102,6 +119,10 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	postMap2 = app.renderer.createTexture(downsampleSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	postMap3 = app.renderer.createTexture(downsampleSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	
+	postMap1->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
+	postMap2->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
+	postMap3->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
+
 	/*colorMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
 	normalMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
 	depthMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
@@ -158,12 +179,11 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	TGen::Rectangle viewport = app.renderer.getViewport();
 	
 	
-	// UPDATE MAPS
+	// UPDATE MAPS (color, normal, spec, etc)
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	app.renderer.setAmbientLight(world.getAmbientLight());
-	
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 	
@@ -178,31 +198,111 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 
 	// AMBIENT TO RESULT
-	//app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderFillQuad(lightAmbientMaterial);
 	
-
-	// LIGHTING
-	for (int i = 0; i < lightList.getNumLights(); i += 8) {
-		//lastNumLights = 0;
-		
-		for (int a = 0; a < 8; ++a) {
-			if (i + a < lightList.getNumLights()) {
-				//std::cout << "set light " << a << " to " << i + a << " (" << std::string(lightList.getLight(i + a).specular) << std::endl;
-				//lastNumLights++;
-				app.renderer.setLight(a, lightList.getLight(i + a));
-			}
-		}	
-		
-		renderFillQuad(lightDirectionalMaterial);
-	}
 	
+	// SORT LIGHTS BY TYPE, borde göras direkt av lightList
+	std::vector<TGen::Engine::Light *> lights[3];	// TODO: flytta till init
+	for (int i = 0; i < 3; ++i)
+		lights[i].reserve(10);
+	
+	for (int i = 0; i < lightList.getNumLights(); ++i) {
+		TGen::Engine::Light * light = lightList.getLight(i);
+		lights[light->type].push_back(light);
+	}
 
+	// TODO: lightlist ska sortera lampor per material. lod skulle ju faktiskt kunna användas här... men blir batchbreaker
+	
+	
+	// LIGHTING
+	//for (int lightType = 0; lightType < 3; ++lightType) {
+	int lightType = 0;	
+	for (int i = 0; i < lights[lightType].size(); i += lightBatchSize) {
+		int a = 0;
+		for (; a < lightBatchSize && i + a < lights[lightType].size(); ++a) {
+			app.renderer.setLight(a, lights[lightType][i + a]->light);
+		}			
+			
+		renderFillQuad(lightDirectionalMaterial, TGen::lexical_cast<std::string>(a) + "lights");
+	}		
+	//}
+	lightType = 1;	
+	TGen::VertexBuffer * vb = app.renderer.createVertexBuffer(LightVertexDecl(), sizeof(LightVertexDecl::Type) * 24 * 8, TGen::UsageStream);
+	
+	for (int i = 0; i < lights[lightType].size(); i += lightBatchSize) {
+		std::vector<LightVertexDecl::Type> vertices;
+		vertices.reserve(24 * 8);
+		
+		int a = 0;
+		for (; a < lightBatchSize && i + a < lights[lightType].size(); ++a) {
+			TGen::Vector3 min = lights[lightType][i + a]->boundingBox.getMin();
+			TGen::Vector3 max = lights[lightType][i + a]->boundingBox.getMax();
+			
+			vertices.push_back(TGen::Vector3(min.x, min.y, max.z));
+			vertices.push_back(TGen::Vector3(max.x, min.y, max.z));
+			vertices.push_back(TGen::Vector3(max.x, max.y, max.z));
+			vertices.push_back(TGen::Vector3(min.x, max.y, max.z));
+
+			vertices.push_back(TGen::Vector3(max.x, min.y, min.z));
+			vertices.push_back(TGen::Vector3(min.x, min.y, min.z));
+			vertices.push_back(TGen::Vector3(min.x, max.y, min.z));
+			vertices.push_back(TGen::Vector3(max.x, max.y, min.z));
+			
+			vertices.push_back(TGen::Vector3(max.x, min.y, max.z));
+			vertices.push_back(TGen::Vector3(max.x, min.y, min.z));
+			vertices.push_back(TGen::Vector3(max.x, max.y, min.z));
+			vertices.push_back(TGen::Vector3(max.x, max.y, max.z));
+			
+			vertices.push_back(TGen::Vector3(min.x, min.y, min.z));
+			vertices.push_back(TGen::Vector3(min.x, min.y, max.z));
+			vertices.push_back(TGen::Vector3(min.x, max.y, max.z));
+			vertices.push_back(TGen::Vector3(min.x, max.y, min.z));
+			
+			vertices.push_back(TGen::Vector3(min.x, min.y, min.z));
+			vertices.push_back(TGen::Vector3(max.x, min.y, min.z));
+			vertices.push_back(TGen::Vector3(max.x, min.y, max.z));
+			vertices.push_back(TGen::Vector3(min.x, min.y, max.z));
+			
+			
+			app.renderer.setLight(a, lights[lightType][i + a]->light);
+		}			
+		
+		vb->bufferData(&vertices[0], sizeof(LightVertexDecl::Type) * vertices.size(), 0);
+		//renderFillQuad(lightDirectionalMaterial, TGen::lexical_cast<std::string>(a) + "lights");
+		
+		TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
+		
+		lightPositionalMaterial->render(app.renderer, TGen::Engine::VBRenderable(vb, TGen::PrimitiveQuads, vertices.size()), "1lights", 9, textures, this);
+		
+	}		
+	
+	delete vb;
+	
+	// TODO: fixa det här med specialization
+	// cacha varje materials specs, cachedSpecializations[getMaterial("directional")][2]  pekar på "2light"
+	// entryn byggs upp när materialet först introduceras
+	
+	//renderFillQuad(lightMaterials[lightType * lightBatchSize + a ]);
+
+	
+	// TODO: om man stöter på "pass" i materialblocket (innan lod) så skapas lod 9
+	// TODO: specializations/lod ska kunna ha en flagga som säger om den nivån verkligen ska länkas vid link
+	//         om den är satt så länkas den inte.   Eller nej, borde finnas en lista som kollas mot när man parsar material
+	//			  om en lod finns med i den listan så laddas den inte in
+	//         sen kan man ha en annan flagga som berättar om den lod:en verkligen använts någon gång
+	//       hur arbetar man med detta: gå runt i en värld och titta runt på alla möjliga sätt, som när man spelar
+	//       sen sparar man alla lods flaggor till en fil, de som är false. detta används sen när man laddar in alla material
+	//       vissa material ska inte kunna dödas såhär, t ex lampor. men då sätter man en param: noPreCull (i paramblocket)
+	// TODO: #loop 0 to r_lightBatchSize (read only)
+	
+	// TODO: lightlist: set? map? något sorterat iaf. insert(SortedLight(light)); SortedLight har operator > (eller om det är <) som jämför materialpekare
+	
 	if (vars.postProcessing) {
 		postProcessing(viewport);		
 	}
 
 }
+// MÅSTE FÖRSTÅ GLLIGHTFV FÖRSt, kordinatsystemet.
 
 void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & viewport) {
 	// TODO: flökar säkert sönder depthbuffern.. disabla
@@ -211,14 +311,14 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 	app.renderer.setViewport(downsampleSize);
 	app.renderer.setRenderTarget(postTargets2);
 	
-	if (vars.lumTrace) {
-		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.3));
+	if (vars.lumTrace) {	// måste ha blendFunc add add för det här...
+		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.48));
 		renderFillQuad(rhwOnlyColorMaterial);
 	}
 	
 	renderPostFillQuad(postLuminanceMaterial);
 	
-	for (int i = 0; i < vars.bloomBlurPasses; ++i) {
+	for (int i = 0; i < vars.bloomBlurPasses; ++i) {	// pingpong:a gaussian blur
 		app.renderer.setRenderTarget(postTargets3);	
 		renderPost2FillQuad(postGaussianHorizMaterial);
 	
@@ -239,6 +339,15 @@ void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
 	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);
+}
+
+void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material, const std::string & specialization) {
+	if (!material || !screenFillMesh)
+		throw TGen::RuntimeException("DeferredRenderer::renderFillQuad", "missing resources");
+
+	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
+	
+	material->render(app.renderer, *screenFillMesh, specialization, 9, textures, this);	
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFillQuad(TGen::Material * material) {

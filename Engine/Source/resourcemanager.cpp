@@ -33,9 +33,15 @@ TGen::Engine::ResourceManager::~ResourceManager() {
 		logs.info["res-"] << iter->first << TGen::endl;
 	
 	logs.info["res-"] << "materials: " << TGen::endl;
-	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
-		logs.info["res-"] << iter->first << TGen::endl;
+	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
+		logs.info["res-"] << iter->first << " (frames: " << iter->second->getTimesRendered() << ")" << TGen::endl;
 
+		const TGen::Material::SpecializationList & specializations = iter->second->getSpecializations();
+		for (TGen::Material::SpecializationList::const_iterator iter = specializations.begin(); iter != specializations.end(); ++iter) {
+			logs.info["res-"] << "   " << iter->second->getName() << " (" << iter->second->getTimesUsed() << ")" << TGen::endl;
+		}
+	}
+	
 	logs.info["res-"] << "removing meshes..." << TGen::endl;
 	for (MeshMap::iterator iter = meshes.begin(); iter != meshes.end(); ++iter)
 		delete iter->second;

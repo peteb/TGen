@@ -43,7 +43,7 @@ void TGen::Q3MaterialParser::parseGlobalBlock() {
 				throw TGen::RuntimeException("Q3MaterialParser::ParseGlobalBlock", "expecting block start, not '" + currentToken->second + "'!");
 		
 			TGen::Material * newMaterial = new TGen::Material(materialName);
-			TGen::TechniqueList * newTechList = new TGen::TechniqueList;
+			TGen::TechniqueList * newTechList = new TGen::TechniqueList("default");
 			TGen::Technique * newTech = new TGen::Technique;
 			TGen::PassList * newLod = new TGen::PassList;
 			

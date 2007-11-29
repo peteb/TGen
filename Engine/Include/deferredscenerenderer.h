@@ -40,12 +40,15 @@ namespace TGen {
 			
 		private:
 			void renderFillQuad(TGen::Material * material);
+			void renderFillQuad(TGen::Material * material, const std::string & specialization);
+
 			void renderPostFillQuad(TGen::Material * material);
 			void renderPost2FillQuad(TGen::Material * material);
 			void renderPost3FillQuad(TGen::Material * material);
 			void renderPostFinalQuad(TGen::Material * material);
 			
 			void createResources(const TGen::Rectangle & mapSize);
+			void loadLightMaterial(const std::string & name, int materialId);
 			int ceilPowerOfTwo(int value);
 			
 			TGen::Engine::App & app;
@@ -55,13 +58,18 @@ namespace TGen {
 			TGen::Rectangle mrtSize, downsampleSize;
 			TGen::Camera * mainCamera;
 			int lastNumLights;
+			int lightBatchSize;
 			
 			// resources
 			TGen::ShaderProgram * rhwNoTransformShader;
 			TGen::Mesh * screenFillMesh;
-			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom, * rhwOnlyColorMaterial;
+			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * lightPositionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom, * rhwOnlyColorMaterial;
 			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1, * postMap2, * postMap3;
 			TGen::FrameBuffer * mapTargets, * postTargets1, * postTargets2, * postTargets3;
+			
+			TGen::Material ** lightMaterials;
+			
+			typedef TGen::Vertex3<float> LightVertexDecl;
 		};
 	}
 }

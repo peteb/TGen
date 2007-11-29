@@ -40,6 +40,8 @@ namespace TGen {
 			TGen::BasicRenderList renderList;
 			TGen::Engine::LightList lightList;
 			
+			TGen::Engine::Light * lights[4];
+			
 			TGen::Camera * mainCam;
 		};
 		

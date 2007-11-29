@@ -34,8 +34,8 @@ material deferred/lightAmbient default 9 {
 	}
 }
 
-#loop NUM_LIGHTS 0 8
-material deferred/lightDirectional#NUM_LIGHTS# default 9 {
+#loop NUM_LIGHTS 1 8
+material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 	lod 9 {
 		pass gen:deferred/lightDirectional:NUM_LIGHTS=#NUM_LIGHTS# {
 			depthPass always
@@ -51,6 +51,37 @@ material deferred/lightDirectional#NUM_LIGHTS# default 9 {
 			}
 
 		}
+	}
+}
+#end
+
+#loop NUM_LIGHTS 1 8 
+material deferred/lightPositional #NUM_LIGHTS#lights 9 {
+	lod 9 {
+		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
+			//depthPass always
+			//blendFunc add
+			back cull
+
+			texunit 3 $colormap {
+				sampler colorMap
+			}
+	
+			texunit 0 $normalmap {
+				sampler normalMap
+			}
+
+			texunit 1 $miscmap {
+				sampler miscMap
+			}
+
+			texunit 2 $depthmap {
+				sampler depthMap
+			}
+
+		}
+
+
 	}
 }
 #end

@@ -14,17 +14,19 @@
 
 namespace TGen {
 	namespace Engine {
+		class Light;
+		
 		class LightList {
 		public:
 			LightList(int num);
 			
-			void addLight(const TGen::Light & light);
-			const TGen::Light & getLight(int id) const;
+			void addLight(TGen::Engine::Light * light);
+			TGen::Engine::Light * getLight(int id) const;
 			int getNumLights() const;
 			void clear();
 			
 		private:
-			std::vector<TGen::Light> lights;
+			std::vector<TGen::Engine::Light *> lights;
 		};
 		
 		

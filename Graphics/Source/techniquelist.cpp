@@ -10,7 +10,10 @@
 #include "techniquelist.h"
 #include "technique.h"
 
-TGen::TechniqueList::TechniqueList() {
+TGen::TechniqueList::TechniqueList(const std::string & name)
+	: name(name)
+	, timesUsed(0)
+{
 	for (int i = 0; i < 10; ++i)
 		techniques.push_back(NULL);
 }
@@ -24,6 +27,8 @@ TGen::Technique * TGen::TechniqueList::getTechnique(int minreqs) {
 	for (int i = minreqs; i >= 0; --i) {
 		if (techniques[i]) {
 			//std::cout << "technique " << i << " chosen" << std::endl;
+			timesUsed++;
+
 			return techniques[i];
 		}
 	}
@@ -31,6 +36,8 @@ TGen::Technique * TGen::TechniqueList::getTechnique(int minreqs) {
 	for (int i = minreqs; i < 10; ++i) {
 		if (techniques[i]) {
 			//std::cout << "no lower technique, chosing " << i << std::endl;
+			timesUsed++;
+
 			return techniques[i];
 		}
 	}
@@ -59,4 +66,12 @@ void TGen::TechniqueList::update(scalar time) {
 		if (*iter)
 			(*iter)->update(time);
 	}	
+}
+
+const std::string & TGen::TechniqueList::getName() const {
+	return name;
+}
+
+int TGen::TechniqueList::getTimesUsed() const {
+	return timesUsed;
 }

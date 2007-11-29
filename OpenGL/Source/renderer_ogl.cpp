@@ -71,7 +71,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	caps.driverVendor = (char *)glGetString(GL_VENDOR);
 	caps.vertexShader = isExtensionAvailable("GL_ARB_vertex_shader");	// GL_ARB_vertex_program?
 	caps.fragmentShader = isExtensionAvailable("GL_ARB_fragment_shader");
-	caps.geometryShader = isExtensionAvailable("EXT_geometry_shader4");
+	caps.geometryShader = isExtensionAvailable("GL_EXT_geometry_shader4");
 	caps.framebuffer = isExtensionAvailable("GL_EXT_framebuffer_object");
 	caps.multitexturing = isExtensionAvailable("GL_ARB_multitexture");
 }

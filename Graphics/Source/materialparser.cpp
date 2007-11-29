@@ -84,7 +84,7 @@ void TGen::MaterialParser::parseGlobalBlock() {
 			
 			
 			TGen::Material * newMaterial = getMaterial(materialName);
-			TGen::TechniqueList * newTechniqueList = new TGen::TechniqueList;
+			TGen::TechniqueList * newTechniqueList = new TGen::TechniqueList(specialization);
 			TGen::Technique * newTechnique = new TGen::Technique;
 			
 			newTechniqueList->setTechnique(newTechnique, techniqueNumber);

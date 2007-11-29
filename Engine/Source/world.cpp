@@ -9,6 +9,7 @@
 
 #include "world.h"
 #include "app.h"
+#include "light.h"
 
 TGen::Engine::World::World(TGen::Engine::App & app)
 	: app(app)
@@ -27,7 +28,7 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	
 	TGen::MeshGeometryLinkList meshList;
 	sceneRoot.addChild(new TGen::SceneNode("weapon", TGen::Vector3(0.0f, 0.0f, 1.0f)));
-	sceneRoot.getChild("weapon")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/railgun.md3")), "railgunMaterial"));
+	sceneRoot.getChild("weapon")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/railgun.md3")), "railgunMaterial"));	// hur anger md3:an material?
 
 	// TODO: scenegraphen buggar!!!!!!! hårt!!!!!
 	
@@ -38,9 +39,29 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	// börja jobba på portalbanorna
 	
 	sceneRoot.update();
+
+
+
+
+	TGen::Engine::Light * newLight = new TGen::Engine::Light;
+	lights[0] = newLight;
+	newLight->type = TGen::Engine::LightDirectional;
+	newLight->clipBoundingBox = false;
+	newLight->light.position = TGen::Vector4(0.0f, 0.0f, 1.0f, 0.0f);
+	newLight->light.diffuse = TGen::Color(0.3, 0.3, 0.3, 1.0);
+	newLight->light.specular = TGen::Color(1.0, 1.0, 1.0, 1.0);
+	
+	newLight = new TGen::Engine::Light;
+	lights[1] = newLight;
+	newLight->type = TGen::Engine::LightPositional;
+	newLight->boundingBox = TGen::AABB(TGen::Vector3(-0.3f, -0.3f, -0.3f), TGen::Vector3(0.3f, 0.3f, 0.3f));
+	
 }
 
+// TODO: depthcheck på light volume
+
 TGen::Engine::World::~World() {
+	delete lights[0];
 	delete mainCam;
 	app.logs.info["wrld-"] << "shut down" << TGen::endl;
 }
@@ -88,7 +109,7 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 		lightList.addLight(light);
 	}*/
 	
-	TGen::Light light;
+	/*TGen::Light light;
 	light.position = TGen::Vector4(0.0f, 0.0f, 1.0f, 0.0f);
 	light.diffuse = TGen::Color(0.1, 0.1, 0.0, 1.0);
 	light.specular = TGen::Color(1.0, 0.0, 0.0, 1.0);
@@ -111,13 +132,18 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 	light.diffuse = TGen::Color(0.0, 0.1, 0.1, 1.0);
 	light.specular = TGen::Color(0.0, 1.0, 0.3, 1.0);
 	
-	lightList.addLight(light);
+	lightList.addLight(light);*/
+	
+	
+	lightList.addLight(lights[0]);
+	lightList.addLight(lights[1]);
+	
 	// TODO: light ska inte bestämma specularity
 }
 
 void TGen::Engine::World::update(scalar dt) {
 	//sceneRoot.getChild("weapon")->setPosition(sceneRoot.getChild("weapon")->getLocalPosition() + TGen::Vector3(dt, 0.0f, 0.0f));
-	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.2));
+	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.3));
 	
 	sceneRoot.getChild("weapon")->setOrientation(rot * TGen::Vector3(sceneRoot.getChild("weapon")->getLocalOrientation()));
 	sceneRoot.update();

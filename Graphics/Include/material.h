@@ -52,11 +52,16 @@ namespace TGen {
 		void setParameter(const std::string & name, const std::vector<std::string> & values);
 		void setSpecialization(const std::string & name, TGen::TechniqueList * techniques);
 		TGen::Technique * getSpecialization(const std::string & name);
+		int getTimesRendered() const;
 		
 		std::vector<std::string> & getParameter(const std::string & name);
+
+		typedef std::map<int, TGen::TechniqueList *> TechniqueListMap;
+		typedef std::map<int, TGen::TechniqueList *> SpecializationList;
+
+		const SpecializationList & getSpecializations() const;
 		
 	private:
-		typedef std::map<int, TGen::TechniqueList *> TechniqueListMap;
 		//typedef std::map<std::string, int> SpecializationMap;
 		typedef std::map<std::string, std::vector<std::string> > ParameterMap;
 		
@@ -69,6 +74,7 @@ namespace TGen {
 		int minimumTechnique, sortLevel;
 		std::string name;
 		bool linked;
+		int timesRendered;
 	};
 	
 } // !TGen

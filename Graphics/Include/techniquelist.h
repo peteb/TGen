@@ -19,17 +19,21 @@ namespace TGen {
 	
 	class TechniqueList {
 	public:
-		TechniqueList();
+		TechniqueList(const std::string & name);
 		~TechniqueList();	
 		
 		void setTechnique(Technique * tech, int reqs);
 		Technique * getTechnique(int minreqs);
 		void link(TGen::MaterialLinkCallback & callback);
 		void update(scalar time);
+		const std::string & getName() const;
+		int getTimesUsed() const;
 		
 	private:
 		typedef std::vector<Technique *> TechniqueVector;
 		TechniqueVector techniques;
+		std::string name;
+		int timesUsed;
 	};	
 	
 } // !TGen

@@ -8,16 +8,17 @@
  */
 
 #include "lightlist.h"
+#include "light.h"
 
 TGen::Engine::LightList::LightList(int num) {
 	lights.reserve(num);
 }
 
-void TGen::Engine::LightList::addLight(const TGen::Light & light) {
+void TGen::Engine::LightList::addLight(TGen::Engine::Light * light) {
 	lights.push_back(light);
 }
 
-const TGen::Light & TGen::Engine::LightList::getLight(int id) const {
+TGen::Engine::Light * TGen::Engine::LightList::getLight(int id) const {
 	return lights[id];
 }
 
