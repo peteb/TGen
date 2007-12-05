@@ -109,6 +109,7 @@ namespace TGen {
 		void setColorGenerator(TGen::ColorGenerator * gen);
 		void setAlphaGenerator(TGen::ScalarGenerator * gen);
 		void setNoDepthWrite();
+		void setDisableDepth();
 		void setColorFromVertex();
 		
 		void update(scalar dt);

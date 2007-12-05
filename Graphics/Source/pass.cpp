@@ -261,6 +261,9 @@ void TGen::Pass::setBackMode(const std::string & mode) {
 void TGen::Pass::setNoDepthWrite() {
 	renderContext.depthWrite = false;
 }
+void TGen::Pass::setDisableDepth() {
+	renderContext.disableDepth = true;
+}
 
 void TGen::Pass::setBlendFunc(const std::string & source, const std::string & dest) {
 	if (source == "additive" || source == "add") {

@@ -216,6 +216,27 @@ typedef void (GLAPIENTRY *DrawBuffersARBPtr) (GLsizei n, const GLenum *bufs);
 
 #endif
 
+#ifndef GL_RGBA32F_ARB
+#define GL_RGBA32F_ARB                      0x8814
+#define GL_RGB32F_ARB                       0x8815
+#endif
+
+#ifndef GL_GEOMETRY_SHADER_EXT
+#define GL_GEOMETRY_SHADER_EXT              0x8DD9
+#define GL_LINES_ADJACENCY_EXT              0xA
+#define GL_LINE_STRIP_ADJACENCY_EXT         0xB
+#define GL_TRIANGLES_ADJACENCY_EXT          0xC
+#define GL_TRIANGLE_STRIP_ADJACENCY_EXT     0xD
+#endif
+
+#ifndef GL_COMPRESSED_RGB_S3TC_DXT1_EXT
+#define GL_COMPRESSED_RGB_S3TC_DXT1_EXT                   0x83F0
+#define GL_COMPRESSED_RGBA_S3TC_DXT1_EXT                  0x83F1
+#define GL_COMPRESSED_RGBA_S3TC_DXT3_EXT                  0x83F2
+#define GL_COMPRESSED_RGBA_S3TC_DXT5_EXT                  0x83F3
+#endif
+#define GL_TEXTURE_IMAGE_SIZE_ARB 0x86A0
+
 extern BindBufferARBPtr glBindBufferARB;
 extern GenBuffersARBPtr glGenBuffersARB;
 extern BufferDataARBPtr glBufferDataARB;

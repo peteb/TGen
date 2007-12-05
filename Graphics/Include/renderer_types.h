@@ -17,6 +17,7 @@ namespace TGen {
 		TextureS3TCDXT3Compressed =		0x0005,
 		TextureS3TCDXT5Compressed =		0x0007,
 		TextureNoMipmaps =				0x0010,
+		TextureRectangle =				0x0020,
 	};
 		
 	enum BufferType {

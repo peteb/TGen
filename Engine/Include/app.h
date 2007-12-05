@@ -13,6 +13,7 @@
 #include "log.h"
 #include "logtarget.h"
 #include "resourcemanager.h"
+#include "memmanager.h"
 
 namespace TGen {
 	class PropertyTree;
@@ -43,6 +44,7 @@ namespace TGen {
 			TGen::Engine::VariablesRegistry & variables;
 			TGen::Engine::CommandRegistry & commands;
 			TGen::Engine::Filesystem & filesystem;
+			TGen::Engine::MemoryManager memory;
 			
 			TGen::Engine::ResourceManager globalResources;
 			

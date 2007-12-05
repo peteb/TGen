@@ -11,28 +11,9 @@
 #define _TGEN_OPENGL_RENDERER_H
 
 #include "renderer.h"
+#include "prefix_ogl.h"
 #include <map>
 
-#ifndef GL_RGBA32F_ARB
-	#define GL_RGBA32F_ARB                      0x8814
-	#define GL_RGB32F_ARB                       0x8815
-#endif
-
-#ifndef GL_GEOMETRY_SHADER_EXT
-	#define GL_GEOMETRY_SHADER_EXT              0x8DD9
-	#define GL_LINES_ADJACENCY_EXT              0xA
-	#define GL_LINE_STRIP_ADJACENCY_EXT         0xB
-	#define GL_TRIANGLES_ADJACENCY_EXT          0xC
-	#define GL_TRIANGLE_STRIP_ADJACENCY_EXT     0xD
-#endif
-
-#ifndef GL_COMPRESSED_RGB_S3TC_DXT1_EXT
-	#define GL_COMPRESSED_RGB_S3TC_DXT1_EXT                   0x83F0
-	#define GL_COMPRESSED_RGBA_S3TC_DXT1_EXT                  0x83F1
-	#define GL_COMPRESSED_RGBA_S3TC_DXT3_EXT                  0x83F2
-	#define GL_COMPRESSED_RGBA_S3TC_DXT5_EXT                  0x83F3
-#endif
-#define GL_TEXTURE_IMAGE_SIZE_ARB 0x86A0
 
 namespace TGen {
 	class VertexStructure;
@@ -94,8 +75,12 @@ namespace TGen {
 			void parseExtensions();
 			void readCaps();
 			void checkCompatibility();
-			
+
 			TGen::Texture * createTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
+			TGen::Texture * create2DTexture(const void * data, const TGen::Rectangle & size, GLenum internalFormat, GLenum format, GLenum dataType, uint flags);
+			TGen::Texture * createRectTexture(const void * data, const TGen::Rectangle & size,  GLenum internalFormat, GLenum inFormat, GLenum dataType, uint flags);
+			GLenum getInternalFormat(TGen::ImageFormat components, uint flags);
+			
 			TGen::Shader * createShader(const char * code, int type);
 
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);

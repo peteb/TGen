@@ -30,7 +30,7 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	sceneRoot.addChild(new TGen::SceneNode("weapon", TGen::Vector3(0.0f, 0.0f, 1.0f)));
 	sceneRoot.getChild("weapon")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/railgun.md3")), "railgunMaterial"));	// hur anger md3:an material?
 
-	// TODO: scenegraphen buggar!!!!!!! hårt!!!!!
+	// TODO: scenegraphen buggar!!!!
 	
 	meshList.relink(app.globalResources);
 	sceneRoot.traverse(TGen::FaceLinker(app.globalResources));
@@ -54,7 +54,8 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	newLight = new TGen::Engine::Light;
 	lights[1] = newLight;
 	newLight->type = TGen::Engine::LightPositional;
-	newLight->boundingBox = TGen::AABB(TGen::Vector3(-0.3f, -0.3f, -0.3f), TGen::Vector3(0.3f, 0.3f, 0.3f));
+	newLight->boundingBox = TGen::AABB(TGen::Vector3(-0.4f, -0.4f, -0.4f), TGen::Vector3(0.4f, 0.4f, 0.4f));
+	newLight->light.position = TGen::Vector4(0.0f, 0.0f, 0.0f, 0.0f);
 	
 }
 

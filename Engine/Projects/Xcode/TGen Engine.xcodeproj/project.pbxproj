@@ -26,6 +26,7 @@
 		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
 		D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */; };
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
+		D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843B6E0D0759D200C31FE3 /* memmanager.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
@@ -197,6 +198,9 @@
 		D08212E10CF33155000EFA7E /* deferredrenderervars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredrenderervars.h; path = ../../Include/deferredrenderervars.h; sourceTree = SOURCE_ROOT; };
 		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
 		D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredscenerenderer.cpp; sourceTree = "<group>"; };
+		D0843B6B0D0759D200C31FE3 /* mempool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mempool.h; path = ../../Include/mempool.h; sourceTree = SOURCE_ROOT; };
+		D0843B6D0D0759D200C31FE3 /* memmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memmanager.h; path = ../../Include/memmanager.h; sourceTree = SOURCE_ROOT; };
+		D0843B6E0D0759D200C31FE3 /* memmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memmanager.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -473,6 +477,16 @@
 			name = renderer;
 			sourceTree = "<group>";
 		};
+		D0843B6A0D0759D200C31FE3 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				D0843B6B0D0759D200C31FE3 /* mempool.h */,
+				D0843B6E0D0759D200C31FE3 /* memmanager.cpp */,
+				D0843B6D0D0759D200C31FE3 /* memmanager.h */,
+			);
+			name = memory;
+			sourceTree = "<group>";
+		};
 		D0EF614C0C82D0C20085C17B /* physfs */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,6 +498,7 @@
 		D0EF64910C82F4CF0085C17B /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				D0843B6A0D0759D200C31FE3 /* memory */,
 				D0F83E020CBAD68600FF4467 /* log */,
 				D0F835D70CBA5C8B00FF4467 /* platform */,
 				D0F835810CBA5B4300FF4467 /* map */,
@@ -747,6 +762,7 @@
 				D0CC7A5D0CF9D1E6003EE092 /* shaderpreprocess.cpp in Sources */,
 				D07AFB600CFA331300DBCD9D /* light.cpp in Sources */,
 				D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */,
+				D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -784,6 +800,14 @@
 				ARCHS = i386;
 				COPY_PHASE_STRIP = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = NO;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_NON_VIRTUAL_DESTRUCTOR = YES;
+				GCC_WARN_PEDANTIC = NO;
+				GCC_WARN_UNUSED_FUNCTION = NO;
+				GCC_WARN_UNUSED_PARAMETER = NO;
+				GCC_WARN_UNUSED_VALUE = YES;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
@@ -804,8 +828,11 @@
 			baseConfigurationReference = 5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */;
 			buildSettings = {
 				ARCHS = i386;
+				CURRENT_PROJECT_VERSION = 0.1;
 				DEAD_CODE_STRIPPING = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_PREFIX_HEADER = "";
+				GCC_UNROLL_LOOPS = YES;
 				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

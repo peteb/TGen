@@ -73,7 +73,7 @@ public:
 				return TGen::RGB;
 			
 			case IL_RGBA:
-				return TGen::RGBA;
+				return TGen::RGB;
 				
 			case IL_BGR:
 				return TGen::BGR;

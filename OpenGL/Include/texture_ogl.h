@@ -19,7 +19,7 @@ namespace TGen {
 		
 		class Texture : public TGen::Texture {
 		private:
-			Texture(TGen::Renderer & creator, GLuint texId, const TGen::Rectangle & size);
+			Texture(TGen::Renderer & creator, GLuint texId, const TGen::Rectangle & size, GLenum target);
 
 		public:
 			~Texture();
@@ -32,6 +32,7 @@ namespace TGen {
 			friend class TGen::OpenGL::Renderer;
 			
 		private:
+			GLenum target;
 			GLuint texId;
 		};
 		

@@ -74,6 +74,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	caps.geometryShader = isExtensionAvailable("GL_EXT_geometry_shader4");
 	caps.framebuffer = isExtensionAvailable("GL_EXT_framebuffer_object");
 	caps.multitexturing = isExtensionAvailable("GL_ARB_multitexture");
+	caps.rectTexture = isExtensionAvailable("GL_ARB_texture_rectangle");
 }
 
 void TGen::OpenGL::Renderer::parseExtensions() {
@@ -286,68 +287,123 @@ TGen::Texture * TGen::OpenGL::Renderer::createTexture(const TGen::Rectangle & si
 }
 
 TGen::Texture * TGen::OpenGL::Renderer::createTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags) {
-	return createTexture(image.getData(), image.getSize(), image.getFormat(), components, image.getComponentFormat(), flags);
+	return createTexture(image.getData(), image.getSize(), components, image.getFormat(), image.getComponentFormat(), flags);
 }
 
 TGen::Texture * TGen::OpenGL::Renderer::createTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
+	GLenum internalFormat = TGen::OpenGL::TgenImageFormatToOpenGL(format);
+	GLenum inFormat = TGen::OpenGL::TgenImageFormatToOpenGL(components);
+	GLenum dataType = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
+	
+	if (format == TGen::DEPTH16) {
+		internalFormat = GL_DEPTH_COMPONENT16;
+		inFormat = GL_DEPTH_COMPONENT;
+	}
+	else if (format == TGen::DEPTH24) {
+		internalFormat = GL_DEPTH_COMPONENT24;
+		inFormat = GL_DEPTH_COMPONENT;
+	}
+	else if (format == TGen::DEPTH32) {
+		internalFormat = GL_DEPTH_COMPONENT32;
+		inFormat = GL_DEPTH_COMPONENT;
+	}
+	
+	if (flags & TGen::TextureRectangle) {
+		return createRectTexture(data, size, internalFormat, inFormat, dataType, flags);
+	}
+	else {
+		return create2DTexture(data, size, internalFormat, inFormat, dataType, flags);
+	}
+	
+	throw TGen::RuntimeException("OpenGL::Renderer::createTexture", "failed to create texture, unknown texture type");
+}
+
+
+TGen::Texture * TGen::OpenGL::Renderer::create2DTexture(const void * data, const TGen::Rectangle & size, GLenum internalFormat, GLenum inFormat, GLenum dataType, uint flags) {
 	GLuint newTex = 0;
-	
-	
-	GLenum imgFormat = TGen::OpenGL::TgenImageFormatToOpenGL(format);
-	GLenum type = TGen::OpenGL::TgenFormatToOpenGL(componentFormat);
-	GLenum internalFormat = 0;
 	GLint prevTex = 0;
-	glGetIntegerv(GL_TEXTURE_BINDING_2D, &prevTex);
 	
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, &prevTex);
 	glGenTextures(1, &newTex);
 	glBindTexture(GL_TEXTURE_2D, newTex);
 	
 	bool generateMipmaps = !(flags & TGen::TextureNoMipmaps);
-	
-	if (flags & TGen::TextureCompressed) {
-		switch (components) {
-			case TGen::RGB:
-				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
-					internalFormat = GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
-				else
-					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
-				break;
-				
-			case TGen::RGBA:
-				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
-					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
-				else if ((flags & 0xF) == TGen::TextureS3TCDXT3Compressed)
-					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
-				else if ((flags & 0xF) == TGen::TextureS3TCDXT5Compressed)
-					internalFormat = GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
-				else
-					throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
-				
-				break;
-				
-			default:
-				throw TGen::RuntimeException("OpenGL::Renderer::CreateTexture", "component format is not compatible with this compression");
-		}
-	}
-	else {
-		internalFormat = TGen::OpenGL::TgenImageFormatToOpenGL(components);
-	}
+	//GLenum internalFormat = getInternalFormat(components, flags);
 	
 	if (generateMipmaps) {
-		gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, size.width, size.height, imgFormat, type, data);	
+		gluBuild2DMipmaps(GL_TEXTURE_2D, internalFormat, size.width, size.height, inFormat, dataType, data);	
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	}
 	else {
-		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.width, size.height, 0, imgFormat, type, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, size.width, size.height, 0, inFormat, dataType, data);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		
 	}
 	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LEQUAL);
+	
 	DEBUG_PRINT("[opengl]: created texture " << newTex);
 	glBindTexture(GL_TEXTURE_2D, prevTex);
 	
-	return new TGen::OpenGL::Texture(*this, newTex, size);
+	return new TGen::OpenGL::Texture(*this, newTex, size, GL_TEXTURE_2D);
+}
+
+TGen::Texture * TGen::OpenGL::Renderer::createRectTexture(const void * data, const TGen::Rectangle & size, GLenum internalFormat, GLenum inFormat, GLenum dataType, uint flags) {
+	if (!caps.rectTexture)
+		throw TGen::RuntimeException("OpenGL::Renderer::createRectTexture", "rectangular textures are not supported on this device");
+	
+	GLuint newTex = 0;
+	GLint prevTex = 0;
+	
+	glGetIntegerv(GL_TEXTURE_BINDING_RECTANGLE_ARB, &prevTex);
+	glGenTextures(1, &newTex);
+	glEnable(GL_TEXTURE_RECTANGLE_ARB);
+	glBindTexture(GL_TEXTURE_RECTANGLE_ARB, newTex);
+	
+	glTexImage2D(GL_TEXTURE_RECTANGLE_ARB, 0, internalFormat, size.width, size.height, 0, inFormat, dataType, data);
+	//glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	//glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	
+	glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB);
+	glTexParameteri(GL_TEXTURE_RECTANGLE_ARB, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LEQUAL);
+	
+	DEBUG_PRINT("[opengl]: created rect texture " << newTex);
+	glBindTexture(GL_TEXTURE_RECTANGLE_ARB, prevTex);
+	
+	return new TGen::OpenGL::Texture(*this, newTex, size, GL_TEXTURE_RECTANGLE_ARB);
+}
+
+GLenum TGen::OpenGL::Renderer::getInternalFormat(TGen::ImageFormat components, uint flags) {
+	if (flags & TGen::TextureCompressed) {
+		switch (components) {
+			case TGen::RGB:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					return GL_COMPRESSED_RGB_S3TC_DXT1_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::getInternalFormat", "component format is not compatible with this compression");
+				
+				break;
+				
+			case TGen::RGBA:
+				if ((flags & 0xF) == TGen::TextureS3TCDXT1Compressed)
+					return GL_COMPRESSED_RGBA_S3TC_DXT1_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT3Compressed)
+					return GL_COMPRESSED_RGBA_S3TC_DXT3_EXT;
+				else if ((flags & 0xF) == TGen::TextureS3TCDXT5Compressed)
+					return GL_COMPRESSED_RGBA_S3TC_DXT5_EXT;
+				else
+					throw TGen::RuntimeException("OpenGL::Renderer::getInternalFormat", "component format is not compatible with this compression");
+				
+				break;
+				
+			default:
+				throw TGen::RuntimeException("OpenGL::Renderer::getInternalFormat", "component format is not compatible with this compression");
+		}
+	}
+
+	return TGen::OpenGL::TgenImageFormatToOpenGL(components);
 }
 
 void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override) {
@@ -639,10 +695,18 @@ void TGen::OpenGL::Renderer::disableClipPlane(int id) {
 }
 
 void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes) {
-	if (context.depthWrite)
-		glDepthMask(GL_TRUE);
-	else
-		glDepthMask(GL_FALSE);
+	
+	if (context.disableDepth) {
+		glDisable(GL_DEPTH_TEST);		
+	}
+	else {
+		glEnable(GL_DEPTH_TEST);
+		
+		if (context.depthWrite)
+			glDepthMask(GL_TRUE);
+		else
+			glDepthMask(GL_FALSE);
+	}
 	
 	setShaderProgram(context.shader);
 	setDepthFunc(context.depthFunc);

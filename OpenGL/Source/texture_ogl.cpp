@@ -12,16 +12,17 @@
 #include "texture_ogl.h"
 #include "types_converter_ogl.h"
 
-TGen::OpenGL::Texture::Texture(TGen::Renderer & creator, GLuint texId, const TGen::Rectangle & size) 
+TGen::OpenGL::Texture::Texture(TGen::Renderer & creator, GLuint texId, const TGen::Rectangle & size, GLenum target) 
 	: TGen::Texture(creator, size)
 	, texId(texId) 
+	, target(target)
 {
 }
 
 TGen::OpenGL::Texture::~Texture() {
 	if (texId > 0) {
 		DEBUG_PRINT("[opengl]: deleting texture " << texId);
-		glBindTexture(GL_TEXTURE_2D, 0);
+		glBindTexture(target, 0);
 		glDeleteTextures(1, &texId);
 	}	
 }
@@ -31,14 +32,24 @@ GLuint TGen::OpenGL::Texture::getInternalID() const {
 }
 
 void TGen::OpenGL::Texture::setWrapMode(TGen::TextureWrap u, TGen::TextureWrap v) {
-	glBindTexture(GL_TEXTURE_2D, texId);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, TGen::OpenGL::TgenTextureWrapToOpenGL(u));
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, TGen::OpenGL::TgenTextureWrapToOpenGL(v));
+	GLenum wrapS = TGen::OpenGL::TgenTextureWrapToOpenGL(u);
+	GLenum wrapT = TGen::OpenGL::TgenTextureWrapToOpenGL(v);
+	
+	if (target == GL_TEXTURE_RECTANGLE_ARB) {
+		if (wrapS != GL_CLAMP && wrapS != GL_CLAMP_TO_EDGE && wrapS != GL_CLAMP_TO_BORDER)
+			throw TGen::RuntimeException("OpenGL::Texture::setWrapMode", "wrap mode invalid for rectangular texture");
+		if (wrapT != GL_CLAMP && wrapT != GL_CLAMP_TO_EDGE && wrapT != GL_CLAMP_TO_BORDER)
+			throw TGen::RuntimeException("OpenGL::Texture::setWrapMode", "wrap mode invalid for rectangular texture");
+	}
+	
+	glBindTexture(target, texId);
+	glTexParameteri(target, GL_TEXTURE_WRAP_S, wrapS);
+	glTexParameteri(target, GL_TEXTURE_WRAP_T, wrapT);
 }
 
 void TGen::OpenGL::Texture::setFilterMode(TGen::TextureFilter min, TGen::TextureFilter mag) {
-	glBindTexture(GL_TEXTURE_2D, texId);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(min));
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(mag));
+	glBindTexture(target, texId);
+	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(min));
+	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(mag));
 }
 

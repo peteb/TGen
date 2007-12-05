@@ -113,7 +113,7 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	colorMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	normalMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	miscMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH, TGen::TypeUnsignedShort, TGen::TextureNoMipmaps);	// TODO: ubyte på depth? wtf?
+	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps /*| TGen::TextureRectangle*/);	// TODO: ubyte på depth? wtf?
 	
 	postMap1 = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	postMap2 = app.renderer.createTexture(downsampleSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
@@ -136,12 +136,16 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	
 	postTargets1 = app.renderer.createFrameBuffer();
 	postTargets1->attachColor(postMap1);
+	//postTargets1->attachDepth(depthMap);
 	
 	postTargets2 = app.renderer.createFrameBuffer();
 	postTargets2->attachColor(postMap2);
 	
 	postTargets3 = app.renderer.createFrameBuffer();
 	postTargets3->attachColor(postMap3);
+	
+	//depthTarget = app.renderer.createFrameBuffer();
+	//depthTarget->attachDepth(depthMap);
 	
 	mrtSize = mapSize;
 }
@@ -179,13 +183,15 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	TGen::Rectangle viewport = app.renderer.getViewport();
 	
 	
-	// UPDATE MAPS (color, normal, spec, etc)
+	// UPDATE MAPS (color, normal, spec, depth, etc)
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	app.renderer.setAmbientLight(world.getAmbientLight());
 	
 	renderList.render(app.renderer, *mainCamera, "default");
+	
+	vars.postProcessing = false;
 	
 	if (vars.postProcessing) {
 		app.renderer.setRenderTarget(postTargets1);
@@ -196,6 +202,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		app.renderer.setViewport(viewport);
 	}
 	
+	app.renderer.clearBuffers(TGen::DepthBuffer);
 
 	// AMBIENT TO RESULT
 	renderFillQuad(lightAmbientMaterial);
@@ -271,7 +278,8 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		//renderFillQuad(lightDirectionalMaterial, TGen::lexical_cast<std::string>(a) + "lights");
 		
 		TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
-		
+	//	app.renderer.setRenderTarget(depthTarget);
+
 		lightPositionalMaterial->render(app.renderer, TGen::Engine::VBRenderable(vb, TGen::PrimitiveQuads, vertices.size()), "1lights", 9, textures, this);
 		
 	}		
@@ -295,14 +303,14 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	//       vissa material ska inte kunna dödas såhär, t ex lampor. men då sätter man en param: noPreCull (i paramblocket)
 	// TODO: #loop 0 to r_lightBatchSize (read only)
 	
-	// TODO: lightlist: set? map? något sorterat iaf. insert(SortedLight(light)); SortedLight har operator > (eller om det är <) som jämför materialpekare
+	// TODO: lightlist: set? map? något sorterat iaf. insert(SortedLight(light)); SortedLight har operator >  som jämför materialpekare
 	
 	if (vars.postProcessing) {
 		postProcessing(viewport);		
 	}
 
 }
-// MÅSTE FÖRSTÅ GLLIGHTFV FÖRSt, kordinatsystemet.
+// MÅSTE GLLIGHTFV FÖRSt, kordinatsystemet.
 
 void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & viewport) {
 	// TODO: flökar säkert sönder depthbuffern.. disabla

@@ -24,6 +24,7 @@ TGen::RendererCaps::RendererCaps()
 	, geometryShader(false)
 	, framebuffer(false)
 	, multitexturing(false)
+	, rectTexture(false)
 {
 
 }
@@ -47,6 +48,7 @@ TGen::RendererCaps::operator std::string() const {
 	ss << "geometry shader: " << geometryShader << "\n";
 	ss << "framebuffer: " << framebuffer << "\n";
 	ss << "multitexturing: " << multitexturing << "\n";
+	ss << "rectangle textures: " << rectTexture << "\n";
 	
 	return ss.str();	
 }

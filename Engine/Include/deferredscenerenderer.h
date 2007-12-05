@@ -66,7 +66,7 @@ namespace TGen {
 			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * lightPositionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom, * rhwOnlyColorMaterial;
 			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1, * postMap2, * postMap3;
 			TGen::FrameBuffer * mapTargets, * postTargets1, * postTargets2, * postTargets3;
-			
+			TGen::FrameBuffer * depthTarget;
 			TGen::Material ** lightMaterials;
 			
 			typedef TGen::Vertex3<float> LightVertexDecl;

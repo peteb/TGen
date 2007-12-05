@@ -1,23 +1,40 @@
+#section global
+varying vec3 volumeCoords;
+varying vec2 texCoord;
+
 #section vertex
 
-void main() {
+/*void main() {
 	vec4 transformed = ftransform();
 	gl_Position = vec4(transformed.xy, 0.0, 1.0);
 	vec3 fixedPos = transformed.xyz / gl_Position.w;
 
 	gl_TexCoord[0] = vec4(fixedPos * 0.5 + 0.5, 0.0);
+}*/
+
+void main() {
+	gl_Position = ftransform();
+	volumeCoords = (gl_ModelViewMatrix * gl_Vertex).xyz;
+	texCoord = gl_Position.xy;
 }
 
 #section fragment
-uniform sampler2D normalMap, miscMap, depthMap, colorMap;
+
+#extension GL_ARB_texture_rectangle : enable
+uniform sampler2D depthMap;
 
 void main() {
-   vec4 normal = /*normalize( */ texture2D(normalMap, gl_TexCoord[0].st); // * 2.0 - 1.0);
-   vec4 miscInfo = texture2D(miscMap, gl_TexCoord[0].st);
-	vec4 depth = texture2D(depthMap, gl_TexCoord[0].st);
+	float depthParamA, depthParamB;
+	depthParamA = gl_DepthRange.far / (gl_DepthRange.far - gl_DepthRange.near);
+	depthParamB = gl_DepthRange.far * gl_DepthRange.near / (gl_DepthRange.near - gl_DepthRange.far);
 	
-
-	vec4 res = normal * 0.3 + miscInfo * 0.3 + depth * 0.3 + texture2D(colorMap, gl_TexCoord[0].st) * 0.3;
-	gl_FragColor = texture2D(normalMap, gl_TexCoord[0].st);
+	float fragDepth = -depthParamB / ( texture2D( depthMap, gl_FragCoord.xy / 512.0).r - depthParamA ); // Convert from non-linear to linear
+	vec3 fragLocation = vec3( volumeCoords.xy * fragDepth / volumeCoords.z , fragDepth); // Calculate fragments location in view-space
+	
+	vec3 worldLocation = (gl_ModelViewMatrixInverse * vec4(fragLocation, 0.0)).xyz;
+	
+	float d = distance(worldLocation, vec3(0.0, 0.0, 0.0));
+	
+	gl_FragColor = vec4(texture2D( depthMap, gl_FragCoord.xy / 512.0).r, 0.0, 0.0, 1.0);
 }
 
