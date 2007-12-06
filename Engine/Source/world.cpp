@@ -13,17 +13,39 @@
 
 TGen::Engine::World::World(TGen::Engine::App & app)
 	: app(app)
+	, sceneSubsystem(*this)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
 {
 	app.logs.info["wrld+"] << "initializing world..." << TGen::endl;
+	
+	entityFactory.registerSubsystem(&sceneSubsystem);
+	
+	char * propert =
+		"name \"test\"\n"
+		"model \"models/railgun.md3\"\n"
+		"origin \"0 0 1\"\n"
+		"material \"railgunMaterial\"\n"
+		;
+	
+	TGen::PropertyTreeParser propParser;
+	TGen::PropertyTree props = propParser.parse(propert);
+	
+	TGen::Engine::Entity * entity = entityFactory.createEntity(props);
+	
+	//exit(1);
+	
 	mainCam = new TGen::Camera("maincam", TGen::Vector3(0.0f, 1.0f, -0.5f));
 	mainCam->setClip(0.1f, 500.0f);
 	mainCam->setLod(0.0f, 500.0f);
 	mainCam->setOrientation(TGen::Vector3(0.0f, 0.4f, 1.0f).normalize());
-	
-	sceneRoot.addChild(mainCam);
+
+	sceneSubsystem.getSceneRoot().addChild(mainCam);
+	sceneSubsystem.link();
+	sceneSubsystem.getSceneRoot().update();
+
+	/*sceneRoot.addChild(mainCam);
 	
 	
 	TGen::MeshGeometryLinkList meshList;
@@ -56,7 +78,7 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	newLight->type = TGen::Engine::LightPositional;
 	newLight->boundingBox = TGen::AABB(TGen::Vector3(-0.4f, -0.4f, -0.4f), TGen::Vector3(0.4f, 0.4f, 0.4f));
 	newLight->light.position = TGen::Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-	
+	*/
 }
 
 // TODO: depthcheck på light volume
@@ -83,61 +105,10 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 	renderList.clear();
 	lightList.clear();
 	
-	sceneRoot.traverse(TGen::RenderFiller(renderList, *camera));	
+	sceneSubsystem.getSceneRoot().traverse(TGen::RenderFiller(renderList, *camera));		
 	
-	/*TGen::Light light;
-	light.position = TGen::Vector4(0.0f, 1.0f, 0.0f, 0.0f);		// directional
-	light.diffuse = TGen::Color(0.3, 0.0, 0.0, 1.0);
-	light.specular = TGen::Color(1.0, 1.0, 1.0, 1.0);
-	
-	lightList.addLight(light);
-
-	light.position = TGen::Vector4(0.0f, -1.0f, 0.0f, 0.0f);		// directional
-	light.diffuse = TGen::Color(0.0, 0.0, 0.6, 1.0);
-	light.specular = TGen::Color(1.0, 1.0, 1.0, 1.0);
-	
-	//for (int i = 0; i < 31; ++i)
-		lightList.addLight(light);
-	*/
-	
-	scalar step = (2.0 * TGen::PI) / 8.0;
-	
-	/*for (int i = 0; i < 8; ++i) {
-		TGen::Light light;
-		light.position = TGen::Vector4(0.0f, TGen::Cos(TGen::Radian(step * scalar(i))), TGen::Sin(TGen::Radian(step * scalar(i))), 0.0);		
-		light.diffuse = TGen::Color(0.0, 0.3, 0.0, 1.0);
-		light.specular = TGen::Color((8.0 - scalar(i)) / 8.0, scalar(i) / 8.0, (scalar(i)) / 8.0, 1.0);
-		lightList.addLight(light);
-	}*/
-	
-	/*TGen::Light light;
-	light.position = TGen::Vector4(0.0f, 0.0f, 1.0f, 0.0f);
-	light.diffuse = TGen::Color(0.1, 0.1, 0.0, 1.0);
-	light.specular = TGen::Color(1.0, 0.0, 0.0, 1.0);
-	
-	lightList.addLight(light);
-
-	light.position = TGen::Vector4(0.0f, 0.0f, -1.0f, 0.0f);
-	light.diffuse = TGen::Color(0.0, 0.1, 0.0, 1.0);
-	light.specular = TGen::Color(1.0, 1.0, 1.0, 0.5);
-	
-	lightList.addLight(light);
-	
-	light.position = TGen::Vector4(0.0f, 1.0f, 0.0f, 0.0f);
-	light.diffuse = TGen::Color(0.0, 0.0, 0.1, 1.0);
-	light.specular = TGen::Color(0.0, 0.0, 1.0, 1.0);
-	
-	lightList.addLight(light);
-	
-	light.position = TGen::Vector4(0.0f, -1.0f, 0.0f, 0.0f);
-	light.diffuse = TGen::Color(0.0, 0.1, 0.1, 1.0);
-	light.specular = TGen::Color(0.0, 1.0, 0.3, 1.0);
-	
-	lightList.addLight(light);*/
-	
-	
-	lightList.addLight(lights[0]);
-	lightList.addLight(lights[1]);
+	//lightList.addLight(lights[0]);
+	//lightList.addLight(lights[1]);
 	
 	// TODO: light ska inte bestämma specularity
 }
@@ -146,8 +117,8 @@ void TGen::Engine::World::update(scalar dt) {
 	//sceneRoot.getChild("weapon")->setPosition(sceneRoot.getChild("weapon")->getLocalPosition() + TGen::Vector3(dt, 0.0f, 0.0f));
 	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.3));
 	
-	sceneRoot.getChild("weapon")->setOrientation(rot * TGen::Vector3(sceneRoot.getChild("weapon")->getLocalOrientation()));
-	sceneRoot.update();
+	//sceneRoot.getChild("weapon")->setOrientation(rot * TGen::Vector3(sceneRoot.getChild("weapon")->getLocalOrientation()));
+	//sceneRoot.update();
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {

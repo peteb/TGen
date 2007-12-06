@@ -58,6 +58,18 @@ TGen::PropertyTree & TGen::PropertyTree::getNode(const std::string & name) {
 	throw TGen::RuntimeException("PropertyTree::getNode", "node '" + name + "' not found");	
 }
 
+std::string TGen::PropertyTree::getProperty(const std::string & name, const std::string & defaultValue) const {
+	PropertyMap::const_iterator iter = properties.find(name);
+	if (iter == properties.end())
+		return defaultValue;
+	
+	return iter->second;
+}
+
+bool TGen::PropertyTree::hasProperty(const std::string & name) const {
+	return (properties.find(name) != properties.end());
+}
+
 std::string TGen::PropertyTree::getName() const {
 	return name;
 }

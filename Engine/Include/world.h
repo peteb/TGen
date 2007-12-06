@@ -13,6 +13,8 @@
 #include <string>
 #include <tgen_renderer.h>
 #include "lightlist.h"
+#include "entityfactory.h"
+#include "scenesubsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -33,9 +35,13 @@ namespace TGen {
 			void prepareLists(TGen::Camera * camera);
 			
 			void update(scalar dt);
-			
-		private:
+
 			TGen::Engine::App & app;
+
+		private:
+			TGen::Engine::SceneSubsystem sceneSubsystem;
+			TGen::Engine::EntityFactory entityFactory;
+			
 			TGen::SceneNode sceneRoot;
 			TGen::BasicRenderList renderList;
 			TGen::Engine::LightList lightList;

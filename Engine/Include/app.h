@@ -44,8 +44,8 @@ namespace TGen {
 			TGen::Engine::VariablesRegistry & variables;
 			TGen::Engine::CommandRegistry & commands;
 			TGen::Engine::Filesystem & filesystem;
-			TGen::Engine::MemoryManager memory;
 			
+			TGen::Engine::MemoryManager memory;
 			TGen::Engine::ResourceManager globalResources;
 			
 			const TGen::PropertyTree & loadProps;

@@ -160,8 +160,10 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	TGen::Mesh * newMesh = NULL;
 	
 	if (name.substr(0, strlen("gen:")) == "gen:") {
+		std::string generateName = name.substr(strlen("gen:"), name.size() - strlen("gen:"));
+		logs.info["res"] << "generating mesh for '" << generateName << "'..." << TGen::endl;
 		TGen::Engine::MeshGenerator generator;
-		newMesh = generator.generateMesh(name.substr(strlen("gen:"), name.size() - strlen("gen:")), renderer);
+		newMesh = generator.generateMesh(generateName, renderer);
 	}
 	else {
 		// TODO: checka filformat för parser

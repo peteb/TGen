@@ -135,6 +135,28 @@ TGen::SceneNode * TGen::SceneNode::getChild(const std::string & name) {
 	throw TGen::RuntimeException("SceneNode::getChild", "no child named '" + name + "' found!");
 }
 
+TGen::SceneNode * TGen::SceneNode::getNode(const std::string & path, bool create) {
+	int pos = path.find("/");
+	if (pos == std::string::npos)
+		pos = path.size();
+	
+	std::string nodeName = path.substr(0, pos);
+	if (nodeName == "")
+		return this;
+	
+	for (SceneNodeList::iterator iter = children.begin(); iter != children.end(); ++iter) {
+		if ((*iter)->getName() == nodeName) {
+			return (*iter)->getNode(path.substr(pos + 1));
+		}
+	}
+	
+	if (create) {	// TODO: create
+		
+	}
+	
+	return NULL;
+}
+
 
 void TGen::SceneNode::removeChild(TGen::SceneNode * node) {
 	SceneNodeList::iterator iter = children.begin();

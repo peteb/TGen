@@ -12,6 +12,7 @@
 #include "vector2.h"
 #include <sstream>
 #include <cmath>
+#include <tgen_core.h>
 
 TGen::Vector3 TGen::Vector3::Identity(1.0f, 1.0f, 1.0f);
 
@@ -163,4 +164,19 @@ bool TGen::Vector3::operator > (const TGen::Vector3 & vector) const {
 	return (x > vector.x && y > vector.y);
 }
 
+TGen::Vector3 TGen::Vector3::Parse(const std::string & text) {
+	TGen::Vector3 ret;
+	int firstSpace = text.find(" ");
+	int lastSpace = text.rfind(" ");
+	
+	std::string first = text.substr(0, firstSpace);
+	std::string second = text.substr(firstSpace, lastSpace - firstSpace);
+	std::string third = text.substr(lastSpace + 1, text.size() - lastSpace - 1);
+	
+	ret.x = TGen::lexical_cast<float>(first);
+	ret.y = TGen::lexical_cast<float>(second);
+	ret.z = TGen::lexical_cast<float>(third);
+	
+	return ret;
+}
 

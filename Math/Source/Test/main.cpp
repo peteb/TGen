@@ -99,6 +99,10 @@ int main(int argc, char ** const argv) {
 	std::cout << std::string(box1) << std::endl;
 	std::cout << std::string(box2) << std::endl;
 	
+	// 18.
+	std::cout << "18. " << std::endl;
+	std::cout << std::string(TGen::Vector3::Parse("0.123 456.789 3444.24")) << std::endl;
+	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

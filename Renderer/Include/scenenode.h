@@ -41,6 +41,7 @@ namespace TGen {
 		void removeChild(TGen::SceneNode * node);
 		void addFace(const TGen::Face & face);
 		TGen::SceneNode * getChild(const std::string & name);
+		TGen::SceneNode * getNode(const std::string & path, bool create = false);
 		
 		TGen::AABB getChildrenBoundingBox() const;
 		

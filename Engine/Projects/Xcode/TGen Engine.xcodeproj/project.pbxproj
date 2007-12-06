@@ -27,6 +27,10 @@
 		D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */; };
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843B6E0D0759D200C31FE3 /* memmanager.cpp */; };
+		D0843BCA0D0759D200C31FE3 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BC90D0759D200C31FE3 /* entity.cpp */; };
+		D0843BD50D0759D200C31FE3 /* scenenodecomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */; };
+		D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD70D0759D200C31FE3 /* entityfactory.cpp */; };
+		D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
@@ -201,6 +205,16 @@
 		D0843B6B0D0759D200C31FE3 /* mempool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mempool.h; path = ../../Include/mempool.h; sourceTree = SOURCE_ROOT; };
 		D0843B6D0D0759D200C31FE3 /* memmanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = memmanager.h; path = ../../Include/memmanager.h; sourceTree = SOURCE_ROOT; };
 		D0843B6E0D0759D200C31FE3 /* memmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memmanager.cpp; sourceTree = "<group>"; };
+		D0843BC80D0759D200C31FE3 /* entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entity.h; path = ../../Include/entity.h; sourceTree = SOURCE_ROOT; };
+		D0843BC90D0759D200C31FE3 /* entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entity.cpp; sourceTree = "<group>"; };
+		D0843BD30D0759D200C31FE3 /* scenenodecomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenenodecomponent.h; path = ../../Include/scenenodecomponent.h; sourceTree = SOURCE_ROOT; };
+		D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenodecomponent.cpp; sourceTree = "<group>"; };
+		D0843BD60D0759D200C31FE3 /* entityfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entityfactory.h; path = ../../Include/entityfactory.h; sourceTree = SOURCE_ROOT; };
+		D0843BD70D0759D200C31FE3 /* entityfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entityfactory.cpp; sourceTree = "<group>"; };
+		D0843C100D075B0100C31FE3 /* scenesubsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenesubsystem.h; path = ../../Include/scenesubsystem.h; sourceTree = SOURCE_ROOT; };
+		D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenesubsystem.cpp; sourceTree = "<group>"; };
+		D0843C210D075BFB00C31FE3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/subsystem.h; sourceTree = SOURCE_ROOT; };
+		D0843C430D075C9C00C31FE3 /* component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = component.h; path = ../../Include/component.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -487,6 +501,19 @@
 			name = memory;
 			sourceTree = "<group>";
 		};
+		D0843BD20D0759D200C31FE3 /* entity */ = {
+			isa = PBXGroup;
+			children = (
+				D0843BC90D0759D200C31FE3 /* entity.cpp */,
+				D0843BC80D0759D200C31FE3 /* entity.h */,
+				D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */,
+				D0843BD30D0759D200C31FE3 /* scenenodecomponent.h */,
+				D0843BD70D0759D200C31FE3 /* entityfactory.cpp */,
+				D0843BD60D0759D200C31FE3 /* entityfactory.h */,
+			);
+			name = entity;
+			sourceTree = "<group>";
+		};
 		D0EF614C0C82D0C20085C17B /* physfs */ = {
 			isa = PBXGroup;
 			children = (
@@ -560,6 +587,11 @@
 				D0F8393E0CBA67AD00FF4467 /* view.h */,
 				D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */,
 				D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */,
+				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
+				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
+				D0843C210D075BFB00C31FE3 /* subsystem.h */,
+				D0843C430D075C9C00C31FE3 /* component.h */,
+				D0843BD20D0759D200C31FE3 /* entity */,
 			);
 			name = game;
 			sourceTree = "<group>";
@@ -763,6 +795,10 @@
 				D07AFB600CFA331300DBCD9D /* light.cpp in Sources */,
 				D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */,
 				D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */,
+				D0843BCA0D0759D200C31FE3 /* entity.cpp in Sources */,
+				D0843BD50D0759D200C31FE3 /* scenenodecomponent.cpp in Sources */,
+				D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */,
+				D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
