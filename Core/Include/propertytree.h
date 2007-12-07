@@ -28,8 +28,10 @@ namespace TGen {
 		void addNode(const PropertyTree & tree);
 		const ConstProperty & getProperty(const std::string & name) const;
 		const PropertyTree & getNode(const std::string & name) const;
+		const PropertyTree & getNode(int num) const;
 		PropertyTree & getNode(const std::string & name);
 		int getNumProperties() const;
+		int getNumNodes() const;
 		bool hasProperty(const std::string & name) const;
 		std::string getProperty(const std::string & name, const std::string & defaultValue) const;
 		

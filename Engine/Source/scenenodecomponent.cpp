@@ -32,4 +32,5 @@ Fysiksystemet steppas, alla objekt som flyttats (dvs inte har kommit i vila) tri
  logicsystem.update();
  scenesystem.resetFlags();
  Det här kommer inte lösa problemet med att scenenoden puttar ett objekt från A till B och phys puttar tillbaka till A, och scenenoden markeras fortfarande som updated
-*/
+ SceneNodeComponent reggar listener på scenenoden om när den blir uppdaterad
+ */

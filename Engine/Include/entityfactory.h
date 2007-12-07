@@ -10,7 +10,7 @@
 #ifndef _TGEN_ENGINE_ENTITYFACTORY_H
 #define _TGEN_ENGINE_ENTITYFACTORY_H
 
-#include <vector>
+#include <map>
 
 namespace TGen {
 	class PropertyTree;
@@ -18,17 +18,22 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		class Subsystem;
+		class StandardLogs;
 		
 		class EntityFactory {
 		public:
-			EntityFactory();
+			EntityFactory(TGen::Engine::StandardLogs & logs);
 			~EntityFactory();
 			
 			TGen::Engine::Entity * createEntity(const TGen::PropertyTree & properties);
-			void registerSubsystem(TGen::Engine::Subsystem * subsystem);
+			void registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem);
 			
 		private:
-			std::vector<TGen::Engine::Subsystem *> subsystems;
+			typedef std::map<std::string, TGen::Engine::Subsystem *> SubsystemMap;
+			
+			SubsystemMap subsystems;
+			
+			TGen::Engine::StandardLogs & logs;
 		};
 	} // !Engine
 } // !TGen

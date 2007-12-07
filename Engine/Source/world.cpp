@@ -17,22 +17,66 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
+	, entityFactory(app.logs)
 {
 	app.logs.info["wrld+"] << "initializing world..." << TGen::endl;
 	
-	entityFactory.registerSubsystem(&sceneSubsystem);
+	entityFactory.registerSubsystem("sceneNode", &sceneSubsystem);
+	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
+	entityFactory.registerSubsystem("sceneLight", &sceneSubsystem);
 	
 	char * propert =
-		"name \"test\"\n"
-		"model \"models/railgun.md3\"\n"
-		"origin \"0 0 1\"\n"
-		"material \"railgunMaterial\"\n"
+		"test {\n"
+			"sceneNode {\n"
+				"model \"models/railgun.md3\"\n"
+				"origin \"0 0 1\"\n"
+				"material \"railgunMaterial\"\n"
+			"}\n"
+		"}\n"
+	
+		"maincam {\n"
+			"sceneCamera {\n"
+				"origin \"0 1 -0.5\"\n"
+				"range \"500\"\n"
+				"orientation \"0 0.4 1.0\"\n"
+			"}\n"
+		"}\n"
 		;
+	
+	/*
+	 name "test"
+	 
+	 scene camera {
+		origin "0 0 1"
+		orientation "1 0 0"
+		model "blabla"
+		range "123"
+	 }
+	 
+	 physics {
+		weight "432"
+		cmodel "hej.md3"
+	 }
+	 
+	 Eller
+	 
+	 name "test"
+	 type "scene camera physics"
+	 origin "0 0 1"
+	 orientation "1 0 0"
+	 model "blabla"
+	 range "123"
+	 weight "423"
+	 cmodel "hej.md3"
+	 */
+	
 	
 	TGen::PropertyTreeParser propParser;
 	TGen::PropertyTree props = propParser.parse(propert);
 	
-	TGen::Engine::Entity * entity = entityFactory.createEntity(props);
+	for (int i = 0; i < props.getNumNodes(); ++i) {
+		TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
+	}
 	
 	//exit(1);
 	

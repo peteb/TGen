@@ -660,6 +660,7 @@
 					ProjectRef = D07227250C4BC05900E6E64B /* TGen OpenGL */;
 				},
 			);
+			projectRoot = ..;
 			targets = (
 				8DD76F620486A84900D96B5E /* The Quaker */,
 			);

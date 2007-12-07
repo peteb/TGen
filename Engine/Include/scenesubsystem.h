@@ -29,6 +29,10 @@ namespace TGen {
 			TGen::SceneNode & getSceneRoot();
 			
 		private:
+			TGen::SceneNode * createCameraNode(const std::string & name, const TGen::PropertyTree & properties);
+			TGen::SceneNode * createLightNode(const std::string & name, const TGen::PropertyTree & properties);
+			TGen::SceneNode * createNode(const std::string & name, const TGen::PropertyTree & properties);
+			
 			TGen::Engine::World & world;
 			TGen::SceneNode sceneRoot;
 			TGen::MeshGeometryLinkList meshList;

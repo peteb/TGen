@@ -78,6 +78,14 @@ int TGen::PropertyTree::getNumProperties() const {
 	return properties.size();
 }
 
+int TGen::PropertyTree::getNumNodes() const {
+	return nodes.size();
+}
+
+const TGen::PropertyTree & TGen::PropertyTree::getNode(int num) const {
+	return nodes[num];
+}
+
 const TGen::PropertyTree::PropertyMap & TGen::PropertyTree::getProperties() const {
 	return properties;
 }
