@@ -10,6 +10,7 @@
 #include "world.h"
 #include "app.h"
 #include "light.h"
+#include "entity.h"
 
 TGen::Engine::World::World(TGen::Engine::App & app)
 	: app(app)
@@ -19,7 +20,7 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	, lightList(100)
 	, entityFactory(app.logs)
 {
-	app.logs.info["wrld+"] << "initializing world..." << TGen::endl;
+	app.logs.info["world+"] << "initializing world..." << TGen::endl;
 	
 	entityFactory.registerSubsystem("sceneNode", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
@@ -43,39 +44,20 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 		"}\n"
 		;
 	
-	/*
-	 name "test"
-	 
-	 scene camera {
-		origin "0 0 1"
-		orientation "1 0 0"
-		model "blabla"
-		range "123"
-	 }
-	 
-	 physics {
-		weight "432"
-		cmodel "hej.md3"
-	 }
-	 
-	 Eller
-	 
-	 name "test"
-	 type "scene camera physics"
-	 origin "0 0 1"
-	 orientation "1 0 0"
-	 model "blabla"
-	 range "123"
-	 weight "423"
-	 cmodel "hej.md3"
-	 */
-	
-	
 	TGen::PropertyTreeParser propParser;
 	TGen::PropertyTree props = propParser.parse(propert);
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
 		TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
+		
+		if (entities.find(entity->getName()) == entities.end()) {
+			entities.insert(EntityMap::value_type(entity->getName(), entity));
+		}
+		else {
+			app.logs.warning["world"] << "entity '" << entity->getName() << "' already set!" << TGen::endl;
+			delete entity;
+			entity = NULL;
+		}
 	}
 	
 	//exit(1);
@@ -128,9 +110,11 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 // TODO: depthcheck på light volume
 
 TGen::Engine::World::~World() {
-	delete lights[0];
-	delete mainCam;
-	app.logs.info["wrld-"] << "shut down" << TGen::endl;
+	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
+		delete iter->second;
+	}
+	
+	app.logs.info["world-"] << "shut down" << TGen::endl;
 }
 
 TGen::Camera * TGen::Engine::World::getCamera(const std::string & name) {

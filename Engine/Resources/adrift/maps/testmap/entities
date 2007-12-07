@@ -1,0 +1,44 @@
+test {
+	sceneNode {
+		model "models/railgun.md3"
+		origin "0 0 1"
+		material "railgunMaterial"
+	}
+}
+
+maincam {
+	sceneCamera {
+		origin 0 1 -0.5
+		orientation 0 0.4 1.0
+		range 500
+	}
+
+	sound {
+		local {
+			randomize {
+				delay "direct"
+				"sounds/sound1"
+			}
+		}
+	}
+}
+
+testmap {
+	sceneMap {
+		map "maps/testmap/testmap.proc"
+		origin "0 0 0"
+	}
+
+	physGeom {
+		collisionModel "maps/testmap/testmap.cm"
+	}
+
+	sound {
+		global {
+			randomize {
+				"music/music1"
+			}
+		}
+	}
+}
+
