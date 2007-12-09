@@ -25,11 +25,18 @@
 
 TGen::OpenGL::Renderer::ExtensionMap TGen::OpenGL::Renderer::extensionsAvailable;
 
+
+
 TGen::OpenGL::Renderer::Renderer()
 	: colorFromVertex(true)
-	, hasColorArray(false)
 	, lastVb(NULL)
 	, lastIb(NULL)
+	, hasCoordElements(NULL)
+	, hasNormalElements(NULL)
+	, hasColorElements(NULL)
+	, hasEdgeElements(NULL)
+	, textureCoordGenU(TGen::TextureCoordGenBase)
+	, textureCoordGenV(TGen::TextureCoordGenBase)
 {
 	TGen::OpenGL::BindFunctions();	// might be needed if we're running on a sucky platform!
 	
@@ -37,6 +44,17 @@ TGen::OpenGL::Renderer::Renderer()
 	readCaps();
 	checkCompatibility();
 	
+	textureUnitTargets = new GLenum[caps.maxTextureUnits];
+	textureUnitTextures = new TGen::Texture*[caps.maxTextureUnits];
+	
+	for (int i = 0; i < caps.maxTextureUnits; ++i) {
+		textureUnitTargets[i] = GL_NONE;
+		textureUnitTextures[i] = NULL;
+
+		if (i < 8)
+			hasTexCoordUnitElements[i] = false;
+	}
+
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
@@ -45,7 +63,10 @@ TGen::OpenGL::Renderer::Renderer()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
-TGen::OpenGL::Renderer::~Renderer() {}
+TGen::OpenGL::Renderer::~Renderer() {
+	delete [] textureUnitTargets;
+	delete [] textureUnitTextures;
+}
 
 void TGen::OpenGL::Renderer::readCaps() {
 	GLint viewportDims[2];
@@ -75,6 +96,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	caps.framebuffer = isExtensionAvailable("GL_EXT_framebuffer_object");
 	caps.multitexturing = isExtensionAvailable("GL_ARB_multitexture");
 	caps.rectTexture = isExtensionAvailable("GL_ARB_texture_rectangle");
+	caps.cubeMaps = isExtensionAvailable("GL_ARB_texture_cube_map");
 }
 
 void TGen::OpenGL::Renderer::parseExtensions() {
@@ -442,14 +464,32 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 }
 
 void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
+	if (unit >= caps.maxTextureUnits)
+		throw TGen::RuntimeException("OpenGL::Renderer::setTexture", "texture unit is above maximum, ") << unit << " >= " << caps.maxTextureUnits;
+	
+	if (textureUnitTextures[unit] == texture)
+		return;
+	
 	glActiveTexture(GL_TEXTURE0 + unit);
 	
-	if (!texture) {
-		glBindTexture(GL_TEXTURE_2D, 0);
-		return;
-	}
+	GLenum lastTarget = textureUnitTargets[unit];
+	
+	if (texture) {
+		TGen::OpenGL::Texture * fixedTexture = static_cast<TGen::OpenGL::Texture *>(texture);
+		GLenum newTarget = fixedTexture->getTarget();
+	
+		if (lastTarget != newTarget && lastTarget != GL_NONE)				// unbind previous texture
+			glBindTexture(lastTarget, 0);
 
-	glBindTexture(GL_TEXTURE_2D, static_cast<TGen::OpenGL::Texture *>(texture)->texId);
+		glBindTexture(newTarget, fixedTexture->texId);
+		textureUnitTargets[unit] = newTarget;
+	}
+	else {
+		glBindTexture(lastTarget, 0);
+		textureUnitTargets[unit] = GL_NONE;
+	}
+	
+	textureUnitTextures[unit] = texture;
 }
 
 void TGen::OpenGL::Renderer::drawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount) {
@@ -595,17 +635,57 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 	
 	int elementCount = vertstruct.getElementCount();
 	
-	hasColorArray = false;
+	if (vertstruct.hasCoordElements != this->hasCoordElements) {
+		if (vertstruct.hasCoordElements)
+			glEnableClientState(GL_VERTEX_ARRAY);		
+		else
+			glDisableClientState(GL_VERTEX_ARRAY);
 	
-	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisableClientState(GL_NORMAL_ARRAY);
-	glDisableClientState(GL_COLOR_ARRAY);
-	glDisableClientState(GL_INDEX_ARRAY);
-	glDisableClientState(GL_EDGE_FLAG_ARRAY);
+		this->hasCoordElements = vertstruct.hasCoordElements;
+	}
+	
+	if (vertstruct.hasNormalElements != this->hasNormalElements) {
+		if (vertstruct.hasNormalElements)
+			glEnableClientState(GL_NORMAL_ARRAY);		
+		else
+			glDisableClientState(GL_NORMAL_ARRAY);
+	
+		this->hasNormalElements = vertstruct.hasNormalElements;
+	}
+	
+	if (vertstruct.hasColorElements != this->hasColorElements) {
+		if (vertstruct.hasColorElements)
+			glEnableClientState(GL_COLOR_ARRAY);		
+		else
+			glDisableClientState(GL_COLOR_ARRAY);
+	
+		this->hasColorElements = vertstruct.hasColorElements;
+	}
+	
+	//glDisableClientState(GL_INDEX_ARRAY);
+	
+	if (vertstruct.hasEdgeElements != this->hasEdgeElements) {
+		if (vertstruct.hasEdgeElements)
+			glEnableClientState(GL_EDGE_FLAG_ARRAY);		
+		else
+			glDisableClientState(GL_EDGE_FLAG_ARRAY);
+	
+		this->hasEdgeElements = vertstruct.hasEdgeElements;
+	}
 	
 	for (int i = 0; i < caps.maxTextureUnits; ++i) {
-		glClientActiveTexture(GL_TEXTURE0 + i);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		if (vertstruct.hasTexCoordUnitElements[i] != this->hasTexCoordUnitElements[i]) {
+			if (vertstruct.hasTexCoordUnitElements[i]) {
+				glClientActiveTexture(GL_TEXTURE0 + i);
+				glEnableClientState(GL_TEXTURE_COORD_ARRAY);			
+			}
+			else {
+				glClientActiveTexture(GL_TEXTURE0 + i);
+				glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+			}
+			
+			this->hasTexCoordUnitElements[i] = vertstruct.hasTexCoordUnitElements[i];
+		}
 	}
 	
 	for (int i = 0; i < elementCount; ++i) {
@@ -619,11 +699,10 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 		fixedType = TGen::OpenGL::TgenFormatToOpenGL(element.dataType);
 		dataTypeSize = TGen::FormatTypeSize(element.dataType);
 		
-		
 		switch (element.type) {
 			case TGen::VertexElementCoord:
 				//std::cout << "vertex pointer count: " << int(element.count) << " type: " << fixedType << " stride: " << stride << " pos: " << pos << std::endl;
-				glEnableClientState(GL_VERTEX_ARRAY);
+			//	glEnableClientState(GL_VERTEX_ARRAY);
 				glVertexPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
@@ -631,34 +710,36 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 				//std::cout << "texcoord pointer count: " << int(element.count) << " type: " << fixedType << " unit: " << int(element.unit) << " stride: " << stride << " pos: " << pos << std::endl;
 				
 				glClientActiveTexture(GL_TEXTURE0 + element.unit);	// NOTE
-				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+				//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 				glTexCoordPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
 			case TGen::VertexElementNormal:
-				glEnableClientState(GL_NORMAL_ARRAY);
+				//glEnableClientState(GL_NORMAL_ARRAY);
 				glNormalPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
 			case TGen::VertexElementColor:
 				//std::cout << "color pointer count: " << int(element.count) << " type: " << fixedType << " stride: " << stride << " pos: " << pos << std::endl;
 				//if (colorFromVertex) {
-					glEnableClientState(GL_COLOR_ARRAY);
+					//glEnableClientState(GL_COLOR_ARRAY);
 					glColorPointer(element.count, fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				//}
-				hasColorArray = true;
+				//hasColorArray = true;
 				
 				break;
 				
 			case TGen::VertexElementColorIndex:
+				throw TGen::RuntimeException("OpenGL::Renderer::applyVertexStructure", "Color indices not supported");
+
 				if (colorFromVertex) {
-					glEnableClientState(GL_INDEX_ARRAY);
-					glIndexPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
+					//glEnableClientState(GL_INDEX_ARRAY);
+					//glIndexPointer(fixedType, stride, reinterpret_cast<GLvoid *>(pos));
 				}
 				break;
 				
 			case TGen::VertexElementEdgeFlag:
-				glEnableClientState(GL_EDGE_FLAG_ARRAY);
+			//	glEnableClientState(GL_EDGE_FLAG_ARRAY);
 				glEdgeFlagPointer(stride, reinterpret_cast<GLvoid *>(pos));
 				break;
 				
@@ -695,18 +776,26 @@ void TGen::OpenGL::Renderer::disableClipPlane(int id) {
 }
 
 void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes) {
-	
-	if (context.disableDepth) {
-		glDisable(GL_DEPTH_TEST);		
-	}
-	else {
-		glEnable(GL_DEPTH_TEST);
+	if (context.disableDepth != lastContext.disableDepth) {
+		if (context.disableDepth) {
+			glDisable(GL_DEPTH_TEST);		
+		}
+		else {
+			glEnable(GL_DEPTH_TEST);
+			
+			if (context.depthWrite != lastContext.depthWrite) {
+				if (context.depthWrite)
+					glDepthMask(GL_TRUE);
+				else
+					glDepthMask(GL_FALSE);
+				
+				lastContext.depthWrite = context.depthWrite;
+			}
+		}	
 		
-		if (context.depthWrite)
-			glDepthMask(GL_TRUE);
-		else
-			glDepthMask(GL_FALSE);
+		lastContext.disableDepth = context.disableDepth;
 	}
+	
 	
 	setShaderProgram(context.shader);
 	setDepthFunc(context.depthFunc);
@@ -735,101 +824,127 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			glLoadIdentity();
 		}
 	}
+		
+	if (context.blendSrc != lastContext.blendSrc || context.blendDst != lastContext.blendDst) {
+		glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendSrc), TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendDst));
 	
-	// TODO: introducera noDepth, disablar depth_test
-	// TODO: RenderContext currentState, sen kolla diff. uppdatera den vid varje manuell state change, typ setTexture
-	// se bara till att inte kolla på två ställen.. t ex både här och i setTexture
-	
-	glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendSrc), TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendDst));
-	glEnable(GL_CULL_FACE);
-	
-	if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)
-		glCullFace(GL_FRONT_AND_BACK);
-	else if (context.front == TGen::PolygonFaceCull)
-		glCullFace(GL_FRONT);
-	else if (context.back == TGen::PolygonFaceCull)
-		glCullFace(GL_BACK);
-	else if (context.back != TGen::PolygonFaceCull && context.front != TGen::PolygonFaceCull)
-		glDisable(GL_CULL_FACE);
-	
-	switch (context.front) {
-		case TGen::PolygonFaceFill:
-			if (context.back == TGen::PolygonFaceFill)
-				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				
-			else
-				glPolygonMode(GL_FRONT, GL_FILL);
-			break;
-			
-		case TGen::PolygonFaceLines:
-			if (context.back == TGen::PolygonFaceLines)
-				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);				
-			else
-				glPolygonMode(GL_FRONT, GL_LINE);
-			break;
-			
-		case TGen::PolygonFacePoints:
-			if (context.back == TGen::PolygonFacePoints)
-				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);				
-			else
-				glPolygonMode(GL_FRONT, GL_POINT);
-			break;
-			
-		case TGen::PolygonFaceCull:
-			break;
-			
-		default:
-			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "front polygon mode not supported");						
+		lastContext.blendSrc = context.blendSrc;
+		lastContext.blendDst = context.blendDst;
 	}
 	
-	switch (context.back) {
-		case TGen::PolygonFaceFill:
-			if (context.front != TGen::PolygonFaceFill)
-				glPolygonMode(GL_BACK, GL_FILL);
-			break;
-			
-		case TGen::PolygonFaceLines:
-			if (context.front != TGen::PolygonFaceLines)
-				glPolygonMode(GL_BACK, GL_LINE);
-			break;
-			
-		case TGen::PolygonFacePoints:
-			if (context.front != TGen::PolygonFacePoints)
-				glPolygonMode(GL_BACK, GL_POINT);
-			break;
-			
-		case TGen::PolygonFaceCull:
-			break;
-			
-		default:
-			throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "back polygon mode not supported");						
-	}
+	if (context.front != lastContext.front || context.back != lastContext.back) {
+		glEnable(GL_CULL_FACE);
 	
+		if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)
+			glCullFace(GL_FRONT_AND_BACK);
+		else if (context.front == TGen::PolygonFaceCull)
+			glCullFace(GL_FRONT);
+		else if (context.back == TGen::PolygonFaceCull)
+			glCullFace(GL_BACK);
+		else if (context.back != TGen::PolygonFaceCull && context.front != TGen::PolygonFaceCull)
+			glDisable(GL_CULL_FACE);
+	
+		if (context.front != lastContext.front) {
+			switch (context.front) {
+				case TGen::PolygonFaceFill:
+					if (context.back == TGen::PolygonFaceFill)
+						glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);				
+					else
+						glPolygonMode(GL_FRONT, GL_FILL);
+					break;
+				
+				case TGen::PolygonFaceLines:
+					if (context.back == TGen::PolygonFaceLines)
+						glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);				
+					else
+						glPolygonMode(GL_FRONT, GL_LINE);
+					break;
+				
+				case TGen::PolygonFacePoints:
+					if (context.back == TGen::PolygonFacePoints)
+						glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);				
+					else
+						glPolygonMode(GL_FRONT, GL_POINT);
+					break;
+				
+				case TGen::PolygonFaceCull:
+					break;
+				
+				default:
+					throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "front polygon mode not supported");						
+			}
+			
+			lastContext.front = context.front;
+		}
+		
+		if (lastContext.back != context.back) {
+			switch (context.back) {
+				case TGen::PolygonFaceFill:
+					if (context.front != TGen::PolygonFaceFill)
+						glPolygonMode(GL_BACK, GL_FILL);
+					break;
+					
+				case TGen::PolygonFaceLines:
+					if (context.front != TGen::PolygonFaceLines)
+						glPolygonMode(GL_BACK, GL_LINE);
+					break;
+					
+				case TGen::PolygonFacePoints:
+					if (context.front != TGen::PolygonFacePoints)
+						glPolygonMode(GL_BACK, GL_POINT);
+					break;
+					
+				case TGen::PolygonFaceCull:
+					break;
+					
+				default:
+					throw TGen::NotImplemented("OpenGL::Renderer::setRenderContext", "back polygon mode not supported");						
+			}
+
+			lastContext.back = context.back;
+		}
+	}
+
 	// hm... setRenderContext sätts per pass, applyVertexStructure sätts preRender. så colorFromVertex gör inget... jo då, den gör så man kan sätta färg som en state
 	
 	colorFromVertex = context.colorFromVertex;
 	
-	if (colorFromVertex && hasColorArray)
-		glEnableClientState(GL_COLOR_ARRAY);
-	else
-		glDisableClientState(GL_COLOR_ARRAY);
+	if (context.colorFromVertex != lastContext.colorFromVertex) {
+		if (colorFromVertex && hasColorElements)
+			glEnableClientState(GL_COLOR_ARRAY);
+		else
+			glDisableClientState(GL_COLOR_ARRAY);
+		
+		// NOTE: might be buggy as we don't check hasColorArray for diffs
+		lastContext.colorFromVertex = context.colorFromVertex;
+	}
 }
 
+// TODO: is textureCoordGen per unit? in that case, fix this! 
 
 void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV) {
-	if (genU == TGen::TextureCoordGenBase) {
-		glDisable(GL_TEXTURE_GEN_S);
-	}
-	else {
-		glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, TGen::OpenGL::TgenTextureCoordGenToOpenGL(genU));			
-		glEnable(GL_TEXTURE_GEN_S);
+	if (genU != textureCoordGenU) {
+		if (genU == TGen::TextureCoordGenBase) {
+			glDisable(GL_TEXTURE_GEN_S);
+		}
+		else {
+			glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, TGen::OpenGL::TgenTextureCoordGenToOpenGL(genU));			
+			glEnable(GL_TEXTURE_GEN_S);
+		}
+	
+		textureCoordGenU = genU;
 	}
 	
-	if (genV == TGen::TextureCoordGenBase) {
-		glDisable(GL_TEXTURE_GEN_T);
-	}
-	else {
-		glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, TGen::OpenGL::TgenTextureCoordGenToOpenGL(genV));		
-		glEnable(GL_TEXTURE_GEN_T);
+	if (genV != textureCoordGenV) {
+		if (genV == TGen::TextureCoordGenBase) {
+			glDisable(GL_TEXTURE_GEN_T);
+		}
+		else {
+			glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, TGen::OpenGL::TgenTextureCoordGenToOpenGL(genV));		
+			glEnable(GL_TEXTURE_GEN_T);
+		}
+	
+		textureCoordGenV = genV;
 	}
 }
 

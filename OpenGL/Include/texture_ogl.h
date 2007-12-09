@@ -28,7 +28,8 @@ namespace TGen {
 			void setFilterMode(TGen::TextureFilter min, TGen::TextureFilter mag);
 			
 			GLuint getInternalID() const;
-		
+			GLenum getTarget() const;
+			
 			friend class TGen::OpenGL::Renderer;
 			
 		private:

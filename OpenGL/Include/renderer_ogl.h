@@ -12,6 +12,7 @@
 
 #include "renderer.h"
 #include "prefix_ogl.h"
+#include "rendercontext.h"
 #include <map>
 
 
@@ -96,6 +97,19 @@ namespace TGen {
 			uint indexBufferFormat;
 			TGen::VertexBuffer * lastVb;
 			TGen::IndexBuffer * lastIb;
+			
+			// information to reduce state switches
+			GLenum * textureUnitTargets;
+			TGen::Texture ** textureUnitTextures;
+
+			// vertex structure:
+			bool hasCoordElements, hasNormalElements, hasColorElements, hasEdgeElements;
+			bool hasTexCoordUnitElements[8];
+
+			// render context
+			TGen::RenderContext lastContext;
+			TGen::TextureCoordGen textureCoordGenU, textureCoordGenV;
+			
 		};
 		
 	} // !OpenGL	

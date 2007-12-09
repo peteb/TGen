@@ -61,6 +61,9 @@ namespace TGen {
 		void addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0, bool normalize = false);
 		void addElement(const std::string & format);
 		
+		bool hasCoordElements, hasNormalElements, hasColorElements, hasEdgeElements;
+		bool hasTexCoordUnitElements[8];
+		
 	private:
 		std::vector<TGen::VertexElement> elements;
 		int align;
@@ -200,6 +203,24 @@ namespace TGen {
 			}
 			
 			T u, v;
+		};
+	};
+	
+	template<typename T, int unit>
+	class TexCoord3 : public virtual TGen::VertexStructure {
+	public:
+		TexCoord3() {addElement(TGen::VertexElementTexCoord, TGenDataType<T>().type, 3, false, unit); }
+		
+		class Type {
+		public:
+			Type() {}
+			Type(const TGen::Vector3 & texcoord) : u(texcoord.x), v(texcoord.y), s(texcoord.z) {}
+			
+			operator TGen::Vector3() const {
+				return TGen::Vector3(u, v, s);
+			}
+			
+			T u, v, s;
 		};
 	};
 	

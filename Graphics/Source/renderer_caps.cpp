@@ -25,6 +25,7 @@ TGen::RendererCaps::RendererCaps()
 	, framebuffer(false)
 	, multitexturing(false)
 	, rectTexture(false)
+	, cubeMaps(false)
 {
 
 }
@@ -49,6 +50,7 @@ TGen::RendererCaps::operator std::string() const {
 	ss << "framebuffer: " << framebuffer << "\n";
 	ss << "multitexturing: " << multitexturing << "\n";
 	ss << "rectangle textures: " << rectTexture << "\n";
+	ss << "cube maps: " << cubeMaps << "\n";
 	
 	return ss.str();	
 }

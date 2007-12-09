@@ -30,7 +30,6 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	for (int i = 0; i < properties.getNumNodes(); ++i) {
 		SubsystemMap::iterator iter = subsystems.find(properties.getNode(i).getName());
 		if (iter == subsystems.end()) {
-			// TODO: log warning
 			logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getNode(i).getName() << "'" << TGen::endl;
 		}
 		else {
@@ -39,13 +38,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 				entity->addComponent(newComponent);
 		}		
 	}
-	
-	/*for (int i = 0; i < subsystems.size(); ++i) {
-		TGen::Engine::Component * newComponent = subsystems[i]->createComponent(entity, properties);
-		if (newComponent)
-			entity->addComponent(newComponent);
-	}*/
-	
+
 	return entity;
 }
 

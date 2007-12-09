@@ -31,6 +31,10 @@ GLuint TGen::OpenGL::Texture::getInternalID() const {
 	return texId;
 }
 
+GLenum TGen::OpenGL::Texture::getTarget() const {
+	return target;
+}
+
 void TGen::OpenGL::Texture::setWrapMode(TGen::TextureWrap u, TGen::TextureWrap v) {
 	GLenum wrapS = TGen::OpenGL::TgenTextureWrapToOpenGL(u);
 	GLenum wrapT = TGen::OpenGL::TgenTextureWrapToOpenGL(v);

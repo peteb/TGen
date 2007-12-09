@@ -13,8 +13,13 @@
 
 TGen::VertexStructure::VertexStructure() 
 	: align(4) 
+	, hasCoordElements(false)
+	, hasNormalElements(false)
+	, hasColorElements(false)
+	, hasEdgeElements(false)
 {
-	
+	for (int i = 0; i < 8; ++i)
+		hasTexCoordUnitElements[i] = false;
 }
 
 /*TGen::VertexStructure::VertexStructure(TGen::VertexElement * elements) {
@@ -131,6 +136,28 @@ int TGen::VertexStructure::getStride() const {
 }
 
 void TGen::VertexStructure::addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared, uchar unit, bool normalize) {
+	switch (type) {
+		case TGen::VertexElementCoord:
+			hasCoordElements = true;
+			break;
+			
+		case TGen::VertexElementTexCoord:
+			hasTexCoordUnitElements[unit] = true;
+			break;
+			
+		case TGen::VertexElementNormal:
+			hasNormalElements = true;
+			break;
+			
+		case TGen::VertexElementColor:
+			hasColorElements = true;
+			break;
+			
+		case TGen::VertexElementEdgeFlag:
+			hasEdgeElements = true;
+			break;			
+	}
+	
 	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit, normalize));
 }
 

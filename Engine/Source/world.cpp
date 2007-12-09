@@ -26,6 +26,8 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneLight", &sceneSubsystem);
 	
+	// TODO: world("mapname")   
+	// TODO: riktig file-logger. som resettar filen när man startar
 	char * propert =
 		"test {\n"
 			"sceneNode {\n"
