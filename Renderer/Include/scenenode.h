@@ -35,7 +35,8 @@ namespace TGen {
 		virtual void calculateFacesBV();
 		virtual void calculateWorldBV();
 		virtual bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
-
+		virtual bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
+		
 		void updateChildren();
 		void addChild(TGen::SceneNode * node);
 		void removeChild(TGen::SceneNode * node);

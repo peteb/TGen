@@ -979,3 +979,15 @@ void TGen::OpenGL::Renderer::setAmbientLight(const TGen::Color & ambient) {
 	GLfloat color[] = {ambient.r, ambient.g, ambient.b, ambient.a};
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,  color);
 }
+
+bool TGen::OpenGL::Renderer::throwErrors() {
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR) {
+		std::string errorName = reinterpret_cast<const char *>(gluErrorString(error));
+		
+		throw TGen::RuntimeException("OpenGL::Renderer::throwErrors", errorName) << " (0x" << std::ios::hex << error << ")";
+	}
+	
+	return false;
+}
+

@@ -267,10 +267,18 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 	walker.post(*this);
 }
 
+// TODO: en addClippedFace som tar face + clipping area (planes eller box)
+//       spara alla faces som clipped face i lista, sen uppdatera clipping här
+
 bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < faces.size(); ++i) {
 		list.addFace(&faces[i]);
 	}
+	
+	return true;
+}
+
+bool TGen::SceneNode::fillUser(TGen::RenderList & list, const TGen::Camera & camera) const {
 	
 	return true;
 }

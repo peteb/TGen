@@ -6,11 +6,29 @@ test {
 	}
 }
 
+test2 {
+	sceneNode {
+		model "models/railgun.md3"
+		origin "0 1 1"
+		orientation "0 1 0"
+		material "railgunMaterial"
+	}
+}
+
+light1 {
+	sceneLight {
+		material "deferred/lightDirectional"
+		orientation "0 0 -1"
+		diffuse "0 0 0 1.0"
+		specular "1.0 0 0 1.0"
+	}
+}
+
 maincam {
 	sceneCamera {
-		origin 0 1 -0.5
-		orientation 0 0.4 1.0
-		range 500
+		origin "0 1 -0.5"
+		orientation "0 0.4 1.0"
+		range "500"
 	}
 
 	sound {
@@ -25,7 +43,7 @@ maincam {
 
 testmap {
 	sceneMap {
-		map "maps/testmap/testmap.proc"
+		model "maps/testmap/testmap.proc"
 		origin "0 0 0"
 	}
 

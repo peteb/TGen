@@ -12,19 +12,23 @@
 #include "variablesregistry.h"
 #include <iostream>
 #include "sdl.h"
+#include "world.h"
+
 
 TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	: TGen::Engine::State(app)
 	, lastRender(TGen::Time::Now())
 	, sceneRoot("root")
 	, vars(app)
-	, world(app)
+	, currentWorld(NULL)
 	, sceneRenderer(NULL)
 {
 	app.logs.info["gst+"] << "entering game state..." << endl;
+
+	currentWorld = new TGen::Engine::World(app, "testmap");
 	
 	try {
-		sceneRenderer = new TGen::Engine::DeferredRenderer(app, world);
+		sceneRenderer = new TGen::Engine::DeferredRenderer(app, *currentWorld);		// TODO: decoupla
 	}
 	catch (const std::exception & e) {
 		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << "\" and there is no fallback!" << TGen::endl;
@@ -33,6 +37,8 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 }
 
 TGen::Engine::GameState::~GameState() {
+	delete currentWorld;
+	
 	app.logs.info["gst-"] << "leaving game state..." << endl;
 }
 
@@ -42,7 +48,7 @@ void TGen::Engine::GameState::tick() {
 	
 	if (sinceLastRender >= vars.maxRefreshInterval) {
 		lastRender = now;
-		world.update(sinceLastRender);
+		currentWorld->update(sinceLastRender);
 		render(sinceLastRender);
 	//	std::cout << 1.0 / sinceLastRender << std::endl;
 		// dags att undersöka lite fps
@@ -54,12 +60,19 @@ void TGen::Engine::GameState::tick() {
 	
 }
 
-// fixa world::update här
-// DeferredSceneRenderer vars
-
 void TGen::Engine::GameState::render(scalar dt) {
 	sceneRenderer->renderScene(dt);
 	
 	app.env.swapBuffers();
+	
+	while (1) {
+		try {
+			if (!app.renderer.throwErrors())
+				break;
+		}
+		catch (const TGen::RuntimeException & e) {
+			app.logs.warning["game"] << "Renderer issued error this frame: \"" << e.getDescription() << "\"." << TGen::endl;
+		}
+	}
 }
 

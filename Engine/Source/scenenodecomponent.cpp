@@ -19,6 +19,10 @@ TGen::Engine::SceneNodeComponent::~SceneNodeComponent() {
 	
 }
 
+TGen::SceneNode * TGen::Engine::SceneNodeComponent::getSceneNode() {
+	return sceneNode;
+}
+
 /*
 Fysiksystemet steppas, alla objekt som flyttats (dvs inte har kommit i vila) triggrar sina update-events vilket
  SceneNode-komponenten har reggat och då uppdateras det i det systemet, utan att triggra en update åt andra hållet,

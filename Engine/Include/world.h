@@ -25,7 +25,7 @@ namespace TGen {
 		
 		class World {
 		public:
-			World(TGen::Engine::App & app);
+			World(TGen::Engine::App & app, const std::string & mapname);
 			~World();
 			
 			TGen::Camera * getCamera(const std::string & name);

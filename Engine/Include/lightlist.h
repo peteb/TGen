@@ -16,17 +16,29 @@ namespace TGen {
 	namespace Engine {
 		class Light;
 		
+		enum RendererUserType {
+			UserTypeLight = 1,
+		};
+		
 		class LightList {
 		public:
 			LightList(int num);
+			~LightList();
+			
+			typedef std::vector<TGen::Engine::Light *> LightArray;
+			typedef std::map<TGen::Material *, LightArray *> LightMap;
 			
 			void addLight(TGen::Engine::Light * light);
 			TGen::Engine::Light * getLight(int id) const;
+			LightMap & getLightsByMaterial();
+			
 			int getNumLights() const;
 			void clear();
 			
 		private:
-			std::vector<TGen::Engine::Light *> lights;
+			
+			LightArray lights;
+			LightMap lightsByMaterials;
 		};
 		
 		

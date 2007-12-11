@@ -70,6 +70,8 @@ namespace TGen {
 			TGen::ShaderProgram * createShaderProgram();
 			TGen::ShaderProgram * createShaderProgram(const char * code);
 			
+			bool throwErrors();
+			
 			static bool isExtensionAvailable(const std::string & extension);
 			
 		private:

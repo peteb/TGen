@@ -38,8 +38,22 @@ namespace TGen {
 		RenderList() {}
 		virtual ~RenderList() {}
 		
+		struct UserInfo {
+			UserInfo(void * data, int value)
+				: data(data)
+				, value(value)
+			{
+			}
+			
+			void * data;
+			int value;
+		};
+		
 		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) abstract;
 		virtual void addFace(const TGen::Face * face) abstract;
+		virtual void addUser(void * user, int id) abstract;
+		virtual int getNumUserInfo() abstract;
+		virtual UserInfo & getUserInfo(int id) abstract;
 		virtual void sort(const TGen::Camera & camera, const std::string & specialization) abstract;
 		virtual void clear() abstract;
 		virtual bool needSorting() abstract;

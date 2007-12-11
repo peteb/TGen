@@ -191,7 +191,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 	
-	vars.postProcessing = false;
+	//vars.postProcessing = false;
 	
 	if (vars.postProcessing) {
 		app.renderer.setRenderTarget(postTargets1);
@@ -208,33 +208,27 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	renderFillQuad(lightAmbientMaterial);
 	
 	
-	// SORT LIGHTS BY TYPE, borde göras direkt av lightList
-	std::vector<TGen::Engine::Light *> lights[3];	// TODO: flytta till init
-	for (int i = 0; i < 3; ++i)
-		lights[i].reserve(10);
-	
-	for (int i = 0; i < lightList.getNumLights(); ++i) {
-		TGen::Engine::Light * light = lightList.getLight(i);
-		lights[light->type].push_back(light);
+	TGen::Engine::LightList::LightMap & lightsByMaterial = lightList.getLightsByMaterial();
+	for (TGen::Engine::LightList::LightMap::iterator iter = lightsByMaterial.begin(); iter != lightsByMaterial.end(); ++iter) {
+		//std::cout << "MATERIAL " << iter->first << std::endl;
+		
+		// TODO: OM EN LAMPA HAR FACES SÅ RENDRERA DEM!!!! det är bounding boxes
+		TGen::Engine::LightList::LightArray * lights = iter->second;
+		if (lights) {
+			for (int i = 0; i < lights->size(); i += lightBatchSize) {
+				int a = 0;
+				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
+					app.renderer.setLight(a, (*lights)[a]->getLightProperties());
+				}
+				
+				renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a) + "lights");	// TODO: optimize
+			}
+		}
 	}
-
-	// TODO: lightlist ska sortera lampor per material. lod skulle ju faktiskt kunna användas här... men blir batchbreaker
 	
-	
-	// LIGHTING
-	//for (int lightType = 0; lightType < 3; ++lightType) {
-	int lightType = 0;	
-	for (int i = 0; i < lights[lightType].size(); i += lightBatchSize) {
-		int a = 0;
-		for (; a < lightBatchSize && i + a < lights[lightType].size(); ++a) {
-			app.renderer.setLight(a, lights[lightType][i + a]->light);
-		}			
-			
-		renderFillQuad(lightDirectionalMaterial, TGen::lexical_cast<std::string>(a) + "lights");
-	}		
 	//}
-	lightType = 1;	
-	TGen::VertexBuffer * vb = app.renderer.createVertexBuffer(LightVertexDecl(), sizeof(LightVertexDecl::Type) * 24 * 8, TGen::UsageStream);
+	//lightType = 1;	
+	/*TGen::VertexBuffer * vb = app.renderer.createVertexBuffer(LightVertexDecl(), sizeof(LightVertexDecl::Type) * 24 * 8, TGen::UsageStream);
 	
 	for (int i = 0; i < lights[lightType].size(); i += lightBatchSize) {
 		std::vector<LightVertexDecl::Type> vertices;
@@ -284,7 +278,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		
 	}		
 	
-	delete vb;
+	delete vb;*/
 	
 	// TODO: fixa det här med specialization
 	// cacha varje materials specs, cachedSpecializations[getMaterial("directional")][2]  pekar på "2light"
@@ -303,8 +297,6 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	//       vissa material ska inte kunna dödas såhär, t ex lampor. men då sätter man en param: noPreCull (i paramblocket)
 	// TODO: #loop 0 to r_lightBatchSize (read only)
 	
-	// TODO: lightlist: set? map? något sorterat iaf. insert(SortedLight(light)); SortedLight har operator >  som jämför materialpekare
-	
 	if (vars.postProcessing) {
 		postProcessing(viewport);		
 	}
@@ -320,7 +312,7 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 	app.renderer.setRenderTarget(postTargets2);
 	
 	if (vars.lumTrace) {	// måste ha blendFunc add add för det här...
-		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.48));
+		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.1));
 		renderFillQuad(rhwOnlyColorMaterial);
 	}
 	

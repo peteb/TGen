@@ -161,3 +161,25 @@ void TGen::Color::getValueFormatted(TGen::FormatType format, float value, void *
 	
 }
 
+TGen::Color TGen::Color::Parse(const std::string & text) {
+	if (text.find("red") != std::string::npos)
+		return TGen::Color::Red;
+	else if (text.find("green") != std::string::npos)
+		return TGen::Color::Green;
+	else if (text.find("blue") != std::string::npos)
+		return TGen::Color::Blue;
+	else if (text.find("black") != std::string::npos)
+		return TGen::Color::Black;
+	else if (text.find("white") != std::string::npos)
+		return TGen::Color::White;
+	else if (text.find("identity") != std::string::npos)
+		return TGen::Color::Identity;
+	
+	std::stringstream ss;
+	ss << text;
+	
+	float r = 0.0f, g = 0.0f, b = 0.0f, a = 1.0f;
+	ss >> r >> g >> b >> a;
+	
+	return TGen::Color(r, g, b, a);
+}

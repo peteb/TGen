@@ -38,7 +38,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 				entity->addComponent(newComponent);
 		}		
 	}
-
+	
 	return entity;
 }
 

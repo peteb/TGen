@@ -11,8 +11,11 @@
 #include "app.h"
 #include "light.h"
 #include "entity.h"
+#include "filesystem.h"
+#include "file.h"
+#include "scenenodecomponent.h"
 
-TGen::Engine::World::World(TGen::Engine::App & app)
+TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	: app(app)
 	, sceneSubsystem(*this)
 	, sceneRoot("root")
@@ -20,34 +23,25 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 	, lightList(100)
 	, entityFactory(app.logs)
 {
-	app.logs.info["world+"] << "initializing world..." << TGen::endl;
+	app.logs.info["world+"] << "initializing world '" << mapname << "'..." << TGen::endl;
 	
 	entityFactory.registerSubsystem("sceneNode", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneLight", &sceneSubsystem);
 	
+	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
+	//       kan kanske fixas genom att överlagra funktionen som ger faces åt renderlist att rendrera, att den då går igenom de rum som syns, 
+	//       men alla entiteter i banan ska uppdateras när banan uppdateras.
+	// TODO: överlagra addChild för map, den för in entiteten i den area som origin pekar på
+	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa.
 	// TODO: world("mapname")   
 	// TODO: riktig file-logger. som resettar filen när man startar
-	char * propert =
-		"test {\n"
-			"sceneNode {\n"
-				"model \"models/railgun.md3\"\n"
-				"origin \"0 0 1\"\n"
-				"material \"railgunMaterial\"\n"
-			"}\n"
-		"}\n"
+	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 	
-		"maincam {\n"
-			"sceneCamera {\n"
-				"origin \"0 1 -0.5\"\n"
-				"range \"500\"\n"
-				"orientation \"0 0.4 1.0\"\n"
-			"}\n"
-		"}\n"
-		;
-	
+	TGen::Engine::File * entitiesFile = app.filesystem.openRead("/maps/" + mapname + "/entities");
 	TGen::PropertyTreeParser propParser;
-	TGen::PropertyTree props = propParser.parse(propert);
+	TGen::PropertyTree props = propParser.parse(entitiesFile->readAll().c_str());
+	delete entitiesFile;
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
 		TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
@@ -58,21 +52,17 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 		else {
 			app.logs.warning["world"] << "entity '" << entity->getName() << "' already set!" << TGen::endl;
 			delete entity;
-			entity = NULL;
 		}
 	}
 	
-	//exit(1);
+	mainCam = dynamic_cast<TGen::Camera *>(sceneSubsystem.getComponent("maincam")->getSceneNode());
+	if (!mainCam)
+		throw TGen::RuntimeException("World::World", "maincam not defined");
 	
-	mainCam = new TGen::Camera("maincam", TGen::Vector3(0.0f, 1.0f, -0.5f));
-	mainCam->setClip(0.1f, 500.0f);
-	mainCam->setLod(0.0f, 500.0f);
-	mainCam->setOrientation(TGen::Vector3(0.0f, 0.4f, 1.0f).normalize());
-
-	sceneSubsystem.getSceneRoot().addChild(mainCam);
 	sceneSubsystem.link();
 	sceneSubsystem.getSceneRoot().update();
 
+	
 	/*sceneRoot.addChild(mainCam);
 	
 	
@@ -82,14 +72,6 @@ TGen::Engine::World::World(TGen::Engine::App & app)
 
 	// TODO: scenegraphen buggar!!!!
 	
-	meshList.relink(app.globalResources);
-	sceneRoot.traverse(TGen::FaceLinker(app.globalResources));
-	sceneRoot.traverse(TGen::ScenePrinter(std::cout));
-	//
-	// börja jobba på portalbanorna
-	
-	sceneRoot.update();
-
 
 
 
@@ -137,18 +119,24 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 	
 	sceneSubsystem.getSceneRoot().traverse(TGen::RenderFiller(renderList, *camera));		
 	
-	//lightList.addLight(lights[0]);
-	//lightList.addLight(lights[1]);
-	
+	for (int i = 0; i < renderList.getNumUserInfo(); ++i) {
+		TGen::RenderList::UserInfo & userInfo = renderList.getUserInfo(i);
+		if (userInfo.value == TGen::Engine::UserTypeLight) {
+			lightList.addLight(static_cast<TGen::Engine::Light *>(userInfo.data));
+		}
+	}
+			
 	// TODO: light ska inte bestämma specularity
 }
+// TODO: RenderFiller ska fråga varje scene node efter geoms, sen kan PortalNode överlagra den och fräsaaaaa
+// men då ska den metoden helst ta en kamera som parameter
 
 void TGen::Engine::World::update(scalar dt) {
 	//sceneRoot.getChild("weapon")->setPosition(sceneRoot.getChild("weapon")->getLocalPosition() + TGen::Vector3(dt, 0.0f, 0.0f));
 	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.3));
 	
-	//sceneRoot.getChild("weapon")->setOrientation(rot * TGen::Vector3(sceneRoot.getChild("weapon")->getLocalOrientation()));
-	//sceneRoot.update();
+	sceneSubsystem.getSceneRoot().getChild("test")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test")->getLocalOrientation()));
+	sceneSubsystem.getSceneRoot().update();
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {

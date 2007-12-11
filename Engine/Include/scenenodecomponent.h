@@ -21,6 +21,9 @@ namespace TGen {
 			SceneNodeComponent(TGen::SceneNode * sceneNode);
 			~SceneNodeComponent();
 			
+			TGen::SceneNode * getSceneNode();
+			
+		private:
 			TGen::SceneNode * sceneNode;
 		};
 		

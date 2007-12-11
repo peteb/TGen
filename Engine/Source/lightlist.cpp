@@ -14,8 +14,26 @@ TGen::Engine::LightList::LightList(int num) {
 	lights.reserve(num);
 }
 
+TGen::Engine::LightList::~LightList() {
+	for (LightMap::iterator iter = lightsByMaterials.begin(); iter != lightsByMaterials.end(); ++iter) {
+		delete iter->second;
+	}	
+}
+
 void TGen::Engine::LightList::addLight(TGen::Engine::Light * light) {
 	lights.push_back(light);
+	
+	LightMap::iterator iter = lightsByMaterials.find(light->getMaterial());
+	if (iter == lightsByMaterials.end()) {
+		LightArray * newList = new LightArray;
+		newList->reserve(100);
+		
+		lightsByMaterials.insert(LightMap::value_type(light->getMaterial(), newList));
+		newList->push_back(light);
+	}
+	else {
+		iter->second->push_back(light);
+	}
 }
 
 TGen::Engine::Light * TGen::Engine::LightList::getLight(int id) const {
@@ -28,4 +46,12 @@ int TGen::Engine::LightList::getNumLights() const {
 
 void TGen::Engine::LightList::clear() {
 	lights.clear();
+	
+	for (LightMap::iterator iter = lightsByMaterials.begin(); iter != lightsByMaterials.end(); ++iter) {
+		iter->second->clear();
+	}
+}
+
+TGen::Engine::LightList::LightMap & TGen::Engine::LightList::getLightsByMaterial() {
+	return lightsByMaterials;
 }

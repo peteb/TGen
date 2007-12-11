@@ -17,6 +17,7 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		class World;
+		class SceneNodeComponent;
 		
 		class SceneSubsystem : public TGen::Engine::Subsystem {
 		public:
@@ -26,6 +27,7 @@ namespace TGen {
 			TGen::Engine::Component * createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties);
 			void link();
 			
+			TGen::Engine::SceneNodeComponent * getComponent(const std::string & name);
 			TGen::SceneNode & getSceneRoot();
 			
 		private:
@@ -36,6 +38,9 @@ namespace TGen {
 			TGen::Engine::World & world;
 			TGen::SceneNode sceneRoot;
 			TGen::MeshGeometryLinkList meshList;
+			
+			typedef std::map<std::string, TGen::Engine::SceneNodeComponent *> ComponentMap;
+			ComponentMap components;
 		};
 	} // !Engine
 } // !TGen

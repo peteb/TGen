@@ -79,6 +79,8 @@ namespace TGen {
 		virtual ShaderProgram * createShaderProgram() abstract;
 		virtual ShaderProgram * createShaderProgram(const char * code) abstract;
 		
+		virtual bool throwErrors() abstract;
+		
 	protected:
 		TGen::RendererCaps caps;
 		TGen::Rectangle viewport;

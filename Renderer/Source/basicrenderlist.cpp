@@ -19,6 +19,7 @@ TGen::BasicRenderList::BasicRenderList() {
 	faces.reserve(11000);
 	opaqueFaces.reserve(10000);
 	transparentFaces.reserve(1000);
+	userInfo.reserve(400);
 }
 
 TGen::BasicRenderList::~BasicRenderList() {}
@@ -38,10 +39,15 @@ void TGen::BasicRenderList::addFace(const TGen::Face * face) {
 	faces.push_back(face);
 }
 
+void TGen::BasicRenderList::addUser(void * user, int id) {
+	userInfo.push_back(UserInfo(user, id));
+}
+
 void TGen::BasicRenderList::clear() {
 	faces.clear();
 	opaqueFaces.clear();
 	transparentFaces.clear();
+	userInfo.clear();
 }
 
 void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string & specialization) {
@@ -59,6 +65,8 @@ void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string 
 			else
 				transparentFaces.push_back(SortedFace(faces[i], distance));
 		}
+		
+		// TODO: sort per material, possibly using a map
 		
 		//calculateCameraDistance(transparentFaces, camera);
 		//calculateCameraDistance(opaqueFaces, camera);
@@ -84,7 +92,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	scalar lodFar = camera.getLodFar();
 	scalar clipFar = camera.getClipFar();
 	
-	// OPT: allt det h√§r √§r f√∂rmodligen v√§ldigt segt....
+	// OPT: allt det h‰r ‰r fˆrmodligen v‰ldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 		scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
 		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);
@@ -169,4 +177,11 @@ bool TGen::BasicRenderList::Sorter::operator() (const TGen::BasicRenderList::Sor
 	return (face1.distanceToCamera > face2.distanceToCamera);
 }
 
+int TGen::BasicRenderList::getNumUserInfo() {
+	return userInfo.size();
+}
+
+TGen::RenderList::UserInfo & TGen::BasicRenderList::getUserInfo(int id) {
+	return userInfo[id];
+}
 

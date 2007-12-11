@@ -15,11 +15,11 @@
 #include "variable.h"
 #include "gamestatevars.h"
 #include "deferredscenerenderer.h"
-#include "world.h"
 
 namespace TGen {
 	namespace Engine {
 		class GameView;
+		class World;
 		
 		class GameState : public TGen::Engine::State {
 		public:	
@@ -32,7 +32,8 @@ namespace TGen {
 		private:
 			TGen::Engine::GameStateVars vars;
 			TGen::Engine::DeferredRenderer * sceneRenderer;
-			TGen::Engine::World world;
+			
+			TGen::Engine::World * currentWorld;
 			
 			TGen::Time lastRender;
 			

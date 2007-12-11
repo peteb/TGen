@@ -28,7 +28,7 @@ namespace TGen {
 	namespace Engine {
 		class App;
 		class World;
-		
+
 		class DeferredRenderer : public TGen::ShaderVariableUpdater {
 		public:	
 			DeferredRenderer(TGen::Engine::App & app, TGen::Engine::World & world);

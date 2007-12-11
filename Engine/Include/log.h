@@ -78,10 +78,20 @@ namespace TGen {
 			}
 			
 			TGen::Engine::Log & operator << (const TGen::RuntimeException & exception) {
-				output(exception.getWhere(), exception.getDescription());
-				ss.str("");
-				ss.clear();
-				area = "";
+				if (ss.str().empty()) {
+					output(exception.getWhere(), exception.getDescription());
+					ss.str("");
+					ss.clear();
+					area = "";
+				}
+				else {
+					ss << exception.getDescription();
+					
+					output(area, ss.str());
+					ss.str("");
+					ss.clear();
+					area = "";
+				}
 				
 				return *this;
 			}

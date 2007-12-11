@@ -12,6 +12,7 @@
 
 #include <tgen_math.h>
 #include <tgen_graphics.h>
+#include <tgen_renderer.h>
 
 namespace TGen {
 	namespace Engine {
@@ -21,15 +22,33 @@ namespace TGen {
 			LightSpotlight = 2,
 		};
 		
-		class Light {
+		class Light : public TGen::SceneNode {
 		public:
-			// light type.... inte material :(
+			Light(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
+			
+			// light type.... inte material :(    ändra! gör som alla scenenodes, en materialName som länkas..... 
 			// ska vara en data-component på entity?
+			
+			void linkMaterial(TGen::MaterialSource & linker);
+			
+			void setMaterialName(const std::string & material);
+			TGen::Light & getLightProperties();
+			TGen::Material * getMaterial();
+			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
+			
+		private:
+			std::string materialName;
+			TGen::Material * material;
+			
 			int type;			
 			bool clipBoundingBox;
 			TGen::AABB boundingBox;
-			TGen::Light light;
+			mutable TGen::Light light;
 		};
+		
+		// map har flera SceneLights. (children) om en SceneLight frågas efter addUser så lägger den till sig själv som user
+		// map tar lights från synliga areas och lägger till, lika bra att lägga till hela scenenoden som user
+		
 		
 	} // !Engine
 } // !TGen

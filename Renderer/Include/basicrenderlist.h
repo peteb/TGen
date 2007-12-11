@@ -30,10 +30,13 @@ namespace TGen {
 		
 		void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
 		void addFace(const TGen::Face * face);
+		void addUser(void * user, int id);
 		void sort(const TGen::Camera & camera, const std::string & specialization);
 		bool needSorting();
 		void clear();
 		void print();
+		int getNumUserInfo();
+		UserInfo & getUserInfo(int id);
 		
 	private:			
 		class SortedFace {
@@ -50,13 +53,16 @@ namespace TGen {
 				
 			bool operator() (const TGen::BasicRenderList::SortedFace & face1, const TGen::BasicRenderList::SortedFace & face2);
 		};
+
 		
 		typedef std::vector<SortedFace> SortedFaceList;
 		typedef std::vector<const Face *> FaceList;
+		typedef std::vector<UserInfo> UserInfoList;
 		
 		void renderList(SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
 		void calculateCameraDistance(SortedFaceList & list, const TGen::Camera & camera);
 		
+		UserInfoList userInfo;
 		FaceList faces;
 		SortedFaceList opaqueFaces, transparentFaces;	// opaque faces get distance to camera too, but it's not calculated
 	}; 
