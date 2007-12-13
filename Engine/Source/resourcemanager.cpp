@@ -12,8 +12,10 @@
 #include "filesystem.h"
 #include "file.h"
 #include "meshgenerator.h"
+#include "imagegenerator.h"
 #include "devilimage.h"
 #include "shaderpreprocess.h"
+#include "generateline.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer) 
 	: logs(logs)
@@ -109,24 +111,38 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 }
 
 TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & name) {
+	// gen:red:2048 2048
+	
 	TextureMap::iterator iter = textures.find(name);
 	if (iter != textures.end())
 		return iter->second;
 	
-	ILuint imageName;
-	ilGenImages(1, &imageName);
-	ilBindImage(imageName);
+	TGen::Texture * newTexture = NULL;
 	
-	std::string fixedName = "textures/" + name;
+	if (name.substr(0, 4) == "gen:") {
+		TGen::Engine::GenerateLine line(name);
+		
+		TGen::Engine::ImageGenerator generator;
+		TGen::Image * newImage = generator.generateImage(line);
+		
+		newTexture = renderer.createTexture(*newImage, TGen::RGB);
+	}
+	else {
+		ILuint imageName;
+		ilGenImages(1, &imageName);
+		ilBindImage(imageName);
 	
-	logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
+		std::string fixedName = "textures/" + name;
 	
-	TGen::Engine::File * file = filesystem.openRead(fixedName);
-	TGen::Image * image = imageLoader.load(file);
-	delete file;
+		logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
 	
-	TGen::Texture * newTexture = renderer.createTexture(*image, TGen::RGB);
-	delete image;
+		TGen::Engine::File * file = filesystem.openRead(fixedName);
+		TGen::Image * image = imageLoader.load(file);
+		delete file;
+	
+		newTexture = renderer.createTexture(*image, image->getFormat());
+		delete image;
+	}
 	
 	textures[name] = newTexture;
 	
@@ -150,7 +166,7 @@ int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
 
 TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	// hur ska man ladda in fillmeshen? kan ju ha en meshgenerator som kan skapa lite olika meshes
-	// getMesh("gen:quad -1 -1 1 1");
+	// getMesh("gen:quad:-1 -1 1 1");
 	// getMesh("gen:fillquad");
 	
 	MeshMap::iterator iter = meshes.find(name);
@@ -159,7 +175,7 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		
 	TGen::Mesh * newMesh = NULL;
 	
-	if (name.substr(0, strlen("gen:")) == "gen:") {
+	if (name.substr(0, 4) == "gen:") {
 		std::string generateName = name.substr(strlen("gen:"), name.size() - strlen("gen:"));
 		logs.info["res"] << "generating mesh for '" << generateName << "'..." << TGen::endl;
 		TGen::Engine::MeshGenerator generator;

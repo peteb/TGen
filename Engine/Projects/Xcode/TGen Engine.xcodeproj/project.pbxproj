@@ -31,6 +31,8 @@
 		D0843BD50D0759D200C31FE3 /* scenenodecomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */; };
 		D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD70D0759D200C31FE3 /* entityfactory.cpp */; };
 		D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */; };
+		D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7BF30D10919B008622BC /* imagegenerator.cpp */; };
+		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
@@ -215,6 +217,10 @@
 		D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenesubsystem.cpp; sourceTree = "<group>"; };
 		D0843C210D075BFB00C31FE3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D0843C430D075C9C00C31FE3 /* component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = component.h; path = ../../Include/component.h; sourceTree = SOURCE_ROOT; };
+		D08C7BF20D109190008622BC /* imagegenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imagegenerator.h; path = ../../Include/imagegenerator.h; sourceTree = SOURCE_ROOT; };
+		D08C7BF30D10919B008622BC /* imagegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagegenerator.cpp; sourceTree = "<group>"; };
+		D08C7C230D109514008622BC /* generateline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generateline.h; path = ../../Include/generateline.h; sourceTree = SOURCE_ROOT; };
+		D08C7C240D1095CA008622BC /* generateline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generateline.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -329,7 +335,6 @@
 				D0F83E020CBAD68600FF4467 /* log */,
 				D0F835D70CBA5C8B00FF4467 /* platform */,
 				D0F835810CBA5B4300FF4467 /* map */,
-				D048B94C0CE743F700607EBA /* meshes */,
 				D01B6CF60C8A14C700D8943C /* data */,
 				D0F493070CBE89500080CB46 /* commands */,
 				D01B6CED0C8A149200D8943C /* fs */,
@@ -414,6 +419,7 @@
 		D01B6CF60C8A14C700D8943C /* data */ = {
 			isa = PBXGroup;
 			children = (
+				D048B94C0CE743F700607EBA /* meshes */,
 				D0EF62B90C82DFFE0085C17B /* variable.cpp */,
 				D0EF62BA0C82DFFE0085C17B /* variable.h */,
 				D0EF62DF0C82E08F0085C17B /* variablesregistry.cpp */,
@@ -430,6 +436,10 @@
 				D003482F0CEE29610066E8A8 /* imageloader.h */,
 				D0CC7A5C0CF9D1E6003EE092 /* shaderpreprocess.cpp */,
 				D0CC7A5B0CF9D1DD003EE092 /* shaderpreprocess.h */,
+				D08C7BF30D10919B008622BC /* imagegenerator.cpp */,
+				D08C7BF20D109190008622BC /* imagegenerator.h */,
+				D08C7C240D1095CA008622BC /* generateline.cpp */,
+				D08C7C230D109514008622BC /* generateline.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -791,6 +801,8 @@
 				D0843BD50D0759D200C31FE3 /* scenenodecomponent.cpp in Sources */,
 				D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */,
 				D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */,
+				D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */,
+				D08C7C250D1095CA008622BC /* generateline.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

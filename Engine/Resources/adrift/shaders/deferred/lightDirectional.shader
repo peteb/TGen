@@ -29,12 +29,12 @@ void main() {
 		if (NdotVP == 0.0)
 			power = 0.0;
 		else
-			power = pow(NdotHV, 400.0 * (1.0 - miscInfo.x));	// TODO: get frm material or map
+			power = pow(NdotHV, pow(miscInfo.x * 5.0, 4.0));	// TODO: get frm material or map
 	
 		diffuse += gl_LightSource[#LIGHT_ID#].diffuse * NdotVP;
 		specular += gl_LightSource[#LIGHT_ID#].specular * power;
 	#end
 
-	gl_FragColor = (diffuse + specular * miscInfo.r * 10.0) * gl_Color;	// TODO: miscInfo.x ska bara användas
+	gl_FragColor = (diffuse + specular * miscInfo.r) * gl_Color;	// TODO: miscInfo.x ska bara användas
 }
 

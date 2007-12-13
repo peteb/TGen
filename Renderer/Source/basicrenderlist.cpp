@@ -92,7 +92,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	scalar lodFar = camera.getLodFar();
 	scalar clipFar = camera.getClipFar();
 	
-	// OPT: allt det här är förmodligen väldigt segt....
+	// OPT: allt det hâ€°r â€°r fË†rmodligen vâ€°ldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 		scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
 		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);
@@ -133,7 +133,11 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 				
 				for (int i = 0; i < subfaces->size(); ++i) {
 					// material = subfaces[i]->getMaterial
-					globalMaterial->render(renderer, *(*subfaces)[i], specialization, lod, NULL);
+					TGen::Material * material = globalMaterial;
+					//if ((*subfaces)[i]->getMaterial())
+					//	material = (*subfaces)[i]->getMaterial();
+					
+					material->render(renderer, *(*subfaces)[i], specialization, lod, NULL);
 					
 				}				
 			}

@@ -132,6 +132,9 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar 
 
 	DEBUG_PRINT("[md3]: creating surfaces...");
 	
+	// TODO: fixa per-subface-material
+	// TODO: portalbanor skickar egen user-grej... ClippedRoom (entities to draw, room vertices)
+	//       eller så fixas ClippedFace istället, kanske! då kan man sortera baserat på clipping 
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		TGen::MD3::Surface * surface = surfaces[i];
@@ -152,8 +155,8 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar 
 				TGen::MD3::TexCoord * texCoord = &surface->texCoords[i];
 				TGen::MD3::Vertex * vertex = &surface->vertices[i];
 				
-				scalar lat = ((vertex->normal >> 8) & 255) * (2 * TGen::PI) / 255;
-				scalar lng = (vertex->normal & 255) * (2 * TGen::PI) / 255;
+				scalar lat = ((vertex->normal >> 8) & 255) * (2.0 * TGen::PI) / 255;
+				scalar lng = (vertex->normal & 255) * (2.0 * TGen::PI) / 255;
 				
 				TGen::Vector3 normal;
 				normal.x = cos(lat) * sin(lng);

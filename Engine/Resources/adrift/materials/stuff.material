@@ -19,7 +19,7 @@ material railgunMaterial default 9 {
 				sampler colorMap
 			}
 
-			texunit 1 sflgratetrans1_d.tga {
+			texunit 1 "gen:fadeU start '0.4' end '1.0'" {
 				sampler specularMap
 			}
 		}

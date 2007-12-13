@@ -138,4 +138,15 @@ TGen::Vector2::operator std::string() const {
 	return ss.str();
 }
 
+TGen::Vector2 TGen::Vector2::Parse(const std::string & text) {
+	if (text.find("identity") != std::string::npos)
+		return TGen::Vector2::Identity;
+	
+	TGen::Vector2 ret;
+	std::stringstream ss;
+	ss << text;
+	ss >> ret.x >> ret.y;
+	
+	return ret;	
+}
 

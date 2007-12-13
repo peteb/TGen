@@ -179,7 +179,10 @@ TGen::Color TGen::Color::Parse(const std::string & text) {
 	ss << text;
 	
 	float r = 0.0f, g = 0.0f, b = 0.0f, a = 1.0f;
-	ss >> r >> g >> b >> a;
+	if (ss >> r >> g)
+		ss >> b >> a;
+	else
+		b = g = r;
 	
 	return TGen::Color(r, g, b, a);
 }
