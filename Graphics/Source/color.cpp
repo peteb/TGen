@@ -11,6 +11,7 @@
 #include "error.h"
 #include <sstream>
 #include <limits>
+#include <tgen_math.h>
 
 TGen::Color TGen::Color::Identity(1.0f, 1.0f, 1.0f, 1.0f);
 TGen::Color TGen::Color::White(1.0f, 1.0f, 1.0f, 1.0f);
@@ -64,11 +65,11 @@ TGen::Color & TGen::Color::operator *= (const TGen::Color & color) {
 	return *this;
 }
 
-TGen::Color & TGen::Color::operator *= (scalar scalar) {
-	r *= scalar;
-	g *= scalar;
-	b *= scalar;
-	a *= scalar;
+TGen::Color & TGen::Color::operator *= (scalar value) {
+	r *= value;
+	g *= value;
+	b *= value;
+	a *= value;
 	
 	return *this;
 }
@@ -185,4 +186,16 @@ TGen::Color TGen::Color::Parse(const std::string & text) {
 		b = g = r;
 	
 	return TGen::Color(r, g, b, a);
+}
+
+TGen::Color TGen::Color::operator - (const TGen::Color & color) const {	
+	return TGen::Color(r - color.r, g - color.g, b - color.b, a - color.a);
+}
+
+TGen::Color TGen::Color::operator + (const TGen::Color & color) const {	
+	return TGen::Color(r + color.r, g + color.g, b + color.b, a + color.a);
+}
+
+TGen::Color TGen::Color::operator * (scalar value) {
+	return TGen::Color(r * value, g * value, b * value, a * value);
 }

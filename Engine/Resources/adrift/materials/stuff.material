@@ -15,11 +15,11 @@ material nomat default 9 {
 material railgunMaterial default 9 {
 	lod 9 {
 		pass deferred/writeAttributesNoNMap {
-			texunit 0 railgun1.png {
+			texunit 0 "railgun1.png" {
 				sampler colorMap
 			}
 
-			texunit 1 "gen:fadeU start '0.4' end '1.0'" {
+			texunit 1 "gen:fadeV size 512 start '0.1' end '0.9'" {
 				sampler specularMap
 			}
 		}

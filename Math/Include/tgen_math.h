@@ -32,11 +32,28 @@ namespace TGen {
 	bool isMathDebug();
 	
 	template<typename T>
-	void Clamp(T & value, const T & low, const T & high) {
+	T Clamp(T value, T low, T high) {
 		if (value < low)
-			value = low;
+			return low;
 		else if (value > high)
-			value = high;
+			return high;
+		
+		return value;
+	}
+	
+	template<typename T>
+	T IdentityClamp(T value) {
+		if (value < 0.0)
+			return 0.0;
+		else if (value > 1.0)
+			return 1.0;
+		
+		return value;
+	}
+	
+	template<typename T>
+	T Interpolate(const T & start, const T & end, float t) {
+		return start + (end - start) * t;
 	}
 }
 

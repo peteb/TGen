@@ -23,7 +23,10 @@ namespace TGen {
 		operator std::string() const;
 		TGen::Color & operator = (const TGen::Color & color);
 		TGen::Color & operator *= (const TGen::Color & color);
-		TGen::Color & operator *= (scalar scalar);
+		TGen::Color & operator *= (scalar value);
+		TGen::Color operator * (scalar value);
+		TGen::Color operator - (const TGen::Color & color) const;
+		TGen::Color operator + (const TGen::Color & color) const;
 		
 		scalar getAverage() const;
 		void getFormatted(TGen::ImageFormat format, TGen::FormatType componentFormat, void * store) const;

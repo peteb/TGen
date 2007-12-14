@@ -953,6 +953,8 @@ void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
 }
 
+// TODO: manuell mipmapping
+
 void TGen::OpenGL::Renderer::setLight(int num, const TGen::Light & light) {
 	GLfloat diffuse[4] = {light.diffuse.r, light.diffuse.g, light.diffuse.b, light.diffuse.a};
 	GLfloat specular[4] = {light.specular.r, light.specular.g, light.specular.b, light.specular.a};
