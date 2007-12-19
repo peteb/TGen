@@ -220,21 +220,54 @@ static void CustomApplicationMain (int argc, char **argv)
     [NSApp setMainMenu:[[NSMenu alloc] init]];
     setApplicationMenu();
     setupWindowMenu();
-
+	
     /* Create SDLMain and make it the app delegate */
     sdlMain = [[SDLMain alloc] init];
     [NSApp setDelegate:sdlMain];
     
     /* Start the main event loop */
+	
     [NSApp run];
-    
+
     [sdlMain release];
     [pool release];
 }
 
 #endif
 
+//extern char lastErrorMessage[];
+#include "global_error.h"
 
+static void DisplayError() {
+	if (strlen(getLastErrorMessage()) > 0) {
+		NSAlert * alert = [[NSAlert alloc] init];
+		[alert setMessageText:@"hey"];
+		[alert runModal];	
+	}
+}
+
+void DisplayErrorWindow(const char * title, const char * description) {
+	NSAlert * alert = [[NSAlert alloc] init];
+	NSString * errorTitle = [[NSString alloc] initWithCString:title];
+	NSString * errorDescription = [[NSString alloc] initWithCString:description];
+
+	[alert setMessageText:errorTitle];
+	[alert addButtonWithTitle:@"Quit"];
+	[alert addButtonWithTitle:@"Report..."];
+	[alert setAlertStyle:NSCriticalAlertStyle];
+	[alert setInformativeText:errorDescription];
+		
+	if ([alert runModal] == NSAlertSecondButtonReturn) {
+		NSAlert * alert2 = [[NSAlert alloc] init];
+		[alert2 setMessageText:@"Not fixed yet!"];
+		[alert2 setInformativeText:@"I would appreciate if you sent your log manually to ptr.bckmn@gmail.com and a description of what went wrong."];
+		[alert2 setAlertStyle:NSWarningAlertStyle];
+		[alert2 runModal];
+		[alert2 release];
+	}
+
+	[alert release];
+}
 /*
  * Catch document open requests...this lets us notice files when the app
  *  was launched by double-clicking a document, or when a document was
@@ -300,7 +333,7 @@ static void CustomApplicationMain (int argc, char **argv)
     /* Hand off to main application code */
     gCalledAppMainline = TRUE;
     status = SDL_main (gArgc, gArgv);
-
+	 DisplayError();
     /* We're done, thank you for playing */
     exit(status);
 }

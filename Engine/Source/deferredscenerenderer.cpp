@@ -17,14 +17,14 @@
 #include "vbrenderable.h"
 #include <tgen_graphics.h>
 
-TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app, TGen::Engine::World & world) 
+TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app) 
 	: app(app)
 	, vars(app)
-	, world(world)
 	, mainCamera(NULL)
 	, lastNumLights(0)
 	, lightBatchSize(8)
 	, lightMaterials(NULL)
+	, world(NULL)
 {
 	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
@@ -151,8 +151,13 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 }
 
 void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
+	if (!world) {
+		renderWorldless(dt);
+		return;
+	}
+	
 	if (!mainCamera) {
-		mainCamera = world.getCamera("maincam");
+		mainCamera = world->getCamera("maincam");
 		
 		if (!mainCamera)
 			return;
@@ -174,9 +179,9 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// kan sen optimeras genom att kolla lightboxen
 	// TODO: kolla vilket kordinatsystem glLightfv använder
 
-	world.prepareLists(mainCamera);
-	TGen::RenderList & renderList = world.getRenderList();
-	TGen::Engine::LightList & lightList = world.getLightList();
+	world->prepareLists(mainCamera);
+	TGen::RenderList & renderList = world->getRenderList();
+	TGen::Engine::LightList & lightList = world->getLightList();
 	
 	renderList.sort(*mainCamera, "default");
 
@@ -187,7 +192,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
-	app.renderer.setAmbientLight(world.getAmbientLight());
+	app.renderer.setAmbientLight(world->getAmbientLight());
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 	
@@ -207,12 +212,12 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// AMBIENT TO RESULT
 	renderFillQuad(lightAmbientMaterial);
 	
-	
+	// LIGHTS TO RESULT
 	TGen::Engine::LightList::LightMap & lightsByMaterial = lightList.getLightsByMaterial();
 	for (TGen::Engine::LightList::LightMap::iterator iter = lightsByMaterial.begin(); iter != lightsByMaterial.end(); ++iter) {
 		//std::cout << "MATERIAL " << iter->first << std::endl;
 		
-		// TODO: OM EN LAMPA HAR FACES SÅ RENDRERA DEM!!!! det är bounding boxes
+		// TODO: OM EN LAMPA HAR FACES SÅ RENDRERA DEM ist för fillquad!!!! det är bounding boxes
 		TGen::Engine::LightList::LightArray * lights = iter->second;
 		if (lights) {
 			for (int i = 0; i < lights->size(); i += lightBatchSize) {
@@ -302,6 +307,14 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	}
 
 }
+
+// No world loaded, ie, no map:
+void TGen::Engine::DeferredRenderer::renderWorldless(scalar dt) {
+	app.renderer.setClearColor(TGen::Color::Red);
+	app.renderer.clearBuffers(TGen::ColorBuffer);
+	
+}
+
 // MÅSTE GLLIGHTFV FÖRSt, kordinatsystemet.
 
 void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & viewport) {
@@ -375,27 +388,20 @@ void TGen::Engine::DeferredRenderer::renderPostFinalQuad(TGen::Material * materi
 }
 
 void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {
-	if (name == "$texelwidth") {
+	if (name == "$texelwidth")		// TODO: helt kontextlöst... kanske inte ska vara så? byta namn alltså, texelwidth -> downsampleTexelWidth
 		var = scalar(1.0 / downsampleSize.width);
-	}
-	else if (name == "$texelheight") {
+	else if (name == "$texelheight")
 		var = scalar(1.0 / downsampleSize.height);
-	}
-	else if (name == "$lummin") {
+	else if (name == "$lummin")
 		var = vars.lumMin;
-	}
-	else if (name == "$lummultiplier") {
+	else if (name == "$lummultiplier")
 		var = vars.lumMultiplier;
-	}
-	else if (name == "$lumkilltrace") {
+	else if (name == "$lumkilltrace")
 		var = !vars.lumTrace;
-	}
-	else if (name == "$numlights") {
+	else if (name == "$numlights")
 		var = lastNumLights;		
-	}
-	else {
+	else
 		app.logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;
-	}
 }
 
 // TODO: fixa simpel fps
@@ -407,4 +413,8 @@ int TGen::Engine::DeferredRenderer::ceilPowerOfTwo(int value) {
 	}
 	
 	return power;
+}
+
+void TGen::Engine::DeferredRenderer::setWorld(TGen::Engine::World * newWorld) {
+	world = newWorld;
 }

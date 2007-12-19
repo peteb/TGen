@@ -31,14 +31,17 @@ namespace TGen {
 
 		class DeferredRenderer : public TGen::ShaderVariableUpdater {
 		public:	
-			DeferredRenderer(TGen::Engine::App & app, TGen::Engine::World & world);
+			DeferredRenderer(TGen::Engine::App & app);
 			~DeferredRenderer();
 			
 			void renderScene(scalar dt);
 			void postProcessing(const TGen::Rectangle & viewport);
 			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
+			void setWorld(TGen::Engine::World * world);
 			
 		private:
+			void renderWorldless(scalar dt);
+			
 			void renderFillQuad(TGen::Material * material);
 			void renderFillQuad(TGen::Material * material, const std::string & specialization);
 
@@ -52,7 +55,7 @@ namespace TGen {
 			int ceilPowerOfTwo(int value);
 			
 			TGen::Engine::App & app;
-			TGen::Engine::World & world;
+			TGen::Engine::World * world;
 			TGen::Engine::DeferredRendererVars vars;
 
 			TGen::Rectangle mrtSize, downsampleSize;

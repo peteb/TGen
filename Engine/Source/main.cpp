@@ -28,9 +28,14 @@
 #include "file.h"
 #include "cmdset.h"
 #include "cmddumpvars.h"
+#include "global_error.h"
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
 void preExit();
+
+#ifdef _PLATFORM_OSX
+#include "platform_cocoa.h"
+#endif
 
 int main(int argc, char ** argv) {
 	try {
@@ -41,28 +46,36 @@ int main(int argc, char ** argv) {
 		try {
 			return run(argc, argv, logs);
 		}
-		catch (TGen::RuntimeException & e) {
+		catch (const TGen::RuntimeException & e) {
 			logs.error << e;
 			logs.error << "unhandled exception, quitting..." << TGen::endl;
+			TGen::Engine::Platform::DisplayExceptionWindow(e, "Unhandled Exception");
 			preExit();
+
 			return EXIT_FAILURE;
 		}
-		catch (std::exception & e) {
+		catch (const std::exception & e) {
 			logs.error["unhandled"] << e.what() << TGen::endl;
 			logs.error << "unhandled exception, quitting..." << TGen::endl;
+			DisplayErrorWindow("Unhandled sc++l exception", e.what());
 			preExit();
+			
 			return EXIT_FAILURE;
 		}
 	}
-	catch (std::exception & e) {
+	catch (const std::exception & e) {
 		std::cerr << "ERROR IN STRAPPER: " << e.what() << std::endl;
 		std::cerr << "unhandled exception, quitting..." << std::endl;
+		DisplayErrorWindow("Unhandled sc++l exception in strapper", e.what());
 		preExit();
+		
 		return EXIT_FAILURE;
 	}
 	catch (...) {
 		std::cerr << "UNKNOWN ERROR IN STRAPPER!" << std::endl;
 		std::cerr << "unhandled exception, quitting..." << std::endl;
+		DisplayErrorWindow("Unhandled unknown exception in strapper", "");
+		
 		preExit();
 		return EXIT_FAILURE;
 	}
@@ -73,6 +86,7 @@ void preExit() {
 	system("pause");
 	#endif
 }
+
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	uint8 debuglibs = (TGen::isCoreDebug() & 1) | (TGen::isMathDebug() & 1) << 1 | (TGen::isGraphicsDebug() & 1) << 2 

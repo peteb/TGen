@@ -19,7 +19,7 @@ material railgunMaterial default 9 {
 				sampler colorMap
 			}
 
-			texunit 1 "gen:fadeV size 512 start '0.1' end '0.9'" {
+			texunit 1 "gen:fadeCircle size '512' center '0.5 0.5' start 'red' end 'blue' radius '0.5'" {
 				sampler specularMap
 			}
 		}

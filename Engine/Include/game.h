@@ -28,17 +28,18 @@ namespace TGen {
 			
 			void tick();
 			void render(scalar dt);
+			void changeMap(const std::string & mapName);
 			
 		private:
-			TGen::Engine::GameStateVars vars;
-			TGen::Engine::DeferredRenderer * sceneRenderer;
+			void checkErrors();
 			
+			TGen::Engine::GameStateVars * vars;
+			TGen::Engine::DeferredRenderer * sceneRenderer;
 			TGen::Engine::World * currentWorld;
 			
 			TGen::Time lastRender;
 			
-			TGen::SceneNode sceneRoot;
-			TGen::Camera * camera;
+			scalar lastErrorCheck;
 		};
 		
 	} // !Engine

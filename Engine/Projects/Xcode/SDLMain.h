@@ -9,3 +9,5 @@
 
 @interface SDLMain : NSObject
 @end
+
+void DisplayErrorWindow(const char * title, const char * description);

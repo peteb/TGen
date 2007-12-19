@@ -26,6 +26,7 @@ TGen::RendererCaps::RendererCaps()
 	, multitexturing(false)
 	, rectTexture(false)
 	, cubeMaps(false)
+	, multithreadable(false)
 {
 
 }
@@ -51,6 +52,7 @@ TGen::RendererCaps::operator std::string() const {
 	ss << "multitexturing: " << multitexturing << "\n";
 	ss << "rectangle textures: " << rectTexture << "\n";
 	ss << "cube maps: " << cubeMaps << "\n";
+	ss << "driver multithreadable: " << multithreadable << "\n";
 	
 	return ss.str();	
 }

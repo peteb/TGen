@@ -15,10 +15,11 @@
 namespace TGen {
 	namespace Engine {
 		class App;
+		class GameState;
 		
 		class GameStateVars : public TGen::Engine::VariableObserver {
 		public:	
-			GameStateVars(TGen::Engine::App & app);
+			GameStateVars(TGen::Engine::App & app, TGen::Engine::GameState * state);
 			
 			void postVariableChange(const TGen::Engine::Variable & variable);
 			void onVariableRemoved(const TGen::Engine::Variable & variable);
@@ -27,9 +28,11 @@ namespace TGen {
 			
 			
 			scalar maxRefreshInterval;
-			bool syncVtrace, conserveCPU;
+			bool syncVtrace, conserveCPU, multithread, checkErrors;
+			std::string mapName;
 			
 		private:
+			TGen::Engine::GameState * state;
 			TGen::Engine::App & app;
 		};
 		

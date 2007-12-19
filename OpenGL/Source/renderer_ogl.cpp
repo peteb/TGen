@@ -79,6 +79,14 @@ void TGen::OpenGL::Renderer::readCaps() {
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, viewportDims);
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, reinterpret_cast<GLint *>(&caps.maxFrameBufferColorAttachments));
 	
+	CGLError err;
+	CGLContextObj ctx = CGLGetCurrentContext();
+	
+	err = CGLDisable(ctx, kCGLCEMPEngine);
+	
+	if (err == kCGLNoError)
+		caps.multithreadable = false;
+	
 	caps.maxViewportSize = TGen::Rectangle(viewportDims[0], viewportDims[1]);
 	
 	if (glGetString(GL_SHADING_LANGUAGE_VERSION))
@@ -954,6 +962,15 @@ void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 }
 
 // TODO: manuell mipmapping
+/*
+	TGen::OpenGL::Fence * fence = dynamic_cast<OpenGL::Renderer *>(renderer)->createFence();
+	
+	void render() {
+		... blabla ...
+		swapBuffers();
+		
+	}
+ */
 
 void TGen::OpenGL::Renderer::setLight(int num, const TGen::Light & light) {
 	GLfloat diffuse[4] = {light.diffuse.r, light.diffuse.g, light.diffuse.b, light.diffuse.a};

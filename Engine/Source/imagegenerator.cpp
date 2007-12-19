@@ -48,13 +48,20 @@ TGen::Image * TGen::Engine::ImageGenerator::generateImage(const TGen::Engine::Ge
 			float t = float(y) / size.height;
 			canvas->drawLine(TGen::Vector2(0.0f, y), TGen::Vector2(size.width - 1.0, y), TGen::Interpolate(start, end, t));
 		}
-		
 	}
 	else if (line.getName() == "fadeCircle") {
 		TGen::Vector2 center = TGen::Vector2::Parse(line.getParameter("center", "0.5 0.5"));
 		TGen::Color start = TGen::Color::Parse(line.getParameter("start"));
 		TGen::Color end = TGen::Color::Parse(line.getParameter("end"));
 		float radius = TGen::lexical_cast<float>(line.getParameter("radius", "0.5"));
+	
+		for (int x = 0; x < size.width; ++x) {
+			for (int y = 0; y < size.height; ++y) {
+				TGen::Vector2 pos(float(x) / size.width, float(y) / size.height);
+				scalar distance = (pos - center).getMagnitude();
+				canvas->setPixel(TGen::Vector2(x, y), TGen::Interpolate(end, start, TGen::IdentityClamp(radius - distance)));
+			}
+		}
 	}
 	else {		
 		delete canvas;

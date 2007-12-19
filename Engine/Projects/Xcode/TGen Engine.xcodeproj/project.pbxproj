@@ -22,6 +22,8 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D0765A580D19C34D006F7073 /* global_error.c in Sources */ = {isa = PBXBuildFile; fileRef = D0765A570D19C34D006F7073 /* global_error.c */; };
+		D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0765B900D19C62B006F7073 /* platform_cocoa.cpp */; };
 		D07AFB600CFA331300DBCD9D /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07AFB5F0CFA331300DBCD9D /* light.cpp */; };
 		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
 		D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */; };
@@ -197,6 +199,10 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
+		D0765A570D19C34D006F7073 /* global_error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = global_error.c; sourceTree = "<group>"; };
+		D0765A590D19C34D006F7073 /* global_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = global_error.h; path = ../../Include/global_error.h; sourceTree = SOURCE_ROOT; };
+		D0765B900D19C62B006F7073 /* platform_cocoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_cocoa.cpp; sourceTree = "<group>"; };
+		D0765B920D19C63F006F7073 /* platform_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_cocoa.h; path = ../../Include/platform_cocoa.h; sourceTree = SOURCE_ROOT; };
 		D07AFB5E0CFA330A00DBCD9D /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../../Include/light.h; sourceTree = SOURCE_ROOT; };
 		D07AFB5F0CFA331300DBCD9D /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		D08005EE0CEF75E100AAED52 /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
@@ -398,9 +404,11 @@
 		D0064FBF0C86E88800A42B3A /* init */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF60F70C8222670085C17B /* SDLMain.h */,
 				D0EF60F80C8222670085C17B /* SDLMain.m */,
+				D0EF60F70C8222670085C17B /* SDLMain.h */,
 				D0EF60E30C8222350085C17B /* main.cpp */,
+				D0765A570D19C34D006F7073 /* global_error.c */,
+				D0765A590D19C34D006F7073 /* global_error.h */,
 			);
 			name = init;
 			sourceTree = "<group>";
@@ -571,6 +579,8 @@
 		D0F835D70CBA5C8B00FF4467 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				D0765B900D19C62B006F7073 /* platform_cocoa.cpp */,
+				D0765B920D19C63F006F7073 /* platform_cocoa.h */,
 				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
 				D0EF63E90C82EA460085C17B /* sdl.h */,
 				D0F83ACB0CBA729D00FF4467 /* environment.h */,
@@ -764,8 +774,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0EF60E40C8222350085C17B /* main.cpp in Sources */,
 				D0EF60F90C8222670085C17B /* SDLMain.m in Sources */,
+				D0EF60E40C8222350085C17B /* main.cpp in Sources */,
 				D0EF61510C82D8E20085C17B /* app.cpp in Sources */,
 				D0EF62220C82DCC40085C17B /* tgen_engine.cpp in Sources */,
 				D0EF62BB0C82DFFE0085C17B /* variable.cpp in Sources */,
@@ -803,6 +813,8 @@
 				D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */,
 				D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */,
 				D08C7C250D1095CA008622BC /* generateline.cpp in Sources */,
+				D0765A580D19C34D006F7073 /* global_error.c in Sources */,
+				D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

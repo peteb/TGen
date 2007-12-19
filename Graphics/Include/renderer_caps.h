@@ -25,7 +25,7 @@ namespace TGen {
 			maxVertexBufferVertices, maxTextureSize, maxFrameBufferColorAttachments;
 		int shadingLanguageVersionNumber;
 		std::string shadingLanguageVersion, rendererName, driverName, driverVendor;
-		bool vertexShader, fragmentShader, geometryShader, framebuffer, multitexturing, rectTexture, cubeMaps;
+		bool vertexShader, fragmentShader, geometryShader, framebuffer, multitexturing, rectTexture, cubeMaps, multithreadable;
 		
 		TGen::Rectangle maxViewportSize;
 		
