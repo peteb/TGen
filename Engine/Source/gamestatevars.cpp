@@ -26,7 +26,7 @@ TGen::Engine::GameStateVars::GameStateVars(TGen::Engine::App & app, TGen::Engine
 	app.variables.addVariable(TGen::Engine::Variable("r_conserveCPU", "true", "true", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_multithread", "false", "false", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_checkErrors", "true", "true", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("map", "testmap", "", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("map", "testmap", "testmap", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 
 	app.variables["map"].addObserver(this);
 	app.variables["r_checkErrors"].addObserver(this);

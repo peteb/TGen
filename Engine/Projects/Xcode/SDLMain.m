@@ -235,17 +235,6 @@ static void CustomApplicationMain (int argc, char **argv)
 
 #endif
 
-//extern char lastErrorMessage[];
-#include "global_error.h"
-
-static void DisplayError() {
-	if (strlen(getLastErrorMessage()) > 0) {
-		NSAlert * alert = [[NSAlert alloc] init];
-		[alert setMessageText:@"hey"];
-		[alert runModal];	
-	}
-}
-
 void DisplayErrorWindow(const char * title, const char * description) {
 	NSAlert * alert = [[NSAlert alloc] init];
 	NSString * errorTitle = [[NSString alloc] initWithCString:title];
@@ -260,7 +249,7 @@ void DisplayErrorWindow(const char * title, const char * description) {
 	if ([alert runModal] == NSAlertSecondButtonReturn) {
 		NSAlert * alert2 = [[NSAlert alloc] init];
 		[alert2 setMessageText:@"Not fixed yet!"];
-		[alert2 setInformativeText:@"I would appreciate if you sent your log manually to ptr.bckmn@gmail.com and a description of what went wrong."];
+		[alert2 setInformativeText:@"I would appreciate if you sent your log manually to ptr.bckmn@gmail.com, a description of what went wrong and your machine's specifications."];
 		[alert2 setAlertStyle:NSWarningAlertStyle];
 		[alert2 runModal];
 		[alert2 release];
@@ -333,7 +322,6 @@ void DisplayErrorWindow(const char * title, const char * description) {
     /* Hand off to main application code */
     gCalledAppMainline = TRUE;
     status = SDL_main (gArgc, gArgv);
-	 DisplayError();
     /* We're done, thank you for playing */
     exit(status);
 }

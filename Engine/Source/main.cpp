@@ -28,14 +28,14 @@
 #include "file.h"
 #include "cmdset.h"
 #include "cmddumpvars.h"
-#include "global_error.h"
+
+#ifdef _PLATFORM_OSX
+#define _PLATFORM_FILE "platform_cocoa.h"
+#endif
+#include _PLATFORM_FILE
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
 void preExit();
-
-#ifdef _PLATFORM_OSX
-#include "platform_cocoa.h"
-#endif
 
 int main(int argc, char ** argv) {
 	try {

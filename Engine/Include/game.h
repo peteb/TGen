@@ -22,6 +22,9 @@ namespace TGen {
 		class World;
 		
 		class GameState : public TGen::Engine::State {
+			bool constructed;
+			std::string throttledNewMap;
+
 		public:	
 			GameState(TGen::Engine::App & app);
 			~GameState();
@@ -33,13 +36,13 @@ namespace TGen {
 		private:
 			void checkErrors();
 			
-			TGen::Engine::GameStateVars * vars;
+			TGen::Engine::GameStateVars vars;
 			TGen::Engine::DeferredRenderer * sceneRenderer;
 			TGen::Engine::World * currentWorld;
 			
 			TGen::Time lastRender;
+			scalar sinceErrorCheck;
 			
-			scalar lastErrorCheck;
 		};
 		
 	} // !Engine

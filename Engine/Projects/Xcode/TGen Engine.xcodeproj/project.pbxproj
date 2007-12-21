@@ -22,7 +22,6 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
-		D0765A580D19C34D006F7073 /* global_error.c in Sources */ = {isa = PBXBuildFile; fileRef = D0765A570D19C34D006F7073 /* global_error.c */; };
 		D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0765B900D19C62B006F7073 /* platform_cocoa.cpp */; };
 		D07AFB600CFA331300DBCD9D /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07AFB5F0CFA331300DBCD9D /* light.cpp */; };
 		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
@@ -199,8 +198,6 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
-		D0765A570D19C34D006F7073 /* global_error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = global_error.c; sourceTree = "<group>"; };
-		D0765A590D19C34D006F7073 /* global_error.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = global_error.h; path = ../../Include/global_error.h; sourceTree = SOURCE_ROOT; };
 		D0765B900D19C62B006F7073 /* platform_cocoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_cocoa.cpp; sourceTree = "<group>"; };
 		D0765B920D19C63F006F7073 /* platform_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_cocoa.h; path = ../../Include/platform_cocoa.h; sourceTree = SOURCE_ROOT; };
 		D07AFB5E0CFA330A00DBCD9D /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../../Include/light.h; sourceTree = SOURCE_ROOT; };
@@ -404,11 +401,7 @@
 		D0064FBF0C86E88800A42B3A /* init */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF60F80C8222670085C17B /* SDLMain.m */,
-				D0EF60F70C8222670085C17B /* SDLMain.h */,
 				D0EF60E30C8222350085C17B /* main.cpp */,
-				D0765A570D19C34D006F7073 /* global_error.c */,
-				D0765A590D19C34D006F7073 /* global_error.h */,
 			);
 			name = init;
 			sourceTree = "<group>";
@@ -579,6 +572,8 @@
 		D0F835D70CBA5C8B00FF4467 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				D0EF60F80C8222670085C17B /* SDLMain.m */,
+				D0EF60F70C8222670085C17B /* SDLMain.h */,
 				D0765B900D19C62B006F7073 /* platform_cocoa.cpp */,
 				D0765B920D19C63F006F7073 /* platform_cocoa.h */,
 				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
@@ -595,10 +590,10 @@
 				D00343B50CEE14FE0066E8A8 /* world.h */,
 				D0F835D10CBA5C5100FF4467 /* game.cpp */,
 				D0F835D30CBA5C5B00FF4467 /* game.h */,
-				D0F8393C0CBA67A100FF4467 /* view.cpp */,
-				D0F8393E0CBA67AD00FF4467 /* view.h */,
 				D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */,
 				D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */,
+				D0F8393C0CBA67A100FF4467 /* view.cpp */,
+				D0F8393E0CBA67AD00FF4467 /* view.h */,
 				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
 				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
@@ -813,7 +808,6 @@
 				D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */,
 				D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */,
 				D08C7C250D1095CA008622BC /* generateline.cpp in Sources */,
-				D0765A580D19C34D006F7073 /* global_error.c in Sources */,
 				D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
