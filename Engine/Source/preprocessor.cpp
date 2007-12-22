@@ -1,5 +1,5 @@
 /*
- *  shaderpreprocess.cpp
+ *  textpreprocessor.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 11/25/07.
@@ -7,13 +7,19 @@
  *
  */
 
-#include "shaderpreprocess.h"
+#include "preprocessor.h"
 #include <iostream>
 #include <vector>
 #include <tgen_core.h>
 
-std::string TGen::Engine::ShaderPreProcessor::process(const std::string & contents, const std::string & parameters) {
+TGen::Engine::TextPreprocessor::TextPreprocessor()
+	: defineNoValueParam(true)
+{
+}
+
+std::string TGen::Engine::TextPreprocessor::process(const std::string & contents, const std::string & parameters) {
 	//std::cout << "IN: " << std::endl << std::endl << contents << std::endl << std::endl;
+	// TODO: #exec 1 + 3#        #exec {script}#
 	
 	// parse parameters
 	ParameterList params;
@@ -26,24 +32,34 @@ std::string TGen::Engine::ShaderPreProcessor::process(const std::string & conten
 	for (int i = 0; i < params.size(); ++i) {
 		std::string out;
 		
-		int pos = 0;
-		while (pos < contents.size() && pos != std::string::npos) {
-			int nextPos = ret.find(params[i].first, pos);
-			if (nextPos == std::string::npos) {
-				out += ret.substr(pos);
-				break;
+		if (params[i].first.find("#") != params[i].first.rfind("#")) {
+			int pos = 0;
+			while (pos < contents.size() && pos != std::string::npos) {
+				int nextPos = ret.find(params[i].first, pos);
+				if (nextPos == std::string::npos) {
+					out += ret.substr(pos);
+					break;
+				}
+			
+				out += ret.substr(pos, nextPos - pos);
+				out += params[i].second;
+				
+				pos = nextPos + params[i].first.size();
 			}
-			
-			out += ret.substr(pos, nextPos - pos);
-			out += params[i].second;
-			
-			pos = nextPos + params[i].first.size();
+		}
+		else {
+			if (defineNoValueParam) {
+				std::string firstLine = "#define " + params[i].first.substr(1) + " " + params[i].second + "\n";
+				
+				out += firstLine;
+				out += ret;
+			}
 		}
 		
 		ret = out;
 	}
 	
-	//std::cout << "DEFF: " << ret << std::endl;
+	//std::cout << "FIXED: >" << ret << "<" << std::endl;
 	
 	// fix loops
 	int pos = 0;
@@ -80,7 +96,7 @@ std::string TGen::Engine::ShaderPreProcessor::process(const std::string & conten
 			std::string ppName = loopParamVar + "=" + TGen::lexical_cast<std::string>(i);
 			std::string fixedContents;
 			
-			TGen::Engine::ShaderPreProcessor processor;
+			TGen::Engine::TextPreprocessor processor;
 			fixedContents = processor.process(loopContents, ppName);
 			
 			out += fixedContents;
@@ -96,22 +112,31 @@ std::string TGen::Engine::ShaderPreProcessor::process(const std::string & conten
 	return ret;
 }
 
-void TGen::Engine::ShaderPreProcessor::parseParameters(const std::string & parameters, ParameterList & out) {
+void TGen::Engine::TextPreprocessor::parseParameters(const std::string & parameters, ParameterList & out) {
 	int pos = 0;
 	
 	while (pos != std::string::npos && pos < parameters.size()) {
 		int nextPos = parameters.find(",", pos);
 		std::string thisParam = parameters.substr(pos, nextPos - pos);
 		
+		std::string paramName, paramValue;
 		int eqPos = thisParam.find("=");
 		
-		if (eqPos == std::string::npos)
-			throw TGen::RuntimeException("ShaderPreProcessor::parseParameters", "parameter invalid: " + thisParam);
-		
-		
-		std::string paramName, paramValue;
-		paramName = "#" + thisParam.substr(0, eqPos) + "#";
-		paramValue = thisParam.substr(eqPos + 1, thisParam.size() - eqPos - 1);
+		if (eqPos == std::string::npos) {	// common define
+			if (defineNoValueParam) {
+				paramName = "#" + thisParam;
+				paramValue = "1";				
+			}
+			else {
+				throw TGen::RuntimeException("ShaderPreProcessor::parseParameters", "parameter invalid: " + thisParam);
+			}
+		}
+		else {
+			paramName = "#" + thisParam.substr(0, eqPos) + "#";
+			paramValue = thisParam.substr(eqPos + 1, thisParam.size() - eqPos - 1);
+		}
+
+		//std::cout << "PREPROCESSOR: ADD DEFINITION TOKEN: \"" << paramName << "\" value: \"" << paramValue << "\"" << std::endl;
 		
 		out.push_back(ParameterList::value_type(paramName, paramValue));
 		

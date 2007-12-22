@@ -14,7 +14,7 @@
 #include "meshgenerator.h"
 #include "imagegenerator.h"
 #include "devilimage.h"
-#include "shaderpreprocess.h"
+#include "preprocessor.h"
 #include "generateline.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer) 
@@ -24,9 +24,13 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 {
 	logs.info["res+"] << "initializing resource manager..." << TGen::endl;
 	
-	loadMaterials("/materials/stuff.material");
-	loadMaterials("/materials/deferred.material");
-	loadMaterials("/materials/test.material");
+	std::vector<std::string> materialsToLoad;
+	materialsToLoad.reserve(50);
+	filesystem.enumerateFiles("/materials/", materialsToLoad, true);
+	
+	for (int i = 0; i < materialsToLoad.size(); ++i) {
+		loadMaterials(materialsToLoad[i]);
+	}
 }
 
 TGen::Engine::ResourceManager::~ResourceManager() {
@@ -95,7 +99,7 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 		
 		logs.info["res"] << "preprocessing " << fixedName << " with " << genString << TGen::endl;
 		
-		TGen::Engine::ShaderPreProcessor processor;
+		TGen::Engine::TextPreprocessor processor;
 		contents = processor.process(contents, genString);
 	}
 	
@@ -231,7 +235,7 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	contents = file->readAll();
 	delete file;
 	
-	TGen::Engine::ShaderPreProcessor processor;
+	TGen::Engine::TextPreprocessor processor;
 	std::string fixedContents = processor.process(contents, "");
 	
 	std::list<TGen::Material *> materialsLoaded;

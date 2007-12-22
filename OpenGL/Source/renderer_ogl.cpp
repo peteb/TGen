@@ -581,10 +581,16 @@ TGen::Shader * TGen::OpenGL::Renderer::createShader(const char * code, int type)
 		glDeleteShader(newShader);
 		newShader = 0;
 		
+		int newlinePos = infoLogString.rfind("\n");
+		if (newlinePos != std::string::npos) {
+			if (infoLogString.size() - newlinePos < 3)
+				infoLogString = infoLogString.substr(0, newlinePos);
+		}
+		
 		if (type == 0)
-			throw TGen::RuntimeException("OpenGL::Renderer::CreateVertexShader", "failed to compile shader: \"" + infoLogString + "\"");			
+			throw TGen::RuntimeException("OpenGL::Renderer::CreateVertexShader", "failed to compile shader: \n" + infoLogString);			
 		else
-			throw TGen::RuntimeException("OpenGL::Renderer::CreateFragmentShader", "failed to compile shader: \"" + infoLogString + "\"");
+			throw TGen::RuntimeException("OpenGL::Renderer::CreateFragmentShader", "failed to compile shader: \n" + infoLogString);
 	}
 	
 	if (type == 0)

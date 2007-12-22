@@ -35,6 +35,14 @@ material deferred/lightAmbient default 9 {
 	}
 }
 
+material defineTest default 9 {
+	lod 9 {
+		pass gen:testshader:USE_CUSTOM_COLOR,COLOR_R=0.0,COLOR_G=1.0,COLOR_B=0.0 {
+					
+		}
+	}
+}
+
 #loop NUM_LIGHTS 1 8
 material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 	lod 9 {
@@ -59,6 +67,10 @@ material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 #loop NUM_LIGHTS 1 8 
 material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 	lod 9 {
+	//	shaderPass deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# $normalmap $miscmap $depthmap $colormap {
+		// ta bort gen...
+		//}
+		
 		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
 			
 			//blendFunc add
@@ -110,7 +122,7 @@ material post/luminance default 9 {
 
 material post/gaussianHoriz default 9 {
 	lod 9 {
-		pass post/gaussianHoriz {
+		pass gen:post/gaussianHoriz:HORIZONTAL {
 			disableDepth
 			bind texelSize $texelwidth
 
@@ -124,7 +136,7 @@ material post/gaussianHoriz default 9 {
 
 material post/gaussianVert default 9 {
 	lod 9 {
-		pass post/gaussianVert {
+		pass gen:post/gaussianHoriz:VERTICAL {
 			disableDepth
 			bind texelSize $texelheight
 

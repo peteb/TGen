@@ -142,4 +142,20 @@ void TGen::Engine::Filesystem::outputPath(const std::string & path) {
 	PHYSFS_freeList(rc);
 }
 
+void TGen::Engine::Filesystem::enumerateFiles(const std::string & path, std::vector<std::string> & output, bool recurse) {
+	char **rc = PHYSFS_enumerateFiles(path.c_str());
+	char **i;
+	
+	for (i = rc; *i != NULL; i++) {
+		if (PHYSFS_isDirectory((path + *i).c_str())) {
+			if (recurse)
+				enumerateFiles(path + *i, output, recurse);
+		}
+		else {
+			output.push_back(path + *i);
+		}		
+	}
+	
+	PHYSFS_freeList(rc);	
+}
 

@@ -54,7 +54,7 @@ void TGen::Engine::GenerateLine::parse(const std::string & text) {
 	}
 	
 	if (!lastValue.empty())
-		throw TGen::RuntimeException("TGen::Engine::GenerateLine::parse", "values and types don't add up!");
+		throw TGen::RuntimeException("TGen::Engine::GenerateLine::parse", "values and types don't add up, please make sure that every value is enclosed within single-quotes, '!");
 }
 
 TGen::Engine::GenerateLine::Tokenizer::Tokenizer() {
