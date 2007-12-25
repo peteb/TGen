@@ -9,6 +9,12 @@
 
 #include "geometry.h"
 
+TGen::Geometry::~Geometry() {
+	for (int i = 0; i < leaves.size(); ++i)
+		delete leaves[i];
+	
+}
+
 const TGen::Geometry::SubfaceList * TGen::Geometry::getLeaves() const {
 	if (!leaves.empty())
 		return &leaves;
@@ -19,3 +25,4 @@ const TGen::Geometry::SubfaceList * TGen::Geometry::getLeaves() const {
 void TGen::Geometry::addLeaf(TGen::Subface * leaf) {
 	leaves.push_back(leaf);
 }
+

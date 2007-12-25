@@ -21,6 +21,7 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	: logs(logs)
 	, filesystem(filesystem)
 	, renderer(renderer)
+	, vertexCache(renderer, logs)
 {
 	logs.info["res+"] << "initializing resource manager..." << TGen::endl;
 	
@@ -34,6 +35,8 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 }
 
 TGen::Engine::ResourceManager::~ResourceManager() {
+	logs.info["res-"] << "shutting down..." << TGen::endl;
+
 	logs.info["res-"] << "shaders: " << TGen::endl;
 	for (ShaderMap::iterator iter = shaders.begin(); iter != shaders.end(); ++iter)
 		logs.info["res-"] << iter->first << TGen::endl;
@@ -49,8 +52,10 @@ TGen::Engine::ResourceManager::~ResourceManager() {
 	}
 	
 	logs.info["res-"] << "removing meshes..." << TGen::endl;
-	for (MeshMap::iterator iter = meshes.begin(); iter != meshes.end(); ++iter)
+	for (MeshMap::iterator iter = meshes.begin(); iter != meshes.end(); ++iter) {
+		logs.info["res-"] << "removing mesh " << iter->first << TGen::endl;
 		delete iter->second;
+	}
 	
 	logs.info["res-"] << "removing textures..." << TGen::endl;
 	for (TextureMap::iterator iter = textures.begin(); iter != textures.end(); ++iter)
@@ -64,7 +69,6 @@ TGen::Engine::ResourceManager::~ResourceManager() {
 	for (MaterialMap::iterator iter = materials.begin(); iter != materials.end(); ++iter)
 		delete iter->second;
 	
-	logs.info["res-"] << "shut down" << TGen::endl;
 }
 
 TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std::string & name) {
@@ -194,7 +198,7 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		
 		//md3File->printInfo(std::cout);
 		
-		newMesh = md3File->createMesh(renderer, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
+		newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
 		delete md3File;		
 	}
 	

@@ -55,9 +55,9 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 }
 
 TGen::Engine::SDL::~SDL() {
-	delete renderer;
+	logs.info["sdl-"] << "shutting down..." << TGen::endl;
 
-	logs.info["sdl-"] << "shut down" << TGen::endl;
+	delete renderer;
 }
 
 int TGen::Engine::SDL::run(TGen::Engine::App * app) {

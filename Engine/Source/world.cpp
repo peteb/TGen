@@ -94,11 +94,12 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 // TODO: depthcheck på light volume
 
 TGen::Engine::World::~World() {
+	app.logs.info["world-"] << "shutting down..." << TGen::endl;
+
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
 		delete iter->second;
 	}
 	
-	app.logs.info["world-"] << "shut down" << TGen::endl;
 }
 
 TGen::Camera * TGen::Engine::World::getCamera(const std::string & name) {

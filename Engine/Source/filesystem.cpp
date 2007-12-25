@@ -87,7 +87,7 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 }
 
 TGen::Engine::Filesystem::~Filesystem() {
-	logs.info["vfs-"] << "shut down" << TGen::endl;
+	logs.info["vfs-"] << "shutting down..." << TGen::endl;
 	PHYSFS_deinit();
 }
 

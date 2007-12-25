@@ -22,7 +22,7 @@ TGen::Engine::SceneSubsystem::SceneSubsystem(TGen::Engine::World & world)
 }
 
 TGen::Engine::SceneSubsystem::~SceneSubsystem() {
-	
+
 }
 
 TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {

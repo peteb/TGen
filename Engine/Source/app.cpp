@@ -36,8 +36,8 @@ TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine
 
 
 TGen::Engine::App::~App() {
+	logs.info["app-"] << "shutting down..." << TGen::endl;
 	delete currentState;
-	logs.info["app-"] << "shut down" << TGen::endl;
 }
 
 bool TGen::Engine::App::isRunning() const {

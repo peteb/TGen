@@ -31,7 +31,7 @@ namespace TGen {
 	class Geometry : public TGen::Renderable {
 	public:	
 		Geometry() {}
-		virtual ~Geometry() {}
+		virtual ~Geometry();
 		
 		typedef std::vector<TGen::Subface *> SubfaceList;
 		

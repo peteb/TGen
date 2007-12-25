@@ -84,6 +84,8 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app)
 }
 
 TGen::Engine::DeferredRenderer::~DeferredRenderer() {
+	app.logs.info["dfr-"] << "shutting down..." << TGen::endl;
+
 	delete [] lightMaterials;
 	
 	delete mapTargets;
@@ -99,7 +101,6 @@ TGen::Engine::DeferredRenderer::~DeferredRenderer() {
 	delete postMap2;
 	delete postMap3;
 	
-	app.logs.info["dfr-"] << "shut down" << TGen::endl;
 }
 
 void TGen::Engine::DeferredRenderer::loadLightMaterial(const std::string & name, int materialId) {

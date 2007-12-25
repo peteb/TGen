@@ -14,6 +14,8 @@
 
 namespace TGen {
 	namespace Engine {
+		class StandardLogs;
+		
 		class VertexCacheEntry : public TGen::VertexData {
 		protected:
 			VertexCacheEntry(TGen::VertexDataSource & creator, uint size, ushort usage);
@@ -29,11 +31,18 @@ namespace TGen {
 		
 		class VertexCache : public TGen::VertexDataSource {
 		public:
+			VertexCache(TGen::VertexDataSource & dataSource, TGen::Engine::StandardLogs & logs);
+			~VertexCache();
+			
 			VertexData * createVertexData(const VertexStructure & vertstruct, uint size, ushort usage);
-
+			void lockDynamicPools();
+			void unlockDynamicPools();
+			
 		private:
 			void removeVertexData(VertexData * data);
 
+			TGen::VertexDataSource & dataSource;
+			TGen::Engine::StandardLogs & logs;
 		};
 		
 	} // !Engine

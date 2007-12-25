@@ -149,6 +149,9 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 			submesh->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
 			submesh->indexCount = numIndices;
 			
+			if (!submesh->vb || !submesh->ib)
+				throw TGen::RuntimeException("MD3::File::createMesh", "failed to create vertex buffers");
+			
 			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(submesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));
 			
 			for (int i = 0; i < surface->num_verts; ++i) {

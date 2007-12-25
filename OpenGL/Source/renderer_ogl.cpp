@@ -363,15 +363,13 @@ TGen::VertexData * TGen::OpenGL::Renderer::createVertexData(const TGen::VertexSt
 }
 
 void TGen::OpenGL::Renderer::removeVertexData(TGen::VertexData * data) {
-	TGen::OpenGL::VertexData * fixedData = dynamic_cast<TGen::OpenGL::VertexData *>(data);
-	if (fixedData) {
-		GLuint vboId = fixedData->getInternalID();
-		
-		if (vboId > 0) {
-			DEBUG_PRINT("[opengl]: deleting vertex data " << vboId);
-			glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
-			glDeleteBuffersARB(1, &vboId);
-		}		
+	TGen::OpenGL::VertexData * fixedData = static_cast<TGen::OpenGL::VertexData *>(data);
+	GLuint vboId = fixedData->getInternalID();
+
+	if (vboId > 0) {
+		DEBUG_PRINT("[opengl]: deleting vertex data " << vboId);
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+		glDeleteBuffersARB(1, &vboId);
 	}
 }
 

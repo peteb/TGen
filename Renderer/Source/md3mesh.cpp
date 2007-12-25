@@ -16,7 +16,7 @@ TGen::MD3::Mesh::Mesh(const std::string & name)
 }
 
 TGen::MD3::Mesh::~Mesh() {
-	
+
 }
 
 void TGen::MD3::Mesh::preRender(TGen::Renderer & renderer) const {
