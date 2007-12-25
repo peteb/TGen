@@ -13,6 +13,7 @@
 #include "vertexstructure.h"
 #include "vertexbuffer_ogl.h"
 #include "indexbuffer_ogl.h"
+#include "vertexdata_ogl.h"
 #include "texture_ogl.h"
 #include "error.h"
 #include "types_converter_ogl.h"
@@ -31,6 +32,10 @@ TGen::OpenGL::Renderer::Renderer()
 	: colorFromVertex(true)
 	, lastVb(NULL)
 	, lastIb(NULL)
+	, lastVb2(NULL)
+	, lastIb2(NULL)
+	, lastVb1(-1)
+	, lastIb1(-1)
 	, hasCoordElements(NULL)
 	, hasNormalElements(NULL)
 	, hasColorElements(NULL)
@@ -312,6 +317,64 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::createIndexBuffer(const TGen::Vertex
 	return new TGen::OpenGL::IndexBuffer(*this, vertstruct, size, fixedUsage, newVBO);	
 }
 
+TGen::VertexData * TGen::OpenGL::Renderer::createVertexData(const TGen::VertexStructure & vertstruct, uint size, ushort usage) {
+	GLuint newVBO = 0;
+	glGenBuffersARB(1, &newVBO);
+	glBindBufferARB(GL_ARRAY_BUFFER_ARB, newVBO);
+	
+	DEBUG_PRINT("[opengl]: created new vbo for vertex data: " << newVBO);
+	
+	GLenum fixedUsage = 0;
+	
+	if (usage & TGen::UsageStream) {
+		if (usage & TGen::UsageDraw)
+			fixedUsage = GL_STREAM_DRAW_ARB;
+		else if (usage & TGen::UsageCopy)
+			fixedUsage = GL_STREAM_COPY_ARB;
+		else if (usage & TGen::UsageRead)
+			fixedUsage = GL_STREAM_READ_ARB;
+		else
+			fixedUsage = GL_STREAM_DRAW_ARB;
+	}
+	else if (usage & TGen::UsageDynamic) {
+		if (usage & TGen::UsageDraw)
+			fixedUsage = GL_DYNAMIC_DRAW_ARB;
+		else if (usage & TGen::UsageCopy)
+			fixedUsage = GL_DYNAMIC_COPY_ARB;
+		else if (usage & TGen::UsageRead)
+			fixedUsage = GL_DYNAMIC_READ_ARB;
+		else
+			fixedUsage = GL_DYNAMIC_DRAW_ARB;
+	}
+	else if (usage & TGen::UsageStatic) {
+		if (usage & TGen::UsageDraw)
+			fixedUsage = GL_STATIC_DRAW_ARB;
+		else if (usage & TGen::UsageCopy)
+			fixedUsage = GL_STATIC_COPY_ARB;
+		else if (usage & TGen::UsageRead)
+			fixedUsage = GL_STATIC_READ_ARB;
+		else
+			fixedUsage = GL_STATIC_DRAW_ARB;
+	}
+	
+	glBufferDataARB(GL_ARRAY_BUFFER_ARB, size, NULL, fixedUsage);
+	
+	return new TGen::OpenGL::VertexData(*this, vertstruct, size, fixedUsage, newVBO);	
+}
+
+void TGen::OpenGL::Renderer::removeVertexData(TGen::VertexData * data) {
+	TGen::OpenGL::VertexData * fixedData = dynamic_cast<TGen::OpenGL::VertexData *>(data);
+	if (fixedData) {
+		GLuint vboId = fixedData->getInternalID();
+		
+		if (vboId > 0) {
+			DEBUG_PRINT("[opengl]: deleting vertex data " << vboId);
+			glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);
+			glDeleteBuffersARB(1, &vboId);
+		}		
+	}
+}
+
 TGen::Texture * TGen::OpenGL::Renderer::createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
 	return createTexture(NULL, size, components, components, componentFormat, flags);
 }
@@ -436,23 +499,70 @@ GLenum TGen::OpenGL::Renderer::getInternalFormat(TGen::ImageFormat components, u
 	return TGen::OpenGL::TgenImageFormatToOpenGL(components);
 }
 
+void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexData * buffer, TGen::VertexStructure * override) {
+	if (!buffer) {
+		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);				
+	}
+	else {
+		TGen::OpenGL::VertexData * vd = static_cast<TGen::OpenGL::VertexData *>(buffer);
+		GLuint vboId = vd->getInternalID();		
+
+		if (vboId != lastVb1) {
+			glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
+		
+			if (override)
+				applyVertexStructure(*override);			
+			else
+				applyVertexStructure(buffer->getVertexStructure());		
+			
+			lastVb1 = vboId;
+			lastVb = NULL;
+			lastVb2 = buffer;
+		}
+	}
+}
+
+void TGen::OpenGL::Renderer::setIndexBuffer(TGen::VertexData * buffer) {
+	if (!buffer) {
+		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
+	}
+	else  {
+		TGen::OpenGL::VertexData * vd = static_cast<TGen::OpenGL::VertexData *>(buffer);
+		GLuint vboId = vd->getInternalID();
+		
+		if (vboId != lastIb1) {
+			glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, vd->vboId);
+			indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
+			lastIb1 = vboId;
+			lastIb = NULL;
+			lastIb2 = buffer;
+		}
+	}	
+}
+
 void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override) {
 	if (!buffer) {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);		
 	}
-	else if (buffer != lastVb) {
+	else {
 		TGen::OpenGL::VertexBuffer * vb = static_cast<TGen::OpenGL::VertexBuffer *>(buffer);
-		if (!vb) // NOTE: this is never thrown, static_cast!
-			throw TGen::RuntimeException("OpenGL::Renderer::setVertexBuffer", "vertex buffer is not a valid OpenGL buffer");
+		//if (!vb) // NOTE: this is never thrown, static_cast!
+		//	throw TGen::RuntimeException("OpenGL::Renderer::setVertexBuffer", "vertex buffer is not a valid OpenGL buffer");
 		
-		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vb->vboId);
+		GLuint vboId = vb->getInternalID();
 		
-		if (override)
-			applyVertexStructure(*override);			
-		else
-			applyVertexStructure(buffer->getVertexStructure());
+		if (vboId != lastVb1) {
+			glBindBufferARB(GL_ARRAY_BUFFER_ARB, vb->vboId);
 		
-		lastVb = buffer;
+			if (override)
+				applyVertexStructure(*override);			
+			else
+				applyVertexStructure(buffer->getVertexStructure());
+		
+			lastVb1 = vboId;
+			lastVb = buffer;
+			lastVb2 = NULL;
+		}
 	}
 }
 
@@ -462,12 +572,17 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 	}
 	else if (buffer != lastIb) {
 		TGen::OpenGL::IndexBuffer * ib = static_cast<TGen::OpenGL::IndexBuffer *>(buffer);
-		if (!ib) // NOTE: this is never thrown, static_cast!
-			throw TGen::RuntimeException("OpenGL::Renderer::setIndexBuffer", "index buffer is not a valid OpenGL buffer");
+		//if (!ib) // NOTE: this is never thrown, static_cast!
+			//throw TGen::RuntimeException("OpenGL::Renderer::setIndexBuffer", "index buffer is not a valid OpenGL buffer");
+		GLuint vboId = ib->getInternalID();
 		
-		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, ib->vboId);
-		indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
-		lastIb = buffer;
+		if (vboId != lastIb1) {
+			glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, ib->vboId);
+			indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
+			lastIb1 = vboId;
+			lastIb = buffer;
+			lastIb2 = NULL;
+		}
 	}
 }
 
@@ -509,7 +624,11 @@ void TGen::OpenGL::Renderer::drawPrimitive(TGen::PrimitiveType type, uint startV
 void TGen::OpenGL::Renderer::drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) {
 	GLenum fixedPrimitive = TGen::OpenGL::TgenPrimitiveToOpenGL(type);
 	
-	glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb->getVertexStructure().getElementDataType(0))));	
+	if (!lastIb2)
+		glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb->getVertexStructure().getElementDataType(0))));	
+	else
+		glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb2->getVertexStructure().getElementDataType(0))));	
+	
 }
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::createFrameBuffer() {

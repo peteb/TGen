@@ -16,6 +16,7 @@
 
 #include "renderer_ogl.h"
 #include "vertexbuffer_ogl.h"
+#include "vertexdata_ogl.h"
 #include "indexbuffer_ogl.h"
 #include "framebuffer_ogl.h"
 #include "shader_ogl.h"

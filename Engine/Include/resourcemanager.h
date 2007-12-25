@@ -14,6 +14,7 @@
 #include <tgen_renderer.h>
 #include <string>
 #include "imageloader.h"
+#include "vertexcache.h"
 
 namespace TGen {
 	namespace Engine {
@@ -45,6 +46,7 @@ namespace TGen {
 			MeshMap meshes;
 			MaterialMap materials;
 			
+			TGen::Engine::VertexCache vertexCache;
 			TGen::Engine::ImageLoader imageLoader;
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;

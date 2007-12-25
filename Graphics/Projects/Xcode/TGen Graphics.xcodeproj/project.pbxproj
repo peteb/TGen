@@ -48,6 +48,8 @@
 		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04C82920CCA48F900794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C80F00CCA455F00794CEA /* libtgen_math.a */; };
 		D04C82A30CCA491D00794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C80FD0CCA456F00794CEA /* libtgen_core.a */; };
+		D0797FFA0D215DEF00B16739 /* vertexsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D0797FF90D215DEF00B16739 /* vertexsource.h */; };
+		D07980040D21666C00B16739 /* vertexsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07980030D21666C00B16739 /* vertexsource.cpp */; };
 		D07A2B7C0C666F96009CABCA /* techniquelist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B7B0C666F96009CABCA /* techniquelist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07A2B7E0C666FF4009CABCA /* techniquelist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */; };
 		D07A2CEB0C667EBA009CABCA /* textureunit.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2CEA0C667EBA009CABCA /* textureunit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -191,6 +193,8 @@
 		D01F77BC0C4D0B27007618C6 /* q3materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3materialparser.h; path = Include/q3materialparser.h; sourceTree = "<group>"; };
 		D04270460C40FFBC004CB60C /* generator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = generator.cpp; path = Source/generator.cpp; sourceTree = "<group>"; };
 		D04270480C40FFC9004CB60C /* generator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generator.h; path = Include/generator.h; sourceTree = "<group>"; };
+		D0797FF90D215DEF00B16739 /* vertexsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexsource.h; path = Include/vertexsource.h; sourceTree = "<group>"; };
+		D07980030D21666C00B16739 /* vertexsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexsource.cpp; path = Source/vertexsource.cpp; sourceTree = "<group>"; };
 		D07A2B7B0C666F96009CABCA /* techniquelist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = techniquelist.h; path = Include/techniquelist.h; sourceTree = "<group>"; };
 		D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = techniquelist.cpp; path = Source/techniquelist.cpp; sourceTree = "<group>"; };
 		D07A2CEA0C667EBA009CABCA /* textureunit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = textureunit.h; path = Include/textureunit.h; sourceTree = "<group>"; };
@@ -391,6 +395,8 @@
 				D07A2CEA0C667EBA009CABCA /* textureunit.h */,
 				D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */,
 				D0BDFCC50CF0B8D900A3A3C7 /* light.h */,
+				D07980030D21666C00B16739 /* vertexsource.cpp */,
+				D0797FF90D215DEF00B16739 /* vertexsource.h */,
 			);
 			name = Renderer;
 			sourceTree = "<group>";
@@ -433,6 +439,7 @@
 				D0F845BC0CBBD8D000FF4467 /* fonttext.h in Headers */,
 				D0BDFCC60CF0B8D900A3A3C7 /* light.h in Headers */,
 				D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */,
+				D0797FFA0D215DEF00B16739 /* vertexsource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,6 +586,7 @@
 				D0F845D50CBBDA3000FF4467 /* fonttext.cpp in Sources */,
 				D0F845D70CBBDA4200FF4467 /* font.cpp in Sources */,
 				D0BDFCCA0CF0B8F000A3A3C7 /* light.cpp in Sources */,
+				D07980040D21666C00B16739 /* vertexsource.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

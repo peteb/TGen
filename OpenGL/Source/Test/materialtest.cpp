@@ -36,7 +36,7 @@ public:
 		
 		MyIndex::Type indicies[6] = {0, 1, 3, 1, 2, 3};
 		
-		vb = renderer.createVertexBuffer(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
+		vb = renderer.createVertexData(MyVertex(), sizeof(MyVertex::Type) * 4, UsageStatic);
 		ib = renderer.createIndexBuffer(MyIndex(), sizeof(MyIndex::Type) * 6, UsageStatic);
 		vb->bufferData(vertices, sizeof(MyVertex::Type) * 4, 0);		
 		ib->bufferData(indicies, sizeof(MyIndex::Type) * 6, 0);		
@@ -46,7 +46,7 @@ private:
 	typedef Index<unsigned short> MyIndex;
 	typedef JoinVertexElements2<Vertex3<float>, TexCoord2<float, 0> > MyVertex;
 
-	VertexBuffer * vb;
+	VertexData * vb;
 	IndexBuffer * ib;
 };
 

@@ -16,6 +16,7 @@
 #include "matrix4x4.h"
 #include "renderer_types.h"
 #include "renderer_caps.h"
+#include "vertexsource.h"
 #include <vector>
 
 namespace TGen {
@@ -30,7 +31,7 @@ namespace TGen {
 	class Plane3;
 	class Light;
 	
-	class Renderer {
+	class Renderer : public TGen::VertexDataSource {
 	protected:
 		Renderer();
 		
@@ -51,6 +52,9 @@ namespace TGen {
 		
 		virtual void setVertexBuffer(VertexBuffer * buffer, VertexStructure * override = NULL) abstract;
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;
+		virtual void setVertexBuffer(VertexData * buffer, VertexStructure * override = NULL) abstract;
+		virtual void setIndexBuffer(VertexData * buffer) abstract;
+		
 		virtual void setTexture(int unit, Texture * texture) abstract;
 		virtual void setRenderTarget(FrameBuffer * buffer) abstract;
 		virtual void setShaderProgram(ShaderProgram * program) abstract;
@@ -68,6 +72,7 @@ namespace TGen {
 		virtual void drawPrimitive(PrimitiveType type, uint startVertex, uint vertexCount) abstract;
 		virtual void drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) abstract;
 		
+		//virtual VertexData * createVertexData(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual VertexBuffer * createVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual IndexBuffer * createIndexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual Texture * createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags = 0) abstract;

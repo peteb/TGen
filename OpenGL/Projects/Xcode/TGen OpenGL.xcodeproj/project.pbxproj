@@ -42,6 +42,8 @@
 		D04C82F50CCA49C400794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C812B0CCA45F000794CEA /* libtgen_math.a */; };
 		D04C82FC0CCA49E100794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81380CCA45FB00794CEA /* libtgen_graphics.a */; };
 		D0682B5C0CE3516700835F01 /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
+		D07980450D21695600B16739 /* vertexdata_ogl.h in Headers */ = {isa = PBXBuildFile; fileRef = D07980440D21695600B16739 /* vertexdata_ogl.h */; };
+		D07980470D21696700B16739 /* vertexdata_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07980460D21696700B16739 /* vertexdata_ogl.cpp */; };
 		D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
 		D0CE02530C3D9F3D007D4B18 /* libIL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02520C3D9F3D007D4B18 /* libIL.a */; };
 		D0CE02710C3D9FBA007D4B18 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0CE02700C3D9FBA007D4B18 /* libjpeg.a */; };
@@ -188,6 +190,8 @@
 		D01F7A780C4D2AB2007618C6 /* metalfloor_wall_15ow.tga */ = {isa = PBXFileReference; explicitFileType = image; path = metalfloor_wall_15ow.tga; sourceTree = "<group>"; };
 		D01F7A830C4D2AD2007618C6 /* hologirl.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = hologirl.tga; sourceTree = "<group>"; };
 		D0426EB10C407304004CB60C /* metalbridge06_pent.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = metalbridge06_pent.jpg; sourceTree = "<group>"; };
+		D07980440D21695600B16739 /* vertexdata_ogl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexdata_ogl.h; path = Include/vertexdata_ogl.h; sourceTree = "<group>"; };
+		D07980460D21696700B16739 /* vertexdata_ogl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexdata_ogl.cpp; path = Source/vertexdata_ogl.cpp; sourceTree = "<group>"; };
 		D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = materialtest.cpp; sourceTree = "<group>"; };
 		D08DCB280C3BBEA500C0AB3F /* quad.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; path = quad.cpp; sourceTree = "<group>"; };
 		D0CE01360C3D9633007D4B18 /* envmap.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = envmap.jpg; sourceTree = "<group>"; };
@@ -273,6 +277,8 @@
 				D00FF8C10C393FF400668773 /* indexbuffer_ogl.h */,
 				D00FF8B50C393FEC00668773 /* vertexbuffer_ogl.cpp */,
 				D00FF8C90C393FF400668773 /* vertexbuffer_ogl.h */,
+				D07980460D21696700B16739 /* vertexdata_ogl.cpp */,
+				D07980440D21695600B16739 /* vertexdata_ogl.h */,
 			);
 			name = OpenGL;
 			path = ../..;
@@ -391,6 +397,7 @@
 				D00FF9150C39412500668773 /* types_converter_ogl.h in Headers */,
 				D00FF9170C39412500668773 /* vertexbuffer_ogl.h in Headers */,
 				D00CEF560C5CDA2D005AEC75 /* binder_ogl.h in Headers */,
+				D07980450D21695600B16739 /* vertexdata_ogl.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +543,7 @@
 				D00FF9140C39412500668773 /* types_converter_ogl.cpp in Sources */,
 				D00FF9160C39412500668773 /* vertexbuffer_ogl.cpp in Sources */,
 				D00CEF510C5CDA23005AEC75 /* binder_ogl.cpp in Sources */,
+				D07980470D21696700B16739 /* vertexdata_ogl.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

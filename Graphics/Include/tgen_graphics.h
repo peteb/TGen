@@ -20,6 +20,7 @@
 #include "indexbuffer.h"
 #include "texture.h"
 #include "vertexstructure.h"
+#include "vertexsource.h"
 #include "shader.h"
 #include "shaderprogram.h"
 #include "shadervariable.h"

@@ -27,8 +27,8 @@ namespace TGen {
 			void render(TGen::Renderer & renderer) const;
 
 			
-			TGen::VertexBuffer * vb;
-			TGen::IndexBuffer * ib;
+			TGen::VertexData * vb;
+			TGen::VertexData * ib;
 			TGen::PrimitiveType primitive;
 			uint startIndex, indexCount;
 		};

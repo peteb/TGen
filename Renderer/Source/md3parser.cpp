@@ -127,7 +127,7 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 }
 
 
-TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar scale) const {
+TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSource, scalar scale) const {
 	TGen::MD3::Mesh * newMesh = new TGen::MD3::Mesh(reinterpret_cast<const char *>(header->name));
 
 	DEBUG_PRINT("[md3]: creating surfaces...");
@@ -145,8 +145,8 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::Renderer & renderer, scalar 
 			int numIndices = surface->num_triangles * 3;
 			int numVertices = surface->num_verts;
 			
-			submesh->vb = renderer.createVertexBuffer(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStatic);
-			submesh->ib = renderer.createIndexBuffer(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
+			submesh->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStatic);
+			submesh->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
 			submesh->indexCount = numIndices;
 			
 			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(submesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));

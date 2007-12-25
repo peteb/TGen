@@ -77,3 +77,7 @@ bool TGen::OpenGL::IndexBuffer::isLocked() {
 TGen::VertexStructure & TGen::OpenGL::IndexBuffer::getVertexStructure() {
 	return vertstruct;
 }
+
+GLuint TGen::OpenGL::IndexBuffer::getInternalID() const {
+	return vboId;
+}

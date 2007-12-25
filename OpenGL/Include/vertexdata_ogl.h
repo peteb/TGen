@@ -1,45 +1,49 @@
 /*
- *  indexbuffer_ogl.h
- *  tgen
+ *  vertexdata_ogl.h
+ *  TGen OpenGL
  *
- *  Created by Peter Backman on 6/19/07.
+ *  Created by Peter Backman on 12/25/07.
  *  Copyright 2007 Peter Backman. All rights reserved.
  *
  */
 
-#ifndef _TGEN_OPENGL_INDEXBUFFER_H
-#define _TGEN_OPENGL_INDEXBUFFER_H
+#ifndef _TGEN_OPENGL_VERTEXDATA_H
+#define _TGEN_OPENGL_VERTEXDATA_H
 
-#include "indexbuffer.h"
+#include "vertexsource.h"
 #include "vertexstructure.h"
+#include "prefix_ogl.h"
 
 namespace TGen {	
 	namespace OpenGL {
 		class Renderer;
 		
-		class IndexBuffer : public TGen::IndexBuffer {
+		class VertexData : public TGen::VertexData {
 		private:
-			IndexBuffer(TGen::Renderer & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, uint vboId);
+			VertexData(TGen::VertexDataSource & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, GLuint vboId);
 			
 		public:
-			~IndexBuffer();
+			~VertexData();
 			
 			void * lock(ushort flags);
 			void unlock();
 			void bufferData(const void * data, uint size, void * offset);
 			bool isLocked();
+			void bindShaderVariable(int id, const TGen::ShaderVariable & var);
 			
 			TGen::VertexStructure & getVertexStructure();
+			
 			GLuint getInternalID() const;
 			
 			friend class TGen::OpenGL::Renderer;
 			
 		private:
 			TGen::VertexStructure vertstruct;
-			uint vboId;
+			GLuint vboId;
 		};
 		
 	} // !OpenGL
 } // !TGen
 
-#endif // !_TGEN_OPENGL_VERTEXBUFFER_H
+#endif // !_TGEN_OPENGL_VERTEXDATA_H
+

@@ -23,6 +23,7 @@
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
 		D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0765B900D19C62B006F7073 /* platform_cocoa.cpp */; };
+		D07981110D21725C00B16739 /* vertexcache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07981100D21725C00B16739 /* vertexcache.cpp */; };
 		D07AFB600CFA331300DBCD9D /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07AFB5F0CFA331300DBCD9D /* light.cpp */; };
 		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
 		D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */; };
@@ -200,6 +201,8 @@
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
 		D0765B900D19C62B006F7073 /* platform_cocoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_cocoa.cpp; sourceTree = "<group>"; };
 		D0765B920D19C63F006F7073 /* platform_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_cocoa.h; path = ../../Include/platform_cocoa.h; sourceTree = SOURCE_ROOT; };
+		D079810F0D21724E00B16739 /* vertexcache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache.h; path = ../../Include/vertexcache.h; sourceTree = SOURCE_ROOT; };
+		D07981100D21725C00B16739 /* vertexcache.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcache.cpp; sourceTree = "<group>"; };
 		D07AFB5E0CFA330A00DBCD9D /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../../Include/light.h; sourceTree = SOURCE_ROOT; };
 		D07AFB5F0CFA331300DBCD9D /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		D08005EE0CEF75E100AAED52 /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
@@ -441,6 +444,8 @@
 				D08C7BF20D109190008622BC /* imagegenerator.h */,
 				D08C7C240D1095CA008622BC /* generateline.cpp */,
 				D08C7C230D109514008622BC /* generateline.h */,
+				D07981100D21725C00B16739 /* vertexcache.cpp */,
+				D079810F0D21724E00B16739 /* vertexcache.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -809,6 +814,7 @@
 				D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */,
 				D08C7C250D1095CA008622BC /* generateline.cpp in Sources */,
 				D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */,
+				D07981110D21725C00B16739 /* vertexcache.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -39,6 +39,9 @@ namespace TGen {
 			void setViewport(const TGen::Rectangle & viewport);
 			void setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override = NULL);
 			void setIndexBuffer(TGen::IndexBuffer * buffer);
+			void setVertexBuffer(TGen::VertexData * buffer, TGen::VertexStructure * override = NULL);
+			void setIndexBuffer(TGen::VertexData * buffer);
+
 			void setTexture(int unit, TGen::Texture * texture);
 			void setRenderTarget(TGen::FrameBuffer * buffer);
 			void setShaderProgram(TGen::ShaderProgram * program);
@@ -59,6 +62,8 @@ namespace TGen {
 			void drawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount);
 			void drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount);
 			
+			TGen::VertexData * createVertexData(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
+			void removeVertexData(TGen::VertexData * data);
 			TGen::VertexBuffer * createVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
 			TGen::IndexBuffer * createIndexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
 			TGen::Texture * createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
@@ -99,6 +104,8 @@ namespace TGen {
 			uint indexBufferFormat;
 			TGen::VertexBuffer * lastVb;
 			TGen::IndexBuffer * lastIb;
+			GLuint lastVb1, lastIb1;
+			TGen::VertexData * lastVb2, * lastIb2;
 			
 			// information to reduce state switches
 			GLenum * textureUnitTargets;
