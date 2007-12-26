@@ -14,12 +14,12 @@
 
 namespace TGen {
 	class Mesh;
-	class Renderer;
+	class VertexDataSource;
 	
 	namespace Engine {
 		class MeshGenerator {
 		public:
-			TGen::Mesh * generateMesh(const std::string & name, TGen::Renderer & renderer);
+			TGen::Mesh * generateMesh(const std::string & name, TGen::VertexDataSource & dataSource);
 			
 		};
 		

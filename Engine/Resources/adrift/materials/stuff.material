@@ -14,7 +14,7 @@ material nomat default 9 {
 
 material railgunMaterial default 9 {
 	lod 9 {
-		pass gen:deferred/writeAttributesNoNMap:NO_NORMAL_MAP {
+		pass gen:deferred/writeAttributes:NO_NORMAL_MAP {
 			texunit 0 "railgun1.png" {
 				sampler colorMap
 			}

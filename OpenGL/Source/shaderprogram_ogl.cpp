@@ -55,6 +55,12 @@ void TGen::OpenGL::ShaderProgram::link() {
 		free(infoLog);
 	}	
 	
+	int newlinePos = infoLogString.rfind("\n");
+	if (newlinePos != std::string::npos) {
+		if (infoLogString.size() - newlinePos < 3)
+			infoLogString = infoLogString.substr(0, newlinePos);
+	}
+	
 	if (status != GL_TRUE) {
 		throw TGen::RuntimeException("OpenGL::ShaderProgram::Link", "failed to link shaders: \"" + infoLogString + "\"");
 	}

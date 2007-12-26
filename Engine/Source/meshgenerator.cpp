@@ -11,9 +11,9 @@
 #include "fillquad.h"
 #include <iostream>
 
-TGen::Mesh * TGen::Engine::MeshGenerator::generateMesh(const std::string & name, TGen::Renderer & renderer) {
+TGen::Mesh * TGen::Engine::MeshGenerator::generateMesh(const std::string & name, TGen::VertexDataSource & dataSource) {
 	if (name == "fillquad") {
-		return new TGen::Engine::FillQuad(TGen::Vector2(-1.0f, -1.0f), TGen::Vector2(1.0f, 1.0f), renderer);
+		return new TGen::Engine::FillQuad(TGen::Vector2(-1.0f, -1.0f), TGen::Vector2(1.0f, 1.0f), dataSource);
 	}
 	
 	return NULL;

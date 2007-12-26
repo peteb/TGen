@@ -153,7 +153,7 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 				throw TGen::RuntimeException("MD3::File::createMesh", "failed to create vertex buffers");
 			
 			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(submesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));
-			
+
 			for (int i = 0; i < surface->num_verts; ++i) {
 				TGen::MD3::TexCoord * texCoord = &surface->texCoords[i];
 				TGen::MD3::Vertex * vertex = &surface->vertices[i];

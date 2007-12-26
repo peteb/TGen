@@ -51,7 +51,11 @@ TGen::Engine::VertexCache::~VertexCache() {
 }
 
 TGen::VertexData * TGen::Engine::VertexCache::createVertexData(const VertexStructure & vertstruct, uint size, ushort usage) {
-	logs.info["vcache"] << "someone's asking for " << size << " bytes!" << TGen::endl;
+	
+	std::string poolId = vertstruct.getStringRepresentation() + "|" + char('A' + (usage & 0xFF)) + char('A' + ((usage >> 8) & 0xFF));
+	logs.info["vcache"] << "someone's asking for " << size << " bytes, poolId: " << poolId << TGen::endl;
+	
+	// vertstruct + usage
 	
 	return dataSource.createVertexData(vertstruct, size, usage);
 }

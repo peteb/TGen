@@ -60,6 +60,7 @@ namespace TGen {
 		int getComponentCount() const;
 		void addElement(TGen::VertexElementType type, FormatType dataType, uchar count, bool shared = false, uchar unit = 0, bool normalize = false);
 		void addElement(const std::string & format);
+		const std::string & getStringRepresentation() const;
 		
 		bool hasCoordElements, hasNormalElements, hasColorElements, hasEdgeElements;
 		bool hasTexCoordUnitElements[8];
@@ -67,6 +68,8 @@ namespace TGen {
 	private:
 		std::vector<TGen::VertexElement> elements;
 		int align;
+		mutable bool changed;
+		mutable std::string cachedRepresentation;
 	};
 		
 	template<typename T>

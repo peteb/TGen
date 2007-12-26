@@ -132,13 +132,13 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		
 		if (renderContext.shader) {
 			if (!(*iter)->samplerName.empty()) {
-				std::cout << "setting '" << (*iter)->samplerName << "' to " << (*iter)->unit << std::endl;
+				DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
 				renderContext.shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
 			}
 		
 			for (int i = 0; i < shaderVariables.size(); ++i) {
 				if (!shaderVariables[i]->linkedVar) {
-					std::cout << "binding '" << shaderVariables[i]->name << "' to '" << shaderVariables[i]->linkId << "'" << std::endl;
+					DEBUG_PRINT("[material]: binding '" << shaderVariables[i]->name << "' to '" << shaderVariables[i]->linkId << "'");
 					shaderVariables[i]->linkedVar = renderContext.shader->createVariable(shaderVariables[i]->name);
 				}				
 			}

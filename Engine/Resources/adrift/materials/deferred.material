@@ -122,7 +122,7 @@ material post/luminance default 9 {
 
 material post/gaussianHoriz default 9 {
 	lod 9 {
-		pass gen:post/gaussianHoriz:HORIZONTAL {
+		pass gen:post/gaussian:HORIZONTAL {
 			disableDepth
 			bind texelSize $texelwidth
 
@@ -136,7 +136,7 @@ material post/gaussianHoriz default 9 {
 
 material post/gaussianVert default 9 {
 	lod 9 {
-		pass gen:post/gaussianHoriz:VERTICAL {
+		pass gen:post/gaussian:VERTICAL {
 			disableDepth
 			bind texelSize $texelheight
 

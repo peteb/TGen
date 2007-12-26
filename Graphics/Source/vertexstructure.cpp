@@ -17,6 +17,7 @@ TGen::VertexStructure::VertexStructure()
 	, hasNormalElements(false)
 	, hasColorElements(false)
 	, hasEdgeElements(false)
+	, changed(false)
 {
 	for (int i = 0; i < 8; ++i)
 		hasTexCoordUnitElements[i] = false;
@@ -159,6 +160,7 @@ void TGen::VertexStructure::addElement(TGen::VertexElementType type, FormatType 
 	}
 	
 	elements.push_back(TGen::VertexElement(type, dataType, count, shared, unit, normalize));
+	changed = true;
 }
 
 /*
@@ -284,9 +286,115 @@ void TGen::VertexStructure::addElement(const std::string & format) {
 	std::cout << "TYPE: " << int(elType) << " DATATYPE: " << int(type) << " COUNT: " << int(count) << " UNIT: " << int(unit) << " SHARED: " << shared << std::endl;
 
 	elements.push_back(TGen::VertexElement(elType, type, count, shared, unit));
+	changed = true;
 }
 
 /*TGen::VertexStructure::~VertexStructure() {
 	
 }
 */
+
+/*
+ format type count [unit = 0] [shared = no]
+ ft20s = float tex 2 0 shared
+ usc4 = unsigned short coord 4
+ 
+ VertexElementType type;
+ FormatType dataType;
+ uchar count, unit;
+ bool shared, bound, normalize;
+ uint boundValue;
+ */
+
+const std::string & TGen::VertexStructure::getStringRepresentation() const {
+	if (changed) {
+		std::stringstream ss;
+		
+		for (int i = 0; i < elements.size(); ++i) {
+			switch (elements[i].dataType) {
+				case TGen::TypeFloat:
+					ss << "f";
+					break;
+					
+				case TGen::TypeInt:
+					ss << "i";
+					break;
+					
+				case TGen::TypeShort:
+					ss << "s";
+					break;
+					
+				case TGen::TypeDouble:
+					ss << "d";
+					break;
+					
+				case TGen::TypeByte:
+					ss << "b";
+					break;
+					
+				case TGen::TypeUnsignedInt:
+					ss << "ui";
+					break;
+
+				case TGen::TypeUnsignedShort:
+					ss << "us";
+					break;
+					
+				case TGen::TypeUnsignedByte:
+					ss << "ub";
+					break;
+										
+				default:
+					throw TGen::RuntimeException("VertexStructure::getStringRepresentation", "first format letter is insane");
+			}
+
+			
+			switch (elements[i].type) {
+				case TGen::VertexElementCoord:
+					ss << "v";
+					break;
+					
+				case TGen::VertexElementNormal:
+					ss << "n";
+					break;
+					
+				case TGen::VertexElementColor:
+					ss << "c";
+					break;
+					
+				case TGen::VertexElementColorIndex:
+					ss << "i";
+					break;
+					
+				case TGen::VertexElementEdgeFlag:
+					ss << "e";
+					break;
+					
+				case TGen::VertexElementTexCoord:
+					ss << "t";
+					break;
+					
+				case TGen::VertexElementAttribute:
+					ss << "a";
+					break;
+					
+				default:
+					throw TGen::RuntimeException("VertexStructure::getStringRepresentation", "element type invalid");
+			}
+			
+			ss << int(elements[i].count) << int(elements[i].unit);
+			if (elements[i].shared)
+				ss << "s";
+			if (elements[i].normalize)
+				ss << "n";
+		}
+		
+		
+		cachedRepresentation = ss.str();
+		
+		changed = false;
+	}
+	
+	return cachedRepresentation;
+}
+

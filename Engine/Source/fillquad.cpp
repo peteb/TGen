@@ -10,7 +10,7 @@
 #include "fillquad.h"
 #include <iostream>
 
-TGen::Engine::FillQuad::FillQuad(const TGen::Vector2 & min, const TGen::Vector2 & max, TGen::Renderer & renderer) 
+TGen::Engine::FillQuad::FillQuad(const TGen::Vector2 & min, const TGen::Vector2 & max, TGen::VertexDataSource & dataSource) 
 	: TGen::Mesh("fillquad")
 	, min(min)
 	, max(max)
@@ -23,7 +23,7 @@ TGen::Engine::FillQuad::FillQuad(const TGen::Vector2 & min, const TGen::Vector2 
 		VertexDecl::Type(TGen::Vector2(min.x, max.y), TGen::Vector2(0.0f, 1.0f)),
 	};
 	
-	vb = renderer.createVertexBuffer(VertexDecl(), sizeof(VertexDecl::Type) * 4, TGen::UsageStatic);
+	vb = dataSource.createVertexData(VertexDecl(), sizeof(VertexDecl::Type) * 4, TGen::UsageStatic);
 	vb->bufferData(vertices, sizeof(VertexDecl::Type) * 4, 0);
 }
 

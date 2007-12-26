@@ -17,7 +17,7 @@ namespace TGen {
 	namespace Engine {
 		class FillQuad : public TGen::Mesh {
 		public:
-			FillQuad(const TGen::Vector2 & min, const TGen::Vector2 & max, TGen::Renderer & renderer);
+			FillQuad(const TGen::Vector2 & min, const TGen::Vector2 & max, TGen::VertexDataSource & dataSource);
 			~FillQuad();
 			
 			void preRender(TGen::Renderer & renderer) const;
@@ -30,7 +30,7 @@ namespace TGen {
 		private:
 			typedef TGen::JoinVertexElements2<TGen::Vertex2<float>, TGen::TexCoord2<float, 0> > VertexDecl;
 			
-			TGen::VertexBuffer * vb;
+			TGen::VertexData * vb;
 			TGen::Vector2 min, max;
 		};
 		
