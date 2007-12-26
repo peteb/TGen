@@ -17,6 +17,7 @@
 #include "renderer_types.h"
 #include "renderer_caps.h"
 #include "vertexsource.h"
+#include "renderstatistics.h"
 #include <vector>
 
 namespace TGen {
@@ -39,7 +40,8 @@ namespace TGen {
 		virtual ~Renderer();
 		
 		TGen::RendererCaps const & getCaps() const;
-
+		TGen::RenderStatistics & getStatistics();
+		
 		virtual TGen::Color getClearColor() const;
 		virtual TGen::Rectangle getViewport() const;
 		virtual TGen::Matrix4x4 getTransform(TransformMode mode) const;
@@ -87,6 +89,7 @@ namespace TGen {
 		virtual bool throwErrors() abstract;
 		
 	protected:
+		TGen::RenderStatistics stats;
 		TGen::RendererCaps caps;
 		TGen::Rectangle viewport;
 		TGen::Color clearColor;

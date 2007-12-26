@@ -100,7 +100,7 @@ int TGen::VertexStructure::getSize() const {
 	int size = 0;
 	for (int i = 0; i < int(elements.size()); ++i) {
 		if (!elements[i].shared) {
-			switch (elements[i].dataType) {
+			switch (elements[i].dataType) {	// TODO: use template-converter-thingy
 				case TGen::TypeFloat:
 					size += sizeof(float) * elements[i].count;
 					break;

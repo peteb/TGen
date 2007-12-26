@@ -24,6 +24,10 @@ TGen::RendererCaps const & TGen::Renderer::getCaps() const {
 	return caps;
 }
 
+TGen::RenderStatistics & TGen::Renderer::getStatistics() {
+	return stats;
+}
+
 void TGen::Renderer::setClearColor(const TGen::Color & color) {
 	clearColor = color;
 }

@@ -19,7 +19,7 @@ namespace TGen {
 	
 	class VertexData {
 	protected:
-		VertexData(TGen::VertexDataSource & creator, uint size, ushort usage);
+		VertexData(TGen::VertexDataSource & creator, uint size, ushort usage, void * writeOffset = NULL, uint readOffset = 0);
 
 	public:
 		virtual ~VertexData();
@@ -29,11 +29,16 @@ namespace TGen {
 		virtual void bufferData(const void * data, uint size, void * offset) abstract;
 		virtual void bindShaderVariable(int id, const TGen::ShaderVariable & var) abstract;
 		virtual TGen::VertexStructure & getVertexStructure() abstract;
+		virtual TGen::VertexData * operator * ();
 		
+		uint getSortKey() const;
 		uint getSize() const;
+		uint getUsage() const;
+		uint getReadOffset() const;
 		
 	protected:
-		uint size, usage;
+		uint size, usage, readOffset;
+		void * writeOffset;
 		TGen::VertexDataSource & creator;
 	};
 	

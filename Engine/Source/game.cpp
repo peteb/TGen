@@ -73,6 +73,9 @@ void TGen::Engine::GameState::tick() {
 void TGen::Engine::GameState::render(scalar dt) {
 	sceneRenderer->renderScene(dt);
 	app.env.swapBuffers();
+	std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
+	
+	app.renderer.getStatistics().reset();
 	
 	if (vars.checkErrors)
 		checkErrors();
@@ -94,8 +97,6 @@ void TGen::Engine::GameState::checkErrors() {
 	}	
 }
 
-// TODO: preprocessor #define, :NUM_LIGHTS=4,USE_NORMAL_MAP,... för de som är vanliga USE_BLABLA_, ersätt med #define BLABLA 1 OM en flagga är
-//       satt på preprocessorn
 //       sen ska shaderpreprocess.cpp byta namn till textpreprocessor
 
 void TGen::Engine::GameState::changeMap(const std::string & mapName) {

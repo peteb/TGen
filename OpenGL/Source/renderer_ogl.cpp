@@ -30,12 +30,15 @@ TGen::OpenGL::Renderer::ExtensionMap TGen::OpenGL::Renderer::extensionsAvailable
 
 TGen::OpenGL::Renderer::Renderer()
 	: colorFromVertex(true)
+	, lastShader(NULL)
 	, lastVb(NULL)
 	, lastIb(NULL)
 	, lastVb2(NULL)
 	, lastIb2(NULL)
 	, lastVb1(-1)
 	, lastIb1(-1)
+	, ibReadOffset(0)
+	, vbReadOffset(0)
 	, hasCoordElements(NULL)
 	, hasNormalElements(NULL)
 	, hasColorElements(NULL)
@@ -502,10 +505,14 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexData * buffer, TGen::Ve
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);				
 	}
 	else {
+		vbReadOffset = buffer->getReadOffset();
+		buffer = *(*buffer);	// get the linked buffer
+		
 		TGen::OpenGL::VertexData * vd = static_cast<TGen::OpenGL::VertexData *>(buffer);
 		GLuint vboId = vd->getInternalID();		
 
 		if (vboId != lastVb1) {
+			STAT_ADD(TGen::StatVBCacheMiss);
 			glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 		
 			if (override)
@@ -517,6 +524,9 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexData * buffer, TGen::Ve
 			lastVb = NULL;
 			lastVb2 = buffer;
 		}
+		else {
+			STAT_ADD(TGen::StatVBCacheHit);
+		}
 	}
 }
 
@@ -525,15 +535,22 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::VertexData * buffer) {
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 	}
 	else  {
+		ibReadOffset = buffer->getReadOffset();
+		buffer = *(*buffer);
+		
 		TGen::OpenGL::VertexData * vd = static_cast<TGen::OpenGL::VertexData *>(buffer);
 		GLuint vboId = vd->getInternalID();
 		
 		if (vboId != lastIb1) {
+			STAT_ADD(TGen::StatIBCacheMiss);
 			glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, vd->vboId);
 			indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
 			lastIb1 = vboId;
 			lastIb = NULL;
 			lastIb2 = buffer;
+		}
+		else {
+			STAT_ADD(TGen::StatIBCacheHit);
 		}
 	}	
 }
@@ -543,6 +560,7 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer, TGen::
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);		
 	}
 	else {
+		vbReadOffset = 0;
 		TGen::OpenGL::VertexBuffer * vb = static_cast<TGen::OpenGL::VertexBuffer *>(buffer);
 		//if (!vb) // NOTE: this is never thrown, static_cast!
 		//	throw TGen::RuntimeException("OpenGL::Renderer::setVertexBuffer", "vertex buffer is not a valid OpenGL buffer");
@@ -569,6 +587,8 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 	}
 	else if (buffer != lastIb) {
+		ibReadOffset = 0;
+		
 		TGen::OpenGL::IndexBuffer * ib = static_cast<TGen::OpenGL::IndexBuffer *>(buffer);
 		//if (!ib) // NOTE: this is never thrown, static_cast!
 			//throw TGen::RuntimeException("OpenGL::Renderer::setIndexBuffer", "index buffer is not a valid OpenGL buffer");
@@ -588,8 +608,16 @@ void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
 	if (unit >= caps.maxTextureUnits)
 		throw TGen::RuntimeException("OpenGL::Renderer::setTexture", "texture unit is above maximum, ") << unit << " >= " << caps.maxTextureUnits;
 	
-	if (textureUnitTextures[unit] == texture)
+	if (texture != NULL)
+		STAT_ADD_TEXTURE(unit, texture);
+	
+	if (textureUnitTextures[unit] == texture) {
+		STAT_ADD(TGen::StatTextureCacheHit);
 		return;
+	}
+	else {
+		STAT_ADD(TGen::StatTextureCacheMiss);
+	}
 	
 	glActiveTexture(GL_TEXTURE0 + unit);
 	
@@ -616,7 +644,7 @@ void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
 void TGen::OpenGL::Renderer::drawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount) {
 	GLenum fixedPrimitive = TGen::OpenGL::TgenPrimitiveToOpenGL(type);	
 	
-	glDrawArrays(fixedPrimitive, startVertex, vertexCount);
+	glDrawArrays(fixedPrimitive, startVertex + vbReadOffset, vertexCount);
 }
 
 void TGen::OpenGL::Renderer::drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) {
@@ -752,9 +780,18 @@ void TGen::OpenGL::Renderer::setShaderProgram(TGen::ShaderProgram * program) {
 		glUseProgram(0);
 		return;
 	}
+
+	STAT_ADD_SHADER(program);
 	
-	TGen::OpenGL::ShaderProgram * fixedProgram = static_cast<TGen::OpenGL::ShaderProgram *>(program);
-	glUseProgram(fixedProgram->getInternalID());
+	if (lastShader != program) {
+		STAT_ADD(TGen::StatShaderCacheMiss);
+		TGen::OpenGL::ShaderProgram * fixedProgram = static_cast<TGen::OpenGL::ShaderProgram *>(program);
+		glUseProgram(fixedProgram->getInternalID());
+		lastShader = program;
+	}
+	else {
+		STAT_ADD(TGen::StatShaderCacheHit);
+	}
 }
 
 // TODO: kolla sÃ¥ alla texturer som attachas pÃ¥ fb har samma storlek
@@ -908,6 +945,8 @@ void TGen::OpenGL::Renderer::disableClipPlane(int id) {
 
 void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes) {
 	if (context.disableDepth != lastContext.disableDepth) {
+		STAT_ADD(TGen::StatGeneralStateCacheMiss);
+		
 		if (context.disableDepth) {
 			glDisable(GL_DEPTH_TEST);		
 		}
@@ -915,6 +954,8 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			glEnable(GL_DEPTH_TEST);
 			
 			if (context.depthWrite != lastContext.depthWrite) {
+				STAT_ADD(TGen::StatGeneralStateCacheMiss);
+
 				if (context.depthWrite)
 					glDepthMask(GL_TRUE);
 				else
@@ -922,9 +963,15 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 				
 				lastContext.depthWrite = context.depthWrite;
 			}
+			else {
+				STAT_ADD(TGen::StatGeneralStateCacheHit);	
+			}
 		}	
 		
 		lastContext.disableDepth = context.disableDepth;
+	}
+	else {
+		STAT_ADD(TGen::StatGeneralStateCacheHit);	
 	}
 	
 	
@@ -957,13 +1004,20 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	}
 		
 	if (context.blendSrc != lastContext.blendSrc || context.blendDst != lastContext.blendDst) {
+		STAT_ADD(TGen::StatGeneralStateCacheMiss);
+
 		glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendSrc), TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendDst));
 	
 		lastContext.blendSrc = context.blendSrc;
 		lastContext.blendDst = context.blendDst;
 	}
+	else {
+		STAT_ADD(TGen::StatGeneralStateCacheHit);	
+	}
 	
 	if (context.front != lastContext.front || context.back != lastContext.back) {
+		STAT_ADD(TGen::StatGeneralStateCacheMiss);
+
 		glEnable(GL_CULL_FACE);
 	
 		if (context.front == TGen::PolygonFaceCull && context.back == TGen::PolygonFaceCull)
@@ -976,6 +1030,8 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			glDisable(GL_CULL_FACE);
 	
 		if (context.front != lastContext.front) {
+			STAT_ADD(TGen::StatGeneralStateCacheMiss);
+
 			switch (context.front) {
 				case TGen::PolygonFaceFill:
 					if (context.back == TGen::PolygonFaceFill)
@@ -1007,8 +1063,13 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			
 			lastContext.front = context.front;
 		}
+		else {
+			STAT_ADD(TGen::StatGeneralStateCacheHit);	
+		}
 		
 		if (lastContext.back != context.back) {
+			STAT_ADD(TGen::StatGeneralStateCacheMiss);
+
 			switch (context.back) {
 				case TGen::PolygonFaceFill:
 					if (context.front != TGen::PolygonFaceFill)
@@ -1034,6 +1095,12 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 
 			lastContext.back = context.back;
 		}
+		else {
+			STAT_ADD(TGen::StatGeneralStateCacheHit);
+		}
+	}
+	else {
+		STAT_ADD(TGen::StatGeneralStateCacheHit);	
 	}
 
 	// hm... setRenderContext sätts per pass, applyVertexStructure sätts preRender. så colorFromVertex gör inget... jo då, den gör så man kan sätta färg som en state
@@ -1041,6 +1108,8 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	colorFromVertex = context.colorFromVertex;
 	
 	if (context.colorFromVertex != lastContext.colorFromVertex) {
+		STAT_ADD(TGen::StatGeneralStateCacheMiss);
+
 		if (colorFromVertex && hasColorElements)
 			glEnableClientState(GL_COLOR_ARRAY);
 		else
@@ -1048,6 +1117,9 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		
 		// NOTE: might be buggy as we don't check hasColorArray for diffs
 		lastContext.colorFromVertex = context.colorFromVertex;
+	}
+	else {
+		STAT_ADD(TGen::StatGeneralStateCacheHit);		
 	}
 }
 

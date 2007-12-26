@@ -10,11 +10,14 @@
 #ifndef _TGEN_OPENGL_RENDERER_H
 #define _TGEN_OPENGL_RENDERER_H
 
+#define STAT_ADD(x) stats.addStat(x)
+#define STAT_ADD_SHADER(x) stats.addShader(x)
+#define STAT_ADD_TEXTURE(x, y) stats.addTexture(x, y)
+
 #include "renderer.h"
 #include "prefix_ogl.h"
 #include "rendercontext.h"
 #include <map>
-
 
 namespace TGen {
 	class VertexStructure;
@@ -102,9 +105,11 @@ namespace TGen {
 			
 			bool colorFromVertex, hasColorArray;
 			uint indexBufferFormat;
+			TGen::ShaderProgram * lastShader;
 			TGen::VertexBuffer * lastVb;
 			TGen::IndexBuffer * lastIb;
 			GLuint lastVb1, lastIb1;
+			uint vbReadOffset, ibReadOffset;
 			TGen::VertexData * lastVb2, * lastIb2;
 			
 			// information to reduce state switches

@@ -62,10 +62,10 @@ void TGen::OpenGL::VertexData::bufferData(const void * data, uint size, void * o
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 	
-	if (offset != 0)
+	//if (offset != 0)
 		glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, reinterpret_cast<GLintptrARB>(offset), size, data);	
-	else
-		glBufferDataARB(GL_ARRAY_BUFFER_ARB, static_cast<GLsizeiptr>(size), data, fixedUsage);	
+	//else
+		//glBufferDataARB(GL_ARRAY_BUFFER_ARB, static_cast<GLsizeiptr>(size), data, fixedUsage);	
 }
 
 bool TGen::OpenGL::VertexData::isLocked() {

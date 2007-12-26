@@ -27,6 +27,7 @@
 #include "framebuffer.h"
 #include "rendercontext.h"
 #include "textureunit.h"
+#include "renderstatistics.h"
 
 #include "image.h"
 #include "canvas.h"
