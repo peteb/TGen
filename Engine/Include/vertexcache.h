@@ -56,6 +56,15 @@ namespace TGen {
 			uint sizeLeft;
 		};
 		
+		/*
+			Varje PoolCollection har 0 eller flera dataslabs allokerade, sen har varje Pool i samlingen en pekare till vilken dataslab den senast allokerade i.
+			Storlekar anges i vertices
+		 
+		 
+		 
+		 
+		 */
+		
 		class VertexCache : public TGen::VertexDataSource {
 		public:
 			VertexCache(TGen::VertexDataSource & dataSource, TGen::Engine::StandardLogs & logs);
@@ -68,6 +77,7 @@ namespace TGen {
 			
 		private:
 			void removeVertexData(VertexData * data);
+			TGen::Engine::PoolCollection * getPoolCollection(const TGen::VertexStructure & vertstruct, ushort usage);
 			
 			typedef std::map<std::string, PoolCollection *> PoolCollectionMap;
 			

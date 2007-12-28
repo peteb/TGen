@@ -26,10 +26,10 @@ namespace TGen {
 			TGen::Vector3 getMax() const;
 			TGen::Vector3 getMin() const;
 			TGen::Vector3 getOrigin() const;
-			
-		private:
+
 			typedef TGen::JoinVertexElements2<TGen::Vertex2<float>, TGen::TexCoord2<float, 0> > VertexDecl;
 			
+		private:
 			TGen::VertexData * vb;
 			TGen::Vector2 min, max;
 		};

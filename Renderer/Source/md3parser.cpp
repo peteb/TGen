@@ -134,7 +134,7 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 	
 	// TODO: fixa per-subface-material
 	// TODO: portalbanor skickar egen user-grej... ClippedRoom (entities to draw, room vertices)
-	//       eller s√• fixas ClippedFace ist√§llet, kanske! d√• kan man sortera baserat p√• clipping 
+	//       eller sÂ fixas ClippedFace ist‰llet, kanske! dÂ kan man sortera baserat pÂ clipping 
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		TGen::MD3::Surface * surface = surfaces[i];
@@ -183,11 +183,13 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 			
 			TGen::MD3::IndexDecl::Type * ibpos = reinterpret_cast<TGen::MD3::IndexDecl::Type *>(submesh->ib->lock(TGen::LockDiscard | TGen::LockWrite));
 			
+			std::cout << "MD3 IB OFFSET: " <<  submesh->ib->getReadOffset() << std::endl;
+			
 			for (int i = 0; i < surface->num_triangles; ++i) {
 				TGen::MD3::Triangle * triangle = &surface->triangles[i];
-				*(ibpos++) = triangle->indexes[2];
-				*(ibpos++) = triangle->indexes[1];
-				*(ibpos++) = triangle->indexes[0];
+				*(ibpos++) = triangle->indexes[2] + submesh->vb->getReadOffset();
+				*(ibpos++) = triangle->indexes[1] + submesh->vb->getReadOffset();
+				*(ibpos++) = triangle->indexes[0] + submesh->vb->getReadOffset();
 			}
 			
 			submesh->ib->unlock();

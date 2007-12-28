@@ -27,7 +27,7 @@ namespace TGen {
 		
 		void addTextureUnit(TGen::TextureUnit * unit);
 		
-		bool depthWrite, disableDepth;
+		bool depthWrite, disableDepth, disableBlend;
 		TGen::Color frontColor;
 		TGen::ShaderProgram * shader;
 		TGen::CompareFunc depthFunc;

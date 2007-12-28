@@ -10,9 +10,17 @@
 #ifndef _TGEN_OPENGL_RENDERER_H
 #define _TGEN_OPENGL_RENDERER_H
 
-#define STAT_ADD(x) stats.addStat(x)
-#define STAT_ADD_SHADER(x) stats.addShader(x)
-#define STAT_ADD_TEXTURE(x, y) stats.addTexture(x, y)
+//#define _OGL_DEBUG
+
+#ifdef _OGL_DEBUG
+	#define STAT_ADD(x) stats.addStat(x)
+	#define STAT_ADD_SHADER(x) stats.addShader(x)
+	#define STAT_ADD_TEXTURE(x, y) stats.addTexture(x, y)
+#else
+	#define STAT_ADD(x)
+	#define STAT_ADD_SHADER(x)
+	#define STAT_ADD_TEXTURE(x, y)
+#endif
 
 #include "renderer.h"
 #include "prefix_ogl.h"
@@ -104,7 +112,7 @@ namespace TGen {
 			static ExtensionMap extensionsAvailable;
 			
 			bool colorFromVertex, hasColorArray;
-			uint indexBufferFormat;
+			uint indexBufferFormat, indexBufferFormatSize;
 			TGen::ShaderProgram * lastShader;
 			TGen::VertexBuffer * lastVb;
 			TGen::IndexBuffer * lastIb;
@@ -113,6 +121,7 @@ namespace TGen {
 			TGen::VertexData * lastVb2, * lastIb2;
 			
 			// information to reduce state switches
+			GLenum activeTextureUnit;
 			GLenum * textureUnitTargets;
 			TGen::Texture ** textureUnitTextures;
 

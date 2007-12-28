@@ -111,14 +111,14 @@ void TGen::Engine::DeferredRenderer::loadLightMaterial(const std::string & name,
 void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & mapSize) {
 	downsampleSize = mapSize / scalar(pow(2.0f, vars.bloomDownsampling));
 	
-	colorMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	normalMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	miscMap = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	colorMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	normalMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	miscMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps /*| TGen::TextureRectangle*/);	// TODO: ubyte på depth? wtf?
 	
-	postMap1 = app.renderer.createTexture(mapSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	postMap2 = app.renderer.createTexture(downsampleSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	postMap3 = app.renderer.createTexture(downsampleSize, TGen::RGB, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	postMap1 = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);		// <-- sparar en massa skit... varför? blendfunc?
+	postMap2 = app.renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	postMap3 = app.renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	
 	postMap1->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
 	postMap2->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
@@ -192,12 +192,14 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// UPDATE MAPS (color, normal, spec, depth, etc)
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
+	app.renderer.setClearColor(TGen::Color::Black);
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	app.renderer.setAmbientLight(world->getAmbientLight());
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 	
 	//vars.postProcessing = false;
+	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {
 		app.renderer.setRenderTarget(postTargets1);
@@ -208,7 +210,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		app.renderer.setViewport(viewport);
 	}
 	
-	app.renderer.clearBuffers(TGen::DepthBuffer);
+	//app.renderer.clearBuffers(TGen::DepthBuffer);
 
 	// AMBIENT TO RESULT
 	renderFillQuad(lightAmbientMaterial);
@@ -325,10 +327,10 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 	app.renderer.setViewport(downsampleSize);
 	app.renderer.setRenderTarget(postTargets2);
 	
-	if (vars.lumTrace) {	// måste ha blendFunc add add för det här...
+	/*if (vars.lumTrace) {	// måste ha blendFunc add add för det här...
 		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.1));
 		renderFillQuad(rhwOnlyColorMaterial);
-	}
+	}*/
 	
 	renderPostFillQuad(postLuminanceMaterial);
 	

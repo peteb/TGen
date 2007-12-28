@@ -36,7 +36,11 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	// SDL_GL_SetAttribute( SDL_GL_SWAP_CONTROL, 0 );
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+	
 	SDL_WM_SetCaption(variables.getVariable("game_name").getValue().c_str(), NULL);
+	
+	if (bool(variables.getVariable("r_syncVtrace")))
+		SDL_GL_SetAttribute(SDL_GL_SWAP_CONTROL, 1);
 	//SDL_GrabMode(SDL_GRAB_ON);
 	//SDL_WM_GrabInput(SDL_GRAB_ON);
 	//SDL_ShowCursor(0);

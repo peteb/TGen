@@ -21,6 +21,7 @@ TGen::RenderContext::RenderContext()
 	, blendDst(TGen::BlendOneMinusSourceAlpha)
 	, colorFromVertex(false)
 	, disableDepth(false)
+	, disableBlend(false)
 {
 
 }

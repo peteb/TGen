@@ -375,6 +375,9 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 			else if (currentToken->second == "disableDepth") {
 				pass->setDisableDepth();
 			}
+			else if (currentToken->second == "disableBlend") {
+				pass->setDisableBlend();
+			}
 			else if (currentToken->second == "front") {
 				std::string polyMode;
 				

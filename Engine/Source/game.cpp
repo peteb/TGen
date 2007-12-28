@@ -70,12 +70,15 @@ void TGen::Engine::GameState::tick() {
 	}
 }
 
+// glBufferData lite som discard, tänk på det. det är samma grej som med lock fast bufferSubData
+// en megabuffer som man vet kommer uppdateras totalt borde discardas först
+
 void TGen::Engine::GameState::render(scalar dt) {
 	sceneRenderer->renderScene(dt);
 	app.env.swapBuffers();
-	std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
+	//std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
 	
-	app.renderer.getStatistics().reset();
+	//app.renderer.getStatistics().reset();
 	
 	if (vars.checkErrors)
 		checkErrors();

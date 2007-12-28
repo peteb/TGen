@@ -110,6 +110,7 @@ namespace TGen {
 		void setAlphaGenerator(TGen::ScalarGenerator * gen);
 		void setNoDepthWrite();
 		void setDisableDepth();
+		void setDisableBlend();
 		void setColorFromVertex();
 		
 		void update(scalar dt);

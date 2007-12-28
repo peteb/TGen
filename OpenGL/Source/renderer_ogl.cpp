@@ -39,6 +39,7 @@ TGen::OpenGL::Renderer::Renderer()
 	, lastIb1(-1)
 	, ibReadOffset(0)
 	, vbReadOffset(0)
+	, indexBufferFormatSize(0)
 	, hasCoordElements(NULL)
 	, hasNormalElements(NULL)
 	, hasColorElements(NULL)
@@ -545,6 +546,7 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::VertexData * buffer) {
 			STAT_ADD(TGen::StatIBCacheMiss);
 			glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, vd->vboId);
 			indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
+			indexBufferFormatSize = TGen::FormatTypeSize(buffer->getVertexStructure().getElementDataType(0));
 			lastIb1 = vboId;
 			lastIb = NULL;
 			lastIb2 = buffer;
@@ -597,6 +599,7 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 		if (vboId != lastIb1) {
 			glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, ib->vboId);
 			indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
+			indexBufferFormatSize = TGen::FormatTypeSize(buffer->getVertexStructure().getElementDataType(0));
 			lastIb1 = vboId;
 			lastIb = buffer;
 			lastIb2 = NULL;
@@ -619,7 +622,15 @@ void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
 		STAT_ADD(TGen::StatTextureCacheMiss);
 	}
 	
-	glActiveTexture(GL_TEXTURE0 + unit);
+	GLenum texUnit = GL_TEXTURE0 + unit;
+	if (texUnit != activeTextureUnit) {
+		STAT_ADD(TGen::StatGeneralStateCacheMiss);
+		glActiveTexture(texUnit);
+		activeTextureUnit = texUnit;
+	}
+	else {
+		STAT_ADD(TGen::StatGeneralStateCacheHit);	
+	}
 	
 	GLenum lastTarget = textureUnitTargets[unit];
 	
@@ -648,13 +659,22 @@ void TGen::OpenGL::Renderer::drawPrimitive(TGen::PrimitiveType type, uint startV
 }
 
 void TGen::OpenGL::Renderer::drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) {
+//	if (ibReadOffset == 0)
+	//	return;
+	
 	GLenum fixedPrimitive = TGen::OpenGL::TgenPrimitiveToOpenGL(type);
+	startIndex += ibReadOffset;
+	uint endIndex = startIndex + indexCount;
+
+	//std::cout << "draw at " << startIndex << " - " << endIndex << std::endl;
+	//	GLvoid * offset = reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb2->getVertexStructure().getElementDataType(0)));
+	
+	const GLvoid * offset = reinterpret_cast<const GLvoid *>(startIndex * indexBufferFormatSize);
 	
 	if (!lastIb2)
-		glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb->getVertexStructure().getElementDataType(0))));	
+		glDrawRangeElements(fixedPrimitive, startIndex, endIndex, indexCount, indexBufferFormat, offset);	
 	else
-		glDrawRangeElements(fixedPrimitive, 0, indexCount, indexCount, indexBufferFormat, reinterpret_cast<const GLvoid *>(startIndex * TGen::FormatTypeSize(lastIb2->getVertexStructure().getElementDataType(0))));	
-	
+		glDrawRangeElements(fixedPrimitive, startIndex, endIndex, indexCount, indexBufferFormat, offset);	
 }
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::createFrameBuffer() {
@@ -974,7 +994,20 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		STAT_ADD(TGen::StatGeneralStateCacheHit);	
 	}
 	
-	
+	if (context.disableBlend != lastContext.disableBlend) {
+		STAT_ADD(TGen::StatGeneralStateCacheMiss);	
+		
+		if (context.disableBlend)
+			glDisable(GL_BLEND);
+		else
+			glEnable(GL_BLEND);
+		
+		lastContext.disableBlend = context.disableBlend;
+	}
+	else {
+		STAT_ADD(TGen::StatGeneralStateCacheHit);		
+	}
+		
 	setShaderProgram(context.shader);
 	setDepthFunc(context.depthFunc);
 	
@@ -982,9 +1015,7 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		setColor(context.frontColor);	
 
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
-	for (; iter != context.textureUnits.end(); ++iter) {
-		glActiveTexture(GL_TEXTURE0 + (*iter)->unit);
-		
+	for (; iter != context.textureUnits.end(); ++iter) {		
 		if ((*iter)->textureType == 0)
 			setTexture((*iter)->unit, (*iter)->texture);
 		else if ((*iter)->textureType > 0 && textureTypes)

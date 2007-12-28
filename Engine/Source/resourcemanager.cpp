@@ -133,7 +133,7 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		TGen::Engine::ImageGenerator generator;
 		TGen::Image * newImage = generator.generateImage(line);
 		
-		newTexture = renderer.createTexture(*newImage, TGen::RGB);
+		newTexture = renderer.createTexture(*newImage, TGen::RGBA);		// TODO: specify format in genline?
 	}
 	else {
 		ILuint imageName;
@@ -147,8 +147,9 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		TGen::Engine::File * file = filesystem.openRead(fixedName);
 		TGen::Image * image = imageLoader.load(file);
 		delete file;
-	
-		newTexture = renderer.createTexture(*image, image->getFormat());
+		// TODO: kolla drawIndexed, kolla så internal format-parametern här inte ignoreras
+		
+		newTexture = renderer.createTexture(*image, TGen::RGBA);	// TODO: variable switch between RGBA and format of image image->getFormat()
 		delete image;
 	}
 	

@@ -35,6 +35,10 @@
 		D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */; };
 		D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7BF30D10919B008622BC /* imagegenerator.cpp */; };
 		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
+		D098901A0D244181006A290D /* vertexcache2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890190D244181006A290D /* vertexcache2.cpp */; };
+		D09890A50D2449C0006A290D /* vertexcacheentry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890A40D2449C0006A290D /* vertexcacheentry.cpp */; };
+		D09890CF0D244BB4006A290D /* poolcollection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890CE0D244BB4006A290D /* poolcollection2.cpp */; };
+		D09891150D245215006A290D /* basicpoolcollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09891140D245215006A290D /* basicpoolcollection.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
@@ -227,6 +231,14 @@
 		D08C7BF30D10919B008622BC /* imagegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagegenerator.cpp; sourceTree = "<group>"; };
 		D08C7C230D109514008622BC /* generateline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generateline.h; path = ../../Include/generateline.h; sourceTree = SOURCE_ROOT; };
 		D08C7C240D1095CA008622BC /* generateline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generateline.cpp; sourceTree = "<group>"; };
+		D09890180D24414D006A290D /* vertexcache2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache2.h; path = ../../Include/vertexcache2.h; sourceTree = SOURCE_ROOT; };
+		D09890190D244181006A290D /* vertexcache2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcache2.cpp; sourceTree = "<group>"; };
+		D09890440D24435E006A290D /* poolcollection2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poolcollection2.h; path = ../../Include/poolcollection2.h; sourceTree = SOURCE_ROOT; };
+		D09890A30D2448E9006A290D /* vertexcacheentry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcacheentry.h; path = ../../Include/vertexcacheentry.h; sourceTree = SOURCE_ROOT; };
+		D09890A40D2449C0006A290D /* vertexcacheentry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcacheentry.cpp; sourceTree = "<group>"; };
+		D09890CE0D244BB4006A290D /* poolcollection2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poolcollection2.cpp; sourceTree = "<group>"; };
+		D09891130D245208006A290D /* basicpoolcollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = basicpoolcollection.h; path = ../../Include/basicpoolcollection.h; sourceTree = SOURCE_ROOT; };
+		D09891140D245215006A290D /* basicpoolcollection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basicpoolcollection.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -529,6 +541,14 @@
 				D0843B6B0D0759D200C31FE3 /* mempool.h */,
 				D0843B6E0D0759D200C31FE3 /* memmanager.cpp */,
 				D0843B6D0D0759D200C31FE3 /* memmanager.h */,
+				D09890190D244181006A290D /* vertexcache2.cpp */,
+				D09890180D24414D006A290D /* vertexcache2.h */,
+				D09890CE0D244BB4006A290D /* poolcollection2.cpp */,
+				D09890440D24435E006A290D /* poolcollection2.h */,
+				D09890A40D2449C0006A290D /* vertexcacheentry.cpp */,
+				D09890A30D2448E9006A290D /* vertexcacheentry.h */,
+				D09891140D245215006A290D /* basicpoolcollection.cpp */,
+				D09891130D245208006A290D /* basicpoolcollection.h */,
 			);
 			name = memory;
 			sourceTree = "<group>";
@@ -815,6 +835,10 @@
 				D08C7C250D1095CA008622BC /* generateline.cpp in Sources */,
 				D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */,
 				D07981110D21725C00B16739 /* vertexcache.cpp in Sources */,
+				D098901A0D244181006A290D /* vertexcache2.cpp in Sources */,
+				D09890A50D2449C0006A290D /* vertexcacheentry.cpp in Sources */,
+				D09890CF0D244BB4006A290D /* poolcollection2.cpp in Sources */,
+				D09891150D245215006A290D /* basicpoolcollection.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

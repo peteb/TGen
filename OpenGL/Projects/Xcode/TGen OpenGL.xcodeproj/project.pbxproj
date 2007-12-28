@@ -41,7 +41,7 @@
 		D04C82F40CCA49B900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C811D0CCA45E200794CEA /* libtgen_core.a */; };
 		D04C82F50CCA49C400794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C812B0CCA45F000794CEA /* libtgen_math.a */; };
 		D04C82FC0CCA49E100794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81380CCA45FB00794CEA /* libtgen_graphics.a */; };
-		D0682B5C0CE3516700835F01 /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
+		D06E6A4A0D259EBB006F4E20 /* materialtest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC92A0C3BB59900C0AB3F /* materialtest.cpp */; };
 		D07980450D21695600B16739 /* vertexdata_ogl.h in Headers */ = {isa = PBXBuildFile; fileRef = D07980440D21695600B16739 /* vertexdata_ogl.h */; };
 		D07980470D21696700B16739 /* vertexdata_ogl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07980460D21696700B16739 /* vertexdata_ogl.cpp */; };
 		D0CE01510C3D968B007D4B18 /* envmap.jpg in CopyFiles */ = {isa = PBXBuildFile; fileRef = D0CE01360C3D9633007D4B18 /* envmap.jpg */; };
@@ -524,7 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D0682B5C0CE3516700835F01 /* materialtest.cpp in Sources */,
+				D06E6A4A0D259EBB006F4E20 /* materialtest.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

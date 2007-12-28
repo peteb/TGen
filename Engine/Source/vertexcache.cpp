@@ -9,13 +9,13 @@
 
 #include "vertexcache.h"
 #include "log.h"
+#include "fillquad.h"
 
 TGen::Engine::VertexCacheEntry::VertexCacheEntry(TGen::VertexDataSource & creator, uint size, ushort usage, TGen::VertexData * buffer, void * entryAt, uint readAt)
 	: TGen::VertexData(creator, size, usage, entryAt, readAt)
 	, buffer(buffer)
 	, entryAt(entryAt)
 {
-
 }
 
 TGen::Engine::VertexCacheEntry::~VertexCacheEntry() {
@@ -58,6 +58,7 @@ TGen::Engine::VertexCache::VertexCache(TGen::VertexDataSource & dataSource, TGen
 	: dataSource(dataSource)
 	, logs(logs)
 {
+	getPoolCollection(TGen::Engine::FillQuad::VertexDecl(), TGen::UsageStatic);
 	
 	logs.info["vcache+"] << "initialized" << TGen::endl;
 }
@@ -68,28 +69,36 @@ TGen::Engine::VertexCache::~VertexCache() {
 
 TGen::VertexData * TGen::Engine::VertexCache::createVertexData(const VertexStructure & vertstruct, uint size, ushort usage) {
 	std::string poolId = vertstruct.getStringRepresentation() + "|" + char('A' + (usage & 0xFF)) + char('A' + ((usage >> 8) & 0xFF));
+
 	logs.info["vcache"] << "someone's asking for " << size << " bytes, poolId: " << poolId << TGen::endl;
 	
-	PoolCollectionMap::iterator iter = poolCollections.find(poolId);
-	TGen::Engine::PoolCollection * poolCollection = NULL;
 	
-	if (iter != poolCollections.end()) {
-		logs.info["vcache"] << "found pool collection" << TGen::endl;
-		poolCollection = iter->second;		
-	}
-	else {
-		logs.info["vcache"] << "no pool collection created, creating one..." << TGen::endl;
-		poolCollection = new TGen::Engine::PoolCollection(vertstruct, usage, *this);
-		poolCollections.insert(PoolCollectionMap::value_type(poolId, poolCollection));
-	}
-	
-	TGen::Engine::VertexCacheEntry * entry = poolCollection->alloc(size);
+	TGen::Engine::VertexCacheEntry * entry = getPoolCollection(vertstruct, usage)->alloc(size);
 	
 	//if (size == 64)
 		return entry; //dataSource.createVertexData(vertstruct, size, usage);
 	//else
-	//	return dataSource.createVertexData(vertstruct, size, usage);
+		//return dataSource.createVertexData(vertstruct, size, usage);
 }
+
+TGen::Engine::PoolCollection * TGen::Engine::VertexCache::getPoolCollection(const TGen::VertexStructure & vertstruct, ushort usage) {
+	std::string poolId = vertstruct.getStringRepresentation() + "|" + char('A' + (usage & 0xFF)) + char('A' + ((usage >> 8) & 0xFF));
+
+	PoolCollectionMap::iterator iter = poolCollections.find(poolId);
+	
+	if (iter != poolCollections.end()) {
+		logs.info["vcache"] << "found pool collection" << TGen::endl;
+		return iter->second;		
+	}
+	else {
+		logs.info["vcache"] << "no pool collection created, creating one..." << TGen::endl;
+		TGen::Engine::PoolCollection * poolCollection = new TGen::Engine::PoolCollection(vertstruct, usage, *this);
+		poolCollections.insert(PoolCollectionMap::value_type(poolId, poolCollection));
+
+		return poolCollection;
+	}
+}
+
 
 void TGen::Engine::VertexCache::removeVertexData(TGen::VertexData * data) {
 	/*logs.info["vcache"] << "vertex cache entry remove..." << TGen::endl;
@@ -149,11 +158,13 @@ TGen::Engine::VertexCacheEntry * TGen::Engine::PoolCollection::alloc(uint size) 
 		dataAt = reinterpret_cast<char *>(dataAt) + size;
 		std::cout << "space at " << dataPos << " for " << size << " bytes!" << std::endl;
 		
-		return new VertexCacheEntry(cache, size, usage, buffer, dataPos, reinterpret_cast<uint>(dataPos) / vertstruct.getSize());
+		return new VertexCacheEntry(cache, size, usage, buffer, dataPos,  reinterpret_cast<uint>(dataPos) / vertstruct.getSize());
 	}
 	else {
 		throw TGen::RuntimeException("PoolCollection::alloc", "no space left!");
 	}
+	
+	// TODO: openglrenderer::drawINdexedPrimitive borkar offset
 	
 	return NULL;
 }
