@@ -13,6 +13,8 @@
 #include "app.h"
 #include "entity.h"
 #include "light.h"
+#include "map.h"
+#include "maploader.h"
 
 TGen::Engine::SceneSubsystem::SceneSubsystem(TGen::Engine::World & world)
 	: sceneRoot("root")
@@ -29,6 +31,7 @@ TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::En
 	bool doCreateNode = properties.getName() == "sceneNode";
 	bool doCreateCamera = properties.getName() == "sceneCamera";
 	bool doCreateLight = properties.getName() == "sceneLight";
+	bool doCreateMap = properties.getName() == "sceneMap";
 	
 	std::string name = entity->getName();
 
@@ -40,6 +43,8 @@ TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::En
 		sceneNode = createLightNode(name, properties);
 	else if (doCreateNode)
 		sceneNode = createNode(name, properties);
+	else if (doCreateMap)
+		sceneNode = createMapNode(name, properties);
 	else
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
@@ -102,6 +107,14 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createNode(const std::string & n
 	
 	return node;
 }
+
+TGen::SceneNode * TGen::Engine::SceneSubsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
+	TGen::Engine::MapLoader loader(world.app.logs, world.app.filesystem);
+	TGen::SceneNode * node = loader.createMap(name, properties.getProperty("model", ""), TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	
+	return node;
+}
+
 
 void TGen::Engine::SceneSubsystem::link() {
 	world.app.logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;

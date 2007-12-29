@@ -28,13 +28,13 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	entityFactory.registerSubsystem("sceneNode", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneLight", &sceneSubsystem);
+	entityFactory.registerSubsystem("sceneMap", &sceneSubsystem);
 	
 	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
 	//       kan kanske fixas genom att överlagra funktionen som ger faces åt renderlist att rendrera, att den då går igenom de rum som syns, 
 	//       men alla entiteter i banan ska uppdateras när banan uppdateras.
 	// TODO: överlagra addChild för map, den för in entiteten i den area som origin pekar på
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa.
-	// TODO: world("mapname")   
 	// TODO: riktig file-logger. som resettar filen när man startar
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 	

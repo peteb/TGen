@@ -119,8 +119,6 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 }
 
 TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & name) {
-	// gen:red:2048 2048
-	
 	TextureMap::iterator iter = textures.find(name);
 	if (iter != textures.end())
 		return iter->second;
@@ -140,7 +138,10 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		ilGenImages(1, &imageName);
 		ilBindImage(imageName);
 	
-		std::string fixedName = "textures/" + name;
+		std::string fixedName;
+		
+		if (name.substr(0, 9) != "textures/")
+			fixedName = "textures/" + name;
 	
 		logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
 	
