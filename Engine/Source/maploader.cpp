@@ -13,6 +13,8 @@
 #include "file.h"
 #include "filesystem.h"
 #include "maptokenizer.h"
+#include "mapmodel.h"
+#include "mapsurface.h"
 
 TGen::Engine::MapLoader::MapLoader(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem)
 	: logs(logs)
@@ -50,12 +52,12 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == TGen::Engine::ProcTokenModel) {
-			/*stepAndCheck();
+			stepAndCheck();
 			if (currentToken->first != ProcTokenBlockStart)
-				throw TGen::RuntimeException("ProcParser::parseGlobalBlock", "model: no block start!");
+				throw TGen::RuntimeException("MapLoader::parseGlobalBlock", "model: no block start!");
 			
 			stepAndCheck();
-			procmap->addModel(parseModelBlock());*/
+			map->addModel(parseModelBlock(map));
 		}
 		else if (currentToken->first == TGen::Engine::ProcTokenIAP) {
 			/*stepAndCheck();
@@ -82,6 +84,127 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 	}	
 }
 
+TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::Map * map) {
+	std::string modelName = currentToken->second;
+	stepAndCheck();
+	std::string surfaceCount = currentToken->second;
+	stepAndCheck();
+	
+	std::cout << "model name: " << modelName << " surfaces: " << surfaceCount << std::endl;
+	
+	TGen::Engine::MapModel * model = new TGen::Engine::MapModel(modelName, map);
+	
+	while (currentToken != endIter) {
+		if (currentToken->first == ProcTokenBlockStart) {
+			stepAndCheck();
+			model->addSurface(parseSurfaceBlock());
+			std::cout << "added surf" << std::endl;
+		}
+		else if (currentToken->first == ProcTokenBlockEnd) {
+			//stepAndCheck();
+			return model;
+		}
+		
+		if (currentToken != endIter)
+			step();		
+	}
+	
+	throw TGen::RuntimeException("MapLoader::parseModelBlock", "unexpected end");	
+}
+
+TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
+	std::string materialName = currentToken->second;
+	stepAndCheck();
+	std::string numVerts = currentToken->second;
+	stepAndCheck();
+	std::string numIndices = currentToken->second;
+	stepAndCheck();
+	
+	std::cout << "material: " + materialName + " numVerts: " + numVerts + " numIndices: " + numIndices << std::endl;
+	
+	TGen::Engine::MapSurface * surface = new TGen::Engine::MapSurface(materialName);
+		
+	while (currentToken != endIter) {
+		if (currentToken->first == ProcTokenArrayStart) {
+			surface->addVertex(parseVertex());
+		}
+		else if (currentToken->first == TGen::TokenValueNumeric) {
+			surface->addIndex(TGen::lexical_cast<uint>(currentToken->second));
+		}
+		else if (currentToken->first == ProcTokenBlockEnd) {
+			////stepAndCheck();
+			//if (surface->getNumVertices() != TGen::lexical_cast<int>(numVerts))
+			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of vertices doesn't match");
+			//if (surface->getNumIndices() != TGen::lexical_cast<int>(numIndices))
+			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of indices doesn't match");
+			
+			return surface;
+		}
+				
+		if (currentToken != endIter)
+			step();
+	}
+	
+	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "unexpected end");	
+}
+
+TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex() {
+	TGen::Engine::MapSurface::VertexDecl::Type vertex;
+	
+	// TODO: testa parsa med Vector3::Parse osv
+	
+	if (currentToken->first != ProcTokenArrayStart)
+		throw TGen::RuntimeException("MapLoader::parseVertex", "invalid vertex, must start with array start");
+	
+	std::string x, y, z, u, v, nx, ny, nz;
+	stepAndCheck();
+	x = currentToken->second;
+	stepAndCheck();
+	y = currentToken->second;
+	stepAndCheck();
+	z = currentToken->second;
+	stepAndCheck();
+	u = currentToken->second;
+	stepAndCheck();
+	v = currentToken->second;
+	stepAndCheck();
+	nx = currentToken->second;
+	stepAndCheck();
+	ny = currentToken->second;
+	stepAndCheck();
+	nz = currentToken->second;
+	stepAndCheck();
+	
+	if (currentToken->first != ProcTokenArrayEnd)
+		throw TGen::RuntimeException("ProcParser::parseVertex", "invalid vertex, must end with array end");
+	
+	//stepAndCheck();
+	
+	//std::cout << "x: " + x + " y: " + y + " z: " + z + " u: " + u + " v: " + v + " nx: " + nx + " ny: " + ny + " nz: " + nz << std::endl;
+	vertex.x = TGen::lexical_cast<float>(x);
+	vertex.y = TGen::lexical_cast<float>(z);
+	vertex.z = TGen::lexical_cast<float>(y);
+	vertex.u = TGen::lexical_cast<float>(u);
+	vertex.v = TGen::lexical_cast<float>(v);
+	vertex.nx = TGen::lexical_cast<float>(nx);
+	vertex.ny = TGen::lexical_cast<float>(nz);
+	vertex.nz = TGen::lexical_cast<float>(ny);
+	
+	//std::cout << "x: " << vertex.x << " y: " << vertex.y << " z: " << vertex.z << " u: " << vertex.u << " v: " << vertex.v << " nx: " << vertex.nx << " ny: " << vertex.ny << " nz: " << vertex.nz << std::endl;
+	
+	return vertex;	
+}
+
 void TGen::Engine::MapLoader::step() {
 	tokens.stepToken(currentToken, endIter);
+}
+
+void TGen::Engine::MapLoader::checkEOS() {
+	if (currentToken == endIter)
+		throw TGen::RuntimeException("MapLoader::checkEOS", "unexpected end");
+}
+
+void TGen::Engine::MapLoader::stepAndCheck() {
+	step();
+	checkEOS();
 }

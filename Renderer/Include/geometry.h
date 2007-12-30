@@ -52,7 +52,7 @@ namespace TGen {
 		SubfaceList leaves;
 	};
 	
-	// HUVUDBRY: md3-meshes anger ju material. faces drar material från geometry om facens material är ""
+	// TODO: md3-meshes anger ju material. faces drar material från geometry om facens material är ""
 } // !TGen
 
 #endif // !_TGEN_RENDERER_GEOMETRY_H

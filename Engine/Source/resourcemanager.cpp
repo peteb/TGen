@@ -225,12 +225,14 @@ TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & 
 	logs.warning["res"] << "material '" << name << "' is not loaded, using 'nomat'" << TGen::endl;
 	
 	iter = materials.find("nomat");
-	if (iter != materials.end())
+	if (iter != materials.end()) {
+		if (!iter->second->isLinked())
+			iter->second->link(*this);
+		
 		return iter->second;
+	}
 	
-	logs.error["res"] << "material '" << name << "' is not loaded and there's no 'nomat'!" << TGen::endl;
-	
-	return NULL;
+	throw TGen::RuntimeException("ResourceManager::getMaterial", "material '" + name + "' is not found and there is no fallback (nomat)!");
 }
 
 void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) {

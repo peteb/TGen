@@ -17,6 +17,8 @@ TGen::FaceLinker::FaceLinker(TGen::MaterialSource & source)
 }
 
 bool TGen::FaceLinker::pre(TGen::SceneNode & node) const {
+	node.linkMaterials(source);
+
 	for (int i = 0; i < node.getFaces().size(); ++i) {
 		node.getFaces()[i].linkMaterial(source);
 	}

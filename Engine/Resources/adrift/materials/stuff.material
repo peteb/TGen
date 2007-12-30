@@ -1,20 +1,28 @@
 
-
 material nomat default 9 {
 	lod 9 {
-		pass fixed {
+		pass gen:deferred/writeAttributes:COLOR_MAP {
 			front fill
-			back fill
+			back lines
 
-			color 1 0 0
+			color 1 1 1
+			
+		//	texunit 0 "gen:fadeCircle size '512' center '0.5 0.5' start 'red' end 'blue' radius '0.5'" {
+          //      sampler colorMap
+			//}
+			
+			texunit 0 "color.png" {
+                sampler colorMap
+			}
 		}
 	}
 }
 
 
+
 material railgunMaterial default 9 {
 	lod 9 {
-		pass gen:deferred/writeAttributes:NO_NORMAL_MAP {
+		pass gen:deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
 			texunit 0 "railgun1.png" {
 				sampler colorMap
 			}

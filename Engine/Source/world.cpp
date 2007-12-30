@@ -137,7 +137,11 @@ void TGen::Engine::World::update(scalar dt) {
 	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.3));
 	
 	sceneSubsystem.getSceneRoot().getChild("test")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test")->getLocalOrientation()));
+	sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
+
 	sceneSubsystem.getSceneRoot().update();
+	
+	
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {

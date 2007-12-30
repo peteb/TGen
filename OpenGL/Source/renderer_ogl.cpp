@@ -107,7 +107,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	caps.driverName += (char *)glGetString(GL_VERSION);
 	caps.rendererName = (char *)glGetString(GL_RENDERER);
 	caps.driverVendor = (char *)glGetString(GL_VENDOR);
-	caps.vertexShader = isExtensionAvailable("GL_ARB_vertex_shader");	// GL_ARB_vertex_program?
+	caps.vertexShader = isExtensionAvailable("GL_ARB_vertex_shader");
 	caps.fragmentShader = isExtensionAvailable("GL_ARB_fragment_shader");
 	caps.geometryShader = isExtensionAvailable("GL_EXT_geometry_shader4");
 	caps.framebuffer = isExtensionAvailable("GL_EXT_framebuffer_object");

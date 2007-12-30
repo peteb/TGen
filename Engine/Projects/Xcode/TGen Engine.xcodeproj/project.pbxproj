@@ -29,6 +29,8 @@
 		D07981110D21725C00B16739 /* vertexcache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07981100D21725C00B16739 /* vertexcache.cpp */; };
 		D07AFB600CFA331300DBCD9D /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07AFB5F0CFA331300DBCD9D /* light.cpp */; };
 		D08006070CEF75E300AAED52 /* adrift in Resources */ = {isa = PBXBuildFile; fileRef = D08005EE0CEF75E100AAED52 /* adrift */; };
+		D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */; };
+		D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */; };
 		D08212E00CF33144000EFA7E /* deferredrenderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */; };
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843B6E0D0759D200C31FE3 /* memmanager.cpp */; };
@@ -219,6 +221,10 @@
 		D07AFB5E0CFA330A00DBCD9D /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = ../../Include/light.h; sourceTree = SOURCE_ROOT; };
 		D07AFB5F0CFA331300DBCD9D /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = light.cpp; sourceTree = "<group>"; };
 		D08005EE0CEF75E100AAED52 /* adrift */ = {isa = PBXFileReference; lastKnownFileType = folder; name = adrift; path = ../../Resources/adrift; sourceTree = SOURCE_ROOT; };
+		D080DA3E0D27E8AE00EEFDFC /* mapmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapmodel.h; path = ../../Include/mapmodel.h; sourceTree = SOURCE_ROOT; };
+		D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapmodel.cpp; sourceTree = "<group>"; };
+		D080DA840D27EC9300EEFDFC /* mapsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapsurface.h; path = ../../Include/mapsurface.h; sourceTree = SOURCE_ROOT; };
+		D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapsurface.cpp; sourceTree = "<group>"; };
 		D08212DF0CF33144000EFA7E /* deferredrenderervars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = deferredrenderervars.cpp; sourceTree = "<group>"; };
 		D08212E10CF33155000EFA7E /* deferredrenderervars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredrenderervars.h; path = ../../Include/deferredrenderervars.h; sourceTree = SOURCE_ROOT; };
 		D083958B0CD927E100C94467 /* deferredscenerenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = deferredscenerenderer.h; path = ../../Include/deferredscenerenderer.h; sourceTree = SOURCE_ROOT; };
@@ -538,6 +544,10 @@
 				D077FAB00D26DEA600217E07 /* maploader.h */,
 				D077FB610D26E58C00217E07 /* maptokenizer.cpp */,
 				D077FB4D0D26E4FB00217E07 /* maptokenizer.h */,
+				D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */,
+				D080DA3E0D27E8AE00EEFDFC /* mapmodel.h */,
+				D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */,
+				D080DA840D27EC9300EEFDFC /* mapsurface.h */,
 			);
 			name = map;
 			sourceTree = "<group>";
@@ -865,6 +875,8 @@
 				D077FA670D26DC6C00217E07 /* map.cpp in Sources */,
 				D077FAB20D26DF0F00217E07 /* maploader.cpp in Sources */,
 				D077FB620D26E58C00217E07 /* maptokenizer.cpp in Sources */,
+				D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */,
+				D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

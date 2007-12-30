@@ -11,12 +11,14 @@
 #define _TGEN_ENGINE_MAPLOADER_H
 
 #include <tgen_math.h>
+#include "mapsurface.h"
 
 namespace TGen {
 	namespace Engine {
 		class Map;
 		class StandardLogs;
 		class Filesystem;
+		class MapModel;
 		
 		class MapLoader {
 		public:
@@ -26,7 +28,13 @@ namespace TGen {
 			
 		private:
 			void parseGlobalBlock(TGen::Engine::Map * map);
+			TGen::Engine::MapModel * parseModelBlock(TGen::Engine::Map * map);
+			TGen::Engine::MapSurface * parseSurfaceBlock();
+			TGen::Engine::MapSurface::VertexDecl::Type parseVertex();
+			
 			void step();
+			void checkEOS();			
+			void stepAndCheck();
 			
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::Filesystem & filesystem;
