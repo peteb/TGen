@@ -14,17 +14,28 @@
 
 namespace TGen {
 	namespace Engine {
+		enum {
+			MapSurfaceTangentAttribute = 10,
+			
+		};
+		
 		class MapSurface : public TGen::Geometry {
 		public:	
 			MapSurface(const std::string & material);
 			~MapSurface();
 			
-			typedef TGen::JoinVertexElements3<TGen::Vertex3<float>, TGen::TexCoord2<float, 0>, TGen::Normal3<float> > VertexDecl;
+			typedef TGen::Vertex3<float> Vertex;
+			typedef TGen::TexCoord2<float, 0> TexCoord;
+			typedef TGen::Normal3<float> Normal;
+			typedef TGen::VertexAttribute4<TGen::Engine::MapSurfaceTangentAttribute, float> Tangent;
+			
+			typedef TGen::JoinVertexElements4<Vertex, TexCoord, Normal, Tangent> VertexDecl;
 			typedef TGen::Index<unsigned int> IndexDecl;
 
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 			void createVertexData(TGen::VertexDataSource & source);
+			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
 			
 			TGen::Vector3 getMax() const;
 			TGen::Vector3 getMin() const;
@@ -32,6 +43,7 @@ namespace TGen {
 			
 			void addVertex(const VertexDecl::Type & vertex);
 			void addIndex(const IndexDecl::Type & index);
+			void calculateTangents();
 			
 			std::string getMaterialName() const;
 			
@@ -41,7 +53,7 @@ namespace TGen {
 
 			VertexList vertices;
 			IndexList indices;
-
+			
 			TGen::VertexData * vb, * ib;
 			
 			std::string material;

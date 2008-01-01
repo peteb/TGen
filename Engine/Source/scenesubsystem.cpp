@@ -103,7 +103,7 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createNode(const std::string & n
 TGen::SceneNode * TGen::Engine::SceneSubsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::MapLoader loader(world.app.logs, world.app.filesystem);
 	TGen::Engine::Map * map = loader.createMap(name, properties.getProperty("model", ""), TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
-	map->createVertexData(world.app.renderer);
+	map->createVertexData(world.app.globalResources.vertexCache);
 	
 	return map;
 }

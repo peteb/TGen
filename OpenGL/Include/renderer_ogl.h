@@ -10,7 +10,7 @@
 #ifndef _TGEN_OPENGL_RENDERER_H
 #define _TGEN_OPENGL_RENDERER_H
 
-//#define _OGL_DEBUG
+#define _OGL_DEBUG
 
 #ifdef _OGL_DEBUG
 	#define STAT_ADD(x) stats.addStat(x)

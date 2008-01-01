@@ -78,7 +78,7 @@ void TGen::Engine::GameState::render(scalar dt) {
 	app.env.swapBuffers();
 	//std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
 	
-	//app.renderer.getStatistics().reset();
+	app.renderer.getStatistics().reset();
 	
 	if (vars.checkErrors)
 		checkErrors();

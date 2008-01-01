@@ -1,7 +1,7 @@
 
 material nomat default 9 {
 	lod 9 {
-		pass gen:deferred/writeAttributes:COLOR_MAP {
+		pass gen:deferred/writeAttributes:COLOR_MAP,NORMAL_MAP {
 			front fill
 			back lines
 
@@ -11,8 +11,14 @@ material nomat default 9 {
           //      sampler colorMap
 			//}
 			
+			bind tangent "vertexTangent"
+			
 			texunit 0 "color.png" {
                 sampler colorMap
+			}
+			
+			texunit 1 "rocks_n.tga" {
+                sampler normalMap
 			}
 		}
 	}

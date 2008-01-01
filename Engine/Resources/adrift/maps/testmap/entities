@@ -15,14 +15,6 @@ test2 {
 	}
 }
 
-light1 {
-	sceneLight {
-		material "deferred/lightDirectional"
-		orientation "-1 0 -1"
-		diffuse "0.4 0.4 0.4 1.0"
-		specular "1.0"
-	}
-}
 
 maincam {
 	sceneCamera {
@@ -44,7 +36,7 @@ maincam {
 testmap {
 	sceneMap {
 		model "maps/testmap/testmap.proc"
-		origin "0 4 0"
+		origin "0 7 0"
 	}
 
 	physGeom {
@@ -60,3 +52,21 @@ testmap {
 	}
 }
 
+light1 {
+	sceneLight {
+		material "deferred/lightDirectional"
+		orientation "-1 0 -1"
+		diffuse "0.3 0.2 0.2 1.0"
+		specular "1.0"
+		treePosition "testmap/"
+	}
+}
+
+light2 {
+	sceneLight {
+		material "deferred/lightDirectional"
+		orientation "0 -0.5 1"
+		diffuse "0.0 0.0 0.0 1.0"
+		specular "1.0 1.0 1.0 1.0"
+	}
+}

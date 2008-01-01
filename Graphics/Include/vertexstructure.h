@@ -187,6 +187,10 @@ namespace TGen {
 			Type() {}
 			Type(const T & index) : index(index) {}
 				
+			operator T() const {
+				return index;
+			}
+			
 			Type & operator += (const T & value) {
 				index += value;
 				return *this;

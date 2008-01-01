@@ -92,7 +92,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	scalar lodFar = camera.getLodFar();
 	scalar clipFar = camera.getClipFar();
 	
-	// OPT: allt det h‰r ‰r fˆrmodligen v‰ldigt segt....
+	// OPT: allt det här är förmodligen väldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 		scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
 		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);
@@ -126,7 +126,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			TGen::Material * globalMaterial = face->getMaterial();
 
 			if (!subfaces) {	// render the face
-				globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL);	// TODO: opt specialization, symbol look-up before loop
+				globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL, face->getGeometry());	// TODO: opt specialization, symbol look-up before loop
 			}
 			else {	// render the leaves
 				face->getGeometry()->preRender(renderer);
@@ -137,7 +137,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 					//if ((*subfaces)[i]->getMaterial())
 					//	material = (*subfaces)[i]->getMaterial();
 					
-					material->render(renderer, *(*subfaces)[i], specialization, lod, NULL);
+					material->render(renderer, *(*subfaces)[i], specialization, lod, NULL, face->getGeometry());
 					
 				}				
 			}

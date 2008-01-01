@@ -137,6 +137,7 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of vertices doesn't match");
 			//if (surface->getNumIndices() != TGen::lexical_cast<int>(numIndices))
 			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of indices doesn't match");
+			surface->calculateTangents();
 			
 			return surface;
 		}
@@ -150,9 +151,7 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 
 TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex() {
 	TGen::Engine::MapSurface::VertexDecl::Type vertex;
-	
-	// TODO: testa parsa med Vector3::Parse osv
-	
+		
 	if (currentToken->first != ProcTokenArrayStart)
 		throw TGen::RuntimeException("MapLoader::parseVertex", "invalid vertex, must start with array start");
 	
@@ -179,16 +178,19 @@ TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex(
 		throw TGen::RuntimeException("ProcParser::parseVertex", "invalid vertex, must end with array end");
 	
 	//stepAndCheck();
-	
+
 	//std::cout << "x: " + x + " y: " + y + " z: " + z + " u: " + u + " v: " + v + " nx: " + nx + " ny: " + ny + " nz: " + nz << std::endl;
-	vertex.x = TGen::lexical_cast<float>(x);
-	vertex.y = TGen::lexical_cast<float>(z);
-	vertex.z = TGen::lexical_cast<float>(y);
-	vertex.u = TGen::lexical_cast<float>(u);
-	vertex.v = TGen::lexical_cast<float>(v);
-	vertex.nx = TGen::lexical_cast<float>(nx);
-	vertex.ny = TGen::lexical_cast<float>(nz);
-	vertex.nz = TGen::lexical_cast<float>(ny);
+	vertex.MapSurface::Vertex::Type::x = TGen::lexical_cast<float>(x);
+	vertex.MapSurface::Vertex::Type::y = TGen::lexical_cast<float>(z);
+	vertex.MapSurface::Vertex::Type::z = TGen::lexical_cast<float>(y);
+	vertex.MapSurface::TexCoord::Type::u = TGen::lexical_cast<float>(u);
+	vertex.MapSurface::TexCoord::Type::v = TGen::lexical_cast<float>(v);
+	vertex.MapSurface::Normal::Type::nx = TGen::lexical_cast<float>(nx);
+	vertex.MapSurface::Normal::Type::ny = TGen::lexical_cast<float>(nz);
+	vertex.MapSurface::Normal::Type::nz = TGen::lexical_cast<float>(ny);
+	vertex.MapSurface::Tangent::Type::x = 0.0;
+	vertex.MapSurface::Tangent::Type::y = 0.0;
+	vertex.MapSurface::Tangent::Type::z = 0.0;
 	
 	//std::cout << "x: " << vertex.x << " y: " << vertex.y << " z: " << vertex.z << " u: " << vertex.u << " v: " << vertex.v << " nx: " << vertex.nx << " ny: " << vertex.ny << " nz: " << vertex.nz << std::endl;
 	

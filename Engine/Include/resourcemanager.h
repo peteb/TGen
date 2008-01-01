@@ -35,6 +35,8 @@ namespace TGen {
 			void loadMaterials(const std::string & filename);
 			void updateMaterials(scalar time);
 			
+			TGen::Engine::VertexCache vertexCache;
+			
 		private:
 			typedef std::map<std::string, TGen::ShaderProgram *> ShaderMap;
 			typedef std::map<std::string, TGen::Texture *> TextureMap;
@@ -46,7 +48,6 @@ namespace TGen {
 			MeshMap meshes;
 			MaterialMap materials;
 			
-			TGen::Engine::VertexCache vertexCache;
 			TGen::Engine::ImageLoader imageLoader;
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;

@@ -18,6 +18,7 @@
 
 namespace TGen {
 	class Camera;
+	class ShaderVariable;
 	
 	class Subface : public TGen::Renderable {
 	public:	
@@ -28,7 +29,7 @@ namespace TGen {
 		
 	};
 	
-	class Geometry : public TGen::Renderable {
+	class Geometry : public TGen::Renderable, public TGen::ShaderVariableUpdater {
 	public:	
 		Geometry() {}
 		virtual ~Geometry();
@@ -44,7 +45,8 @@ namespace TGen {
 		virtual TGen::Vector3 getOrigin() const abstract;
 		
 		virtual std::string getDefaultMaterial() const {return ""; }	// throw istället kanske? BORT KANSKE!
-		
+		virtual void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {}
+
 		virtual const SubfaceList * getLeaves() const;
 		void addLeaf(TGen::Subface * leaf);
 		

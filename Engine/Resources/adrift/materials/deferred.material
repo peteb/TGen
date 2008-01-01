@@ -73,6 +73,8 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 		//}
 		
 		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
+			// cull back,
+			// if we're not ontop of the camera, then cull front
 			
 			//blendFunc add
 			back cull

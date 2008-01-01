@@ -107,7 +107,19 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getAttribute(const std::stri
 }
 
 TGen::ShaderVariable * TGen::OpenGL::ShaderProgram::createVariable(const std::string & name) {
-	TGen::ShaderVariable * ret = new TGen::OpenGL::ShaderVariable(dynamic_cast<TGen::OpenGL::ShaderVariable &>(getUniform(name)));
+	TGen::ShaderVariable * ret = NULL;
+	try {
+		ret = new TGen::OpenGL::ShaderVariable(dynamic_cast<TGen::OpenGL::ShaderVariable &>(getUniform(name)));
+	}
+	catch (...) {
+		try {
+			ret = new TGen::OpenGL::ShaderVariable(dynamic_cast<TGen::OpenGL::ShaderVariable &>(getAttribute(name)));
+		}
+		catch (...) {
+			throw TGen::RuntimeException("OpenGL::ShaderProgram::createVariable", "couldn't find uniform/attribute '" + name + "'!");
+		}
+	}
+	
 	return ret;
 }
 

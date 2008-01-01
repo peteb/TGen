@@ -193,7 +193,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
 	app.renderer.setClearColor(TGen::Color::Black);
-	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+	app.renderer.clearBuffers(/*TGen::ColorBuffer | */TGen::DepthBuffer);
 	app.renderer.setAmbientLight(world->getAmbientLight());
 	
 	renderList.render(app.renderer, *mainCamera, "default");
@@ -221,11 +221,14 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		//std::cout << "MATERIAL " << iter->first << std::endl;
 		
 		// TODO: OM EN LAMPA HAR FACES SÅ RENDRERA DEM ist för fillquad!!!! det är bounding boxes
+		//       om man är innanför en bbox för ett ljus rita backfaces, annars bara frontfaces
+		//       för mindre ljus kan man köra bbox
 		TGen::Engine::LightList::LightArray * lights = iter->second;
 		if (lights) {
 			for (int i = 0; i < lights->size(); i += lightBatchSize) {
 				int a = 0;
 				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
+					app.renderer.setTransform(TGen::TransformWorldView, (*lights)[a]->getTransform());
 					app.renderer.setLight(a, (*lights)[a]->getLightProperties());
 				}
 				

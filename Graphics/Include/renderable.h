@@ -14,6 +14,7 @@
 
 namespace TGen {
 	class Renderer;
+	class Material;
 	
 	class Renderable {
 	public:
