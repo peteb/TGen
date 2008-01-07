@@ -14,7 +14,7 @@
 
 TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::CommandRegistry & commands, TGen::Engine::Environment & env, 
 					   TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, 
-					   TGen::Engine::StandardLogs & logs)
+					   TGen::Engine::StandardLogs & logs, TGen::Engine::DeviceCollection & inputDevices)
 	: running(true)
 	, startedAt(TGen::Time::Now())
 	, currentState(NULL)
@@ -24,6 +24,7 @@ TGen::Engine::App::App(TGen::Engine::VariablesRegistry & variables, TGen::Engine
 	, filesystem(*fs)
 	, loadProps(props)
 	, renderer(renderer)
+	, inputDevices(inputDevices)
 	, logs(logs)
 	, globalResources(logs, filesystem, renderer)
 {

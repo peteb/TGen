@@ -26,11 +26,13 @@ namespace TGen {
 		class CommandRegistry;
 		class State;
 		class Environment;
-	
+		class DeviceCollection;
+		
 		class App {
 		public:
 			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::CommandRegistry & commands, TGen::Engine::Environment & env, 
-				TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs);
+				TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs,
+				TGen::Engine::DeviceCollection & inputDevices);
 			~App();
 			
 			bool isRunning() const;
@@ -44,8 +46,9 @@ namespace TGen {
 			TGen::Engine::VariablesRegistry & variables;
 			TGen::Engine::CommandRegistry & commands;
 			TGen::Engine::Filesystem & filesystem;
+			TGen::Engine::DeviceCollection & inputDevices;
 			
-			TGen::Engine::MemoryManager memory;
+			TGen::Engine::MemoryManager memory;		// should go away?
 			TGen::Engine::ResourceManager globalResources;
 			
 			const TGen::PropertyTree & loadProps;

@@ -14,11 +14,11 @@ material nomat default 9 {
 			bind tangent "vertexTangent"
 			
 			texunit 0 "color.png" {
-                sampler colorMap
+         	sampler colorMap
 			}
 			
 			texunit 1 "rocks_n.tga" {
-                sampler normalMap
+         	sampler normalMap
 			}
 		}
 	}

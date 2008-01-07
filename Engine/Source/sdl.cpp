@@ -10,6 +10,10 @@
 #include "sdl.h"
 #include "variablesregistry.h"
 #include "app.h"
+#include "sdlkeyboard.h"
+#include "sdlmouse.h"
+#include "sdlgamepad.h"
+#include "devicecollection.h"
 #include <SDL/SDL.h>
 #include <tgen_opengl.h>
 
@@ -17,6 +21,8 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	: variables(variables)
 	, renderer(NULL)
 	, logs(logs)
+	, keyboard(NULL)
+	, mouse(NULL)
 {
 	bool fullscreen = bool(variables.getVariable("env_fullscreen"));
 	int width = int(variables.getVariable("env_width")), height = int(variables.getVariable("env_height"));
@@ -99,7 +105,6 @@ int TGen::Engine::SDL::run(TGen::Engine::App * app) {
 	return 1;
 }
 
-
 TGen::Renderer & TGen::Engine::SDL::getRenderer() {
 	if (!renderer)
 		throw TGen::RuntimeException("SDL::getRenderer", "no renderer created!");
@@ -110,3 +115,26 @@ TGen::Renderer & TGen::Engine::SDL::getRenderer() {
 void TGen::Engine::SDL::swapBuffers() {
 	SDL_GL_SwapBuffers();
 }
+
+void TGen::Engine::SDL::registerInputDevices(TGen::Engine::DeviceCollection & inputDevices) {
+	if (keyboard || mouse || !gamepads.empty())
+		throw TGen::RuntimeException("SDL::registerInputDevices", "devices already registered!");
+	
+	logs.info["sdl"] << "registering input devices..." << TGen::endl;
+	
+	keyboard = new TGen::Engine::SDLKeyboard(0);
+	mouse = new TGen::Engine::SDLMouse(0);
+	
+	inputDevices.addDevice(keyboard);
+	inputDevices.addDevice(mouse);
+	
+	// TODO: deleta detta på ~
+	logs.info["sdl"] << SDL_NumJoysticks() << " gamepads connected" << TGen::endl;
+	
+	gamepads.reserve(SDL_NumJoysticks());
+	
+	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
+		inputDevices.addDevice(new TGen::Engine::SDLGamepad(i /* + devCollection.getDevicesByName("") */, i));
+	}
+}
+

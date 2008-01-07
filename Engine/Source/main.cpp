@@ -28,6 +28,7 @@
 #include "file.h"
 #include "cmdset.h"
 #include "cmddumpvars.h"
+#include "devicecollection.h"
 
 #ifdef _PLATFORM_OSX
 #define _PLATFORM_FILE "platform_cocoa.h"
@@ -177,10 +178,17 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	}
 	
 	
+	TGen::Engine::DeviceCollection inputDevices;
 	
 	// setup env
 	TGen::Engine::Environment * env = new TGen::Engine::SDL(variables, props, logs);
-	TGen::Engine::App * app = new TGen::Engine::App(variables, commands, *env, fs, props, env->getRenderer(), logs);
+	env->registerInputDevices(inputDevices);
+	
+	logs.info["app"];
+	inputDevices.printDevices(logs.info);
+	
+	exit(1);
+	TGen::Engine::App * app = new TGen::Engine::App(variables, commands, *env, fs, props, env->getRenderer(), logs, inputDevices);
 	
 	
 	

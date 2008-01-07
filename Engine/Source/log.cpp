@@ -65,7 +65,7 @@ TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const st
 }
 
 void TGen::Engine::Log::outputText(const std::string & text, uint user) {
-	output("", text);
+	output(area, text);
 }
 
 TGen::Engine::StandardLogs::StandardLogs()

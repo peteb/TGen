@@ -22,6 +22,11 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D07407FF0D32C86A00735304 /* inputdevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07407FE0D32C86A00735304 /* inputdevice.cpp */; };
+		D07408020D32CA1F00735304 /* sdlkeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408010D32CA1F00735304 /* sdlkeyboard.cpp */; };
+		D07408510D32CD7300735304 /* devicecollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408500D32CD7300735304 /* devicecollection.cpp */; };
+		D07408DA0D32D1BD00735304 /* sdlmouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408D90D32D1BD00735304 /* sdlmouse.cpp */; };
+		D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07409010D32D37B00735304 /* sdlgamepad.cpp */; };
 		D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0765B900D19C62B006F7073 /* platform_cocoa.cpp */; };
 		D077FA670D26DC6C00217E07 /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FA660D26DC6C00217E07 /* map.cpp */; };
 		D077FAB20D26DF0F00217E07 /* maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FAB10D26DF0F00217E07 /* maploader.cpp */; };
@@ -208,6 +213,17 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
+		D07407FD0D32C7E100735304 /* inputdevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputdevice.h; path = ../../Include/inputdevice.h; sourceTree = SOURCE_ROOT; };
+		D07407FE0D32C86A00735304 /* inputdevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inputdevice.cpp; sourceTree = "<group>"; };
+		D07408000D32CA1300735304 /* sdlkeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlkeyboard.h; path = ../../Include/sdlkeyboard.h; sourceTree = SOURCE_ROOT; };
+		D07408010D32CA1F00735304 /* sdlkeyboard.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdlkeyboard.cpp; sourceTree = "<group>"; };
+		D074083F0D32CB6E00735304 /* inputeventresponder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputeventresponder.h; path = ../../Include/inputeventresponder.h; sourceTree = SOURCE_ROOT; };
+		D074084F0D32CD1600735304 /* devicecollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = devicecollection.h; path = ../../Include/devicecollection.h; sourceTree = SOURCE_ROOT; };
+		D07408500D32CD7300735304 /* devicecollection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = devicecollection.cpp; sourceTree = "<group>"; };
+		D07408D80D32D1B300735304 /* sdlmouse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlmouse.h; path = ../../Include/sdlmouse.h; sourceTree = SOURCE_ROOT; };
+		D07408D90D32D1BD00735304 /* sdlmouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdlmouse.cpp; sourceTree = "<group>"; };
+		D07409000D32D37100735304 /* sdlgamepad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlgamepad.h; path = ../../Include/sdlgamepad.h; sourceTree = SOURCE_ROOT; };
+		D07409010D32D37B00735304 /* sdlgamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdlgamepad.cpp; sourceTree = "<group>"; };
 		D0765B900D19C62B006F7073 /* platform_cocoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_cocoa.cpp; sourceTree = "<group>"; };
 		D0765B920D19C63F006F7073 /* platform_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_cocoa.h; path = ../../Include/platform_cocoa.h; sourceTree = SOURCE_ROOT; };
 		D077FA650D26DB7600217E07 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = map.h; path = ../../Include/map.h; sourceTree = SOURCE_ROOT; };
@@ -366,12 +382,13 @@
 			children = (
 				D0843B6A0D0759D200C31FE3 /* memory */,
 				D0F83E020CBAD68600FF4467 /* log */,
+				D0064FBF0C86E88800A42B3A /* init */,
 				D0F835D70CBA5C8B00FF4467 /* platform */,
+				D07407FB0D32C77E00735304 /* input */,
 				D0F835810CBA5B4300FF4467 /* map */,
 				D01B6CF60C8A14C700D8943C /* data */,
 				D0F493070CBE89500080CB46 /* commands */,
 				D01B6CED0C8A149200D8943C /* fs */,
-				D0064FBF0C86E88800A42B3A /* init */,
 				D0F8393B0CBA679200FF4467 /* game */,
 				D08395710CD9266900C94467 /* renderer */,
 				D0EF61500C82D8E20085C17B /* app.cpp */,
@@ -535,6 +552,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D07407FB0D32C77E00735304 /* input */ = {
+			isa = PBXGroup;
+			children = (
+				D07407FE0D32C86A00735304 /* inputdevice.cpp */,
+				D07407FD0D32C7E100735304 /* inputdevice.h */,
+				D074083F0D32CB6E00735304 /* inputeventresponder.h */,
+				D07408500D32CD7300735304 /* devicecollection.cpp */,
+				D074084F0D32CD1600735304 /* devicecollection.h */,
+			);
+			name = input;
+			sourceTree = "<group>";
+		};
 		D077FA470D26DA4B00217E07 /* map */ = {
 			isa = PBXGroup;
 			children = (
@@ -629,13 +658,19 @@
 		D0F835D70CBA5C8B00FF4467 /* platform */ = {
 			isa = PBXGroup;
 			children = (
+				D0F83ACB0CBA729D00FF4467 /* environment.h */,
 				D0EF60F80C8222670085C17B /* SDLMain.m */,
 				D0EF60F70C8222670085C17B /* SDLMain.h */,
 				D0765B900D19C62B006F7073 /* platform_cocoa.cpp */,
 				D0765B920D19C63F006F7073 /* platform_cocoa.h */,
 				D0EF63EA0C82EA460085C17B /* sdl.cpp */,
 				D0EF63E90C82EA460085C17B /* sdl.h */,
-				D0F83ACB0CBA729D00FF4467 /* environment.h */,
+				D07408010D32CA1F00735304 /* sdlkeyboard.cpp */,
+				D07408000D32CA1300735304 /* sdlkeyboard.h */,
+				D07408D90D32D1BD00735304 /* sdlmouse.cpp */,
+				D07408D80D32D1B300735304 /* sdlmouse.h */,
+				D07409010D32D37B00735304 /* sdlgamepad.cpp */,
+				D07409000D32D37100735304 /* sdlgamepad.h */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -877,6 +912,11 @@
 				D077FB620D26E58C00217E07 /* maptokenizer.cpp in Sources */,
 				D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */,
 				D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */,
+				D07407FF0D32C86A00735304 /* inputdevice.cpp in Sources */,
+				D07408020D32CA1F00735304 /* sdlkeyboard.cpp in Sources */,
+				D07408510D32CD7300735304 /* devicecollection.cpp in Sources */,
+				D07408DA0D32D1BD00735304 /* sdlmouse.cpp in Sources */,
+				D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -17,6 +17,7 @@ namespace TGen {
 	
 	namespace Engine {
 		class App;
+		class DeviceCollection;
 		
 		class Environment {
 		public:
@@ -26,6 +27,7 @@ namespace TGen {
 			virtual int run(TGen::Engine::App * app) abstract;
 			virtual TGen::Renderer & getRenderer() abstract;
 			virtual void swapBuffers() abstract;
+			virtual void registerInputDevices(TGen::Engine::DeviceCollection & inputDevices) abstract;
 		};
 		
 	} // !Engine

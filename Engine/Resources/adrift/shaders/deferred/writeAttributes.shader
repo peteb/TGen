@@ -4,6 +4,7 @@
  *
  *  Copyright 2007-2008 Peter Backman. All rights reserved.
  *
+ *  Defines: COLOR_MAP, NORMAL_MAP, SPECULAR_MAP
  */
  
 #section global
@@ -61,7 +62,7 @@ void main() {
 	uniform sampler2D normalMap;
 #endif
 
-// if the surface isn't flat, the matrix will be be skewed. 
+// the tbn matrix will probably be skewed/unorthonormal if the surface isn't flat
 void main() {
 	#ifdef COLOR_MAP
 		gl_FragData[0] = texture2D(colorMap, gl_TexCoord[0].st);

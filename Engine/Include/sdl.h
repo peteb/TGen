@@ -20,6 +20,9 @@ namespace TGen {
 		class VariablesRegistry;
 		class App;
 		class StandardLogs;
+		class SDLKeyboard;
+		class SDLMouse;
+		class SDLGamepad;
 		
 		class SDL : public TGen::Engine::Environment {
 		public:
@@ -29,12 +32,18 @@ namespace TGen {
 			int run(TGen::Engine::App * app);
 			TGen::Renderer & getRenderer();
 			void swapBuffers();
+			void registerInputDevices(TGen::Engine::DeviceCollection & inputDevices);
 			
 		private:
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::VariablesRegistry & variables;			
 			TGen::Engine::App * app;
 			TGen::Renderer * renderer;
+			
+			TGen::Engine::SDLKeyboard * keyboard;
+			TGen::Engine::SDLMouse * mouse;
+			
+			std::vector<TGen::Engine::SDLGamepad *> gamepads;
 		};
 		
 	} // !Engine

@@ -178,7 +178,6 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// World!!!... ska det var ändå    var är camera? kom ihåg att camera borde hanteras av en playermovement-klass och att kameror ska kunna vara portabla
 	// lampor i portalbana fixas genom att ta lampor från alla synliga rum + anslutande rum (även de som inte syns alltså)
 	// kan sen optimeras genom att kolla lightboxen
-	// TODO: kolla vilket kordinatsystem glLightfv använder
 
 	world->prepareLists(mainCamera);
 	TGen::RenderList & renderList = world->getRenderList();
@@ -198,7 +197,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 	
-	//vars.postProcessing = false;
+	vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {
@@ -222,7 +221,8 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		
 		// TODO: OM EN LAMPA HAR FACES SÅ RENDRERA DEM ist för fillquad!!!! det är bounding boxes
 		//       om man är innanför en bbox för ett ljus rita backfaces, annars bara frontfaces
-		//       för mindre ljus kan man köra bbox
+		//       för mindre ljus kan man köra bbox. kolla mot bounding-sphere eller aabb.
+		
 		TGen::Engine::LightList::LightArray * lights = iter->second;
 		if (lights) {
 			for (int i = 0; i < lights->size(); i += lightBatchSize) {
