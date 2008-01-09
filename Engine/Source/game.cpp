@@ -13,7 +13,7 @@
 #include <iostream>
 #include "sdl.h"
 #include "world.h"
-
+#include "devicecollection.h"
 
 TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	: TGen::Engine::State(app)
@@ -30,7 +30,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 		sceneRenderer = new TGen::Engine::DeferredRenderer(app);
 	}
 	catch (const std::exception & e) {
-		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << "\" and there is no fallback! Go ask peter for a fallback." << TGen::endl;
+		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << "\" and there is no fallback! Go ask peter for a fallback. (sigh)" << TGen::endl;
 		throw;
 	}
 	
@@ -40,16 +40,20 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 		throttledNewMap = "";
 	}
 
+	app.inputDevices.enterMode(TGen::Engine::TextMode);
 	constructed = true;
 }
 
 TGen::Engine::GameState::~GameState() {
+	app.inputDevices.enterMode(TGen::Engine::DefaultMode);
 	delete currentWorld;
 	
 	app.logs.info["gst-"] << "leaving game state..." << endl;
 }
 
 void TGen::Engine::GameState::tick() {
+	app.inputDevices.dispatchEvents(inputMapper);
+	
 	TGen::Time now = TGen::Time::Now();
 	double sinceLastRender = double(now) - double(lastRender);	// TODO: undersök om scalar kanske räcker, sen operator - på Time
 	sinceErrorCheck += sinceLastRender;

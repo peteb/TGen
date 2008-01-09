@@ -10,7 +10,11 @@
 #ifndef _TGEN_ENGINE_INPUTEVENTRESPONDER_H
 #define _TGEN_ENGINE_INPUTEVENTRESPONDER_H
 
+#include <string>
+
 namespace TGen {
+	class Vector3;
+	
 	namespace Engine {
 		class InputDevice;
 		
@@ -24,9 +28,9 @@ namespace TGen {
 		public:
 			virtual ~InputEventResponder() {}
 			
-			virtual void onBinaryEvent(InputDevice & device, int id, TGen::Engine::StateEvent state) {}
-			virtual void onTextEvent(InputDevice & device, int id, char ascii, TGen::Engine::StateEvent state) {}
-			virtual void onVectorEvent(InputDevice & device, int id, const TGen::Vector3 & vector) {}
+			virtual void onBinaryEvent(TGen::Engine::InputDevice & device, int id, TGen::Engine::StateEvent state) {}
+			virtual void onTextEvent(TGen::Engine::InputDevice & device, const std::string & text) {}
+			virtual void onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vector) {}
 		};
 		
 	} // !Engine	

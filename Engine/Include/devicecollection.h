@@ -11,11 +11,11 @@
 #define _TGEN_ENGINE_DEVICECOLLECTION_H
 
 #include <vector>
+#include "inputdevice.h"
 
 namespace TGen {	
 	namespace Engine {
 		class InputEventResponder;
-		class InputDevice;
 		class TextOutputer;
 		
 		class DeviceCollection {
@@ -26,11 +26,13 @@ namespace TGen {
 			void addDevice(TGen::Engine::InputDevice * device);
 			void dispatchEvents(TGen::Engine::InputEventResponder & responder);
 			void printDevices(TGen::Engine::TextOutputer & out);
+			void enterMode(TGen::Engine::InputDeviceMode mode);
 			
 		private:
 			typedef std::vector<TGen::Engine::InputDevice *> DeviceList;
 			
 			DeviceList devices;
+			TGen::Engine::InputDeviceMode mode;
 		};
 	} // !Engine
 } // !TGen

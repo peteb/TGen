@@ -61,7 +61,6 @@ TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::
 	logs.info["sdl+"] << "created renderer: " << TGen::endl;
 	logs.info["sdl+"] << std::string(renderer->getCaps()) << TGen::endl;
 	logs.info["sdl+"] << "initialized" << TGen::endl;
-	
 }
 
 TGen::Engine::SDL::~SDL() {
@@ -79,11 +78,15 @@ int TGen::Engine::SDL::run(TGen::Engine::App * app) {
 		while (SDL_PollEvent(&event) && events < 100) {
 			switch (event.type) {
 				case SDL_KEYDOWN:
+					if (keyboard)
+						keyboard->onBinaryEvent(event.key.keysym, TGen::Engine::StateDown);
 					//app->keyDown(event.key.keysym);
 					break;
 					
 				case SDL_KEYUP:
-					//gApp->KeyUp(event.key.keysym);					
+					if (keyboard)
+						keyboard->onBinaryEvent(event.key.keysym, TGen::Engine::StateUp);
+					
 					break;
 					
 				case SDL_MOUSEMOTION:
@@ -128,13 +131,18 @@ void TGen::Engine::SDL::registerInputDevices(TGen::Engine::DeviceCollection & in
 	inputDevices.addDevice(keyboard);
 	inputDevices.addDevice(mouse);
 	
-	// TODO: deleta detta på ~
+	// TODO: deleta detta på ~ i DeviceCOllection!!!!!!!!!
 	logs.info["sdl"] << SDL_NumJoysticks() << " gamepads connected" << TGen::endl;
 	
 	gamepads.reserve(SDL_NumJoysticks());
 	
 	for (int i = 0; i < SDL_NumJoysticks(); ++i) {
-		inputDevices.addDevice(new TGen::Engine::SDLGamepad(i /* + devCollection.getDevicesByName("") */, i));
+		try {
+			inputDevices.addDevice(new TGen::Engine::SDLGamepad(i /* + devCollection.getDevicesByName("") */, i));
+		}
+		catch (const TGen::RuntimeException & e) {
+			logs.error["SDL"] << "failed to create gamepad # " << i << TGen::endl;
+		}
 	}
 }
 

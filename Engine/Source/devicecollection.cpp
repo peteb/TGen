@@ -11,7 +11,9 @@
 #include "inputdevice.h"
 #include "textoutput.h"
 
-TGen::Engine::DeviceCollection::DeviceCollection() {
+TGen::Engine::DeviceCollection::DeviceCollection() 
+	: mode(TGen::Engine::DefaultMode)
+{
 	
 }
 
@@ -21,6 +23,7 @@ TGen::Engine::DeviceCollection::~DeviceCollection() {
 
 void TGen::Engine::DeviceCollection::addDevice(TGen::Engine::InputDevice * device) {
 	devices.push_back(device);
+	device->enterMode(mode);
 }
 
 void TGen::Engine::DeviceCollection::dispatchEvents(TGen::Engine::InputEventResponder & responder) {
@@ -41,3 +44,10 @@ void TGen::Engine::DeviceCollection::printDevices(TGen::Engine::TextOutputer & o
 	}
 }
 
+void TGen::Engine::DeviceCollection::enterMode(TGen::Engine::InputDeviceMode mode) {
+	this->mode = mode;
+	
+	for (int i = 0; i < devices.size(); ++i) {
+		devices[i]->enterMode(mode);
+	}
+}

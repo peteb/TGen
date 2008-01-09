@@ -187,7 +187,6 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	logs.info["app"];
 	inputDevices.printDevices(logs.info);
 	
-	exit(1);
 	TGen::Engine::App * app = new TGen::Engine::App(variables, commands, *env, fs, props, env->getRenderer(), logs, inputDevices);
 	
 	

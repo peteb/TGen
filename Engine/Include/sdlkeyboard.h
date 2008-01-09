@@ -11,6 +11,8 @@
 #define _TGEN_ENGINE_SDLKEYBOARD_H
 
 #include "inputdevice.h"
+#include "inputeventresponder.h"
+#include <SDL/SDL.h>
 
 namespace TGen {
 	namespace Engine {
@@ -18,8 +20,15 @@ namespace TGen {
 		public:
 			SDLKeyboard(int id);
 			
+			void onBinaryEvent(const SDL_keysym & keysym, TGen::Engine::StateEvent state);
+			void enterMode(TGen::Engine::InputDeviceMode mode);
+			
 			void dispatchEvents(TGen::Engine::InputEventResponder & responder);
 			std::string getDeviceName();
+			
+		private:
+			TGen::Engine::InputDeviceMode mode;
+			std::string textBuffer;
 		};
 		
 	} // !Engine	

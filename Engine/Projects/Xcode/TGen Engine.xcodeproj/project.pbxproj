@@ -49,6 +49,7 @@
 		D09890A50D2449C0006A290D /* vertexcacheentry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890A40D2449C0006A290D /* vertexcacheentry.cpp */; };
 		D09890CF0D244BB4006A290D /* poolcollection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890CE0D244BB4006A290D /* poolcollection2.cpp */; };
 		D09891150D245215006A290D /* basicpoolcollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09891140D245215006A290D /* basicpoolcollection.cpp */; };
+		D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
@@ -270,6 +271,8 @@
 		D09890CE0D244BB4006A290D /* poolcollection2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = poolcollection2.cpp; sourceTree = "<group>"; };
 		D09891130D245208006A290D /* basicpoolcollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = basicpoolcollection.h; path = ../../Include/basicpoolcollection.h; sourceTree = SOURCE_ROOT; };
 		D09891140D245215006A290D /* basicpoolcollection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basicpoolcollection.cpp; sourceTree = "<group>"; };
+		D09DFFBD0D35368300DB6324 /* gameinputmapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameinputmapper.h; path = ../../Include/gameinputmapper.h; sourceTree = SOURCE_ROOT; };
+		D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinputmapper.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -560,6 +563,8 @@
 				D074083F0D32CB6E00735304 /* inputeventresponder.h */,
 				D07408500D32CD7300735304 /* devicecollection.cpp */,
 				D074084F0D32CD1600735304 /* devicecollection.h */,
+				D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */,
+				D09DFFBD0D35368300DB6324 /* gameinputmapper.h */,
 			);
 			name = input;
 			sourceTree = "<group>";
@@ -917,6 +922,7 @@
 				D07408510D32CD7300735304 /* devicecollection.cpp in Sources */,
 				D07408DA0D32D1BD00735304 /* sdlmouse.cpp in Sources */,
 				D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */,
+				D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

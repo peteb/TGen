@@ -15,6 +15,7 @@
 #include "variable.h"
 #include "gamestatevars.h"
 #include "deferredscenerenderer.h"
+#include "gameinputmapper.h"
 
 namespace TGen {
 	namespace Engine {
@@ -37,6 +38,7 @@ namespace TGen {
 			void checkErrors();
 			
 			TGen::Engine::GameStateVars vars;
+			TGen::Engine::GameInputMapper inputMapper;
 			TGen::Engine::DeferredRenderer * sceneRenderer;
 			TGen::Engine::World * currentWorld;
 			

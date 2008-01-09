@@ -16,6 +16,16 @@ namespace TGen {
 	namespace Engine {		
 		class InputEventResponder;
 		
+		enum InputDeviceMode {
+			DefaultMode = 0,
+			TextMode = 1,			
+		};
+		
+		enum InputDeviceCodes {
+			SpecialLeft = 128,
+			SpecialRight = 129,
+		};
+		
 		struct DeviceControls {
 			DeviceControls();
 			
@@ -31,7 +41,9 @@ namespace TGen {
 			virtual ~InputDevice();
 			
 			virtual void dispatchEvents(TGen::Engine::InputEventResponder & responder) abstract;
+			virtual void enterMode(TGen::Engine::InputDeviceMode mode) {}
 			virtual std::string getDeviceName() abstract;
+			
 			const DeviceControls & getControls() const;
 			std::string getName() const;
 			int getId() const;
