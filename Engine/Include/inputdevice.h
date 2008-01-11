@@ -18,7 +18,10 @@ namespace TGen {
 		
 		enum InputDeviceMode {
 			DefaultMode = 0,
-			TextMode = 1,			
+			TextMode = 1,
+			AbsoluteMode = 2,
+			RelativeMode = 3,
+			IgnoreMode = 4,
 		};
 		
 		enum InputDeviceCodes {

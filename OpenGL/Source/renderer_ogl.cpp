@@ -31,8 +31,10 @@ TGen::OpenGL::Renderer::ExtensionMap TGen::OpenGL::Renderer::extensionsAvailable
 TGen::OpenGL::Renderer::Renderer()
 	: colorFromVertex(true)
 	, lastShader(NULL)
+#ifdef _GFX_KEEP_DEPRECATED
 	, lastVb(NULL)
 	, lastIb(NULL)
+#endif
 	, lastVb2(NULL)
 	, lastIb2(NULL)
 	, lastVb1(-1)
@@ -231,6 +233,7 @@ void TGen::OpenGL::Renderer::multiplyTransform(TGen::TransformMode mode, const T
 	glMultMatrixf((GLfloat *)transform.elements);		
 }
 
+#ifdef _GFX_KEEP_DEPRECATED
 TGen::VertexBuffer * TGen::OpenGL::Renderer::createVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage) {
 	GLuint newVBO = 0;
 	glGenBuffersARB(1, &newVBO);
@@ -320,6 +323,7 @@ TGen::IndexBuffer * TGen::OpenGL::Renderer::createIndexBuffer(const TGen::Vertex
 	
 	return new TGen::OpenGL::IndexBuffer(*this, vertstruct, size, fixedUsage, newVBO);	
 }
+#endif // !_GFX_KEEP_DEPRECATED
 
 TGen::VertexData * TGen::OpenGL::Renderer::createVertexData(const TGen::VertexStructure & vertstruct, uint size, ushort usage) {
 	GLuint newVBO = 0;
@@ -557,6 +561,7 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::VertexData * buffer) {
 	}	
 }
 
+#ifdef _GFX_KEEP_DEPRECATED
 void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override) {
 	if (!buffer) {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, 0);		
@@ -606,6 +611,7 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::IndexBuffer * buffer) {	// You
 		}
 	}
 }
+#endif // !_GFX_KEEP_DEPRECATED
 
 void TGen::OpenGL::Renderer::setTexture(int unit, TGen::Texture * texture) {
 	if (unit >= caps.maxTextureUnits)

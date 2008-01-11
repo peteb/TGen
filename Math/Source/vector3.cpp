@@ -15,6 +15,7 @@
 #include <tgen_core.h>
 
 TGen::Vector3 TGen::Vector3::Identity(1.0f, 1.0f, 1.0f);
+TGen::Vector3 TGen::Vector3::Zero(0.0f, 0.0f, 0.0f);
 
 TGen::Vector3::Vector3(const TGen::Vector4 & vector)
 	: x(vector.x)

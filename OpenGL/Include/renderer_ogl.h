@@ -75,8 +75,12 @@ namespace TGen {
 			
 			TGen::VertexData * createVertexData(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
 			void removeVertexData(TGen::VertexData * data);
+			
+			#ifdef _GFX_KEEP_DEPRECATED
 			TGen::VertexBuffer * createVertexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
 			TGen::IndexBuffer * createIndexBuffer(const TGen::VertexStructure & vertstruct, uint size, ushort usage);
+			#endif
+			
 			TGen::Texture * createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags);
 			TGen::Texture * createTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags);
 			TGen::FrameBuffer * createFrameBuffer();
@@ -114,8 +118,12 @@ namespace TGen {
 			bool colorFromVertex, hasColorArray;
 			uint indexBufferFormat, indexBufferFormatSize;
 			TGen::ShaderProgram * lastShader;
+			
+			#ifdef _GFX_KEEP_DEPRECATED
 			TGen::VertexBuffer * lastVb;
 			TGen::IndexBuffer * lastIb;
+			#endif
+			
 			GLuint lastVb1, lastIb1;
 			uint vbReadOffset, ibReadOffset;
 			TGen::VertexData * lastVb2, * lastIb2;

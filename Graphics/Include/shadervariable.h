@@ -11,6 +11,7 @@
 #define _TGEN_SHADERVARIABLE_H
 
 #include "types.h"
+#include <vector>
 
 namespace TGen {
 	class Color;
@@ -33,8 +34,9 @@ namespace TGen {
 		virtual ShaderVariable & operator = (const TGen::Vector3 & vector) abstract;
 		virtual ShaderVariable & operator = (const TGen::Vector2 & vector) abstract;
 		virtual ShaderVariable & operator = (const TGen::Matrix4x4 & matrix) abstract;
-		
-		
+
+		virtual ShaderVariable & operator = (const std::vector<TGen::Color> & array) abstract;
+		virtual ShaderVariable & operator = (const std::vector<TGen::Vector3> & array) abstract;
 	};
 
 } // !TGen

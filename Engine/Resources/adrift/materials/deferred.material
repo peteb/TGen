@@ -72,6 +72,31 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 		// ta bort gen...
 		//}
 		
+		/*
+		pass deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
+			back cull
+			disableDepth
+			disableBlend
+			
+			bind lumMin $lummin
+			bind lumMultiplier $lummultiplier
+			bind killTrace $lumkilltrace		
+			
+			map colorMap $colormap
+			map normalMap $normalmap
+			map miscMap $miscmap
+		}
+		
+		
+		pass deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
+			bind tangent "vertexTangent"
+			
+			map colorMap "textures/1911.bmp"
+			map specularMap "textures/1911_s.bmp" {
+				
+			}
+		}
+		*/
 		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
 			// cull back,
 			// if we're not ontop of the camera, then cull front

@@ -9,6 +9,7 @@
 
 #include "sdlkeyboard.h"
 #include <string>
+#include <SDL/SDL.h>
 
 TGen::Engine::SDLKeyboard::SDLKeyboard(int id)
 	: TGen::Engine::InputDevice("kbd", id)
@@ -85,7 +86,7 @@ void TGen::Engine::SDLKeyboard::enterMode(TGen::Engine::InputDeviceMode mode) {
 		SDL_EnableKeyRepeat(155, SDL_DEFAULT_REPEAT_INTERVAL);
 		std::cout << "ENTERED TEXT MODE" << std::endl;
 	}
-	else {
+	else if (mode == TGen::Engine::DefaultMode) {
 		SDL_EnableUNICODE(SDL_FALSE);
 		SDL_EnableKeyRepeat(0, 0);
 		textBuffer = "";

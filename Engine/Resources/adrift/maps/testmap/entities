@@ -1,17 +1,17 @@
 test {
 	sceneNode {
-		model "models/railgun.md3"
+		model "models/1911.md3"
 		origin "0 0 1"
-		material "railgunMaterial"
+		material "1911pistol"
 	}
 }
 
 test2 {
 	sceneNode {
-		model "models/railgun.md3"
+		model "models/1911.md3"
 		origin "0 1 1"
 		orientation "0 1 0"
-		material "railgunMaterial"
+		material "1911pistol"
 	}
 }
 

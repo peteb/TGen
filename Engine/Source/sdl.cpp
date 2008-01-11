@@ -90,7 +90,16 @@ int TGen::Engine::SDL::run(TGen::Engine::App * app) {
 					break;
 					
 				case SDL_MOUSEMOTION:
+					if (mouse)
+						mouse->onMotionEvent(event.motion);
 					//gApp->MouseMove(event.motion);
+					break;
+					
+				case SDL_MOUSEBUTTONUP:
+				case SDL_MOUSEBUTTONDOWN:
+					if (mouse)
+						mouse->onButtonEvent(event.button);
+					
 					break;
 					
 				case SDL_QUIT:

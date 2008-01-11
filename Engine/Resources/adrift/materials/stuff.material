@@ -43,3 +43,17 @@ material railgunMaterial default 9 {
 		}
 	}
 }
+
+material 1911pistol default 9 {
+	lod 9 {
+		pass gen:deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
+			texunit 0 "1911.bmp" {
+				sampler colorMap
+			}
+
+			texunit 1 "textures/1911_s.bmp" {
+				sampler specularMap
+			}
+		}
+	}
+}

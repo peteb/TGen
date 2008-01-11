@@ -25,12 +25,13 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	, vars(app, this)
 {
 	app.logs.info["gst+"] << "entering game state..." << endl;
-	// TODO: faktiskt bättre att ha vars som objekt istället, sen om man försöker sätta banan innan det constructorn är utförd så laddas banan i slutet
+
 	try {
 		sceneRenderer = new TGen::Engine::DeferredRenderer(app);
 	}
 	catch (const std::exception & e) {
-		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << "\" and there is no fallback! Go ask peter for a fallback. (sigh)" << TGen::endl;
+		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << 
+			"\" and there is no fallback! Go ask peter for a fallback or get a better gfx card!" << TGen::endl;
 		throw;
 	}
 	
@@ -41,11 +42,14 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	}
 
 	app.inputDevices.enterMode(TGen::Engine::TextMode);
+	app.inputDevices.enterMode(TGen::Engine::AbsoluteMode);
+	
 	constructed = true;
 }
 
 TGen::Engine::GameState::~GameState() {
 	app.inputDevices.enterMode(TGen::Engine::DefaultMode);
+	
 	delete currentWorld;
 	
 	app.logs.info["gst-"] << "leaving game state..." << endl;

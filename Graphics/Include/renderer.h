@@ -20,6 +20,8 @@
 #include "renderstatistics.h"
 #include <vector>
 
+#define _GFX_KEEP_DEPRECATED
+
 namespace TGen {
 	class VertexBuffer;
 	class IndexBuffer;
@@ -73,10 +75,14 @@ namespace TGen {
 		
 		virtual void drawPrimitive(PrimitiveType type, uint startVertex, uint vertexCount) abstract;
 		virtual void drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) abstract;
-		
-		//virtual VertexData * createVertexData(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
+
+		#ifdef _GFX_KEEP_DEPRECATED
 		virtual VertexBuffer * createVertexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual IndexBuffer * createIndexBuffer(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
+		#endif
+		
+		
+		virtual VertexData * createVertexData(const VertexStructure & vertstruct, uint size, ushort usage) abstract;
 		virtual Texture * createTexture(const TGen::Rectangle & size, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags = 0) abstract;
 		virtual Texture * createTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags = 0) abstract;
 		virtual FrameBuffer * createFrameBuffer() abstract;

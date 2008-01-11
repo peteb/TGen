@@ -9,6 +9,9 @@
 
 #include "gameinputmapper.h"
 #include <iostream>
+#include <sstream>
+#include <tgen_math.h>
+#include "inputdevice.h"
 
 TGen::Engine::GameInputMapper::GameInputMapper() {
 	
@@ -19,7 +22,14 @@ TGen::Engine::GameInputMapper::~GameInputMapper() {
 }
 
 void TGen::Engine::GameInputMapper::onBinaryEvent(TGen::Engine::InputDevice & device, int id, TGen::Engine::StateEvent state) {
+	std::stringstream deviceName;
+	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 	
+	if (state == TGen::Engine::StateDown)
+		std::cout << "*** button down on " << deviceName.str() << ": " << id << std::endl;
+	else
+		std::cout << "*** button up on " << deviceName.str() << ": " << id << std::endl;
+
 }
 
 void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & device, const std::string & text) {
@@ -38,7 +48,10 @@ void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & devi
 	std::cout << "'" << this->text << "'" << std::endl;
 }
 
-void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vector) {
-	
+void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vec) {
+	std::stringstream deviceName;
+	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
+
+	std::cout << "*** vector move on " << deviceName.str() << " id: " << id << ": " << std::string(vec) << std::endl;
 }
 

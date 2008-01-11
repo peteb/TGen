@@ -12,7 +12,8 @@
 
 #include "inputdevice.h"
 #include "inputeventresponder.h"
-#include <SDL/SDL.h>
+
+struct SDL_keysym;
 
 namespace TGen {
 	namespace Engine {

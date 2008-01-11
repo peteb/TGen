@@ -131,6 +131,30 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Vec
 	return *this;
 }
 
+TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const std::vector<TGen::Color> & array) {
+	glUseProgram(program);
+
+	// TODO: kolla så sizeof(GLfloat) == sizeof(color.element), annars konvertera
+	
+	if (type == TGen::OpenGL::Uniform)
+		glUniform4fv(location, array.size(), reinterpret_cast<const GLfloat *>(&array[0]));
+	else
+		glVertexAttrib4fv(location, reinterpret_cast<const GLfloat *>(&array[0]));
+	
+	return *this;
+}
+
+TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const std::vector<TGen::Vector3> & array) {
+	glUseProgram(program);
+	
+	if (type == TGen::OpenGL::Uniform)
+		glUniform4fv(location, array.size(), reinterpret_cast<const GLfloat *>(&array[0]));
+	else
+		glVertexAttrib4fv(location, reinterpret_cast<const GLfloat *>(&array[0]));
+	
+	return *this;
+}
+
 GLint TGen::OpenGL::ShaderVariable::getInternalID() const {
 	return location;
 }

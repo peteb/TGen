@@ -11,6 +11,10 @@
 #define _TGEN_ENGINE_SDLMOUSE_H
 
 #include "inputdevice.h"
+#include <tgen_math.h>
+
+struct SDL_MouseMotionEvent;
+struct SDL_MouseButtonEvent;
 
 namespace TGen {
 	namespace Engine {
@@ -19,7 +23,18 @@ namespace TGen {
 			SDLMouse(int id);
 			
 			void dispatchEvents(TGen::Engine::InputEventResponder & responder);
+			void enterMode(TGen::Engine::InputDeviceMode mode);
 			std::string getDeviceName();
+			
+			void onMotionEvent(const SDL_MouseMotionEvent & motion);
+			void onButtonEvent(const SDL_MouseButtonEvent & button);
+			
+		private:
+			std::vector<uint8> buttons;
+			
+			TGen::Engine::InputDeviceMode mode;
+			TGen::Vector3 position, scroll;
+			bool positionChanged, scrollChanged;
 		};
 		
 	} // !Engine	

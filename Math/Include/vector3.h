@@ -53,6 +53,7 @@ namespace TGen {
 		static TGen::Vector3 Parse(const std::string & text);
 		
 		static TGen::Vector3 Identity;
+		static TGen::Vector3 Zero;
 		
 		scalar x, y, z;
 	};

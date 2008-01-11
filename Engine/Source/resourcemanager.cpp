@@ -142,7 +142,9 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		
 		if (name.substr(0, 9) != "textures/")
 			fixedName = "textures/" + name;
-	
+		else
+			fixedName = name;
+		
 		logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
 	
 		TGen::Engine::File * file = filesystem.openRead(fixedName);
@@ -173,6 +175,7 @@ int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
 	
 	return 0;
 }
+
 
 TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	// hur ska man ladda in fillmeshen? kan ju ha en meshgenerator som kan skapa lite olika meshes
