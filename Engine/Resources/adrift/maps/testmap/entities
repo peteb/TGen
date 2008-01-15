@@ -1,7 +1,8 @@
-test {
+/*test {
 	sceneNode {
 		model "models/1911.md3"
-		origin "0 0 1"
+		origin "1 1 1"
+		orientation "0 0 1"
 		material "1911pistol"
 	}
 }
@@ -9,17 +10,17 @@ test {
 test2 {
 	sceneNode {
 		model "models/1911.md3"
-		origin "0 1 1"
-		orientation "0 1 0"
+		origin "-1 1 1"
+		orientation "0 0 1"
 		material "1911pistol"
 	}
 }
 
-
+*/
 maincam {
 	sceneCamera {
-		origin "0 1 -0.5"
-		orientation "0 0.4 1.0"
+		origin "0 0 0"
+		orientation "0 0 1"
 		range "500"
 	}
 
@@ -33,10 +34,11 @@ maincam {
 	}
 }
 
-testmap {
+
+/*testmap {
 	sceneMap {
 		model "maps/testmap/testmap.proc"
-		origin "0 7 0"
+		origin "0 -10 0"
 	}
 
 	physGeom {
@@ -51,14 +53,14 @@ testmap {
 		}
 	}
 }
-
+*/
 light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
 		orientation "-1 0 -1"
 		diffuse "0.3 0.2 0.2 1.0"
-		specular "1.0"
-		treePosition "testmap/"
+		specular "0.5"
+		//treePosition "testmap/"
 	}
 }
 
@@ -67,6 +69,53 @@ light2 {
 		material "deferred/lightDirectional"
 		orientation "0 -0.5 1"
 		diffuse "0.0 0.0 0.0 1.0"
-		specular "1.0 1.0 1.0 1.0"
+		specular "0.5"
+	}
+}
+
+test4 {
+	sceneNode {
+		model "models/1911.md3"
+		origin "4 0 0"
+		orientation "1 0 0"
+		material "xMat"
+		//treePosition "testmap/"
+	}
+}
+
+test5 {
+	sceneNode {
+		model "models/1911.md3"
+		origin "0 4 0"
+		orientation "0 1 0"
+		material "yMat"
+		//treePosition "testmap/"
+	}
+}
+
+test5 {
+	sceneNode {
+		model "models/1911.md3"
+		origin "0 0 4"
+		orientation "0 0 1"
+		material "zMat"
+		//treePosition "testmap/"
+	}
+}
+
+test6 {
+	sceneNode {
+		model "models/1911.md3"
+		origin "0 0 0"
+		orientation "0 0 1"
+		material "centerMat"
+		//treePosition "testmap/"
+	}
+}
+
+player_start {
+	sceneNode {
+		origin "0 0 0"
+		//treePosition "testmap/"
 	}
 }

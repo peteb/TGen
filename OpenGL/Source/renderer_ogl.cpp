@@ -1034,7 +1034,7 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		if ((*iter)->transformed) {
 			setTransform(TGen::TransformTexture, (*iter)->transform);
 		}
-		else {
+		else {	// TODO: opt
 			glMatrixMode(GL_TEXTURE);
 			glLoadIdentity();
 		}

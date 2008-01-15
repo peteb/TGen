@@ -85,7 +85,9 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 		generate = true;
 	}
 	else {
-		fixedName = "/shaders/" + name + ".shader";	
+		int colPos = name.rfind(":");
+		fixedName = "/shaders/" + name.substr(0, colPos) + ".shader";
+		generate = true;
 	}
 	
 	logs.info["res"] << "loading shader '" << fixedName << "'..." << TGen::endl;
@@ -95,16 +97,20 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	delete file;
 
 	// gen:directionalLighting:MAX_LIGHTS=1,STUFF=blabla
-
+	
+	
+	generate = true;
 	
 	if (generate) {
 		int colPos = name.rfind(":");
-		std::string genString = name.substr(colPos + 1, name.size() - colPos - 1);
+		if (colPos != std::string::npos) {
+			std::string genString = name.substr(colPos + 1, name.size() - colPos - 1);
 		
-		logs.info["res"] << "preprocessing " << fixedName << " with " << genString << TGen::endl;
-		
-		TGen::Engine::TextPreprocessor processor;
-		contents = processor.process(contents, genString);
+			logs.info["res"] << "preprocessing " << fixedName << " with " << genString << TGen::endl;
+			
+			TGen::Engine::TextPreprocessor processor;
+			contents = processor.process(contents, genString);
+		}
 	}
 	
 	

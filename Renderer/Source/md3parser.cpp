@@ -134,7 +134,7 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 	
 	// TODO: fixa per-subface-material
 	// TODO: portalbanor skickar egen user-grej... ClippedRoom (entities to draw, room vertices)
-	//       eller så fixas ClippedFace istället, kanske! då kan man sortera baserat på clipping 
+	//       eller sÃ‚ fixas ClippedFace istâ€°llet, kanske! dÃ‚ kan man sortera baserat pÃ‚ clipping 
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		TGen::MD3::Surface * surface = surfaces[i];

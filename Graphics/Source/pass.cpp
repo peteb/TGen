@@ -92,7 +92,9 @@ void TGen::Pass::addTextureUnit(TGen::PassTextureUnit * textureUnit) {
 	textureUnits.push_back(textureUnit);
 }
 
-
+int TGen::Pass::getNumTextureUnits() const {
+	return textureUnits.size();
+}
 
 void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 	//std::cout << "linking shader " << shaderName << std::endl;
@@ -341,6 +343,7 @@ void TGen::PassTextureUnit::update(scalar time) {
 	if (!texunit)
 		return;
 	
+	
 	texunit->transform = TGen::Matrix4x4::Identity;
 	texunit->transformed = false;
 	
@@ -409,12 +412,13 @@ void TGen::TextureCoordTranslate::applyTransform(TGen::Matrix4x4 & matrix, scala
 		else
 			fixedV = genV->getValue(time);
 				
-		//fixedU = fixedU - floor(fixedU);		// fix range
+		//fixedU = fixedU - floor(fixedU);		// fix range. crappy code
 		//fixedV = fixedV - floor(fixedV);		
 		
 		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-fixedU, fixedV));		
 	}
 	else {
+		
 		float fixedU = 0.0f, fixedV = 0.0f;
 		
 		if (!genU)
@@ -426,6 +430,7 @@ void TGen::TextureCoordTranslate::applyTransform(TGen::Matrix4x4 & matrix, scala
 			fixedV = (time - startedAt) * v;
 		else
 			fixedV = genV->getValue(time);				
+
 		
 		//	fixedU = fixedU - floor(fixedU);		// fix range
 		//		fixedV = fixedV - floor(fixedV);

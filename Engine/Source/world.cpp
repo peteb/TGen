@@ -136,17 +136,15 @@ void TGen::Engine::World::update(scalar dt) {
 	//sceneRoot.getChild("weapon")->setPosition(sceneRoot.getChild("weapon")->getLocalPosition() + TGen::Vector3(dt, 0.0f, 0.0f));
 	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.1));
 	
-	sceneSubsystem.getSceneRoot().getChild("test")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test")->getLocalOrientation()));
-	sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
+	//sceneSubsystem.getSceneRoot().getChild("test")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test")->getLocalOrientation()));
+	//sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
 	// TODO: add lights IN the scene node of the map
 	
-	sceneSubsystem.getSceneRoot().update();
-	
-	
+	sceneSubsystem.getSceneRoot().update();	
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {
-	return TGen::Color(1.0, 1.0, 1.0, 1.0);
+	return TGen::Color(0.2, 0.2, 0.2, 1.0);
 }
 
 // rendreraren ber world att uppdatera sig internt för en viss kamera, sen frågar den efter renderlist, lights, osv

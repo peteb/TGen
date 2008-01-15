@@ -322,6 +322,32 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				
 				pass->addTextureUnit(newTextureUnit);
 			}
+			else if (currentToken->second == "map") {
+				std::string textureSampler, textureName;
+				
+				stepToken();
+				textureSampler = getStringToken("map: expecting string value for texture sampler");
+				stepToken();
+				textureName = getStringToken("map: expecting string value for texture name");
+				
+				//std::cout << "sampler: " << textureSampler << " TEXNAME: " << textureName << std::endl;
+				
+				do {
+					stepToken();
+				} while(currentToken->first == TGen::MaterialTokenEndOfLine);
+				
+				TGen::PassTextureUnit * newTextureUnit = new TGen::PassTextureUnit(pass->getNumTextureUnits(), textureName);
+			
+				newTextureUnit->setSampler(textureSampler);
+				
+				if (currentToken->first == TGen::MaterialTokenBlockStart) {
+					stepToken();
+					parseTexunitBlock(newTextureUnit, material);
+				}
+				
+				pass->addTextureUnit(newTextureUnit);
+				continue;
+			}
 			else if (currentToken->second == "color") {
 				std::string r, g, b;
 				

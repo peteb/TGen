@@ -67,6 +67,7 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createCameraNode(const std::stri
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setOrientation(TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize());
+	camera->update();
 	
 	return camera;
 }
@@ -120,6 +121,9 @@ void TGen::Engine::SceneSubsystem::link() {
 	world.app.logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
 	meshList.relink(world.app.globalResources);
 	sceneRoot.traverse(TGen::FaceLinker(world.app.globalResources));
+	//sceneRoot.setPosition(TGen::Vector3(0.0f, 100.0f, 0.0f));
+	sceneRoot.update();
+
 	sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
 }
 

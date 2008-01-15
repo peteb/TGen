@@ -4,7 +4,11 @@
  *
  *  Copyright 2007-2008 Peter Backman. All rights reserved.
  *
- *  Defines: COLOR_MAP, NORMAL_MAP, SPECULAR_MAP
+ *  Defines: 
+ *    COLOR_MAP: use the color map, sampler colorMap
+ *    NORMAL_MAP: use normal map, sampler normalMap
+ *    SPECULAR_MAP: use specular map, sampler specularMap
+ *    TRANSFORM_TEX: transform texture coordinates
  */
  
 #section global
@@ -31,7 +35,11 @@ void main() {
 	gl_FrontColor = gl_Color;
 	    
 	#if defined(COLOR_MAP) || defined(NORMAL_MAP) || defined(SPECULAR_MAP)
-		gl_TexCoord[0] = gl_MultiTexCoord0;
+		#ifdef TRANSFORM_TEX
+			gl_TexCoord[0] = gl_TextureMatrix[0] * gl_MultiTexCoord0;		
+		#else
+			gl_TexCoord[0] = gl_MultiTexCoord0;
+		#endif
 	#endif
 	
 	#ifdef NORMAL_MAP
@@ -62,7 +70,9 @@ void main() {
 	uniform sampler2D normalMap;
 #endif
 
-// the tbn matrix will probably be skewed/unorthonormal if the surface isn't flat
+// the tbn matrix will probably be skewed/unorthonormal if the surface isn't flat, send the axes as varyings
+// and create matrix in frag
+
 void main() {
 	#ifdef COLOR_MAP
 		gl_FragData[0] = texture2D(colorMap, gl_TexCoord[0].st);
@@ -70,11 +80,9 @@ void main() {
 	
 	#ifndef NORMAL_MAP
 		gl_FragData[1] = vec4((normalize(normal) * 0.5 + 0.5).xyz, 1.0);
-
 	#else
 		vec3 normalFromMap = normalize(texture2D(normalMap, gl_TexCoord[0].st).xyz * 2.0 - 1.0);	// TODO: normalize ska kunna stängas av
 		gl_FragData[1] = vec4((normalize(tbnMatrix * normalFromMap) * 0.5 + 0.5).xyz, 1.0);	
-			
 	#endif
 	
 	#ifndef SPECULAR_MAP

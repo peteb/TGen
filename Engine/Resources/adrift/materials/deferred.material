@@ -7,9 +7,7 @@ material deferred/screenFill default 9 {
 			disableDepth
 			color 0 1 0	
 		
-			texunit 0 $colormap {
-				sampler colorMap
-			}
+			map colorMap $colormap
 		}
 	}
 }
@@ -29,9 +27,7 @@ material deferred/lightAmbient default 9 {
 			disableDepth
 			disableBlend
 			
-			texunit 0 $colormap {
-				sampler colorMap
-			}
+			map colorMap $colormap
 		}
 	}
 }
@@ -47,19 +43,22 @@ material defineTest default 9 {
 #loop NUM_LIGHTS 1 8
 material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 	lod 9 {
-		pass gen:deferred/lightDirectional:NUM_LIGHTS=#NUM_LIGHTS# {
+		pass deferred/lightDirectional:NUM_LIGHTS=#NUM_LIGHTS# {
 			disableDepth
 			blendFunc add
 			//color wave square 0.5 1.0 0 20.0 // strobe!
 
-			texunit 0 $normalmap {
+			map normalMap $normalmap			
+			map miscMap $miscmap
+
+			/*texunit 0 $normalmap {
 				sampler normalMap
 			} 
 
 			texunit 1 $miscmap {
 				sampler miscMap
 			}
-
+			*/
 		}
 	}
 }
@@ -87,6 +86,7 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 			map miscMap $miscmap
 		}
 		
+		SEN LAGA SCENEGRAPHEN!!!!!!!!!!!!! <-- viktigt
 		
 		pass deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
 			bind tangent "vertexTangent"
@@ -100,6 +100,7 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
 			// cull back,
 			// if we're not ontop of the camera, then cull front
+			// batchning av poslights kanske Šr lŒngsammare faktiskt... mer processing per frag
 			
 			//blendFunc add
 			back cull
@@ -137,28 +138,19 @@ material post/luminance default 9 {
 			bind lumMultiplier $lummultiplier
 			bind killTrace $lumkilltrace
 
-			texunit 0 $colormap {
-				sampler colorMap
-			}
-			
-			texunit 1 $miscmap {
-				sampler miscMap
-			}
-			
-			
+			map colorMap $colormap			
+			map miscMap $miscmap
 		}
 	}
 }
 
 material post/gaussianHoriz default 9 {
 	lod 9 {
-		pass gen:post/gaussian:HORIZONTAL {
+		pass post/gaussian:HORIZONTAL {
 			disableDepth
 			bind texelSize $texelwidth
 
-			texunit 0 $colormap {
-				sampler colorMap
-			}
+			map colorMap $colormap
 		}
 	}
 }
@@ -166,13 +158,11 @@ material post/gaussianHoriz default 9 {
 
 material post/gaussianVert default 9 {
 	lod 9 {
-		pass gen:post/gaussian:VERTICAL {
+		pass post/gaussian:VERTICAL {
 			disableDepth
 			bind texelSize $texelheight
 
-			texunit 0 $colormap {
-				sampler colorMap
-			}
+			map colorMap $colormap
 		}
 	}
 }
@@ -182,13 +172,8 @@ material post/finalBloom default 9 {
 		pass post/finalBloom {
 			disableDepth
 			
-			texunit 0 $colormap {
-				sampler colorMap
-			}
-
-			texunit 1 $bloom {
-				sampler bloomMap
-			}
+			map colorMap $colormap
+			map bloomMap $bloom
 		}
 	}
 }

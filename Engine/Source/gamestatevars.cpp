@@ -22,7 +22,7 @@ TGen::Engine::GameStateVars::GameStateVars(TGen::Engine::App & app, TGen::Engine
 	, checkErrors(true)
 {
 	app.variables.addVariable(TGen::Engine::Variable("r_maxRefresh", "40", "-1", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_syncVtrace", "false", "false", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	app.variables.addVariable(TGen::Engine::Variable("r_syncVtrace", "true", "false", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_conserveCPU", "true", "true", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_multithread", "false", "false", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 	app.variables.addVariable(TGen::Engine::Variable("r_checkErrors", "true", "true", TGen::Engine::VariableDump), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);

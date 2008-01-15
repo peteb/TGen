@@ -103,6 +103,18 @@ int main(int argc, char ** const argv) {
 	std::cout << "18. " << std::endl;
 	std::cout << std::string(TGen::Vector3::Parse("0.123 456.789 3444.24")) << std::endl;
 	
+	std::cout << "========================" << std::endl;
+	TGen::Vector3 look, right, newUp;
+	look = TGen::Vector3(0.0f, 1.0f, 0.0f);
+	right = TGen::Vector3::CrossProduct(TGen::Vector3(0.0f, 1.0f, 0.0f), look);
+	
+	if (right.getMagnitude() < 0.5)
+		right = TGen::Vector3::CrossProduct(TGen::Vector3(0.0f, 0.0f, 1.0f), look);
+	
+	newUp = TGen::Vector3::CrossProduct(look, right);
+	
+	std::cout << "LOOK: " << std::string(look) << " RIGHT: " << std::string(right) << " UP: " << std::string(newUp) << std::endl;
+		
 	#ifdef _PLATFORM_WINDOWS
 	int hej;
 	std::cin >> hej;

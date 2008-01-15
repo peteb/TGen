@@ -11,9 +11,13 @@
 #include <iostream>
 #include <sstream>
 #include <tgen_math.h>
+#include <tgen_renderer.h>
+#include "world.h"
 #include "inputdevice.h"
 
-TGen::Engine::GameInputMapper::GameInputMapper() {
+TGen::Engine::GameInputMapper::GameInputMapper()
+	: world(NULL)
+{
 	
 }
 
@@ -52,6 +56,16 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 	std::stringstream deviceName;
 	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 
+	if (world && vec.getMagnitude() < 100.0f) {
+		world->getCamera("maincam")->setPosition(world->getCamera("maincam")->getLocalPosition() + TGen::Vector3(vec.x, 0.0f, vec.y) * 0.5);
+	//	reinterpret_cast<TGen::FPSCamera *>(world->getCamera("maincam"))->rotate(TGen::Vector2(vec) * 0.01f);
+	}
+	
+	//rotate(const TGen::Vector2 & rot)
 	std::cout << "*** vector move on " << deviceName.str() << " id: " << id << ": " << std::string(vec) << std::endl;
+}
+
+void TGen::Engine::GameInputMapper::setWorld(TGen::Engine::World * world) {
+	this->world = world;
 }
 

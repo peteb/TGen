@@ -38,11 +38,12 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	if (!throttledNewMap.empty()) {
 		currentWorld = new TGen::Engine::World(app, throttledNewMap);
 		sceneRenderer->setWorld(currentWorld);
+		inputMapper.setWorld(currentWorld);
 		throttledNewMap = "";
 	}
 
 	app.inputDevices.enterMode(TGen::Engine::TextMode);
-	app.inputDevices.enterMode(TGen::Engine::AbsoluteMode);
+	app.inputDevices.enterMode(TGen::Engine::RelativeMode);
 	
 	constructed = true;
 }
@@ -121,6 +122,7 @@ void TGen::Engine::GameState::changeMap(const std::string & mapName) {
 			throw TGen::RuntimeException("GameState::changeMap", "dude, where's my scene renderer!");
 		
 		sceneRenderer->setWorld(currentWorld);
+		inputMapper.setWorld(currentWorld);
 	}
 	else {
 		throttledNewMap = mapName;

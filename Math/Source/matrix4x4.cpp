@@ -312,6 +312,9 @@ TGen::Matrix4x4 TGen::Matrix4x4::LookInDirection(const TGen::Vector3 & direction
 	TGen::Vector3 look, right, newUp;
 	look = direction.getNormalized();
 	right = TGen::Vector3::CrossProduct(up, look);
+	if (right.getMagnitude() < 0.5)
+		right = TGen::Vector3::CrossProduct(TGen::Vector3(0.0f, 0.0f, 1.0f), look);
+
 	newUp = TGen::Vector3::CrossProduct(look, right);
 	
 	return Matrix4x4(right, newUp, look);

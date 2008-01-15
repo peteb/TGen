@@ -119,6 +119,7 @@ namespace TGen {
 		void addShaderVariable(const std::string & varname, const std::string & linkdid);
 		void setShader(const std::string & name);
 		void addTextureUnit(PassTextureUnit * textureUnit);
+		int getNumTextureUnits() const;
 		void link(TGen::MaterialLinkCallback & callback);
 		
 	private:

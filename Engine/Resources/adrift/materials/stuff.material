@@ -1,25 +1,18 @@
 
 material nomat default 9 {
 	lod 9 {
-		pass gen:deferred/writeAttributes:COLOR_MAP,NORMAL_MAP {
+		pass gen:deferred/writeAttributes:COLOR_MAP,NORMAL_MAP,TRANSFORM_TEX {
 			front fill
-			back lines
-
+			back fill
 			color 1 1 1
 			
-		//	texunit 0 "gen:fadeCircle size '512' center '0.5 0.5' start 'red' end 'blue' radius '0.5'" {
-          //      sampler colorMap
-			//}
-			
 			bind tangent "vertexTangent"
-			
-			texunit 0 "color.png" {
-         	sampler colorMap
+			map normalMap "rocks_n.tga"
+						
+			map colorMap "color.png" {
+				//scroll 0.5 0
 			}
-			
-			texunit 1 "rocks_n.tga" {
-         	sampler normalMap
-			}
+						
 		}
 	}
 }
@@ -46,14 +39,41 @@ material railgunMaterial default 9 {
 
 material 1911pistol default 9 {
 	lod 9 {
-		pass gen:deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
-			texunit 0 "1911.bmp" {
-				sampler colorMap
-			}
+		pass deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
+			map colorMap "1911.bmp"
+			map specularMap "textures/1911_s.bmp"
+		}
+	}
+}
 
-			texunit 1 "textures/1911_s.bmp" {
-				sampler specularMap
-			}
+material xMat default 9 {
+	lod 9 {
+		pass deferred/writeAttributes:COLOR_MAP {
+			map colorMap "gen:plain color '1.0 0.0 0.0'"			
+		}	
+	}		
+}			
+
+material yMat default 9 {
+	lod 9 {
+		pass deferred/writeAttributes:COLOR_MAP {
+			map colorMap "gen:plain color '0.0 1.0 0.0'"			
+		}	
+	}		
+}			
+
+material zMat default 9 {
+	lod 9 {
+		pass deferred/writeAttributes:COLOR_MAP {
+			map colorMap "gen:plain color '0.0 0.0 1.0'"			
+		}	
+	}		
+}			
+
+material centerMat default 9 {
+	lod 9 {
+		pass deferred/writeAttributes:COLOR_MAP {
+			map colorMap "gen:checker color1 '0.0 0.0 0.0' color2 '1.0 1.0 1.0' size '512' tiles '16'"
 		}
 	}
 }

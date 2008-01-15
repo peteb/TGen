@@ -192,7 +192,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	app.renderer.setRenderTarget(mapTargets);
 	app.renderer.setViewport(mrtSize);
 	app.renderer.setClearColor(TGen::Color::Black);
-	app.renderer.clearBuffers(/*TGen::ColorBuffer | */TGen::DepthBuffer);
+	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	app.renderer.setAmbientLight(world->getAmbientLight());
 	
 	renderList.render(app.renderer, *mainCamera, "default");

@@ -38,7 +38,7 @@ void TGen::Camera::update() {
 		//TGen::Vector3 result = orientation * front * -orientation;
 		
 		TGen::Vector3 result = TGen::Vector3(orientation);   // FULHACK
-		result.z = -result.z;	// FULHACK
+		//result.z = -result.z;	// FULHACK
 		
 		
 		//TGen::Vector3 fronten(0.0f, 0.0f, 1.0f);
@@ -56,7 +56,7 @@ void TGen::Camera::update() {
 		//this->transform = (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up)).invert();
 		
 		if (parent)
-			this->transform = parent->getTransform() * TGen::Matrix4x4::LookInDirection(result, up) * TGen::Matrix4x4::Translation(TGen::Vector3(position.x, -position.y, -position.z));
+			this->transform = parent->getTransform() * TGen::Matrix4x4::LookInDirection(result, up) * TGen::Matrix4x4::Translation(-TGen::Vector3(position.x, position.y, position.z));
 		else
 			this->transform = TGen::Matrix4x4::LookInDirection(result, up) * TGen::Matrix4x4::Translation(TGen::Vector3(position.x, -position.y, -position.z)); // FULHACK
 			

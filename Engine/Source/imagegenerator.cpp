@@ -63,6 +63,31 @@ TGen::Image * TGen::Engine::ImageGenerator::generateImage(const TGen::Engine::Ge
 			}
 		}
 	}
+	else if (line.getName() == "checker") {
+		TGen::Color color1 = TGen::Color::Parse(line.getParameter("color1"));
+		TGen::Color color2 = TGen::Color::Parse(line.getParameter("color2"));
+		
+		int tileHeight = size.height / TGen::lexical_cast<int>(line.getParameter("tiles"));
+		int tileWidth = size.width / TGen::lexical_cast<int>(line.getParameter("tiles"));
+
+		bool fill = false;
+		
+		for (int x = 0; x < size.width; ++x) {
+			if (!(x % tileWidth))
+				fill = !fill;
+
+			for (int y = 0; y < size.height; ++y) {
+				if (!(y % tileHeight))
+					fill = !fill;
+				
+				if (fill)
+					canvas->setPixel(TGen::Vector2(x, y), color2);
+				else
+					canvas->setPixel(TGen::Vector2(x, y), color1);
+
+			}
+		}
+	}
 	else {		
 		delete canvas;
 		throw TGen::RuntimeException("ImageGenerator::generateImage", "generator not supported: '" + line.getName() + "'");

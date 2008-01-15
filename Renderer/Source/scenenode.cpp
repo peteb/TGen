@@ -36,13 +36,14 @@ TGen::SceneNode::~SceneNode() {
 
 void TGen::SceneNode::update() {
 	if ((parent && parent->changed) || this->changed) {			
-		TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
-		TGen::Quaternion4 result = orientation * front * -orientation;
+		//TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
+		//TGen::Quaternion4 result = orientation * front * -orientation;
+		TGen::Vector3 dir = TGen::Vector3(orientation.x, orientation.y, orientation.z);
 		
 		if (parent)
-			this->transform = parent->getTransform() * TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4(result); //::LookInDirection(result, up);
+			this->transform = parent->getTransform() * (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(dir, up));
 		else
-			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(TGen::Vector3(result.x, result.y, result.z), up);
+			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(dir, up);
 		
 		this->changed = true;
 	}
@@ -268,7 +269,7 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 }
 
 // TODO: en addClippedFace som tar face + clipping area (planes eller box)
-//       spara alla faces som clipped face i lista, sen uppdatera clipping h√§r
+//       spara alla faces som clipped face i lista, sen uppdatera clipping h‰r
 
 bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < faces.size(); ++i) {

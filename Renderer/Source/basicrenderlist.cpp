@@ -83,7 +83,9 @@ void TGen::BasicRenderList::render(TGen::Renderer & renderer, const TGen::Camera
 
 void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) {
 	TGen::Matrix4x4 baseMat = camera.getTransform();
-
+	
+	std::cout << std::string(baseMat) << std::endl;
+	
 	TGen::SceneNode * lastNode = NULL;
 	//std::cout << ">>RENDER<<" << std::endl;
 	//std::cout << "basemat: " << std::endl << std::string(baseMat) << std::endl;
@@ -106,7 +108,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 		
 	//	std::cout << "******* " << dist1 << "  " << dist2 << std::endl;
 		
-		if (list[i].distanceToCamera < clipFar + geomRadius && (dist1 <= 0.0f || dist2 <= 0.0f)) {
+		//if (list[i].distanceToCamera < clipFar + geomRadius && (dist1 <= 0.0f || dist2 <= 0.0f)) {
 			const TGen::Face * face = list[i].face;
 			TGen::SceneNode * node = face->getSceneNode();
 			
@@ -141,10 +143,10 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 					
 				}				
 			}
-		}
+	/*	}
 		else {
 			std::cout << "face discarded, too far away or behind camera" << std::endl;
-		}
+		}*/
 	}
 }
 
