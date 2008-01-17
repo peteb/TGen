@@ -73,7 +73,9 @@ material zMat default 9 {
 material centerMat default 9 {
 	lod 9 {
 		pass deferred/writeAttributes:COLOR_MAP {
-			map colorMap "gen:checker color1 '0.0 0.0 0.0' color2 '1.0 1.0 1.0' size '512' tiles '16'"
+			map colorMap "gen:checker color1 '0.0 0.0 0.0' color2 '1.0 1.0 1.0' size '512' tiles '16'" {
+				filter nearest nearest
+			}
 		}
 	}
 }

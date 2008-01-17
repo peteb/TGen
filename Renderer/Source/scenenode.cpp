@@ -45,6 +45,12 @@ void TGen::SceneNode::update() {
 		else
 			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(dir, up);
 		
+	/*	std::cout << "X: " << std::string(this->transform.getX()) << std::endl;
+		std::cout << "Y: " << std::string(this->transform.getY()) << std::endl;
+		std::cout << "Z: " << std::string(this->transform.getZ()) << std::endl;
+		std::cout << std::endl;
+	*/
+		
 		this->changed = true;
 	}
 	
@@ -269,7 +275,7 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 }
 
 // TODO: en addClippedFace som tar face + clipping area (planes eller box)
-//       spara alla faces som clipped face i lista, sen uppdatera clipping här
+//       spara alla faces som clipped face i lista, sen uppdatera clipping h0 r
 
 bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < faces.size(); ++i) {

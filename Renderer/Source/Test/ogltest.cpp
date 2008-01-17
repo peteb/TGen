@@ -198,7 +198,7 @@ public:
 		renderer = new TGen::OpenGL::Renderer;
 		resources = new ResourceManager(*renderer);
 		
-		camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, -1.0f));	// TODO: bara +Z är korrekt..... måste inverse
+		camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, -4.0f));	// TODO: bara +Z är korrekt..... måste inverse
 		camera->setClip(0.1f, 10.0f);
 		camera->setLod(0.0f, 20.0f);
 		camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).normalize());
@@ -214,9 +214,19 @@ public:
 		//sceneRoot.getChild("cube3")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 		//sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 
-		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher", TGen::Vector3(0.0f, 0.0f, 2.0f)));
+		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher", TGen::Vector3(0.0f, 0.0f, 0.0f)));
 		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
 		
+		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher2", TGen::Vector3(0.0f, 2.0f, 0.0f)));
+		sceneRoot.getChild("rocketlauncher2")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
+		
+		
+		sceneRoot.getChild("rocketlauncher")->addChild(new TGen::SceneNode("rocketlauncher2", TGen::Vector3(2.0f, 0.0f, 0.0f)));
+		sceneRoot.getChild("rocketlauncher")->getChild("rocketlauncher2")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
+
+		sceneRoot.getChild("rocketlauncher")->getChild("rocketlauncher2")->addChild(new TGen::SceneNode("rocketlauncher2", TGen::Vector3(2.0f, 0.0f, 0.0f)));
+		sceneRoot.getChild("rocketlauncher")->getChild("rocketlauncher2")->getChild("rocketlauncher2")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
+		sceneRoot.getChild("rocketlauncher")->getChild("rocketlauncher2")->getChild("rocketlauncher2")->setOrientation(TGen::Vector3(0.0f, 0.0f, -1.0f));
 		
 		meshList.relink(*resources);
 		
@@ -237,6 +247,7 @@ public:
 	}	
 	// glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST)   i ortho
 	// glTexSubImage2D or glTexCopyTexSubImage2D  istället för glTexImage2D om uppdatera ofta
+	// TODO: kunna uppdatera en texturs data
 	
 	bool isRunning() const { return running; }
 	void quit() {running = false; }
@@ -255,7 +266,7 @@ public:
 		renderer->clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 		
 		time += 0.01f;
-		sceneRoot.getChild("rocketlauncher")->setOrientation(TGen::Vector3(TGen::Cos(TGen::Radian(time)), 0.0f, TGen::Sin(TGen::Radian(time))));
+		sceneRoot.getChild("rocketlauncher")->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).getNormalized()); //TGen::Cos(TGen::Radian(time)), 0.0f, TGen::Sin(TGen::Radian(time))));
 		sceneRoot.update();
 		
 		renderList.clear();

@@ -26,6 +26,7 @@ TGen::Camera::Camera(const std::string & name, const TGen::Vector3 & position, c
 TGen::Camera::~Camera() {
 	
 }
+#include <OpenGL/glu.h>
 
 void TGen::Camera::update() {
 	if (projectionChanged) {
@@ -38,13 +39,6 @@ void TGen::Camera::update() {
 		//TGen::Vector3 result = orientation * front * -orientation;
 		
 		TGen::Vector3 result = TGen::Vector3(orientation);   // FULHACK
-		//result.z = -result.z;	// FULHACK
-		
-		
-		//TGen::Vector3 fronten(0.0f, 0.0f, 1.0f);
-		//std::cout << "fixed:::::::: " << std::string(TGen::Matrix4x4(resse) * fronten) << std::endl;
-		
-		//std::cout << "******************************** CAMERA ORIENTATION " << std::string(TGen::Vector3(result)) << std::endl;
 		
 		/*if (parent)
 			this->transform = parent->getTransform() * (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up)).invert();
@@ -55,11 +49,63 @@ void TGen::Camera::update() {
 
 		//this->transform = (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up)).invert();
 		
-		if (parent)
-			this->transform = parent->getTransform() * TGen::Matrix4x4::LookInDirection(result, up) * TGen::Matrix4x4::Translation(-TGen::Vector3(position.x, position.y, position.z));
+		/*if (parent)
+			this->transform = parent->getTransform() * TGen::Matrix4x4::LookInDirection(result, up) * TGen::Matrix4x4::Translation(-TGen::Vector3(position.x, position.y, position.z));	// SKUM
 		else
 			this->transform = TGen::Matrix4x4::LookInDirection(result, up) * TGen::Matrix4x4::Translation(TGen::Vector3(position.x, -position.y, -position.z)); // FULHACK
+			*/
+		
+		//std::cout << "POS: " << std::string(position) << " ORIENT: " << std::string(TGen::Vector3(orientation)) << " UP: " << std::string(up) << std::endl;
+		
+		TGen::Vector3 fixedRight = TGen::Vector3::CrossProduct(up, result).getNormalized();
+		TGen::Vector3 fixedUp = TGen::Vector3::CrossProduct(result, fixedRight).getNormalized();
+		TGen::Vector3 fixedView = result.getNormalized();
+		
+		/*std::cout << "   fixed right: " << std::string(fixedRight) << std::endl;
+		std::cout << "   fixed up: " << std::string(fixedUp) << std::endl;
+		std::cout << "   fixed view: " << std::string(fixedView) << std::endl;
+		
+		TGen::Vector3 f = TGen::Vector3(orientation);
+		TGen::Vector3 s = TGen::Vector3::CrossProduct(f, up).getNormalized();
+		TGen::Vector3 u = TGen::Vector3::CrossProduct(s, f).getNormalized();
+		
+		*/
+		
+		TGen::Matrix4x4 fixedMat(fixedRight, fixedUp, -fixedView);
+
+		
+		//TGen::Matrix4x4 mat(s, u, -f);
+		
+		if (parent)
+			this->transform = parent->getTransform() * fixedMat  * TGen::Matrix4x4::Translation(-position);
+		else
+			this->transform = fixedMat  * TGen::Matrix4x4::Translation(-position);
+
+		
+		/*std::cout << "TRANSFORM:" << std::endl << std::string(this->transform) << std::endl << std::endl;
+		std::cout << "LOOKDIR: " << std::endl << std::string(TGen::Matrix4x4::LookInDirection(fixedView, up) * TGen::Matrix4x4::Translation(-position)) << std::endl;
+		
+		TGen::Vector3 lookat = position + TGen::Vector3(orientation);
+	
+		GLfloat glMat[16];
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(position.x, position.y, position.z, lookat.x, lookat.y, lookat.z, up.x, up.y, up.z);
 			
+//		glMultMatrixf(testMat);
+	//	glTranslatef(-position.x, -position.y, -position.z);
+		glGetFloatv(GL_MODELVIEW_MATRIX, glMat);
+		
+		std::cout << "GLTRANS: " << std::endl;
+		for (int y = 0; y < 4; ++y) {
+			for (int x = 0; x < 4; ++x) {
+				std::cout << "[" << glMat[x * 4 + y] << "]";
+			}
+			
+			std::cout << std::endl;
+		}
+		std::cout << std::endl;
+		*/
 		
 		//std::cout << "TRANS::::: " << std::endl << std::string(TGen::Matrix4x4::LookInDirection(result, up).invert()) << std::endl;
 		this->changed = true;

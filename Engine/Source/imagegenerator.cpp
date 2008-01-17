@@ -64,6 +64,7 @@ TGen::Image * TGen::Engine::ImageGenerator::generateImage(const TGen::Engine::Ge
 		}
 	}
 	else if (line.getName() == "checker") {
+		// TODO: EGNA FUNKTIONER KANSKE????????
 		TGen::Color color1 = TGen::Color::Parse(line.getParameter("color1"));
 		TGen::Color color2 = TGen::Color::Parse(line.getParameter("color2"));
 		

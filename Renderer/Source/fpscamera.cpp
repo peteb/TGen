@@ -42,7 +42,7 @@ void TGen::FPSCamera::update() {
 		up = TGen::Vector3::CrossProduct(look, right).normalize();
 		right = TGen::Vector3::CrossProduct(up, look).normalize();
 		
-		std::cout << "look: " << std::string(look) << std::endl;
+		//std::cout << "look: " << std::string(look) << std::endl;
 		
 		moveMatrix = TGen::Matrix4x4(-right, -up, look);
 		

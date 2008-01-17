@@ -84,7 +84,7 @@ void TGen::BasicRenderList::render(TGen::Renderer & renderer, const TGen::Camera
 void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) {
 	TGen::Matrix4x4 baseMat = camera.getTransform();
 	
-	std::cout << std::string(baseMat) << std::endl;
+	//std::cout << std::string(baseMat) << std::endl;
 	
 	TGen::SceneNode * lastNode = NULL;
 	//std::cout << ">>RENDER<<" << std::endl;
@@ -114,6 +114,8 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			
 			if (node && lastNode != node) {	// only set a new transformation if it's another node
 				renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
+				//std::cout << "SET TRANSFORM: " << std::endl << std::string(renderer.getTransform(TGen::TransformWorldView)) << std::endl;
+				
 				lastNode = node;
 			}
 			

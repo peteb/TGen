@@ -168,12 +168,12 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 				normal.normalize();
 				
 				vbpos->x = float(vertex->x) * scale;
-				vbpos->y = -float(vertex->z) * scale;
+				vbpos->y = float(vertex->z) * scale;
 				vbpos->z = float(vertex->y) * scale;
 				vbpos->u = texCoord->st[0];
 				vbpos->v = texCoord->st[1];
 				vbpos->nx = normal.x;
-				vbpos->ny = -normal.y;
+				vbpos->ny = normal.y;
 				vbpos->nz = normal.z;
 				
 				vbpos++;
