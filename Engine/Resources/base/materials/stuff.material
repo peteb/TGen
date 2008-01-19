@@ -1,7 +1,7 @@
 
 material nomat default 9 {
 	lod 9 {
-		pass gen:deferred/writeAttributes:COLOR_MAP,NORMAL_MAP,TRANSFORM_TEX {
+		pass deferred/writeAttributes:COLOR_MAP,NORMAL_MAP,TRANSFORM_TEX {
 			front fill
 			back fill
 			color 1 1 1
@@ -19,61 +19,3 @@ material nomat default 9 {
 
 
 
-material railgunMaterial default 9 {
-	lod 9 {
-		pass gen:deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
-			texunit 0 "railgun1.png" {
-				sampler colorMap
-			}
-
-			texunit 1 "gen:fadeCircle size '512' center '0.5 0.5' start 'red' end 'blue' radius '0.5'" {
-				//sampler specularMap
-			}
-			
-			texunit 2 "gen:plain color '0.8'" {
-				sampler specularMap
-			}
-		}
-	}
-}
-
-material 1911pistol default 9 {
-	lod 9 {
-		pass deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
-			map colorMap "1911.bmp"
-			map specularMap "textures/1911_s.bmp"
-		}
-	}
-}
-
-material xMat default 9 {
-	lod 9 {
-		pass deferred/writeAttributes:COLOR_MAP {
-			map colorMap "gen:plain color '1.0 0.0 0.0'"			
-		}	
-	}		
-}			
-
-material yMat default 9 {
-	lod 9 {
-		pass deferred/writeAttributes:COLOR_MAP {
-			map colorMap "gen:plain color '0.0 1.0 0.0'"			
-		}	
-	}		
-}			
-
-material zMat default 9 {
-	lod 9 {
-		pass deferred/writeAttributes:COLOR_MAP {
-			map colorMap "gen:plain color '0.0 0.0 1.0'"			
-		}	
-	}		
-}			
-
-material centerMat default 9 {
-	lod 9 {
-		pass deferred/writeAttributes:COLOR_MAP {
-			map colorMap "gen:checker color1 'white' color2 'black' size '512' tiles '16'"
-		}
-	}
-}
