@@ -27,7 +27,7 @@ namespace TGen {
 			
 			void addSearchPath(const std::string & path, bool override);
 			bool exists(const std::string & path);
-			void outputPath(const std::string & path);
+			//void outputPath(const std::string & path);
 			void enumerateFiles(const std::string & path, std::vector<std::string> & output, bool recurse = false);
 			
 		private:

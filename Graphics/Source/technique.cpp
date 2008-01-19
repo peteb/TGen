@@ -15,7 +15,7 @@
 TGen::Technique::Technique() 
 	: expressLane(NULL)
 {
-	for (int i = 0; i < 10; ++i)
+	for (int i = 0; i < 15; ++i)
 		lods.push_back(NULL);
 }
 
@@ -26,6 +26,9 @@ TGen::Technique::~Technique() {
 
 
 void TGen::Technique::setPassList(PassList * pass, int lod) {
+	if (lod < 0 || lod > lods.size())
+		throw TGen::RuntimeException("Technique::setPassList", "invalid lod");
+	
 	if (lods[lod])
 		delete lods[lod];
 	

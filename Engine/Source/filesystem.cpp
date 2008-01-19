@@ -82,6 +82,16 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	else
 		logs.info["vfs+"] << "   writedir: none" << TGen::endl;
 		
+	
+	PHYSFS_Version compiled;
+	PHYSFS_Version linked;
+	
+	PHYSFS_VERSION(&compiled);
+	PHYSFS_getLinkedVersion(&linked);
+	
+	logs.info["vfs+"] << "   physfs linked version: " << int(linked.major) << "." << int(linked.minor) << "." << int(linked.patch) << TGen::endl;
+	logs.info["vfs+"] << "   physfs compiled version: " << int(compiled.major) << "." << int(compiled.minor) << "." << int(compiled.patch) << TGen::endl;
+	
 	logs.info["vfs+"] << "initialized" << TGen::endl;	
 	
 }
@@ -92,6 +102,7 @@ TGen::Engine::Filesystem::~Filesystem() {
 }
 
 TGen::Engine::File * TGen::Engine::Filesystem::openRead(const std::string & path) {
+	logs.info["vfs"] << "opening file '" << path << "' for reading..." << TGen::endl;
 	PHYSFS_File * file = PHYSFS_openRead(path.c_str());
 	if (!file)
 		throw TGen::RuntimeException("Filesystem::openRead", "file '" + path + "' failed to open: ") << PHYSFS_getLastError();
@@ -126,7 +137,7 @@ bool TGen::Engine::Filesystem::exists(const std::string & path) {
 
 
 
-void TGen::Engine::Filesystem::outputPath(const std::string & path) {
+/*void TGen::Engine::Filesystem::outputPath(const std::string & path) {
 	char **rc = PHYSFS_enumerateFiles(path.c_str());
 	char **i;
 	
@@ -140,21 +151,29 @@ void TGen::Engine::Filesystem::outputPath(const std::string & path) {
 	}
 	
 	PHYSFS_freeList(rc);
-}
+}*/
 
-void TGen::Engine::Filesystem::enumerateFiles(const std::string & path, std::vector<std::string> & output, bool recurse) {
+void TGen::Engine::Filesystem::enumerateFiles(const std::string & path, std::vector<std::string> & output, bool recurse) {	
 	char **rc = PHYSFS_enumerateFiles(path.c_str());
 	char **i;
 	
 	for (i = rc; *i != NULL; i++) {
 		if (PHYSFS_isDirectory((path + *i).c_str())) {
 			if (recurse)
-				enumerateFiles(path + *i, output, recurse);
+				enumerateFiles(path + *i + "/", output, recurse);
 		}
 		else {
 			output.push_back(path + *i);
 		}		
 	}
+	
+	// den vet rätt på filer och kataloger i första nivån, men i djupare så är allt dirs?
+	// /info = file, /maps/testmap/entities = dir!!!!!!
+	// men /materials/*.material, /shaders/*.shader funkar, de ses som filer....
+	// den säger "is a dir" på allt som man matar in...! även fast filerna man skriver inte finns!!!!
+	// enumrera /maps/testmap/ och man får testmap [DIR]
+	// enumrera /maps/blahblah/ och man får testmap [DIR]
+	// läsa /maps/testmap/entities och man får IS A DIR!
 	
 	PHYSFS_freeList(rc);	
 }

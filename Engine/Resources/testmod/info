@@ -12,6 +12,10 @@ game {
 	
 	}
 	
+	deps {
+		base
+	}
+	
 	autoexec {
 		autoexec.cfg
 		vardump

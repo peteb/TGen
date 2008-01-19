@@ -1,0 +1,30 @@
+CVars used by TGen Engine
+================================
+
+r_maxRefresh - max framerate
+r_syncVtrace - sync to vtrace
+r_conserveCPU - save cpu power when not needed
+r_multithread - use a multithreaded renderer
+r_checkErrors - check for errors?
+
+r_forceBinaryMRT - force binary rendering targets (wastes space, might be faster)
+r_postBloom - do post-processing bloom?
+r_postBloomBlurPasses - the number of passes to blur the glow map
+r_postBloomDownsampling - how much the glow map should be downsampled, in two's.  1 = half size on u and v, 0 = original size
+r_postLuminanceMin - minimum luminance that should be accepted
+r_postLuminanceMultiplier - multiply luminance
+r_postLuminanceTrace - add motion blur to the glow map
+
+env_width - resolution X
+env_height - resolution Y
+env_fullscreen - use fullscreen
+
+fs_game - game folder name
+
+map - current map, change this value to load another map
+version - engine version
+
+game_name - name of the current game, taken from info file
+game_author - author of current game, also from info file
+
+

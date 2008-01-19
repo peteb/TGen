@@ -57,7 +57,7 @@ void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string 
 	if (needSorting()) {
 		for (int i = 0; i < faces.size(); ++i) {
 			scalar distance = (faces[i]->getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
-			int lod = 9 - int(((distance - lodNear) / lodFar) * 10.0 - 1.0);
+			int lod = 9 - int(((distance - lodNear) / lodFar) * 10.0 - 1.0);			
 			int sortLevel = faces[i]->getMaterial()->getSpecialization(specialization)->getPassList(lod)->getSortLevel();	// ouch vilken rad
 		
 			if (sortLevel == TGen::MaterialSortOpaque)

@@ -37,8 +37,10 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa.
 	// TODO: riktig file-logger. som resettar filen när man startar
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
-	
+
+
 	TGen::Engine::File * entitiesFile = app.filesystem.openRead("/maps/" + mapname + "/entities");
+
 	TGen::PropertyTreeParser propParser;
 	TGen::PropertyTree props = propParser.parse(entitiesFile->readAll().c_str());
 	delete entitiesFile;
@@ -70,8 +72,6 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	sceneRoot.addChild(new TGen::SceneNode("weapon", TGen::Vector3(0.0f, 0.0f, 1.0f)));
 	sceneRoot.getChild("weapon")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/railgun.md3")), "railgunMaterial"));	// hur anger md3:an material?
 
-	// TODO: scenegraphen buggar!!!!
-	
 
 
 

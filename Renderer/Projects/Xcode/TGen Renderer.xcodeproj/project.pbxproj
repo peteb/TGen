@@ -196,6 +196,7 @@
 		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
+		D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zsecpistol.md5mesh; sourceTree = "<group>"; };
 		D0EF57ED0C81C0620085C17B /* md3submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3submesh.cpp; path = Source/md3submesh.cpp; sourceTree = "<group>"; };
 		D0EF57EF0C81C06E0085C17B /* md3submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3submesh.h; path = Include/md3submesh.h; sourceTree = "<group>"; };
 		D0EFD1DB0C7DC55A001E861E /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Include/mesh.h; sourceTree = "<group>"; };
@@ -273,7 +274,7 @@
 		08FB7794FE84155DC02AAC07 /* TGen Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				D0F16C810C7A1CE7004B4E19 /* Projects */,
+				D0F16C810C7A1CE7004B4E19 /* Resources */,
 				D0F371550C6D034500C11F87 /* Dependencies */,
 				08FB7795FE84155DC02AAC07 /* Renderer */,
 				C6859E8C029090F304C91782 /* Documentation */,
@@ -368,15 +369,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D0F16C810C7A1CE7004B4E19 /* Projects */ = {
+		D0F16C810C7A1CE7004B4E19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */,
 				D04C814F0CCA466000794CEA /* railgun.md3 */,
 				D0F16C820C7A1CF8004B4E19 /* rocketl.md3 */,
 				D0F9E9070C8DD8FC0055D5CB /* shotgun.md3 */,
 				D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */,
 			);
-			name = Projects;
+			name = Resources;
 			path = ..;
 			sourceTree = "<group>";
 		};
