@@ -136,6 +136,8 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	// setup filesystem
 	TGen::Engine::Filesystem * fs = new TGen::Engine::Filesystem(argv[0], logs);
+	fs->addSearchPath("base", false);
+
 	fs->addSearchPath(variables["fs_game"].getValue(), false);
 
 	fs->outputPath("/");

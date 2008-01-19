@@ -1,0 +1,179 @@
+material deferred/screenFill default 9 {
+	lod 9 {
+		pass rhwNoTransform {
+			back fill
+			front fill
+	//		noDepthWrite	// noDepthWrite stänger av för alltid??
+			disableDepth
+			color 0 1 0	
+		
+			map colorMap $colormap
+		}
+	}
+}
+
+material deferred/rhwOnlyColor default 9 {
+	lod 9 {
+		pass rhwOnlyColor {
+			disableDepth
+			color vertex		
+		}
+	}
+}
+
+material deferred/lightAmbient default 9 {
+	lod 9 {
+		pass deferred/resultAmbient {
+			disableDepth
+			disableBlend
+			
+			map colorMap $colormap
+		}
+	}
+}
+
+material defineTest default 9 {
+	lod 9 {
+		pass gen:testshader:USE_CUSTOM_COLOR,COLOR_R=0.0,COLOR_G=1.0,COLOR_B=0.0 {
+					
+		}
+	}
+}
+
+#loop NUM_LIGHTS 1 8
+material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
+	lod 9 {
+		pass deferred/lightDirectional:NUM_LIGHTS=#NUM_LIGHTS# {
+			disableDepth
+			blendFunc add
+			//color wave square 0.5 1.0 0 20.0 // strobe!
+
+			map normalMap $normalmap			
+			map miscMap $miscmap
+
+			/*texunit 0 $normalmap {
+				sampler normalMap
+			} 
+
+			texunit 1 $miscmap {
+				sampler miscMap
+			}
+			*/
+		}
+	}
+}
+#end
+
+#loop NUM_LIGHTS 1 8 
+material deferred/lightPositional #NUM_LIGHTS#lights 9 {
+	lod 9 {
+	//	shaderPass deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# $normalmap $miscmap $depthmap $colormap {
+		// ta bort gen...
+		//}
+		
+		/*
+		pass deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
+			back cull
+			disableDepth
+			disableBlend
+			
+			bind lumMin $lummin
+			bind lumMultiplier $lummultiplier
+			bind killTrace $lumkilltrace		
+			
+			map colorMap $colormap
+			map normalMap $normalmap
+			map miscMap $miscmap
+		}
+		
+		SEN LAGA SCENEGRAPHEN!!!!!!!!!!!!! <-- viktigt
+		
+		pass deferred/writeAttributes:COLOR_MAP,SPECULAR_MAP {
+			bind tangent "vertexTangent"
+			
+			map colorMap "textures/1911.bmp"
+			map specularMap "textures/1911_s.bmp" {
+				
+			}
+		}
+		*/
+		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
+			// cull back,
+			// if we're not ontop of the camera, then cull front
+			// batchning av poslights kanske är långsammare faktiskt... mer processing per frag
+			
+			//blendFunc add
+			back cull
+
+			/*texunit 3 $colormap {
+				sampler colorMap
+			}
+	
+			texunit 0 $normalmap {
+				sampler normalMap
+			}
+
+			texunit 1 $miscmap {
+				sampler miscMap
+			}*/
+
+			texunit 2 $depthmap {
+				sampler depthMap
+			}
+
+		}
+
+
+	}
+}
+#end
+
+material post/luminance default 9 {
+	lod 9 {
+		pass post/luminancePass {
+			disableDepth
+			//disableBlend
+			
+			bind lumMin $lummin
+			bind lumMultiplier $lummultiplier
+			bind killTrace $lumkilltrace
+
+			map colorMap $colormap			
+			map miscMap $miscmap
+		}
+	}
+}
+
+material post/gaussianHoriz default 9 {
+	lod 9 {
+		pass post/gaussian:HORIZONTAL {
+			disableDepth
+			bind texelSize $texelwidth
+
+			map colorMap $colormap
+		}
+	}
+}
+
+
+material post/gaussianVert default 9 {
+	lod 9 {
+		pass post/gaussian:VERTICAL {
+			disableDepth
+			bind texelSize $texelheight
+
+			map colorMap $colormap
+		}
+	}
+}
+
+material post/finalBloom default 9 {
+	lod 9 {
+		pass post/finalBloom {
+			disableDepth
+			
+			map colorMap $colormap
+			map bloomMap $bloom
+		}
+	}
+}

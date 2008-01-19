@@ -22,6 +22,7 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D073D19C0D419BBC00D3C858 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D073D19A0D419BBC00D3C858 /* base */; };
 		D07407FF0D32C86A00735304 /* inputdevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07407FE0D32C86A00735304 /* inputdevice.cpp */; };
 		D07408020D32CA1F00735304 /* sdlkeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408010D32CA1F00735304 /* sdlkeyboard.cpp */; };
 		D07408510D32CD7300735304 /* devicecollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408500D32CD7300735304 /* devicecollection.cpp */; };
@@ -214,6 +215,7 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
+		D073D19A0D419BBC00D3C858 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
 		D07407FD0D32C7E100735304 /* inputdevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputdevice.h; path = ../../Include/inputdevice.h; sourceTree = SOURCE_ROOT; };
 		D07407FE0D32C86A00735304 /* inputdevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inputdevice.cpp; sourceTree = "<group>"; };
 		D07408000D32CA1300735304 /* sdlkeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlkeyboard.h; path = ../../Include/sdlkeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -408,6 +410,7 @@
 		20286C2CFDCF999611CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D073D19A0D419BBC00D3C858 /* base */,
 				D08005EE0CEF75E100AAED52 /* adrift */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
 				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
@@ -857,6 +860,7 @@
 			files = (
 				D08006070CEF75E300AAED52 /* adrift in Resources */,
 				8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */,
+				D073D19C0D419BBC00D3C858 /* base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -156,7 +156,6 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		TGen::Engine::File * file = filesystem.openRead(fixedName);
 		TGen::Image * image = imageLoader.load(file);
 		delete file;
-		// TODO: kolla drawIndexed, kolla så internal format-parametern här inte ignoreras
 		
 		newTexture = renderer.createTexture(*image, TGen::RGBA);	// TODO: variable switch between RGBA and format of image image->getFormat()
 		delete image;

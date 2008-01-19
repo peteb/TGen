@@ -1,0 +1,20 @@
+game {
+	version 0 0 1
+	name "TGen Testmod"	
+	author "Peter Backman"
+
+	search {
+		file1.pak
+		file3.pak
+	}
+	
+	vars {
+	
+	}
+	
+	autoexec {
+		autoexec.cfg
+		vardump
+	
+	}
+}
