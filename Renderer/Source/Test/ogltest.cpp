@@ -154,7 +154,20 @@ public:
 
 		
 		
+		std::ifstream testmd5;
+		testmd5.open("zsecpistol.md5mesh", std::ios::binary | std::ios::in);
+		if (!testmd5.is_open())
+			throw TGen::RuntimeException("main", "failed to open file");
 		
+		TGen::IstreamAdaptor stream2(testmd5);
+		TGen::MD5::Parser modelParser2;
+		TGen::MD5::File * file2 = modelParser2.parse(stream2);
+		testmd5.close();
+		
+		
+		file2->printInfo(std::cout);
+		
+		exit(1);
 	}
 	
 	~ResourceManager() {

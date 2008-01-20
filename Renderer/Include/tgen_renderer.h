@@ -33,6 +33,11 @@
 #include "md3parser.h"
 #include "md3mesh.h"
 
+#include "md5parser.h"
+#include "md5mesh.h"
+#include "md5file.h"
+#include "md5tokenizer.h"
+
 namespace TGen {
 	bool isRendererDebug();
 }
