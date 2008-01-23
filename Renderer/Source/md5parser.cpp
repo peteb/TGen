@@ -66,6 +66,15 @@ TGen::MD5::File * TGen::MD5::Parser::parseGlobalBlock() {
 				file->addMesh(parseMeshBlock());
 				break;
 				
+			case TGen::MD5::TokenJoints:
+				stepAndCheck();
+				if (currentToken->first != TGen::MD5::TokenBlockStart)
+					throw TGen::RuntimeException("MD5::Parser::parseGlobalBlock", "joints: no block start");
+				
+				stepAndCheck();
+				parseJointsBlock(*file);
+				break;
+				
 		}
 		
 		
@@ -157,20 +166,20 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 			weights[weightNum].joint = TGen::lexical_cast<int>(currentToken->second);
 			
 			stepAndCheck();
-			weights[weightNum].bias = TGen::lexical_cast<int>(currentToken->second);
+			weights[weightNum].bias = TGen::lexical_cast<float>(currentToken->second);
 			
 			stepAndCheck();
 			if (currentToken->first != TGen::MD5::TokenArrayStart)
 				throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "expecting array start");
 			
 			stepAndCheck();
-			weights[weightNum].posX = TGen::lexical_cast<float>(currentToken->second);
+			weights[weightNum].position.x = TGen::lexical_cast<float>(currentToken->second);
 			
 			stepAndCheck();
-			weights[weightNum].posY = TGen::lexical_cast<float>(currentToken->second);
+			weights[weightNum].position.y = TGen::lexical_cast<float>(currentToken->second);
 			
 			stepAndCheck();
-			weights[weightNum].posZ = TGen::lexical_cast<float>(currentToken->second);
+			weights[weightNum].position.z = TGen::lexical_cast<float>(currentToken->second);
 			
 			stepAndCheck();
 			if (currentToken->first != TGen::MD5::TokenArrayEnd)
@@ -190,6 +199,71 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 	}
 	
 	throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "unexpected end");
+}
+
+void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
+	while (currentToken != endIter) {
+		std::string jointName = currentToken->second;
+		stepAndCheck();
+		
+		int parentJoint = TGen::lexical_cast<int>(currentToken->second);
+		stepAndCheck();
+		
+		if (currentToken->first != TGen::MD5::TokenArrayStart)
+			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array start");
+		
+		stepAndCheck();
+		
+		float posX = TGen::lexical_cast<float>(currentToken->second);
+		stepAndCheck();
+		
+		float posY = TGen::lexical_cast<float>(currentToken->second);
+		stepAndCheck();
+		
+		float posZ = TGen::lexical_cast<float>(currentToken->second);
+		stepAndCheck();
+		
+		if (currentToken->first != TGen::MD5::TokenArrayEnd)
+			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array end");
+		
+		stepAndCheck();
+		
+		if (currentToken->first != TGen::MD5::TokenArrayStart)
+			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array start");
+		
+		stepAndCheck();
+		
+		float orientX = TGen::lexical_cast<float>(currentToken->second);
+		stepAndCheck();
+		
+		float orientY = TGen::lexical_cast<float>(currentToken->second);
+		stepAndCheck();
+		
+		float orientZ = TGen::lexical_cast<float>(currentToken->second);
+		stepAndCheck();
+		
+		if (currentToken->first != TGen::MD5::TokenArrayEnd)
+			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array end");
+		
+		TGen::MD5::FileJoint * joint = new TGen::MD5::FileJoint;
+		joint->name = jointName;
+		joint->parent = parentJoint;
+		joint->position.x = posX;
+		joint->position.y = posY;
+		joint->position.z = posZ;
+		
+		joint->orientation = TGen::Quaternion4(orientX, orientY, orientZ);
+		
+		file.joints.push_back(joint);
+		
+		if (currentToken != endIter)
+			step();
+
+		if (currentToken->first == TGen::MD5::TokenBlockEnd)
+			return;
+	}
+	
+	throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "unexpected end");	
 }
 
 void TGen::MD5::Parser::step() {

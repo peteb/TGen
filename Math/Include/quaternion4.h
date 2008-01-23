@@ -21,7 +21,8 @@ namespace TGen {
 	class Quaternion4 {
 	public:	
 		Quaternion4();
-		Quaternion4(scalar x, scalar y, scalar z, scalar w = 0.0);
+		Quaternion4(scalar x, scalar y, scalar z, scalar w);
+		Quaternion4(scalar x, scalar y, scalar z);
 		Quaternion4(const TGen::Vector3 & vector);
 		Quaternion4(const TGen::Vector3 & axis, const TGen::Angle & angle);
 		
@@ -31,18 +32,21 @@ namespace TGen {
 		
 		Quaternion4 & operator *= (const TGen::Quaternion4 & quat);
 		Quaternion4 operator * (const TGen::Quaternion4 & quat) const;
+		Quaternion4 operator * (const TGen::Vector3 & vector) const;
 		Quaternion4 operator * (scalar value) const;
-		TGen::Vector3 operator * (const TGen::Vector3 & vector) const;
 		Quaternion4 operator + (const Quaternion4 & quat) const;
 		Quaternion4 operator - (const Quaternion4 & quat) const;
 		
 		TGen::Quaternion4 & invert();
 		TGen::Quaternion4 & getInverse() const;
+		scalar calculateW() const;
 		
 		Quaternion4 operator - () const;
 		operator TGen::Matrix4x4 () const;
 		//operator TGen::Vector3 () const;
 		operator TGen::Vector4 () const;
+		
+		TGen::Vector3 rotatePoint(const TGen::Vector3 & point) const;
 		
 		static Quaternion4 Rotation(const TGen::Vector3 axis, const TGen::Angle & angle);
 		static Quaternion4 Slerp(const Quaternion4 & q1, const Quaternion4 & q2, scalar t);

@@ -37,6 +37,7 @@
 #include "md5mesh.h"
 #include "md5file.h"
 #include "md5tokenizer.h"
+#include "md5submesh.h"
 
 namespace TGen {
 	bool isRendererDebug();

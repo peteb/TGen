@@ -11,19 +11,32 @@
 #define _TGEN_RENDERER_MD5MESH_H
 
 #include <tgen_graphics.h>
+#include "mesh.h"
 
 namespace TGen {
+	class Renderer;
+	class Camera;
+	
 	namespace MD5 {
 		enum {
 			SurfaceTangentAttribute = 10,
 			
 		};
 		
-		class Mesh {
+		class Mesh : public TGen::Mesh {
 		public:
-			Mesh();
+			Mesh(const std::string & name);
 			~Mesh();
 			
+			void preRender(TGen::Renderer & renderer) const;
+			void render(TGen::Renderer & renderer) const;
+			void update(const TGen::Camera & camera, scalar distance, scalar time);
+			
+			TGen::Vector3 getMax() const;
+			TGen::Vector3 getMin() const;
+			TGen::Vector3 getOrigin() const;
+			
+			std::string getDefaultMaterial() const;
 		};
 		
 		typedef TGen::Vertex3<float> Vertex;

@@ -155,7 +155,7 @@ public:
 		
 		
 		std::ifstream testmd5;
-		testmd5.open("zsecpistol.md5mesh", std::ios::binary | std::ios::in);
+		testmd5.open("zfat.md5mesh", std::ios::binary | std::ios::in);
 		if (!testmd5.is_open())
 			throw TGen::RuntimeException("main", "failed to open file");
 		
@@ -167,7 +167,10 @@ public:
 		
 		file2->printInfo(std::cout);
 		
-		exit(1);
+		TGen::Mesh * md5Mesh = file2->createMesh(renderer, "md5mod", 0.001);
+
+		if (md5Mesh)
+			meshes.push_back(md5Mesh);
 	}
 	
 	~ResourceManager() {
@@ -228,7 +231,7 @@ public:
 		//sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 
 		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher", TGen::Vector3(0.0f, 0.0f, 0.0f)));
-		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
+		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("md5mod")), "myMat"));
 		
 		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher2", TGen::Vector3(0.0f, 2.0f, 0.0f)));
 		sceneRoot.getChild("rocketlauncher2")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));

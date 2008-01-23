@@ -19,6 +19,14 @@ TGen::Quaternion4::Quaternion4(scalar x, scalar y, scalar z, scalar w)
 {		
 }
 
+TGen::Quaternion4::Quaternion4(scalar x, scalar y, scalar z)
+	: x(x)
+	, y(y)
+	, z(z)
+{
+	w = calculateW();
+}
+
 TGen::Quaternion4::Quaternion4(const TGen::Vector3 & axis, const TGen::Angle & angle) {
 	scalar radianAngle = TGen::Radian(angle).angle * 0.5;
 	scalar sinAngle = TGen::Sin(TGen::Radian(radianAngle));
@@ -46,19 +54,16 @@ TGen::Quaternion4::Quaternion4(const TGen::Vector3 & vector)
 }
 
 TGen::Quaternion4 & TGen::Quaternion4::operator *= (const TGen::Quaternion4 & quat) {
-	x = w * quat.x + x * quat.w + y * quat.z - z * quat.y;
-	y = w * quat.y - x * quat.z + y * quat.w + z * quat.x;
-	z = w * quat.z + x * quat.y - y * quat.x + z * quat.w;
-	w = w * quat.w - x * quat.x - y * quat.y - z * quat.z;		
+	*this = *this * quat;
 	
 	return *this;
 }
 
 TGen::Quaternion4 TGen::Quaternion4::operator * (const TGen::Quaternion4 & quat) const {
-	return Quaternion4(w * quat.x + x * quat.w + y * quat.z - z * quat.y,
-					   w * quat.y - x * quat.z + y * quat.w + z * quat.x,
-					   w * quat.z + x * quat.y - y * quat.x + z * quat.w,
-					   w * quat.w - x * quat.x - y * quat.y - z * quat.z);	
+	return TGen::Quaternion4(x * quat.w + w * quat.x + y * quat.z - z * quat.y,
+									 y * quat.w + w * quat.y + z * quat.x - x * quat.z,
+									 z * quat.w + w * quat.z + x * quat.y - y * quat.x,
+									 w * quat.w - x * quat.x - y * quat.y - z * quat.z);
 }
 
 TGen::Quaternion4::operator TGen::Matrix4x4 () const {
@@ -86,10 +91,14 @@ TGen::Quaternion4 TGen::Quaternion4::getNormalized() const {
 
 TGen::Quaternion4 & TGen::Quaternion4::normalize() {
 	scalar magnitude = getMagnitude();
-	x /= magnitude;
-	y /= magnitude;
-	z /= magnitude;
-	w /= magnitude;
+	
+	if (magnitude > 0.0f) {
+		scalar inMag = 1.0f / magnitude;
+		x *= inMag;
+		y *= inMag;
+		z *= inMag;
+		w *= inMag;
+	}
 	
 	return *this;
 }
@@ -160,18 +169,29 @@ TGen::Quaternion4 & TGen::Quaternion4::getInverse() const {
 	return TGen::Quaternion4(*this).invert();
 }
 
-TGen::Vector3 TGen::Quaternion4::operator * (const TGen::Vector3 & vector) const {
-	TGen::Quaternion4 vectorQuat(vector), inverseQuat, resultQuat;
-	TGen::Vector3 ret;
+TGen::Quaternion4 TGen::Quaternion4::operator * (const TGen::Vector3 & vector) const {
+	return TGen::Quaternion4(w * vector.x + y * vector.z - z * vector.y,
+									 w * vector.y + z * vector.x - x * vector.z,
+									 w * vector.z + x * vector.y - y * vector.x,
+									 -(x * vector.x - y * vector.y - z * vector.z));
+}
+
+TGen::Vector3 TGen::Quaternion4::rotatePoint(const TGen::Vector3 & point) const {
+	TGen::Quaternion4 temp, inverse;
+	inverse.normalize();
 	
-	inverseQuat = getInverse();
-	resultQuat = vectorQuat * inverseQuat;
-	resultQuat = *this * resultQuat;
+	temp = *this * point;
+	TGen::Quaternion4 ret = temp * inverse;
 	
-	ret.x = resultQuat.x;
-	ret.y = resultQuat.y;
-	ret.z = resultQuat.z;
+	return TGen::Vector3(ret.x, ret.y, ret.z);
+}
+
+scalar TGen::Quaternion4::calculateW() const {
+	float t = 1.0f - x * x - y * y - z * z;
 	
-	return ret;
+	if (t < 0.0f)
+		return 0.0f;
+	
+	return -sqrt(t);
 }
 

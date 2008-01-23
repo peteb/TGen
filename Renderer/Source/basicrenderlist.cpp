@@ -129,19 +129,30 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 
 			TGen::Material * globalMaterial = face->getMaterial();
 
+			
 			if (!subfaces) {	// render the face
-				globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL, face->getGeometry());	// TODO: opt specialization, symbol look-up before loop
+				if (globalMaterial)
+					globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL, face->getGeometry());	// TODO: opt specialization, symbol look-up before loop
+				else
+					std::cout << "no mat single face" << std::endl;
 			}
 			else {	// render the leaves
 				face->getGeometry()->preRender(renderer);
 				
 				for (int i = 0; i < subfaces->size(); ++i) {
 					// material = subfaces[i]->getMaterial
-					TGen::Material * material = globalMaterial;
+					TGen::Material * material = NULL;
+					
+					if (globalMaterial)
+						material = globalMaterial;
+					else
+						std::cout << "no mat multiface" << std::endl;
+					
 					//if ((*subfaces)[i]->getMaterial())
 					//	material = (*subfaces)[i]->getMaterial();
 					
-					material->render(renderer, *(*subfaces)[i], specialization, lod, NULL, face->getGeometry());
+					if (material)
+						material->render(renderer, *(*subfaces)[i], specialization, lod, NULL, face->getGeometry());
 					
 				}				
 			}

@@ -36,6 +36,9 @@
 		D073D54D0D4283E900D3C858 /* zsecpistol.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */; };
 		D073D5800D42846200D3C858 /* md5tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D073D57F0D42846200D3C858 /* md5tokenizer.h */; };
 		D073D58A0D42846F00D3C858 /* md5tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D073D5890D42846F00D3C858 /* md5tokenizer.cpp */; };
+		D09030B30D47D98D00074021 /* md5submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D09030B20D47D98D00074021 /* md5submesh.h */; };
+		D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09030B40D47D9A200074021 /* md5submesh.cpp */; };
+		D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D09034450D4803F400074021 /* zfat.md5mesh */; };
 		D0EF57EE0C81C0620085C17B /* md3submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF57ED0C81C0620085C17B /* md3submesh.cpp */; };
 		D0EF57F00C81C06E0085C17B /* md3submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EF57EF0C81C06E0085C17B /* md3submesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD1DB0C7DC55A001E861E /* mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -177,6 +180,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */,
 				D073D54D0D4283E900D3C858 /* zsecpistol.md5mesh in CopyFiles */,
 				D0F16C830C7A1CF8004B4E19 /* rocketl.md3 in CopyFiles */,
 				D0F9E9060C8DD8F10055D5CB /* rocketl.jpg in CopyFiles */,
@@ -215,6 +219,9 @@
 		D073D4C70D42806900D3C858 /* md5file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5file.cpp; path = Source/md5file.cpp; sourceTree = "<group>"; };
 		D073D57F0D42846200D3C858 /* md5tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5tokenizer.h; path = Include/md5tokenizer.h; sourceTree = "<group>"; };
 		D073D5890D42846F00D3C858 /* md5tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5tokenizer.cpp; path = Source/md5tokenizer.cpp; sourceTree = "<group>"; };
+		D09030B20D47D98D00074021 /* md5submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5submesh.h; path = Include/md5submesh.h; sourceTree = "<group>"; };
+		D09030B40D47D9A200074021 /* md5submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5submesh.cpp; path = Source/md5submesh.cpp; sourceTree = "<group>"; };
+		D09034450D4803F400074021 /* zfat.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zfat.md5mesh; sourceTree = "<group>"; };
 		D0EF57ED0C81C0620085C17B /* md3submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3submesh.cpp; path = Source/md3submesh.cpp; sourceTree = "<group>"; };
 		D0EF57EF0C81C06E0085C17B /* md3submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3submesh.h; path = Include/md3submesh.h; sourceTree = "<group>"; };
 		D0EFD1DB0C7DC55A001E861E /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Include/mesh.h; sourceTree = "<group>"; };
@@ -399,6 +406,8 @@
 				D073D4C50D42805C00D3C858 /* md5file.h */,
 				D073D5890D42846F00D3C858 /* md5tokenizer.cpp */,
 				D073D57F0D42846200D3C858 /* md5tokenizer.h */,
+				D09030B40D47D9A200074021 /* md5submesh.cpp */,
+				D09030B20D47D98D00074021 /* md5submesh.h */,
 			);
 			name = md5;
 			sourceTree = "<group>";
@@ -410,6 +419,7 @@
 				D04C814F0CCA466000794CEA /* railgun.md3 */,
 				D0F16C820C7A1CF8004B4E19 /* rocketl.md3 */,
 				D0F9E9070C8DD8FC0055D5CB /* shotgun.md3 */,
+				D09034450D4803F400074021 /* zfat.md5mesh */,
 				D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */,
 			);
 			name = Resources;
@@ -537,6 +547,7 @@
 				D073D47C0D427EB600D3C858 /* md5mesh.h in Headers */,
 				D073D4C60D42805C00D3C858 /* md5file.h in Headers */,
 				D073D5800D42846200D3C858 /* md5tokenizer.h in Headers */,
+				D09030B30D47D98D00074021 /* md5submesh.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +727,7 @@
 				D073D47E0D427EC200D3C858 /* md5mesh.cpp in Sources */,
 				D073D4C80D42806900D3C858 /* md5file.cpp in Sources */,
 				D073D58A0D42846F00D3C858 /* md5tokenizer.cpp in Sources */,
+				D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

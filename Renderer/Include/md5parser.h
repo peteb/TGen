@@ -27,6 +27,7 @@ namespace TGen {
 		private:
 			TGen::MD5::File * parseGlobalBlock();
 			TGen::MD5::FileMesh * parseMeshBlock();
+			void parseJointsBlock(TGen::MD5::File & file);
 			
 			void step();
 			void checkEOS();			
