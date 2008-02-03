@@ -47,6 +47,7 @@ namespace TGen {
 		operator TGen::Matrix4x4 () const;
 		//operator TGen::Vector3 () const;
 		operator TGen::Vector4 () const;
+		operator std::string() const;
 		
 		TGen::Vector3 rotatePoint(const TGen::Vector3 & point) const;
 		

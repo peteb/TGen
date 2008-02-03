@@ -22,6 +22,10 @@
 		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
 		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
+		D01C40000D5670890028A06F /* md3animmodelinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D01C3FFF0D5670890028A06F /* md3animmodelinst.h */; };
+		D01C40020D56709C0028A06F /* md3animmodelinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40010D56709C0028A06F /* md3animmodelinst.cpp */; };
+		D01C40850D5674CA0028A06F /* md3animmeshinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D01C40840D5674CA0028A06F /* md3animmeshinst.h */; };
+		D01C40870D5674DB0028A06F /* md3animmeshinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */; };
 		D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */ = {isa = PBXBuildFile; fileRef = D0219FE50D5613D40039323A /* modelinstantiatepool.h */; };
 		D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */; };
 		D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D04C814F0CCA466000794CEA /* railgun.md3 */; };
@@ -53,6 +57,10 @@
 		D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */; };
 		D087F4750D564DD100442D40 /* upper.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D087F46F0D564DBA00442D40 /* upper.md3 */; };
 		D087F4C90D56512A00442D40 /* modeljoint.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F4C80D56512A00442D40 /* modeljoint.h */; };
+		D087F6B80D56624C00442D40 /* md3animmodel.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F6B70D56624C00442D40 /* md3animmodel.h */; };
+		D087F6BA0D56625C00442D40 /* md3animmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D087F6B90D56625C00442D40 /* md3animmodel.cpp */; };
+		D087F6DB0D56646900442D40 /* md3animmesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F6DA0D56646900442D40 /* md3animmesh.h */; };
+		D087F6DD0D56647A00442D40 /* md3animmesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D087F6DC0D56647A00442D40 /* md3animmesh.cpp */; };
 		D09030B30D47D98D00074021 /* md5submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D09030B20D47D98D00074021 /* md5submesh.h */; };
 		D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09030B40D47D9A200074021 /* md5submesh.cpp */; };
 		D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D09034450D4803F400074021 /* zfat.md5mesh */; };
@@ -62,8 +70,8 @@
 		D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD1DF0C7DC56A001E861E /* mesh.cpp */; };
 		D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD3270C7DCBD6001E861E /* meshgeomlinklist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */; };
-		D0EFD5610C7DD381001E861E /* md3model.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD5600C7DD381001E861E /* md3model.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EFD5630C7DD38B001E861E /* md3model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD5620C7DD38B001E861E /* md3model.cpp */; };
+		D0EFD5610C7DD381001E861E /* md3staticmodel.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD5600C7DD381001E861E /* md3staticmodel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EFD5630C7DD38B001E861E /* md3staticmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD5620C7DD38B001E861E /* md3staticmodel.cpp */; };
 		D0EFD61F0C7DDBD3001E861E /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD61E0C7DDBD3001E861E /* geometry.cpp */; };
 		D0F16B430C79D444004B4E19 /* md3struct.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F16B420C79D444004B4E19 /* md3struct.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F16B780C79D6AC004B4E19 /* md3struct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F16B770C79D6AC004B4E19 /* md3struct.cpp */; };
@@ -227,6 +235,10 @@
 		D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ogltest.cpp; sourceTree = "<group>"; };
 		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D01C3FFF0D5670890028A06F /* md3animmodelinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmodelinst.h; path = Include/md3animmodelinst.h; sourceTree = "<group>"; };
+		D01C40010D56709C0028A06F /* md3animmodelinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmodelinst.cpp; path = Source/md3animmodelinst.cpp; sourceTree = "<group>"; };
+		D01C40840D5674CA0028A06F /* md3animmeshinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmeshinst.h; path = Include/md3animmeshinst.h; sourceTree = "<group>"; };
+		D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshinst.cpp; path = Source/md3animmeshinst.cpp; sourceTree = "<group>"; };
 		D0219FE50D5613D40039323A /* modelinstantiatepool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiatepool.h; path = Include/modelinstantiatepool.h; sourceTree = "<group>"; };
 		D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstantiatepool.cpp; path = Source/modelinstantiatepool.cpp; sourceTree = "<group>"; };
 		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
@@ -254,6 +266,10 @@
 		D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiator.h; path = Include/modelinstantiator.h; sourceTree = "<group>"; };
 		D087F46F0D564DBA00442D40 /* upper.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = upper.md3; sourceTree = "<group>"; };
 		D087F4C80D56512A00442D40 /* modeljoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modeljoint.h; path = Include/modeljoint.h; sourceTree = "<group>"; };
+		D087F6B70D56624C00442D40 /* md3animmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmodel.h; path = Include/md3animmodel.h; sourceTree = "<group>"; };
+		D087F6B90D56625C00442D40 /* md3animmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmodel.cpp; path = Source/md3animmodel.cpp; sourceTree = "<group>"; };
+		D087F6DA0D56646900442D40 /* md3animmesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmesh.h; path = Include/md3animmesh.h; sourceTree = "<group>"; };
+		D087F6DC0D56647A00442D40 /* md3animmesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmesh.cpp; path = Source/md3animmesh.cpp; sourceTree = "<group>"; };
 		D09030B20D47D98D00074021 /* md5submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5submesh.h; path = Include/md5submesh.h; sourceTree = "<group>"; };
 		D09030B40D47D9A200074021 /* md5submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5submesh.cpp; path = Source/md5submesh.cpp; sourceTree = "<group>"; };
 		D09034450D4803F400074021 /* zfat.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zfat.md5mesh; sourceTree = "<group>"; };
@@ -263,8 +279,8 @@
 		D0EFD1DF0C7DC56A001E861E /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = Source/mesh.cpp; sourceTree = "<group>"; };
 		D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeomlinklist.h; path = Include/meshgeomlinklist.h; sourceTree = "<group>"; };
 		D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeomlinklist.cpp; path = Source/meshgeomlinklist.cpp; sourceTree = "<group>"; };
-		D0EFD5600C7DD381001E861E /* md3model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3model.h; path = Include/md3model.h; sourceTree = "<group>"; };
-		D0EFD5620C7DD38B001E861E /* md3model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3model.cpp; path = Source/md3model.cpp; sourceTree = "<group>"; };
+		D0EFD5600C7DD381001E861E /* md3staticmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3staticmodel.h; path = Include/md3staticmodel.h; sourceTree = "<group>"; };
+		D0EFD5620C7DD38B001E861E /* md3staticmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3staticmodel.cpp; path = Source/md3staticmodel.cpp; sourceTree = "<group>"; };
 		D0EFD61E0C7DDBD3001E861E /* geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geometry.cpp; path = Source/geometry.cpp; sourceTree = "<group>"; };
 		D0F16B420C79D444004B4E19 /* md3struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3struct.h; path = Include/md3struct.h; sourceTree = "<group>"; };
 		D0F16B770C79D6AC004B4E19 /* md3struct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3struct.cpp; path = Source/md3struct.cpp; sourceTree = "<group>"; };
@@ -519,10 +535,18 @@
 				D0F16B420C79D444004B4E19 /* md3struct.h */,
 				D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */,
 				D0F16BA10C79D745004B4E19 /* md3parser.h */,
-				D0EFD5620C7DD38B001E861E /* md3model.cpp */,
-				D0EFD5600C7DD381001E861E /* md3model.h */,
+				D0EFD5620C7DD38B001E861E /* md3staticmodel.cpp */,
+				D0EFD5600C7DD381001E861E /* md3staticmodel.h */,
 				D0EF57ED0C81C0620085C17B /* md3mesh.cpp */,
 				D0EF57EF0C81C06E0085C17B /* md3mesh.h */,
+				D087F6B90D56625C00442D40 /* md3animmodel.cpp */,
+				D087F6B70D56624C00442D40 /* md3animmodel.h */,
+				D087F6DC0D56647A00442D40 /* md3animmesh.cpp */,
+				D087F6DA0D56646900442D40 /* md3animmesh.h */,
+				D01C40010D56709C0028A06F /* md3animmodelinst.cpp */,
+				D01C3FFF0D5670890028A06F /* md3animmodelinst.h */,
+				D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */,
+				D01C40840D5674CA0028A06F /* md3animmeshinst.h */,
 			);
 			name = md3;
 			sourceTree = "<group>";
@@ -593,7 +617,7 @@
 				D0F16BA20C79D745004B4E19 /* md3parser.h in Headers */,
 				D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */,
 				D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */,
-				D0EFD5610C7DD381001E861E /* md3model.h in Headers */,
+				D0EFD5610C7DD381001E861E /* md3staticmodel.h in Headers */,
 				D0EF57F00C81C06E0085C17B /* md3mesh.h in Headers */,
 				D073D4780D427E8400D3C858 /* md5parser.h in Headers */,
 				D073D47C0D427EB600D3C858 /* md5mesh.h in Headers */,
@@ -609,6 +633,10 @@
 				D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */,
 				D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */,
 				D087F4C90D56512A00442D40 /* modeljoint.h in Headers */,
+				D087F6B80D56624C00442D40 /* md3animmodel.h in Headers */,
+				D087F6DB0D56646900442D40 /* md3animmesh.h in Headers */,
+				D01C40000D5670890028A06F /* md3animmodelinst.h in Headers */,
+				D01C40850D5674CA0028A06F /* md3animmeshinst.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -781,7 +809,7 @@
 				D0F16BA00C79D73B004B4E19 /* md3parser.cpp in Sources */,
 				D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */,
 				D0EFD3270C7DCBD6001E861E /* meshgeomlinklist.cpp in Sources */,
-				D0EFD5630C7DD38B001E861E /* md3model.cpp in Sources */,
+				D0EFD5630C7DD38B001E861E /* md3staticmodel.cpp in Sources */,
 				D0EFD61F0C7DDBD3001E861E /* geometry.cpp in Sources */,
 				D0EF57EE0C81C0620085C17B /* md3mesh.cpp in Sources */,
 				D073D47A0D427E9300D3C858 /* md5parser.cpp in Sources */,
@@ -796,6 +824,10 @@
 				D074B34A0D56041E000B91E1 /* face_new.cpp in Sources */,
 				D074B48A0D561188000B91E1 /* modelinstanceproxy.cpp in Sources */,
 				D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */,
+				D087F6BA0D56625C00442D40 /* md3animmodel.cpp in Sources */,
+				D087F6DD0D56647A00442D40 /* md3animmesh.cpp in Sources */,
+				D01C40020D56709C0028A06F /* md3animmodelinst.cpp in Sources */,
+				D01C40870D5674DB0028A06F /* md3animmeshinst.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

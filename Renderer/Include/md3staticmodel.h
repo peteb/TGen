@@ -37,7 +37,7 @@ namespace TGen {
 			TGen::ModelJoint getJoint(const std::string & name) const;
 			TGen::NewMeshInstance * getMesh(int num);
 			
-			TGen::MD3::Model * instantiate();
+			TGen::MD3::StaticModel * instantiate();
 
 			int getNumMeshes() const;
 			bool isPureInstance() const;
@@ -54,11 +54,6 @@ namespace TGen {
 			JointMap joints;
 			MeshList meshes;
 		};
-		
-		
-		
-		typedef TGen::JoinVertexElements3<TGen::Vertex3<float>, TGen::Normal3<float>, TGen::TexCoord2<float, 0> > VertexDecl;
-		typedef TGen::Index<unsigned int> IndexDecl;
 		
 	} // !MD3	
 } // !TGen

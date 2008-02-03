@@ -41,6 +41,9 @@ TGen::SceneNode::~SceneNode() {
 }
 
 void TGen::SceneNode::update() {
+	for (int i = 0; i < models.size(); ++i)
+		TGen::DerefRes(models[i])->update();
+	
 	if ((parent && parent->changed) || this->changed) {			
 		//TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
 		//TGen::Quaternion4 result = orientation * front * -orientation;

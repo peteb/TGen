@@ -205,3 +205,11 @@ scalar TGen::Quaternion4::calculateW() const {
 	return -sqrt(t);
 }
 
+TGen::Quaternion4::operator std::string() const {
+	std::stringstream ss;
+	ss << "(" << x << ", " << y << ", " << z << ", " << w << ")";
+	
+	return ss.str();
+	
+}
+

@@ -32,12 +32,12 @@ namespace TGen {
 		virtual TGen::ModelJoint getJoint(const std::string & name) const;		
 		virtual TGen::NewModelInstance * operator *() {return this; }
 		
-		virtual void linkMaterial(TGen::MaterialSource & source) {}
-		virtual void unlinkMaterial() {}
-		virtual void fillFaces(TGen::RenderList & list, TGen::SceneNode const * node) {}
+		virtual void linkMaterial(TGen::MaterialSource & source);
+		virtual void unlinkMaterial();
+		virtual void fillFaces(TGen::RenderList & list, TGen::SceneNode const * node);
 		
-		virtual int getNumMeshes() const {return 0; }
-		virtual TGen::NewMeshInstance * getMesh(int num) {return NULL; }
+		virtual int getNumMeshes() const;
+		virtual TGen::NewMeshInstance * getMesh(int num);
 		
 		std::string getName() const;
 		

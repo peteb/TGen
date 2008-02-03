@@ -12,6 +12,7 @@
 
 #include <tgen_core.h>
 #include <vector>
+#include <tgen_graphics.h>
 
 #ifdef PACKED
 #undef PACKED
@@ -100,7 +101,7 @@ namespace TGen {
 		} PACKED;
 		
 		struct Triangle {
-			S32 indexes[3];
+			S32 indices[3];
 		} PACKED;
 		
 		struct TexCoord {
@@ -112,6 +113,12 @@ namespace TGen {
 		} PACKED;	
 		
 		typedef std::vector<TGen::MD3::Surface *> SurfaceList;
+		
+		typedef TGen::TexCoord2<float, 0> TexCoordDecl;
+		typedef TGen::JoinVertexElements3<TGen::Vertex3<float>, TGen::Normal3<float>, TGen::MD3::TexCoordDecl> VertexDecl;
+		typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Normal3<float> > FrameVertexDecl;		
+		typedef TGen::Index<unsigned int> IndexDecl;
+
 	} // !MD3	
 } // !TGen
 
