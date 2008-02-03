@@ -8,6 +8,7 @@
  */
 
 #include "quaternion4.h"
+#include "matrix3x3.h"
 #include <cmath>
 #include "angle.h"
 
@@ -25,6 +26,14 @@ TGen::Quaternion4::Quaternion4(scalar x, scalar y, scalar z)
 	, z(z)
 {
 	w = calculateW();
+}
+
+TGen::Quaternion4::Quaternion4(const TGen::Matrix3x3 & matrix) {
+	// has to be orthogonal and special orthogonal
+	w = sqrt(1.0 + matrix.elements[0][0] + matrix.elements[1][1] + matrix.elements[2][2]) / 2.0;
+	x = (matrix.elements[2][1] - matrix.elements[1][2]) / (4.0 * w);
+	y = (matrix.elements[0][2] - matrix.elements[2][0]) / (4.0 * w);
+	z = (matrix.elements[1][0] - matrix.elements[0][1]) / (4.0 * w);
 }
 
 TGen::Quaternion4::Quaternion4(const TGen::Vector3 & axis, const TGen::Angle & angle) {

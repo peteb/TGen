@@ -47,6 +47,7 @@
 #include "modelinstanceproxy.h"
 #include "modelinstantiator.h"
 #include "modelinstantiatepool.h"
+#include "modeljoint.h"
 
 namespace TGen {
 	bool isRendererDebug();

@@ -10,6 +10,7 @@
 #include "matrix3x3.h"
 #include "matrix4x4.h"
 #include "vector2.h"
+#include "vector3.h"
 #include <cstring>
 #include <sstream>
 
@@ -34,6 +35,18 @@ TGen::Matrix3x3::Matrix3x3(const TGen::Vector2 & x, const TGen::Vector2 & y) {
 	elements[1][0] = y.x;
 	elements[1][1] = y.y;
 	elements[2][2] = 1.0f;
+}
+
+TGen::Matrix3x3::Matrix3x3(const TGen::Vector3 & x, const TGen::Vector3 & y, const TGen::Vector3 & z) {
+	elements[0][0] = x.x;
+	elements[0][1] = x.y;
+	elements[0][2] = x.z;
+	elements[1][0] = y.x;
+	elements[1][1] = y.y;
+	elements[1][2] = y.z;
+	elements[2][0] = z.x;
+	elements[2][1] = z.y;
+	elements[2][2] = z.z;
 }
 
 TGen::Matrix3x3::Matrix3x3(const TGen::Matrix3x3 & matrix) {

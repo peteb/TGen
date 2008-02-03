@@ -198,6 +198,20 @@ TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSou
 		}
 	}
 		
+	for (int i = 0; i < header->num_tags; ++i) {
+		TGen::ModelJoint joint;
+		Tag * tag = &header->tags[i];
+		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.y, tag->origin.z);
+		
+		TGen::Matrix3x3 orientation(TGen::Vector3(tag->axis[0].x, tag->axis[0].y, tag->axis[0].z),
+											 TGen::Vector3(tag->axis[1].x, tag->axis[1].y, tag->axis[1].z),
+											 TGen::Vector3(tag->axis[2].x, tag->axis[2].y, tag->axis[2].z));
+		
+		joint.orientation = TGen::Quaternion4(orientation);
+		
+		newModel->addJoint(reinterpret_cast<char *>(tag->name), joint);
+	}
+	
 	return newModel;
 }
 

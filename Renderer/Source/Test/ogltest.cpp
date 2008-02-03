@@ -135,7 +135,7 @@ public:
 		
 		
 		std::ifstream rocketl;
-		rocketl.open("railgun.md3", std::ios::binary | std::ios::in);
+		rocketl.open("upper.md3", std::ios::binary | std::ios::in);
 		if (!rocketl.is_open())
 			throw TGen::RuntimeException("main", "failed to open file");
 		
@@ -198,8 +198,9 @@ public:
 	}
 	
 	TGen::Material * getMaterial(const std::string & name) {
+		std::cerr << "GET MATERIAL " << name << std::endl;
 		for (std::list<TGen::Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
-			if ((*iter)->getName() == "myMat")
+			//if ((*iter)->getName() == "")
 				return *iter;
 		}
 		
@@ -276,6 +277,7 @@ public:
 		
 		pool.instantiateAll(*resources);
 		meshList.relink(*resources);
+		
 		
 		sceneRoot.update();
 		sceneRoot.traverse(TGen::FaceLinker(*resources));

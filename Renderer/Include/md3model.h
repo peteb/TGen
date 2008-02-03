@@ -31,8 +31,14 @@ namespace TGen {
 			
 	//		std::string getDefaultMaterial() const;
 			
+			void addJoint(const std::string & name, const TGen::ModelJoint & joint);
+			TGen::ModelJoint getJoint(const std::string & name) const;
 			bool isPureInstance() const;
 			TGen::MD3::Model * instantiate();
+			
+		private:
+			typedef std::map<std::string, TGen::ModelJoint> JointMap;
+			JointMap joints;
 		};
 		
 		

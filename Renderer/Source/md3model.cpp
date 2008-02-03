@@ -30,5 +30,19 @@ TGen::MD3::Model * TGen::MD3::Model::instantiate() {
 	return this;
 }
 
+TGen::ModelJoint TGen::MD3::Model::getJoint(const std::string & name) const {
+	JointMap::const_iterator iter = joints.find(name);
+	if (iter == joints.end())
+		throw TGen::RuntimeException("Model::getJoint", "joint not found: '" + name + "'");
+	
+	return iter->second;
+}
+
+void TGen::MD3::Model::addJoint(const std::string & name, const TGen::ModelJoint & joint) {
+	if (joints.find(name) != joints.end())
+		throw TGen::RuntimeException("MD3::Model::addJoint", "joint '" + name + "' already added");
+	
+	joints.insert(JointMap::value_type(name, joint));
+}
 
 // max/min/origin/radius i model

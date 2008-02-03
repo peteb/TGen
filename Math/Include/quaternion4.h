@@ -17,6 +17,7 @@
 
 namespace TGen {
 	class Angle;
+	class Matrix3x3;
 	
 	class Quaternion4 {
 	public:	
@@ -25,6 +26,7 @@ namespace TGen {
 		Quaternion4(scalar x, scalar y, scalar z);
 		Quaternion4(const TGen::Vector3 & vector);
 		Quaternion4(const TGen::Vector3 & axis, const TGen::Angle & angle);
+		Quaternion4(const TGen::Matrix3x3 & matrix);
 		
 		scalar getMagnitude() const;
 		Quaternion4 getNormalized() const;

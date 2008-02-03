@@ -51,6 +51,8 @@
 		D074B4730D560F61000B91E1 /* modelinstanceproxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4720D560F61000B91E1 /* modelinstanceproxy.h */; };
 		D074B48A0D561188000B91E1 /* modelinstanceproxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */; };
 		D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */; };
+		D087F4750D564DD100442D40 /* upper.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D087F46F0D564DBA00442D40 /* upper.md3 */; };
+		D087F4C90D56512A00442D40 /* modeljoint.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F4C80D56512A00442D40 /* modeljoint.h */; };
 		D09030B30D47D98D00074021 /* md5submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D09030B20D47D98D00074021 /* md5submesh.h */; };
 		D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09030B40D47D9A200074021 /* md5submesh.cpp */; };
 		D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D09034450D4803F400074021 /* zfat.md5mesh */; };
@@ -198,6 +200,7 @@
 				D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */,
 				D073D54D0D4283E900D3C858 /* zsecpistol.md5mesh in CopyFiles */,
 				D0F16C830C7A1CF8004B4E19 /* rocketl.md3 in CopyFiles */,
+				D087F4750D564DD100442D40 /* upper.md3 in CopyFiles */,
 				D0F9E9060C8DD8F10055D5CB /* rocketl.jpg in CopyFiles */,
 				D0F9E9080C8DD8FC0055D5CB /* shotgun.md3 in CopyFiles */,
 				D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */,
@@ -249,6 +252,8 @@
 		D074B4720D560F61000B91E1 /* modelinstanceproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstanceproxy.h; path = Include/modelinstanceproxy.h; sourceTree = "<group>"; };
 		D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstanceproxy.cpp; path = Source/modelinstanceproxy.cpp; sourceTree = "<group>"; };
 		D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiator.h; path = Include/modelinstantiator.h; sourceTree = "<group>"; };
+		D087F46F0D564DBA00442D40 /* upper.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = upper.md3; sourceTree = "<group>"; };
+		D087F4C80D56512A00442D40 /* modeljoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modeljoint.h; path = Include/modeljoint.h; sourceTree = "<group>"; };
 		D09030B20D47D98D00074021 /* md5submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5submesh.h; path = Include/md5submesh.h; sourceTree = "<group>"; };
 		D09030B40D47D9A200074021 /* md5submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5submesh.cpp; path = Source/md5submesh.cpp; sourceTree = "<group>"; };
 		D09034450D4803F400074021 /* zfat.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zfat.md5mesh; sourceTree = "<group>"; };
@@ -382,6 +387,7 @@
 				D074B3470D560411000B91E1 /* face_new.h */,
 				D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */,
 				D074B4720D560F61000B91E1 /* modelinstanceproxy.h */,
+				D087F4C80D56512A00442D40 /* modeljoint.h */,
 			);
 			name = Renderer;
 			path = ../..;
@@ -466,6 +472,7 @@
 				D0F9E9070C8DD8FC0055D5CB /* shotgun.md3 */,
 				D09034450D4803F400074021 /* zfat.md5mesh */,
 				D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */,
+				D087F46F0D564DBA00442D40 /* upper.md3 */,
 			);
 			name = Resources;
 			path = ..;
@@ -601,6 +608,7 @@
 				D074B4730D560F61000B91E1 /* modelinstanceproxy.h in Headers */,
 				D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */,
 				D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */,
+				D087F4C90D56512A00442D40 /* modeljoint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

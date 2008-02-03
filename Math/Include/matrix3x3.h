@@ -15,12 +15,14 @@
 
 namespace TGen {
 	class Vector2;
+	class Vector3;
 	class Matrix4x4;
 	
 	class Matrix3x3 {
 	public:	
 		Matrix3x3();
 		Matrix3x3(const TGen::Vector2 & x, const TGen::Vector2 & y);
+		Matrix3x3(const TGen::Vector3 & x, const TGen::Vector3 & y, const TGen::Vector3 & z);
 		Matrix3x3(const TGen::Matrix3x3 & matrix);
 		Matrix3x3(const TGen::Matrix4x4 & matrix);
 		Matrix3x3(scalar e11, scalar e12, scalar e13, scalar e21, scalar e22, scalar e23, scalar e31, scalar e32, scalar e33);
