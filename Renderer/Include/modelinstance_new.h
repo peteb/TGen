@@ -26,24 +26,22 @@ namespace TGen {
 	public:
 		NewModelInstance(const std::string & name);
 		virtual ~NewModelInstance();
-		
-		typedef std::vector<TGen::NewMeshInstance *> MeshList;
 
 		virtual void update();
 		virtual bool isPureInstance() const abstract;
 		virtual TGen::ModelJoint getJoint(const std::string & name) const;		
 		virtual TGen::NewModelInstance * operator *() {return this; }
 		
-		void linkMaterial(TGen::MaterialSource & source);
-		void unlinkMaterial();
-		void addMeshInstance(TGen::NewMeshInstance * instance);
-		void fillFaces(TGen::RenderList & list, TGen::SceneNode const * node);
+		virtual void linkMaterial(TGen::MaterialSource & source) {}
+		virtual void unlinkMaterial() {}
+		virtual void fillFaces(TGen::RenderList & list, TGen::SceneNode const * node) {}
 		
-		MeshList & getMeshes();
+		virtual int getNumMeshes() const {return 0; }
+		virtual TGen::NewMeshInstance * getMesh(int num) {return NULL; }
+		
 		std::string getName() const;
 		
 	protected:
-		MeshList meshes;
 		std::string name;
 	};
 	

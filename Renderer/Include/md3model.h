@@ -1,5 +1,5 @@
 /*
- *  md3model.h
+ *  md3staticmodel.h
  *  TGen Renderer
  *
  *  Created by Peter Backman on 8/23/07.
@@ -8,37 +8,51 @@
  *
  */
 
-#ifndef _TGEN_RENDERER_MD3MODEL_H
-#define _TGEN_RENDERER_MD3MODEL_H
+#ifndef _TGEN_RENDERER_MD3STATICMODEL_H
+#define _TGEN_RENDERER_MD3STATICMODEL_H
 
 #include "model_new.h"
 #include <tgen_graphics.h>
 
 namespace TGen {
 	namespace MD3 {
-		class Model : public TGen::NewModel {
+		class Mesh;
+		
+		class StaticModel : public TGen::NewModel {
 		public:	
-			Model(const std::string & name);		
-			~Model();
+			StaticModel(const std::string & name);		
+			~StaticModel();
 
 			//void preRender(TGen::Renderer & renderer) const;
 			//void render(TGen::Renderer & renderer) const;
 			//void update(const TGen::Camera & camera, scalar distance, scalar time);
 			
-		//	TGen::Vector3 getMax() const;
-			//TGen::Vector3 getMin() const;
-			//TGen::Vector3 getOrigin() const;
-			
-	//		std::string getDefaultMaterial() const;
+			TGen::Vector3 getMax() const;
+			TGen::Vector3 getMin() const;
+			TGen::Vector3 getOrigin() const;
 			
 			void addJoint(const std::string & name, const TGen::ModelJoint & joint);
+			void addMesh(TGen::MD3::Mesh * instance);
+
 			TGen::ModelJoint getJoint(const std::string & name) const;
-			bool isPureInstance() const;
+			TGen::NewMeshInstance * getMesh(int num);
+			
 			TGen::MD3::Model * instantiate();
+
+			int getNumMeshes() const;
+			bool isPureInstance() const;
+			
+			void fillFaces(TGen::RenderList & list, TGen::SceneNode const * node);
+			void linkMaterial(TGen::MaterialSource & source);
+			void unlinkMaterial();
+			void update();
 			
 		private:
 			typedef std::map<std::string, TGen::ModelJoint> JointMap;
+			typedef std::vector<TGen::MD3::Mesh *> MeshList;
+			
 			JointMap joints;
+			MeshList meshes;
 		};
 		
 		
@@ -49,5 +63,5 @@ namespace TGen {
 	} // !MD3	
 } // !TGen
 
-#endif // !_TGEN_RENDERER_MD3MODEL_H
+#endif // !_TGEN_RENDERER_MD3STATICMODEL_H
 

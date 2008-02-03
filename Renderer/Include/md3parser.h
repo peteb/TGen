@@ -46,6 +46,9 @@ namespace TGen {
 			friend class TGen::MD3::Parser;
 			
 		private:
+			TGen::MD3::Model * createStaticModel(TGen::VertexDataSource & dataSource, scalar scale) const;
+			TGen::MD3::Model * createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const;
+			
 			TGen::MD3::Header * header;
 			TGen::MD3::SurfaceList surfaces;
 		};
