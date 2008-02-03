@@ -52,10 +52,10 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 	for (int i = 0; i < node.getModels().size(); ++i) {
 		TGen::NewModelInstance * model = DerefRes(node.getModels()[i]);
 		stream << levelName << "   model " << i << " (" << model->getName() << ")" << std::endl;
-		stream << levelName << "      meshes " << model->getMeshes().size() << ": " << std::endl;
+		stream << levelName << "      meshes " << model->getNumMeshes() << ": " << std::endl;
 		
-		for (int a = 0; a < model->getMeshes().size(); ++a) {
-			TGen::NewMeshInstance * mesh = model->getMeshes()[a];
+		for (int a = 0; a < model->getNumMeshes(); ++a) {
+			TGen::NewMeshInstance * mesh = model->getMesh(a);
 			stream << levelName << "         " << a << " material: " << mesh->getMaterialName() << " (linked: " << mesh->getMaterial() << ")" << std::endl;
 		}
 	}

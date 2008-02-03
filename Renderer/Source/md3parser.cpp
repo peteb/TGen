@@ -128,11 +128,17 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 
 
 TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSource, scalar scale) const {
-	TGen::MD3::Model * newModel = new TGen::MD3::Model(reinterpret_cast<const char *>(header->name));
+	if (header->num_frames > 1)
+		return createAnimatingModel(dataSource, scale);
 
+	return createStaticModel(dataSource, scale);
+}
+
+TGen::MD3::Model * TGen::MD3::File::createStaticModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+	TGen::MD3::Model * newModel = new TGen::MD3::Model(reinterpret_cast<const char *>(header->name));
+	
 	DEBUG_PRINT("[md3]: creating surfaces...");
 	
-	// TODO: fixa per-subface-material
 	// TODO: portalbanor skickar egen user-grej... ClippedRoom (entities to draw, room vertices)
 	//       eller sÂ fixas ClippedFace ist‰llet, kanske! dÂ kan man sortera baserat pÂ clipping 
 	
@@ -153,7 +159,7 @@ TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSou
 				throw TGen::RuntimeException("MD3::File::createMesh", "failed to create vertex buffers");
 			
 			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(mesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));
-
+			
 			for (int i = 0; i < surface->num_verts; ++i) {
 				TGen::MD3::TexCoord * texCoord = &surface->texCoords[i];
 				TGen::MD3::Vertex * vertex = &surface->vertices[i];
@@ -194,25 +200,30 @@ TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSou
 			
 			mesh->ib->unlock();
 			
-			newModel->addMeshInstance(mesh);
+			newModel->addMesh(mesh);
 		}
 	}
-		
+	
 	for (int i = 0; i < header->num_tags; ++i) {
 		TGen::ModelJoint joint;
 		Tag * tag = &header->tags[i];
-		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.y, tag->origin.z);
+		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.z, tag->origin.y) * scale;
 		
-		TGen::Matrix3x3 orientation(TGen::Vector3(tag->axis[0].x, tag->axis[0].y, tag->axis[0].z),
-											 TGen::Vector3(tag->axis[1].x, tag->axis[1].y, tag->axis[1].z),
-											 TGen::Vector3(tag->axis[2].x, tag->axis[2].y, tag->axis[2].z));
+		TGen::Matrix3x3 orientation(TGen::Vector3(tag->axis[0].x, tag->axis[0].z, tag->axis[0].y),
+											 TGen::Vector3(tag->axis[1].x, tag->axis[1].z, tag->axis[1].y),
+											 TGen::Vector3(tag->axis[2].x, tag->axis[2].z, tag->axis[2].y));
 		
 		joint.orientation = TGen::Quaternion4(orientation);
 		
 		newModel->addJoint(reinterpret_cast<char *>(tag->name), joint);
 	}
 	
-	return newModel;
+	return newModel;	
+}
+
+TGen::MD3::Model * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+	
+	exit(1);
 }
 
 // TODO: OPT: VertexCache, IndexCache
