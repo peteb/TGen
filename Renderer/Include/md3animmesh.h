@@ -13,6 +13,8 @@
 #include "md3struct.h"
 
 namespace TGen {
+	class VertexData;
+	
 	namespace MD3 {
 		class AnimationFrame {
 		public:
@@ -30,15 +32,19 @@ namespace TGen {
 		class AnimatingMesh {
 		public:
 			AnimatingMesh(const std::string & materialName);
+			~AnimatingMesh();
 			
 			void addAnimationFrame(TGen::MD3::AnimationFrame * frame);
 			std::string getMaterialName() const;
+			int getNumAnimationFrames() const;
+			TGen::MD3::AnimationFrame const & getAnimationFrame(int num) const;
 			
 		//private:
 			typedef std::vector<TGen::MD3::IndexDecl::Type> IndexList;
 			typedef std::vector<TGen::MD3::AnimationFrame *> FrameList;
 			typedef std::vector<TGen::MD3::TexCoordDecl::Type> TexCoordList;
 			
+			uint vertexCount;
 			IndexList indices;
 			TexCoordList texcoords;
 			FrameList frames;

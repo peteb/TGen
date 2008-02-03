@@ -28,6 +28,7 @@
 		D01C40870D5674DB0028A06F /* md3animmeshinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */; };
 		D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */ = {isa = PBXBuildFile; fileRef = D0219FE50D5613D40039323A /* modelinstantiatepool.h */; };
 		D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */; };
+		D036C1DF0D5681DB00916AC6 /* doom.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D036C1DE0D5681D400916AC6 /* doom.tga */; };
 		D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D04C814F0CCA466000794CEA /* railgun.md3 */; };
 		D04C83470CCA4A6B00794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C818A0CCA46A700794CEA /* libtgen_graphics.a */; };
 		D04C83480CCA4A7500794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C817B0CCA469B00794CEA /* libtgen_core.a */; };
@@ -205,6 +206,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 16;
 			files = (
+				D036C1DF0D5681DB00916AC6 /* doom.tga in CopyFiles */,
 				D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */,
 				D073D54D0D4283E900D3C858 /* zsecpistol.md5mesh in CopyFiles */,
 				D0F16C830C7A1CF8004B4E19 /* rocketl.md3 in CopyFiles */,
@@ -241,6 +243,7 @@
 		D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshinst.cpp; path = Source/md3animmeshinst.cpp; sourceTree = "<group>"; };
 		D0219FE50D5613D40039323A /* modelinstantiatepool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiatepool.h; path = Include/modelinstantiatepool.h; sourceTree = "<group>"; };
 		D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstantiatepool.cpp; path = Source/modelinstantiatepool.cpp; sourceTree = "<group>"; };
+		D036C1DE0D5681D400916AC6 /* doom.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = doom.tga; sourceTree = "<group>"; };
 		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
 		D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zsecpistol.md5mesh; sourceTree = "<group>"; };
 		D073D4770D427E8400D3C858 /* md5parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5parser.h; path = Include/md5parser.h; sourceTree = "<group>"; };
@@ -489,6 +492,7 @@
 				D09034450D4803F400074021 /* zfat.md5mesh */,
 				D0F9E9050C8DD8F10055D5CB /* rocketl.jpg */,
 				D087F46F0D564DBA00442D40 /* upper.md3 */,
+				D036C1DE0D5681D400916AC6 /* doom.tga */,
 			);
 			name = Resources;
 			path = ..;

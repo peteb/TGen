@@ -10,6 +10,7 @@
 #include "md3animmodelinst.h"
 #include "md3animmodel.h"
 #include "md3animmeshinst.h"
+#include "renderlist.h"
 
 TGen::MD3::AnimatingModelInstance::AnimatingModelInstance(const std::string & name, TGen::MD3::AnimatingModel & base) 
 	: TGen::NewModelInstance(name)
@@ -28,7 +29,14 @@ bool TGen::MD3::AnimatingModelInstance::isPureInstance() const {
 }
 
 void TGen::MD3::AnimatingModelInstance::update() {
-
+	static float num = 0.0f;
+	
+	for (int i = 0; i < meshes.size(); ++i)
+		meshes[i]->updateVertices(int(num));
+	
+	num += 0.1f;
+	if (num > 200.0)
+		num = 0.0;
 }
 
 TGen::ModelJoint TGen::MD3::AnimatingModelInstance::getJoint(const std::string & name) const {
@@ -46,7 +54,9 @@ void TGen::MD3::AnimatingModelInstance::unlinkMaterial() {
 }
 
 void TGen::MD3::AnimatingModelInstance::fillFaces(TGen::RenderList & list, TGen::SceneNode const * node) {
-	
+	for (int i = 0; i < meshes.size(); ++i) {
+		list.addFace(TGen::NewFace(meshes[i], meshes[i]->getMaterial(), node));
+	}	
 }
 
 int TGen::MD3::AnimatingModelInstance::getNumMeshes() const {

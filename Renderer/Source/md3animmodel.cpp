@@ -14,8 +14,9 @@
 #include "renderlist.h"
 #include "model_new.h"
 
-TGen::MD3::AnimatingModel::AnimatingModel(const std::string & name)
+TGen::MD3::AnimatingModel::AnimatingModel(const std::string & name, TGen::VertexDataSource & dataSource)
 	: TGen::NewModel(name)
+	, dataSource(dataSource)
 {
 	
 }
@@ -34,8 +35,17 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 	TGen::MD3::AnimatingModelInstance * newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", *this);
 	
 	for (int i = 0; i < meshes.size(); ++i) {
+		TGen::MD3::AnimatingMesh const & mesh = *meshes[i];
 		TGen::MD3::AnimatingMeshInstance * newMeshInstance = new TGen::MD3::AnimatingMeshInstance(meshes[i]->getMaterialName(), *meshes[i]);
 		
+		uint numIndices = mesh.indices.size();
+		uint numVertices = mesh.vertexCount;
+		newMeshInstance->indexCount = numIndices;
+		
+		newMeshInstance->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
+		newMeshInstance->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStream);
+		
+		newMeshInstance->ib->bufferData(&mesh.indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
 		newInstance->addMesh(newMeshInstance);
 	}
 	

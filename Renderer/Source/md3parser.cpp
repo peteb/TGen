@@ -218,7 +218,7 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 }
 
 TGen::NewModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const {
-	TGen::MD3::AnimatingModel * newModel = new TGen::MD3::AnimatingModel(reinterpret_cast<const char *>(header->name));
+	TGen::MD3::AnimatingModel * newModel = new TGen::MD3::AnimatingModel(reinterpret_cast<const char *>(header->name), dataSource);
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		TGen::MD3::Surface * surface = surfaces[i];
@@ -230,6 +230,7 @@ TGen::NewModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & 
 			newMesh->texcoords.clear();
 			newMesh->indices.reserve(surface->num_triangles * 3);
 			newMesh->texcoords.reserve(surface->num_verts);
+			newMesh->vertexCount = surface->num_verts;
 			
 			for (int i = 0; i < surface->num_triangles; ++i) {
 				TGen::MD3::Triangle const & triangle = surface->triangles[i];
@@ -246,10 +247,10 @@ TGen::NewModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & 
 			for (int i = 0; i < surface->num_frames; ++i) {
 				TGen::MD3::AnimationFrame * newFrame = new TGen::MD3::AnimationFrame(reinterpret_cast<char *>(header->frames[i].name));
 				
-				newFrame->radius = header->frames[i].radius;
-				newFrame->min = TGen::Vector3(header->frames[i].min_bounds.x, header->frames[i].min_bounds.z, header->frames[i].min_bounds.y);
-				newFrame->max = TGen::Vector3(header->frames[i].max_bounds.x, header->frames[i].max_bounds.z, header->frames[i].max_bounds.y);
-				newFrame->origin = TGen::Vector3(header->frames[i].local_origin.x, header->frames[i].local_origin.z, header->frames[i].local_origin.y);
+				newFrame->radius = header->frames[i].radius * scale;
+				newFrame->min = TGen::Vector3(header->frames[i].min_bounds.x, header->frames[i].min_bounds.z, header->frames[i].min_bounds.y) * scale;
+				newFrame->max = TGen::Vector3(header->frames[i].max_bounds.x, header->frames[i].max_bounds.z, header->frames[i].max_bounds.y) * scale;
+				newFrame->origin = TGen::Vector3(header->frames[i].local_origin.x, header->frames[i].local_origin.z, header->frames[i].local_origin.y) * scale;
 				
 				newFrame->vertices.clear();
 				newFrame->vertices.reserve(surface->num_verts);
@@ -260,7 +261,7 @@ TGen::NewModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & 
 					TGen::MD3::Vertex const & vertex = surface->vertices[i + vertexBase];
 					
 					TGen::Vector3 normal = normalToVector(vertex.normal);
-					newFrame->vertices.push_back(TGen::MD3::FrameVertexDecl::Type(TGen::Vector3(vertex.x, vertex.z, vertex.y), normal));
+					newFrame->vertices.push_back(TGen::MD3::FrameVertexDecl::Type(TGen::Vector3(vertex.x, vertex.z, vertex.y) * scale, normal));
 				}
 				
 				newMesh->addAnimationFrame(newFrame);

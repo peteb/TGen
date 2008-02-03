@@ -14,12 +14,14 @@
 #include <tgen_graphics.h>
 
 namespace TGen {
+	class VertexDataSource;
+	
 	namespace MD3 {
 		class AnimatingMesh;
 		
 		class AnimatingModel : public TGen::NewModel {
 		public:
-			AnimatingModel(const std::string & name);
+			AnimatingModel(const std::string & name, TGen::VertexDataSource & dataSource);
 			~AnimatingModel();
 			
 			void addJoint(const std::string & name, const TGen::ModelJoint & joint);
@@ -35,7 +37,9 @@ namespace TGen {
 			typedef std::vector<TGen::MD3::AnimatingMesh *> MeshList;
 			
 			JointMap joints;
-			MeshList meshes;			
+			MeshList meshes;	
+			
+			TGen::VertexDataSource & dataSource;
 		};
 	} // !MD3
 } // !TGen
