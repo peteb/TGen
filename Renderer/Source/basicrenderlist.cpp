@@ -8,10 +8,11 @@
  */
 
 #include "basicrenderlist.h"
-#include "face.h"
+#include "face_new.h"
 #include "geometry.h"
 #include "scenenode.h"
 #include "camera.h"
+#include "meshinstance_new.h"
 #include <tgen_graphics.h>
 #include <algorithm>
 
@@ -24,12 +25,12 @@ TGen::BasicRenderList::BasicRenderList() {
 
 TGen::BasicRenderList::~BasicRenderList() {}
 
-void TGen::BasicRenderList::addFace(const TGen::Face * face) {
-	if (!face->getMaterial())
+void TGen::BasicRenderList::addFace(const TGen::NewFace & face) {
+	if (!face.getMaterial())
 		throw TGen::RuntimeException("BasicRenderList::addFace", "no material linked!");
 	
-	if  (!face->getGeometry())
-		throw TGen::RuntimeException("BasicRenderList::addFace", "no geometry!");
+//	if  (!face->getGeometry())
+	//	throw TGen::RuntimeException("BasicRenderList::addFace", "no geometry!");
 		
 	/*if (face->getMaterial()->getSortLevel() == TGen::MaterialSortOpaque)
 		opaqueFaces.push_back(face);
@@ -56,9 +57,9 @@ void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string 
 	
 	if (needSorting()) {
 		for (int i = 0; i < faces.size(); ++i) {
-			scalar distance = (faces[i]->getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
+			scalar distance = (faces[i].getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
 			int lod = 9 - int(((distance - lodNear) / lodFar) * 10.0 - 1.0);			
-			int sortLevel = faces[i]->getMaterial()->getSpecialization(specialization)->getPassList(lod)->getSortLevel();	// ouch vilken rad
+			int sortLevel = faces[i].getMaterial()->getSpecialization(specialization)->getPassList(lod)->getSortLevel();	// ouch vilken rad
 		
 			if (sortLevel == TGen::MaterialSortOpaque)
 				opaqueFaces.push_back(SortedFace(faces[i], distance));
@@ -86,7 +87,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	
 	//std::cout << std::string(baseMat) << std::endl;
 	
-	TGen::SceneNode * lastNode = NULL;
+	TGen::SceneNode const * lastNode = NULL;
 	//std::cout << ">>RENDER<<" << std::endl;
 	//std::cout << "basemat: " << std::endl << std::string(baseMat) << std::endl;
 	
@@ -96,7 +97,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	
 	// OPT: allt det här är förmodligen väldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
-		scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
+	/*	scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
 		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);
 		
 		TGen::Vector3 pos1, pos2;
@@ -105,13 +106,13 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 		
 		scalar dist1 = cameraPlane.getPointSide(pos1);
 		scalar dist2 = cameraPlane.getPointSide(pos2);
-		
+		*/
 	//	std::cout << "******* " << dist1 << "  " << dist2 << std::endl;
 		
 		//if (list[i].distanceToCamera < clipFar + geomRadius && (dist1 <= 0.0f || dist2 <= 0.0f)) {
-			const TGen::Face * face = list[i].face;
-			TGen::SceneNode * node = face->getSceneNode();
-			
+			const TGen::NewFace * face = &list[i].face;
+			TGen::SceneNode const * node = face->getSceneNode();
+		
 			if (node && lastNode != node) {	// only set a new transformation if it's another node
 				renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
 				//std::cout << "SET TRANSFORM: " << std::endl << std::string(renderer.getTransform(TGen::TransformWorldView)) << std::endl;
@@ -125,19 +126,21 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			TGen::Clamp(lod, 0, 9);
 			
 			//std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
-			const TGen::Geometry::SubfaceList * subfaces = face->getGeometry()->getLeaves();			
+			//const TGen::Geometry::SubfaceList * subfaces = face->getGeometry()->getLeaves();			
 
 			TGen::Material * globalMaterial = face->getMaterial();
 
+			globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh());
 			
-			if (!subfaces) {	// render the face
+			
+			/*if (!subfaces) {	// render the face
 				if (globalMaterial)
 					globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL, face->getGeometry());	// TODO: opt specialization, symbol look-up before loop
 				else
 					std::cout << "no mat single face" << std::endl;
 			}
 			else {	// render the leaves
-				face->getGeometry()->preRender(renderer);
+				//face->getGeometry()->preRender(renderer);
 				
 				for (int i = 0; i < subfaces->size(); ++i) {
 					// material = subfaces[i]->getMaterial
@@ -152,31 +155,31 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 					//	material = (*subfaces)[i]->getMaterial();
 					
 					if (material)
-						material->render(renderer, *(*subfaces)[i], specialization, lod, NULL, face->getGeometry());
+					//	material->render(renderer, *(*subfaces)[i], specialization, lod, NULL, face->getGeometry());
 					
-				}				
+				}				*/
 			}
 	/*	}
 		else {
 			std::cout << "face discarded, too far away or behind camera" << std::endl;
-		}*/
-	}
+		}
+	}*/
 }
 
 void TGen::BasicRenderList::calculateCameraDistance(SortedFaceList & list, const TGen::Camera & camera) {
 	for (int i = 0; i < list.size(); ++i) {
-		list[i].distanceToCamera = (list[i].face->getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
+		list[i].distanceToCamera = (list[i].face.getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
 	}
 }
 
 void TGen::BasicRenderList::print() {
 	std::cout << "opaque: " << std::endl;
 	for (int i = 0; i < opaqueFaces.size(); ++i)
-		std::cout << opaqueFaces[i].face << std::endl;
+		std::cout << &opaqueFaces[i].face << std::endl;
 	
 	std::cout << "transparent: " << std::endl;
 	for (int i = 0; i < transparentFaces.size(); ++i)
-		std::cout << transparentFaces[i].face << "  " << std::string(transparentFaces[i].face->getWorldOrigin()) << " - " << transparentFaces[i].distanceToCamera << std::endl;
+		std::cout << &transparentFaces[i].face << "  " << std::string(transparentFaces[i].face.getWorldOrigin()) << " - " << transparentFaces[i].distanceToCamera << std::endl;
 }
 
 bool TGen::BasicRenderList::needSorting() {
@@ -186,7 +189,7 @@ bool TGen::BasicRenderList::needSorting() {
 TGen::BasicRenderList::Sorter::Sorter() {
 }
 
-TGen::BasicRenderList::SortedFace::SortedFace(const TGen::Face * face, scalar distance)
+TGen::BasicRenderList::SortedFace::SortedFace(const TGen::NewFace & face, scalar distance)
 	: face(face)
 	, distanceToCamera(distance)
 {

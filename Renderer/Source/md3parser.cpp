@@ -127,8 +127,8 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 }
 
 
-TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSource, scalar scale) const {
-	TGen::MD3::Mesh * newMesh = new TGen::MD3::Mesh(reinterpret_cast<const char *>(header->name));
+TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+	TGen::MD3::Model * newModel = new TGen::MD3::Model(reinterpret_cast<const char *>(header->name));
 
 	DEBUG_PRINT("[md3]: creating surfaces...");
 	
@@ -140,7 +140,7 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 		TGen::MD3::Surface * surface = surfaces[i];
 		
 		if (surface->ident == TGen::MD3::MAGIC) {
-			TGen::MD3::Submesh * submesh = new TGen::MD3::Submesh;
+			TGen::MD3::Submesh * submesh = new TGen::MD3::Submesh(reinterpret_cast<const char*>(surface->shaders[0].name));
 			
 			int numIndices = surface->num_triangles * 3;
 			int numVertices = surface->num_verts;
@@ -194,11 +194,11 @@ TGen::MD3::Mesh * TGen::MD3::File::createMesh(TGen::VertexDataSource & dataSourc
 			
 			submesh->ib->unlock();
 			
-			newMesh->addLeaf(submesh);
+			newModel->addMeshInstance(submesh);
 		}
 	}
 		
-	return newMesh;
+	return newModel;
 }
 
 // TODO: OPT: VertexCache, IndexCache

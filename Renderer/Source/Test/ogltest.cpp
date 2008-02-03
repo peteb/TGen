@@ -98,7 +98,7 @@ private:
 	TGen::IndexBuffer * ib;
 };
 
-class ResourceManager : public TGen::MaterialSource, public TGen::MeshSource {
+class ResourceManager : public TGen::MaterialSource, public TGen::MeshSource, public TGen::ModelInstantiator {
 public:	
 	ResourceManager(TGen::Renderer & renderer) {
 		TGen::MaterialParser parser;
@@ -146,15 +146,17 @@ public:
 		
 		
 		file->printInfo(std::cout);
-		TGen::Mesh * newMesh = file->createMesh(renderer, 0.001);
+		TGen::NewModel * newModel = file->createModel(renderer, 0.001);
 		delete file;
 		
-		if (newMesh)
-			meshes.push_back(newMesh);
+		models.insert(std::map<std::string, TGen::NewModel *>::value_type("coolModel", newModel));
+		
+	//	if (newMesh)
+		//	meshes.push_back(newMesh);
 
 		
 		
-		std::ifstream testmd5;
+		/*std::ifstream testmd5;
 		testmd5.open("zfat.md5mesh", std::ios::binary | std::ios::in);
 		if (!testmd5.is_open())
 			throw TGen::RuntimeException("main", "failed to open file");
@@ -163,14 +165,28 @@ public:
 		TGen::MD5::Parser modelParser2;
 		TGen::MD5::File * file2 = modelParser2.parse(stream2);
 		testmd5.close();
-		
-		
-		file2->printInfo(std::cout);
-		
-		TGen::Mesh * md5Mesh = file2->createMesh(renderer, "md5mod", 0.001);
+		*/
+		/*
+		 Varje animesh har ref till basen som innehåller skeleton och vertices med weights
+		 Varje animesh kan ha en ref till en animation
 
-		if (md5Mesh)
-			meshes.push_back(md5Mesh);
+		 Sparas bland modeller i resman:
+			mesh:
+				1 mesh_base = skeleton + vertices, no video, just RAM. MD5::File
+				* mesh_anim = skeleton, no video, just RAM. MD5::Animation
+		 
+		 Sparas i scenegraphen, inte i resman:
+			mesh = mesh_base + animation, video, only VRAM. MD5::Mesh
+		 
+		 När man instantierar en mesh av en mesh_base så skapas allt
+		 */
+		
+		//file2->printInfo(std::cout);
+		
+		//TGen::Mesh * md5Mesh = file2->createMesh(renderer, "md5mod", 0.001);
+
+		//if (md5Mesh)
+		//	meshes.push_back(md5Mesh);
 	}
 	
 	~ResourceManager() {
@@ -183,7 +199,7 @@ public:
 	
 	TGen::Material * getMaterial(const std::string & name) {
 		for (std::list<TGen::Material *>::iterator iter = materials.begin(); iter != materials.end(); ++iter) {
-			if ((*iter)->getName() == name)
+			if ((*iter)->getName() == "myMat")
 				return *iter;
 		}
 		
@@ -199,10 +215,18 @@ public:
 		throw TGen::RuntimeException("ResourceManager::getMesh", "mesh '" + name + "' not loaded");		
 	}
 	
+	TGen::NewModelInstance * instantiateModel(const std::string & name) {
+		std::map<std::string, TGen::NewModel *>::iterator iter = models.find(name);
+		if (iter == models.end())
+			throw TGen::RuntimeException("ResourceManger", "Model '" + name + "' not loaded");
+		
+		return iter->second->instantiate();
+	}
 	
 private:
 	std::list<TGen::Material *> materials;
 	std::list<TGen::Mesh *> meshes;
+	std::map<std::string, TGen::NewModel *> models;
 };
 
 class App {
@@ -220,7 +244,7 @@ public:
 		camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).normalize());
 		
 		sceneRoot.addChild(camera);
-		sceneRoot.addChild(new TGen::SceneNode("cube1", TGen::Vector3(0.0f, 0.0f, 2.0f)));
+		/*sceneRoot.addChild(new TGen::SceneNode("cube1", TGen::Vector3(0.0f, 0.0f, 2.0f)));
 		//sceneRoot.addChild(new TGen::SceneNode("cube2", TGen::Vector3(0.0f, 0.0f, 7.0f)));
 		//sceneRoot.addChild(new TGen::SceneNode("cube3", TGen::Vector3(0.0f, 0.0f, 15.0f)));
 		//sceneRoot.addChild(new TGen::SceneNode("cube4", TGen::Vector3(0.0f, 0.0f, 20.0f)));
@@ -231,7 +255,7 @@ public:
 		//sceneRoot.getChild("cube4")->addFace(TGen::Face(new Cube(*renderer, 1.0f, 1.0f, 1.0f), "myMat"));
 
 		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher", TGen::Vector3(0.0f, 0.0f, 0.0f)));
-		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("md5mod")), "myMat"));
+		sceneRoot.getChild("rocketlauncher")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
 		
 		sceneRoot.addChild(new TGen::SceneNode("rocketlauncher2", TGen::Vector3(0.0f, 2.0f, 0.0f)));
 		sceneRoot.getChild("rocketlauncher2")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
@@ -244,13 +268,20 @@ public:
 		sceneRoot.getChild("rocketlauncher")->getChild("rocketlauncher2")->getChild("rocketlauncher2")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/weapons2/railgun/railgun.md3")), "myMat"));
 		sceneRoot.getChild("rocketlauncher")->getChild("rocketlauncher2")->getChild("rocketlauncher2")->setOrientation(TGen::Vector3(0.0f, 0.0f, -1.0f));
 		
+		*/
+		
+		TGen::ModelInstantiatePool pool;
+		
+		sceneRoot.addModel(pool.attach(new TGen::ModelInstanceProxy("coolModel")));
+		
+		pool.instantiateAll(*resources);
 		meshList.relink(*resources);
 		
 		sceneRoot.update();
 		sceneRoot.traverse(TGen::FaceLinker(*resources));
 		sceneRoot.traverse(TGen::ScenePrinter(std::cout));
 		
-
+		//exit(1);
 	}
 	// SceneNode ska ha en setDirection..
 	// TODO: AABB-walker. MD3!!!!!!!! sen leka runt med olika rendreringstekniker
@@ -282,7 +313,7 @@ public:
 		renderer->clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 		
 		time += 0.01f;
-		sceneRoot.getChild("rocketlauncher")->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).getNormalized()); //TGen::Cos(TGen::Radian(time)), 0.0f, TGen::Sin(TGen::Radian(time))));
+		//sceneRoot.getChild("rocketlauncher")->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).getNormalized()); //TGen::Cos(TGen::Radian(time)), 0.0f, TGen::Sin(TGen::Radian(time))));
 		sceneRoot.update();
 		
 		renderList.clear();

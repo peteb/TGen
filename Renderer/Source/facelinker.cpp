@@ -10,6 +10,7 @@
 #include "facelinker.h"
 #include "materialsource.h"
 #include "face.h"
+#include "modelinstance_new.h"
 
 TGen::FaceLinker::FaceLinker(TGen::MaterialSource & source)
 	: source(source)
@@ -21,6 +22,10 @@ bool TGen::FaceLinker::pre(TGen::SceneNode & node) const {
 
 	for (int i = 0; i < node.getFaces().size(); ++i) {
 		node.getFaces()[i].linkMaterial(source);
+	}
+	
+	for (int i = 0; i < node.getModels().size(); ++i) {
+		TGen::DerefRes(node.getModels()[i])->linkMaterial(source);
 	}
 	
 	return true;

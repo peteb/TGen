@@ -248,10 +248,7 @@ void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
 		TGen::MD5::FileJoint * joint = new TGen::MD5::FileJoint;
 		joint->name = jointName;
 		joint->parent = parentJoint;
-		joint->position.x = posX;
-		joint->position.y = posY;
-		joint->position.z = posZ;
-		
+		joint->position = TGen::Vector3(posX, posY, posZ);
 		joint->orientation = TGen::Quaternion4(orientX, orientY, orientZ);
 		
 		file.joints.push_back(joint);

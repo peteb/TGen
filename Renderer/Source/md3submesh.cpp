@@ -10,8 +10,9 @@
 #include "md3submesh.h"
 #include <tgen_graphics.h>
 
-TGen::MD3::Submesh::Submesh() 
-	: vb(NULL)
+TGen::MD3::Submesh::Submesh(const std::string & materialName) 
+	: TGen::NewMesh(materialName)
+	, vb(NULL)
 	, ib(NULL)
 	, primitive(TGen::PrimitiveTriangles)
 	, startIndex(0)
@@ -33,3 +34,6 @@ void TGen::MD3::Submesh::render(TGen::Renderer & renderer) const {
 	renderer.drawIndexedPrimitive(primitive, startIndex, indexCount);	
 }
 
+TGen::MD3::Submesh * TGen::MD3::Submesh::instantiate() const {
+	throw TGen::RuntimeException("MD3::Mesh::instantiate", "trying to instantiate static mesh!");
+}

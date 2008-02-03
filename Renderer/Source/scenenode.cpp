@@ -11,6 +11,7 @@
 #include "face.h"
 #include "geometry.h"
 #include "renderlist.h"
+#include "modelinstance_new.h"
 #include <cassert>
 
 TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
@@ -27,6 +28,11 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 TGen::SceneNode::~SceneNode() {
 	if (parent)
 		parent->removeChild(this);
+	
+	for (int i = 0; i < models.size(); ++i) {
+		if (models[i]->isPureInstance())
+			delete models[i];
+	}
 	
 	for (int i = 0; i < children.size(); ++i) {
 		children[i]->detached();
@@ -117,6 +123,11 @@ const TGen::Sphere & TGen::SceneNode::getWorldBoundingSphere() const {
 TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() {
 	return faces;
 }
+
+TGen::SceneNode::ModelInstanceList & TGen::SceneNode::getModels() {
+	return models;
+}
+
 
 void TGen::SceneNode::setPosition(const TGen::Vector3 & position) {
 	this->position = position;
@@ -279,7 +290,14 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 
 bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < faces.size(); ++i) {
-		list.addFace(&faces[i]);
+		//list.addFace(&faces[i]);
+	}
+	
+	for (int i = 0; i < models.size(); ++i) {
+		TGen::NewModelInstance * model = models[i];
+		model = TGen::DerefRes(model);
+		
+		model->fillFaces(list, this);
 	}
 	
 	return true;
@@ -289,3 +307,8 @@ bool TGen::SceneNode::fillUser(TGen::RenderList & list, const TGen::Camera & cam
 	
 	return true;
 }
+
+void TGen::SceneNode::addModel(TGen::NewModelInstance * model) {
+	models.push_back(model);
+}
+

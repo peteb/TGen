@@ -7,9 +7,12 @@
  *
  */
 
+#include <tgen_core.h>
 #include "printscene.h"
 #include "face.h"
 #include "geometry.h"
+#include "modelinstance_new.h"
+#include "meshinstance_new.h"
 
 TGen::ScenePrinter::ScenePrinter(std::ostream & stream) 
 	: stream(stream)
@@ -29,7 +32,7 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 	stream << " orient: [" << std::string(TGen::Vector3(node.getLocalOrientation())) << ", " << std::string(TGen::Vector3(node.getWorldOrientation())) << "]";
 	stream << std::endl;
 	
-	for (int i = 0; i < node.getFaces().size(); ++i) {
+	/*for (int i = 0; i < node.getFaces().size(); ++i) {
 		stream << levelName << "   face " << i << " ";
 		stream << "[" << (node.getFaces()[i].getMaterial() ? "" : "!") << node.getFaces()[i].getMaterialName() << ", ";
 		
@@ -44,6 +47,17 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 		}
 		
 		stream << std::endl;
+	}*/
+	
+	for (int i = 0; i < node.getModels().size(); ++i) {
+		TGen::NewModelInstance * model = DerefRes(node.getModels()[i]);
+		stream << levelName << "   model " << i << " (" << model->getName() << ")" << std::endl;
+		stream << levelName << "      meshes " << model->getMeshes().size() << ": " << std::endl;
+		
+		for (int a = 0; a < model->getMeshes().size(); ++a) {
+			TGen::NewMeshInstance * mesh = model->getMeshes()[a];
+			stream << levelName << "         " << a << " material: " << mesh->getMaterialName() << " (linked: " << mesh->getMaterial() << ")" << std::endl;
+		}
 	}
 	
 	level++;
