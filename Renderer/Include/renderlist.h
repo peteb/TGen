@@ -29,7 +29,7 @@
 #include <tgen_math.h>
 
 namespace TGen {
-	class Face;
+	class NewFace;
 	class Camera;
 	class Renderer;
 	
@@ -50,7 +50,7 @@ namespace TGen {
 		};
 		
 		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) abstract;
-		virtual void addFace(const TGen::Face * face) abstract;
+		virtual void addFace(const TGen::NewFace & face) abstract;
 		virtual void addUser(void * user, int id) abstract;
 		virtual int getNumUserInfo() abstract;
 		virtual UserInfo & getUserInfo(int id) abstract;

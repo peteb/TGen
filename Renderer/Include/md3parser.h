@@ -21,7 +21,7 @@ namespace TGen {
 
 	namespace MD3 {
 		class File;
-		class Mesh;
+		class Model;
 		struct Header;
 		
 		class Parser {
@@ -41,7 +41,7 @@ namespace TGen {
 			~File();
 			
 			void printInfo(std::ostream & stream) const;
-			TGen::MD3::Mesh * createMesh(TGen::VertexDataSource & dataSource, scalar scale) const;
+			TGen::MD3::Model * createModel(TGen::VertexDataSource & dataSource, scalar scale) const;
 			
 			friend class TGen::MD3::Parser;
 			

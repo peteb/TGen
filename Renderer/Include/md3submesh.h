@@ -11,6 +11,7 @@
 #define _TGEN_RENDERER_MD3SUBMESH_H
 
 #include "geometry.h"
+#include "mesh_new.h"
 
 namespace TGen {
 	class VertexBuffer;
@@ -18,14 +19,16 @@ namespace TGen {
 	class Renderer;
 	
 	namespace MD3 {
-		class Submesh : public TGen::Subface {
+		class Submesh : public TGen::NewMesh {
 		public:
-			Submesh();
+			Submesh(const std::string & materialName);
 			~Submesh();
 			
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 
+			TGen::MD3::Submesh * instantiate() const;
+			
 			
 			TGen::VertexData * vb;
 			TGen::VertexData * ib;

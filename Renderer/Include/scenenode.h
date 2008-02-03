@@ -23,10 +23,13 @@ namespace TGen {
 	class RenderList;
 	class Camera;
 	class MaterialSource;
+	class NewModelInstance;
 	
 	class SceneNode {
 	public:
 		typedef std::vector<Face> FaceList;
+		typedef std::vector<TGen::NewModelInstance *> ModelInstanceList;
+		
 		class Walker;
 		
 		SceneNode(const std::string & name, const TGen::Vector3 & position = TGen::Vector3(0.0f, 0.0f, 0.0f), const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
@@ -44,6 +47,8 @@ namespace TGen {
 		void addChild(TGen::SceneNode * node);
 		void removeChild(TGen::SceneNode * node);
 		void addFace(const TGen::Face & face);
+		void addModel(TGen::NewModelInstance * model);
+		
 		TGen::SceneNode * getChild(const std::string & name);
 		TGen::SceneNode * getNode(const std::string & path, bool create = false);
 		
@@ -59,6 +64,7 @@ namespace TGen {
 		bool hasChanged() const;
 		//const FaceList & getFaces() const;
 		FaceList & getFaces();
+		ModelInstanceList & getModels();
 		const std::string & getName() const;
 		const TGen::Matrix4x4 & getTransform() const;		
 		const TGen::AABB & getLocalBoundingBox() const;
@@ -96,6 +102,7 @@ namespace TGen {
 		
 		SceneNodeList children;
 		FaceList faces;
+		ModelInstanceList models;
 		
 		bool changed;
 	};

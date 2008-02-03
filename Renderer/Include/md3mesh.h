@@ -10,26 +10,28 @@
 #ifndef _TGEN_RENDERER_MD3MESH_H
 #define _TGEN_RENDERER_MD3MESH_H
 
-#include "mesh.h"
+#include "model_new.h"
 #include <tgen_graphics.h>
 
 namespace TGen {
 	namespace MD3 {
-		class Mesh : public TGen::Mesh {
+		class Model : public TGen::NewModel {
 		public:	
-			Mesh(const std::string & name);		
-			~Mesh();
+			Model(const std::string & name);		
+			~Model();
 
-			void preRender(TGen::Renderer & renderer) const;
-			void render(TGen::Renderer & renderer) const;
-			void update(const TGen::Camera & camera, scalar distance, scalar time);
+			//void preRender(TGen::Renderer & renderer) const;
+			//void render(TGen::Renderer & renderer) const;
+			//void update(const TGen::Camera & camera, scalar distance, scalar time);
 			
-			TGen::Vector3 getMax() const;
-			TGen::Vector3 getMin() const;
-			TGen::Vector3 getOrigin() const;
+		//	TGen::Vector3 getMax() const;
+			//TGen::Vector3 getMin() const;
+			//TGen::Vector3 getOrigin() const;
 			
-			std::string getDefaultMaterial() const;
+	//		std::string getDefaultMaterial() const;
 			
+			bool isPureInstance() const;
+			TGen::MD3::Model * instantiate();
 		};
 		
 		

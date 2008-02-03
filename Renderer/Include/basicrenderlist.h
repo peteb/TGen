@@ -21,6 +21,7 @@
 #define _TGEN_RENDERER_BASICRENDERLIST_H
 
 #include "renderlist.h"
+#include "face_new.h"
 
 namespace TGen {
 	class BasicRenderList : public TGen::RenderList  {
@@ -29,7 +30,7 @@ namespace TGen {
 		~BasicRenderList();
 		
 		void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
-		void addFace(const TGen::Face * face);
+		void addFace(const TGen::NewFace & face);
 		void addUser(void * user, int id);
 		void sort(const TGen::Camera & camera, const std::string & specialization);
 		bool needSorting();
@@ -41,9 +42,9 @@ namespace TGen {
 	private:			
 		class SortedFace {
 		public:
-			SortedFace(const TGen::Face * face, scalar distance = 0.0f);
+			SortedFace(const TGen::NewFace & face, scalar distance = 0.0f);
 				
-			const TGen::Face * face;
+			TGen::NewFace face;
 			scalar distanceToCamera;
 		};
 		
@@ -56,7 +57,7 @@ namespace TGen {
 
 		
 		typedef std::vector<SortedFace> SortedFaceList;
-		typedef std::vector<const Face *> FaceList;
+		typedef std::vector<NewFace> FaceList;
 		typedef std::vector<UserInfo> UserInfoList;
 		
 		void renderList(SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);

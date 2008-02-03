@@ -39,6 +39,15 @@
 #include "md5tokenizer.h"
 #include "md5submesh.h"
 
+#include "model_new.h"
+#include "modelinstance_new.h"
+#include "mesh_new.h"
+#include "meshinstance_new.h"
+#include "face_new.h"
+#include "modelinstanceproxy.h"
+#include "modelinstantiator.h"
+#include "modelinstantiatepool.h"
+
 namespace TGen {
 	bool isRendererDebug();
 }
