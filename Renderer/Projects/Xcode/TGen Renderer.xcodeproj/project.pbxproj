@@ -22,6 +22,8 @@
 		D009FE680C75E0AC00A5CBE7 /* ogltest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */; };
 		D009FEC10C75E17D00A5CBE7 /* SDL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FEC00C75E17D00A5CBE7 /* SDL.framework */; };
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
+		D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */ = {isa = PBXBuildFile; fileRef = D0219FE50D5613D40039323A /* modelinstantiatepool.h */; };
+		D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */; };
 		D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D04C814F0CCA466000794CEA /* railgun.md3 */; };
 		D04C83470CCA4A6B00794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C818A0CCA46A700794CEA /* libtgen_graphics.a */; };
 		D04C83480CCA4A7500794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C817B0CCA469B00794CEA /* libtgen_core.a */; };
@@ -36,17 +38,30 @@
 		D073D54D0D4283E900D3C858 /* zsecpistol.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */; };
 		D073D5800D42846200D3C858 /* md5tokenizer.h in Headers */ = {isa = PBXBuildFile; fileRef = D073D57F0D42846200D3C858 /* md5tokenizer.h */; };
 		D073D58A0D42846F00D3C858 /* md5tokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D073D5890D42846F00D3C858 /* md5tokenizer.cpp */; };
+		D074B2950D55FF39000B91E1 /* model_new.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B2940D55FF39000B91E1 /* model_new.h */; };
+		D074B2970D55FFBA000B91E1 /* model_new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B2960D55FFBA000B91E1 /* model_new.cpp */; };
+		D074B2B10D56007F000B91E1 /* modelinstance_new.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B2B00D56007F000B91E1 /* modelinstance_new.h */; };
+		D074B2B30D5600BF000B91E1 /* modelinstance_new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B2B20D5600BF000B91E1 /* modelinstance_new.cpp */; };
+		D074B2E70D56019C000B91E1 /* mesh_new.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B2E60D56019C000B91E1 /* mesh_new.h */; };
+		D074B2E90D5601AC000B91E1 /* mesh_new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B2E80D5601AC000B91E1 /* mesh_new.cpp */; };
+		D074B2EB0D560256000B91E1 /* meshinstance_new.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B2EA0D560256000B91E1 /* meshinstance_new.h */; };
+		D074B2ED0D56026E000B91E1 /* meshinstance_new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B2EC0D56026E000B91E1 /* meshinstance_new.cpp */; };
+		D074B3480D560411000B91E1 /* face_new.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B3470D560411000B91E1 /* face_new.h */; };
+		D074B34A0D56041E000B91E1 /* face_new.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B3490D56041E000B91E1 /* face_new.cpp */; };
+		D074B4730D560F61000B91E1 /* modelinstanceproxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4720D560F61000B91E1 /* modelinstanceproxy.h */; };
+		D074B48A0D561188000B91E1 /* modelinstanceproxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */; };
+		D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */; };
 		D09030B30D47D98D00074021 /* md5submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D09030B20D47D98D00074021 /* md5submesh.h */; };
 		D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09030B40D47D9A200074021 /* md5submesh.cpp */; };
 		D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D09034450D4803F400074021 /* zfat.md5mesh */; };
-		D0EF57EE0C81C0620085C17B /* md3submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF57ED0C81C0620085C17B /* md3submesh.cpp */; };
-		D0EF57F00C81C06E0085C17B /* md3submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EF57EF0C81C06E0085C17B /* md3submesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EF57EE0C81C0620085C17B /* md3mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF57ED0C81C0620085C17B /* md3mesh.cpp */; };
+		D0EF57F00C81C06E0085C17B /* md3mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EF57EF0C81C06E0085C17B /* md3mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD1DB0C7DC55A001E861E /* mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD1DF0C7DC56A001E861E /* mesh.cpp */; };
 		D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD3270C7DCBD6001E861E /* meshgeomlinklist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */; };
-		D0EFD5610C7DD381001E861E /* md3mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD5600C7DD381001E861E /* md3mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		D0EFD5630C7DD38B001E861E /* md3mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD5620C7DD38B001E861E /* md3mesh.cpp */; };
+		D0EFD5610C7DD381001E861E /* md3model.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD5600C7DD381001E861E /* md3model.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0EFD5630C7DD38B001E861E /* md3model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD5620C7DD38B001E861E /* md3model.cpp */; };
 		D0EFD61F0C7DDBD3001E861E /* geometry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EFD61E0C7DDBD3001E861E /* geometry.cpp */; };
 		D0F16B430C79D444004B4E19 /* md3struct.h in Headers */ = {isa = PBXBuildFile; fileRef = D0F16B420C79D444004B4E19 /* md3struct.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0F16B780C79D6AC004B4E19 /* md3struct.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F16B770C79D6AC004B4E19 /* md3struct.cpp */; };
@@ -209,6 +224,8 @@
 		D009FE670C75E0AC00A5CBE7 /* ogltest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ogltest.cpp; sourceTree = "<group>"; };
 		D009FEC00C75E17D00A5CBE7 /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /System/Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		D0219FE50D5613D40039323A /* modelinstantiatepool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiatepool.h; path = Include/modelinstantiatepool.h; sourceTree = "<group>"; };
+		D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstantiatepool.cpp; path = Source/modelinstantiatepool.cpp; sourceTree = "<group>"; };
 		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
 		D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zsecpistol.md5mesh; sourceTree = "<group>"; };
 		D073D4770D427E8400D3C858 /* md5parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5parser.h; path = Include/md5parser.h; sourceTree = "<group>"; };
@@ -219,17 +236,30 @@
 		D073D4C70D42806900D3C858 /* md5file.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5file.cpp; path = Source/md5file.cpp; sourceTree = "<group>"; };
 		D073D57F0D42846200D3C858 /* md5tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5tokenizer.h; path = Include/md5tokenizer.h; sourceTree = "<group>"; };
 		D073D5890D42846F00D3C858 /* md5tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5tokenizer.cpp; path = Source/md5tokenizer.cpp; sourceTree = "<group>"; };
+		D074B2940D55FF39000B91E1 /* model_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = model_new.h; path = Include/model_new.h; sourceTree = "<group>"; };
+		D074B2960D55FFBA000B91E1 /* model_new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = model_new.cpp; path = Source/model_new.cpp; sourceTree = "<group>"; };
+		D074B2B00D56007F000B91E1 /* modelinstance_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstance_new.h; path = Include/modelinstance_new.h; sourceTree = "<group>"; };
+		D074B2B20D5600BF000B91E1 /* modelinstance_new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstance_new.cpp; path = Source/modelinstance_new.cpp; sourceTree = "<group>"; };
+		D074B2E60D56019C000B91E1 /* mesh_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh_new.h; path = Include/mesh_new.h; sourceTree = "<group>"; };
+		D074B2E80D5601AC000B91E1 /* mesh_new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh_new.cpp; path = Source/mesh_new.cpp; sourceTree = "<group>"; };
+		D074B2EA0D560256000B91E1 /* meshinstance_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshinstance_new.h; path = Include/meshinstance_new.h; sourceTree = "<group>"; };
+		D074B2EC0D56026E000B91E1 /* meshinstance_new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshinstance_new.cpp; path = Source/meshinstance_new.cpp; sourceTree = "<group>"; };
+		D074B3470D560411000B91E1 /* face_new.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = face_new.h; path = Include/face_new.h; sourceTree = "<group>"; };
+		D074B3490D56041E000B91E1 /* face_new.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = face_new.cpp; path = Source/face_new.cpp; sourceTree = "<group>"; };
+		D074B4720D560F61000B91E1 /* modelinstanceproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstanceproxy.h; path = Include/modelinstanceproxy.h; sourceTree = "<group>"; };
+		D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstanceproxy.cpp; path = Source/modelinstanceproxy.cpp; sourceTree = "<group>"; };
+		D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiator.h; path = Include/modelinstantiator.h; sourceTree = "<group>"; };
 		D09030B20D47D98D00074021 /* md5submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5submesh.h; path = Include/md5submesh.h; sourceTree = "<group>"; };
 		D09030B40D47D9A200074021 /* md5submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5submesh.cpp; path = Source/md5submesh.cpp; sourceTree = "<group>"; };
 		D09034450D4803F400074021 /* zfat.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zfat.md5mesh; sourceTree = "<group>"; };
-		D0EF57ED0C81C0620085C17B /* md3submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3submesh.cpp; path = Source/md3submesh.cpp; sourceTree = "<group>"; };
-		D0EF57EF0C81C06E0085C17B /* md3submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3submesh.h; path = Include/md3submesh.h; sourceTree = "<group>"; };
+		D0EF57ED0C81C0620085C17B /* md3mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3mesh.cpp; path = Source/md3mesh.cpp; sourceTree = "<group>"; };
+		D0EF57EF0C81C06E0085C17B /* md3mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3mesh.h; path = Include/md3mesh.h; sourceTree = "<group>"; };
 		D0EFD1DB0C7DC55A001E861E /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Include/mesh.h; sourceTree = "<group>"; };
 		D0EFD1DF0C7DC56A001E861E /* mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mesh.cpp; path = Source/mesh.cpp; sourceTree = "<group>"; };
 		D0EFD2FF0C7DCA6F001E861E /* meshgeomlinklist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeomlinklist.h; path = Include/meshgeomlinklist.h; sourceTree = "<group>"; };
 		D0EFD3260C7DCBD6001E861E /* meshgeomlinklist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeomlinklist.cpp; path = Source/meshgeomlinklist.cpp; sourceTree = "<group>"; };
-		D0EFD5600C7DD381001E861E /* md3mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3mesh.h; path = Include/md3mesh.h; sourceTree = "<group>"; };
-		D0EFD5620C7DD38B001E861E /* md3mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3mesh.cpp; path = Source/md3mesh.cpp; sourceTree = "<group>"; };
+		D0EFD5600C7DD381001E861E /* md3model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3model.h; path = Include/md3model.h; sourceTree = "<group>"; };
+		D0EFD5620C7DD38B001E861E /* md3model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3model.cpp; path = Source/md3model.cpp; sourceTree = "<group>"; };
 		D0EFD61E0C7DDBD3001E861E /* geometry.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geometry.cpp; path = Source/geometry.cpp; sourceTree = "<group>"; };
 		D0F16B420C79D444004B4E19 /* md3struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3struct.h; path = Include/md3struct.h; sourceTree = "<group>"; };
 		D0F16B770C79D6AC004B4E19 /* md3struct.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3struct.cpp; path = Source/md3struct.cpp; sourceTree = "<group>"; };
@@ -332,11 +362,26 @@
 				D0F50DD50C7097B7005DB68D /* face.h */,
 				D0F511200C70EE76005DB68D /* materialsource.h */,
 				D009E5E50C71DD7D00A5CBE7 /* meshsource.h */,
+				D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */,
+				D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */,
+				D0219FE50D5613D40039323A /* modelinstantiatepool.h */,
 				D0F5185F0C71B756005DB68D /* Render Lists */,
 				D0F371A20C6D049500C11F87 /* bsp */,
 				D0F371A30C6D049C00C11F87 /* md3 */,
 				D073D4760D427E5000D3C858 /* md5 */,
 				D0F371A40C6D04AF00C11F87 /* Scene Graph */,
+				D074B2960D55FFBA000B91E1 /* model_new.cpp */,
+				D074B2940D55FF39000B91E1 /* model_new.h */,
+				D074B2E80D5601AC000B91E1 /* mesh_new.cpp */,
+				D074B2E60D56019C000B91E1 /* mesh_new.h */,
+				D074B2B20D5600BF000B91E1 /* modelinstance_new.cpp */,
+				D074B2B00D56007F000B91E1 /* modelinstance_new.h */,
+				D074B2EC0D56026E000B91E1 /* meshinstance_new.cpp */,
+				D074B2EA0D560256000B91E1 /* meshinstance_new.h */,
+				D074B3490D56041E000B91E1 /* face_new.cpp */,
+				D074B3470D560411000B91E1 /* face_new.h */,
+				D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */,
+				D074B4720D560F61000B91E1 /* modelinstanceproxy.h */,
 			);
 			name = Renderer;
 			path = ../..;
@@ -467,10 +512,10 @@
 				D0F16B420C79D444004B4E19 /* md3struct.h */,
 				D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */,
 				D0F16BA10C79D745004B4E19 /* md3parser.h */,
-				D0EFD5620C7DD38B001E861E /* md3mesh.cpp */,
-				D0EFD5600C7DD381001E861E /* md3mesh.h */,
-				D0EF57ED0C81C0620085C17B /* md3submesh.cpp */,
-				D0EF57EF0C81C06E0085C17B /* md3submesh.h */,
+				D0EFD5620C7DD38B001E861E /* md3model.cpp */,
+				D0EFD5600C7DD381001E861E /* md3model.h */,
+				D0EF57ED0C81C0620085C17B /* md3mesh.cpp */,
+				D0EF57EF0C81C06E0085C17B /* md3mesh.h */,
 			);
 			name = md3;
 			sourceTree = "<group>";
@@ -541,13 +586,21 @@
 				D0F16BA20C79D745004B4E19 /* md3parser.h in Headers */,
 				D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */,
 				D0EFD3000C7DCA6F001E861E /* meshgeomlinklist.h in Headers */,
-				D0EFD5610C7DD381001E861E /* md3mesh.h in Headers */,
-				D0EF57F00C81C06E0085C17B /* md3submesh.h in Headers */,
+				D0EFD5610C7DD381001E861E /* md3model.h in Headers */,
+				D0EF57F00C81C06E0085C17B /* md3mesh.h in Headers */,
 				D073D4780D427E8400D3C858 /* md5parser.h in Headers */,
 				D073D47C0D427EB600D3C858 /* md5mesh.h in Headers */,
 				D073D4C60D42805C00D3C858 /* md5file.h in Headers */,
 				D073D5800D42846200D3C858 /* md5tokenizer.h in Headers */,
 				D09030B30D47D98D00074021 /* md5submesh.h in Headers */,
+				D074B2950D55FF39000B91E1 /* model_new.h in Headers */,
+				D074B2B10D56007F000B91E1 /* modelinstance_new.h in Headers */,
+				D074B2E70D56019C000B91E1 /* mesh_new.h in Headers */,
+				D074B2EB0D560256000B91E1 /* meshinstance_new.h in Headers */,
+				D074B3480D560411000B91E1 /* face_new.h in Headers */,
+				D074B4730D560F61000B91E1 /* modelinstanceproxy.h in Headers */,
+				D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */,
+				D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -720,14 +773,21 @@
 				D0F16BA00C79D73B004B4E19 /* md3parser.cpp in Sources */,
 				D0EFD1E00C7DC56A001E861E /* mesh.cpp in Sources */,
 				D0EFD3270C7DCBD6001E861E /* meshgeomlinklist.cpp in Sources */,
-				D0EFD5630C7DD38B001E861E /* md3mesh.cpp in Sources */,
+				D0EFD5630C7DD38B001E861E /* md3model.cpp in Sources */,
 				D0EFD61F0C7DDBD3001E861E /* geometry.cpp in Sources */,
-				D0EF57EE0C81C0620085C17B /* md3submesh.cpp in Sources */,
+				D0EF57EE0C81C0620085C17B /* md3mesh.cpp in Sources */,
 				D073D47A0D427E9300D3C858 /* md5parser.cpp in Sources */,
 				D073D47E0D427EC200D3C858 /* md5mesh.cpp in Sources */,
 				D073D4C80D42806900D3C858 /* md5file.cpp in Sources */,
 				D073D58A0D42846F00D3C858 /* md5tokenizer.cpp in Sources */,
 				D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */,
+				D074B2970D55FFBA000B91E1 /* model_new.cpp in Sources */,
+				D074B2B30D5600BF000B91E1 /* modelinstance_new.cpp in Sources */,
+				D074B2E90D5601AC000B91E1 /* mesh_new.cpp in Sources */,
+				D074B2ED0D56026E000B91E1 /* meshinstance_new.cpp in Sources */,
+				D074B34A0D56041E000B91E1 /* face_new.cpp in Sources */,
+				D074B48A0D561188000B91E1 /* modelinstanceproxy.cpp in Sources */,
+				D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

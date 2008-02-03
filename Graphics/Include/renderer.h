@@ -54,8 +54,11 @@ namespace TGen {
 		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
 		virtual void multiplyTransform(TransformMode mode, const Matrix4x4 & transform);
 		
+		#ifdef _GFX_KEEP_DEPRECATED
 		virtual void setVertexBuffer(VertexBuffer * buffer, VertexStructure * override = NULL) abstract;
 		virtual void setIndexBuffer(IndexBuffer * buffer) abstract;
+		#endif
+		
 		virtual void setVertexBuffer(VertexData * buffer, VertexStructure * override = NULL) abstract;
 		virtual void setIndexBuffer(VertexData * buffer) abstract;
 		

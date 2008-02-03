@@ -18,6 +18,8 @@
 #include "renderer_types.h"
 #include <vector>
 
+// TODO: aligna i vertex data på olika boundaries, vanligast 32bit
+
 namespace TGen {
 	enum VertexElementType {
 		VertexElementCoord = 1,

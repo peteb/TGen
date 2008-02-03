@@ -2,7 +2,8 @@
  *  md3mesh.h
  *  TGen Renderer
  *
- *  Created by Peter Backman on 8/23/07.
+ *  Created by Peter Backman on 8/26/07.
+ *  Renamed by Peter Backman on 2/3/08.
  *  Copyright 2007 Peter Backman. All rights reserved.
  *
  */
@@ -10,36 +11,35 @@
 #ifndef _TGEN_RENDERER_MD3MESH_H
 #define _TGEN_RENDERER_MD3MESH_H
 
-#include "model_new.h"
-#include <tgen_graphics.h>
+#include "geometry.h"
+#include "mesh_new.h"
 
 namespace TGen {
+	class VertexBuffer;
+	class IndexBuffer;
+	class Renderer;
+	
 	namespace MD3 {
-		class Model : public TGen::NewModel {
-		public:	
-			Model(const std::string & name);		
-			~Model();
+		class Mesh : public TGen::NewMesh {
+		public:
+			Mesh(const std::string & materialName);
+			~Mesh();
+			
+			void preRender(TGen::Renderer & renderer) const;
+			void render(TGen::Renderer & renderer) const;
 
-			//void preRender(TGen::Renderer & renderer) const;
-			//void render(TGen::Renderer & renderer) const;
-			//void update(const TGen::Camera & camera, scalar distance, scalar time);
+			TGen::MD3::Mesh * instantiate() const;
 			
-		//	TGen::Vector3 getMax() const;
-			//TGen::Vector3 getMin() const;
-			//TGen::Vector3 getOrigin() const;
 			
-	//		std::string getDefaultMaterial() const;
-			
-			bool isPureInstance() const;
-			TGen::MD3::Model * instantiate();
+			TGen::VertexData * vb;
+			TGen::VertexData * ib;
+			TGen::PrimitiveType primitive;
+			uint startIndex, indexCount;
 		};
 		
 		
 		
-		typedef TGen::JoinVertexElements3<TGen::Vertex3<float>, TGen::Normal3<float>, TGen::TexCoord2<float, 0> > VertexDecl;
-		typedef TGen::Index<unsigned int> IndexDecl;
-		
-	} // !MD3	
+	} // !MD3
 } // !TGen
 
 #endif // !_TGEN_RENDERER_MD3MESH_H

@@ -197,7 +197,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 	
-	vars.postProcessing = false;
+	//vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {

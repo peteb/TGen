@@ -16,6 +16,8 @@ namespace TGen {
 	namespace Engine {
 		class App;
 		
+		// TODO: fs_log, dir för logs. skriv loggar där!!!!!! omg
+		
 		class DeferredRendererVars : public TGen::Engine::VariableObserver {
 		public:
 			DeferredRendererVars(TGen::Engine::App & app);

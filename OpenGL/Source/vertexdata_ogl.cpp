@@ -17,7 +17,8 @@
 #include "renderer.h"
 #include "error.h"
 
-TGen::OpenGL::VertexData::VertexData(TGen::VertexDataSource & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, GLuint vboId) 
+TGen::OpenGL::VertexData::VertexData(TGen::VertexDataSource & creator, const TGen::VertexStructure & vertstruct, 
+												 uint size, ushort usage, GLuint vboId) 
 	: TGen::VertexData(creator, size, usage)
 	, vertstruct(vertstruct)
 	, vboId(vboId) 
@@ -47,7 +48,7 @@ void * TGen::OpenGL::VertexData::lock(ushort flags) {
 	data = glMapBufferARB(GL_ARRAY_BUFFER_ARB, fixedAccess);
 	
 	if (!data)
-		throw TGen::RuntimeException("OpenGL::VertexBuffer::Lock", "failed to map vertex buffer");
+		throw TGen::RuntimeException("OpenGL::VertexData::Lock", "failed to map vertex data");
 	
 	return data;
 }
@@ -61,11 +62,7 @@ void TGen::OpenGL::VertexData::bufferData(const void * data, uint size, void * o
 	GLenum fixedUsage = usage;
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
-	
-	//if (offset != 0)
-		glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, reinterpret_cast<GLintptrARB>(offset), size, data);	
-	//else
-		//glBufferDataARB(GL_ARRAY_BUFFER_ARB, static_cast<GLsizeiptr>(size), data, fixedUsage);	
+	glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, reinterpret_cast<GLintptrARB>(offset), size, data);	
 }
 
 bool TGen::OpenGL::VertexData::isLocked() {

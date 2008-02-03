@@ -7,7 +7,10 @@ material nomat default 9 {
 			color 1 1 1
 			
 			bind tangent "vertexTangent"
-			map normalMap "rocks_n.tga"
+			
+			map normalMap "rocks_n.tga" {
+				//scroll 0.5 0
+			}
 						
 			map colorMap "color.png" {
 				//scroll 0.5 0

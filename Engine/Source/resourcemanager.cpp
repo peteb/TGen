@@ -202,14 +202,24 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	else {
 		// TODO: checka filformat för parser
 		TGen::Engine::File * file = filesystem.openRead(name);
-		TGen::MD3::Parser modelParser;
-		TGen::MD3::File * md3File = modelParser.parse(*file);
-		delete file;
+		
+		if (name.substr(name.size() - strlen(".md5mesh")) == ".md5mesh") {
+			TGen::MD5::Parser modelParser;
+			TGen::MD5::File * md5File = modelParser.parse(*file);
+			
+			newMesh = md5File->createMesh(vertexCache, "testmd5", 0.1);
+		}
+		else {
+			TGen::MD3::Parser modelParser;
+			TGen::MD3::File * md3File = modelParser.parse(*file);
 		
 		//md3File->printInfo(std::cout);
 		
-		newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
-		delete md3File;		
+			newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
+			delete md3File;		
+		}
+
+		delete file;
 	}
 	
 	meshes[name] = newMesh;

@@ -511,7 +511,7 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexData * buffer, TGen::Ve
 	}
 	else {
 		vbReadOffset = buffer->getReadOffset();
-		buffer = *(*buffer);	// get the linked buffer
+		buffer = TGen::DerefRes(buffer);	// get the linked buffer
 		
 		TGen::OpenGL::VertexData * vd = static_cast<TGen::OpenGL::VertexData *>(buffer);
 		GLuint vboId = vd->getInternalID();		
@@ -541,7 +541,7 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::VertexData * buffer) {
 	}
 	else  {
 		ibReadOffset = buffer->getReadOffset();
-		buffer = *(*buffer);
+		buffer = TGen::DerefRes(buffer);
 		
 		TGen::OpenGL::VertexData * vd = static_cast<TGen::OpenGL::VertexData *>(buffer);
 		GLuint vboId = vd->getInternalID();

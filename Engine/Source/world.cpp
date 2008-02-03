@@ -136,7 +136,7 @@ void TGen::Engine::World::update(scalar dt) {
 	//sceneRoot.getChild("weapon")->setPosition(sceneRoot.getChild("weapon")->getLocalPosition() + TGen::Vector3(dt, 0.0f, 0.0f));
 	TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(dt * 0.1));
 	
-	//sceneSubsystem.getSceneRoot().getChild("test")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test")->getLocalOrientation()));
+	sceneSubsystem.getSceneRoot().getChild("test6")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test6")->getLocalOrientation()));
 	//sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
 	// TODO: add lights IN the scene node of the map
 	

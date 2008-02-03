@@ -177,10 +177,11 @@ TGen::Quaternion4 TGen::Quaternion4::operator * (const TGen::Vector3 & vector) c
 }
 
 TGen::Vector3 TGen::Quaternion4::rotatePoint(const TGen::Vector3 & point) const {
-	TGen::Quaternion4 temp, inverse;
+	TGen::Quaternion4 temp, inverse = -*this;
 	inverse.normalize();
 	
 	temp = *this * point;
+
 	TGen::Quaternion4 ret = temp * inverse;
 	
 	return TGen::Vector3(ret.x, ret.y, ret.z);

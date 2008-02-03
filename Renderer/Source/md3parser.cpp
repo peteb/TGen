@@ -9,8 +9,8 @@
 
 #include "md3parser.h"
 #include "md3struct.h"
+#include "md3model.h"
 #include "md3mesh.h"
-#include "md3submesh.h"
 #include "mesh.h"
 
 TGen::MD3::Parser::Parser() {}
@@ -140,19 +140,19 @@ TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSou
 		TGen::MD3::Surface * surface = surfaces[i];
 		
 		if (surface->ident == TGen::MD3::MAGIC) {
-			TGen::MD3::Submesh * submesh = new TGen::MD3::Submesh(reinterpret_cast<const char*>(surface->shaders[0].name));
+			TGen::MD3::Mesh * mesh = new TGen::MD3::Mesh(reinterpret_cast<const char*>(surface->shaders[0].name));
 			
 			int numIndices = surface->num_triangles * 3;
 			int numVertices = surface->num_verts;
 			
-			submesh->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStatic);
-			submesh->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
-			submesh->indexCount = numIndices;
+			mesh->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStatic);
+			mesh->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
+			mesh->indexCount = numIndices;
 			
-			if (!submesh->vb || !submesh->ib)
+			if (!mesh->vb || !mesh->ib)
 				throw TGen::RuntimeException("MD3::File::createMesh", "failed to create vertex buffers");
 			
-			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(submesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));
+			TGen::MD3::VertexDecl::Type * vbpos = reinterpret_cast<TGen::MD3::VertexDecl::Type *>(mesh->vb->lock(TGen::LockDiscard | TGen::LockWrite));
 
 			for (int i = 0; i < surface->num_verts; ++i) {
 				TGen::MD3::TexCoord * texCoord = &surface->texCoords[i];
@@ -179,22 +179,22 @@ TGen::MD3::Model * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSou
 				vbpos++;
 			}
 			
-			submesh->vb->unlock();
+			mesh->vb->unlock();
 			
-			TGen::MD3::IndexDecl::Type * ibpos = reinterpret_cast<TGen::MD3::IndexDecl::Type *>(submesh->ib->lock(TGen::LockDiscard | TGen::LockWrite));
+			TGen::MD3::IndexDecl::Type * ibpos = reinterpret_cast<TGen::MD3::IndexDecl::Type *>(mesh->ib->lock(TGen::LockDiscard | TGen::LockWrite));
 			
-			std::cout << "MD3 IB OFFSET: " <<  submesh->ib->getReadOffset() << std::endl;
+			std::cout << "MD3 IB OFFSET: " <<  mesh->ib->getReadOffset() << std::endl;
 			
 			for (int i = 0; i < surface->num_triangles; ++i) {
 				TGen::MD3::Triangle * triangle = &surface->triangles[i];
-				*(ibpos++) = triangle->indexes[2] + submesh->vb->getReadOffset();
-				*(ibpos++) = triangle->indexes[1] + submesh->vb->getReadOffset();
-				*(ibpos++) = triangle->indexes[0] + submesh->vb->getReadOffset();
+				*(ibpos++) = triangle->indexes[2] + mesh->vb->getReadOffset();
+				*(ibpos++) = triangle->indexes[1] + mesh->vb->getReadOffset();
+				*(ibpos++) = triangle->indexes[0] + mesh->vb->getReadOffset();
 			}
 			
-			submesh->ib->unlock();
+			mesh->ib->unlock();
 			
-			newModel->addMeshInstance(submesh);
+			newModel->addMeshInstance(mesh);
 		}
 	}
 		

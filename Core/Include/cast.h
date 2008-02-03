@@ -100,6 +100,12 @@ namespace TGen {
 		
 		return ret;
 	}
+	
+	
+	template<typename T>
+	T * DerefRes(T * x) {
+		return **x;
+	}	
 } // !Tgen
 
 #endif // !_TGEN_CAST_H

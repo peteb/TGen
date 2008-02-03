@@ -9,6 +9,11 @@
  *    NORMAL_MAP: use normal map, sampler normalMap
  *    SPECULAR_MAP: use specular map, sampler specularMap
  *    TRANSFORM_TEX: transform texture coordinates
+ *  
+ *  Output:
+ *    unit 0: color
+ *    unit 1: normal
+ *    unit 2: miscmap (r: specular)
  */
  
 #section global
@@ -88,7 +93,7 @@ void main() {
 	#ifndef SPECULAR_MAP
 		gl_FragData[2] = vec4(0.4, 0.0, 0.0, 1.0);	
 	#else
-		gl_FragData[2] = vec4(texture2D(specularMap, gl_TexCoord[0].st).r, 0.0, 0.0, 1.0); //vec4(texture2D(specularMap, gl_TexCoord[0].st).r, 0.0, 0.0, 0.0);	// we're only using the r component of specmap
+		gl_FragData[2] = vec4(texture2D(specularMap, gl_TexCoord[0].st).r, 0.0, 0.0, 1.0);
 	#endif
 }
 

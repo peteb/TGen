@@ -31,7 +31,7 @@
 
 #include "md3struct.h"
 #include "md3parser.h"
-#include "md3mesh.h"
+#include "md3model.h"
 
 #include "md5parser.h"
 #include "md5mesh.h"
