@@ -9,6 +9,7 @@
  *    NORMAL_MAP: use normal map, sampler normalMap
  *    SPECULAR_MAP: use specular map, sampler specularMap
  *    TRANSFORM_TEX: transform texture coordinates
+ *    VERT_INTERPOL: interpolate between frames (needs nextVertex, nextNormal and frameTime)
  *  
  *  Output:
  *    unit 0: color
@@ -35,8 +36,18 @@
 	attribute vec4 tangent;
 #endif
 
+#ifdef VERT_INTERPOL
+	attribute vec3 nextVertex, nextNormal;
+	uniform float frameTime;
+#endif
+
 void main() {
-	gl_Position = ftransform();
+	#ifdef VERT_INTERPOL
+		gl_Position = gl_ModelViewProjectionMatrix * (gl_Vertex + (nextVertex - gl_Vertex) * frameTime)
+	#else
+		gl_Position = ftransform();
+	#endif
+	
 	gl_FrontColor = gl_Color;
 	    
 	#if defined(COLOR_MAP) || defined(NORMAL_MAP) || defined(SPECULAR_MAP)
@@ -48,12 +59,22 @@ void main() {
 	#endif
 	
 	#ifdef NORMAL_MAP
-		vec3 normal = gl_NormalMatrix * gl_Normal;
-		vec3 bitangent = cross(normal, tangent.xyz) * tangent.w;
+		vec3 normal, bitangent;
+
+		#ifdef VERT_INTERPOL
+			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime);
+		#else
+			normal = gl_NormalMatrix * gl_Normal;
+		#endif
 		
+		bitangent = cross(normal, tangent.xyz) * tangent.w;		
 		tbnMatrix = mat3(tangent.xyz, bitangent, normal);
 	#else
-		normal = gl_NormalMatrix * gl_Normal;
+		#ifdef VERT_INTERPOL
+			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime);
+		#else
+			normal = gl_NormalMatrix * gl_Normal;
+		#endif
 	#endif
 }
 

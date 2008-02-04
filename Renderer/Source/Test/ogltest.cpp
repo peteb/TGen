@@ -106,12 +106,12 @@ public:
 					 "   lod 9 {								\n "
 					 "      pass fixed {						\n"
 					 "         color 0 1 0						\n"
-				//	 "         alpha 0.3						\n"
+					 "         alpha 0.3						\n"
 					 "         texunit 0 doom.tga {			\n"
 					 "         }								\n"
 					 "      }								\n"
 					 "   }								\n  "
-					/* "   lod 5 {                \n"
+					 "   lod 5 {                \n"
 					 "      pass fixed {             \n"
 					 "         color 0 0 1             \n"
 					 "         //alpha 0.3				\n"
@@ -124,7 +124,7 @@ public:
 					 "      }               \n"
 					 "   }        \n"
 					 "}									\n  "
-					 "    "*/
+					 "    "
 					 , materials);
 		
 		
