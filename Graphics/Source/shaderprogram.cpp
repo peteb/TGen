@@ -35,6 +35,8 @@ void TGen::ShaderProgram::parseShaders(TGen::Renderer & renderer, char * code) {
 			*next = 0;
 		
 		char * section = strstr(pos, "#section ");
+		char * set = strstr(pos, "#set ");
+		
 		if (section) {
 			char * sectionName = section + strlen("#section ");
 			//char * sectionNameEnd = strchr(sectionName, ' ');
@@ -50,6 +52,22 @@ void TGen::ShaderProgram::parseShaders(TGen::Renderer & renderer, char * code) {
 				currentSection = 2;
 			else if (strncmp(sectionName, "fragment", strlen("fragment")) == 0)
 				currentSection = 3;
+		}
+		else if (set) {
+			char * varNameAt = set + strlen("#set ");
+			char * varValueAt = strchr(varNameAt, ' ');
+			
+			if (varValueAt && varNameAt) {
+				std::string varValue = varValueAt;
+				std::string varName = varNameAt;
+				varName = varName.substr(0, varValueAt - varNameAt);
+				
+				std::cout << "SETTING ASDDDDDDD '" << varValue << "' TO '" << varValue << "'" << std::endl;
+				properties[varName] = varValue;
+			}
+			else {
+				throw TGen::RuntimeException("ShaderProgram::parseShaders", "BLAHA");
+			}
 		}
 		else {
 			sections[currentSection].push_back(pos);

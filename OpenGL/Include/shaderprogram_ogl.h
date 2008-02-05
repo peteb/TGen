@@ -39,6 +39,8 @@ namespace TGen {
 			friend class TGen::OpenGL::Renderer;
 			
 		private:
+			void updateProperties();
+			
 			typedef std::map<std::string, TGen::ShaderVariable *> VariableMap;
 			VariableMap cachedVariables;
 			GLuint programId;			

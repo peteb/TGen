@@ -27,6 +27,7 @@ TGen::RendererCaps::RendererCaps()
 	, rectTexture(false)
 	, cubeMaps(false)
 	, multithreadable(false)
+	, maxGeometryVerticesOutput(0)
 {
 
 }
@@ -43,6 +44,7 @@ TGen::RendererCaps::operator std::string() const {
 	ss << "max clip planes: " << maxClipPlanes << "\n";
 	ss << "max (recommended) indicies per ib: " << maxIndexBufferIndicies << "\n";
 	ss << "max (recommended) vertices per vb: " << maxVertexBufferVertices << "\n";
+	ss << "max vertices output from gs: " << maxGeometryVerticesOutput << "\n";
 	ss << "max viewport size: " << std::string(maxViewportSize) << "\n";
 	ss << "max framebuffer color attachments: " << maxFrameBufferColorAttachments << "\n";
 	ss << "vertex shader: " << std::boolalpha << vertexShader << "\n";

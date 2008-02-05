@@ -24,6 +24,7 @@ namespace TGen {
 		int maxTextureUnits, maxActiveLights, maxClipPlanes, maxIndexBufferIndicies, 
 			maxVertexBufferVertices, maxTextureSize, maxFrameBufferColorAttachments;
 		int shadingLanguageVersionNumber;
+		int maxGeometryVerticesOutput;
 		std::string shadingLanguageVersion, rendererName, driverName, driverVendor;
 		bool vertexShader, fragmentShader, geometryShader, framebuffer, multitexturing, rectTexture, cubeMaps, multithreadable;
 		

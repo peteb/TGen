@@ -12,6 +12,7 @@
 #include "error.h"
 #include "shadervariable_ogl.h"
 #include "binder_ogl.h"
+#include "types_converter_ogl.h"
 
 #include <tgen_core.h>
 #include <string>
@@ -36,6 +37,8 @@ void TGen::OpenGL::ShaderProgram::attach(TGen::Shader * shader) {
 }
 
 void TGen::OpenGL::ShaderProgram::link() {
+	updateProperties();
+	
 	glLinkProgram(programId);
 	
 	GLint status = 0;
@@ -68,6 +71,29 @@ void TGen::OpenGL::ShaderProgram::link() {
 		DEBUG_PRINT("[opengl]: shader program " << programId << " linked: \"" << infoLogString << "\"");
 	}
 
+}
+
+void TGen::OpenGL::ShaderProgram::updateProperties() {
+	int temp;
+	glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT, &temp);
+
+	for (PropertyMap::iterator iter = properties.begin(); iter != properties.end(); ++iter) {
+		if (iter->first == "geom_input") {
+			glProgramParameteriEXT(programId, GL_GEOMETRY_INPUT_TYPE_EXT, TGen::OpenGL::TgenPrimitiveToOpenGL(TGen::stringToPrimitive(iter->second)));			
+		}
+		else if (iter->first == "geom_output") {
+			glProgramParameteriEXT(programId, GL_GEOMETRY_OUTPUT_TYPE_EXT, TGen::OpenGL::TgenPrimitiveToOpenGL(TGen::stringToPrimitive(iter->second)));
+		}		
+		else if (iter->first == "geom_output_vertices") {
+			if (TGen::toLower(iter->second) == "max") {
+				glProgramParameteriEXT(programId, GL_GEOMETRY_VERTICES_OUT_EXT, temp);					
+			}
+			else {
+				int numVerts = TGen::lexical_cast<int>(iter->second);
+				glProgramParameteriEXT(programId, GL_GEOMETRY_VERTICES_OUT_EXT, numVerts);	
+			}
+		}
+	}	
 }
 
 TGen::ShaderVariable & TGen::OpenGL::ShaderProgram::getUniform(const std::string & name) {

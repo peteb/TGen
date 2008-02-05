@@ -89,6 +89,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	glGetIntegerv(GL_MAX_TEXTURE_SIZE, reinterpret_cast<GLint *>(&caps.maxTextureSize));
 	glGetIntegerv(GL_MAX_VIEWPORT_DIMS, viewportDims);
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, reinterpret_cast<GLint *>(&caps.maxFrameBufferColorAttachments));
+	glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT, reinterpret_cast<GLint *>(&caps.maxGeometryVerticesOutput));
 	
 	CGLError err;
 	CGLContextObj ctx = CGLGetCurrentContext();
@@ -712,18 +713,19 @@ TGen::Shader * TGen::OpenGL::Renderer::createFragmentShader(const char * code) {
 TGen::Shader * TGen::OpenGL::Renderer::createGeometryShader(const char * code) {
 	if (!caps.geometryShader)
 		throw TGen::RuntimeException("OpenGL::Renderer::CreateGeometryShader", "geometry shaders not supported");
-		
+	
 	return createShader(code, 2);
 }
 
-TGen::Shader * TGen::OpenGL::Renderer::createShader(const char * code, int type) {
+TGen::OpenGL::Shader * TGen::OpenGL::Renderer::createShader(const char * code, int type) {
 	GLuint newShader = 0;
 	
+	// TODO: enum:a det här
 	if (type == 0)
 		newShader = glCreateShader(GL_VERTEX_SHADER);	
 	else if (type == 1)
 		newShader = glCreateShader(GL_FRAGMENT_SHADER);
-	else
+	else if (type == 2)
 		newShader = glCreateShader(GL_GEOMETRY_SHADER_EXT);
 	
 	glShaderSource(newShader, 1, const_cast<const GLchar **>(&code), NULL);
@@ -772,14 +774,14 @@ TGen::Shader * TGen::OpenGL::Renderer::createShader(const char * code, int type)
 	return new TGen::OpenGL::Shader(*this, newShader);		
 }
 
-TGen::ShaderProgram * TGen::OpenGL::Renderer::createShaderProgram() {
+TGen::OpenGL::ShaderProgram * TGen::OpenGL::Renderer::createShaderProgram() {
 	GLuint newProgram = glCreateProgram();
 	
 	return new TGen::OpenGL::ShaderProgram(*this, newProgram);	
 }
 
-TGen::ShaderProgram * TGen::OpenGL::Renderer::createShaderProgram(const char * code) {
-	TGen::ShaderProgram * program = createShaderProgram();
+TGen::OpenGL::ShaderProgram * TGen::OpenGL::Renderer::createShaderProgram(const char * code) {
+	TGen::OpenGL::ShaderProgram * program = createShaderProgram();
 	char * buffer = static_cast<char *>(malloc(strlen(code) + 1));
 	strcpy(buffer, code);
 	program->parseShaders(*this, buffer);

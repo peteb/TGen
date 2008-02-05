@@ -10,6 +10,8 @@
 #ifndef _TGEN_RENDERER_TYPES_H
 #define _TGEN_RENDERER_TYPES_H
 
+#include <string>
+
 namespace TGen {
 	enum TextureCreationFlags {
 		TextureCompressed =				0x0001,		// first four bits are compression. 0xF
@@ -117,6 +119,7 @@ namespace TGen {
 		LockDiscard		= 0x0010,
 	};
 	
+	TGen::PrimitiveType stringToPrimitive(const std::string & prim);
 	
 } // !TGen
 

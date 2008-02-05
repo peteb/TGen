@@ -25,6 +25,8 @@
 #include "renderer.h"
 #include "prefix_ogl.h"
 #include "rendercontext.h"
+#include "shader_ogl.h"
+#include "shaderprogram_ogl.h"
 #include <map>
 
 namespace TGen {
@@ -33,8 +35,7 @@ namespace TGen {
 	class IndexBuffer;
 	class Texture;
 	class FrameBuffer;
-	class Shader;
-	class ShaderProgram;
+	
 	class RenderContext;
 	
 	namespace OpenGL {
@@ -87,8 +88,8 @@ namespace TGen {
 			TGen::Shader * createVertexShader(const char * code);
 			TGen::Shader * createFragmentShader(const char * code);
 			TGen::Shader * createGeometryShader(const char * code);
-			TGen::ShaderProgram * createShaderProgram();
-			TGen::ShaderProgram * createShaderProgram(const char * code);
+			TGen::OpenGL::ShaderProgram * createShaderProgram();
+			TGen::OpenGL::ShaderProgram * createShaderProgram(const char * code);
 			
 			bool throwErrors();
 			
@@ -104,7 +105,7 @@ namespace TGen {
 			TGen::Texture * createRectTexture(const void * data, const TGen::Rectangle & size,  GLenum internalFormat, GLenum inFormat, GLenum dataType, uint flags);
 			GLenum getInternalFormat(TGen::ImageFormat components, uint flags);
 			
-			TGen::Shader * createShader(const char * code, int type);
+			TGen::OpenGL::Shader * createShader(const char * code, int type);
 
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
 			void setDepthFunc(TGen::CompareFunc compare);

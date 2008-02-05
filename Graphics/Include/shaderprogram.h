@@ -12,6 +12,7 @@
 
 #include "types.h"
 #include <string>
+#include <map>
 
 namespace TGen {
 	class Renderer;
@@ -30,7 +31,10 @@ namespace TGen {
 		virtual ShaderVariable * createVariable(const std::string & name) abstract;
 		void parseShaders(TGen::Renderer & renderer, char * code);
 		
-	private:
+	protected:
+		typedef std::map<std::string, std::string> PropertyMap;
+		PropertyMap properties;
+		
 		TGen::Renderer & creator;
 	};
 	

@@ -16,7 +16,7 @@
  *    unit 1: normal
  *    unit 2: miscmap (r: specular)
  */
- 
+
 #section global
 
 #ifdef NORMAL_MAP

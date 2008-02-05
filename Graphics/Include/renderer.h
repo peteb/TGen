@@ -76,7 +76,7 @@ namespace TGen {
 		
 		virtual void clearBuffers(ushort buffers) abstract;
 		
-		virtual void drawPrimitive(PrimitiveType type, uint startVertex, uint vertexCount) abstract;
+		virtual void drawPrimitive(TGen::PrimitiveType type, uint startVertex, uint vertexCount) abstract;
 		virtual void drawIndexedPrimitive(TGen::PrimitiveType type, uint startIndex, uint indexCount) abstract;
 
 		#ifdef _GFX_KEEP_DEPRECATED
