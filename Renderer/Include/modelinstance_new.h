@@ -21,10 +21,11 @@ namespace TGen {
 	class NewMeshInstance;
 	class RenderList;
 	class SceneNode;
+	class Material;
 	
 	class NewModelInstance {
 	public:
-		NewModelInstance(const std::string & name);
+		NewModelInstance(const std::string & name, const std::string & materialName = "");
 		virtual ~NewModelInstance();
 
 		virtual void update();
@@ -34,15 +35,19 @@ namespace TGen {
 		
 		virtual void linkMaterial(TGen::MaterialSource & source);
 		virtual void unlinkMaterial();
-		virtual void fillFaces(TGen::RenderList & list, TGen::SceneNode const * node);
+		virtual void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node);
 		
 		virtual int getNumMeshes() const;
 		virtual TGen::NewMeshInstance * getMesh(int num);
+		
+		TGen::Material * getOverridingMaterial();
 		
 		std::string getName() const;
 		
 	protected:
 		std::string name;
+		std::string materialName;
+		TGen::Material * material;
 	};
 	
 } // !TGen

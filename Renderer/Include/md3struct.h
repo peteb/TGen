@@ -115,8 +115,14 @@ namespace TGen {
 		typedef std::vector<TGen::MD3::Surface *> SurfaceList;
 		
 		typedef TGen::TexCoord2<float, 0> TexCoordDecl;
-		typedef TGen::JoinVertexElements3<TGen::Vertex3<float>, TGen::Normal3<float>, TGen::MD3::TexCoordDecl> VertexDecl;
-		typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Normal3<float> > FrameVertexDecl;		
+		typedef TGen::Vertex3<float> VertexCoordDecl;
+		typedef TGen::Normal3<float> NormalDecl;
+		typedef TGen::VertexAttribute3<40, float> SecondVertexCoordDecl;
+		typedef TGen::VertexAttribute3<41, float> SecondNormalDecl;
+		
+		typedef TGen::JoinVertexElements3<VertexCoordDecl, NormalDecl, TexCoordDecl>			VertexDecl;
+		typedef TGen::JoinVertexElements2<VertexCoordDecl, NormalDecl >							FrameVertexDecl;	
+		typedef TGen::JoinVertexElements5<VertexCoordDecl, NormalDecl, TexCoordDecl, SecondVertexCoordDecl, SecondNormalDecl> DoubleVertexDecl;
 		typedef TGen::Index<unsigned int> IndexDecl;
 
 	} // !MD3	

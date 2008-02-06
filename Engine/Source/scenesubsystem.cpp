@@ -93,9 +93,10 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createNode(const std::string & n
 	std::string modelName = properties.getProperty("model", "");
 	
 	if (!modelName.empty()) {
-		TGen::MeshGeometry * mesh = new TGen::MeshGeometry(modelName);
-		meshList.attach(mesh);
-		node->addFace(TGen::Face(mesh, properties.getProperty("material", "")));
+		//TGen::MeshGeometry * mesh = new TGen::MeshGeometry(modelName);
+		//meshList.attach(mesh);
+		//node->addFace(TGen::Face(mesh, properties.getProperty("material", "")));
+		node->addModel(modelPool.attach(new TGen::ModelInstanceProxy(modelName, properties.getProperty("material", ""))));
 	}
 	
 	return node;
@@ -119,7 +120,9 @@ TGen::Engine::SceneNodeComponent * TGen::Engine::SceneSubsystem::getComponent(co
 
 void TGen::Engine::SceneSubsystem::link() {
 	world.app.logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
-	meshList.relink(world.app.globalResources);
+	//meshList.relink(world.app.globalResources);
+	modelPool.instantiateAll(world.app.globalResources);
+	
 	sceneRoot.traverse(TGen::FaceLinker(world.app.globalResources));
 	//sceneRoot.setPosition(TGen::Vector3(0.0f, 100.0f, 0.0f));
 	sceneRoot.update();

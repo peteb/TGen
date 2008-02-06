@@ -11,7 +11,7 @@
 #include "md3animmesh.h"
 #include <tgen_graphics.h>
 
-TGen::MD3::AnimatingMeshInstance::AnimatingMeshInstance(const std::string & materialName, TGen::MD3::AnimatingMesh & base) 
+TGen::MD3::AnimatingMeshInstance::AnimatingMeshInstance(const std::string & materialName, bool doubleVertices, TGen::MD3::AnimatingMesh & base) 
 	: TGen::NewMeshInstance(materialName)
 	, base(base)
 	, ib(NULL)
@@ -19,6 +19,9 @@ TGen::MD3::AnimatingMeshInstance::AnimatingMeshInstance(const std::string & mate
 	, primitive(TGen::PrimitiveTriangles)
 	, startIndex(0)
 	, indexCount(0)
+	, doubleVertices(doubleVertices)
+	, doubleLastStart(-1)
+	, doubleLastEnd(-1)
 {
 	
 }
@@ -38,22 +41,32 @@ void TGen::MD3::AnimatingMeshInstance::render(TGen::Renderer & renderer) const {
 }
 
 void TGen::MD3::AnimatingMeshInstance::updateVertices(int frameNum) {
+	if (doubleVertices)
+		updateDoubleVertices(frameNum, frameNum + 1);
+	else
+		updateInterpolatedVertices(frameNum, frameNum + 1, 0.0f);
+}
+
+void TGen::MD3::AnimatingMeshInstance::updateInterpolatedVertices(int start, int end, scalar t) {
+	std::vector<TGen::MD3::VertexDecl::Type> vertices;		// TODO: cache
 	vertices.reserve(base.vertexCount);
-	vertices.clear();
 	
-	if (frameNum >= base.getNumAnimationFrames())
-		frameNum = 0;
+	if (start >= base.getNumAnimationFrames())
+		start = 0;
+	if (end >= base.getNumAnimationFrames())
+		end = 0;
 	
-	TGen::MD3::AnimationFrame const & frame = base.getAnimationFrame(frameNum);
+	TGen::MD3::AnimationFrame const & frame1 = base.getAnimationFrame(start);
+	TGen::MD3::AnimationFrame const & frame2 = base.getAnimationFrame(end);
 	
-	for (int i = 0; i < frame.vertices.size(); ++i) {
+	for (int i = 0; i < frame1.vertices.size(); ++i) {
 		TGen::MD3::VertexDecl::Type vertex;
-		vertex.x = frame.vertices[i].x;
-		vertex.y = frame.vertices[i].y;
-		vertex.z = frame.vertices[i].z;
-		vertex.nx = frame.vertices[i].nx;
-		vertex.ny = frame.vertices[i].ny;
-		vertex.nz = frame.vertices[i].nz;
+		vertex.x = frame1.vertices[i].x;
+		vertex.y = frame1.vertices[i].y;
+		vertex.z = frame1.vertices[i].z;
+		vertex.nx = frame1.vertices[i].nx;
+		vertex.ny = frame1.vertices[i].ny;
+		vertex.nz = frame1.vertices[i].nz;
 		vertex.u = base.texcoords[i].u;
 		vertex.v = base.texcoords[i].v;
 		
@@ -61,4 +74,55 @@ void TGen::MD3::AnimatingMeshInstance::updateVertices(int frameNum) {
 	}
 	
 	vb->bufferData(&vertices[0], sizeof(TGen::MD3::VertexDecl::Type) * vertices.size(), 0);
+}
+
+void TGen::MD3::AnimatingMeshInstance::updateDoubleVertices(int start, int end) {
+	if (start >= base.getNumAnimationFrames())
+		start = 0;
+	if (end >= base.getNumAnimationFrames())
+		end = 0;
+
+	if (start == doubleLastStart && end == doubleLastEnd)
+		return;
+	
+	doubleLastStart = start;
+	doubleLastEnd = end;
+	
+	std::cout << "Update double vertices: " << start << ":" << end << std::endl;
+	
+	std::vector<TGen::MD3::DoubleVertexDecl::Type> vertices;		// TODO: cache
+	vertices.reserve(base.vertexCount);
+	
+	
+	TGen::MD3::AnimationFrame const & frame1 = base.getAnimationFrame(start);
+	TGen::MD3::AnimationFrame const & frame2 = base.getAnimationFrame(end);
+	
+	// TODO: optimering: hälften så mycket bandbredd för överföring till grafikkort:
+	//			ha en egen vb för "start" och "end", uppdatera bara varannan gång men
+	//       ändra riktning på dt som skickas till shader
+	
+	for (int i = 0; i < frame1.vertices.size(); ++i) {
+		TGen::MD3::DoubleVertexDecl::Type vertex;
+
+		vertex.u = base.texcoords[i].u;
+		vertex.v = base.texcoords[i].v;
+
+		vertex.TGen::MD3::VertexCoordDecl::Type::x = frame1.vertices[i].x;
+		vertex.TGen::MD3::VertexCoordDecl::Type::y = frame1.vertices[i].y;
+		vertex.TGen::MD3::VertexCoordDecl::Type::z = frame1.vertices[i].z;
+		vertex.TGen::MD3::NormalDecl::Type::nx = frame1.vertices[i].nx;
+		vertex.TGen::MD3::NormalDecl::Type::ny = frame1.vertices[i].ny;
+		vertex.TGen::MD3::NormalDecl::Type::nz = frame1.vertices[i].nz;
+		
+		vertex.TGen::MD3::SecondVertexCoordDecl::Type::x = frame2.vertices[i].x;
+		vertex.TGen::MD3::SecondVertexCoordDecl::Type::y = frame2.vertices[i].y;
+		vertex.TGen::MD3::SecondVertexCoordDecl::Type::z = frame2.vertices[i].z;
+		vertex.TGen::MD3::SecondNormalDecl::Type::x = frame2.vertices[i].nx;
+		vertex.TGen::MD3::SecondNormalDecl::Type::y = frame2.vertices[i].ny;
+		vertex.TGen::MD3::SecondNormalDecl::Type::z = frame2.vertices[i].nz;
+		
+		vertices.push_back(vertex);
+	}
+	
+	vb->bufferData(&vertices[0], sizeof(TGen::MD3::DoubleVertexDecl::Type) * vertices.size(), 0);	
 }

@@ -39,6 +39,7 @@ namespace TGen {
 			TGen::Engine::World & world;
 			TGen::SceneNode sceneRoot;
 			TGen::MeshGeometryLinkList meshList;
+			TGen::ModelInstantiatePool modelPool;
 			
 			typedef std::map<std::string, TGen::Engine::SceneNodeComponent *> ComponentMap;
 			ComponentMap components;

@@ -215,18 +215,38 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		
 		//md3File->printInfo(std::cout);
 		
-			newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
+			//newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
 			delete md3File;		
 		}
 
 		delete file;
 	}
 	
-	meshes[name] = newMesh;
+	//meshes[name] = newMesh;
 	
 	return newMesh;
 }
 
+TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const std::string & name) {
+	ModelMap::iterator iter = models.find(name);
+	if (iter != models.end())
+		return iter->second->instantiate();
+	
+	TGen::Engine::File * file = filesystem.openRead(name);
+	
+	TGen::MD3::Parser modelParser;
+	TGen::MD3::File * md3file = modelParser.parse(*file);
+	md3file->printInfo(std::cout);
+	TGen::NewModel * newModel = md3file->createModel(renderer, 0.001);
+	delete md3file;
+	
+	
+	delete file;
+	
+	models.insert(ModelMap::value_type(name, newModel));
+	
+	return newModel->instantiate();
+}
 
 TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & name) {
 	MaterialMap::iterator iter = materials.find(name);

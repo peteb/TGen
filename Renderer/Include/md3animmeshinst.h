@@ -15,27 +15,34 @@
 
 namespace TGen {
 	class VertexData;
+	class VertexDataSource;
 	
 	namespace MD3 {
 		class AnimatingMesh;
 		
+		// TODO: egen klass för double vertices
+		
 		class AnimatingMeshInstance : public TGen::NewMeshInstance {
 		public:	
-			AnimatingMeshInstance(const std::string & materialName, TGen::MD3::AnimatingMesh & base);
+			AnimatingMeshInstance(const std::string & materialName, bool doubleVertices, TGen::MD3::AnimatingMesh & base);
 			~AnimatingMeshInstance();
 			
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 			
 			void updateVertices(int frame);
+			void updateInterpolatedVertices(int frame1, int frame2, scalar t);
+			void updateDoubleVertices(int frame1, int frame2);
+			void createVertexData(TGen::VertexDataSource & dataSource);
 			
 			TGen::VertexData * vb, * ib;
 			TGen::PrimitiveType primitive;
 			uint startIndex, indexCount;
 			
 		private:
+			bool doubleVertices;
+			int doubleLastStart, doubleLastEnd;
 			TGen::MD3::AnimatingMesh & base;
-			std::vector<TGen::MD3::VertexDecl::Type> vertices;
 		};
 		
 	} // !MD3

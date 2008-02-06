@@ -11,11 +11,11 @@
 #include "modelinstantiator.h"
 #include <tgen_core.h>
 
-TGen::ModelInstanceProxy::ModelInstanceProxy(const std::string & name)
-	: TGen::NewModelInstance(name)
+TGen::ModelInstanceProxy::ModelInstanceProxy(const std::string & name, const std::string & materialName)
+	: TGen::NewModelInstance(name, materialName)
 	, boundInstance(NULL)
 {
-	
+
 }
 
 TGen::ModelInstanceProxy::~ModelInstanceProxy() {

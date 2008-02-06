@@ -292,15 +292,15 @@ void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
 //       spara alla faces som clipped face i lista, sen uppdatera clipping h0 r
 
 bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
-	for (int i = 0; i < faces.size(); ++i) {
+	//for (int i = 0; i < faces.size(); ++i) {
 		//list.addFace(&faces[i]);
-	}
+	//}
 	
 	for (int i = 0; i < models.size(); ++i) {
 		TGen::NewModelInstance * model = models[i];
+
 		model = TGen::DerefRes(model);
-		
-		model->fillFaces(list, this);
+		model->fillFaces(list, models[i]->getOverridingMaterial(), this);
 	}
 	
 	return true;

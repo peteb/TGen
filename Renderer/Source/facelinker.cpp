@@ -25,6 +25,7 @@ bool TGen::FaceLinker::pre(TGen::SceneNode & node) const {
 	}
 	
 	for (int i = 0; i < node.getModels().size(); ++i) {
+		node.getModels()[i]->linkMaterial(source);
 		TGen::DerefRes(node.getModels()[i])->linkMaterial(source);
 	}
 	

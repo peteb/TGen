@@ -10,9 +10,12 @@
 #include "modelinstance_new.h"
 #include "meshinstance_new.h"
 #include "renderlist.h"
+#include "materialsource.h"
 
-TGen::NewModelInstance::NewModelInstance(const std::string & name)
+TGen::NewModelInstance::NewModelInstance(const std::string & name, const std::string & materialName)
 	: name(name)
+	, materialName(materialName)
+	, material(NULL)
 {
 }
 
@@ -25,7 +28,7 @@ std::string TGen::NewModelInstance::getName() const {
 }
 
 void TGen::NewModelInstance::update() {
-
+	
 }
 
 TGen::ModelJoint TGen::NewModelInstance::getJoint(const std::string & name) const {
@@ -33,14 +36,24 @@ TGen::ModelJoint TGen::NewModelInstance::getJoint(const std::string & name) cons
 }
 
 void TGen::NewModelInstance::linkMaterial(TGen::MaterialSource & source) {
-	throw TGen::RuntimeException("ModelInstance::linkMaterial", "no implementation! Did you dereference links?");	
+	if (!materialName.empty())
+		material = source.getMaterial(materialName);
+	else
+		material = NULL;
+	
+	//throw TGen::RuntimeException("ModelInstance::linkMaterial", "no implementation! Did you dereference links?");	
 }
 
 void TGen::NewModelInstance::unlinkMaterial() {
-	throw TGen::RuntimeException("ModelInstance::unlinkMaterial", "no implementation! Did you dereference links?");	
+	material = NULL;
+	//throw TGen::RuntimeException("ModelInstance::unlinkMaterial", "no implementation! Did you dereference links?");	
 }
 
-void TGen::NewModelInstance::fillFaces(TGen::RenderList & list, TGen::SceneNode const * node) {
+TGen::Material * TGen::NewModelInstance::getOverridingMaterial() {
+	return material;
+}
+
+void TGen::NewModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node) {
 	throw TGen::RuntimeException("ModelInstance::fillFaces", "no implementation! Did you dereference links?");	
 }
 

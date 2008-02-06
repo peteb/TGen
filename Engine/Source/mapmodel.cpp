@@ -29,8 +29,10 @@ void TGen::Engine::MapModel::addSurface(TGen::Engine::MapSurface * surface) {
 }
 
 bool TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
-	for (int i = 0; i < faces.size(); ++i)
-		list.addFace(faces[i]);
+	//for (int i = 0; i < faces.size(); ++i)
+	//	list.addFace(faces[i]);
+	
+	throw TGen::RuntimeException("MapModel::fillFaces", "BARG");
 	
 	return true;
 }
