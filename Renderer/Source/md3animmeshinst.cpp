@@ -40,12 +40,17 @@ void TGen::MD3::AnimatingMeshInstance::render(TGen::Renderer & renderer) const {
 	renderer.drawIndexedPrimitive(primitive, startIndex, indexCount);		
 }
 
-void TGen::MD3::AnimatingMeshInstance::updateVertices(int frameNum) {
+
+// Ska nog inte behövas mer än såhär här, att den spelar rätt frames hör till något ovanför
+// det är också upp till lagret ovanför att inte göra onödiga uppdateringar...
+void TGen::MD3::AnimatingMeshInstance::updateVertices(int frameNum, scalar t) {
 	if (doubleVertices)
 		updateDoubleVertices(frameNum, frameNum + 1);
 	else
-		updateInterpolatedVertices(frameNum, frameNum + 1, 0.0f);
+		updateInterpolatedVertices(frameNum, frameNum + 1, t);
 }
+
+// AnimatingMeshInstanceSingle, AnimatingMeshInstanceDouble
 
 void TGen::MD3::AnimatingMeshInstance::updateInterpolatedVertices(int start, int end, scalar t) {
 	std::vector<TGen::MD3::VertexDecl::Type> vertices;		// TODO: cache
@@ -61,12 +66,13 @@ void TGen::MD3::AnimatingMeshInstance::updateInterpolatedVertices(int start, int
 	
 	for (int i = 0; i < frame1.vertices.size(); ++i) {
 		TGen::MD3::VertexDecl::Type vertex;
-		vertex.x = frame1.vertices[i].x;
-		vertex.y = frame1.vertices[i].y;
-		vertex.z = frame1.vertices[i].z;
-		vertex.nx = frame1.vertices[i].nx;
-		vertex.ny = frame1.vertices[i].ny;
-		vertex.nz = frame1.vertices[i].nz;
+		vertex.x = TGen::Interpolate(frame1.vertices[i].x, frame2.vertices[i].x, t);
+		vertex.y = TGen::Interpolate(frame1.vertices[i].y, frame2.vertices[i].y, t);
+		vertex.z = TGen::Interpolate(frame1.vertices[i].z, frame2.vertices[i].z, t);
+		vertex.nx = TGen::Interpolate(frame1.vertices[i].nx, frame2.vertices[i].nx, t);
+		vertex.ny = TGen::Interpolate(frame1.vertices[i].ny, frame2.vertices[i].ny, t);
+		vertex.nz = TGen::Interpolate(frame1.vertices[i].nz, frame2.vertices[i].nz, t);
+		
 		vertex.u = base.texcoords[i].u;
 		vertex.v = base.texcoords[i].v;
 		
@@ -100,6 +106,7 @@ void TGen::MD3::AnimatingMeshInstance::updateDoubleVertices(int start, int end) 
 	// TODO: optimering: hälften så mycket bandbredd för överföring till grafikkort:
 	//			ha en egen vb för "start" och "end", uppdatera bara varannan gång men
 	//       ändra riktning på dt som skickas till shader
+	//	      (kräver stöd för detta i TGen Graphics/OGL)
 	
 	for (int i = 0; i < frame1.vertices.size(); ++i) {
 		TGen::MD3::DoubleVertexDecl::Type vertex;

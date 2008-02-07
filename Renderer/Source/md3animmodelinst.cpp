@@ -32,7 +32,7 @@ void TGen::MD3::AnimatingModelInstance::update() {
 	static float num = 0.0f;
 	
 	for (int i = 0; i < meshes.size(); ++i)
-		meshes[i]->updateVertices(int(num));
+		meshes[i]->updateVertices(int(num), num - float(int(num)));
 	
 	num += 0.1f;
 	if (num > 200.0)

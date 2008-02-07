@@ -35,7 +35,7 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 	TGen::MD3::AnimatingModelInstance * newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", *this);
 	
 	for (int i = 0; i < meshes.size(); ++i) {
-		bool useDoubleVertices = true;
+		bool useDoubleVertices = false;
 		TGen::MD3::AnimatingMesh const & mesh = *meshes[i];
 		TGen::MD3::AnimatingMeshInstance * newMeshInstance = new TGen::MD3::AnimatingMeshInstance(meshes[i]->getMaterialName(), useDoubleVertices, *meshes[i]);
 		
@@ -50,6 +50,7 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 		else
 			newMeshInstance->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStream);
 		
+		// TODO: lägger inte till vb->readPos!!!
 		newMeshInstance->ib->bufferData(&mesh.indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
 		newInstance->addMesh(newMeshInstance);
 	}
