@@ -30,7 +30,7 @@ namespace TGen {
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 			
-			void updateVertices(int frame);
+			void updateVertices(int frame, scalar t);
 			void updateInterpolatedVertices(int frame1, int frame2, scalar t);
 			void updateDoubleVertices(int frame1, int frame2);
 			void createVertexData(TGen::VertexDataSource & dataSource);
