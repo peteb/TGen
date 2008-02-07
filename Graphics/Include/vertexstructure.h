@@ -175,7 +175,7 @@ namespace TGen {
 				return TGen::Vector3(nx, ny, nz);
 			}
 			
-			T nx, ny, nz;
+			T nx, ny, nz;		// jag vill gärna ha bort n*, men då blir det kollision
 		};
 	};
 	

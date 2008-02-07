@@ -2,7 +2,7 @@
  *  md3animmeshinst.h
  *  TGen Renderer
  *
- *  Created by Peter Backman on 2/3/08.
+ *  Created by Peter Backman on 2/8/08.
  *  Copyright 2008 Peter Backman. All rights reserved.
  *
  */
@@ -11,39 +11,24 @@
 #define _TGEN_RENDERER_MD3ANIMMESHINST_H
 
 #include "meshinstance_new.h"
-#include "md3struct.h"
 
 namespace TGen {
-	class VertexData;
-	class VertexDataSource;
-	
 	namespace MD3 {
 		class AnimatingMesh;
 		
-		// TODO: egen klass för double vertices
-		
 		class AnimatingMeshInstance : public TGen::NewMeshInstance {
-		public:	
-			AnimatingMeshInstance(const std::string & materialName, bool doubleVertices, TGen::MD3::AnimatingMesh & base);
-			~AnimatingMeshInstance();
+		public:
+			AnimatingMeshInstance(const std::string & materialName, TGen::MD3::AnimatingMesh const & base);
+			virtual ~AnimatingMeshInstance();
 			
-			void preRender(TGen::Renderer & renderer) const;
-			void render(TGen::Renderer & renderer) const;
+			virtual void updateVertices(int frame, scalar t) abstract;
+			virtual void createVertexData(TGen::VertexDataSource & dataSource) abstract;
 			
-			void updateVertices(int frame, scalar t);
-			void updateInterpolatedVertices(int frame1, int frame2, scalar t);
-			void updateDoubleVertices(int frame1, int frame2);
-			void createVertexData(TGen::VertexDataSource & dataSource);
-			
-			TGen::VertexData * vb, * ib;
-			TGen::PrimitiveType primitive;
-			uint startIndex, indexCount;
-			
-		private:
-			bool doubleVertices;
-			int doubleLastStart, doubleLastEnd;
-			TGen::MD3::AnimatingMesh & base;
+		protected:
+			TGen::MD3::AnimatingMesh const & base;
 		};
+		
+		
 		
 	} // !MD3
 } // !TGen

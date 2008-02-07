@@ -10,7 +10,8 @@
 #include "md3animmodel.h"
 #include "md3animmesh.h"
 #include "md3animmodelinst.h"
-#include "md3animmeshinst.h"
+#include "md3animmeshsingle.h"
+#include "md3animmeshdouble.h"
 #include "renderlist.h"
 #include "model_new.h"
 
@@ -35,23 +36,15 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 	TGen::MD3::AnimatingModelInstance * newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", *this);
 	
 	for (int i = 0; i < meshes.size(); ++i) {
-		bool useDoubleVertices = false;
 		TGen::MD3::AnimatingMesh const & mesh = *meshes[i];
-		TGen::MD3::AnimatingMeshInstance * newMeshInstance = new TGen::MD3::AnimatingMeshInstance(meshes[i]->getMaterialName(), useDoubleVertices, *meshes[i]);
+		TGen::MD3::AnimatingMeshInstance * newMeshInstance = NULL;
 		
-		uint numIndices = mesh.indices.size();
-		uint numVertices = mesh.vertexCount;
-		newMeshInstance->indexCount = numIndices;
-		
-		newMeshInstance->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
-		
-		if (useDoubleVertices)
-			newMeshInstance->vb = dataSource.createVertexData(TGen::MD3::DoubleVertexDecl(), sizeof(TGen::MD3::DoubleVertexDecl::Type) * numVertices, TGen::UsageStream);			
+		if (true)
+			newMeshInstance = new TGen::MD3::AnimatingMeshSingle(meshes[i]->getMaterialName(), mesh);
 		else
-			newMeshInstance->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStream);
+			newMeshInstance = new TGen::MD3::AnimatingMeshDouble(meshes[i]->getMaterialName(), mesh);
 		
-		// TODO: lägger inte till vb->readPos!!!
-		newMeshInstance->ib->bufferData(&mesh.indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
+		newMeshInstance->createVertexData(dataSource);
 		newInstance->addMesh(newMeshInstance);
 	}
 	

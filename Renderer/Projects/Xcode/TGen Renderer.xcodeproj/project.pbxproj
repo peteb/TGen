@@ -24,8 +24,8 @@
 		D009FF3E0C75E22800A5CBE7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */; };
 		D01C40000D5670890028A06F /* md3animmodelinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D01C3FFF0D5670890028A06F /* md3animmodelinst.h */; };
 		D01C40020D56709C0028A06F /* md3animmodelinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40010D56709C0028A06F /* md3animmodelinst.cpp */; };
-		D01C40850D5674CA0028A06F /* md3animmeshinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D01C40840D5674CA0028A06F /* md3animmeshinst.h */; };
-		D01C40870D5674DB0028A06F /* md3animmeshinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */; };
+		D01C40850D5674CA0028A06F /* md3animmeshsingle.h in Headers */ = {isa = PBXBuildFile; fileRef = D01C40840D5674CA0028A06F /* md3animmeshsingle.h */; };
+		D01C40870D5674DB0028A06F /* md3animmeshsingle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40860D5674DB0028A06F /* md3animmeshsingle.cpp */; };
 		D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */ = {isa = PBXBuildFile; fileRef = D0219FE50D5613D40039323A /* modelinstantiatepool.h */; };
 		D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */; };
 		D036C1DF0D5681DB00916AC6 /* doom.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D036C1DE0D5681D400916AC6 /* doom.tga */; };
@@ -65,6 +65,10 @@
 		D09030B30D47D98D00074021 /* md5submesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D09030B20D47D98D00074021 /* md5submesh.h */; };
 		D09030B50D47D9A200074021 /* md5submesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09030B40D47D9A200074021 /* md5submesh.cpp */; };
 		D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D09034450D4803F400074021 /* zfat.md5mesh */; };
+		D0ED98000D5BC3F500CEF206 /* md3animmeshdouble.h in Headers */ = {isa = PBXBuildFile; fileRef = D0ED97FF0D5BC3F500CEF206 /* md3animmeshdouble.h */; };
+		D0ED98020D5BC40600CEF206 /* md3animmeshdouble.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ED98010D5BC40600CEF206 /* md3animmeshdouble.cpp */; };
+		D0ED98580D5BC78200CEF206 /* md3animmeshinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D0ED98570D5BC78200CEF206 /* md3animmeshinst.h */; };
+		D0ED98750D5BCA9B00CEF206 /* md3animmeshinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ED98740D5BCA9B00CEF206 /* md3animmeshinst.cpp */; };
 		D0EF57EE0C81C0620085C17B /* md3mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF57ED0C81C0620085C17B /* md3mesh.cpp */; };
 		D0EF57F00C81C06E0085C17B /* md3mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EF57EF0C81C06E0085C17B /* md3mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EFD1DC0C7DC55A001E861E /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EFD1DB0C7DC55A001E861E /* mesh.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -239,8 +243,8 @@
 		D009FF3D0C75E22800A5CBE7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		D01C3FFF0D5670890028A06F /* md3animmodelinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmodelinst.h; path = Include/md3animmodelinst.h; sourceTree = "<group>"; };
 		D01C40010D56709C0028A06F /* md3animmodelinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmodelinst.cpp; path = Source/md3animmodelinst.cpp; sourceTree = "<group>"; };
-		D01C40840D5674CA0028A06F /* md3animmeshinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmeshinst.h; path = Include/md3animmeshinst.h; sourceTree = "<group>"; };
-		D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshinst.cpp; path = Source/md3animmeshinst.cpp; sourceTree = "<group>"; };
+		D01C40840D5674CA0028A06F /* md3animmeshsingle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmeshsingle.h; path = Include/md3animmeshsingle.h; sourceTree = "<group>"; };
+		D01C40860D5674DB0028A06F /* md3animmeshsingle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshsingle.cpp; path = Source/md3animmeshsingle.cpp; sourceTree = "<group>"; };
 		D0219FE50D5613D40039323A /* modelinstantiatepool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiatepool.h; path = Include/modelinstantiatepool.h; sourceTree = "<group>"; };
 		D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstantiatepool.cpp; path = Source/modelinstantiatepool.cpp; sourceTree = "<group>"; };
 		D036C1DE0D5681D400916AC6 /* doom.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = doom.tga; sourceTree = "<group>"; };
@@ -276,6 +280,10 @@
 		D09030B20D47D98D00074021 /* md5submesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5submesh.h; path = Include/md5submesh.h; sourceTree = "<group>"; };
 		D09030B40D47D9A200074021 /* md5submesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5submesh.cpp; path = Source/md5submesh.cpp; sourceTree = "<group>"; };
 		D09034450D4803F400074021 /* zfat.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zfat.md5mesh; sourceTree = "<group>"; };
+		D0ED97FF0D5BC3F500CEF206 /* md3animmeshdouble.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmeshdouble.h; path = Include/md3animmeshdouble.h; sourceTree = "<group>"; };
+		D0ED98010D5BC40600CEF206 /* md3animmeshdouble.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshdouble.cpp; path = Source/md3animmeshdouble.cpp; sourceTree = "<group>"; };
+		D0ED98570D5BC78200CEF206 /* md3animmeshinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmeshinst.h; path = Include/md3animmeshinst.h; sourceTree = "<group>"; };
+		D0ED98740D5BCA9B00CEF206 /* md3animmeshinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshinst.cpp; path = Source/md3animmeshinst.cpp; sourceTree = "<group>"; };
 		D0EF57ED0C81C0620085C17B /* md3mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3mesh.cpp; path = Source/md3mesh.cpp; sourceTree = "<group>"; };
 		D0EF57EF0C81C06E0085C17B /* md3mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3mesh.h; path = Include/md3mesh.h; sourceTree = "<group>"; };
 		D0EFD1DB0C7DC55A001E861E /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = Include/mesh.h; sourceTree = "<group>"; };
@@ -482,6 +490,36 @@
 			name = md5;
 			sourceTree = "<group>";
 		};
+		D0ED98400D5BC73D00CEF206 /* mesh */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF57ED0C81C0620085C17B /* md3mesh.cpp */,
+				D0EF57EF0C81C06E0085C17B /* md3mesh.h */,
+				D087F6DC0D56647A00442D40 /* md3animmesh.cpp */,
+				D087F6DA0D56646900442D40 /* md3animmesh.h */,
+				D0ED98740D5BCA9B00CEF206 /* md3animmeshinst.cpp */,
+				D0ED98570D5BC78200CEF206 /* md3animmeshinst.h */,
+				D01C40860D5674DB0028A06F /* md3animmeshsingle.cpp */,
+				D01C40840D5674CA0028A06F /* md3animmeshsingle.h */,
+				D0ED98010D5BC40600CEF206 /* md3animmeshdouble.cpp */,
+				D0ED97FF0D5BC3F500CEF206 /* md3animmeshdouble.h */,
+			);
+			name = mesh;
+			sourceTree = "<group>";
+		};
+		D0ED98410D5BC75300CEF206 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D0EFD5620C7DD38B001E861E /* md3staticmodel.cpp */,
+				D0EFD5600C7DD381001E861E /* md3staticmodel.h */,
+				D087F6B90D56625C00442D40 /* md3animmodel.cpp */,
+				D087F6B70D56624C00442D40 /* md3animmodel.h */,
+				D01C40010D56709C0028A06F /* md3animmodelinst.cpp */,
+				D01C3FFF0D5670890028A06F /* md3animmodelinst.h */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		D0F16C810C7A1CE7004B4E19 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -539,18 +577,8 @@
 				D0F16B420C79D444004B4E19 /* md3struct.h */,
 				D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */,
 				D0F16BA10C79D745004B4E19 /* md3parser.h */,
-				D0EFD5620C7DD38B001E861E /* md3staticmodel.cpp */,
-				D0EFD5600C7DD381001E861E /* md3staticmodel.h */,
-				D0EF57ED0C81C0620085C17B /* md3mesh.cpp */,
-				D0EF57EF0C81C06E0085C17B /* md3mesh.h */,
-				D087F6B90D56625C00442D40 /* md3animmodel.cpp */,
-				D087F6B70D56624C00442D40 /* md3animmodel.h */,
-				D087F6DC0D56647A00442D40 /* md3animmesh.cpp */,
-				D087F6DA0D56646900442D40 /* md3animmesh.h */,
-				D01C40010D56709C0028A06F /* md3animmodelinst.cpp */,
-				D01C3FFF0D5670890028A06F /* md3animmodelinst.h */,
-				D01C40860D5674DB0028A06F /* md3animmeshinst.cpp */,
-				D01C40840D5674CA0028A06F /* md3animmeshinst.h */,
+				D0ED98410D5BC75300CEF206 /* model */,
+				D0ED98400D5BC73D00CEF206 /* mesh */,
 			);
 			name = md3;
 			sourceTree = "<group>";
@@ -640,7 +668,9 @@
 				D087F6B80D56624C00442D40 /* md3animmodel.h in Headers */,
 				D087F6DB0D56646900442D40 /* md3animmesh.h in Headers */,
 				D01C40000D5670890028A06F /* md3animmodelinst.h in Headers */,
-				D01C40850D5674CA0028A06F /* md3animmeshinst.h in Headers */,
+				D01C40850D5674CA0028A06F /* md3animmeshsingle.h in Headers */,
+				D0ED98000D5BC3F500CEF206 /* md3animmeshdouble.h in Headers */,
+				D0ED98580D5BC78200CEF206 /* md3animmeshinst.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -831,7 +861,9 @@
 				D087F6BA0D56625C00442D40 /* md3animmodel.cpp in Sources */,
 				D087F6DD0D56647A00442D40 /* md3animmesh.cpp in Sources */,
 				D01C40020D56709C0028A06F /* md3animmodelinst.cpp in Sources */,
-				D01C40870D5674DB0028A06F /* md3animmeshinst.cpp in Sources */,
+				D01C40870D5674DB0028A06F /* md3animmeshsingle.cpp in Sources */,
+				D0ED98020D5BC40600CEF206 /* md3animmeshdouble.cpp in Sources */,
+				D0ED98750D5BCA9B00CEF206 /* md3animmeshinst.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
