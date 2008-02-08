@@ -56,7 +56,21 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 		
 		for (int a = 0; a < model->getNumMeshes(); ++a) {
 			TGen::NewMeshInstance * mesh = model->getMesh(a);
-			stream << levelName << "         " << a << " material: " << mesh->getMaterialName() << " (linked: " << mesh->getMaterial() << ")" << std::endl;
+			std::string materialName = node.getModels()[i]->getOverridingMaterialName();
+			TGen::Material * material = node.getModels()[i]->getOverridingMaterial();
+			
+			if (materialName.empty())
+				materialName = mesh->getMaterialName();
+			
+			if (!material)
+				material = mesh->getMaterial();
+			
+			stream << levelName << "         " << a << " material";
+			
+			if (!node.getModels()[i]->getOverridingMaterialName().empty())
+				stream << " (overriden by model)";
+			
+			stream << ": " << materialName << " (linked: " << material << ")" << std::endl;
 		}
 	}
 	

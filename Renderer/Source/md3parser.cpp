@@ -12,7 +12,7 @@
 #include "md3staticmodel.h"
 #include "md3animmodel.h"
 #include "md3animmesh.h"
-#include "md3mesh.h"
+#include "md3staticmesh.h"
 #include "mesh.h"
 #include "model_new.h"
 
@@ -149,14 +149,14 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 		TGen::MD3::Surface * surface = surfaces[i];
 		
 		if (surface->ident == TGen::MD3::MAGIC) {
-			TGen::MD3::Mesh * mesh = new TGen::MD3::Mesh(reinterpret_cast<char*>(surface->shaders[0].name));
+			TGen::MD3::StaticMesh * mesh = new TGen::MD3::StaticMesh(reinterpret_cast<char*>(surface->shaders[0].name));
 			
 			int numIndices = surface->num_triangles * 3;
 			int numVertices = surface->num_verts;
 			
 			mesh->vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStatic);
 			mesh->ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
-			mesh->indexCount = numIndices;
+			mesh->numIndices = numIndices;
 			
 			if (!mesh->vb || !mesh->ib)
 				throw TGen::RuntimeException("MD3::File::createMesh", "failed to create vertex buffers");
@@ -224,24 +224,21 @@ TGen::NewModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & 
 		TGen::MD3::Surface * surface = surfaces[i];
 	
 		if (surface->ident == TGen::MD3::MAGIC) {
-			TGen::MD3::AnimatingMesh * newMesh = new TGen::MD3::AnimatingMesh(reinterpret_cast<char*>(surface->shaders[0].name));
+			TGen::MD3::AnimatingMesh * newMesh = new TGen::MD3::AnimatingMesh(reinterpret_cast<char*>(surface->shaders[0].name), surface->num_verts);
 			
-			newMesh->indices.clear();
-			newMesh->texcoords.clear();
-			newMesh->indices.reserve(surface->num_triangles * 3);
-			newMesh->texcoords.reserve(surface->num_verts);
-			newMesh->vertexCount = surface->num_verts;
+			newMesh->reserveIndices(surface->num_triangles * 3);
+			newMesh->reserveTexcoords(surface->num_verts);
 			
 			for (int i = 0; i < surface->num_triangles; ++i) {
 				TGen::MD3::Triangle const & triangle = surface->triangles[i];
-				newMesh->indices.push_back(triangle.indices[2]);
-				newMesh->indices.push_back(triangle.indices[1]);
-				newMesh->indices.push_back(triangle.indices[0]);
+				newMesh->addIndex(triangle.indices[2]);
+				newMesh->addIndex(triangle.indices[1]);
+				newMesh->addIndex(triangle.indices[0]);
 			}
 			
 			for (int i = 0; i < surface->num_verts; ++i) {
 				TGen::MD3::TexCoord const & texCoord = surface->texCoords[i];
-				newMesh->texcoords.push_back(TGen::MD3::TexCoordDecl::Type(TGen::Vector2(texCoord.st[0], texCoord.st[1])));
+				newMesh->addTexcoord(TGen::MD3::TexCoordDecl::Type(TGen::Vector2(texCoord.st[0], texCoord.st[1])));
 			}
 			
 			for (int i = 0; i < surface->num_frames; ++i) {

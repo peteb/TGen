@@ -31,20 +31,30 @@ namespace TGen {
 		
 		class AnimatingMesh {
 		public:
-			AnimatingMesh(const std::string & materialName);
+			AnimatingMesh(const std::string & materialName, int numVerts);
 			~AnimatingMesh();
 			
 			void addAnimationFrame(TGen::MD3::AnimationFrame * frame);
 			std::string getMaterialName() const;
 			int getNumAnimationFrames() const;
+			int getNumVertices() const;
+			int getNumIndices() const;
+
+			void reserveIndices(uint num);
+			void reserveTexcoords(uint num);
+			void addIndex(const TGen::MD3::IndexDecl::Type & index);
+			void addTexcoord(const TGen::MD3::TexCoordDecl::Type & texcoord);
+			TGen::MD3::TexCoordDecl::Type getTexcoord(uint num) const;
+			
+			TGen::MD3::IndexDecl::Type const * getIndexArray() const;
 			TGen::MD3::AnimationFrame const & getAnimationFrame(int num) const;
 			
-		//private:
-			typedef std::vector<TGen::MD3::IndexDecl::Type> IndexList;
+		private:
 			typedef std::vector<TGen::MD3::AnimationFrame *> FrameList;
+			typedef std::vector<TGen::MD3::IndexDecl::Type> IndexList;
 			typedef std::vector<TGen::MD3::TexCoordDecl::Type> TexCoordList;
 			
-			uint vertexCount;
+			uint numVertices;
 			IndexList indices;
 			TexCoordList texcoords;
 			FrameList frames;

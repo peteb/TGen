@@ -39,7 +39,7 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 		TGen::MD3::AnimatingMesh const & mesh = *meshes[i];
 		TGen::MD3::AnimatingMeshInstance * newMeshInstance = NULL;
 		
-		if (true)
+		if (false)
 			newMeshInstance = new TGen::MD3::AnimatingMeshSingle(meshes[i]->getMaterialName(), mesh);
 		else
 			newMeshInstance = new TGen::MD3::AnimatingMeshDouble(meshes[i]->getMaterialName(), mesh);

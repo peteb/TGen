@@ -16,23 +16,19 @@
 
 namespace TGen {
 	namespace MD3 {
-		class Mesh;
+		class StaticMesh;
 		
 		class StaticModel : public TGen::NewModel {
 		public:	
 			StaticModel(const std::string & name);		
 			~StaticModel();
 
-			//void preRender(TGen::Renderer & renderer) const;
-			//void render(TGen::Renderer & renderer) const;
-			//void update(const TGen::Camera & camera, scalar distance, scalar time);
-			
 			TGen::Vector3 getMax() const;
 			TGen::Vector3 getMin() const;
 			TGen::Vector3 getOrigin() const;
 			
 			void addJoint(const std::string & name, const TGen::ModelJoint & joint);
-			void addMesh(TGen::MD3::Mesh * instance);
+			void addMesh(TGen::MD3::StaticMesh * instance);
 
 			TGen::ModelJoint getJoint(const std::string & name) const;
 			TGen::NewMeshInstance * getMesh(int num);
@@ -49,7 +45,7 @@ namespace TGen {
 			
 		private:
 			typedef std::map<std::string, TGen::ModelJoint> JointMap;
-			typedef std::vector<TGen::MD3::Mesh *> MeshList;
+			typedef std::vector<TGen::MD3::StaticMesh *> MeshList;
 			
 			JointMap joints;
 			MeshList meshes;

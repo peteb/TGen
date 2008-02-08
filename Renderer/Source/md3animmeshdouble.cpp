@@ -39,14 +39,24 @@ void TGen::MD3::AnimatingMeshDouble::render(TGen::Renderer & renderer) const {
 }
 
 void TGen::MD3::AnimatingMeshDouble::createVertexData(TGen::VertexDataSource & dataSource) {
-	numIndices = base.indices.size();
-	numVertices = base.vertexCount;
+	numIndices = base.getNumIndices();
+	numVertices = base.getNumVertices();
 	
 	ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
 	vb = dataSource.createVertexData(TGen::MD3::DoubleVertexDecl(), sizeof(TGen::MD3::DoubleVertexDecl::Type) * numVertices, TGen::UsageStream);			
 	
-	// TODO: lägger inte till vb->readpos!!!
-	ib->bufferData(&base.indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
+
+	TGen::MD3::IndexDecl::Type const * indexArray = base.getIndexArray();
+	std::vector<TGen::MD3::IndexDecl::Type> indices;
+	indices.reserve(numIndices);
+	
+	for (int i = 0; i < numIndices; ++i) {
+		TGen::MD3::IndexDecl::Type index = indexArray[i];
+		index += vb->getReadOffset();
+		indices.push_back(index);
+	}
+	
+	ib->bufferData(&indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
 }
 
 void TGen::MD3::AnimatingMeshDouble::updateVertices(int frameNum, scalar t) {
@@ -68,7 +78,7 @@ void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {
 	std::cout << "Update double vertices: " << start << ":" << end << std::endl;
 	
 	std::vector<TGen::MD3::DoubleVertexDecl::Type> vertices;		// TODO: cache
-	vertices.reserve(base.vertexCount);
+	vertices.reserve(base.getNumVertices());
 	
 	
 	TGen::MD3::AnimationFrame const & frame1 = base.getAnimationFrame(start);
@@ -82,8 +92,8 @@ void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {
 	for (int i = 0; i < frame1.vertices.size(); ++i) {
 		TGen::MD3::DoubleVertexDecl::Type vertex;
 		
-		vertex.u = base.texcoords[i].u;
-		vertex.v = base.texcoords[i].v;
+		vertex.u = base.getTexcoord(i).u;
+		vertex.v = base.getTexcoord(i).v;
 		
 		vertex.TGen::MD3::VertexCoordDecl::Type::x = frame1.vertices[i].x;
 		vertex.TGen::MD3::VertexCoordDecl::Type::y = frame1.vertices[i].y;

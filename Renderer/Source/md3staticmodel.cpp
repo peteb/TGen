@@ -9,7 +9,7 @@
  */
 
 #include "md3staticmodel.h"
-#include "md3mesh.h"
+#include "md3staticmesh.h"
 #include "renderlist.h"
 #include "model_new.h"
 
@@ -56,7 +56,7 @@ TGen::NewMeshInstance * TGen::MD3::StaticModel::getMesh(int num) {
 	return meshes[num];
 }
 
-void TGen::MD3::StaticModel::addMesh(TGen::MD3::Mesh * instance) {
+void TGen::MD3::StaticModel::addMesh(TGen::MD3::StaticMesh * instance) {
 	meshes.push_back(instance);
 }
 

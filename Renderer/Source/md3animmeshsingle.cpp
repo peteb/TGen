@@ -37,13 +37,24 @@ void TGen::MD3::AnimatingMeshSingle::render(TGen::Renderer & renderer) const {
 }
 
 void TGen::MD3::AnimatingMeshSingle::createVertexData(TGen::VertexDataSource & dataSource) {
-	numVertices = base.vertexCount;
-	numIndices = base.indices.size();
+	numVertices = base.getNumVertices();
+	numIndices = base.getNumIndices();
 	
 	ib = dataSource.createVertexData(TGen::MD3::IndexDecl(), sizeof(TGen::MD3::IndexDecl::Type) * numIndices, TGen::UsageStatic);
 	vb = dataSource.createVertexData(TGen::MD3::VertexDecl(), sizeof(TGen::MD3::VertexDecl::Type) * numVertices, TGen::UsageStream);
 	
-	ib->bufferData(&base.indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
+	
+	TGen::MD3::IndexDecl::Type const * indexArray = base.getIndexArray();
+	std::vector<TGen::MD3::IndexDecl::Type> indices;
+	indices.reserve(numIndices);
+	
+	for (int i = 0; i < numIndices; ++i) {
+		TGen::MD3::IndexDecl::Type index = indexArray[i];
+		index += vb->getReadOffset();
+		indices.push_back(index);
+	}
+	
+	ib->bufferData(&indices[0], sizeof(TGen::MD3::IndexDecl::Type) * numIndices, 0);
 }
 
 void TGen::MD3::AnimatingMeshSingle::updateVertices(int frameNum, scalar t) {
@@ -52,7 +63,7 @@ void TGen::MD3::AnimatingMeshSingle::updateVertices(int frameNum, scalar t) {
 
 void TGen::MD3::AnimatingMeshSingle::updateInterpolatedVertices(int start, int end, scalar t) {
 	std::vector<TGen::MD3::VertexDecl::Type> vertices;		// TODO: cache
-	vertices.reserve(base.vertexCount);
+	vertices.reserve(base.getNumVertices());
 	
 	if (start >= base.getNumAnimationFrames())
 		start = 0;
@@ -71,8 +82,8 @@ void TGen::MD3::AnimatingMeshSingle::updateInterpolatedVertices(int start, int e
 		vertex.ny = TGen::Interpolate(frame1.vertices[i].ny, frame2.vertices[i].ny, t);
 		vertex.nz = TGen::Interpolate(frame1.vertices[i].nz, frame2.vertices[i].nz, t);
 		
-		vertex.u = base.texcoords[i].u;
-		vertex.v = base.texcoords[i].v;
+		vertex.u = base.getTexcoord(i).u;
+		vertex.v = base.getTexcoord(i).v;
 		
 		vertices.push_back(vertex);
 	}

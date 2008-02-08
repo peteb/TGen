@@ -53,6 +53,10 @@ TGen::Material * TGen::NewModelInstance::getOverridingMaterial() {
 	return material;
 }
 
+std::string TGen::NewModelInstance::getOverridingMaterialName() const {
+	return materialName;
+}
+
 void TGen::NewModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node) {
 	throw TGen::RuntimeException("ModelInstance::fillFaces", "no implementation! Did you dereference links?");	
 }

@@ -24,7 +24,7 @@ namespace TGen {
 			virtual void updateVertices(int frame, scalar t) abstract;
 			virtual void createVertexData(TGen::VertexDataSource & dataSource) abstract;
 			
-		protected:
+		protected:			
 			TGen::MD3::AnimatingMesh const & base;
 		};
 		
