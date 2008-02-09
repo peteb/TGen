@@ -22,15 +22,15 @@ namespace TGen {
 	namespace Engine {
 		class SDL;
 		class Filesystem;
-		class VariablesRegistry;
-		class CommandRegistry;
+		class VariableRegister;
+		class CommandRegister;
 		class State;
 		class Environment;
 		class DeviceCollection;
 		
 		class App {
 		public:
-			App(TGen::Engine::VariablesRegistry & variables, TGen::Engine::CommandRegistry & commands, TGen::Engine::Environment & env, 
+			App(TGen::Engine::VariableRegister & variables, TGen::Engine::CommandRegister & commands, TGen::Engine::Environment & env, 
 				TGen::Engine::Filesystem * fs, const TGen::PropertyTree & props, TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs,
 				TGen::Engine::DeviceCollection & inputDevices);
 			~App();
@@ -43,8 +43,8 @@ namespace TGen {
 			
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::Environment & env;
-			TGen::Engine::VariablesRegistry & variables;
-			TGen::Engine::CommandRegistry & commands;
+			TGen::Engine::VariableRegister & variables;
+			TGen::Engine::CommandRegister & commands;
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::DeviceCollection & inputDevices;
 			

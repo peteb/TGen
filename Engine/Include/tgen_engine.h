@@ -16,7 +16,7 @@ namespace TGen {
 	bool isEngineDebug();
 	
 	namespace Engine {
-		class VariablesRegistry;
+		class VariableRegister;
 		
 		const unsigned int VersionMajor = 0, VersionMinor = 0, VersionRevision = 1;
 		

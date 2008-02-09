@@ -1,5 +1,5 @@
 /*
- *  commandregistry.h
+ *  commandregister.h
  *  TGen Engine
  *
  *  Created by Peter Backman on 10/11/07.
@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_COMMANDREGISTRY_H
-#define _TGEN_ENGINE_COMMANDREGISTRY_H
+#ifndef _TGEN_ENGINE_COMMANDREGISTER_H
+#define _TGEN_ENGINE_COMMANDREGISTER_H
 
 #include "command.h"
 #include "tokenizer.h"
@@ -21,12 +21,12 @@ namespace TGen {
 			CommandTokenEOL = 20,
 		};	
 		
-		class CommandRegistry {
+		class CommandRegister {
 		public:	
-			CommandRegistry();
-			~CommandRegistry();
+			CommandRegister();
+			~CommandRegister();
 			
-			TGen::Engine::CommandRegistry & addCommand(TGen::Engine::Command * command, bool doThrow = true);
+			TGen::Engine::CommandRegister & addCommand(TGen::Engine::Command * command, bool doThrow = true);
 			TGen::Engine::Command & getCommand(const std::string & name);
 			
 			TGen::Engine::Command & operator [] (const std::string & name);
@@ -47,4 +47,4 @@ namespace TGen {
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_COMMANDREGISTRY_H
+#endif // !_TGEN_ENGINE_COMMANDREGISTER_H

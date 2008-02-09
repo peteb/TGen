@@ -1,5 +1,5 @@
 /*
- *  variablesregistry.h
+ *  variablesregister.h
  *  TGen Engine
  *
  *  Created by Peter Backman on 8/27/07.
@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_VARIABLESREGISTRY_H
-#define _TGEN_ENGINE_VARIABLESREGISTRY_H
+#ifndef _TGEN_ENGINE_VARIABLESREGISTER_H
+#define _TGEN_ENGINE_VARIABLESREGISTER_H
 
 #include "variable.h"
 
@@ -22,18 +22,18 @@ namespace TGen {
 			AddOverrideValue	= 0x0004,
 		};
 		
-		class VariablesRegistry {
+		class VariablesRegister {
 		public:
-			VariablesRegistry();
-			~VariablesRegistry();
+			VariablesRegister();
+			~VariablesRegister();
 			
 			const TGen::Engine::Variable & getVariable(const std::string & name) const;
 			TGen::Engine::Variable & getVariable(const std::string & name);
-			TGen::Engine::VariablesRegistry & addVariable(const TGen::Engine::Variable & variable, uint flags = 0);
+			TGen::Engine::VariableRegister & addVariable(const TGen::Engine::Variable & variable, uint flags = 0);
 
 			const TGen::Engine::Variable & operator [] (const std::string & name) const;
 			TGen::Engine::Variable & operator [] (const std::string & name);
-			TGen::Engine::VariablesRegistry & operator += (const TGen::Engine::Variable & var);
+			TGen::Engine::VariableRegister & operator += (const TGen::Engine::Variable & var);
 			
 			void getVariables(std::vector<std::string> & vars);
 			void dumpVariables(TGen::Engine::Filesystem & fs);
@@ -46,5 +46,5 @@ namespace TGen {
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_VARIABLESREGISTRY_H
+#endif // !_TGEN_ENGINE_VARIABLESREGISTER_H
 

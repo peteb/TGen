@@ -14,16 +14,16 @@
 
 namespace TGen {
 	namespace Engine {
-		class VariablesRegistry;
+		class VariableRegister;
 		
 		class CommandDumpVars : public TGen::Engine::CommandExecuter {
 		public:	
-			CommandDumpVars(TGen::Engine::VariablesRegistry & variables);
+			CommandDumpVars(TGen::Engine::VariableRegister & variables);
 			
 			void executeCommand(const TGen::Engine::Command & command, ParameterList & parameters, TGen::Engine::TextOutputer & output);
 			
 		private:
-			TGen::Engine::VariablesRegistry & variables;
+			TGen::Engine::VariableRegister & variables;
 		};
 		
 	} // !Engine
