@@ -237,7 +237,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	TGen::MD3::Parser modelParser;
 	TGen::MD3::File * md3file = modelParser.parse(*file);
 	md3file->printInfo(std::cout);
-	TGen::NewModel * newModel = md3file->createModel(vertexCache, 0.001);
+	TGen::NewModel * newModel = md3file->createModel(renderer, 0.001);
 	delete md3file;
 	
 	

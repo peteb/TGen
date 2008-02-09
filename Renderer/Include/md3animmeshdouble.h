@@ -31,12 +31,16 @@ namespace TGen {
 			void updateVertices(int frame, scalar t);
 			void updateDoubleVertices(int frame1, int frame2);
 			void createVertexData(TGen::VertexDataSource & dataSource);
-
+			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
+			
 		private:
 			TGen::VertexData * vb, * ib;
 			uint startIndex, numIndices, numVertices;
 			
 			int doubleLastStart, doubleLastEnd;
+			scalar dt;
+			
+			TGen::ShaderVariable * dtVar;
 		};
 		
 	} // !MD3

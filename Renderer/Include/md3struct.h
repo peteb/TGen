@@ -122,7 +122,7 @@ namespace TGen {
 		
 		typedef TGen::JoinVertexElements3<VertexCoordDecl, NormalDecl, TexCoordDecl>			VertexDecl;
 		typedef TGen::JoinVertexElements2<VertexCoordDecl, NormalDecl >							FrameVertexDecl;	
-		typedef TGen::JoinVertexElements5<VertexCoordDecl, NormalDecl, TexCoordDecl, SecondVertexCoordDecl, SecondNormalDecl> DoubleVertexDecl;
+		typedef TGen::JoinVertexElements5<TexCoordDecl, VertexCoordDecl, NormalDecl, SecondVertexCoordDecl, SecondNormalDecl> DoubleVertexDecl;
 		typedef TGen::Index<unsigned int> IndexDecl;
 
 	} // !MD3	

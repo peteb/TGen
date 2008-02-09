@@ -44,6 +44,7 @@ namespace TGen {
 			void reserveTexcoords(uint num);
 			void addIndex(const TGen::MD3::IndexDecl::Type & index);
 			void addTexcoord(const TGen::MD3::TexCoordDecl::Type & texcoord);
+			
 			TGen::MD3::TexCoordDecl::Type getTexcoord(uint num) const;
 			
 			TGen::MD3::IndexDecl::Type const * getIndexArray() const;

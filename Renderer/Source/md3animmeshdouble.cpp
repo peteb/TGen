@@ -20,6 +20,7 @@ TGen::MD3::AnimatingMeshDouble::AnimatingMeshDouble(const std::string & material
 	, numVertices(0)
 	, doubleLastStart(-1)
 	, doubleLastEnd(-1)
+	, dtVar(NULL)
 {
 	
 }
@@ -60,7 +61,14 @@ void TGen::MD3::AnimatingMeshDouble::createVertexData(TGen::VertexDataSource & d
 }
 
 void TGen::MD3::AnimatingMeshDouble::updateVertices(int frameNum, scalar t) {
+	dt = t;
+	
 	updateDoubleVertices(frameNum, frameNum + 1);
+	
+	if (dtVar)
+		*dtVar = dt; //TGen::Clamp(dt, 0.0f, 1.0f);
+	
+	
 }
 
 void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {
@@ -71,11 +79,11 @@ void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {
 	
 	if (start == doubleLastStart && end == doubleLastEnd)
 		return;
-	
+
 	doubleLastStart = start;
 	doubleLastEnd = end;
 	
-	std::cout << "Update double vertices: " << start << ":" << end << std::endl;
+	//std::cout << "Update double vertices: " << start << ":" << end << std::endl;
 	
 	std::vector<TGen::MD3::DoubleVertexDecl::Type> vertices;		// TODO: cache
 	vertices.reserve(base.getNumVertices());
@@ -108,6 +116,7 @@ void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {
 		vertex.TGen::MD3::SecondNormalDecl::Type::x = frame2.vertices[i].nx;
 		vertex.TGen::MD3::SecondNormalDecl::Type::y = frame2.vertices[i].ny;
 		vertex.TGen::MD3::SecondNormalDecl::Type::z = frame2.vertices[i].nz;
+	
 		
 		vertices.push_back(vertex);
 	}
@@ -115,3 +124,13 @@ void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {
 	vb->bufferData(&vertices[0], sizeof(TGen::MD3::DoubleVertexDecl::Type) * vertices.size(), 0);	
 }
 
+void TGen::MD3::AnimatingMeshDouble::updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {
+	if (name == "nextFrameVert")
+		vb->bindShaderVariable(40, var);
+	else if (name == "nextFrameNormal")
+		vb->bindShaderVariable(41, var);		
+	else if (name == "frameTime") {
+		dtVar = &var;
+	}
+
+}

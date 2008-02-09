@@ -81,7 +81,7 @@ TGen::OpenGL::Renderer::~Renderer() {
 
 void TGen::OpenGL::Renderer::readCaps() {
 	GLint viewportDims[2];
-	glGetIntegerv(GL_MAX_TEXTURE_UNITS, reinterpret_cast<GLint *>(&caps.maxTextureUnits));
+	glGetIntegerv(GL_MAX_TEXTURE_UNITS , reinterpret_cast<GLint *>(&caps.maxTextureUnits));
 	glGetIntegerv(GL_MAX_LIGHTS, reinterpret_cast<GLint *>(&caps.maxActiveLights));
 	glGetIntegerv(GL_MAX_CLIP_PLANES, reinterpret_cast<GLint *>(&caps.maxClipPlanes));
 	glGetIntegerv(GL_MAX_ELEMENTS_INDICES, reinterpret_cast<GLint *>(&caps.maxIndexBufferIndicies));
@@ -940,10 +940,14 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 				break;
 				
 			case TGen::VertexElementAttribute:
-				if (!element.bound)
-					break; //throw TGen::RuntimeException("OpenGL::Renderer::ApplyVertexStructure", "trying to use a vertex structure with unbound vertex attribute unit");
-				
-				//std::cout << "ddddddBOUND UNIT: " << int(element.boundUnit) << std::endl;
+				//std::cout << "ddddddBOUND UNIT: " << int(element.unit) << std::endl;
+
+				if (!element.bound) {
+				//	std::cout << "NOT BOUND" << std::endl;
+					break;
+				}
+					//throw TGen::RuntimeException("OpenGL::Renderer::ApplyVertexStructure", "trying to use a vertex structure with unbound vertex attribute unit");
+				//std::cout << "--> " << element.boundValue << std::endl;
 				
 				glVertexAttribPointer(element.boundValue, element.count, fixedType, (element.normalize ? GL_TRUE : GL_FALSE), stride, reinterpret_cast<GLvoid *>(pos));
 				glEnableVertexAttribArray(element.boundValue);

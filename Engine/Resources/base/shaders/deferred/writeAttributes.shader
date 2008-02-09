@@ -43,12 +43,14 @@
 
 void main() {
 	#ifdef VERT_INTERPOL
-		gl_Position = gl_ModelViewProjectionMatrix * (gl_Vertex + (nextVertex - gl_Vertex) * frameTime)
+		gl_Position = gl_ModelViewProjectionMatrix * vec4(gl_Vertex.xyz + (nextVertex - gl_Vertex.xyz) * frameTime, gl_Vertex.w);
+		gl_FrontColor = gl_Color; // * frameTime;
 	#else
+		gl_FrontColor = gl_Color;
 		gl_Position = ftransform();
 	#endif
 	
-	gl_FrontColor = gl_Color;
+	
 	    
 	#if defined(COLOR_MAP) || defined(NORMAL_MAP) || defined(SPECULAR_MAP)
 		#ifdef TRANSFORM_TEX
@@ -62,7 +64,7 @@ void main() {
 		vec3 normal, bitangent;
 
 		#ifdef VERT_INTERPOL
-			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime);
+			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime); //(vec3(gl_Normal) + (nextNormal - vec3(gl_Normal)) * frameTime);
 		#else
 			normal = gl_NormalMatrix * gl_Normal;
 		#endif
@@ -101,7 +103,7 @@ void main() {
 
 void main() {
 	#ifdef COLOR_MAP
-		gl_FragData[0] = texture2D(colorMap, gl_TexCoord[0].st);
+		gl_FragData[0] = texture2D(colorMap, gl_TexCoord[0].st) * gl_Color;
 	#endif
 	
 	#ifndef NORMAL_MAP

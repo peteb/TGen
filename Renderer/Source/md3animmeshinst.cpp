@@ -19,4 +19,3 @@ TGen::MD3::AnimatingMeshInstance::AnimatingMeshInstance(const std::string & mate
 TGen::MD3::AnimatingMeshInstance::~AnimatingMeshInstance() {
 	
 }
-

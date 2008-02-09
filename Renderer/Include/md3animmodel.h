@@ -28,7 +28,7 @@ namespace TGen {
 			void addMeshData(TGen::MD3::AnimatingMesh * mesh);
 			
 			TGen::ModelJoint getJoint(const std::string & name) const;
-
+			
 			TGen::NewModelInstance * instantiate();
 			bool isPureInstance() const;
 			

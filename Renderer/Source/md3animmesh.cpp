@@ -72,3 +72,4 @@ TGen::MD3::TexCoordDecl::Type TGen::MD3::AnimatingMesh::getTexcoord(uint num) co
 TGen::MD3::IndexDecl::Type const * TGen::MD3::AnimatingMesh::getIndexArray() const {
 	return &indices[0];
 }
+

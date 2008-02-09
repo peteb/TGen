@@ -58,7 +58,8 @@ void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string 
 	if (needSorting()) {
 		for (int i = 0; i < faces.size(); ++i) {
 			scalar distance = (faces[i].getWorldOrigin() - camera.getWorldPosition()).getMagnitude();
-			int lod = 9 - int(((distance - lodNear) / lodFar) * 10.0 - 1.0);			
+			int lod = 9 - int(((distance - lodNear) / lodFar) * 10.0 - 1.0);	
+			lod = TGen::Clamp(lod, 0, 9);
 			int sortLevel = faces[i].getMaterial()->getSpecialization(specialization)->getPassList(lod)->getSortLevel();	// ouch vilken rad
 		
 			if (sortLevel == TGen::MaterialSortOpaque)
@@ -95,6 +96,29 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	scalar lodFar = camera.getLodFar();
 	scalar clipFar = camera.getClipFar();
 	
+	for (int i = 0; i < list.size(); ++i) {
+		const TGen::NewFace * face = &list[i].face;
+		TGen::SceneNode const * node = face->getSceneNode();
+		
+		if (node && lastNode != node) {
+			renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
+			//std::cout << "SET TRANSFORM: " << std::endl << std::string(renderer.getTransform(TGen::TransformWorldView)) << std::endl;
+			
+			lastNode = node;
+		}
+		
+		int lod = 9 - int(((list[i].distanceToCamera - lodNear) / lodFar) * 10.0 - 1.0);
+		lod = TGen::Clamp(lod, 0, 9);
+		
+		//std::cout << lod << std::endl;
+		if (lod > 0) {
+			TGen::Material * globalMaterial = face->getMaterial();
+			globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh());
+		}
+	}
+	
+	return;
+	
 	// OPT: allt det här är förmodligen väldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 	/*	scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
@@ -128,10 +152,12 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			//std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
 			//const TGen::Geometry::SubfaceList * subfaces = face->getGeometry()->getLeaves();			
 
-			TGen::Material * globalMaterial = face->getMaterial();
-
-			globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh());
-			
+		std::cerr << "LOD: " << lod << std::endl;
+		
+			if (lod > 0) {
+				TGen::Material * globalMaterial = face->getMaterial();
+				globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh());
+			}
 			
 			/*if (!subfaces) {	// render the face
 				if (globalMaterial)
