@@ -18,7 +18,9 @@ namespace TGen {
 		
 		class AnimatingMeshInstance : public TGen::NewMeshInstance {
 		public:
-			AnimatingMeshInstance(const std::string & materialName, TGen::MD3::AnimatingMesh const & base);
+			AnimatingMeshInstance(const std::string & materialName, 
+										 const std::string & materialNamePostfix, 
+										 TGen::MD3::AnimatingMesh const & base);
 			virtual ~AnimatingMeshInstance();
 			
 			virtual void updateVertices(int frame, scalar t) abstract;

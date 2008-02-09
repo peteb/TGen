@@ -16,7 +16,7 @@
 namespace TGen {
 	class NewMesh : public TGen::NewMeshInstance {
 	public:
-		NewMesh(const std::string & materialName);
+		NewMesh(const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewMesh();
 		
 		virtual void update() {}

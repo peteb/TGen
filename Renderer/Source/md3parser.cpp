@@ -138,7 +138,7 @@ TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSourc
 }
 
 TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSource & dataSource, scalar scale) const {
-	TGen::MD3::StaticModel * newModel = new TGen::MD3::StaticModel(reinterpret_cast<const char *>(header->name));
+	TGen::MD3::StaticModel * newModel = new TGen::MD3::StaticModel(reinterpret_cast<const char *>(header->name), "", "");
 	
 	DEBUG_PRINT("[md3]: creating surfaces...");
 	
@@ -149,7 +149,7 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 		TGen::MD3::Surface * surface = surfaces[i];
 		
 		if (surface->ident == TGen::MD3::MAGIC) {
-			TGen::MD3::StaticMesh * mesh = new TGen::MD3::StaticMesh(reinterpret_cast<char*>(surface->shaders[0].name));
+			TGen::MD3::StaticMesh * mesh = new TGen::MD3::StaticMesh(reinterpret_cast<char*>(surface->shaders[0].name), "");
 			
 			int numIndices = surface->num_triangles * 3;
 			int numVertices = surface->num_verts;

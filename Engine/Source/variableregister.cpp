@@ -12,7 +12,7 @@
 #include "filesystem.h"
 #include <tgen_core.h>
 
-TGen::Engine::VariableRegister::VariablsRegister() {
+TGen::Engine::VariableRegister::VariableRegister() {
 	
 }
 

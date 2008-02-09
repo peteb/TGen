@@ -22,10 +22,10 @@ namespace TGen {
 			AddOverrideValue	= 0x0004,
 		};
 		
-		class VariablesRegister {
+		class VariableRegister {
 		public:
-			VariablesRegister();
-			~VariablesRegister();
+			VariableRegister();
+			~VariableRegister();
 			
 			const TGen::Engine::Variable & getVariable(const std::string & name) const;
 			TGen::Engine::Variable & getVariable(const std::string & name);

@@ -9,8 +9,8 @@
 
 #include "mesh_new.h"
 
-TGen::NewMesh::NewMesh(const std::string & materialName)
-	: TGen::NewMeshInstance(materialName)
+TGen::NewMesh::NewMesh(const std::string & materialName, const std::string & materialNamePostfix)
+	: TGen::NewMeshInstance(materialName, materialNamePostfix)
 {
 }
 

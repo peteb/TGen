@@ -11,7 +11,7 @@
 #include "app.h"
 #include "filesystem.h"
 #include "file.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 #include "world.h"
 #include "light.h"
 #include "vbrenderable.h"

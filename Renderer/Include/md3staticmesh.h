@@ -24,7 +24,7 @@ namespace TGen {
 		
 		class StaticMesh : public TGen::NewMesh {
 		public:
-			StaticMesh(const std::string & materialName);
+			StaticMesh(const std::string & materialName, const std::string & materialNamePostfix);
 			~StaticMesh();
 			
 			void preRender(TGen::Renderer & renderer) const;

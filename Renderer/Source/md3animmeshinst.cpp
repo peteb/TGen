@@ -9,8 +9,10 @@
 
 #include "md3animmeshinst.h"
 
-TGen::MD3::AnimatingMeshInstance::AnimatingMeshInstance(const std::string & materialName, TGen::MD3::AnimatingMesh const & base)
-	: TGen::NewMeshInstance(materialName)
+TGen::MD3::AnimatingMeshInstance::AnimatingMeshInstance(const std::string & materialName, 
+																		  const std::string & materialNamePostfix, 
+																		  TGen::MD3::AnimatingMesh const & base)
+	: TGen::NewMeshInstance(materialName, materialNamePostfix)
 	, base(base)
 {
 

@@ -1,7 +1,7 @@
 
 #set geom_input triangles
 #set geom_output triangles
-
+#set geom_output_vertices max
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@ void main() {
 void main() {
 	int i;
 	
-	for (i = 0; i < gl_VerticesIn; ++i) {
+	for (i = 0; i < gl_VerticesIn; ++i) {		
 		gl_Position = gl_PositionIn[i];
 		EmitVertex();
 	}
@@ -40,6 +40,7 @@ void main() {
 	for (i = 0; i < gl_VerticesIn; ++i) {
 		gl_Position = gl_PositionIn[i];
 		gl_Position.xy = gl_Position.yx;
+		EmitVertex();
 	}
 
 	EndPrimitive();
@@ -51,7 +52,11 @@ void main() {
 ////////////////////////////////////////////////////////////////////////////////////////////////
 #section fragment
 
+uniform sampler2D colorMap;
+
 void main() {
+	vec4 blabla = texture2D(colorMap, vec2(0.0, 0.0));
+	
 	gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);
 }
 

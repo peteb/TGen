@@ -8,7 +8,7 @@
  */
 
 #include "sdl.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 #include "app.h"
 #include "sdlkeyboard.h"
 #include "sdlmouse.h"
@@ -17,7 +17,7 @@
 #include <SDL/SDL.h>
 #include <tgen_opengl.h>
 
-TGen::Engine::SDL::SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props, TGen::Engine::StandardLogs & logs)
+TGen::Engine::SDL::SDL(TGen::Engine::VariableRegister & variables, const TGen::PropertyTree & props, TGen::Engine::StandardLogs & logs)
 	: variables(variables)
 	, renderer(NULL)
 	, logs(logs)

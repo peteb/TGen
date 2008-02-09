@@ -18,7 +18,7 @@ namespace TGen {
 	
 	class NewModel : public TGen::NewModelInstance {
 	public:
-		NewModel(const std::string & name);
+		NewModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewModel();
 		
 		virtual TGen::NewModelInstance * instantiate() abstract;

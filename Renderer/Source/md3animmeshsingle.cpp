@@ -12,7 +12,7 @@
 #include <tgen_graphics.h>
 
 TGen::MD3::AnimatingMeshSingle::AnimatingMeshSingle(const std::string & materialName, TGen::MD3::AnimatingMesh const & base) 
-	: TGen::MD3::AnimatingMeshInstance(materialName, base)
+	: TGen::MD3::AnimatingMeshInstance(materialName, "", base)
 	, ib(NULL)
 	, vb(NULL)
 	, startIndex(0)

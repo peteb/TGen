@@ -9,8 +9,8 @@
 
 #include "model_new.h"
 
-TGen::NewModel::NewModel(const std::string & name)
-	: TGen::NewModelInstance(name)
+TGen::NewModel::NewModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix)
+	: TGen::NewModelInstance(name, materialName, materialNamePostfix)
 {
 	
 }

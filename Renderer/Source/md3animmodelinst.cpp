@@ -12,8 +12,10 @@
 #include "md3animmeshinst.h"
 #include "renderlist.h"
 
-TGen::MD3::AnimatingModelInstance::AnimatingModelInstance(const std::string & name, TGen::MD3::AnimatingModel & base) 
-	: TGen::NewModelInstance(name)
+TGen::MD3::AnimatingModelInstance::AnimatingModelInstance(const std::string & name, 
+																			 const std::string & materialNamePostfix, 
+																			 TGen::MD3::AnimatingModel & base) 
+	: TGen::NewModelInstance(name, "", materialNamePostfix)
 	, base(base)
 {
 	

@@ -1,6 +1,6 @@
 /*
  *  variable.cpp
- *  variableregistry
+ *  variableregister
  *
  *  Created by Peter Backman on 8/9/07.
  *  Copyright 2007 Peter Backman. All rights reserved.

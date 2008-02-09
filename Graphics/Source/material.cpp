@@ -83,9 +83,13 @@ TGen::Technique * TGen::Material::getSpecialization(const std::string & name) {
 	int specialization = specializations[name];
 	
 	TechniqueListMap::iterator iter = this->techniques.find(specialization);	// TODO: man ska kunna ange specnum direkt också
-	if (iter == this->techniques.end())
-		throw TGen::RuntimeException("Material::getSpecialization", "material doesn't contain specialization \"" + name + "\"");
-	
+	if (iter == this->techniques.end()) {
+	//	std::cout << "warning: material doesn't contain specialization \"" << name << "\" using 'default'" << std::endl;
+		iter = this->techniques.find(specializations["default"]);
+		
+		if (iter == this->techniques.end())
+			throw TGen::RuntimeException("Material::getSpecialization", "material doesn't contain specialization \"" + name + "\" and no 'default'!");
+	}
 	techniques = iter->second;
 	
 	TGen::Technique * technique = techniques->getTechnique(minimumTechnique);

@@ -18,7 +18,7 @@ namespace TGen {
 	
 	class ModelInstanceProxy : public TGen::NewModelInstance {
 	public:
-		ModelInstanceProxy(const std::string & name, const std::string & materialName = "");
+		ModelInstanceProxy(const std::string & name, const std::string & materialName = "", const std::string & materialNamePostfix = "");
 		~ModelInstanceProxy();
 		
 		TGen::NewModelInstance * operator *();

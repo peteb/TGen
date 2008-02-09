@@ -43,7 +43,7 @@
 
 void main() {
 	#ifdef VERT_INTERPOL
-		gl_Position = gl_ModelViewProjectionMatrix * vec4(gl_Vertex.xyz + (nextVertex - gl_Vertex.xyz) * frameTime, gl_Vertex.w);
+		gl_Position = gl_ModelViewProjectionMatrix * vec4(mix(gl_Vertex.xyz, nextVertex, frameTime), 1.0); //vec4(gl_Vertex.xyz + (nextVertex - gl_Vertex.xyz) * frameTime, gl_Vertex.w);
 		gl_FrontColor = gl_Color; // * frameTime;
 	#else
 		gl_FrontColor = gl_Color;

@@ -13,8 +13,8 @@
 #include "renderlist.h"
 #include "model_new.h"
 
-TGen::MD3::StaticModel::StaticModel(const std::string & name)
-	: TGen::NewModel(name)
+TGen::MD3::StaticModel::StaticModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix)
+	: TGen::NewModel(name, materialName, materialNamePostfix)
 {
 		
 }

@@ -20,7 +20,7 @@ namespace TGen {
 	
 	class NewMeshInstance : public TGen::Renderable, public TGen::ShaderVariableUpdater {
 	public:
-		NewMeshInstance(const std::string & materialName);
+		NewMeshInstance(const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewMeshInstance();
 		
 		virtual void update() {}
@@ -29,11 +29,14 @@ namespace TGen {
 		void unlinkMaterial();
 		std::string getMaterialName() const;
 		virtual void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {}
-		
+	
 		TGen::Vector3 getMax() const;
 		TGen::Vector3 getMin() const;
 		TGen::Vector3 getOrigin() const;
 		TGen::Material * getMaterial() const;
+		
+	protected:
+		std::string materialNamePostfix;		
 		
 	private:
 		TGen::Material * material;

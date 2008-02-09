@@ -46,7 +46,7 @@ TGen::Engine::Command & TGen::Engine::CommandRegister::getCommand(const std::str
 	return *iter->second;
 }
 
-TGen::Engine::Command & TGen::Engine::CommandRegistry::operator [] (const std::string & name) {
+TGen::Engine::Command & TGen::Engine::CommandRegister::operator [] (const std::string & name) {
 	return getCommand(name);
 }
 

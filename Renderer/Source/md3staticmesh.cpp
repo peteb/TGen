@@ -12,8 +12,8 @@
 #include "md3staticmesh.h"
 #include <tgen_graphics.h>
 
-TGen::MD3::StaticMesh::StaticMesh(const std::string & materialName) 
-	: TGen::NewMesh(materialName)
+TGen::MD3::StaticMesh::StaticMesh(const std::string & materialName, const std::string & materialNamePostfix) 
+	: TGen::NewMesh(materialName, materialNamePostfix)
 	, vb(NULL)
 	, ib(NULL)
 	, startIndex(0)

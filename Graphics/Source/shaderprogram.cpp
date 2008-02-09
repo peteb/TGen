@@ -55,14 +55,14 @@ void TGen::ShaderProgram::parseShaders(TGen::Renderer & renderer, char * code) {
 		}
 		else if (set) {
 			char * varNameAt = set + strlen("#set ");
-			char * varValueAt = strchr(varNameAt, ' ');
+			char * varValueAt = strchr(varNameAt + 1, ' ');
 			
 			if (varValueAt && varNameAt) {
-				std::string varValue = varValueAt;
+				std::string varValue = varValueAt + 1;
 				std::string varName = varNameAt;
 				varName = varName.substr(0, varValueAt - varNameAt);
 				
-				std::cout << "SETTING ASDDDDDDD '" << varValue << "' TO '" << varValue << "'" << std::endl;
+				std::cout << "SETTING ASDDDDDDD '" << varName << "' TO '" << varValue << "'" << std::endl;
 				properties[varName] = varValue;
 			}
 			else {

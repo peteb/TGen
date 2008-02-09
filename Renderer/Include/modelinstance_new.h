@@ -25,7 +25,7 @@ namespace TGen {
 	
 	class NewModelInstance {
 	public:
-		NewModelInstance(const std::string & name, const std::string & materialName = "");
+		NewModelInstance(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewModelInstance();
 
 		virtual void update();
@@ -42,12 +42,14 @@ namespace TGen {
 		
 		TGen::Material * getOverridingMaterial();
 		std::string getOverridingMaterialName() const;
+		std::string getMaterialNamePostfix() const;
 		
 		std::string getName() const;
 		
 	protected:
 		std::string name;
 		std::string materialName;
+		std::string materialNamePostfix;
 		TGen::Material * material;
 	};
 	

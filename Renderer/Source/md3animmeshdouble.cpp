@@ -12,7 +12,7 @@
 #include <tgen_graphics.h>
 
 TGen::MD3::AnimatingMeshDouble::AnimatingMeshDouble(const std::string & materialName, TGen::MD3::AnimatingMesh const & base) 
-	: TGen::MD3::AnimatingMeshInstance(materialName, base)
+	: TGen::MD3::AnimatingMeshInstance(materialName, "gpuinterpol", base)
 	, ib(NULL)
 	, vb(NULL)
 	, startIndex(0)
@@ -63,12 +63,10 @@ void TGen::MD3::AnimatingMeshDouble::createVertexData(TGen::VertexDataSource & d
 void TGen::MD3::AnimatingMeshDouble::updateVertices(int frameNum, scalar t) {
 	dt = t;
 	
-	updateDoubleVertices(frameNum, frameNum + 1);
-	
 	if (dtVar)
 		*dtVar = dt; //TGen::Clamp(dt, 0.0f, 1.0f);
 	
-	
+	updateDoubleVertices(frameNum, frameNum + 1);
 }
 
 void TGen::MD3::AnimatingMeshDouble::updateDoubleVertices(int start, int end) {

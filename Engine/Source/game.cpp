@@ -9,7 +9,7 @@
 
 #include "game.h"
 #include "app.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 #include <iostream>
 #include "sdl.h"
 #include "world.h"

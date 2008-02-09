@@ -12,10 +12,13 @@
 #include "renderlist.h"
 #include "materialsource.h"
 
-TGen::NewModelInstance::NewModelInstance(const std::string & name, const std::string & materialName)
+TGen::NewModelInstance::NewModelInstance(const std::string & name, 
+													  const std::string & materialName, 
+													  const std::string & materialNamePostfix)
 	: name(name)
 	, materialName(materialName)
 	, material(NULL)
+	, materialNamePostfix(materialNamePostfix)
 {
 }
 
@@ -37,7 +40,7 @@ TGen::ModelJoint TGen::NewModelInstance::getJoint(const std::string & name) cons
 
 void TGen::NewModelInstance::linkMaterial(TGen::MaterialSource & source) {
 	if (!materialName.empty())
-		material = source.getMaterial(materialName);
+		material = source.getMaterial(getOverridingMaterialName());
 	else
 		material = NULL;
 	
@@ -54,7 +57,14 @@ TGen::Material * TGen::NewModelInstance::getOverridingMaterial() {
 }
 
 std::string TGen::NewModelInstance::getOverridingMaterialName() const {
+	if (!materialNamePostfix.empty())
+		return materialName + "_" + materialNamePostfix;
+	
 	return materialName;
+}
+
+std::string TGen::NewModelInstance::getMaterialNamePostfix() const {
+	return materialNamePostfix;
 }
 
 void TGen::NewModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node) {

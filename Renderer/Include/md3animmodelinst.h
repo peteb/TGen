@@ -19,7 +19,7 @@ namespace TGen {
 		
 		class AnimatingModelInstance : public TGen::NewModelInstance {
 		public:
-			AnimatingModelInstance(const std::string & name, TGen::MD3::AnimatingModel & base);
+			AnimatingModelInstance(const std::string & name, const std::string & materialNamePostfix, TGen::MD3::AnimatingModel & base);
 			~AnimatingModelInstance();
 			
 			bool isPureInstance() const;

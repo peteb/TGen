@@ -17,7 +17,7 @@ namespace TGen {
 	class Renderer;
 
 	namespace Engine {
-		class VariablesRegistry;
+		class VariableRegister;
 		class App;
 		class StandardLogs;
 		class SDLKeyboard;
@@ -26,7 +26,7 @@ namespace TGen {
 		
 		class SDL : public TGen::Engine::Environment {
 		public:
-			SDL(TGen::Engine::VariablesRegistry & variables, const TGen::PropertyTree & props, TGen::Engine::StandardLogs & logs);
+			SDL(TGen::Engine::VariableRegister & variables, const TGen::PropertyTree & props, TGen::Engine::StandardLogs & logs);
 			~SDL();
 	
 			int run(TGen::Engine::App * app);
@@ -36,7 +36,7 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::StandardLogs & logs;
-			TGen::Engine::VariablesRegistry & variables;			
+			TGen::Engine::VariableRegister & variables;			
 			TGen::Engine::App * app;
 			TGen::Renderer * renderer;
 			

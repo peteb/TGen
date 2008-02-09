@@ -9,7 +9,7 @@
 
 #include "gamestatevars.h"
 #include "app.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 #include "game.h"
 
 TGen::Engine::GameStateVars::GameStateVars(TGen::Engine::App & app, TGen::Engine::GameState * state) 

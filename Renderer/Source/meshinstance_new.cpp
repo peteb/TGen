@@ -10,9 +10,10 @@
 #include "meshinstance_new.h"
 #include "materialsource.h"
 
-TGen::NewMeshInstance::NewMeshInstance(const std::string & materialName)
+TGen::NewMeshInstance::NewMeshInstance(const std::string & materialName, const std::string & materialNamePostfix)
 	: materialName(materialName)
 	, material(NULL)
+	, materialNamePostfix(materialNamePostfix)
 {
 	
 }
@@ -23,7 +24,10 @@ TGen::NewMeshInstance::~NewMeshInstance() {
 
 void TGen::NewMeshInstance::linkMaterial(TGen::MaterialSource & source) {
 	//if (!materialName.empty())
+	if (materialNamePostfix.empty())
 		material = source.getMaterial(materialName);
+	else
+		material = source.getMaterial(materialName + "_" + materialNamePostfix);		
 }
 
 void TGen::NewMeshInstance::unlinkMaterial() {
@@ -53,3 +57,5 @@ TGen::Material * TGen::NewMeshInstance::getMaterial() const {
 std::string TGen::NewMeshInstance::getMaterialName() const {
 	return materialName;
 }
+
+

@@ -19,6 +19,11 @@ namespace TGen {
 	namespace MD3 {
 		class AnimatingMesh;
 		
+		enum InterpolatingMode {
+			CPU,
+			GPU,
+		};
+		
 		class AnimatingModel : public TGen::NewModel {
 		public:
 			AnimatingModel(const std::string & name, TGen::VertexDataSource & dataSource);
@@ -26,6 +31,7 @@ namespace TGen {
 			
 			void addJoint(const std::string & name, const TGen::ModelJoint & joint);
 			void addMeshData(TGen::MD3::AnimatingMesh * mesh);
+			void setInterpolatingMode(TGen::MD3::InterpolatingMode mode);
 			
 			TGen::ModelJoint getJoint(const std::string & name) const;
 			
@@ -40,6 +46,8 @@ namespace TGen {
 			MeshList meshes;	
 			
 			TGen::VertexDataSource & dataSource;
+			
+			TGen::MD3::InterpolatingMode interpolatingMode;
 		};
 	} // !MD3
 } // !TGen

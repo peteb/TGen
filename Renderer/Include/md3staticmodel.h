@@ -20,7 +20,7 @@ namespace TGen {
 		
 		class StaticModel : public TGen::NewModel {
 		public:	
-			StaticModel(const std::string & name);		
+			StaticModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);		
 			~StaticModel();
 
 			TGen::Vector3 getMax() const;
