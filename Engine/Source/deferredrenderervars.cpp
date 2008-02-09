@@ -9,7 +9,7 @@
 
 #include "deferredrenderervars.h"
 #include "app.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 
 TGen::Engine::DeferredRendererVars::DeferredRendererVars(TGen::Engine::App & app) 
 	: app(app)

@@ -21,8 +21,8 @@
 #include "log.h"
 #include "logtarget.h"
 #include "tgen_engine.h"
-#include "variablesregistry.h"
-#include "commandregistry.h"
+#include "variableregister.h"
+#include "commandregister.h"
 #include "sdl.h"
 #include "filesystem.h"
 #include "file.h"
@@ -101,8 +101,8 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	logs.info << TGen::separator("initializing");
 	
 	// setup variables, should probably be done elsewhere...
-	TGen::Engine::VariablesRegistry variables;
-	TGen::Engine::CommandRegistry commands;
+	TGen::Engine::VariableRegister variables;
+	TGen::Engine::CommandRegister commands;
 	
 	variables += TGen::Engine::Variable("env_width", "512", "512", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
 	variables += TGen::Engine::Variable("env_height", "512", "512", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);

@@ -8,10 +8,10 @@
  */
 
 #include "cmddumpvars.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 #include "log.h"
 
-TGen::Engine::CommandDumpVars::CommandDumpVars(TGen::Engine::VariablesRegistry & variables) 
+TGen::Engine::CommandDumpVars::CommandDumpVars(TGen::Engine::VariableRegister & variables) 
 	: variables(variables)
 {
 }

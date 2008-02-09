@@ -1,5 +1,5 @@
 /*
- *  commandregistry.cpp
+ *  commandregister.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 10/11/07.
@@ -7,28 +7,28 @@
  *
  */
 
-#include "commandregistry.h"
+#include "commandregister.h"
 #include "log.h"
 #include "filesystem.h"
 #include "file.h"
 
-TGen::Engine::CommandRegistry::CommandRegistry() {
+TGen::Engine::CommandRegister::CommandRegister() {
 	
 }
 
-TGen::Engine::CommandRegistry::~CommandRegistry() {
+TGen::Engine::CommandRegister::~CommandRegister() {
 	for (CommandMap::iterator iter = commands.begin(); iter != commands.end(); ++iter) {
 		delete iter->second;
 	}
 }
 
 
-TGen::Engine::CommandRegistry & TGen::Engine::CommandRegistry::addCommand(TGen::Engine::Command * command, bool doThrow) {
+TGen::Engine::CommandRegister & TGen::Engine::CommandRegister::addCommand(TGen::Engine::Command * command, bool doThrow) {
 	CommandMap::const_iterator iter = commands.find(command->getName());
 	
 	if (iter != commands.end()) {
 		if (doThrow)
-			throw TGen::RuntimeException("CommandRegistry::addCommand", "command '" + command->getName() + "' already exists");
+			throw TGen::RuntimeException("CommandRegister::addCommand", "command '" + command->getName() + "' already exists");
 		else
 			return *this;		
 	}
@@ -38,10 +38,10 @@ TGen::Engine::CommandRegistry & TGen::Engine::CommandRegistry::addCommand(TGen::
 	return *this;
 }
 
-TGen::Engine::Command & TGen::Engine::CommandRegistry::getCommand(const std::string & name) {
+TGen::Engine::Command & TGen::Engine::CommandRegister::getCommand(const std::string & name) {
 	CommandMap::iterator iter = commands.find(name);
 	if (iter == commands.end())
-		throw TGen::RuntimeException("CommandRegistry::getCommand", "command '" + name + "' does not exist");
+		throw TGen::RuntimeException("CommandRegister::getCommand", "command '" + name + "' does not exist");
 	
 	return *iter->second;
 }
@@ -50,12 +50,12 @@ TGen::Engine::Command & TGen::Engine::CommandRegistry::operator [] (const std::s
 	return getCommand(name);
 }
 
-void TGen::Engine::CommandRegistry::executeFile(const std::string & filename, TGen::Engine::Filesystem & fs, TGen::Engine::TextOutputer & output) {
+void TGen::Engine::CommandRegister::executeFile(const std::string & filename, TGen::Engine::Filesystem & fs, TGen::Engine::TextOutputer & output) {
 	output.outputText("executing " + filename + "...", 0);
 	
 	TGen::Engine::File * file = fs.openRead(filename);
 	if (!file)
-		throw TGen::RuntimeException("CommandRegistry::executeFile", "couldn't open file " + filename);
+		throw TGen::RuntimeException("CommandRegister::executeFile", "couldn't open file " + filename);
 	
 	std::string text = file->readAll();
 	delete file;
@@ -63,7 +63,7 @@ void TGen::Engine::CommandRegistry::executeFile(const std::string & filename, TG
 	execute(text, output);
 }
 
-void TGen::Engine::CommandRegistry::execute(const std::string & text, TGen::Engine::TextOutputer & output) {
+void TGen::Engine::CommandRegister::execute(const std::string & text, TGen::Engine::TextOutputer & output) {
 	//output.outputText("EXEC: " + text, 0);
 	
 	TGen::Engine::CommandTokenizer tokenizer;

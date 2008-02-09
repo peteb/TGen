@@ -8,7 +8,7 @@
  */
 
 #include "tgen_engine.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 
 bool TGen::isEngineDebug() {
 	#ifdef _DEBUG

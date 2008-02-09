@@ -9,12 +9,12 @@
 
 #include "cmdset.h"
 #include "log.h"
-#include "variablesregistry.h"
+#include "variableregister.h"
 
 // parameters: variable, value
 // parameters: variable
 
-TGen::Engine::CommandSet::CommandSet(TGen::Engine::VariablesRegistry & variables) 
+TGen::Engine::CommandSet::CommandSet(TGen::Engine::VariableRegister & variables) 
 	: variables(variables)
 {	
 }
