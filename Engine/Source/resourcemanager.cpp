@@ -203,13 +203,13 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		// TODO: checka filformat för parser
 		TGen::Engine::File * file = filesystem.openRead(name);
 		
-		if (name.substr(name.size() - strlen(".md5mesh")) == ".md5mesh") {
+		/*if (name.substr(name.size() - strlen(".md5mesh")) == ".md5mesh") {
 			TGen::MD5::Parser modelParser;
 			TGen::MD5::File * md5File = modelParser.parse(*file);
 			
 			newMesh = md5File->createMesh(vertexCache, "testmd5", 0.1);
 		}
-		else {
+		else {*/
 			TGen::MD3::Parser modelParser;
 			TGen::MD3::File * md3File = modelParser.parse(*file);
 		
@@ -217,7 +217,7 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		
 			//newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
 			delete md3File;		
-		}
+		//}
 
 		delete file;
 	}
@@ -238,7 +238,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	if (name.find(".md3") != std::string::npos) {
 		TGen::MD3::Parser modelParser;
 		TGen::MD3::File * md3file = modelParser.parse(*file);
-		md3file->printInfo(std::cout);
+		//md3file->printInfo(std::cout);
 		newModel = md3file->createModel(renderer, 0.001);
 		delete md3file;
 	}
@@ -249,8 +249,12 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 		for (int i = 0; i < files.size(); ++i)
 			std::cout << files[i] << std::endl;
 		
-		exit(1);
 		
+		TGen::MD5::ModelParser modelParser;
+		TGen::MD5::ModelFile * md5mesh = modelParser.parse(*file);
+		//md5mesh->printInfo(std::cout);
+		newModel = md5mesh->createModel(renderer, TGen::getFile(name), 0.001);
+		delete md5mesh;		
 	}
 	else {
 		throw TGen::RuntimeException("ResourceManager::instantiateModel", "file extension is unfamiliar: '" + name + "'");

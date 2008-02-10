@@ -37,3 +37,7 @@ std::string TGen::toUpper(const std::string & from) {
 std::string TGen::getFolder(const std::string & path) {
 	return path.substr(0, path.rfind("/"));
 }
+
+std::string TGen::getFile(const std::string & path) {
+	return path.substr(path.rfind("/") + 1);
+}

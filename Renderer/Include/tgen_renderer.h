@@ -37,6 +37,7 @@
 #include "md5modelparser.h"
 #include "md5mesh.h"
 #include "md5modelfile.h"
+#include "md5model.h"
 #include "md5tokenizer.h"
 #include "md5mesh.h"
 
