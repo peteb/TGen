@@ -57,11 +57,11 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 		
 		switch (interpolatingMode) {
 			case TGen::MD3::CPU:
-				newMeshInstance = new TGen::MD3::AnimatingMeshSingle(meshes[i]->getMaterialName(), mesh);				
+				newMeshInstance = new TGen::MD3::AnimatingMeshSingle(mesh.getMaterialName(), mesh);				
 				break;
 				
 			case TGen::MD3::GPU:
-				newMeshInstance = new TGen::MD3::AnimatingMeshDouble(meshes[i]->getMaterialName(), mesh);				
+				newMeshInstance = new TGen::MD3::AnimatingMeshDouble(mesh.getMaterialName(), mesh);				
 				break;
 				
 			default:

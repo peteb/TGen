@@ -16,7 +16,7 @@ namespace TGen {
 	std::string toLower(const std::string & from);
 	std::string toUpper(const std::string & from);
 	
-	
+	std::string getFolder(const std::string & path);
 	
 } // !TGen
 

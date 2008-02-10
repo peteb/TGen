@@ -1,5 +1,5 @@
 /*
- *  md5parser.cpp
+ *  md5modelparser.cpp
  *  TGen Renderer
  *
  *  Created by Peter Backman on 1/19/08.
@@ -7,19 +7,19 @@
  *
  */
 
-#include "md5parser.h"
-#include "md5file.h"
+#include "md5modelparser.h"
+#include "md5modelfile.h"
 #include "md5tokenizer.h"
 
-TGen::MD5::Parser::Parser() {
+TGen::MD5::ModelParser::ModelParser() {
 	
 }
 
-TGen::MD5::Parser::~Parser() {
+TGen::MD5::ModelParser::~ModelParser() {
 	
 }
 
-TGen::MD5::File * TGen::MD5::Parser::parse(TGen::InputStream & source) {
+TGen::MD5::ModelFile * TGen::MD5::ModelParser::parse(TGen::InputStream & source) {
 	char * data = new char[source.getSize()];
 	source.read(data, source.getSize());
 	
@@ -34,11 +34,11 @@ TGen::MD5::File * TGen::MD5::Parser::parse(TGen::InputStream & source) {
 	return parseGlobalBlock();
 }
 
-TGen::MD5::File * TGen::MD5::Parser::parseGlobalBlock() {
-	std::auto_ptr<TGen::MD5::File> file(new TGen::MD5::File);
+TGen::MD5::ModelFile * TGen::MD5::ModelParser::parseGlobalBlock() {
+	std::auto_ptr<TGen::MD5::ModelFile> file(new TGen::MD5::ModelFile);
 	
 	if (currentToken == endIter)
-		throw TGen::RuntimeException("MD5::Parser::parseGlobalBlock", "no tokens!");
+		throw TGen::RuntimeException("MD5::ModelParser::parseGlobalBlock", "no tokens!");
 		
 	while (currentToken != endIter) {
 		switch (currentToken->first) {
@@ -60,7 +60,7 @@ TGen::MD5::File * TGen::MD5::Parser::parseGlobalBlock() {
 			case TGen::MD5::TokenMesh:
 				stepAndCheck();
 				if (currentToken->first != TGen::MD5::TokenBlockStart)
-					throw TGen::RuntimeException("MD5::Parser::parseGlobalBlock", "mesh: no block start");
+					throw TGen::RuntimeException("MD5::ModelParser::parseGlobalBlock", "mesh: no block start");
 				
 				stepAndCheck();
 				file->addMesh(parseMeshBlock());
@@ -69,7 +69,7 @@ TGen::MD5::File * TGen::MD5::Parser::parseGlobalBlock() {
 			case TGen::MD5::TokenJoints:
 				stepAndCheck();
 				if (currentToken->first != TGen::MD5::TokenBlockStart)
-					throw TGen::RuntimeException("MD5::Parser::parseGlobalBlock", "joints: no block start");
+					throw TGen::RuntimeException("MD5::ModelParser::parseGlobalBlock", "joints: no block start");
 				
 				stepAndCheck();
 				parseJointsBlock(*file);
@@ -85,7 +85,7 @@ TGen::MD5::File * TGen::MD5::Parser::parseGlobalBlock() {
 	return file.release();
 }
 
-TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
+TGen::MD5::FileMesh * TGen::MD5::ModelParser::parseMeshBlock() {
 	std::auto_ptr<TGen::MD5::FileMesh> mesh(new TGen::MD5::FileMesh);
 	
 	std::vector<TGen::MD5::FileVertex> vertices;
@@ -124,7 +124,7 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 			
 			stepAndCheck();
 			if (currentToken->first != TGen::MD5::TokenArrayStart)
-				throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "expecting array start");
+				throw TGen::RuntimeException("MD5::ModelParser::parseMeshBlock", "expecting array start");
 			
 			stepAndCheck();
 			vertices[vertNum].s = TGen::lexical_cast<float>(currentToken->second);
@@ -134,7 +134,7 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 			
 			stepAndCheck();
 			if (currentToken->first != TGen::MD5::TokenArrayEnd)
-				throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "expecting array end");
+				throw TGen::RuntimeException("MD5::ModelParser::parseMeshBlock", "expecting array end");
 			
 			stepAndCheck();
 			vertices[vertNum].startWeight = TGen::lexical_cast<int>(currentToken->second);
@@ -170,7 +170,7 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 			
 			stepAndCheck();
 			if (currentToken->first != TGen::MD5::TokenArrayStart)
-				throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "expecting array start");
+				throw TGen::RuntimeException("MD5::ModelParser::parseMeshBlock", "expecting array start");
 			
 			stepAndCheck();
 			weights[weightNum].position.x = TGen::lexical_cast<float>(currentToken->second);
@@ -183,7 +183,7 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 			
 			stepAndCheck();
 			if (currentToken->first != TGen::MD5::TokenArrayEnd)
-				throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "expecting array end");
+				throw TGen::RuntimeException("MD5::ModelParser::parseMeshBlock", "expecting array end");
 		}
 		
 		else if (currentToken->first == TGen::MD5::TokenBlockEnd) {
@@ -198,10 +198,10 @@ TGen::MD5::FileMesh * TGen::MD5::Parser::parseMeshBlock() {
 			step();
 	}
 	
-	throw TGen::RuntimeException("MD5::Parser::parseMeshBlock", "unexpected end");
+	throw TGen::RuntimeException("MD5::ModelParser::parseMeshBlock", "unexpected end");
 }
 
-void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
+void TGen::MD5::ModelParser::parseJointsBlock(TGen::MD5::ModelFile & file) {
 	while (currentToken != endIter) {
 		std::string jointName = currentToken->second;
 		stepAndCheck();
@@ -210,7 +210,7 @@ void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
 		stepAndCheck();
 		
 		if (currentToken->first != TGen::MD5::TokenArrayStart)
-			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array start");
+			throw TGen::RuntimeException("MD5::ModelParser::parseJointsBlock", "expecting array start");
 		
 		stepAndCheck();
 		
@@ -224,12 +224,12 @@ void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
 		stepAndCheck();
 		
 		if (currentToken->first != TGen::MD5::TokenArrayEnd)
-			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array end");
+			throw TGen::RuntimeException("MD5::ModelParser::parseJointsBlock", "expecting array end");
 		
 		stepAndCheck();
 		
 		if (currentToken->first != TGen::MD5::TokenArrayStart)
-			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array start");
+			throw TGen::RuntimeException("MD5::ModelParser::parseJointsBlock", "expecting array start");
 		
 		stepAndCheck();
 		
@@ -243,7 +243,7 @@ void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
 		stepAndCheck();
 		
 		if (currentToken->first != TGen::MD5::TokenArrayEnd)
-			throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "expecting array end");
+			throw TGen::RuntimeException("MD5::ModelParser::parseJointsBlock", "expecting array end");
 		
 		TGen::MD5::FileJoint * joint = new TGen::MD5::FileJoint;
 		joint->name = jointName;
@@ -260,19 +260,19 @@ void TGen::MD5::Parser::parseJointsBlock(TGen::MD5::File & file) {
 			return;
 	}
 	
-	throw TGen::RuntimeException("MD5::Parser::parseJointsBlock", "unexpected end");	
+	throw TGen::RuntimeException("MD5::ModelParser::parseJointsBlock", "unexpected end");	
 }
 
-void TGen::MD5::Parser::step() {
+void TGen::MD5::ModelParser::step() {
 	tokens.stepToken(currentToken, endIter);
 }
 
-void TGen::MD5::Parser::checkEOS() {
+void TGen::MD5::ModelParser::checkEOS() {
 	if (currentToken == endIter)
-		throw TGen::RuntimeException("MapLoader::checkEOS", "unexpected end");
+		throw TGen::RuntimeException("MD5::ModelParser::checkEOS", "unexpected end");
 }
 
-void TGen::MD5::Parser::stepAndCheck() {
+void TGen::MD5::ModelParser::stepAndCheck() {
 	step();
 	checkEOS();
 }

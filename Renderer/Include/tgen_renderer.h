@@ -34,11 +34,11 @@
 #include "md3staticmodel.h"
 #include "md3animmodel.h"
 
-#include "md5parser.h"
+#include "md5modelparser.h"
 #include "md5mesh.h"
-#include "md5file.h"
+#include "md5modelfile.h"
 #include "md5tokenizer.h"
-#include "md5submesh.h"
+#include "md5mesh.h"
 
 #include "model_new.h"
 #include "modelinstance_new.h"

@@ -1,14 +1,15 @@
 /*
- *  md5file.h
+ *  md5modelfile.h
  *  TGen Renderer
  *
  *  Created by Peter Backman on 1/19/08.
+ *  Renamed by Peter Backman on 2/10/08.
  *  Copyright 2008 Peter Backman. All rights reserved.
  *
  */
 
-#ifndef _TGEN_RENDERER_MD5FILE_H
-#define _TGEN_RENDERER_MD5FILE_H
+#ifndef _TGEN_RENDERER_MD5MODELFILE_H
+#define _TGEN_RENDERER_MD5MODELFILE_H
 
 #include <tgen_core.h>
 #include <tgen_math.h>
@@ -19,9 +20,10 @@ namespace TGen {
 	class VertexDataSource;
 	
 	namespace MD5 {
-		class Parser;
+		class ModelParser;
 		class FileMesh;
 		class Mesh;
+		class Model;
 		
 		struct FileVertex {
 			float s, t;
@@ -45,16 +47,16 @@ namespace TGen {
 			TGen::Quaternion4 orientation;
 		};
 		
-		class File {
-			File();
+		class ModelFile {
+			ModelFile();
 
 		public:
-			~File();
+			~ModelFile();
 			
 			void printInfo(std::ostream & stream) const;
-			TGen::MD5::Mesh * createMesh(TGen::VertexDataSource & dataSource, const std::string & name, scalar scale) const;
+			TGen::MD5::Model * createModel(TGen::VertexDataSource & dataSource, const std::string & name, scalar scale) const;
 			
-			friend class TGen::MD5::Parser;
+			friend class TGen::MD5::ModelParser;
 			
 		private:
 			void setVersion(int version);
@@ -79,8 +81,9 @@ namespace TGen {
 			const std::vector<TGen::MD5::FileTriangle> & getTriangles() const;
 			const std::vector<TGen::MD5::FileWeight> & getWeights() const;
 			
+			std::string getMaterialName() const;
 			
-			friend class TGen::MD5::Parser;
+			friend class TGen::MD5::ModelParser;
 			
 		private:
 			void setMaterial(const std::string & material);
@@ -102,4 +105,4 @@ namespace TGen {
 	} // !MD5
 } // !TGen
 
-#endif // !_TGEN_RENDERER_MD5FILE_H
+#endif // !_TGEN_RENDERER_MD5MODELFILE_H

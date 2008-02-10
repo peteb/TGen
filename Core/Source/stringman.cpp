@@ -33,3 +33,7 @@ std::string TGen::toUpper(const std::string & from) {
 	return ret;	
 }
 
+// Input: /blaha/hehe/foo/loek.md3   = /blaha/hehe/foo/
+std::string TGen::getFolder(const std::string & path) {
+	return path.substr(0, path.rfind("/"));
+}

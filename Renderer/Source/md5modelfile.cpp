@@ -7,11 +7,11 @@
  *
  */
 
-#include "md5file.h"
+#include "md5modelfile.h"
+#include "md5model.h"
 #include "md5mesh.h"
-#include "md5submesh.h"
 
-TGen::MD5::File::File() 
+TGen::MD5::ModelFile::ModelFile() 
 	: version(0)
 	, numMeshes(0)
 	, numJoints(0)
@@ -19,11 +19,11 @@ TGen::MD5::File::File()
 	
 }
 
-TGen::MD5::File::~File() {
+TGen::MD5::ModelFile::~ModelFile() {
 	
 }
 
-void TGen::MD5::File::printInfo(std::ostream & stream) const {
+void TGen::MD5::ModelFile::printInfo(std::ostream & stream) const {
 	stream << "version: " << version << std::endl;
 	stream << "num joints: " << numJoints << std::endl;
 	stream << "num meshes: " << numMeshes << std::endl;
@@ -33,19 +33,19 @@ void TGen::MD5::File::printInfo(std::ostream & stream) const {
 		meshes[i]->printInfo(stream);
 }
 
-void TGen::MD5::File::setVersion(int version) {
+void TGen::MD5::ModelFile::setVersion(int version) {
 	this->version = version;
 }
 
-void TGen::MD5::File::setNumMeshes(int numMeshes) {
+void TGen::MD5::ModelFile::setNumMeshes(int numMeshes) {
 	this->numMeshes = numMeshes;
 }
 
-void TGen::MD5::File::setNumJoints(int numJoints) {
+void TGen::MD5::ModelFile::setNumJoints(int numJoints) {
 	this->numJoints = numJoints;
 }
 
-void TGen::MD5::File::addMesh(TGen::MD5::FileMesh * mesh) {
+void TGen::MD5::ModelFile::addMesh(TGen::MD5::FileMesh * mesh) {
 	meshes.push_back(mesh);
 }
 
@@ -130,14 +130,23 @@ const std::vector<TGen::MD5::FileWeight> & TGen::MD5::FileMesh::getWeights() con
 	return weights;
 }
 
-TGen::MD5::Mesh * TGen::MD5::File::createMesh(TGen::VertexDataSource & dataSource, const std::string & name, scalar scale) const {
-	TGen::MD5::Mesh * newMesh = new TGen::MD5::Mesh(name);
+std::string TGen::MD5::FileMesh::getMaterialName() const {
+	return material;
+}
+
+TGen::MD5::Model * TGen::MD5::ModelFile::createModel(TGen::VertexDataSource & dataSource, const std::string & name, scalar scale) const {
+	TGen::MD5::Model * newModel = new TGen::MD5::Model(name, dataSource);
 	
 	for (int i = 0; i < meshes.size(); ++i) {
-		TGen::MD5::Submesh * mesh = new TGen::MD5::Submesh;
-		const TGen::MD5::FileMesh & fileMesh = *meshes[i];
+		TGen::MD5::FileMesh const & fileMesh = *meshes[i];
+		TGen::MD5::Mesh * mesh = new TGen::MD5::Mesh(fileMesh.getMaterialName());
 		
-		int numVertices = fileMesh.getVertices().size();
+		
+		
+		newModel->addMeshData(mesh);
+		
+		
+		/*int numVertices = fileMesh.getVertices().size();
 		int numIndices = fileMesh.getTriangles().size() * 3;
 		
 		mesh->vb = dataSource.createVertexData(TGen::MD5::VertexDecl(), sizeof(TGen::MD5::VertexDecl::Type) * numVertices, TGen::UsageStatic);
@@ -199,9 +208,11 @@ TGen::MD5::Mesh * TGen::MD5::File::createMesh(TGen::VertexDataSource & dataSourc
 		mesh->ib->unlock();		
 		mesh->vb->unlock();
 		
-		newMesh->addLeaf(mesh);		
+		newMesh->addLeaf(mesh);		*/
+		
+	
 	}
 	
-	return newMesh;
+	return newModel;
 }
 

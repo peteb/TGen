@@ -233,12 +233,52 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 		return iter->second->instantiate();
 	
 	TGen::Engine::File * file = filesystem.openRead(name);
+	TGen::NewModel * newModel = NULL;
 	
-	TGen::MD3::Parser modelParser;
-	TGen::MD3::File * md3file = modelParser.parse(*file);
-	md3file->printInfo(std::cout);
-	TGen::NewModel * newModel = md3file->createModel(renderer, 0.001);
-	delete md3file;
+	if (name.find(".md3") != std::string::npos) {
+		TGen::MD3::Parser modelParser;
+		TGen::MD3::File * md3file = modelParser.parse(*file);
+		md3file->printInfo(std::cout);
+		newModel = md3file->createModel(renderer, 0.001);
+		delete md3file;
+	}
+	else if (name.find(".md5mesh") != std::string::npos) {
+		std::vector<std::string> files;
+		filesystem.enumerateFiles(TGen::getFolder(name) + "/", files);
+		
+		for (int i = 0; i < files.size(); ++i)
+			std::cout << files[i] << std::endl;
+		
+		exit(1);
+		
+	}
+	else {
+		throw TGen::RuntimeException("ResourceManager::instantiateModel", "file extension is unfamiliar: '" + name + "'");
+	}
+	
+	
+	
+	
+	// createModel skapar en anim model eller static
+	
+	
+	/*
+	 
+	 TGen::MD5::Parser modelParser;
+	 TGen::MD5::File * md5file = modelParser.parse("zfat.md5mesh");
+	 
+	 
+	 TGen::MD5::AnimParser animParser;
+	 TGen::MD5::AnimFile * md5anim = animParser.parse("idle.md5anim");
+	 
+	 // här måste anim-info finnas, eller? man borde kunna skapa en animerande modell utan att ha animinfo 
+	 //TGen::NewModel * newModel = md5file->createModel(renderer, 0.001);
+	 TGen::MD5::AnimatingModel * newModel = md5file->createAnimatingModel(renderer, 0.001);
+	 
+	 newModel->setAnimationBase("idle", md5anim->createAnimation());
+																		
+	 */
+	
 	
 	
 	delete file;
