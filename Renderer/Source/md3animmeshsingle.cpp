@@ -27,6 +27,8 @@ TGen::MD3::AnimatingMeshSingle::~AnimatingMeshSingle() {
 	//delete vb;
 }
 
+// TODO: IB-data behövs bara i basen... ändras ju inte
+
 void TGen::MD3::AnimatingMeshSingle::preRender(TGen::Renderer & renderer) const {
 	renderer.setVertexBuffer(vb);
 	renderer.setIndexBuffer(ib);	

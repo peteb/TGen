@@ -32,7 +32,9 @@ bool TGen::MD3::AnimatingModel::isPureInstance() const {
 	return true;
 }
 
-// TODO: ett fallbackmaterial ska kunna definieras
+// TODO: ett fallbackmaterial ska kunna definieras ... varför? glömt bort
+//       sen ska md5 blir nya modellsystemet...
+
 TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
 	TGen::MD3::AnimatingModelInstance * newInstance = NULL;
 	

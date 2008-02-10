@@ -217,7 +217,7 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 	return newModel;	
 }
 
-TGen::NewModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+TGen::MD3::AnimatingModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const {
 	TGen::MD3::AnimatingModel * newModel = new TGen::MD3::AnimatingModel(reinterpret_cast<const char *>(header->name), dataSource);
 	
 	for (int i = 0; i < surfaces.size(); ++i) {

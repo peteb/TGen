@@ -23,6 +23,8 @@ namespace TGen {
 	namespace MD3 {
 		class File;
 		class StaticModel;
+		class AnimatingModel;
+		
 		struct Header;
 		
 		class Parser {
@@ -48,7 +50,7 @@ namespace TGen {
 			
 		private:
 			TGen::MD3::StaticModel * createStaticModel(TGen::VertexDataSource & dataSource, scalar scale) const;
-			TGen::NewModel * createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const;
+			TGen::MD3::AnimatingModel * createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const;
 			static TGen::Vector3 normalToVector(TGen::MD3::S16 normal);
 			
 			TGen::MD3::Header * header;
