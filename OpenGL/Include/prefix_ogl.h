@@ -24,4 +24,21 @@
 	#include <GL/GLU.h>
 #endif
 
+
+#define _OGL_DEBUG
+
+#ifdef _OGL_DEBUG
+	#define STAT_ADD(x) stats.addStat(x)
+	#define STAT_ADD_VAL(x, val) stats.addStat(x, val)
+	#define PSTAT_ADD_VAL(x, val) stats.addPStat(x, val)
+	#define STAT_ADD_SHADER(x) stats.addShader(x)
+	#define STAT_ADD_TEXTURE(x, y) stats.addTexture(x, y)
+#else
+	#define STAT_ADD(x)
+	#define STAT_ADD_VAL(x, val)
+	#define PSTAT_ADD_VAL(x, val)
+	#define STAT_ADD_SHADER(x)
+	#define STAT_ADD_TEXTURE(x, y)
+#endif
+
 #endif // !_TGEN_OPENGL_PREFIX_H

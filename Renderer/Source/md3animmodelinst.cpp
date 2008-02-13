@@ -30,6 +30,9 @@ bool TGen::MD3::AnimatingModelInstance::isPureInstance() const {
 	return true;
 }
 
+// TODO: riktig animering, indexbuffers ska INTE DUPLICERAS FÖR VARJE KEYFRAME OMG FFS
+//       ska vara en samling tags per frame, så interpolerar man här typ, getJoint
+
 void TGen::MD3::AnimatingModelInstance::update() {
 	static float num = 0.0f;
 	

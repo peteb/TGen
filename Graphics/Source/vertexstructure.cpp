@@ -100,30 +100,7 @@ int TGen::VertexStructure::getSize() const {
 	int size = 0;
 	for (int i = 0; i < int(elements.size()); ++i) {
 		if (!elements[i].shared) {
-			switch (elements[i].dataType) {	// TODO: use template-converter-thingy
-				case TGen::TypeFloat:
-					size += sizeof(float) * elements[i].count;
-					break;
-				
-				case TGen::TypeDouble:
-					size += sizeof(double) * elements[i].count;
-					break;
-				
-				case TGen::TypeUnsignedInt:
-				case TGen::TypeInt:
-					size += sizeof(int) * elements[i].count;
-					break;
-
-				case TGen::TypeUnsignedShort:
-				case TGen::TypeShort:
-					size += sizeof(short) * elements[i].count;
-					break;
-
-				case TGen::TypeUnsignedByte:
-				case TGen::TypeByte:
-					size += sizeof(char) * elements[i].count;
-					break;
-			}
+			size += TGen::FormatTypeSize(elements[i].dataType) * elements[i].count;
 		}
 	}
 	

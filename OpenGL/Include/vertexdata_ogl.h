@@ -15,12 +15,17 @@
 #include "prefix_ogl.h"
 
 namespace TGen {	
+	class RenderStatistics;
+
 	namespace OpenGL {
 		class Renderer;
 		
 		class VertexData : public TGen::VertexData {
 		private:
-			VertexData(TGen::VertexDataSource & creator, const TGen::VertexStructure & vertstruct, uint size, ushort usage, GLuint vboId);
+			VertexData(TGen::VertexDataSource & creator, 
+						  TGen::RenderStatistics & stats, 
+						  const TGen::VertexStructure & vertstruct, 
+						  uint size, ushort usage, GLuint vboId);
 			
 		public:
 			~VertexData();
@@ -39,6 +44,7 @@ namespace TGen {
 			
 		private:
 			TGen::VertexStructure vertstruct;
+			TGen::RenderStatistics & stats;
 			GLuint vboId;
 		};
 		

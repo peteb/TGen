@@ -10,17 +10,6 @@
 #ifndef _TGEN_OPENGL_RENDERER_H
 #define _TGEN_OPENGL_RENDERER_H
 
-#define _OGL_DEBUG
-
-#ifdef _OGL_DEBUG
-	#define STAT_ADD(x) stats.addStat(x)
-	#define STAT_ADD_SHADER(x) stats.addShader(x)
-	#define STAT_ADD_TEXTURE(x, y) stats.addTexture(x, y)
-#else
-	#define STAT_ADD(x)
-	#define STAT_ADD_SHADER(x)
-	#define STAT_ADD_TEXTURE(x, y)
-#endif
 
 #include "renderer.h"
 #include "prefix_ogl.h"

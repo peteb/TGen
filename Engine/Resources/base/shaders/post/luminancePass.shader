@@ -13,7 +13,7 @@ uniform bool killTrace;
 void main() {
 	vec4 color = texture2D(colorMap, gl_TexCoord[0].st);
 	vec4 specular = texture2D(miscMap, gl_TexCoord[0].st);
-	float lum = dot(color, vec4(0.3, 0.59, 0.11, 2.0));
+	float lum = dot(color, vec4(0.299, 0.587, 0.114, 2.0));
 	
 	vec4 fixedColor = max(vec4(0.0), color - lumMin) * lum * lumMultiplier;
 

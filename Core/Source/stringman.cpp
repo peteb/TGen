@@ -8,6 +8,8 @@
  */
 
 #include "stringman.h"
+#include <iomanip>
+#include <sstream>
 
 std::string TGen::toLower(const std::string & from) {
 	std::string ret;
@@ -40,4 +42,20 @@ std::string TGen::getFolder(const std::string & path) {
 
 std::string TGen::getFile(const std::string & path) {
 	return path.substr(path.rfind("/") + 1);
+}
+
+std::string TGen::getSize(uint64 bytes) {
+	std::stringstream ss;
+	ss << std::setprecision(3);
+	
+	if (bytes > 1024 * 1024 * 1024)
+		ss << double(bytes) / 1024.0 / 1024.0 / 1024.0 << " GB";
+	else if (bytes > 1024 * 1024)
+		ss << double(bytes) / 1024.0 / 1024.0 << " MB";
+	else if (bytes > 1024)
+		ss << double(bytes) / 1024.0 << " KB";
+	else
+		ss << bytes << " B";
+	
+	return ss.str();
 }

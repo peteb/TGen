@@ -368,7 +368,10 @@ TGen::VertexData * TGen::OpenGL::Renderer::createVertexData(const TGen::VertexSt
 	
 	glBufferDataARB(GL_ARRAY_BUFFER_ARB, size, NULL, fixedUsage);
 	
-	return new TGen::OpenGL::VertexData(*this, vertstruct, size, fixedUsage, newVBO);	
+	// TODO: in i ~ också...
+	PSTAT_ADD_VAL(TGen::StatBufferAlloc, size);
+	
+	return new TGen::OpenGL::VertexData(*this, stats, vertstruct, size, fixedUsage, newVBO);	
 }
 
 void TGen::OpenGL::Renderer::removeVertexData(TGen::VertexData * data) {
@@ -407,6 +410,11 @@ TGen::Texture * TGen::OpenGL::Renderer::createTexture(const void * data, const T
 		internalFormat = GL_DEPTH_COMPONENT32;
 		inFormat = GL_DEPTH_COMPONENT;
 	}
+	
+	// TODO: this won't be exact, the driver might do padding! who knows?!
+	// TODO: fixa ADD_VAL(negative) i ~Texture...
+	
+	PSTAT_ADD_VAL(TGen::StatTextureAlloc, TGen::FormatTypeSize(componentFormat) * size.width * size.height);
 	
 	if (flags & TGen::TextureRectangle) {
 		return createRectTexture(data, size, internalFormat, inFormat, dataType, flags);

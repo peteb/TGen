@@ -11,6 +11,7 @@
 #define _TGEN_STRINGMAN_H
 
 #include <string>
+#include "types.h"
 
 namespace TGen {
 	std::string toLower(const std::string & from);
@@ -18,6 +19,8 @@ namespace TGen {
 	
 	std::string getFolder(const std::string & path);
 	std::string getFile(const std::string & path);
+	
+	std::string getSize(uint64 bytes);
 	
 } // !TGen
 

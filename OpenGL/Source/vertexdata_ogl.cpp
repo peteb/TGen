@@ -12,14 +12,15 @@
 #include "prefix_ogl.h"
 #include "binder_ogl.h"
 #include "shadervariable_ogl.h"
-
 #include "vertexdata_ogl.h"
 #include "renderer.h"
 #include "error.h"
 
-TGen::OpenGL::VertexData::VertexData(TGen::VertexDataSource & creator, const TGen::VertexStructure & vertstruct, 
+TGen::OpenGL::VertexData::VertexData(TGen::VertexDataSource & creator, TGen::RenderStatistics & stats, 
+												 const TGen::VertexStructure & vertstruct, 
 												 uint size, ushort usage, GLuint vboId) 
 	: TGen::VertexData(creator, size, usage)
+	, stats(stats)
 	, vertstruct(vertstruct)
 	, vboId(vboId) 
 {
@@ -55,7 +56,10 @@ void * TGen::OpenGL::VertexData::lock(ushort flags) {
 
 void TGen::OpenGL::VertexData::unlock() {
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
-	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);		
+	glUnmapBufferARB(GL_ARRAY_BUFFER_ARB);	
+	
+	// TODO: check lock flags
+	STAT_ADD_VAL(TGen::StatBusUpBuffers, size);
 }
 
 void TGen::OpenGL::VertexData::bufferData(const void * data, uint size, void * offset) {
@@ -63,6 +67,9 @@ void TGen::OpenGL::VertexData::bufferData(const void * data, uint size, void * o
 	
 	glBindBufferARB(GL_ARRAY_BUFFER_ARB, vboId);
 	glBufferSubDataARB(GL_ARRAY_BUFFER_ARB, reinterpret_cast<GLintptrARB>(offset), size, data);	
+	
+	STAT_ADD_VAL(TGen::StatBusUpBuffers, size);
+	// TODO: om size != this->size, kör som dealloc på förra och sen alloc på nya
 }
 
 bool TGen::OpenGL::VertexData::isLocked() {
