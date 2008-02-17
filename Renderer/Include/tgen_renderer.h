@@ -50,6 +50,7 @@
 #include "modelinstantiator.h"
 #include "modelinstantiatepool.h"
 #include "modeljoint.h"
+#include "metawriter.h"
 
 namespace TGen {
 	bool isRendererDebug();

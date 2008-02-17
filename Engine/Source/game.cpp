@@ -60,7 +60,7 @@ void TGen::Engine::GameState::tick() {
 	app.inputDevices.dispatchEvents(inputMapper);
 	
 	TGen::Time now = TGen::Time::Now();
-	double sinceLastRender = double(now) - double(lastRender);	// TODO: undersök om scalar kanske räcker, sen operator - på Time
+	double sinceLastRender = double(now) - double(lastRender);	// TODO: undersök om scalar kanske räcker, sen operator - på Time. det här suger.
 	sinceErrorCheck += sinceLastRender;
 	
 	if (sinceLastRender >= vars.maxRefreshInterval) {
@@ -85,7 +85,7 @@ void TGen::Engine::GameState::tick() {
 void TGen::Engine::GameState::render(scalar dt) {
 	sceneRenderer->renderScene(dt);
 	app.env.swapBuffers();
-	std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
+	//std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
 	
 	app.renderer.getStatistics().reset();
 	
@@ -109,7 +109,6 @@ void TGen::Engine::GameState::checkErrors() {
 	}	
 }
 
-//       sen ska shaderpreprocess.cpp byta namn till textpreprocessor
 
 void TGen::Engine::GameState::changeMap(const std::string & mapName) {
 	app.logs.info["game"] << "changing map to '" << mapName << "'..." << TGen::endl;

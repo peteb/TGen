@@ -31,6 +31,7 @@ namespace TGen {
 			void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node);
 			
 			void addMesh(TGen::MD3::AnimatingMeshInstance * mesh);
+			void writeMeta(uint metaType, TGen::VertexStream & stream);
 			
 			int getNumMeshes() const;
 			TGen::NewMeshInstance * getMesh(int num);

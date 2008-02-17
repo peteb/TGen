@@ -40,6 +40,8 @@ namespace TGen {
 		virtual void calculateWorldBV();
 		virtual bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
 		virtual bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
+		virtual bool fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const;
+		
 		virtual void linkMaterials(TGen::MaterialSource & source) {}
 		virtual void unlinkMaterials() {}
 		

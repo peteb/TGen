@@ -110,15 +110,22 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		//std::cout << "linking unit " << (*iter)->unit << " with " << (*iter)->textureName << std::endl;
 		TGen::TextureUnit * newUnit = NULL;
 		
-		int texType = callback.getTextureType((*iter)->textureName);
+		int texType = 0;
+		bool nullTexture = false;
 		
-		if ((*iter)->textureName == "none") {
+		if ((*iter)->textureName == "none" || (*iter)->textureName == "NULL") {
 			newUnit = new TGen::TextureUnit((*iter)->unit, NULL);
+			texType = 0;
+			nullTexture = true;
 		}
+		else {
+			texType = callback.getTextureType((*iter)->textureName);
+		}
+		
 		if (texType > 0) {
 			newUnit = new TGen::TextureUnit((*iter)->unit, texType);
 		}
-		else {
+		else if (!nullTexture) {
 			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
 			
 			if (newUnit->texture)
@@ -146,8 +153,6 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 			}
 		}
 	}
-	
-	
 }
 
 void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {

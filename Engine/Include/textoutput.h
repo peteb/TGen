@@ -14,7 +14,7 @@
 
 namespace TGen {
 	namespace Engine {
-		class TextOutputer {
+		class TextOutputer : public TGen::OutputStream {
 		public:
 			virtual ~TextOutputer() {}
 			

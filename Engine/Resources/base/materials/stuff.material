@@ -20,5 +20,13 @@ material nomat default 9 {
 	}
 }
 
+material meta/normal default 9 {
+	lod 9 {
+		pass forward/meta {
+			disableBlend
+			color vertex
+		}	
+	}
+}
 
 

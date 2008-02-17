@@ -13,6 +13,7 @@
 #include <vector>
 #include <tgen_core.h>
 #include "modeljoint.h"
+#include "metawriter.h"
 
 // ModelInstance OWNS MeshInstances, when the ModelInstance dies, the MeshInstances die too
 
@@ -23,7 +24,7 @@ namespace TGen {
 	class SceneNode;
 	class Material;
 	
-	class NewModelInstance {
+	class NewModelInstance : public TGen::MetaWriter {
 	public:
 		NewModelInstance(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewModelInstance();

@@ -25,6 +25,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app)
 	, lightBatchSize(8)
 	, lightMaterials(NULL)
 	, world(NULL)
+	, metaLines(&app.renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
 {
 	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
@@ -38,6 +39,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app)
 	postGaussianHorizMaterial = app.globalResources.getMaterial("post/gaussianHoriz");
 	postGaussianVertMaterial = app.globalResources.getMaterial("post/gaussianVert");
 	postFinalBloom = app.globalResources.getMaterial("post/finalBloom");
+	metaNormalMaterial = app.globalResources.getMaterial("meta/normal");
 	
 	TGen::Rectangle mapSize(int(app.variables["env_width"]), int(app.variables["env_height"]));
 	
@@ -151,6 +153,8 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	mrtSize = mapSize;
 }
 
+#include <GLUT/GLUT.h>
+
 void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	if (!world) {
 		renderWorldless(dt);
@@ -178,13 +182,17 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// World!!!... ska det var ändå    var är camera? kom ihåg att camera borde hanteras av en playermovement-klass och att kameror ska kunna vara portabla
 	// lampor i portalbana fixas genom att ta lampor från alla synliga rum + anslutande rum (även de som inte syns alltså)
 	// kan sen optimeras genom att kolla lightboxen
-
+	
 	world->prepareLists(mainCamera);
 	TGen::RenderList & renderList = world->getRenderList();
 	TGen::Engine::LightList & lightList = world->getLightList();
 	
 	renderList.sort(*mainCamera, "default");
 
+	metaLines.beginBatch();
+	renderList.writeMeta(0, metaLines);
+	metaLines.endBatch();
+	
 	TGen::Rectangle viewport = app.renderer.getViewport();
 	
 	
@@ -196,6 +204,12 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	app.renderer.setAmbientLight(world->getAmbientLight());
 	
 	renderList.render(app.renderer, *mainCamera, "default");
+
+	app.renderer.setTransform(TGen::TransformProjection, mainCamera->getProjection());
+	app.renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
+	metaNormalMaterial->render(app.renderer, metaLines, "default", 9, NULL, NULL);
+	
+	// TODO: var ska det här vara egentligen....
 	
 	//vars.postProcessing = false;
 	// postprocessing kostar 110 fps
@@ -208,6 +222,8 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		app.renderer.setRenderTarget(NULL);
 		app.renderer.setViewport(viewport);
 	}
+	
+	// TODO: styr upp det här nu, någon funktion som writar ett koordinatsystem kanske? dvs xyz-axlarna
 	
 	//app.renderer.clearBuffers(TGen::DepthBuffer);
 
@@ -312,6 +328,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 		postProcessing(viewport);		
 	}
 
+	
 }
 
 // No world loaded, ie, no map:

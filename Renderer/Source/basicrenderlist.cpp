@@ -21,6 +21,7 @@ TGen::BasicRenderList::BasicRenderList() {
 	opaqueFaces.reserve(10000);
 	transparentFaces.reserve(1000);
 	userInfo.reserve(400);
+	metaWriters.reserve(100);
 }
 
 TGen::BasicRenderList::~BasicRenderList() {}
@@ -49,6 +50,7 @@ void TGen::BasicRenderList::clear() {
 	opaqueFaces.clear();
 	transparentFaces.clear();
 	userInfo.clear();
+	metaWriters.clear();
 }
 
 void TGen::BasicRenderList::sort(const TGen::Camera & camera, const std::string & specialization) {
@@ -233,3 +235,12 @@ TGen::RenderList::UserInfo & TGen::BasicRenderList::getUserInfo(int id) {
 	return userInfo[id];
 }
 
+void TGen::BasicRenderList::addMeta(TGen::MetaWriter * metaWriter) {
+	metaWriters.push_back(metaWriter);
+}
+
+void TGen::BasicRenderList::writeMeta(uint metaType, TGen::VertexStream & stream) {
+	for (int i = 0; i < metaWriters.size(); ++i) {
+		metaWriters[i]->writeMeta(metaType, stream);		
+	}
+}

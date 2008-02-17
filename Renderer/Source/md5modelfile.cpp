@@ -134,6 +134,9 @@ std::string TGen::MD5::FileMesh::getMaterialName() const {
 	return material;
 }
 
+// TODO: better vertex handling
+//       eg: createModel(blabla, "blabla", VertexScale(0.45).SwapComponents(1, 2));
+
 TGen::MD5::Model * TGen::MD5::ModelFile::createModel(TGen::VertexDataSource & dataSource, const std::string & name, scalar scale) const {
 	TGen::MD5::Model * newModel = new TGen::MD5::Model(name, dataSource);
 	

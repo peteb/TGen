@@ -28,6 +28,14 @@ namespace TGen {
 		virtual uint getSize() abstract;
 	};
 	
+	class OutputStream {
+	public:
+		OutputStream() {}
+		virtual ~OutputStream() {}
+		
+		virtual int write(char * data, uint size) abstract;
+	};
+	
 	class IstreamAdaptor : public TGen::InputStream {
 	public:
 		IstreamAdaptor(std::istream & stream)

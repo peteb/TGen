@@ -56,6 +56,7 @@
 		D074B4730D560F61000B91E1 /* modelinstanceproxy.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4720D560F61000B91E1 /* modelinstanceproxy.h */; };
 		D074B48A0D561188000B91E1 /* modelinstanceproxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */; };
 		D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */; };
+		D076D1B30D67016600AF2F32 /* metawriter.h in Headers */ = {isa = PBXBuildFile; fileRef = D076D1B20D67016600AF2F32 /* metawriter.h */; };
 		D087F4750D564DD100442D40 /* upper.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D087F46F0D564DBA00442D40 /* upper.md3 */; };
 		D087F4C90D56512A00442D40 /* modeljoint.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F4C80D56512A00442D40 /* modeljoint.h */; };
 		D087F6B80D56624C00442D40 /* md3animmodel.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F6B70D56624C00442D40 /* md3animmodel.h */; };
@@ -275,6 +276,7 @@
 		D074B4720D560F61000B91E1 /* modelinstanceproxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstanceproxy.h; path = Include/modelinstanceproxy.h; sourceTree = "<group>"; };
 		D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstanceproxy.cpp; path = Source/modelinstanceproxy.cpp; sourceTree = "<group>"; };
 		D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiator.h; path = Include/modelinstantiator.h; sourceTree = "<group>"; };
+		D076D1B20D67016600AF2F32 /* metawriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metawriter.h; path = Include/metawriter.h; sourceTree = "<group>"; };
 		D087F46F0D564DBA00442D40 /* upper.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = upper.md3; sourceTree = "<group>"; };
 		D087F4C80D56512A00442D40 /* modeljoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modeljoint.h; path = Include/modeljoint.h; sourceTree = "<group>"; };
 		D087F6B70D56624C00442D40 /* md3animmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmodel.h; path = Include/md3animmodel.h; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */,
 				D074B4720D560F61000B91E1 /* modelinstanceproxy.h */,
 				D087F4C80D56512A00442D40 /* modeljoint.h */,
+				D076D1B20D67016600AF2F32 /* metawriter.h */,
 			);
 			name = Renderer;
 			path = ../..;
@@ -685,13 +688,14 @@
 				D0ED98580D5BC78200CEF206 /* md3animmeshinst.h in Headers */,
 				D0BF7FD00D5F82270094D533 /* md5modelinst.h in Headers */,
 				D0BF800D0D5F84FB0094D533 /* md5meshinst.h in Headers */,
+				D076D1B30D67016600AF2F32 /* metawriter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Renderer */ = {
+		8DD76F620486A84900D96B5E /* TGen Graphics */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Renderer" */;
 			buildPhases = (
@@ -760,7 +764,7 @@
 			);
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Renderer */,
+				8DD76F620486A84900D96B5E /* TGen Graphics */,
 				D0F371390C6D02CE00C11F87 /* tgen_renderer */,
 			);
 		};

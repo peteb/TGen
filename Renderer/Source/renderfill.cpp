@@ -19,6 +19,7 @@ TGen::RenderFiller::RenderFiller(TGen::RenderList & list, const TGen::Camera & c
 
 bool TGen::RenderFiller::pre(TGen::SceneNode & node) const {
 	node.fillUser(list, camera);
+	node.fillMeta(list, camera);
 	return node.fillFaces(list, camera);
 }
 

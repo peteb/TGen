@@ -14,11 +14,20 @@
 #include "renderer.h"
 #include "vertexbuffer.h"
 #include "error.h"
+#include "renderable.h"
 #include <iostream>
 
 namespace TGen {
+	class VertexStream {
+	public:
+		VertexStream() {}
+		virtual ~VertexStream() {}
+		
+		virtual void writeVertex(void const * vertex) abstract;
+	};
+	
 	template<typename format, int vertsPerPrimitive>
-	class Batch {
+	class Batch : public TGen::VertexStream, public TGen::Renderable {
 	public:	
 		Batch(TGen::Renderer * renderer, uint size, TGen::PrimitiveType type, uint usage) 
 			: size(size)
@@ -37,17 +46,16 @@ namespace TGen {
 			vb = NULL;
 		}
 		
-		void render(TGen::Renderer * renderer) {
-			if (verticesWritten > 0) {
-				renderer->setVertexBuffer(vb);
-				
-				for (int i = 0; i < verticesWritten; i += verticesPerDraw)
-					renderer->drawPrimitive(type, i, std::min(verticesPerDraw, verticesWritten));
-				//renderer->DrawPrimitive(type, 0, verticesWritten);
-			}
-			
+		void preRender(TGen::Renderer & renderer) const {
+			if (verticesWritten > 0)
+				renderer.setVertexBuffer(vb);
 		}
 		
+		void render(TGen::Renderer & renderer) const {
+			if (verticesWritten > 0)
+				renderer.drawPrimitive(type, 0, verticesWritten);			
+		}
+				
 		void beginBatch() {
 			mapped = vb->lock(TGen::LockDiscard | TGen::LockWrite);
 			cursor = mapped;
@@ -81,6 +89,15 @@ namespace TGen {
 				verticesWritten += vertsPerPrimitive;
 			
 			return true;
+		}
+		
+		void writeVertex(void const * vertex) {
+			if ((char *)cursor - (char *)mapped >= size)	// full
+				return;
+			
+			memcpy(cursor, vertex, sizeof(typename format::Type));
+			cursor = reinterpret_cast<char *>(cursor) + sizeof(typename format::Type);
+			verticesWritten++;
 		}
 		
 		typedef format Type;

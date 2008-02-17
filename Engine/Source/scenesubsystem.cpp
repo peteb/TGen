@@ -118,6 +118,8 @@ TGen::Engine::SceneNodeComponent * TGen::Engine::SceneSubsystem::getComponent(co
 	return NULL;
 }
 
+// TODO: refactor all world.app.logs-blabla-shit to logs
+
 void TGen::Engine::SceneSubsystem::link() {
 	world.app.logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
 	//meshList.relink(world.app.globalResources);

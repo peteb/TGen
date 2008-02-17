@@ -306,6 +306,13 @@ bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & ca
 	return true;
 }
 
+bool TGen::SceneNode::fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const {
+	for (int i = 0; i < models.size(); ++i)
+		list.addMeta(TGen::DerefRes(models[i]));
+	
+	return true;
+}
+
 bool TGen::SceneNode::fillUser(TGen::RenderList & list, const TGen::Camera & camera) const {
 	
 	return true;

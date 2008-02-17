@@ -64,8 +64,16 @@ TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const st
 	return *this;
 }
 
+
 void TGen::Engine::Log::outputText(const std::string & text, uint user) {
 	output(area, text);
+}
+
+int TGen::Engine::Log::write(char * data, uint size) {
+	std::string text(data, size);
+	output(area, text);
+	
+	return size;
 }
 
 TGen::Engine::StandardLogs::StandardLogs()
@@ -88,5 +96,12 @@ TGen::Engine::StandardLogs::~StandardLogs() {
 
 void TGen::Engine::StandardLogs::outputText(const std::string & text, uint user) {
 	info.output("", text);
+}
+
+int TGen::Engine::StandardLogs::write(char * data, uint size) {
+	std::string text(data, size);
+	info.output("", text);
+	
+	return size;
 }
 

@@ -59,7 +59,8 @@ namespace TGen {
 			void addTarget(TGen::Engine::LogTarget * target);
 			TGen::Engine::Log & output(const std::string & area, const std::string & text);
 			void outputText(const std::string & text, uint user);
-			
+			int write(char * data, uint size);
+
 			
 			template<typename T>
 			TGen::Engine::Log & operator << (T val) {
@@ -124,7 +125,8 @@ namespace TGen {
 			~StandardLogs();
 			
 			void outputText(const std::string & text, uint user);
-			
+			int write(char * data, uint size);
+
 			TGen::Engine::Log info, warning, error;
 			
 		private:

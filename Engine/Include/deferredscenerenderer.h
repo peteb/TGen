@@ -67,12 +67,16 @@ namespace TGen {
 			TGen::ShaderProgram * rhwNoTransformShader;
 			TGen::Mesh * screenFillMesh;
 			TGen::Material * lightAmbientMaterial, * lightDirectionalMaterial, * lightPositionalMaterial, * postLuminanceMaterial, * postGaussianHorizMaterial, * postGaussianVertMaterial, * postFinalBloom, * rhwOnlyColorMaterial;
+			TGen::Material * metaNormalMaterial;
 			TGen::Texture * colorMap, * depthMap, * normalMap, * miscMap, * postMap1, * postMap2, * postMap3;
 			TGen::FrameBuffer * mapTargets, * postTargets1, * postTargets2, * postTargets3;
 			TGen::FrameBuffer * depthTarget;
 			TGen::Material ** lightMaterials;
 			
 			typedef TGen::Vertex3<float> LightVertexDecl;
+			typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Color4<float> > MetaLineDecl;
+			
+			TGen::Batch<MetaLineDecl, 2> metaLines;
 		};
 	}
 }

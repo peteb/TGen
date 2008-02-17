@@ -25,6 +25,7 @@ namespace TGen {
 		virtual void render(TGen::Renderer & renderer) const abstract; // once per pass
 		
 	};
+	
 } // !TGen
 
 #endif // !_TGEN_RENDERABLE_H

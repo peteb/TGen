@@ -862,7 +862,7 @@ void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & 
 			glEnableClientState(GL_COLOR_ARRAY);		
 		else
 			glDisableClientState(GL_COLOR_ARRAY);
-	
+		
 		this->hasColorElements = vertstruct.hasColorElements;
 	}
 	
@@ -1158,8 +1158,8 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	
 	colorFromVertex = context.colorFromVertex;
 	
-	if (context.colorFromVertex != lastContext.colorFromVertex) {
-		STAT_ADD(TGen::StatGeneralStateCacheMiss);
+//	if (context.colorFromVertex != lastContext.colorFromVertex) {
+	//	STAT_ADD(TGen::StatGeneralStateCacheMiss);
 
 		if (colorFromVertex && hasColorElements)
 			glEnableClientState(GL_COLOR_ARRAY);
@@ -1168,13 +1168,15 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		
 		// NOTE: might be buggy as we don't check hasColorArray for diffs
 		lastContext.colorFromVertex = context.colorFromVertex;
-	}
+	/*}
 	else {
 		STAT_ADD(TGen::StatGeneralStateCacheHit);		
-	}
+	}*/
+	
+	// TODO: behöver kunna kolla om en bool blivit initierad eller inte
 }
 
-// TODO: is textureCoordGen per unit? in that case, fix this! 
+// TODO: is textureCoordGen per unit? (i think so) in that case, fix this! 
 
 void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV) {
 	if (genU != textureCoordGenU) {

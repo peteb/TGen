@@ -30,7 +30,8 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	filesystem.enumerateFiles("/materials/", materialsToLoad, true);
 	
 	for (int i = 0; i < materialsToLoad.size(); ++i) {
-		loadMaterials(materialsToLoad[i]);
+		if (materialsToLoad[i].find(".svn") == std::string::npos)
+			loadMaterials(materialsToLoad[i]);
 	}
 }
 
