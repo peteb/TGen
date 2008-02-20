@@ -34,6 +34,7 @@ namespace TGen {
 	class Camera;
 	class Renderer;
 	class VertexStream;
+	class SceneNode;
 	
 	class RenderList : public TGen::MetaWriter {
 	public:
@@ -53,7 +54,7 @@ namespace TGen {
 		
 		//virtual void writeMeta(uint metaType, const TGen::Matrix4x4 & modelview, TGen::VertexStream & stream) {}
 		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) abstract;
-		virtual void addMeta(TGen::MetaWriter * metaWriter) abstract;
+		virtual void addMeta(TGen::MetaWriter * metaWriter, const TGen::SceneNode * node) abstract;
 		virtual void addFace(const TGen::NewFace & face) abstract;
 		virtual void addUser(void * user, int id) abstract;
 		virtual int getNumUserInfo() abstract;

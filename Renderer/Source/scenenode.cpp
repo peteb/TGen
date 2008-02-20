@@ -308,7 +308,7 @@ bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & ca
 
 bool TGen::SceneNode::fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const {
 	for (int i = 0; i < models.size(); ++i)
-		list.addMeta(TGen::DerefRes(models[i]));
+		list.addMeta(TGen::DerefRes(models[i]), this);
 	
 	return true;
 }

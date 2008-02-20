@@ -28,6 +28,7 @@ namespace TGen {
 		static const int MAX_VERTS = 4096;
 		static const int MAX_TRIANGLES = 8192;
 		static const uint MAGIC = 0x33504449;
+		static const double XYZ_SCALE = 0.015625;
 		
 		// datatypes /////////////////////////////////////////////////////////////////////////////////////
 		typedef unsigned char	U8;

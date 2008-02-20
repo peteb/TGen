@@ -29,8 +29,8 @@ namespace TGen {
 		BasicRenderList();
 		~BasicRenderList();
 		
-		void addMeta(TGen::MetaWriter * metaWriter);
-		void writeMeta(uint metaType, TGen::VertexStream & stream);
+		void addMeta(TGen::MetaWriter * metaWriter, const TGen::SceneNode * node);
+		void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
 		void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
 		void addFace(const TGen::NewFace & face);
 		void addUser(void * user, int id);
@@ -57,6 +57,14 @@ namespace TGen {
 			bool operator() (const TGen::BasicRenderList::SortedFace & face1, const TGen::BasicRenderList::SortedFace & face2);
 		};
 
+		struct Meta {
+			Meta(TGen::MetaWriter * writer, const TGen::SceneNode * node)
+				: writer(writer)
+				, node(node) {}
+			
+			TGen::MetaWriter * writer;
+			const TGen::SceneNode * node;
+		};
 		
 		typedef std::vector<SortedFace> SortedFaceList;
 		typedef std::vector<NewFace> FaceList;
@@ -69,7 +77,7 @@ namespace TGen {
 		FaceList faces;
 		SortedFaceList opaqueFaces, transparentFaces;	// opaque faces get distance to camera too, but it's not calculated
 		
-		std::vector<TGen::MetaWriter *> metaWriters;
+		std::vector<Meta> metaWriters;
 	}; 
 	
 	

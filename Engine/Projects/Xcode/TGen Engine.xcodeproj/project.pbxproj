@@ -22,6 +22,7 @@
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D07147A80D68592A00842110 /* metacreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07147A70D68592A00842110 /* metacreator.cpp */; };
 		D073D19C0D419BBC00D3C858 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D073D19A0D419BBC00D3C858 /* base */; };
 		D073D1B50D419E5F00D3C858 /* testmod in Resources */ = {isa = PBXBuildFile; fileRef = D073D1B20D419E5F00D3C858 /* testmod */; };
 		D07407FF0D32C86A00735304 /* inputdevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07407FE0D32C86A00735304 /* inputdevice.cpp */; };
@@ -215,6 +216,8 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
+		D07147A60D68592100842110 /* metacreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metacreator.h; path = ../../Include/metacreator.h; sourceTree = SOURCE_ROOT; };
+		D07147A70D68592A00842110 /* metacreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metacreator.cpp; sourceTree = "<group>"; };
 		D073D19A0D419BBC00D3C858 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
 		D073D1B20D419E5F00D3C858 /* testmod */ = {isa = PBXFileReference; lastKnownFileType = folder; name = testmod; path = ../../Resources/testmod; sourceTree = SOURCE_ROOT; };
 		D07407FD0D32C7E100735304 /* inputdevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputdevice.h; path = ../../Include/inputdevice.h; sourceTree = SOURCE_ROOT; };
@@ -496,6 +499,8 @@
 				D08C7C230D109514008622BC /* generateline.h */,
 				D07981100D21725C00B16739 /* vertexcache.cpp */,
 				D079810F0D21724E00B16739 /* vertexcache.h */,
+				D07147A70D68592A00842110 /* metacreator.cpp */,
+				D07147A60D68592100842110 /* metacreator.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -927,6 +932,7 @@
 				D07408DA0D32D1BD00735304 /* sdlmouse.cpp in Sources */,
 				D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */,
 				D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */,
+				D07147A80D68592A00842110 /* metacreator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

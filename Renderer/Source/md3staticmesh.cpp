@@ -42,3 +42,4 @@ TGen::MD3::StaticMesh * TGen::MD3::StaticMesh::instantiate() const {
 void TGen::MD3::StaticMesh::createVertexData(TGen::VertexDataSource & dataSource) {
 	// används inte, MD3::File::createModel fräser med vb och ib direkt. fult, who cares
 }
+

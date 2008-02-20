@@ -131,8 +131,8 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 
 
 TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSource, scalar scale) const {
-	if (header->num_frames > 1)
-		return createAnimatingModel(dataSource, scale);
+	//if (header->num_frames > 1)
+	//	return createAnimatingModel(dataSource, scale);
 
 	return createStaticModel(dataSource, scale);
 }
@@ -203,7 +203,7 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 	for (int i = 0; i < header->num_tags; ++i) {
 		TGen::ModelJoint joint;
 		Tag * tag = &header->tags[i];
-		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.z, tag->origin.y) * scale;
+		joint.origin = (TGen::Vector3(tag->origin.x, tag->origin.z, tag->origin.y) / TGen::MD3::XYZ_SCALE) * scale;
 		
 		TGen::Matrix3x3 orientation(TGen::Vector3(tag->axis[0].x, tag->axis[0].z, tag->axis[0].y),
 											 TGen::Vector3(tag->axis[1].x, tag->axis[1].z, tag->axis[1].y),

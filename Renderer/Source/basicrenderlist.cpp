@@ -235,12 +235,12 @@ TGen::RenderList::UserInfo & TGen::BasicRenderList::getUserInfo(int id) {
 	return userInfo[id];
 }
 
-void TGen::BasicRenderList::addMeta(TGen::MetaWriter * metaWriter) {
-	metaWriters.push_back(metaWriter);
+void TGen::BasicRenderList::addMeta(TGen::MetaWriter * metaWriter, const TGen::SceneNode * node) {
+	metaWriters.push_back(Meta(metaWriter, node));
 }
 
-void TGen::BasicRenderList::writeMeta(uint metaType, TGen::VertexStream & stream) {
+void TGen::BasicRenderList::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
 	for (int i = 0; i < metaWriters.size(); ++i) {
-		metaWriters[i]->writeMeta(metaType, stream);		
+		metaWriters[i].writer->writeMeta(metaType, metaWriters[i].node->getTransform(), stream);		
 	}
 }

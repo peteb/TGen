@@ -15,6 +15,7 @@
 #include "world.h"
 #include "light.h"
 #include "vbrenderable.h"
+#include "metacreator.h"
 #include <tgen_graphics.h>
 
 TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app) 
@@ -189,8 +190,11 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	
 	renderList.sort(*mainCamera, "default");
 
+	TGen::Engine::MetaCreator mc;
+	
 	metaLines.beginBatch();
-	renderList.writeMeta(0, metaLines);
+	mc.writeAxes(TGen::Matrix4x4::Identity, metaLines);
+	renderList.writeMeta(TGen::MetaNormals, TGen::Matrix4x4::Identity, metaLines);
 	metaLines.endBatch();
 	
 	TGen::Rectangle viewport = app.renderer.getViewport();
@@ -201,17 +205,16 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	app.renderer.setViewport(mrtSize);
 	app.renderer.setClearColor(TGen::Color::Black);
 	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
-	app.renderer.setAmbientLight(world->getAmbientLight());
+	app.renderer.setAmbientLight(world->getAmbientLight() * 1.5);
 	
 	renderList.render(app.renderer, *mainCamera, "default");
 
-	app.renderer.setTransform(TGen::TransformProjection, mainCamera->getProjection());
 	app.renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
 	metaNormalMaterial->render(app.renderer, metaLines, "default", 9, NULL, NULL);
 	
 	// TODO: var ska det här vara egentligen....
 	
-	//vars.postProcessing = false;
+	//vars.postProcessing = true;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {

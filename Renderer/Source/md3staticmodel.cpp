@@ -97,4 +97,42 @@ TGen::Vector3 TGen::MD3::StaticModel::getOrigin() const {
 	return TGen::Vector3::Zero;
 }
 
+void TGen::MD3::StaticModel::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
+	typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Color4<float> > MetaLineDecl;
+	
+	// TODO: skicka med modelview transform...... måste
+	for (JointMap::iterator iter = joints.begin(); iter != joints.end(); ++iter) {
+		MetaLineDecl::Type points[2];
+		TGen::Vector3 origin = iter->second.origin;
+		TGen::Quaternion4 orient = TGen::Quaternion4(0.0f, 1.0f, 0.0f); //iter->second.orientation;
+		
+		//std::cout << "==> " << std::string(iter->second.origin) << std::endl;
+		
+		TGen::Vector3 start = transform * origin;
+		TGen::Vector3 end = transform * (origin + TGen::Vector3(orient) * 10.0f);
+		
+	//	std::cout << std::string(start) << " - " << std::string(end) << std::endl;
+		
+		points[0].x = start.x;
+		points[0].y = start.y;
+		points[0].z = start.z;
+		points[0].r = 1.0f;
+		points[0].g = 1.0f;
+		points[0].b = 0.0f;
+		points[0].a = 1.0f;
+		
+		points[1].x = end.x;
+		points[1].y = end.y;
+		points[1].z = end.z;
+		points[1].r = 1.0f;
+		points[1].g = 1.0f;
+		points[1].b = 0.0f;
+		points[1].a = 1.0f;
+		
+		stream.writeVertex(&points[0]);
+		stream.writeVertex(&points[1]);
+	}
+	
+}
+
 // max/min/origin/radius i model

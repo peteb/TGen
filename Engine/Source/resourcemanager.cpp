@@ -239,7 +239,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	if (name.find(".md3") != std::string::npos) {
 		TGen::MD3::Parser modelParser;
 		TGen::MD3::File * md3file = modelParser.parse(*file);
-		//md3file->printInfo(std::cout);
+		md3file->printInfo(std::cout);
 		newModel = md3file->createModel(renderer, 0.001);
 		delete md3file;
 	}

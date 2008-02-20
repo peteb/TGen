@@ -32,6 +32,7 @@ namespace TGen {
 
 			TGen::ModelJoint getJoint(const std::string & name) const;
 			TGen::NewMeshInstance * getMesh(int num);
+			void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
 			
 			TGen::MD3::StaticModel * instantiate();
 
