@@ -16,6 +16,7 @@
 namespace TGen {
 	namespace Engine {
 		class Component;
+		class EntityList;
 		
 		class Entity {
 		public:
@@ -25,7 +26,8 @@ namespace TGen {
 			const std::string & getName() const;
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
 			TGen::Engine::Component * getComponent(const std::string & name);
-			void link();
+			void linkLocally();
+			void linkGlobally(TGen::Engine::EntityList & entities);
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Component *> ComponentMap;

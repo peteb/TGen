@@ -53,14 +53,17 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	for (int i = 0; i < props.getNumNodes(); ++i) {
 		TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
 		
-		if (entities.find(entity->getName()) == entities.end()) {
+		entities.addEntity(entity);
+		/*if (entities.find(entity->getName()) == entities.end()) {
 			entities.insert(EntityMap::value_type(entity->getName(), entity));
 		}
 		else {
 			app.logs.warning["world"] << "entity '" << entity->getName() << "' already set!" << TGen::endl;
 			delete entity;
-		}
+		}*/
 	}
+	
+	entities.linkGlobally();
 	
 	mainCam = dynamic_cast<TGen::Camera *>(sceneSubsystem.getComponent("maincam")->getSceneNode());
 	if (!mainCam)
@@ -101,9 +104,9 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 TGen::Engine::World::~World() {
 	app.logs.info["world-"] << "shutting down..." << TGen::endl;
 
-	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
+	/*for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
 		delete iter->second;
-	}
+	}*/
 	
 }
 

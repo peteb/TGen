@@ -11,12 +11,16 @@
 #define _TGEN_ENGINE_PHYSICSSUBSYSTEM_H
 
 #include "subsystem.h"
+#include "ode/ode.h"
 
 namespace TGen {
+	class Vector3;
+	
 	namespace Engine {
 		class Entity;
 		class StandardLogs;
 		class BodyComponent;
+		class JointComponent;
 		
 		class PhysicsSubsystem : public TGen::Engine::Subsystem {
 		public:
@@ -29,10 +33,16 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::BodyComponent * createBody(const TGen::PropertyTree & properties);
+			TGen::Engine::JointComponent * createJoint(const TGen::PropertyTree & properties);
+
+			void setGravity(const TGen::Vector3 & gravity);
 			
 			std::vector<TGen::Engine::BodyComponent *> bodies;
+			float updateInterval;
 			
 			TGen::Engine::StandardLogs & logs;
+			
+			dWorldID worldId;
 		};
 		
 	} // !Engine

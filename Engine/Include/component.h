@@ -15,6 +15,7 @@
 namespace TGen {
 	namespace Engine {
 		class Entity;
+		class EntityList;
 		
 		class Component {
 		public:
@@ -24,7 +25,8 @@ namespace TGen {
 			
 			std::string getName() const {return name; }
 			
-			virtual void link(TGen::Engine::Entity & entity) {}
+			virtual void linkLocally(TGen::Engine::Entity & entity) {}
+			virtual void linkGlobally(TGen::Engine::EntityList & entities) {}
 			
 		protected:
 			const std::string name;

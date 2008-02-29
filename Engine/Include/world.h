@@ -12,7 +12,7 @@
 
 #include <string>
 #include <tgen_renderer.h>
-#include <map>
+#include "entitylist.h"
 #include "lightlist.h"
 #include "entityfactory.h"
 #include "scenesubsystem.h"
@@ -41,8 +41,6 @@ namespace TGen {
 			TGen::Engine::App & app;
 			
 		private:
-			typedef std::map<std::string, TGen::Engine::Entity *> EntityMap;
-			
 			TGen::Engine::SceneSubsystem sceneSubsystem;
 			TGen::Engine::PhysicsSubsystem physicsSubsystem;
 			
@@ -52,7 +50,7 @@ namespace TGen {
 			TGen::BasicRenderList renderList;
 			TGen::Engine::LightList lightList;
 			
-			EntityMap entities;
+			TGen::Engine::EntityList entities;
 			
 			TGen::Engine::Light * lights[4];
 			

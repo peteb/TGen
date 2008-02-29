@@ -12,6 +12,7 @@
 
 #include "component.h"
 #include <tgen_math.h>
+#include <ode/ode.h>
 
 namespace TGen {
 	namespace Engine {
@@ -21,18 +22,23 @@ namespace TGen {
 		
 		class BodyComponent : public TGen::Engine::Component {
 		public:
-			BodyComponent(const std::string & name, float mass, const TGen::Vector3 & position);
+			BodyComponent(const std::string & name, dBodyID bodyId);
 			~BodyComponent();
 			
-			void update(float dt);
-			void link(TGen::Engine::Entity & entity);
+			void preStep();
+			void postStep();
+			void linkLocally(TGen::Engine::Entity & entity);
+			dBodyID getBodyId() const;
 			
 			friend class TGen::Engine::PhysicsSubsystem;
 			
 		private:
-			float mass;
-			TGen::Vector3 position;
-
+	//		float mass;
+		//	TGen::Vector3 position;
+			void setPosition(const TGen::Vector3 & position);
+			TGen::Vector3 getPosition() const;
+			
+			dBodyID bodyId;
 			TGen::Engine::SceneNodeComponent * sceneNodeComponent;
 		};
 		

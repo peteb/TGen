@@ -39,7 +39,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 		}		
 	}
 	
-	entity->link();
+	entity->linkLocally();
 	
 	return entity;
 }

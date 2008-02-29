@@ -38,9 +38,14 @@ TGen::Engine::Component * TGen::Engine::Entity::getComponent(const std::string &
 	return iter->second;
 }
 
-void TGen::Engine::Entity::link() {
+void TGen::Engine::Entity::linkLocally() {
 	// Links references to other components for this entity
 	
 	for (ComponentMap::iterator iter = components.begin(); iter != components.end(); ++iter)
-		iter->second->link(*this);
+		iter->second->linkLocally(*this);
+}
+
+void TGen::Engine::Entity::linkGlobally(TGen::Engine::EntityList & entities) {
+	for (ComponentMap::iterator iter = components.begin(); iter != components.end(); ++iter)
+		iter->second->linkGlobally(entities);
 }
