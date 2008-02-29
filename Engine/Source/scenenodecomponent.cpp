@@ -9,8 +9,9 @@
 
 #include "scenenodecomponent.h"
 
-TGen::Engine::SceneNodeComponent::SceneNodeComponent(TGen::SceneNode * sceneNode) 
-	: sceneNode(sceneNode)
+TGen::Engine::SceneNodeComponent::SceneNodeComponent(const std::string & name, TGen::SceneNode * sceneNode) 
+	: TGen::Engine::Component(name)
+	, sceneNode(sceneNode)
 {
 	
 }

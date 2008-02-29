@@ -11,7 +11,7 @@
 #define _TGEN_ENGINE_ENTITY_H
 
 #include <string>
-#include <vector>
+#include <map>
 
 namespace TGen {
 	namespace Engine {
@@ -23,10 +23,16 @@ namespace TGen {
 			~Entity();
 			
 			const std::string & getName() const;
-			void addComponent(TGen::Engine::Component * component);
+			void addComponent(TGen::Engine::Component * component, const std::string & name);
+			TGen::Engine::Component * getComponent(const std::string & name);
+			void link();
 			
 		private:
-			std::vector<TGen::Engine::Component *> components;
+			typedef std::map<std::string, TGen::Engine::Component *> ComponentMap;
+			
+			//std::vector<TGen::Engine::Component *> components;
+			ComponentMap components;
+			
 			std::string name;
 		}; 
 	} // !Engine

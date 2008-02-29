@@ -59,6 +59,9 @@ void TGen::PropertyTreeParser::parseBlock(TGen::PropertyTree & node) {
 			step();
 			TGen::PropertyTree newNode(line.at(0));
 //			std::cout << "parsing block " << line.at(0) << std::endl;
+			for (int i = 1; i < line.size(); ++i)
+				newNode.addAttribute(line[i]);
+						
 			line.clear();
 			parseBlock(newNode);
 			node.addNode(newNode);

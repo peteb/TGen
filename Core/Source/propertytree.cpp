@@ -93,3 +93,16 @@ const TGen::PropertyTree::PropertyMap & TGen::PropertyTree::getProperties() cons
 const TGen::PropertyTree::ConstProperty & TGen::PropertyTree::operator [] (const std::string & name) const {
 	return getProperty(name);
 }
+
+void TGen::PropertyTree::addAttribute(const std::string & attr) {
+	attributes.push_back(attr);
+}
+
+int TGen::PropertyTree::getNumAttributes() const {
+	return attributes.size();
+}
+
+std::string TGen::PropertyTree::getAttribute(int id) const {
+	return attributes[id];
+}
+

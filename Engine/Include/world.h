@@ -16,6 +16,7 @@
 #include "lightlist.h"
 #include "entityfactory.h"
 #include "scenesubsystem.h"
+#include "physicssubsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -38,11 +39,13 @@ namespace TGen {
 			void update(scalar dt);
 
 			TGen::Engine::App & app;
-
+			
 		private:
 			typedef std::map<std::string, TGen::Engine::Entity *> EntityMap;
 			
 			TGen::Engine::SceneSubsystem sceneSubsystem;
+			TGen::Engine::PhysicsSubsystem physicsSubsystem;
+			
 			TGen::Engine::EntityFactory entityFactory;
 			
 			TGen::SceneNode sceneRoot;

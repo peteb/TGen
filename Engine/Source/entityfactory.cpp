@@ -35,9 +35,11 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 		else {
 			TGen::Engine::Component * newComponent = iter->second->createComponent(entity, properties.getNode(i));
 			if (newComponent)
-				entity->addComponent(newComponent);
+				entity->addComponent(newComponent, newComponent->getName());
 		}		
 	}
+	
+	entity->link();
 	
 	return entity;
 }

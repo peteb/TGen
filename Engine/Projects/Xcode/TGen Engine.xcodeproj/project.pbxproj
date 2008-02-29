@@ -47,6 +47,8 @@
 		D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */; };
 		D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7BF30D10919B008622BC /* imagegenerator.cpp */; };
 		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
+		D09628EE0D784E97008DABC3 /* physicssubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */; };
+		D09629780D78529F008DABC3 /* bodycomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09629770D78529F008DABC3 /* bodycomponent.cpp */; };
 		D098901A0D244181006A290D /* vertexcache2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890190D244181006A290D /* vertexcache2.cpp */; };
 		D09890A50D2449C0006A290D /* vertexcacheentry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890A40D2449C0006A290D /* vertexcacheentry.cpp */; };
 		D09890CF0D244BB4006A290D /* poolcollection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890CE0D244BB4006A290D /* poolcollection2.cpp */; };
@@ -268,6 +270,10 @@
 		D08C7BF30D10919B008622BC /* imagegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagegenerator.cpp; sourceTree = "<group>"; };
 		D08C7C230D109514008622BC /* generateline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generateline.h; path = ../../Include/generateline.h; sourceTree = SOURCE_ROOT; };
 		D08C7C240D1095CA008622BC /* generateline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generateline.cpp; sourceTree = "<group>"; };
+		D09628EC0D784E89008DABC3 /* physicssubsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = physicssubsystem.h; path = ../../Include/physicssubsystem.h; sourceTree = SOURCE_ROOT; };
+		D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physicssubsystem.cpp; sourceTree = "<group>"; };
+		D09629760D785296008DABC3 /* bodycomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bodycomponent.h; path = ../../Include/bodycomponent.h; sourceTree = SOURCE_ROOT; };
+		D09629770D78529F008DABC3 /* bodycomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bodycomponent.cpp; sourceTree = "<group>"; };
 		D09890180D24414D006A290D /* vertexcache2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache2.h; path = ../../Include/vertexcache2.h; sourceTree = SOURCE_ROOT; };
 		D09890190D244181006A290D /* vertexcache2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcache2.cpp; sourceTree = "<group>"; };
 		D09890440D24435E006A290D /* poolcollection2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poolcollection2.h; path = ../../Include/poolcollection2.h; sourceTree = SOURCE_ROOT; };
@@ -632,12 +638,28 @@
 			children = (
 				D0843BC90D0759D200C31FE3 /* entity.cpp */,
 				D0843BC80D0759D200C31FE3 /* entity.h */,
-				D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */,
-				D0843BD30D0759D200C31FE3 /* scenenodecomponent.h */,
 				D0843BD70D0759D200C31FE3 /* entityfactory.cpp */,
 				D0843BD60D0759D200C31FE3 /* entityfactory.h */,
+				D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */,
+				D0843BD30D0759D200C31FE3 /* scenenodecomponent.h */,
+				D09629770D78529F008DABC3 /* bodycomponent.cpp */,
+				D09629760D785296008DABC3 /* bodycomponent.h */,
 			);
 			name = entity;
+			sourceTree = "<group>";
+		};
+		D09628EB0D784E60008DABC3 /* subsystems */ = {
+			isa = PBXGroup;
+			children = (
+				D0843C210D075BFB00C31FE3 /* subsystem.h */,
+				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
+				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
+				D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */,
+				D09628EC0D784E89008DABC3 /* physicssubsystem.h */,
+				D0843C430D075C9C00C31FE3 /* component.h */,
+				D0843BD20D0759D200C31FE3 /* entity */,
+			);
+			name = subsystems;
 			sourceTree = "<group>";
 		};
 		D0EF614C0C82D0C20085C17B /* physfs */ = {
@@ -700,11 +722,7 @@
 				D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */,
 				D0F8393C0CBA67A100FF4467 /* view.cpp */,
 				D0F8393E0CBA67AD00FF4467 /* view.h */,
-				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
-				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
-				D0843C210D075BFB00C31FE3 /* subsystem.h */,
-				D0843C430D075C9C00C31FE3 /* component.h */,
-				D0843BD20D0759D200C31FE3 /* entity */,
+				D09628EB0D784E60008DABC3 /* subsystems */,
 			);
 			name = game;
 			sourceTree = "<group>";
@@ -933,6 +951,8 @@
 				D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */,
 				D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */,
 				D07147A80D68592A00842110 /* metacreator.cpp in Sources */,
+				D09628EE0D784E97008DABC3 /* physicssubsystem.cpp in Sources */,
+				D09629780D78529F008DABC3 /* bodycomponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

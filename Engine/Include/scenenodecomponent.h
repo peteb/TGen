@@ -18,7 +18,7 @@ namespace TGen {
 	namespace Engine {
 		class SceneNodeComponent : public TGen::Engine::Component {
 		public:
-			SceneNodeComponent(TGen::SceneNode * sceneNode);
+			SceneNodeComponent(const std::string & name, TGen::SceneNode * sceneNode);
 			~SceneNodeComponent();
 			
 			TGen::SceneNode * getSceneNode();

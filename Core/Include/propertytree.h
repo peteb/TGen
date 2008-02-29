@@ -21,8 +21,11 @@ namespace TGen {
 		typedef std::pair<std::string, std::string> Property;
 		typedef std::pair<const std::string, std::string> ConstProperty;
 		typedef std::map<std::string, std::string> PropertyMap;
+		typedef std::vector<std::string> AttributeList;
 		
 		PropertyTree(const std::string & name = "root");
+		
+		void addAttribute(const std::string & attr);
 		
 		void addProperty(const Property & property);
 		void addNode(const PropertyTree & tree);
@@ -32,6 +35,9 @@ namespace TGen {
 		PropertyTree & getNode(const std::string & name);
 		int getNumProperties() const;
 		int getNumNodes() const;
+		int getNumAttributes() const;
+		std::string getAttribute(int id) const;
+		
 		bool hasProperty(const std::string & name) const;
 		std::string getProperty(const std::string & name, const std::string & defaultValue) const;
 		
@@ -46,6 +52,7 @@ namespace TGen {
 		TreeList nodes;
 		PropertyMap properties;
 		std::string name;
+		AttributeList attributes;
 	};
 	
 	

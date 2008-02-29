@@ -18,6 +18,7 @@
 TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	: app(app)
 	, sceneSubsystem(*this)
+	, physicsSubsystem(app.logs)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
@@ -29,6 +30,10 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneLight", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneMap", &sceneSubsystem);
+
+	entityFactory.registerSubsystem("physBody", &physicsSubsystem);
+	entityFactory.registerSubsystem("physGeom", &physicsSubsystem);
+	entityFactory.registerSubsystem("physJoint", &physicsSubsystem);
 	
 	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
 	//       kan kanske fixas genom att överlagra funktionen som ger faces åt renderlist att rendrera, att den då går igenom de rum som syns, 
@@ -141,6 +146,7 @@ void TGen::Engine::World::update(scalar dt) {
 	// TODO: add lights IN the scene node of the map
 	
 	sceneSubsystem.getSceneRoot().update();	
+	physicsSubsystem.update(dt);
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {

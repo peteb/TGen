@@ -55,7 +55,7 @@ TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::En
 
 	parentNode->addChild(sceneNode);
 
-	TGen::Engine::SceneNodeComponent * newComponent = new TGen::Engine::SceneNodeComponent(sceneNode);
+	TGen::Engine::SceneNodeComponent * newComponent = new TGen::Engine::SceneNodeComponent("sceneNode", sceneNode);
 	if (components.find(entity->getName()) == components.end())
 		components.insert(ComponentMap::value_type(entity->getName(), newComponent));
 	
