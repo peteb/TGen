@@ -30,13 +30,15 @@ namespace TGen {
 			void linkLocally(TGen::Engine::Entity & entity);
 			dBodyID getBodyId() const;
 			
-			friend class TGen::Engine::PhysicsSubsystem;
+			void setPosition(const TGen::Vector3 & position);
+			TGen::Vector3 getPosition() const;
+			
+			void setOrientation(const TGen::Matrix3x3 & orientation);
+			TGen::Matrix3x3 getOrientation() const;
 			
 		private:
 	//		float mass;
 		//	TGen::Vector3 position;
-			void setPosition(const TGen::Vector3 & position);
-			TGen::Vector3 getPosition() const;
 			
 			dBodyID bodyId;
 			TGen::Engine::SceneNodeComponent * sceneNodeComponent;

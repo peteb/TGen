@@ -47,7 +47,7 @@ void TGen::Engine::JointComponent::linkGlobally(TGen::Engine::EntityList & entit
 	dJointAttach(jointId, bodyId1, bodyId2);
 	setSimAnchor(anchor);
 }
-// TODO: måste skicka med vilken typ av joint det är talan om
+// TODO: måste skicka med vilken typ av joint det är talan om  NEJ! egna klasser, galet
 void TGen::Engine::JointComponent::setAnchor(const TGen::Vector3 & anchor) {
 	this->anchor = anchor;
 	setSimAnchor(anchor);

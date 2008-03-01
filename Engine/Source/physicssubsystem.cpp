@@ -11,8 +11,13 @@
 #include "log.h"
 #include "bodycomponent.h"
 #include "jointcomponent.h"
+#include "planegeomcomponent.h"
+#include "spheregeomcomponent.h"
 #include <ode/ode.h>
 #include <tgen_math.h>
+
+dWorldID TGen::Engine::PhysicsSubsystem::worldId = 0;
+dJointGroupID TGen::Engine::PhysicsSubsystem::contactGroup = 0;
 
 TGen::Engine::PhysicsSubsystem::PhysicsSubsystem(TGen::Engine::StandardLogs & logs) 
 	: logs(logs)
@@ -21,6 +26,8 @@ TGen::Engine::PhysicsSubsystem::PhysicsSubsystem(TGen::Engine::StandardLogs & lo
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
 	worldId = dWorldCreate();
+	mainSpace = dSimpleSpaceCreate(0);
+	contactGroup = dJointGroupCreate(0);
 	
 	setGravity(TGen::Vector3(0.0f, -9.0f, 0.0f));
 }
@@ -36,8 +43,10 @@ TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createComponent(TGen::
 		return createBody(properties);
 	else if (properties.getName() == "physJoint")
 		return createJoint(properties);
+	else if (properties.getName() == "physGeom")
+		return createGeom(properties);
 	
-	return NULL;
+	throw TGen::RuntimeException("PhysicsSubsystem::createComponent", "invalid component type '" + properties.getName() + "'");
 }
 
 TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const TGen::PropertyTree & properties) {
@@ -51,6 +60,7 @@ TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const T
 	dBodySetGravityMode(newBodyId, applyGravity);
 	
 	TGen::Engine::BodyComponent * newBody = new TGen::Engine::BodyComponent("physBody", newBodyId);
+	newBody->setPosition(position);
 	bodies.push_back(newBody);
 	
 	return newBody;
@@ -77,6 +87,33 @@ TGen::Engine::JointComponent * TGen::Engine::PhysicsSubsystem::createJoint(const
 	return newComponent;
 }
 
+TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createGeom(const TGen::PropertyTree & properties) {
+	if (properties.getNumAttributes() == 0)
+		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "no attributes, plz give some");
+
+	std::string geomType = properties.getAttribute(0);
+
+	TGen::Engine::Component * newComponent = NULL;
+	
+	if (geomType == "plane") {
+		TGen::Vector3 normal = TGen::Vector3::Parse(properties.getProperty("orientation", "0 1 0"));
+		scalar distance = TGen::lexical_cast<scalar>(properties.getProperty("distance", "0"));
+	
+		newComponent = new TGen::Engine::PlaneGeomComponent("physGeom", TGen::Plane3(normal, distance), mainSpace);
+	}
+	else if (geomType == "sphere") {
+		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
+		
+		newComponent = new TGen::Engine::SphereGeomComponent("physGeom", radius, mainSpace);
+	}
+	else {
+		throw TGen::RuntimeException("PhysicsSubsystem::createGeom", "invalid geom type '" + geomType + "'!");
+	}
+	
+	
+	return newComponent;
+}
+
 void TGen::Engine::PhysicsSubsystem::link() {
 	
 }
@@ -91,7 +128,11 @@ void TGen::Engine::PhysicsSubsystem::update(scalar dt) {
 		for (int i = 0; i < bodies.size(); ++i)
 			bodies[i]->preStep();
 		
+		dSpaceCollide(mainSpace, 0, &nearCallback);
+
 		dWorldStep(worldId, updateInterval); // tweak
+
+		dJointGroupEmpty(contactGroup);
 		
 		for (int i = 0; i < bodies.size(); ++i)
 			bodies[i]->postStep();
@@ -101,3 +142,29 @@ void TGen::Engine::PhysicsSubsystem::update(scalar dt) {
 void TGen::Engine::PhysicsSubsystem::setGravity(const TGen::Vector3 & gravity) {
 	dWorldSetGravity(worldId, gravity.x, gravity.y, gravity.z);
 }
+
+void TGen::Engine::PhysicsSubsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
+	if (dGeomIsSpace(o1) || dGeomIsSpace(o2)) {
+		dSpaceCollide2(o1, o2, data, &nearCallback);
+		
+		//if (dGeomIsSpace(o1))
+		//	dSpaceCollide(o1, data, &nearCallback);
+		//if (dGeomIsSpace(o2))
+		//	dSpaceCollide(o2, data, &nearCallback);
+	}
+	else {
+		const int MAX_CONTACTS = 20;
+		dContact contactGeoms[MAX_CONTACTS];
+		int numContacts = dCollide(o1, o2, MAX_CONTACTS, &contactGeoms[0].geom, sizeof(dContact));
+		
+		dBodyID body1 = dGeomGetBody(o1);
+		dBodyID body2 = dGeomGetBody(o2);
+		
+		for (int i = 0; i < numContacts; ++i) {
+			dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contactGeoms[i]);
+			dJointAttach(contactJoint, body1, body2);
+		}
+	}
+	
+}
+

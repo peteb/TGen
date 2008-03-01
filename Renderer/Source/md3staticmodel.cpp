@@ -109,7 +109,7 @@ void TGen::MD3::StaticModel::writeMeta(uint metaType, const TGen::Matrix4x4 & tr
 		//std::cout << "==> " << std::string(iter->second.origin) << std::endl;
 		
 		TGen::Vector3 start = transform * origin;
-		TGen::Vector3 end = transform * (origin + TGen::Vector3(orient) * 10.0f);
+		TGen::Vector3 end = transform * (origin + TGen::Vector3(orient) * 1.0f);
 		
 	//	std::cout << std::string(start) << " - " << std::string(end) << std::endl;
 		

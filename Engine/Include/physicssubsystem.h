@@ -31,9 +31,12 @@ namespace TGen {
 			void link();
 			void update(scalar delta);
 			
+			static void nearCallback(void * data, dGeomID o1, dGeomID o2);
+			
 		private:
 			TGen::Engine::BodyComponent * createBody(const TGen::PropertyTree & properties);
 			TGen::Engine::JointComponent * createJoint(const TGen::PropertyTree & properties);
+			TGen::Engine::Component * createGeom(const TGen::PropertyTree & properties);
 
 			void setGravity(const TGen::Vector3 & gravity);
 			
@@ -42,7 +45,9 @@ namespace TGen {
 			
 			TGen::Engine::StandardLogs & logs;
 			
-			dWorldID worldId;
+			static dWorldID worldId;
+			dSpaceID mainSpace;
+			static dJointGroupID contactGroup;
 		};
 		
 	} // !Engine

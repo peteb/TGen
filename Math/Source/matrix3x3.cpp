@@ -149,6 +149,11 @@ scalar & TGen::Matrix3x3::operator () (int x, int y) {
 	return elements[x][y];
 }
 
+const scalar & TGen::Matrix3x3::operator () (int x, int y) const {
+	return elements[x][y];
+}
+
+
 void TGen::Matrix3x3::setScale(const TGen::Vector2 & scale) {
 	elements[0][0] = scale.x;
 	elements[1][1] = scale.y;
@@ -179,5 +184,9 @@ TGen::Matrix3x3::operator std::string() const {
 	}
 	
 	return ss.str();
+}
+
+TGen::Vector3 TGen::Matrix3x3::getZ() const {
+	return TGen::Vector3(elements[2][0], elements[2][1], elements[2][2]);	
 }
 
