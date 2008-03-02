@@ -13,6 +13,7 @@
 #include "jointcomponent.h"
 #include "planegeomcomponent.h"
 #include "spheregeomcomponent.h"
+#include "boxgeomcomponent.h"
 #include <ode/ode.h>
 #include <tgen_math.h>
 
@@ -29,7 +30,7 @@ TGen::Engine::PhysicsSubsystem::PhysicsSubsystem(TGen::Engine::StandardLogs & lo
 	mainSpace = dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
 	
-	setGravity(TGen::Vector3(0.0f, -9.0f, 0.0f));
+	setGravity(TGen::Vector3(0.0f, -10.0f, 0.0f));
 }
 
 TGen::Engine::PhysicsSubsystem::~PhysicsSubsystem() {
@@ -50,14 +51,43 @@ TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createComponent(TGen::
 }
 
 TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const TGen::PropertyTree & properties) {
-	float mass = TGen::lexical_cast<float>(properties.getProperty("mass", "1.0"));
+	//float mass = TGen::lexical_cast<float>(properties.getProperty("mass", "1.0"));
 	TGen::Vector3 position = TGen::Vector3::Parse(properties.getProperty("position", "0 0 0"));
 	bool applyGravity = TGen::lexical_cast<bool>(properties.getProperty("gravity", "true"));
 	
-	
 	dBodyID newBodyId = dBodyCreate(worldId);
-	
 	dBodySetGravityMode(newBodyId, applyGravity);
+	
+	try {
+		std::string massType = properties.getNode("mass").getAttribute(0);
+		
+		dMass mass;
+		
+		if (massType == "box") {
+			scalar totalMass = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("total", "1.0"));
+			TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getNode("mass").getProperty("dimensions", "1.0 1.0 1.0"));
+			
+			dMassSetBox(&mass, totalMass, dimensions.x, dimensions.y, dimensions.z);
+
+			std::cout << " == BOX FOR " << properties.getName() << "!" << std::endl;
+		}
+		else if (massType == "sphere") {
+			scalar totalMass = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("total", "1.0"));
+			scalar radius = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("radius", "1.0"));
+			
+			dMassSetSphere(&mass, totalMass, radius);
+			
+			std::cout << " == SPHERE FOR " << properties.getName() << "!" << std::endl;
+		}
+		else {
+			throw TGen::RuntimeException("PhysicsSubsystem::createBody", "invalid mass type '" + massType + "'");
+		}
+		
+		dBodySetMass(newBodyId, &mass);
+	}
+	catch (const std::exception & e) {
+		std::cout << " == ERROR: " << e.what() << " ON " << properties.getName() << std::endl;
+	}
 	
 	TGen::Engine::BodyComponent * newBody = new TGen::Engine::BodyComponent("physBody", newBodyId);
 	newBody->setPosition(position);
@@ -105,6 +135,11 @@ TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createGeom(const TGen:
 		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
 		
 		newComponent = new TGen::Engine::SphereGeomComponent("physGeom", radius, mainSpace);
+	}
+	else if (geomType == "box") {
+		TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("dimensions", "1 1 1"));
+		
+		newComponent = new TGen::Engine::BoxGeomComponent("physGeom", dimensions, mainSpace);
 	}
 	else {
 		throw TGen::RuntimeException("PhysicsSubsystem::createGeom", "invalid geom type '" + geomType + "'!");

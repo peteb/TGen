@@ -64,7 +64,11 @@ dBodyID TGen::Engine::BodyComponent::getBodyId() const {
 TGen::Matrix3x3 TGen::Engine::BodyComponent::getOrientation() const {
 	const dReal * orient = dBodyGetRotation(bodyId);
 	
-	return TGen::Matrix3x3(orient[0+3*0], orient[0+3*1], orient[0+3*2], orient[1+3*0], orient[1+3*1], orient[1+3*2], orient[2+3*0], orient[2+3*1], orient[2+4*2]);	
+	//return TGen::Matrix3x3(orient[0+3*0], orient[0+3*1], orient[0+3*2], orient[1+3*0], orient[1+3*1], orient[1+3*2], orient[2+3*0], orient[2+3*1], orient[2+4*2]);	
+	
+	return TGen::Matrix3x3(TGen::Vector3(orient[0], orient[1], orient[2]),
+								  TGen::Vector3(orient[4], orient[5], orient[6]),
+								  TGen::Vector3(orient[8], orient[9], orient[10]));
 }
 
 void TGen::Engine::BodyComponent::setOrientation(const TGen::Matrix3x3 & orientation) {

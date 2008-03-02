@@ -232,18 +232,35 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	ModelMap::iterator iter = models.find(name);
 	if (iter != models.end())
 		return iter->second->instantiate();
+
+	std::string filename = name;
+	scalar scale = 0.001f;
 	
-	TGen::Engine::File * file = filesystem.openRead(name);
+	if (name.substr(0, 4) == "gen:") {
+		TGen::Engine::GenerateLine line(name);	
+		
+		filename = line.getName();
+		scale = TGen::lexical_cast<scalar>(line.getParameter("scale"));
+	}
+	else {
+		filename = name;
+	}
+	
+
+	
+	TGen::Engine::File * file = filesystem.openRead(filename);
 	TGen::NewModel * newModel = NULL;
 	
-	if (name.find(".md3") != std::string::npos) {
+	
+	if (filename.find(".md3") != std::string::npos) {
 		TGen::MD3::Parser modelParser;
 		TGen::MD3::File * md3file = modelParser.parse(*file);
 		//md3file->printInfo(std::cout);
-		newModel = md3file->createModel(renderer, 0.001);
-		delete md3file;
+		newModel = md3file->createModel(renderer, scale);
+
+		 delete md3file;
 	}
-	else if (name.find(".md5mesh") != std::string::npos) {
+	else if (filename.find(".md5mesh") != std::string::npos) {
 		std::vector<std::string> files;
 		filesystem.enumerateFiles(TGen::getFolder(name) + "/", files);
 		
@@ -254,7 +271,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 		TGen::MD5::ModelParser modelParser;
 		TGen::MD5::ModelFile * md5mesh = modelParser.parse(*file);
 		//md5mesh->printInfo(std::cout);
-		newModel = md5mesh->createModel(renderer, TGen::getFile(name), 0.001);
+		newModel = md5mesh->createModel(renderer, TGen::getFile(name), scale);
 		delete md5mesh;		
 	}
 	else {

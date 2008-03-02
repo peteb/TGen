@@ -51,6 +51,7 @@
 		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
 		D09330AC0D79FD7D0046DC37 /* planegeomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeomcomponent.cpp */; };
 		D09332230D79FFFF0046DC37 /* spheregeomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeomcomponent.cpp */; };
+		D09336480D7AF9CA0046DC37 /* boxgeomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeomcomponent.cpp */; };
 		D09628EE0D784E97008DABC3 /* physicssubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */; };
 		D09629780D78529F008DABC3 /* bodycomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09629770D78529F008DABC3 /* bodycomponent.cpp */; };
 		D0962AFC0D7866BE008DABC3 /* libode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0962AFB0D7866BE008DABC3 /* libode.a */; };
@@ -283,6 +284,8 @@
 		D09330AB0D79FD7D0046DC37 /* planegeomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = planegeomcomponent.cpp; sourceTree = "<group>"; };
 		D09332220D79FFFF0046DC37 /* spheregeomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = spheregeomcomponent.cpp; sourceTree = "<group>"; };
 		D09332E30D7A08470046DC37 /* spheregeomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spheregeomcomponent.h; path = ../../Include/spheregeomcomponent.h; sourceTree = SOURCE_ROOT; };
+		D093363A0D7AF97F0046DC37 /* boxgeomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = boxgeomcomponent.h; path = ../../Include/boxgeomcomponent.h; sourceTree = SOURCE_ROOT; };
+		D09336470D7AF9CA0046DC37 /* boxgeomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boxgeomcomponent.cpp; sourceTree = "<group>"; };
 		D09628EC0D784E89008DABC3 /* physicssubsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = physicssubsystem.h; path = ../../Include/physicssubsystem.h; sourceTree = SOURCE_ROOT; };
 		D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physicssubsystem.cpp; sourceTree = "<group>"; };
 		D09629760D785296008DABC3 /* bodycomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bodycomponent.h; path = ../../Include/bodycomponent.h; sourceTree = SOURCE_ROOT; };
@@ -729,6 +732,8 @@
 				D09330AA0D79FD7D0046DC37 /* planegeomcomponent.h */,
 				D09332220D79FFFF0046DC37 /* spheregeomcomponent.cpp */,
 				D09332E30D7A08470046DC37 /* spheregeomcomponent.h */,
+				D09336470D7AF9CA0046DC37 /* boxgeomcomponent.cpp */,
+				D093363A0D7AF97F0046DC37 /* boxgeomcomponent.h */,
 			);
 			name = geoms;
 			sourceTree = "<group>";
@@ -1070,6 +1075,7 @@
 				D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */,
 				D09330AC0D79FD7D0046DC37 /* planegeomcomponent.cpp in Sources */,
 				D09332230D79FFFF0046DC37 /* spheregeomcomponent.cpp in Sources */,
+				D09336480D7AF9CA0046DC37 /* boxgeomcomponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

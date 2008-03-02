@@ -103,6 +103,9 @@ int TGen::PropertyTree::getNumAttributes() const {
 }
 
 std::string TGen::PropertyTree::getAttribute(int id) const {
+	if (id >= attributes.size())
+		throw TGen::RuntimeException("PropertyTree::getAttribute", "index out of bounds");
+	
 	return attributes[id];
 }
 
