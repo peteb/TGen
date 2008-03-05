@@ -9,7 +9,7 @@
 
 #include "camera.h"
 
-TGen::Camera::Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation) 
+TGen::Camera::Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation) 
 	: TGen::SceneNode(name, position, orientation)
 	, fov(80.0f)
 	, aspectRatio(1.0f)	
@@ -38,7 +38,7 @@ void TGen::Camera::update() {
 		TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
 		//TGen::Vector3 result = orientation * front * -orientation;
 		
-		TGen::Vector3 result = TGen::Vector3(orientation);   // FULHACK
+		//TGen::Vector3 result = TGen::Vector3(orientation);   // FULHACK
 		
 		/*if (parent)
 			this->transform = parent->getTransform() * (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(result, up)).invert();
@@ -57,9 +57,9 @@ void TGen::Camera::update() {
 		
 		//std::cout << "POS: " << std::string(position) << " ORIENT: " << std::string(TGen::Vector3(orientation)) << " UP: " << std::string(up) << std::endl;
 		
-		TGen::Vector3 fixedRight = TGen::Vector3::CrossProduct(up, result).getNormalized();
-		TGen::Vector3 fixedUp = TGen::Vector3::CrossProduct(result, fixedRight).getNormalized();
-		TGen::Vector3 fixedView = result.getNormalized();
+		//TGen::Vector3 fixedRight = TGen::Vector3::CrossProduct(up, result).getNormalized();
+		//TGen::Vector3 fixedUp = TGen::Vector3::CrossProduct(result, fixedRight).getNormalized();
+		//TGen::Vector3 fixedView = result.getNormalized();
 		
 		/*std::cout << "   fixed right: " << std::string(fixedRight) << std::endl;
 		std::cout << "   fixed up: " << std::string(fixedUp) << std::endl;
@@ -71,10 +71,12 @@ void TGen::Camera::update() {
 		
 		*/
 		
-		TGen::Matrix4x4 fixedMat(fixedRight, fixedUp, -fixedView);
+		TGen::Matrix4x4 fixedMat = orientation; //(fixedRight, fixedUp, -fixedView);
 
 		
 		//TGen::Matrix4x4 mat(s, u, -f);
+		
+		//std::cout << "---" << std::endl << std::string(parent->getTransform() * fixedMat  * TGen::Matrix4x4::Translation(-position)) << std::endl;
 		
 		if (parent)
 			this->transform = parent->getTransform() * fixedMat  * TGen::Matrix4x4::Translation(-position);

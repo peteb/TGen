@@ -32,7 +32,9 @@ namespace TGen {
 		
 		class Walker;
 		
-		SceneNode(const std::string & name, const TGen::Vector3 & position = TGen::Vector3(0.0f, 0.0f, 0.0f), const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
+		SceneNode(const std::string & name, const TGen::Vector3 & position = TGen::Vector3(0.0f, 0.0f, 0.0f));
+		SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation);
+		
 		virtual ~SceneNode();
 		
 		virtual void update();
@@ -57,11 +59,11 @@ namespace TGen {
 		TGen::AABB getChildrenBoundingBox() const;
 		
 		void setPosition(const TGen::Vector3 & position);
-		void setOrientation(const TGen::Vector3 & orientation);
+		void setOrientation(const TGen::Rotation & orientation);
 		TGen::Vector3 getLocalPosition() const;
-		TGen::Quaternion4 getLocalOrientation() const;
+		TGen::Rotation getLocalOrientation() const;
 		TGen::Vector3 getWorldPosition() const;
-		TGen::Quaternion4 getWorldOrientation() const;
+		TGen::Rotation getWorldOrientation() const;
 		
 		bool hasChanged() const;
 		//const FaceList & getFaces() const;
@@ -97,7 +99,7 @@ namespace TGen {
 		std::string name;
 		SceneNode * parent;
 		TGen::Vector3 position, up;
-		TGen::Quaternion4 orientation;
+		TGen::Rotation orientation;
 		TGen::Matrix4x4 transform;
 		TGen::AABB localBoundingBox, worldBoundingBox;
 		TGen::Sphere localBoundingSphere, worldBoundingSphere;

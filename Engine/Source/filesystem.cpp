@@ -40,7 +40,13 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 	
 	writeDir += "TGen/";
 	
-	std::string restOfFSBase = std::string(argv0).substr(strlen(PHYSFS_getBaseDir()));
+	std::string restOfFSBase;
+	
+	if (argv0[0] == '/')
+		restOfFSBase = std::string(argv0).substr(strlen(PHYSFS_getBaseDir()));
+	else
+		restOfFSBase = argv0;
+	
 	std::string bundleName = restOfFSBase.substr(0, restOfFSBase.find("/"));
 	
 	base = bundleName + "/Contents/Resources/";

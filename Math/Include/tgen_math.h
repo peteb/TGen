@@ -31,6 +31,8 @@
 namespace TGen {
 	bool isMathDebug();
 	
+	typedef TGen::Matrix3x3 Rotation;
+	
 	template<typename T>
 	T Clamp(T value, T low, T high) {
 		if (value < low)

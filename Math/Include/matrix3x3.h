@@ -34,15 +34,23 @@ namespace TGen {
 		const scalar & operator () (int x, int y) const;
 
 		operator std::string() const;
+		Matrix3x3 & orthogonalize();
 		
 		void setOrigin(const TGen::Vector2 & origin);
 		void setScale(const TGen::Vector2 & scale);
 		void get4x4(scalar * elements) const;
-		TGen::Vector3 getZ() const;
 
+		TGen::Vector3 getX() const;
+		TGen::Vector3 getY() const;	
+		TGen::Vector3 getZ() const;
+		void setX(const TGen::Vector3 & x);
+		void setY(const TGen::Vector3 & x);
+		void setZ(const TGen::Vector3 & x);
+		
 		static TGen::Matrix3x3 Identity;
 		static TGen::Matrix3x3 Translation(const TGen::Vector2 & vector);
 		static TGen::Matrix3x3 Scaling(const TGen::Vector2 & scale);
+		static TGen::Matrix3x3 LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up);
 		
 		scalar elements[3][3];
 		

@@ -43,7 +43,7 @@ TGen::Matrix4x4::Matrix4x4(const TGen::Matrix4x4 & matrix) {
 
 TGen::Matrix4x4::Matrix4x4(const TGen::Matrix3x3 & matrix) {
 	Clear();
-	elements[0][0] = matrix.elements[0][0];
+	/*elements[0][0] = matrix.elements[0][0];
 	elements[0][1] = matrix.elements[0][1];
 	elements[0][3] = matrix.elements[0][2];
 	
@@ -58,6 +58,13 @@ TGen::Matrix4x4::Matrix4x4(const TGen::Matrix3x3 & matrix) {
 	elements[3][1] = matrix.elements[2][1];
 	elements[3][2] = 0.0f;	// origin z
 	elements[3][3] = matrix.elements[2][2];
+	*/
+	
+	elements[3][3] = 1.0f;
+	setX(matrix.getX());
+	setY(matrix.getY());
+	setZ(matrix.getZ());
+	
 }
 
 TGen::Matrix4x4::Matrix4x4(scalar e11, scalar e12, scalar e13, scalar e14, scalar e21, scalar e22, scalar e23, scalar e24, scalar e31, scalar e32, scalar e33, scalar e34, scalar e41, scalar e42, scalar e43, scalar e44) {
@@ -154,6 +161,20 @@ TGen::Matrix4x4 TGen::Matrix4x4::operator * (const TGen::Matrix4x4 & matrix) con
 	return matRet;
 }
 
+TGen::Matrix4x4 TGen::Matrix4x4::operator * (const TGen::Matrix3x3 & matrix) const {
+	Matrix4x4 matRet;
+	
+	for (int r = 0; r < 3; r++) { 
+		for (int c = 0; c < 3; c++) { 
+			for (int i = 0; i < 3; i++) { 
+				matRet.elements[r][c] += matrix.elements[r][i] * elements[i][c]; 
+			} 
+		} 
+	} 
+	
+	return matRet;	
+}
+
 TGen::Matrix4x4::operator std::string() const {
 	std::stringstream ss;
 	
@@ -188,8 +209,16 @@ void TGen::Matrix4x4::get4x4(scalar * elements) const {
 	memcpy(elements, this->elements, sizeof(scalar) * 4 * 4);
 }
 
+scalar & TGen::Matrix4x4::operator () (int x, int y) {
+	return elements[x][y];
+}
+
+const scalar & TGen::Matrix4x4::operator () (int x, int y) const {
+	return elements[x][y];
+}
+
 TGen::Matrix4x4 & TGen::Matrix4x4::transpose() {
-	
+	// TODO: fix transpose!!!!!
 	
 	return *this;
 }
@@ -382,3 +411,11 @@ TGen::Matrix4x4 TGen::Matrix4x4::getInverse() const {
 	return TGen::Matrix4x4(*this).invert();
 }
 
+TGen::Matrix4x4 & TGen::Matrix4x4::orthonormalize() {
+	setX(getX().normalize());
+	setY(getY().normalize());
+	setZ(getZ().normalize());
+	
+	
+	return *this;
+}

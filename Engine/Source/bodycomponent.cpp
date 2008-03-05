@@ -27,16 +27,18 @@ TGen::Engine::BodyComponent::~BodyComponent() {
 }
 
 void TGen::Engine::BodyComponent::preStep() {
-	if (sceneNodeComponent)
+	if (sceneNodeComponent) {
 		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
+		//setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
+	}
 }
 
 void TGen::Engine::BodyComponent::postStep() {
-	//position -= TGen::Vector3(0.0f, 1.0f, 0.0f) * 1.0f * dt;
-	
 	if (sceneNodeComponent) {
+		TGen::Rotation orientation = getOrientation(); //.orthonormalize();
+
 		sceneNodeComponent->getSceneNode()->setPosition(getPosition());
-		sceneNodeComponent->getSceneNode()->setOrientation((getOrientation().getZ()).normalize());
+		sceneNodeComponent->getSceneNode()->setOrientation(orientation);
 	}
 }
 
@@ -64,26 +66,33 @@ dBodyID TGen::Engine::BodyComponent::getBodyId() const {
 TGen::Matrix3x3 TGen::Engine::BodyComponent::getOrientation() const {
 	const dReal * orient = dBodyGetRotation(bodyId);
 	
-	//return TGen::Matrix3x3(orient[0+3*0], orient[0+3*1], orient[0+3*2], orient[1+3*0], orient[1+3*1], orient[1+3*2], orient[2+3*0], orient[2+3*1], orient[2+4*2]);	
+	// TODO: transpose this if something is wrong
+	TGen::Vector3 x(orient[0], orient[4], orient[8]);
+	TGen::Vector3 y(orient[1], orient[5], orient[9]);
+	TGen::Vector3 z(orient[2], orient[6], orient[10]);
 	
-	return TGen::Matrix3x3(TGen::Vector3(orient[0], orient[1], orient[2]),
-								  TGen::Vector3(orient[4], orient[5], orient[6]),
-								  TGen::Vector3(orient[8], orient[9], orient[10]));
+	return TGen::Matrix3x3(x, y, z);
 }
 
 void TGen::Engine::BodyComponent::setOrientation(const TGen::Matrix3x3 & orientation) {
 	dMatrix3 matrix;
-	matrix[0] = orientation(0, 0);
-	matrix[1] = orientation(1, 0);
-	matrix[2] = orientation(2, 0);
+	TGen::Vector3 x = orientation.getX();
+	TGen::Vector3 y = orientation.getY();
+	TGen::Vector3 z = orientation.getZ();
+	
+	// TODO: and transpose here...
+	matrix[0] = x.x;
+	matrix[1] = y.x;
+	matrix[2] = z.x;
 	matrix[3] = 0.0f;
-	matrix[4] = orientation(0, 1);
-	matrix[5] = orientation(1, 1);
-	matrix[6] = orientation(2, 1);
+	matrix[4] = x.y;
+	matrix[5] = y.y;
+	matrix[6] = z.y;
 	matrix[7] = 0.0f;
-	matrix[8] = orientation(0, 2);
-	matrix[9] = orientation(1, 2);
-	matrix[10] = orientation(2, 2);
+	matrix[8] = x.z;
+	matrix[9] = y.z;
+	matrix[10] = z.z;
 	matrix[11] = 0.0f;
 	
+	dBodySetRotation(bodyId, matrix);
 }

@@ -57,7 +57,7 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 
 	if (world && vec.getMagnitude() < 100.0f) {
-		world->getCamera("maincam")->setPosition(world->getCamera("maincam")->getLocalPosition() + TGen::Vector3(vec.x, 0.0f, vec.y) * 0.5);
+		world->getCamera("maincam")->setPosition(world->getCamera("maincam")->getLocalPosition() + TGen::Vector3(vec.x, 0.0f, -vec.y) * 0.5);
 	//	reinterpret_cast<TGen::FPSCamera *>(world->getCamera("maincam"))->rotate(TGen::Vector2(vec) * 0.01f);
 	}
 	

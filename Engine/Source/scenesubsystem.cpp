@@ -63,10 +63,14 @@ TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::En
 }
 
 TGen::SceneNode * TGen::Engine::SceneSubsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {
-	TGen::Camera * camera = new TGen::Camera(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	TGen::Camera * camera = new TGen::Camera(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), TGen::Rotation::Identity);
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
-	camera->setOrientation(TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize());
+	
+	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
+	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
+	
+	camera->setOrientation(rotation);
 	camera->update();
 	
 	return camera;
@@ -75,7 +79,12 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createCameraNode(const std::stri
 TGen::SceneNode * TGen::Engine::SceneSubsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::Light * light = new TGen::Engine::Light(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
-	light->setOrientation(TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize());
+	
+	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
+	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
+	
+	light->setOrientation(rotation);
+	
 	light->setMaterialName(properties.getProperty("material", ""));
 	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
 	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
@@ -88,7 +97,10 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createLightNode(const std::strin
 TGen::SceneNode * TGen::Engine::SceneSubsystem::createNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::SceneNode * node = new TGen::SceneNode(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 
-	node->setOrientation(TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize());
+	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
+	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
+	
+	node->setOrientation(rotation);
 
 	std::string modelName = properties.getProperty("model", "");
 	

@@ -9,7 +9,7 @@
 
 #include "fpscamera.h"
 
-TGen::FPSCamera::FPSCamera(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
+TGen::FPSCamera::FPSCamera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation)
 	: TGen::Camera(name, position, orientation)
 	, orientationX(0.0f)
 	, orientationY(0.0f)

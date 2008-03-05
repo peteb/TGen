@@ -68,16 +68,12 @@ TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const T
 			TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getNode("mass").getProperty("dimensions", "1.0 1.0 1.0"));
 			
 			dMassSetBox(&mass, totalMass, dimensions.x, dimensions.y, dimensions.z);
-
-			std::cout << " == BOX FOR " << properties.getName() << "!" << std::endl;
 		}
 		else if (massType == "sphere") {
 			scalar totalMass = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("total", "1.0"));
 			scalar radius = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("radius", "1.0"));
 			
 			dMassSetSphere(&mass, totalMass, radius);
-			
-			std::cout << " == SPHERE FOR " << properties.getName() << "!" << std::endl;
 		}
 		else {
 			throw TGen::RuntimeException("PhysicsSubsystem::createBody", "invalid mass type '" + massType + "'");
@@ -85,8 +81,8 @@ TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const T
 		
 		dBodySetMass(newBodyId, &mass);
 	}
-	catch (const std::exception & e) {
-		std::cout << " == ERROR: " << e.what() << " ON " << properties.getName() << std::endl;
+	catch (...) {
+		// No mass defined
 	}
 	
 	TGen::Engine::BodyComponent * newBody = new TGen::Engine::BodyComponent("physBody", newBodyId);

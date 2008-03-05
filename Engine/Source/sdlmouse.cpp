@@ -70,7 +70,7 @@ void TGen::Engine::SDLMouse::enterMode(TGen::Engine::InputDeviceMode mode) {
 		return;
 	
 	if (mode == TGen::Engine::RelativeMode) {
-		SDL_WM_GrabInput(SDL_GRAB_ON);
+		//SDL_WM_GrabInput(SDL_GRAB_ON);
 
 		std::cout << "ENTERED RELATIVE MODE" << std::endl;
 	}

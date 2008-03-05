@@ -20,7 +20,7 @@
 namespace TGen {
 	class Camera : public TGen::SceneNode {
 	public:
-		Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
+		Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & rotation);
 		virtual ~Camera();
 		
 		virtual void update();

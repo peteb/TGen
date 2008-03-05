@@ -14,7 +14,18 @@
 #include "modelinstance_new.h"
 #include <cassert>
 
-TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
+TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position)
+	: name(name)
+	, position(position)
+	, up(0.0f, 1.0f, 0.0f)
+	, changed(true)
+	, parent(NULL)
+	, orientation(TGen::Rotation::Identity)
+{
+		
+}
+
+TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation) 
 	: name(name)
 	, position(position)
 	, orientation(orientation)
@@ -22,7 +33,7 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 	, changed(true)
 	, parent(NULL)
 {
-		
+	
 }
 
 TGen::SceneNode::~SceneNode() {
@@ -47,19 +58,19 @@ void TGen::SceneNode::update() {
 	if ((parent && parent->changed) || this->changed) {			
 		//TGen::Quaternion4 front(0.0f, 0.0f, 1.0f);
 		//TGen::Quaternion4 result = orientation * front * -orientation;
-		TGen::Vector3 dir = TGen::Vector3(orientation.x, orientation.y, orientation.z);
+		//TGen::Vector3 dir = TGen::Vector3(orientation.x, orientation.y, orientation.z);
 		
 		if (parent)
-			this->transform = parent->getTransform() * (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(dir, up));
+			this->transform = parent->getTransform() * (TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4(orientation)); //TGen::Matrix4x4::LookInDirection(dir, up));
 		else
-			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4::LookInDirection(dir, up);
+			this->transform = TGen::Matrix4x4::Translation(position) * TGen::Matrix4x4(orientation); //TGen::Matrix4x4::LookInDirection(dir, up);
 		
 	/*	std::cout << "X: " << std::string(this->transform.getX()) << std::endl;
 		std::cout << "Y: " << std::string(this->transform.getY()) << std::endl;
 		std::cout << "Z: " << std::string(this->transform.getZ()) << std::endl;
 		std::cout << std::endl;
 	*/
-		
+				
 		this->changed = true;
 	}
 	
@@ -87,7 +98,7 @@ TGen::Vector3 TGen::SceneNode::getLocalPosition() const {
 	return position;
 }
 
-TGen::Quaternion4 TGen::SceneNode::getLocalOrientation() const {
+TGen::Rotation TGen::SceneNode::getLocalOrientation() const {
 	return orientation;
 }
 
@@ -95,8 +106,8 @@ TGen::Vector3 TGen::SceneNode::getWorldPosition() const {
 	return transform.getOrigin();
 }
 
-TGen::Quaternion4 TGen::SceneNode::getWorldOrientation() const {
-	return transform.getZ();
+TGen::Rotation TGen::SceneNode::getWorldOrientation() const {
+	return TGen::Rotation(transform);
 }
 
 const TGen::Matrix4x4 & TGen::SceneNode::getTransform() const {
@@ -137,7 +148,7 @@ void TGen::SceneNode::setPosition(const TGen::Vector3 & position) {
 	changed = true;
 }
 
-void TGen::SceneNode::setOrientation(const TGen::Vector3 & orientation) {
+void TGen::SceneNode::setOrientation(const TGen::Rotation & orientation) {
 	this->orientation = orientation;
 	changed = true;
 }

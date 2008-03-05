@@ -127,46 +127,56 @@ static NSString *getApplicationName(void)
 
 static void setApplicationMenu(void)
 {
-    /* warning: this code is very odd */
-    NSMenu *appleMenu;
-    NSMenuItem *menuItem;
-    NSString *title;
-    NSString *appName;
-    
-    appName = getApplicationName();
-    appleMenu = [[NSMenu alloc] initWithTitle:@""];
-    
-    /* Add menu items */
-    title = [@"About " stringByAppendingString:appName];
-    [appleMenu addItemWithTitle:title action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+	/* warning: this code is very odd */
+	NSMenu *appleMenu;
+	NSMenuItem *menuItem;
+	NSString *title;
+	NSString *appName;
+	 
+	appName = getApplicationName();
+	appleMenu = [[NSMenu alloc] initWithTitle:@""];
+	 
+	 /* Add menu items */
+	title = [@"About " stringByAppendingString:appName];
+	[appleMenu addItemWithTitle:title action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
 
-    [appleMenu addItem:[NSMenuItem separatorItem]];
+	[appleMenu addItem:[NSMenuItem separatorItem]];
 
-    title = [@"Hide " stringByAppendingString:appName];
-    [appleMenu addItemWithTitle:title action:@selector(hide:) keyEquivalent:@"h"];
+	[appleMenu addItemWithTitle:@"Preferences..." action:@selector(showPreferences:) keyEquivalent:@","];
+	
+	[appleMenu addItem:[NSMenuItem separatorItem]];
 
-    menuItem = (NSMenuItem *)[appleMenu addItemWithTitle:@"Hide Others" action:@selector(hideOtherApplications:) keyEquivalent:@"h"];
-    [menuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask|NSCommandKeyMask)];
+	title = [@"Hide " stringByAppendingString:appName];
+	[appleMenu addItemWithTitle:title action:@selector(hide:) keyEquivalent:@"h"];
 
-    [appleMenu addItemWithTitle:@"Show All" action:@selector(unhideAllApplications:) keyEquivalent:@""];
+	menuItem = (NSMenuItem *)[appleMenu addItemWithTitle:@"Hide Others" action:@selector(hideOtherApplications:) keyEquivalent:@"h"];
+	[menuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask|NSCommandKeyMask)];
 
-    [appleMenu addItem:[NSMenuItem separatorItem]];
+	[appleMenu addItemWithTitle:@"Show All" action:@selector(unhideAllApplications:) keyEquivalent:@""];
 
-    title = [@"Quit " stringByAppendingString:appName];
-    [appleMenu addItemWithTitle:title action:@selector(terminate:) keyEquivalent:@"q"];
+	[appleMenu addItem:[NSMenuItem separatorItem]];
 
-    
-    /* Put menu into the menubar */
-    menuItem = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
-    [menuItem setSubmenu:appleMenu];
-    [[NSApp mainMenu] addItem:menuItem];
+	title = [@"Quit " stringByAppendingString:appName];
+	[appleMenu addItemWithTitle:title action:@selector(terminate:) keyEquivalent:@"q"];
 
-    /* Tell the application object that this is now the application menu */
-    [NSApp setAppleMenu:appleMenu];
+	 
+	/* Put menu into the menubar */
+	menuItem = [[NSMenuItem alloc] initWithTitle:@"" action:nil keyEquivalent:@""];
+	[menuItem setSubmenu:appleMenu];
+	[[NSApp mainMenu] addItem:menuItem];
 
-    /* Finally give up our references to the objects */
-    [appleMenu release];
-    [menuItem release];
+	/* Tell the application object that this is now the application menu */
+	[NSApp setAppleMenu:appleMenu];
+
+	/* Finally give up our references to the objects */
+	[appleMenu release];
+	[menuItem release];
+}
+
+- (void) showPreferences:(id)sender {
+	NSAlert * alert = [[NSAlert alloc] init];
+	[alert setMessageText:@"Test!"];
+	[alert runModal];
 }
 
 /* Create a window menu */

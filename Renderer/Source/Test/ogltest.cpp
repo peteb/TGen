@@ -239,10 +239,10 @@ public:
 		renderer = new TGen::OpenGL::Renderer;
 		resources = new ResourceManager(*renderer);
 		
-		camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, -4.0f));	// TODO: bara +Z är korrekt..... måste inverse
+		camera = new TGen::Camera("cam", TGen::Vector3(0.0f, 0.0f, 4.0f), TGen::Rotation::Identity);
 		camera->setClip(0.1f, 10.0f);
 		camera->setLod(0.0f, 20.0f);
-		camera->setOrientation(TGen::Vector3(0.0f, 0.0f, 1.0f).normalize());
+		camera->setOrientation(TGen::Rotation::LookInDirection(TGen::Vector3(0.0f, 0.5f, 1.0f).normalize(), TGen::Vector3(0.0f, 1.0f, 0.0f)));
 		
 		sceneRoot.addChild(camera);
 		/*sceneRoot.addChild(new TGen::SceneNode("cube1", TGen::Vector3(0.0f, 0.0f, 2.0f)));

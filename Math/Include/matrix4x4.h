@@ -34,13 +34,19 @@ namespace TGen {
 		TGen::Vector4 operator * (const TGen::Vector4 & vector) const;
 
 		TGen::Matrix4x4 operator * (const TGen::Matrix4x4 & matrix) const;
+		TGen::Matrix4x4 operator * (const TGen::Matrix3x3 & matrix) const;
+		
 		TGen::Matrix4x4 & operator *= (const TGen::Matrix4x4 & matrix);
 
 		operator std::string() const;
-		
+		scalar & operator () (int x, int y);
+		const scalar & operator () (int x, int y) const;
+
 		Matrix4x4 & transpose();
 		Matrix4x4 & invert();
 		Matrix4x4 getInverse() const;
+		Matrix4x4 & orthonormalize();
+		
 		void setOrigin(const TGen::Vector3 & origin);
 		void setScale(const TGen::Vector3 & scale);
 		void get4x4(scalar * elements) const;

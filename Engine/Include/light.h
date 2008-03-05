@@ -24,7 +24,7 @@ namespace TGen {
 		
 		class Light : public TGen::SceneNode {
 		public:
-			Light(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
+			Light(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation = TGen::Rotation::Identity);
 			
 			// light type.... inte material :(    ändra! gör som alla scenenodes, en materialName som länkas..... 
 			// ska vara en data-component på entity?

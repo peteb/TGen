@@ -24,7 +24,7 @@
 namespace TGen {
 	class FPSCamera : public TGen::Camera {
 	public:
-		FPSCamera(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation = TGen::Quaternion4(0.0f, 0.0f, 1.0f));
+		FPSCamera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation);
 		~FPSCamera();
 		
 		void update();

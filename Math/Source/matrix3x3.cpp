@@ -186,7 +186,57 @@ TGen::Matrix3x3::operator std::string() const {
 	return ss.str();
 }
 
+TGen::Vector3 TGen::Matrix3x3::getX() const {
+	return TGen::Vector3(elements[0][0], elements[0][1], elements[0][2]);	
+}
+
+TGen::Vector3 TGen::Matrix3x3::getY() const {
+	return TGen::Vector3(elements[1][0], elements[1][1], elements[1][2]);		
+}
+
 TGen::Vector3 TGen::Matrix3x3::getZ() const {
 	return TGen::Vector3(elements[2][0], elements[2][1], elements[2][2]);	
+}
+
+void TGen::Matrix3x3::setX(const TGen::Vector3 & x) {
+	elements[0][0] = x.x;
+	elements[0][1] = x.y;
+	elements[0][2] = x.z;
+}
+
+void TGen::Matrix3x3::setY(const TGen::Vector3 & y) {
+	elements[1][0] = y.x;
+	elements[1][1] = y.y;
+	elements[1][2] = y.z;	
+}
+
+void TGen::Matrix3x3::setZ(const TGen::Vector3 & z) {
+	elements[2][0] = z.x;
+	elements[2][1] = z.y;
+	elements[2][2] = z.z;	
+}
+
+TGen::Matrix3x3 TGen::Matrix3x3::LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up) {
+	TGen::Vector3 look, right, newUp;
+	look = direction.getNormalized();
+	right = TGen::Vector3::CrossProduct(up, look);
+	if (right.getMagnitude() < 0.5)
+		right = TGen::Vector3::CrossProduct(TGen::Vector3(0.0f, 0.0f, 1.0f), look);
+	
+	newUp = TGen::Vector3::CrossProduct(look, right);
+	
+	return Matrix3x3(right, newUp, look);	
+}
+
+TGen::Matrix3x3 & TGen::Matrix3x3::orthogonalize() {
+	TGen::Vector3 z = getZ().normalize();
+	TGen::Vector3 x = TGen::Vector3::CrossProduct(z, getY().normalize()).normalize();
+	TGen::Vector3 y = TGen::Vector3::CrossProduct(z, x).normalize();
+	
+	setX(x);
+	setY(y);
+	setZ(z);
+	
+	return *this;
 }
 

@@ -10,7 +10,7 @@
 #include "light.h"
 #include "lightlist.h"
 
-TGen::Engine::Light::Light(const std::string & name, const TGen::Vector3 & position, const TGen::Quaternion4 & orientation)
+TGen::Engine::Light::Light(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation)
 	: TGen::SceneNode(name, position, orientation)
 	, material(NULL)
 {
@@ -25,7 +25,8 @@ TGen::Light & TGen::Engine::Light::getLightProperties() {
 }
 
 bool TGen::Engine::Light::fillUser(TGen::RenderList & list, const TGen::Camera & camera) const {
-	light.position = orientation;	// TODO: globalOrientation perhaps
+	light.position = orientation * TGen::Vector3(0.0f, 0.0f, 1.0f);	// we're using the position field for direction
+	// TODO: globalOrientation perhaps
 	//std::cout << std::string(TGen::Vector3(orientation)) << std::endl;
 	list.addUser(static_cast<void *>(const_cast<TGen::Engine::Light *>(this)), TGen::Engine::UserTypeLight);  // fult knep
 	return true;

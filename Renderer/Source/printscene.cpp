@@ -29,7 +29,7 @@ bool TGen::ScenePrinter::pre(TGen::SceneNode & node) const {
 	
 	stream << levelName << (node.hasChanged() ? ">" : "-") << node.getName();
 	stream << " pos: [" << std::string(node.getLocalPosition()) << ", " << std::string(node.getWorldPosition()) << "]";	
-	stream << " orient: [" << std::string(TGen::Vector3(node.getLocalOrientation())) << ", " << std::string(TGen::Vector3(node.getWorldOrientation())) << "]";
+	stream << " orient: [" << std::string(node.getLocalOrientation()) << ", " << std::string(node.getWorldOrientation()) << "]";
 	stream << std::endl;
 	
 	/*for (int i = 0; i < node.getFaces().size(); ++i) {

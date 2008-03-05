@@ -2,4 +2,7 @@ install_name_tool -change /usr/local/lib/libIL.1.dylib @executable_path/../Frame
 install_name_tool -change /usr/local/lib/libpng12.0.dylib @executable_path/../Frameworks/libpng12.0.dylib MacOS/TGen\ Engine\ Release
 cp /usr/local/lib/libIL.1.0.0.dylib Frameworks/libIL.1.dylib
 install_name_tool -change /usr/local/lib/libpng12.0.dylib @executable_path/../Frameworks/libpng12.0.dylib Frameworks/libIL.1.dylib
+cp /usr/local/lib/libode-0.dylib Frameworks/libode-0.dylib
+install_name_tool -change /usr/local/lib/libode-0.dylib @executable_path/../Frameworks/libode-0.dylib MacOS/TGen\ Engine\ Release
+cp /usr/local/lib/libpng12.0.dylib Frameworks/libpng12.0.dylib
 
