@@ -28,7 +28,7 @@ TGen::Engine::App::App(TGen::Engine::VariableRegister & variables, TGen::Engine:
 	, logs(logs)
 	, globalResources(logs, filesystem, renderer)
 {
-	logs.info["app+"] << "initializing stuff..." << TGen::endl;
+	logs.info["app+"] << "initializing..." << TGen::endl;
 	
 	currentState = new TGen::Engine::GameState(*this);
 	
