@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 42;
+	objectVersion = 44;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -239,9 +239,6 @@
 			children = (
 				D00FF91A0C39412900668773 /* TGen Dependencies */,
 				D00FF97A0C39423900668773 /* Dependencies */,
-				D0CE02520C3D9F3D007D4B18 /* libIL.a */,
-				D0CE02700C3D9FBA007D4B18 /* libjpeg.a */,
-				D0CE02790C3D9FDC007D4B18 /* libpng12.a */,
 				08FB7795FE84155DC02AAC07 /* OpenGL */,
 				C6859E8C029090F304C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
@@ -325,6 +322,9 @@
 		D00FF97A0C39423900668773 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				D0CE02520C3D9F3D007D4B18 /* libIL.a */,
+				D0CE02700C3D9FBA007D4B18 /* libjpeg.a */,
+				D0CE02790C3D9FDC007D4B18 /* libpng12.a */,
 				D00FF9C50C39429C00668773 /* GLUT.framework */,
 				D00FF9760C39423600668773 /* OpenGL.framework */,
 			);
@@ -447,8 +447,11 @@
 /* Begin PBXProject section */
 		08FB7793FE84155DC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+			};
 			buildConfigurationList = 1DEB923508733DC60010E9CD /* Build configuration list for PBXProject "TGen OpenGL" */;
-			compatibilityVersion = "Xcode 2.4";
+			compatibilityVersion = "Xcode 3.0";
 			hasScannedForEncodings = 1;
 			mainGroup = 08FB7794FE84155DC02AAC07 /* TGen OpenGL */;
 			projectDirPath = "";
@@ -626,7 +629,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Debug;
 		};
@@ -636,7 +639,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = /Developer/SDKs/MacOSX10.5.sdk;
+				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
 			};
 			name = Release;
 		};
