@@ -15,6 +15,15 @@
 #define ByteSwap32(x) ((((x) & 0x000000FF) << 24) + (((x) & 0x0000FF00) << 8) + (((x) & 0x00FF0000) >> 8) + (((x) & 0xFF000000) >> 24))
 #define ByteSwap16(x) (((x) >> 8) | ((x) << 8))
 
+/*
+uint32_t SwapWords(uint32_t arg) {
+	U32    in  = { .u32=arg };
+	U32    out = { .u16[0]=in.u16[1], 
+	.u16[1]=in.u16[0] };
+	
+	return (out.u32);
+}*/
+
 #ifdef __BIG_ENDIAN__
 #define SwapLocalLe32(x) ((x) = ByteSwap32(x))
 #else

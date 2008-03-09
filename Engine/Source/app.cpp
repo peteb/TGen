@@ -29,7 +29,7 @@ TGen::Engine::App::App(TGen::Engine::VariableRegister & variables, TGen::Engine:
 	, globalResources(logs, filesystem, renderer)
 {
 	logs.info["app+"] << "initializing..." << TGen::endl;
-		
+
 	currentState = new TGen::Engine::GameState(*this);
 	
 	logs.info["app+"] << "initialized" << TGen::endl;
@@ -53,6 +53,7 @@ void TGen::Engine::App::tick() {
 	if (currentState)
 		currentState->tick();
 	
+	currentState->tick();
 	globalResources.updateMaterials(TGen::Time::Now() - startedAt);
 }
 

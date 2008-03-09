@@ -18,12 +18,19 @@
 		D0095B6D0D7874E400D0DC31 /* jointcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* jointcomponent.cpp */; };
 		D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095C0C0D787AE300D0DC31 /* entitylist.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
+		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
+		D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03F1C7B0D7F50FF001166CE /* PreferencesController.m */; };
 		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
 		D04C83AC0CCA4AE900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81E70CCA46EC00794CEA /* libtgen_core.a */; };
 		D04C83AF0CCA4AEE00794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81DA0CCA46E400794CEA /* libtgen_math.a */; };
 		D04C83B00CCA4AF400794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81F60CCA46F500794CEA /* libtgen_graphics.a */; };
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
+		D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */; };
+		D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E400D80694F003A31A0 /* DBPrefsWindowController.m */; };
+		D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */ = {isa = PBXBuildFile; fileRef = D0622ECE0D806C45003A31A0 /* Displays.icns */; };
+		D062301E0D807636003A31A0 /* Graphics.png in Resources */ = {isa = PBXBuildFile; fileRef = D062301D0D807636003A31A0 /* Graphics.png */; };
+		D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = D062304D0D807DBA003A31A0 /* Statistics.xib */; };
 		D07147A80D68592A00842110 /* metacreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07147A70D68592A00842110 /* metacreator.cpp */; };
 		D073D19C0D419BBC00D3C858 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D073D19A0D419BBC00D3C858 /* base */; };
 		D073D1B50D419E5F00D3C858 /* testmod in Resources */ = {isa = PBXBuildFile; fileRef = D073D1B20D419E5F00D3C858 /* testmod */; };
@@ -226,8 +233,18 @@
 		D0095C0C0D787AE300D0DC31 /* entitylist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entitylist.cpp; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
+		D03F1C5B0D7F4D22001166CE /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
+		D03F1C7A0D7F50FF001166CE /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = SOURCE_ROOT; };
+		D03F1C7B0D7F50FF001166CE /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = SOURCE_ROOT; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
+		D0622E3D0D80694F003A31A0 /* AppPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = AppPrefsWindowController.h; sourceTree = "<group>"; };
+		D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.objc; path = AppPrefsWindowController.m; sourceTree = "<group>"; };
+		D0622E3F0D80694F003A31A0 /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
+		D0622E400D80694F003A31A0 /* DBPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.objc; path = DBPrefsWindowController.m; sourceTree = "<group>"; };
+		D0622ECE0D806C45003A31A0 /* Displays.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Displays.icns; sourceTree = "<group>"; };
+		D062301D0D807636003A31A0 /* Graphics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Graphics.png; sourceTree = "<group>"; };
+		D062304D0D807DBA003A31A0 /* Statistics.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Statistics.xib; sourceTree = "<group>"; };
 		D07147A60D68592100842110 /* metacreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metacreator.h; path = ../../Include/metacreator.h; sourceTree = SOURCE_ROOT; };
 		D07147A70D68592A00842110 /* metacreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metacreator.cpp; sourceTree = "<group>"; };
 		D073D19A0D419BBC00D3C858 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
@@ -457,10 +474,14 @@
 		20286C2CFDCF999611CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D062301D0D807636003A31A0 /* Graphics.png */,
+				D0622ECE0D806C45003A31A0 /* Displays.icns */,
 				D073D1B20D419E5F00D3C858 /* testmod */,
 				D073D19A0D419BBC00D3C858 /* base */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
 				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
+				D03F1C5B0D7F4D22001166CE /* Preferences.xib */,
+				D062304D0D807DBA003A31A0 /* Statistics.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -822,6 +843,12 @@
 				D07408D80D32D1B300735304 /* sdlmouse.h */,
 				D07409010D32D37B00735304 /* sdlgamepad.cpp */,
 				D07409000D32D37100735304 /* sdlgamepad.h */,
+				D03F1C7A0D7F50FF001166CE /* PreferencesController.h */,
+				D03F1C7B0D7F50FF001166CE /* PreferencesController.m */,
+				D0622E3D0D80694F003A31A0 /* AppPrefsWindowController.h */,
+				D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */,
+				D0622E3F0D80694F003A31A0 /* DBPrefsWindowController.h */,
+				D0622E400D80694F003A31A0 /* DBPrefsWindowController.m */,
 			);
 			name = platform;
 			sourceTree = "<group>";
@@ -1002,6 +1029,10 @@
 				8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */,
 				D073D19C0D419BBC00D3C858 /* base in Resources */,
 				D073D1B50D419E5F00D3C858 /* testmod in Resources */,
+				D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */,
+				D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */,
+				D062301E0D807636003A31A0 /* Graphics.png in Resources */,
+				D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1076,6 +1107,9 @@
 				D09330AC0D79FD7D0046DC37 /* planegeomcomponent.cpp in Sources */,
 				D09332230D79FFFF0046DC37 /* spheregeomcomponent.cpp in Sources */,
 				D09336480D7AF9CA0046DC37 /* boxgeomcomponent.cpp in Sources */,
+				D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */,
+				D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */,
+				D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
