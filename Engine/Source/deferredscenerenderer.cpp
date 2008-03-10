@@ -26,7 +26,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app)
 	, lightBatchSize(8)
 	, lightMaterials(NULL)
 	, world(NULL)
-	, metaLines(&app.renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
+	, metaLines(app.renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
 {
 	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
