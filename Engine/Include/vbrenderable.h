@@ -17,14 +17,14 @@ namespace TGen {
 	namespace Engine {
 		class VBRenderable : public TGen::Renderable {
 		public:
-			VBRenderable(TGen::VertexBuffer * vb, TGen::PrimitiveType type, uint size);
+			VBRenderable(TGen::VertexData * vb, TGen::PrimitiveType type, uint size);
 			
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 			
 		private:
 			TGen::PrimitiveType type;
-			TGen::VertexBuffer * vb;
+			TGen::VertexData * vb;
 			uint size;
 		};
 		

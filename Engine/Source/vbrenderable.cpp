@@ -9,7 +9,7 @@
 
 #include "vbrenderable.h"
 
-TGen::Engine::VBRenderable::VBRenderable(TGen::VertexBuffer * vb, TGen::PrimitiveType type, uint size)
+TGen::Engine::VBRenderable::VBRenderable(TGen::VertexData * vb, TGen::PrimitiveType type, uint size)
 	: vb(vb)
 	, size(size)
 	, type(type)
