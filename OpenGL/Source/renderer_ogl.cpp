@@ -49,7 +49,7 @@ TGen::OpenGL::Renderer::Renderer()
 	, textureCoordGenU(TGen::TextureCoordGenBase)
 	, textureCoordGenV(TGen::TextureCoordGenBase)
 {
-	TGen::OpenGL::BindFunctions();	// might be needed if we're running on a sucky platform!
+	TGen::OpenGL::BindFunctions();	// will be needed if we're running on a sucky platform with old OpenGL (Windows, I'm looking at you...)
 	
 	parseExtensions();
 	readCaps();
@@ -70,7 +70,7 @@ TGen::OpenGL::Renderer::Renderer()
 	glEnable(GL_BLEND);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CCW);
+	glFrontFace(GL_CW);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
@@ -535,7 +535,11 @@ void TGen::OpenGL::Renderer::setVertexBuffer(TGen::VertexData * buffer, TGen::Ve
 				applyVertexStructure(buffer->getVertexStructure());		
 			
 			lastVb1 = vboId;
+			
+			#ifdef _GFX_KEEP_DEPRECATED
 			lastVb = NULL;
+			#endif
+			
 			lastVb2 = buffer;
 		}
 		else {
@@ -561,7 +565,10 @@ void TGen::OpenGL::Renderer::setIndexBuffer(TGen::VertexData * buffer) {
 			indexBufferFormat = TGen::OpenGL::TgenFormatToOpenGL(buffer->getVertexStructure().getElementDataType(0));
 			indexBufferFormatSize = TGen::FormatTypeSize(buffer->getVertexStructure().getElementDataType(0));
 			lastIb1 = vboId;
+			
+			#ifdef _GFX_KEEP_DEPRECATED
 			lastIb = NULL;
+			#endif
 			lastIb2 = buffer;
 		}
 		else {

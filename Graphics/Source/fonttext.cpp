@@ -90,7 +90,7 @@ void TGen::FontText::update(TGen::Renderer & renderer) {
 		if (vb)
 			delete vb;
 		
-		vb = renderer.createVertexBuffer(VertexDecl(), sizeof(VertexDecl::Type) * verticeCount, TGen::UsageDynamic);
+		vb = renderer.createVertexData(VertexDecl(), sizeof(VertexDecl::Type) * verticeCount, TGen::UsageDynamic);
 		vb->bufferData(vertices, sizeof(VertexDecl::Type) * verticeCount, 0);
 		delete vertices;
 		

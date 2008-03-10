@@ -20,7 +20,7 @@
 #include "renderstatistics.h"
 #include <vector>
 
-#define _GFX_KEEP_DEPRECATED
+//#define _GFX_KEEP_DEPRECATED
 
 namespace TGen {
 	class VertexBuffer;

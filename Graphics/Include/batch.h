@@ -29,7 +29,7 @@ namespace TGen {
 	template<typename format, int vertsPerPrimitive>
 	class Batch : public TGen::VertexStream, public TGen::Renderable {
 	public:	
-		Batch(TGen::Renderer * renderer, uint size, TGen::PrimitiveType type, uint usage) 
+		Batch(TGen::Renderer & renderer, uint size, TGen::PrimitiveType type, uint usage) 
 			: size(size)
 			, type(type)
 			, vb(NULL)
@@ -37,8 +37,8 @@ namespace TGen {
 			, cursor(NULL)
 			, mapped(NULL) 
 		{
-			vb = renderer->createVertexBuffer(format(), sizeof(typename format::Type) * size, usage);
-			verticesPerDraw = renderer->getCaps().maxVertexBufferVertices;
+			vb = renderer.createVertexData(format(), sizeof(typename format::Type) * size, usage);
+			verticesPerDraw = renderer.getCaps().maxVertexBufferVertices;
 		}
 		
 		~Batch() {
@@ -105,7 +105,7 @@ namespace TGen {
 	private:
 		uint verticesPerDraw;
 		uint verticesWritten;
-		TGen::VertexBuffer * vb;
+		TGen::VertexData * vb;
 		void * cursor, * mapped;
 		uint size;
 		TGen::PrimitiveType type;

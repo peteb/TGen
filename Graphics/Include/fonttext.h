@@ -12,13 +12,13 @@
 
 #include "color.h"
 #include "vertexstructure.h"
-#include "vertexbuffer.h"
 #include "renderable.h"
 #include <tgen_core.h>
 
 namespace TGen {
 	class Renderer;
 	class Font;
+	class VertexData;
 	
 	enum FontTextFormat {
 		// color osv?
@@ -41,7 +41,7 @@ namespace TGen {
 		TGen::Vector2 position, charSize, charSpacing;
 		TGen::Color color, shadowColor;
 		FontTextFormat format;
-		VertexBuffer * vb;
+		VertexData * vb;
 		Font * font;
 		bool shadow, dynamic, needUpdate;
 		scalar size;
