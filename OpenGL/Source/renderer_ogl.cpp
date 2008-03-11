@@ -225,6 +225,7 @@ TGen::Matrix4x4 TGen::OpenGL::Renderer::getTransform(TGen::TransformMode mode) c
 	
 	TGen::Matrix4x4 ret;
 	glGetFloatv(fixedTransform, (GLfloat *)ret.elements);  // TODO: SYNCPOINT!!! cache!
+	// Woot, why does this code still exist?
 	
 	return ret;
 }

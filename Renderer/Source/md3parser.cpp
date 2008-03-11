@@ -131,8 +131,8 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 
 
 TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSource, scalar scale) const {
-	//if (header->num_frames > 1)
-	//	return createAnimatingModel(dataSource, scale);
+	if (header->num_frames > 1)
+		return createAnimatingModel(dataSource, scale);
 
 	return createStaticModel(dataSource, scale);
 }
