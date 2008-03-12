@@ -49,12 +49,6 @@ TGen::Engine::Log & TGen::Engine::Log::output(const std::string & area, const st
 		texts.push_back(text);
 	}
 	
-	FILE * file = fopen("tgenlog.txt", "a");
-	for (int a = 0; a < texts.size(); ++a) {
-		fprintf(file, std::string(area + ": " +  texts[a] + "\n").c_str());
-	}
-	fclose(file);
-
 	for (int i = 0; i < targets.size(); ++i) {
 		for (int a = 0; a < texts.size(); ++a) {
 			targets[i]->output(type, area, texts[a]);
@@ -81,16 +75,21 @@ TGen::Engine::StandardLogs::StandardLogs()
 	, warning(TGen::Engine::Warning)
 	, error(TGen::Engine::Error)
 	, logtargets(NULL)
+	, outputFile("tgen.log", std::fstream::out)
 {
 	logtargets = new TGen::Engine::CombinedLogTargets;
 	logtargets->addTarget(new TGen::Engine::StreamOutput(std::cout));
-
+	logtargets->addTarget(new TGen::Engine::StreamOutput(outputFile));
+	
 	info.addTarget(logtargets);
 	warning.addTarget(logtargets);
 	error.addTarget(logtargets);	
+	
+	warning.output("init", "Failed to create log file");
 }
 
 TGen::Engine::StandardLogs::~StandardLogs() {
+	outputFile.close();
 	delete logtargets;
 }
 

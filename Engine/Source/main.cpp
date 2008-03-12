@@ -185,6 +185,8 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	TGen::Engine::DeviceCollection inputDevices;
 	
+	// filesystem.logDir, spara loggen där! sen nollställ loggfiler vid run
+	
 	// setup env
 	TGen::Engine::Environment * env = new TGen::Engine::SDL(variables, props, logs);
 	env->registerInputDevices(inputDevices);
@@ -193,10 +195,7 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	inputDevices.printDevices(logs.info);
 	
 	TGen::Engine::App * app = new TGen::Engine::App(variables, commands, *env, fs, props, env->getRenderer(), logs, inputDevices);
-	
-	
-	
-	
+		
 	// run forrest, run.....
 	logs.info << TGen::separator("running");
 	env->run(app);

@@ -15,6 +15,7 @@
 #include <sstream>
 #include <tgen_core.h>
 #include "textoutput.h"
+#include <fstream>
 
 namespace TGen {
 	class separator {
@@ -130,6 +131,7 @@ namespace TGen {
 			TGen::Engine::Log info, warning, error;
 			
 		private:
+			std::fstream outputFile;
 			TGen::Engine::CombinedLogTargets * logtargets;
 		};
 	} // !Engine
