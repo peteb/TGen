@@ -11,14 +11,14 @@
 #define _TGEN_ENGINE_SPHEREGEOMCOMPONENT_H
 
 #include <ode/ode.h>
-#include "component.h"
+#include "geomcomponent.h"
 
 namespace TGen {
 	namespace Engine {
 		class Entity;
 		class EntityList;
 		
-		class SphereGeomComponent : public TGen::Engine::Component {
+		class SphereGeomComponent : public TGen::Engine::GeomComponent {
 		public:
 			SphereGeomComponent(const std::string & name, float radius, dSpaceID space);
 			~SphereGeomComponent();

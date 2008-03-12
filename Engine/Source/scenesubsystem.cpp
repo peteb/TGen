@@ -127,7 +127,7 @@ TGen::Engine::SceneNodeComponent * TGen::Engine::SceneSubsystem::getComponent(co
 	if (iter != components.end())
 		return iter->second;
 	
-	return NULL;
+	throw TGen::RuntimeException("SceneSubsystem::getComponent", "entity '" + name + "' could not be found");
 }
 
 // TODO: refactor all world.app.logs-blabla-shit to logs

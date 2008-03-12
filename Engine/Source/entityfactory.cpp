@@ -28,15 +28,22 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	TGen::Engine::Entity * entity = new TGen::Engine::Entity(properties.getName());
 	
 	for (int i = 0; i < properties.getNumNodes(); ++i) {
-		SubsystemMap::iterator iter = subsystems.find(properties.getNode(i).getName());
-		if (iter == subsystems.end()) {
-			logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getNode(i).getName() << "'" << TGen::endl;
+		if (properties.getNode(i).getName() == "inherit") {
+			// inherit all components
+			// TODO: FIX!!!!!!!! how does overriding and adding values to components from the inherited base work?
 		}
 		else {
-			TGen::Engine::Component * newComponent = iter->second->createComponent(entity, properties.getNode(i));
-			if (newComponent)
-				entity->addComponent(newComponent, newComponent->getName());
-		}		
+			SubsystemMap::iterator iter = subsystems.find(properties.getNode(i).getName());
+
+			if (iter == subsystems.end()) {
+				logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getNode(i).getName() << "'" << TGen::endl;
+			}
+			else {
+				TGen::Engine::Component * newComponent = iter->second->createComponent(entity, properties.getNode(i));
+				if (newComponent)
+					entity->addComponent(newComponent, newComponent->getName());
+			}		
+		}
 	}
 	
 	entity->linkLocally();

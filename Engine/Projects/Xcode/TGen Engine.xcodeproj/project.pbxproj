@@ -71,6 +71,7 @@
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
+		D0E0961A0D8834C3005D5345 /* geomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E096190D8834C3005D5345 /* geomcomponent.cpp */; };
 		D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
 		D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E9D5A50CE356DE0050B530 /* libphysfs.a */; };
 		D0EF60E40C8222350085C17B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60E30C8222350085C17B /* main.cpp */; };
@@ -345,6 +346,8 @@
 		D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = lightlist.cpp; sourceTree = "<group>"; };
 		D0CC7A5B0CF9D1DD003EE092 /* preprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = preprocessor.h; path = ../../Include/preprocessor.h; sourceTree = SOURCE_ROOT; };
 		D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
+		D0E096160D883485005D5345 /* geomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geomcomponent.h; path = ../../Include/geomcomponent.h; sourceTree = SOURCE_ROOT; };
+		D0E096190D8834C3005D5345 /* geomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geomcomponent.cpp; sourceTree = "<group>"; };
 		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
@@ -749,6 +752,8 @@
 		D09332200D79FFDB0046DC37 /* geoms */ = {
 			isa = PBXGroup;
 			children = (
+				D0E096190D8834C3005D5345 /* geomcomponent.cpp */,
+				D0E096160D883485005D5345 /* geomcomponent.h */,
 				D09330AB0D79FD7D0046DC37 /* planegeomcomponent.cpp */,
 				D09330AA0D79FD7D0046DC37 /* planegeomcomponent.h */,
 				D09332220D79FFFF0046DC37 /* spheregeomcomponent.cpp */,
@@ -1099,6 +1104,7 @@
 				D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */,
 				D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */,
 				D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */,
+				D0E0961A0D8834C3005D5345 /* geomcomponent.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

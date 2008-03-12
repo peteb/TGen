@@ -46,6 +46,7 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 
 	TGen::Engine::File * entitiesFile = app.filesystem.openRead("/maps/" + mapname + "/entities");
 
+	
 	TGen::PropertyTreeParser propParser;
 	TGen::PropertyTree props = propParser.parse(entitiesFile->readAll().c_str());
 	delete entitiesFile;
@@ -68,7 +69,7 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	mainCam = dynamic_cast<TGen::Camera *>(sceneSubsystem.getComponent("maincam")->getSceneNode());
 	if (!mainCam)
 		throw TGen::RuntimeException("World::World", "maincam not defined");
-	
+
 	sceneSubsystem.link();
 	sceneSubsystem.getSceneRoot().update();
 

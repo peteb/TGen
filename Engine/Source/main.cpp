@@ -111,6 +111,7 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	variables += TGen::Engine::Variable("game_name", "TGen Engine", "TGen Engine", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
+	variables += TGen::Engine::Variable("map", "phystest1", "phystest1", 0);
 	
 	commands.addCommand(new TGen::Engine::Command("set", new TGen::Engine::CommandSet(variables)));
 	commands.addCommand(new TGen::Engine::Command("dumpvars", new TGen::Engine::CommandDumpVars(variables)));

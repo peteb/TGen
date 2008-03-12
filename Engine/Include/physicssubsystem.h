@@ -21,6 +21,8 @@ namespace TGen {
 		class StandardLogs;
 		class BodyComponent;
 		class JointComponent;
+		class PhysicsPropertiesComponent;
+		class GeomComponent;
 		
 		class PhysicsSubsystem : public TGen::Engine::Subsystem {
 		public:
@@ -36,8 +38,9 @@ namespace TGen {
 		private:
 			TGen::Engine::BodyComponent * createBody(const TGen::PropertyTree & properties);
 			TGen::Engine::JointComponent * createJoint(const TGen::PropertyTree & properties);
-			TGen::Engine::Component * createGeom(const TGen::PropertyTree & properties);
-
+			TGen::Engine::GeomComponent * createGeom(const TGen::PropertyTree & properties);
+			TGen::Engine::PhysicsPropertiesComponent * createProps(const TGen::PropertyTree & properties);
+			
 			void setGravity(const TGen::Vector3 & gravity);
 			
 			std::vector<TGen::Engine::BodyComponent *> bodies;

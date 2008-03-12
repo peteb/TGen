@@ -12,9 +12,10 @@
 #include "entity.h"
 
 TGen::Engine::SphereGeomComponent::SphereGeomComponent(const std::string & name, float radius, dSpaceID space) 
-	: TGen::Engine::Component(name)
+	: TGen::Engine::GeomComponent(name)
 {
 	geomId = dCreateSphere(space, radius);
+	dGeomSetData(geomId, static_cast<void *>(this));
 }
 
 TGen::Engine::SphereGeomComponent::~SphereGeomComponent() {

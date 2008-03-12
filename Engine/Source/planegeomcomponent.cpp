@@ -13,9 +13,10 @@
 #include "entity.h"
 
 TGen::Engine::PlaneGeomComponent::PlaneGeomComponent(const std::string & name, const TGen::Plane3 & plane, dSpaceID space) 
-	: TGen::Engine::Component(name)
+	: TGen::Engine::GeomComponent(name)
 {
 	geomId = dCreatePlane(space, plane.normal.x, plane.normal.y, plane.normal.z, plane.distance);
+	dGeomSetData(geomId, static_cast<void *>(this));
 }
 
 TGen::Engine::PlaneGeomComponent::~PlaneGeomComponent() {

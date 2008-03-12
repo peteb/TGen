@@ -14,6 +14,7 @@
 #include "planegeomcomponent.h"
 #include "spheregeomcomponent.h"
 #include "boxgeomcomponent.h"
+#include "geomcomponent.h"
 #include <ode/ode.h>
 #include <tgen_math.h>
 
@@ -46,6 +47,8 @@ TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createComponent(TGen::
 		return createJoint(properties);
 	else if (properties.getName() == "physGeom")
 		return createGeom(properties);
+	else if (properties.getName() == "physProps")
+		return NULL; //createProps(properties);
 	
 	throw TGen::RuntimeException("PhysicsSubsystem::createComponent", "invalid component type '" + properties.getName() + "'");
 }
@@ -113,18 +116,18 @@ TGen::Engine::JointComponent * TGen::Engine::PhysicsSubsystem::createJoint(const
 	return newComponent;
 }
 
-TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createGeom(const TGen::PropertyTree & properties) {
+TGen::Engine::GeomComponent * TGen::Engine::PhysicsSubsystem::createGeom(const TGen::PropertyTree & properties) {
 	if (properties.getNumAttributes() == 0)
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "no attributes, plz give some");
 
 	std::string geomType = properties.getAttribute(0);
 
-	TGen::Engine::Component * newComponent = NULL;
+	TGen::Engine::GeomComponent * newComponent = NULL;
 	
 	if (geomType == "plane") {
 		TGen::Vector3 normal = TGen::Vector3::Parse(properties.getProperty("orientation", "0 1 0"));
 		scalar distance = TGen::lexical_cast<scalar>(properties.getProperty("distance", "0"));
-	
+		
 		newComponent = new TGen::Engine::PlaneGeomComponent("physGeom", TGen::Plane3(normal, distance), mainSpace);
 	}
 	else if (geomType == "sphere") {
@@ -141,8 +144,16 @@ TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createGeom(const TGen:
 		throw TGen::RuntimeException("PhysicsSubsystem::createGeom", "invalid geom type '" + geomType + "'!");
 	}
 	
+	newComponent->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
 	
 	return newComponent;
+}
+
+TGen::Engine::PhysicsPropertiesComponent * TGen::Engine::PhysicsSubsystem::createProps(const TGen::PropertyTree & properties) {
+	//TGen::Engine::PhysicsPropertiesComponent * newComponent = new TGen::Engine::PhysicsPropertiesComponent;
+	//newComponent->friction = TGen::lexical_cast<float>(properties.getProperty("friction", "1.0"));
+	
+	return NULL;// newComponent;
 }
 
 void TGen::Engine::PhysicsSubsystem::link() {
@@ -185,14 +196,23 @@ void TGen::Engine::PhysicsSubsystem::nearCallback(void * data, dGeomID o1, dGeom
 	}
 	else {
 		const int MAX_CONTACTS = 20;
-		dContact contactGeoms[MAX_CONTACTS];
-		int numContacts = dCollide(o1, o2, MAX_CONTACTS, &contactGeoms[0].geom, sizeof(dContact));
+		dContact contacts[MAX_CONTACTS];
+		int numContacts = dCollide(o1, o2, MAX_CONTACTS, &contacts[0].geom, sizeof(dContact));
 		
 		dBodyID body1 = dGeomGetBody(o1);
 		dBodyID body2 = dGeomGetBody(o2);
 		
+		
+		// +bounce, soft
+		
+		TGen::Engine::GeomComponent * geom1 = static_cast<TGen::Engine::GeomComponent *>(dGeomGetData(o1));
+		TGen::Engine::GeomComponent * geom2 = static_cast<TGen::Engine::GeomComponent *>(dGeomGetData(o2));
+		
+		
 		for (int i = 0; i < numContacts; ++i) {
-			dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contactGeoms[i]);
+			contacts[i].surface.mode = 0;
+			contacts[i].surface.mu = geom1->getFriction() * geom2->getFriction();
+			dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
 			dJointAttach(contactJoint, body1, body2);
 		}
 	}

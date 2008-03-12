@@ -13,9 +13,10 @@
 #include <tgen_math.h>
 
 TGen::Engine::BoxGeomComponent::BoxGeomComponent(const std::string & name, const TGen::Vector3 & size, dSpaceID space)
-	: TGen::Engine::Component(name)
+	: TGen::Engine::GeomComponent(name)
 {
 	geomId = dCreateBox(space, size.x, size.y, size.z);
+	dGeomSetData(geomId, static_cast<void *>(this));
 }
 
 TGen::Engine::BoxGeomComponent::~BoxGeomComponent() {
