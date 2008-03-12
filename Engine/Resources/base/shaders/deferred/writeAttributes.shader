@@ -43,7 +43,7 @@
 
 void main() {
 	#ifdef VERT_INTERPOL
-		gl_Position = gl_ModelViewProjectionMatrix * vec4(mix(gl_Vertex.xyz, nextVertex, frameTime), 1.0); //vec4(gl_Vertex.xyz + (nextVertex - gl_Vertex.xyz) * frameTime, gl_Vertex.w);
+		gl_Position = gl_ModelViewProjectionMatrix * vec4(mix(gl_Vertex.xyz, nextVertex, frameTime), 1.0);
 		gl_FrontColor = gl_Color; // * frameTime;
 	#else
 		gl_FrontColor = gl_Color;
@@ -64,7 +64,7 @@ void main() {
 		vec3 normal, bitangent;
 
 		#ifdef VERT_INTERPOL
-			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime); //(vec3(gl_Normal) + (nextNormal - vec3(gl_Normal)) * frameTime);
+			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime); 
 		#else
 			normal = gl_NormalMatrix * gl_Normal;
 		#endif
