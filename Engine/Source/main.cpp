@@ -35,6 +35,8 @@
 #endif
 #include _PLATFORM_FILE
 
+using TGen::uint8;
+
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
 void preExit();
 

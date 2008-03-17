@@ -10,7 +10,6 @@
 #ifndef _TGEN_ENGINE_PLANEGEOMCOMPONENT_H
 #define _TGEN_ENGINE_PLANEGEOMCOMPONENT_H
 
-#include <ode/ode.h>
 #include "geomcomponent.h"
 
 namespace TGen {
@@ -20,12 +19,6 @@ namespace TGen {
 		class PlaneGeomComponent : public TGen::Engine::GeomComponent {
 		public:
 			PlaneGeomComponent(const std::string & name, const TGen::Plane3 & plane, dSpaceID space);
-			~PlaneGeomComponent();
-			
-			void linkLocally(TGen::Engine::Entity & entity);
-			void linkGlobally(TGen::Engine::EntityList & entities);
-		private:
-			dGeomID geomId;
 		};
 		
 	} // !Engine

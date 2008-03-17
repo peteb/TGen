@@ -10,28 +10,28 @@
 #ifndef _TGEN_CORE_TYPES_H
 #define _TGEN_CORE_TYPES_H
 
-typedef unsigned long long uint64;
-typedef unsigned int uint32;
-typedef unsigned short uint16;
-typedef unsigned char uint8;
-typedef signed int int32;
-typedef signed long long int64;
-typedef signed short int16;
-typedef signed char int8;
-typedef unsigned int uint;
-typedef unsigned short ushort;
-typedef unsigned char uchar;
-typedef float scalar;
-
 #define abstract =0
 #define PACKED __attribute__((packed))
 
-template<typename T>
-void PatchPointer(T & pointer, void * base) {
-	pointer = reinterpret_cast<T>(reinterpret_cast<uint8 *>(pointer) + uint(base));
-}
-
 namespace TGen {
+	typedef unsigned long long uint64;
+	typedef unsigned int uint32;
+	typedef unsigned short uint16;
+	typedef unsigned char uint8;
+	typedef signed int int32;
+	typedef signed long long int64;
+	typedef signed short int16;
+	typedef signed char int8;
+	typedef unsigned int uint;
+	typedef unsigned short ushort;
+	typedef unsigned char uchar;
+	typedef float scalar;
+	
+	template<typename T>
+	void PatchPointer(T & pointer, void * base) {
+		pointer = reinterpret_cast<T>(reinterpret_cast<uint8 *>(pointer) + uint(base));
+	}
+	
 	enum FormatType {
 		TypeFloat = 1,
 		TypeDouble,

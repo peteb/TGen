@@ -14,6 +14,8 @@
 #include <cmath>
 #include <tgen_core.h>
 
+using TGen::scalar;
+
 TGen::Vector3 TGen::Vector3::Identity(1.0f, 1.0f, 1.0f);
 TGen::Vector3 TGen::Vector3::Zero(0.0f, 0.0f, 0.0f);
 

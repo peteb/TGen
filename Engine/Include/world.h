@@ -16,7 +16,7 @@
 #include "lightlist.h"
 #include "entityfactory.h"
 #include "scenesubsystem.h"
-#include "physicssubsystem.h"
+#include "physics/subsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -42,7 +42,7 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::SceneSubsystem sceneSubsystem;
-			TGen::Engine::PhysicsSubsystem physicsSubsystem;
+			TGen::Engine::Physics::Subsystem physicsSubsystem;
 			
 			TGen::Engine::EntityFactory entityFactory;
 			

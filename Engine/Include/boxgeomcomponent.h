@@ -11,7 +11,6 @@
 #define _TGEN_ENGINE_BOXGEOMCOMPONENT_H
 
 #include "geomcomponent.h"
-#include <ode/ode.h>
 
 namespace TGen {
 	class Vector3;
@@ -23,13 +22,6 @@ namespace TGen {
 		class BoxGeomComponent : public TGen::Engine::GeomComponent {
 		public:
 			BoxGeomComponent(const std::string & name, const TGen::Vector3 & size, dSpaceID space);
-			~BoxGeomComponent();
-			
-			void linkLocally(TGen::Engine::Entity & entity);
-			void linkGlobally(TGen::Engine::EntityList & entities);
-			
-		private:
-			dGeomID geomId;			
 		};
 	} // !Engine
 } // !TGen

@@ -9,6 +9,8 @@
 
 #include "vertexsource.h"
 
+using TGen::uint;
+
 TGen::VertexData::VertexData(TGen::VertexDataSource & creator, uint size, ushort usage, void * writeOffset, uint readOffset) 
 	: creator(creator)
 	, size(size)

@@ -14,6 +14,8 @@
 #include <cstring>
 #include <sstream>
 
+using TGen::scalar;
+
 /*
 	XY
     --

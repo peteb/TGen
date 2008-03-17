@@ -9,6 +9,8 @@
 
 #include "camera.h"
 
+using TGen::scalar;
+
 TGen::Camera::Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation) 
 	: TGen::SceneNode(name, position, orientation)
 	, fov(80.0f)

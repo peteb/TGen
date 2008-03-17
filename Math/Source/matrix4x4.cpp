@@ -17,6 +17,8 @@
 #include <cmath>
 #include <sstream>
 
+using TGen::scalar;
+
 TGen::Matrix4x4 TGen::Matrix4x4::Identity(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
 TGen::Matrix4x4::Matrix4x4() {

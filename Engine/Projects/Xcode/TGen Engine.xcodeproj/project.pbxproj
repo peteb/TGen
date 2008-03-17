@@ -303,7 +303,7 @@
 		D09332E30D7A08470046DC37 /* spheregeomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spheregeomcomponent.h; path = ../../Include/spheregeomcomponent.h; sourceTree = SOURCE_ROOT; };
 		D093363A0D7AF97F0046DC37 /* boxgeomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = boxgeomcomponent.h; path = ../../Include/boxgeomcomponent.h; sourceTree = SOURCE_ROOT; };
 		D09336470D7AF9CA0046DC37 /* boxgeomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boxgeomcomponent.cpp; sourceTree = "<group>"; };
-		D09628EC0D784E89008DABC3 /* physicssubsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = physicssubsystem.h; path = ../../Include/physicssubsystem.h; sourceTree = SOURCE_ROOT; };
+		D09628EC0D784E89008DABC3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/physics/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physicssubsystem.cpp; sourceTree = "<group>"; };
 		D09629760D785296008DABC3 /* bodycomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bodycomponent.h; path = ../../Include/bodycomponent.h; sourceTree = SOURCE_ROOT; };
 		D09629770D78529F008DABC3 /* bodycomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bodycomponent.cpp; sourceTree = "<group>"; };
@@ -732,6 +732,7 @@
 		D093321E0D79FFC30046DC37 /* physics */ = {
 			isa = PBXGroup;
 			children = (
+				D09628EC0D784E89008DABC3 /* subsystem.h */,
 				D09629770D78529F008DABC3 /* bodycomponent.cpp */,
 				D09629760D785296008DABC3 /* bodycomponent.h */,
 				D09332200D79FFDB0046DC37 /* geoms */,
@@ -771,7 +772,6 @@
 				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
 				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
 				D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */,
-				D09628EC0D784E89008DABC3 /* physicssubsystem.h */,
 			);
 			name = subsystems;
 			sourceTree = "<group>";

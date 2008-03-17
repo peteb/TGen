@@ -12,6 +12,8 @@
 #include <cmath>
 #include "angle.h"
 
+using TGen::scalar;
+
 TGen::Quaternion4::Quaternion4(scalar x, scalar y, scalar z, scalar w)
 	: x(x)
 	, y(y)

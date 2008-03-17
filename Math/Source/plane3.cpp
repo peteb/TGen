@@ -9,6 +9,8 @@
 
 #include "plane3.h"
 
+using TGen::scalar;
+
 TGen::Plane3::Plane3()
 	: distance(0.0f)
 {		

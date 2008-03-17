@@ -11,18 +11,26 @@
 #define _TGEN_ENGINE_GEOMCOMPONENT_H
 
 #include "component.h"
+#include <ode/ode.h>
 
 namespace TGen {
 	namespace Engine {
 		class GeomComponent : public TGen::Engine::Component {
 		public:
 			GeomComponent(const std::string & name);
-
+			virtual ~GeomComponent();
+			
 			float getFriction() const;
 			void setFriction(float friction);
+			void linkLocally(TGen::Engine::Entity & entity);
+			void linkGlobally(TGen::Engine::EntityList & entities);
+
+		protected:
+			void setGeomId(dGeomID id);
 			
 		private:
 			float friction;
+			dGeomID geomId;
 		};
 	} // !Engine
 } // !TGen

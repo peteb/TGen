@@ -12,6 +12,8 @@
 #include <cmath>
 #include <sstream>
 
+using TGen::scalar;
+
 TGen::Vector2 TGen::Vector2::Identity(1.0f, 1.0f);
 
 TGen::Vector2::Vector2(const TGen::Vector2 & vector) 

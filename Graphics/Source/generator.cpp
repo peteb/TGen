@@ -10,6 +10,8 @@
 #include "generator.h"
 #include "tgen_math.h"
 
+using TGen::scalar;
+
 TGen::WaveGenerator::WaveGenerator(TGen::WaveType type, scalar base, scalar amplitude, scalar phase, scalar frequency) 
 	: type(type)
 	, base(base)

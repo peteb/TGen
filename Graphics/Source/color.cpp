@@ -13,6 +13,8 @@
 #include <limits>
 #include <tgen_math.h>
 
+using TGen::scalar;
+
 TGen::Color TGen::Color::Identity(1.0f, 1.0f, 1.0f, 1.0f);
 TGen::Color TGen::Color::White(1.0f, 1.0f, 1.0f, 1.0f);
 TGen::Color TGen::Color::Black(0.0f, 0.0f, 0.0f, 1.0f);

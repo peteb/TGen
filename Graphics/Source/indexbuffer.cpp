@@ -9,6 +9,8 @@
 
 #include "indexbuffer.h"
 
+using TGen::uint;
+
 TGen::IndexBuffer::IndexBuffer(TGen::Renderer & creator, uint size, ushort usage) 
 	: creator(creator)
 	, size(size)

@@ -12,6 +12,8 @@
 #include "types_converter_ogl.h"
 #include "error.h"
 
+using TGen::uint;
+
 uint TGen::OpenGL::TgenFormatToOpenGL(FormatType format) {
 	switch (format) {
 		case TGen::TypeFloat:

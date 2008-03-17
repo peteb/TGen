@@ -7,7 +7,7 @@
  *
  */
 
-#include "physicssubsystem.h"
+#include "physics/subsystem.h"
 #include "log.h"
 #include "bodycomponent.h"
 #include "jointcomponent.h"
@@ -18,10 +18,10 @@
 #include <ode/ode.h>
 #include <tgen_math.h>
 
-dWorldID TGen::Engine::PhysicsSubsystem::worldId = 0;
-dJointGroupID TGen::Engine::PhysicsSubsystem::contactGroup = 0;
+dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
+dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
-TGen::Engine::PhysicsSubsystem::PhysicsSubsystem(TGen::Engine::StandardLogs & logs) 
+TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs) 
 	: logs(logs)
 	, updateInterval(0.02)
 {
@@ -34,13 +34,13 @@ TGen::Engine::PhysicsSubsystem::PhysicsSubsystem(TGen::Engine::StandardLogs & lo
 	setGravity(TGen::Vector3(0.0f, -10.0f, 0.0f));
 }
 
-TGen::Engine::PhysicsSubsystem::~PhysicsSubsystem() {
+TGen::Engine::Physics::Subsystem::~Subsystem() {
 	logs.info["phys-"] << "*** SHUTTING DOWN PHYSICS ***" << TGen::endl;
 	
 	dCloseODE();
 }
 
-TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {
 	if (properties.getName() == "physBody")
 		return createBody(properties);
 	else if (properties.getName() == "physJoint")
@@ -53,7 +53,7 @@ TGen::Engine::Component * TGen::Engine::PhysicsSubsystem::createComponent(TGen::
 	throw TGen::RuntimeException("PhysicsSubsystem::createComponent", "invalid component type '" + properties.getName() + "'");
 }
 
-TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const TGen::PropertyTree & properties) {
+TGen::Engine::BodyComponent * TGen::Engine::Physics::Subsystem::createBody(const TGen::PropertyTree & properties) {
 	//float mass = TGen::lexical_cast<float>(properties.getProperty("mass", "1.0"));
 	TGen::Vector3 position = TGen::Vector3::Parse(properties.getProperty("position", "0 0 0"));
 	bool applyGravity = TGen::lexical_cast<bool>(properties.getProperty("gravity", "true"));
@@ -95,7 +95,7 @@ TGen::Engine::BodyComponent * TGen::Engine::PhysicsSubsystem::createBody(const T
 	return newBody;
 }
 
-TGen::Engine::JointComponent * TGen::Engine::PhysicsSubsystem::createJoint(const TGen::PropertyTree & properties) {
+TGen::Engine::JointComponent * TGen::Engine::Physics::Subsystem::createJoint(const TGen::PropertyTree & properties) {
 	if (properties.getNumAttributes() == 0)
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "no attributes, plz give some");
 	
@@ -116,7 +116,7 @@ TGen::Engine::JointComponent * TGen::Engine::PhysicsSubsystem::createJoint(const
 	return newComponent;
 }
 
-TGen::Engine::GeomComponent * TGen::Engine::PhysicsSubsystem::createGeom(const TGen::PropertyTree & properties) {
+TGen::Engine::GeomComponent * TGen::Engine::Physics::Subsystem::createGeom(const TGen::PropertyTree & properties) {
 	if (properties.getNumAttributes() == 0)
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "no attributes, plz give some");
 
@@ -149,18 +149,18 @@ TGen::Engine::GeomComponent * TGen::Engine::PhysicsSubsystem::createGeom(const T
 	return newComponent;
 }
 
-TGen::Engine::PhysicsPropertiesComponent * TGen::Engine::PhysicsSubsystem::createProps(const TGen::PropertyTree & properties) {
+TGen::Engine::PhysicsPropertiesComponent * TGen::Engine::Physics::Subsystem::createProps(const TGen::PropertyTree & properties) {
 	//TGen::Engine::PhysicsPropertiesComponent * newComponent = new TGen::Engine::PhysicsPropertiesComponent;
 	//newComponent->friction = TGen::lexical_cast<float>(properties.getProperty("friction", "1.0"));
 	
 	return NULL;// newComponent;
 }
 
-void TGen::Engine::PhysicsSubsystem::link() {
+void TGen::Engine::Physics::Subsystem::link() {
 	
 }
 
-void TGen::Engine::PhysicsSubsystem::update(scalar dt) {
+void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	static float sumDeltas = 0.0f;
 	sumDeltas += dt;
 	
@@ -181,11 +181,11 @@ void TGen::Engine::PhysicsSubsystem::update(scalar dt) {
 	}
 }
 
-void TGen::Engine::PhysicsSubsystem::setGravity(const TGen::Vector3 & gravity) {
+void TGen::Engine::Physics::Subsystem::setGravity(const TGen::Vector3 & gravity) {
 	dWorldSetGravity(worldId, gravity.x, gravity.y, gravity.z);
 }
 
-void TGen::Engine::PhysicsSubsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
+void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
 	if (dGeomIsSpace(o1) || dGeomIsSpace(o2)) {
 		dSpaceCollide2(o1, o2, data, &nearCallback);
 		

@@ -11,6 +11,9 @@
 #include "physfs/physfs.h"
 #include <tgen_core.h>
 
+using TGen::int64;
+using TGen::uint;
+
 TGen::Engine::File::File(PHYSFS_File * file)
 	: file(file)
 {
