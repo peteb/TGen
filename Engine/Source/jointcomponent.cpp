@@ -7,12 +7,12 @@
  *
  */
 
-#include "jointcomponent.h"
-#include "bodycomponent.h"
+#include "joint.h"
+#include "body.h"
 #include "entity.h"
 #include "entitylist.h"
 
-TGen::Engine::JointComponent::JointComponent(const std::string & name, dJointID jointId, const std::string & attachTo) 
+TGen::Engine::Physics::Joint::Joint(const std::string & name, dJointID jointId, const std::string & attachTo) 
 	: TGen::Engine::Component(name)
 	, jointId(jointId)
 	, attachTo(attachTo)
@@ -23,17 +23,17 @@ TGen::Engine::JointComponent::JointComponent(const std::string & name, dJointID 
 }
 
 
-TGen::Engine::JointComponent::~JointComponent() {
+TGen::Engine::Physics::Joint::~Joint() {
 	dJointDestroy(jointId);
 }
 
-void TGen::Engine::JointComponent::linkLocally(TGen::Engine::Entity & entity) {
-	body1 = dynamic_cast<TGen::Engine::BodyComponent *>(entity.getComponent("physBody"));
+void TGen::Engine::Physics::Joint::linkLocally(TGen::Engine::Entity & entity) {
+	body1 = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent("physBody"));
 }
 
-void TGen::Engine::JointComponent::linkGlobally(TGen::Engine::EntityList & entities) {
+void TGen::Engine::Physics::Joint::linkGlobally(TGen::Engine::EntityList & entities) {
 	if (!attachTo.empty())
-		body2 = dynamic_cast<TGen::Engine::BodyComponent *>(entities.getEntity(attachTo)->getComponent("physBody"));
+		body2 = dynamic_cast<TGen::Engine::Physics::Body *>(entities.getEntity(attachTo)->getComponent("physBody"));
 	else
 		body2 = NULL;
 	
@@ -48,12 +48,12 @@ void TGen::Engine::JointComponent::linkGlobally(TGen::Engine::EntityList & entit
 	setSimAnchor(anchor);
 }
 // TODO: måste skicka med vilken typ av joint det är talan om  NEJ! egna klasser, galet
-void TGen::Engine::JointComponent::setAnchor(const TGen::Vector3 & anchor) {
+void TGen::Engine::Physics::Joint::setAnchor(const TGen::Vector3 & anchor) {
 	this->anchor = anchor;
 	setSimAnchor(anchor);
 }
 
-void TGen::Engine::JointComponent::setSimAnchor(const TGen::Vector3 & anchor) {
+void TGen::Engine::Physics::Joint::setSimAnchor(const TGen::Vector3 & anchor) {
 	dJointSetBallAnchor(jointId, anchor.x, anchor.y, anchor.z);	
 }
 
