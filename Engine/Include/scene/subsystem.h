@@ -19,7 +19,7 @@ namespace TGen {
 		class World;
 		
 		namespace Scene {
-			class SceneNodeComponent;
+			class Node;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
@@ -29,7 +29,7 @@ namespace TGen {
 				TGen::Engine::Component * createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties);
 				void link();
 				
-				TGen::Engine::SceneNodeComponent * getComponent(const std::string & name);
+				TGen::Engine::Scene::Node * getComponent(const std::string & name);
 				TGen::SceneNode & getSceneRoot();
 				
 			private:
@@ -43,7 +43,7 @@ namespace TGen {
 				TGen::MeshGeometryLinkList meshList;
 				TGen::ModelInstantiatePool modelPool;
 				
-				typedef std::map<std::string, TGen::Engine::SceneNodeComponent *> ComponentMap;
+				typedef std::map<std::string, TGen::Engine::Scene::Node *> ComponentMap;
 				ComponentMap components;
 			};
 		} // !Scene

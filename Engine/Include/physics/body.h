@@ -22,8 +22,11 @@
 namespace TGen {
 	namespace Engine {
 		class Entity;
-		class SceneNodeComponent;
-
+		
+		namespace Scene {
+			class Node;
+		}
+		
 		namespace Physics {
 			class Subsystem;
 		
@@ -45,7 +48,7 @@ namespace TGen {
 				
 			private:
 				dBodyID bodyId;
-				TGen::Engine::SceneNodeComponent * sceneNodeComponent;
+				TGen::Engine::Scene::Node * sceneNodeComponent;
 			};
 		} // !Physics
 	} // !Engine

@@ -13,7 +13,7 @@
 #include "entity.h"
 #include "filesystem.h"
 #include "file.h"
-#include "scenenodecomponent.h"
+#include "scene/node.h"
 
 TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	: app(app)

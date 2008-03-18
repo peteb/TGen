@@ -55,7 +55,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(TGen::
 
 	parentNode->addChild(sceneNode);
 
-	TGen::Engine::SceneNodeComponent * newComponent = new TGen::Engine::SceneNodeComponent("sceneNode", sceneNode);
+	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node("sceneNode", sceneNode);
 	if (components.find(entity->getName()) == components.end())
 		components.insert(ComponentMap::value_type(entity->getName(), newComponent));
 	
@@ -122,7 +122,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	return map;
 }
 
-TGen::Engine::SceneNodeComponent * TGen::Engine::Scene::Subsystem::getComponent(const std::string & name) {
+TGen::Engine::Scene::Node * TGen::Engine::Scene::Subsystem::getComponent(const std::string & name) {
 	ComponentMap::iterator iter = components.find(name);
 	if (iter != components.end())
 		return iter->second;

@@ -51,9 +51,9 @@
 		D083958E0CD927EA00C94467 /* deferredscenerenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* deferredscenerenderer.cpp */; };
 		D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843B6E0D0759D200C31FE3 /* memmanager.cpp */; };
 		D0843BCA0D0759D200C31FE3 /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BC90D0759D200C31FE3 /* entity.cpp */; };
-		D0843BD50D0759D200C31FE3 /* scenenodecomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */; };
+		D0843BD50D0759D200C31FE3 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD40D0759D200C31FE3 /* node.cpp */; };
 		D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD70D0759D200C31FE3 /* entityfactory.cpp */; };
-		D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */; };
+		D0843C120D075B3200C31FE3 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* subsystem.cpp */; };
 		D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7BF30D10919B008622BC /* imagegenerator.cpp */; };
 		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
 		D09330AC0D79FD7D0046DC37 /* planegeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeom.cpp */; };
@@ -285,12 +285,12 @@
 		D0843B6E0D0759D200C31FE3 /* memmanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = memmanager.cpp; sourceTree = "<group>"; };
 		D0843BC80D0759D200C31FE3 /* entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entity.h; path = ../../Include/entity.h; sourceTree = SOURCE_ROOT; };
 		D0843BC90D0759D200C31FE3 /* entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entity.cpp; sourceTree = "<group>"; };
-		D0843BD30D0759D200C31FE3 /* scenenodecomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenenodecomponent.h; path = ../../Include/scenenodecomponent.h; sourceTree = SOURCE_ROOT; };
-		D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenenodecomponent.cpp; sourceTree = "<group>"; };
+		D0843BD30D0759D200C31FE3 /* node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = node.h; path = ../../Include/scene/node.h; sourceTree = SOURCE_ROOT; };
+		D0843BD40D0759D200C31FE3 /* node.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = node.cpp; path = scene/node.cpp; sourceTree = "<group>"; };
 		D0843BD60D0759D200C31FE3 /* entityfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entityfactory.h; path = ../../Include/entityfactory.h; sourceTree = SOURCE_ROOT; };
 		D0843BD70D0759D200C31FE3 /* entityfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entityfactory.cpp; sourceTree = "<group>"; };
-		D0843C100D075B0100C31FE3 /* scenesubsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenesubsystem.h; path = ../../Include/scenesubsystem.h; sourceTree = SOURCE_ROOT; };
-		D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scenesubsystem.cpp; sourceTree = "<group>"; };
+		D0843C100D075B0100C31FE3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/scene/subsystem.h; sourceTree = SOURCE_ROOT; };
+		D0843C110D075B3200C31FE3 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = scene/subsystem.cpp; sourceTree = "<group>"; };
 		D0843C210D075BFB00C31FE3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D0843C430D075C9C00C31FE3 /* component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = component.h; path = ../../Include/component.h; sourceTree = SOURCE_ROOT; };
 		D08C7BF20D109190008622BC /* imagegenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imagegenerator.h; path = ../../Include/imagegenerator.h; sourceTree = SOURCE_ROOT; };
@@ -460,9 +460,6 @@
 				D077FA470D26DA4B00217E07 /* map */,
 				D0843BD20D0759D200C31FE3 /* entity */,
 				D09628EB0D784E60008DABC3 /* subsystems */,
-				D0E457D00D90696300F4D548 /* scene */,
-				D093321E0D79FFC30046DC37 /* physics */,
-				D09331690D79FD7D0046DC37 /* components */,
 				D0F8393B0CBA679200FF4467 /* game */,
 				D08395710CD9266900C94467 /* renderer */,
 				D0EF61500C82D8E20085C17B /* app.cpp */,
@@ -712,24 +709,6 @@
 			name = entity;
 			sourceTree = "<group>";
 		};
-		D09331690D79FD7D0046DC37 /* components */ = {
-			isa = PBXGroup;
-			children = (
-				D0843C430D075C9C00C31FE3 /* component.h */,
-				D093321D0D79FFBA0046DC37 /* scene */,
-			);
-			name = components;
-			sourceTree = "<group>";
-		};
-		D093321D0D79FFBA0046DC37 /* scene */ = {
-			isa = PBXGroup;
-			children = (
-				D0843BD40D0759D200C31FE3 /* scenenodecomponent.cpp */,
-				D0843BD30D0759D200C31FE3 /* scenenodecomponent.h */,
-			);
-			name = scene;
-			sourceTree = "<group>";
-		};
 		D093321E0D79FFC30046DC37 /* physics */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,8 +750,9 @@
 			isa = PBXGroup;
 			children = (
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
-				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
-				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
+				D0843C430D075C9C00C31FE3 /* component.h */,
+				D0E457D00D90696300F4D548 /* scene */,
+				D093321E0D79FFC30046DC37 /* physics */,
 			);
 			name = subsystems;
 			sourceTree = "<group>";
@@ -808,6 +788,10 @@
 		D0E457D00D90696300F4D548 /* scene */ = {
 			isa = PBXGroup;
 			children = (
+				D0843C110D075B3200C31FE3 /* subsystem.cpp */,
+				D0843C100D075B0100C31FE3 /* subsystem.h */,
+				D0843BD40D0759D200C31FE3 /* node.cpp */,
+				D0843BD30D0759D200C31FE3 /* node.h */,
 			);
 			name = scene;
 			sourceTree = "<group>";
@@ -1079,9 +1063,9 @@
 				D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */,
 				D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */,
 				D0843BCA0D0759D200C31FE3 /* entity.cpp in Sources */,
-				D0843BD50D0759D200C31FE3 /* scenenodecomponent.cpp in Sources */,
+				D0843BD50D0759D200C31FE3 /* node.cpp in Sources */,
 				D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */,
-				D0843C120D075B3200C31FE3 /* scenesubsystem.cpp in Sources */,
+				D0843C120D075B3200C31FE3 /* subsystem.cpp in Sources */,
 				D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */,
 				D08C7C250D1095CA008622BC /* generateline.cpp in Sources */,
 				D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */,

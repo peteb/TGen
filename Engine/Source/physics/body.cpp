@@ -8,7 +8,7 @@
  */
 
 #include "physics/body.h"
-#include "scenenodecomponent.h"
+#include "scene/node.h"
 #include "entity.h"
 #include <tgen_renderer.h>
 
@@ -41,7 +41,7 @@ void TGen::Engine::Physics::Body::postStep() {
 }
 
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
-	sceneNodeComponent = dynamic_cast<TGen::Engine::SceneNodeComponent *>(entity.getComponent("sceneNode"));
+	sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
 	
 	setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 }

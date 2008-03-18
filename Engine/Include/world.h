@@ -15,7 +15,7 @@
 #include "entitylist.h"
 #include "lightlist.h"
 #include "entityfactory.h"
-#include "scenesubsystem.h"
+#include "scene/subsystem.h"
 #include "physics/subsystem.h"
 
 namespace TGen {
@@ -41,7 +41,7 @@ namespace TGen {
 			TGen::Engine::App & app;
 			
 		private:
-			TGen::Engine::SceneSubsystem sceneSubsystem;
+			TGen::Engine::Scene::Subsystem sceneSubsystem;
 			TGen::Engine::Physics::Subsystem physicsSubsystem;
 			
 			TGen::Engine::EntityFactory entityFactory;

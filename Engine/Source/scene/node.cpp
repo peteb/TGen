@@ -1,5 +1,5 @@
 /*
- *  scenenodecomponent.cpp
+ *  node.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 12/5/07.
@@ -7,20 +7,20 @@
  *
  */
 
-#include "scenenodecomponent.h"
+#include "scene/node.h"
 
-TGen::Engine::SceneNodeComponent::SceneNodeComponent(const std::string & name, TGen::SceneNode * sceneNode) 
+TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * sceneNode) 
 	: TGen::Engine::Component(name)
 	, sceneNode(sceneNode)
 {
 	
 }
 
-TGen::Engine::SceneNodeComponent::~SceneNodeComponent() {
+TGen::Engine::Scene::Node::~Node() {
 	
 }
 
-TGen::SceneNode * TGen::Engine::SceneNodeComponent::getSceneNode() {
+TGen::SceneNode * TGen::Engine::Scene::Node::getSceneNode() {
 	return sceneNode;
 }
 
