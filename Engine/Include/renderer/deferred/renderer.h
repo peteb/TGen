@@ -24,14 +24,17 @@ namespace TGen {
 	class Rectangle;
 	class Camera;
 	class ShaderVariable;
+	class Renderer;
 	
 	namespace Engine {
-		class App;
+		struct StandardLogs;
+		class VariableRegister;
 		class World;
-
+		class ResourceManager;
+		
 		class DeferredRenderer : public TGen::ShaderVariableUpdater {
 		public:	
-			DeferredRenderer(TGen::Engine::App & app);
+			DeferredRenderer(TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs, TGen::Engine::VariableRegister & variables, TGen::Engine::ResourceManager & resources);
 			~DeferredRenderer();
 			
 			void renderScene(scalar dt);
@@ -51,12 +54,18 @@ namespace TGen {
 			void renderPostFinalQuad(TGen::Material * material);
 			
 			void createResources(const TGen::Rectangle & mapSize);
-			void loadLightMaterial(const std::string & name, int materialId);
+			void loadLightMaterial(const std::string & name, int materialId, TGen::Engine::ResourceManager & resources);
 			int ceilPowerOfTwo(int value);
 			
-			TGen::Engine::App & app;
-			TGen::Engine::World * world;
+			//TGen::Engine::App & app;
+			TGen::Renderer & renderer;
+			TGen::Engine::StandardLogs & logs;
+			TGen::Engine::VariableRegister & variables;
+			TGen::Engine::ResourceManager & resources;
+
 			TGen::Engine::DeferredRendererVars vars;
+
+			TGen::Engine::World * world;	// is linked
 
 			TGen::Rectangle mrtSize, downsampleSize;
 			TGen::Camera * mainCamera;

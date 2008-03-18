@@ -27,7 +27,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 	app.logs.info["gst+"] << "entering game state..." << endl;
 
 	try {
-		sceneRenderer = new TGen::Engine::DeferredRenderer(app);
+		sceneRenderer = new TGen::Engine::DeferredRenderer(app.renderer, app.logs, app.variables, app.globalResources);
 	}
 	catch (const std::exception & e) {
 		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << 

@@ -14,13 +14,13 @@
 
 namespace TGen {
 	namespace Engine {
-		class App;
+		struct VariableRegister;
 		
 		// TODO: fs_log, dir för logs. skriv loggar där!!!!!! omg
 		
 		class DeferredRendererVars : public TGen::Engine::VariableObserver {
 		public:
-			DeferredRendererVars(TGen::Engine::App & app);
+			DeferredRendererVars(TGen::Engine::VariableRegister & variables);
 			
 			void postVariableChange(const TGen::Engine::Variable & variable);
 			void onVariableRemoved(const TGen::Engine::Variable & variable);
@@ -33,7 +33,7 @@ namespace TGen {
 			float lumMin, lumMultiplier;
 			
 		private:
-			TGen::Engine::App & app;			
+			TGen::Engine::VariableRegister & variables;			
 		};
 		
 	} // !Engine

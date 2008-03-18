@@ -7,8 +7,8 @@
  *
  */
 
+#include "log.h"
 #include "renderer/deferred/renderer.h"
-#include "app.h"
 #include "filesystem.h"
 #include "file.h"
 #include "variableregister.h"
@@ -16,33 +16,41 @@
 #include "light.h"
 #include "vbrenderable.h"
 #include "metacreator.h"
+#include "resourcemanager.h"
+#include "variableregister.h"
 #include <tgen_graphics.h>
 
-TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app) 
-	: app(app)
-	, vars(app)
+TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Renderer & renderer, 
+																 TGen::Engine::StandardLogs & logs, 
+																 TGen::Engine::VariableRegister & variables, 
+																 TGen::Engine::ResourceManager & resources) 
+	: renderer(renderer)
+	, logs(logs)
+	, variables(variables)
+	, resources(resources)
+	, vars(variables)
 	, mainCamera(NULL)
 	, lastNumLights(0)
 	, lightBatchSize(8)
 	, lightMaterials(NULL)
 	, world(NULL)
-	, metaLines(app.renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
+	, metaLines(renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
 {
-	app.logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
+	logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
-	rhwNoTransformShader = app.globalResources.getShaderProgram("rhwNoTransform");
-	rhwOnlyColorMaterial = app.globalResources.getMaterial("deferred/rhwOnlyColor");
-	screenFillMesh = app.globalResources.getMesh("gen:fillquad");
-	lightAmbientMaterial = app.globalResources.getMaterial("deferred/lightAmbient");
-	lightDirectionalMaterial = app.globalResources.getMaterial("deferred/lightDirectional");
-	lightPositionalMaterial = app.globalResources.getMaterial("deferred/lightPositional");
-	postLuminanceMaterial = app.globalResources.getMaterial("post/luminance");
-	postGaussianHorizMaterial = app.globalResources.getMaterial("post/gaussianHoriz");
-	postGaussianVertMaterial = app.globalResources.getMaterial("post/gaussianVert");
-	postFinalBloom = app.globalResources.getMaterial("post/finalBloom");
-	metaNormalMaterial = app.globalResources.getMaterial("meta/normal");
+	rhwNoTransformShader = resources.getShaderProgram("rhwNoTransform");
+	rhwOnlyColorMaterial = resources.getMaterial("deferred/rhwOnlyColor");
+	screenFillMesh = resources.getMesh("gen:fillquad");
+	lightAmbientMaterial = resources.getMaterial("deferred/lightAmbient");
+	lightDirectionalMaterial = resources.getMaterial("deferred/lightDirectional");
+	lightPositionalMaterial = resources.getMaterial("deferred/lightPositional");
+	postLuminanceMaterial = resources.getMaterial("post/luminance");
+	postGaussianHorizMaterial = resources.getMaterial("post/gaussianHoriz");
+	postGaussianVertMaterial = resources.getMaterial("post/gaussianVert");
+	postFinalBloom = resources.getMaterial("post/finalBloom");
+	metaNormalMaterial = resources.getMaterial("meta/normal");
 	
-	TGen::Rectangle mapSize(int(app.variables["env_width"]), int(app.variables["env_height"]));
+	TGen::Rectangle mapSize(int(this->variables["env_width"]), int(this->variables["env_height"]));
 	
 	if (vars.forceBinaryMRT)
 		mapSize = TGen::Rectangle(ceilPowerOfTwo(mapSize.width), ceilPowerOfTwo(mapSize.height));
@@ -60,34 +68,34 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Engine::App & app)
 		
 		mapSize = TGen::Rectangle(ceilPowerOfTwo(mapSize.width), ceilPowerOfTwo(mapSize.height));
 
-		app.logs.warning["dfr+"] << e << TGen::endl;
-		app.logs.warning["dfr+"] << "trying " << std::string(mapSize) << "..." << TGen::endl;
+		logs.warning["dfr+"] << e << TGen::endl;
+		logs.warning["dfr+"] << "trying " << std::string(mapSize) << "..." << TGen::endl;
 		
 		createResources(mapSize);
 	}
 	
-	app.logs.info["dfr+"] << "mrts size: " << std::string(mapSize) << TGen::endl;
+	logs.info["dfr+"] << "mrts size: " << std::string(mapSize) << TGen::endl;
 	
 	
 	lightMaterials = new TGen::Material*[lightBatchSize * 3];
 	//loadLightMaterial("deferred/lightDirectional", 0);
 	
-	app.logs.info["dfr+"] << "light batch size: " << lightBatchSize << TGen::endl;
+	logs.info["dfr+"] << "light batch size: " << lightBatchSize << TGen::endl;
 	
-	TGen::Rectangle viewport = app.renderer.getViewport();
-	app.renderer.setRenderTarget(postTargets2);
-	app.renderer.setViewport(downsampleSize);
-	app.renderer.clearBuffers(TGen::ColorBuffer);
+	TGen::Rectangle viewport = renderer.getViewport();
+	renderer.setRenderTarget(postTargets2);
+	renderer.setViewport(downsampleSize);
+	renderer.clearBuffers(TGen::ColorBuffer);
 
-	app.renderer.setRenderTarget(NULL);
-	app.renderer.setViewport(viewport);
+	renderer.setRenderTarget(NULL);
+	renderer.setViewport(viewport);
 	
-	app.logs.info["dfr+"] << "bloom downsampling: " << std::string(downsampleSize) << TGen::endl;
-	app.logs.info["dfr+"] << "initialized" << TGen::endl;
+	logs.info["dfr+"] << "bloom downsampling: " << std::string(downsampleSize) << TGen::endl;
+	logs.info["dfr+"] << "initialized" << TGen::endl;
 }
 
 TGen::Engine::DeferredRenderer::~DeferredRenderer() {
-	app.logs.info["dfr-"] << "shutting down..." << TGen::endl;
+	logs.info["dfr-"] << "shutting down..." << TGen::endl;
 
 	delete [] lightMaterials;
 	
@@ -106,22 +114,22 @@ TGen::Engine::DeferredRenderer::~DeferredRenderer() {
 	
 }
 
-void TGen::Engine::DeferredRenderer::loadLightMaterial(const std::string & name, int materialId) {
+void TGen::Engine::DeferredRenderer::loadLightMaterial(const std::string & name, int materialId, TGen::Engine::ResourceManager & resources) {
 	for (int i = 0; i < lightBatchSize; ++i)
-		lightMaterials[materialId * lightBatchSize + i] = app.globalResources.getMaterial(name + TGen::lexical_cast<std::string>(i));
+		lightMaterials[materialId * lightBatchSize + i] = resources.getMaterial(name + TGen::lexical_cast<std::string>(i));
 }
 
 void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & mapSize) {
 	downsampleSize = mapSize / scalar(pow(2.0f, vars.bloomDownsampling));
 	
-	colorMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	normalMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	miscMap = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	depthMap = app.renderer.createTexture(mapSize, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps /*| TGen::TextureRectangle*/);	// TODO: ubyte på depth? wtf?
+	colorMap = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	normalMap = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	miscMap = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	depthMap = renderer.createTexture(mapSize, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps /*| TGen::TextureRectangle*/);	// TODO: ubyte på depth? wtf?
 	
-	postMap1 = app.renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);		// <-- sparar en massa skit... varför? blendfunc?
-	postMap2 = app.renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	postMap3 = app.renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	postMap1 = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);		// <-- sparar en massa skit... varför? blendfunc?
+	postMap2 = renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
+	postMap3 = renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	
 	postMap1->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
 	postMap2->setWrapMode(TGen::TextureWrapClamp, TGen::TextureWrapClamp);
@@ -132,20 +140,20 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	depthMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
 	*/
 	
-	mapTargets = app.renderer.createFrameBuffer();
+	mapTargets = renderer.createFrameBuffer();
 	mapTargets->attachColor(colorMap);
 	mapTargets->attachColor(normalMap);
 	mapTargets->attachColor(miscMap);
 	mapTargets->attachDepth(depthMap);
 	
-	postTargets1 = app.renderer.createFrameBuffer();
+	postTargets1 = renderer.createFrameBuffer();
 	postTargets1->attachColor(postMap1);
 	//postTargets1->attachDepth(depthMap);
 	
-	postTargets2 = app.renderer.createFrameBuffer();
+	postTargets2 = renderer.createFrameBuffer();
 	postTargets2->attachColor(postMap2);
 	
-	postTargets3 = app.renderer.createFrameBuffer();
+	postTargets3 = renderer.createFrameBuffer();
 	postTargets3->attachColor(postMap3);
 	
 	//depthTarget = app.renderer.createFrameBuffer();
@@ -153,8 +161,6 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	
 	mrtSize = mapSize;
 }
-
-#include <GLUT/GLUT.h>
 
 void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	if (!world) {
@@ -197,20 +203,20 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	renderList.writeMeta(TGen::MetaNormals, TGen::Matrix4x4::Identity, metaLines);
 	metaLines.endBatch();
 	
-	TGen::Rectangle viewport = app.renderer.getViewport();
+	TGen::Rectangle viewport = renderer.getViewport();
 	
 	
 	// UPDATE MAPS (color, normal, spec, depth, etc)
-	app.renderer.setRenderTarget(mapTargets);
-	app.renderer.setViewport(mrtSize);
-	app.renderer.setClearColor(TGen::Color::Black);
-	app.renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
-	app.renderer.setAmbientLight(world->getAmbientLight() * 1.5);
+	renderer.setRenderTarget(mapTargets);
+	renderer.setViewport(mrtSize);
+	renderer.setClearColor(TGen::Color::Black);
+	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+	renderer.setAmbientLight(world->getAmbientLight() * 1.5);
 	
-	renderList.render(app.renderer, *mainCamera, "default");
+	renderList.render(renderer, *mainCamera, "default");
 
-	app.renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
-	metaNormalMaterial->render(app.renderer, metaLines, "default", 9, NULL, NULL);
+	renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
+	metaNormalMaterial->render(renderer, metaLines, "default", 9, NULL, NULL);
 	
 	// TODO: var ska det här vara egentligen....
 	
@@ -218,12 +224,12 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {
-		app.renderer.setRenderTarget(postTargets1);
-		app.renderer.setViewport(mrtSize);
+		renderer.setRenderTarget(postTargets1);
+		renderer.setViewport(mrtSize);
 	}
 	else {
-		app.renderer.setRenderTarget(NULL);
-		app.renderer.setViewport(viewport);
+		renderer.setRenderTarget(NULL);
+		renderer.setViewport(viewport);
 	}
 	
 	// TODO: styr upp det här nu, någon funktion som writar ett koordinatsystem kanske? dvs xyz-axlarna
@@ -247,8 +253,8 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 			for (int i = 0; i < lights->size(); i += lightBatchSize) {
 				int a = 0;
 				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
-					app.renderer.setTransform(TGen::TransformWorldView, (*lights)[a]->getTransform());
-					app.renderer.setLight(a, (*lights)[a]->getLightProperties());
+					renderer.setTransform(TGen::TransformWorldView, (*lights)[a]->getTransform());
+					renderer.setLight(a, (*lights)[a]->getLightProperties());
 				}
 				
 				renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a) + "lights");	// TODO: optimize
@@ -336,8 +342,8 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 
 // No world loaded, ie, no map:
 void TGen::Engine::DeferredRenderer::renderWorldless(scalar dt) {
-	app.renderer.setClearColor(TGen::Color::Red);
-	app.renderer.clearBuffers(TGen::ColorBuffer);
+	renderer.setClearColor(TGen::Color::Red);
+	renderer.clearBuffers(TGen::ColorBuffer);
 	
 }
 
@@ -347,8 +353,8 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 	// TODO: flökar säkert sönder depthbuffern.. disabla
 	// TODO: alphan som clearas med ska justeras beroende på fps
 	
-	app.renderer.setViewport(downsampleSize);
-	app.renderer.setRenderTarget(postTargets2);
+	renderer.setViewport(downsampleSize);
+	renderer.setRenderTarget(postTargets2);
 	
 	/*if (vars.lumTrace) {	// måste ha blendFunc add add för det här...
 		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.1));
@@ -358,15 +364,15 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 	renderPostFillQuad(postLuminanceMaterial);
 	
 	for (int i = 0; i < vars.bloomBlurPasses; ++i) {	// pingpong:a gaussian blur
-		app.renderer.setRenderTarget(postTargets3);	
+		renderer.setRenderTarget(postTargets3);	
 		renderPost2FillQuad(postGaussianHorizMaterial);
 	
-		app.renderer.setRenderTarget(postTargets2);
+		renderer.setRenderTarget(postTargets2);
 		renderPost3FillQuad(postGaussianVertMaterial);
 	}
 	
-	app.renderer.setRenderTarget(NULL);
-	app.renderer.setViewport(viewport);
+	renderer.setRenderTarget(NULL);
+	renderer.setViewport(viewport);
 	
 	renderPostFinalQuad(postFinalBloom);
 }
@@ -377,7 +383,7 @@ void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material) {
 
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
-	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);
+	material->render(renderer, *screenFillMesh, "default", 9, textures, this);
 }
 
 void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material, const std::string & specialization) {
@@ -386,31 +392,31 @@ void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material, c
 
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
-	material->render(app.renderer, *screenFillMesh, specialization, 9, textures, this);	
+	material->render(renderer, *screenFillMesh, specialization, 9, textures, this);	
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, postMap1, normalMap, miscMap, depthMap};
 	
-	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);	
+	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
 }
 
 void TGen::Engine::DeferredRenderer::renderPost2FillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, postMap2, normalMap, miscMap, depthMap};
 	
-	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);	
+	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
 }
 
 void TGen::Engine::DeferredRenderer::renderPost3FillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, postMap3, normalMap, miscMap, depthMap};
 	
-	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);	
+	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFinalQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, postMap1, postMap2, miscMap, depthMap};
 	
-	material->render(app.renderer, *screenFillMesh, "default", 9, textures, this);		
+	material->render(renderer, *screenFillMesh, "default", 9, textures, this);		
 }
 
 void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {
@@ -427,7 +433,7 @@ void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable &
 	else if (name == "$numlights")
 		var = lastNumLights;		
 	else
-		app.logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;
+		logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;
 }
 
 // TODO: fixa simpel fps

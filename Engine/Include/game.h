@@ -44,7 +44,6 @@ namespace TGen {
 			
 			TGen::Time lastRender;
 			scalar sinceErrorCheck;
-			
 		};
 		
 	} // !Engine

@@ -11,8 +11,8 @@
 #include "app.h"
 #include "variableregister.h"
 
-TGen::Engine::DeferredRendererVars::DeferredRendererVars(TGen::Engine::App & app) 
-	: app(app)
+TGen::Engine::DeferredRendererVars::DeferredRendererVars(TGen::Engine::VariableRegister & variables) 
+	: variables(variables)
 	, forceBinaryMRT(true)
 	, postBloom(true)
 	, postProcessing(true)
@@ -22,21 +22,21 @@ TGen::Engine::DeferredRendererVars::DeferredRendererVars(TGen::Engine::App & app
 	, lumMin(0.7)
 	, lumMultiplier(0.7)
 {
-	app.variables.addVariable(TGen::Engine::Variable("r_forceBinaryMRT", "true", "true", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postBloom", "true", "true", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postBloomBlurPasses", "3", "3", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postBloomDownsampling", "1", "1", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceMin", "0.9", "0.35", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceMultiplier", "0.9", "0.6", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
-	app.variables.addVariable(TGen::Engine::Variable("r_postLuminanceTrace", "false", "false", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_forceBinaryMRT", "true", "true", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_postBloom", "true", "true", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_postBloomBlurPasses", "3", "3", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_postBloomDownsampling", "1", "1", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_postLuminanceMin", "0.9", "0.35", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_postLuminanceMultiplier", "0.9", "0.6", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
+	variables.addVariable(TGen::Engine::Variable("r_postLuminanceTrace", "false", "false", 0), TGen::Engine::AddOverrideDefaults | TGen::Engine::AddNoThrow);
 
-	app.variables["r_forceBinaryMRT"].addObserver(this);
-	app.variables["r_postBloom"].addObserver(this);
-	app.variables["r_postBloomBlurPasses"].addObserver(this);
-	app.variables["r_postBloomDownsampling"].addObserver(this);
-	app.variables["r_postLuminanceMin"].addObserver(this);
-	app.variables["r_postLuminanceMultiplier"].addObserver(this);
-	app.variables["r_postLuminanceTrace"].addObserver(this);
+	variables["r_forceBinaryMRT"].addObserver(this);
+	variables["r_postBloom"].addObserver(this);
+	variables["r_postBloomBlurPasses"].addObserver(this);
+	variables["r_postBloomDownsampling"].addObserver(this);
+	variables["r_postLuminanceMin"].addObserver(this);
+	variables["r_postLuminanceMultiplier"].addObserver(this);
+	variables["r_postLuminanceTrace"].addObserver(this);
 	
 	loadVariables();	
 }
@@ -50,13 +50,13 @@ void TGen::Engine::DeferredRendererVars::onVariableRemoved(const TGen::Engine::V
 }
 
 void TGen::Engine::DeferredRendererVars::loadVariables() {
-	forceBinaryMRT = bool(app.variables["r_forceBinaryMRT"]);
-	postBloom = bool(app.variables["r_postBloom"]);
-	bloomBlurPasses = int(app.variables["r_postBloomBlurPasses"]);
-	bloomDownsampling = int(app.variables["r_postBloomDownsampling"]);
-	lumTrace = bool(app.variables["r_postLuminanceTrace"]);
-	lumMin = scalar(app.variables["r_postLuminanceMin"]);
-	lumMultiplier = scalar(app.variables["r_postLuminanceMultiplier"]);
+	forceBinaryMRT = bool(variables["r_forceBinaryMRT"]);
+	postBloom = bool(variables["r_postBloom"]);
+	bloomBlurPasses = int(variables["r_postBloomBlurPasses"]);
+	bloomDownsampling = int(variables["r_postBloomDownsampling"]);
+	lumTrace = bool(variables["r_postLuminanceTrace"]);
+	lumMin = scalar(variables["r_postLuminanceMin"]);
+	lumMultiplier = scalar(variables["r_postLuminanceMultiplier"]);
 	
 	postProcessing = postBloom;
 }
