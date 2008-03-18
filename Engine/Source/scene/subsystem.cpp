@@ -7,8 +7,8 @@
  *
  */
 
-#include "scenesubsystem.h"
-#include "scenenodecomponent.h"
+#include "scene/subsystem.h"
+#include "scene/node.h"
 #include "world.h"
 #include "app.h"
 #include "entity.h"
@@ -16,18 +16,18 @@
 #include "map.h"
 #include "maploader.h"
 
-TGen::Engine::SceneSubsystem::SceneSubsystem(TGen::Engine::World & world)
+TGen::Engine::Scene::Subsystem::Subsystem(TGen::Engine::World & world)
 	: sceneRoot("root")
 	, world(world)
 {
 	
 }
 
-TGen::Engine::SceneSubsystem::~SceneSubsystem() {
+TGen::Engine::Scene::Subsystem::~Subsystem() {
 
 }
 
-TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {
 	bool doCreateNode = properties.getName() == "sceneNode";
 	bool doCreateCamera = properties.getName() == "sceneCamera";
 	bool doCreateLight = properties.getName() == "sceneLight";
@@ -62,7 +62,7 @@ TGen::Engine::Component * TGen::Engine::SceneSubsystem::createComponent(TGen::En
 	return newComponent;
 }
 
-TGen::SceneNode * TGen::Engine::SceneSubsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Camera * camera = new TGen::Camera(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), TGen::Rotation::Identity);
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
@@ -76,7 +76,7 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createCameraNode(const std::stri
 	return camera;
 }
 
-TGen::SceneNode * TGen::Engine::SceneSubsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::Light * light = new TGen::Engine::Light(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
 	
@@ -94,7 +94,7 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createLightNode(const std::strin
 	return light;
 }
 
-TGen::SceneNode * TGen::Engine::SceneSubsystem::createNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::SceneNode * node = new TGen::SceneNode(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
@@ -114,7 +114,7 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createNode(const std::string & n
 	return node;
 }
 
-TGen::SceneNode * TGen::Engine::SceneSubsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::MapLoader loader(world.app.logs, world.app.filesystem);
 	TGen::Engine::Map * map = loader.createMap(name, properties.getProperty("model", ""), TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	map->createVertexData(world.app.globalResources.vertexCache);
@@ -122,7 +122,7 @@ TGen::SceneNode * TGen::Engine::SceneSubsystem::createMapNode(const std::string 
 	return map;
 }
 
-TGen::Engine::SceneNodeComponent * TGen::Engine::SceneSubsystem::getComponent(const std::string & name) {
+TGen::Engine::SceneNodeComponent * TGen::Engine::Scene::Subsystem::getComponent(const std::string & name) {
 	ComponentMap::iterator iter = components.find(name);
 	if (iter != components.end())
 		return iter->second;
@@ -132,7 +132,7 @@ TGen::Engine::SceneNodeComponent * TGen::Engine::SceneSubsystem::getComponent(co
 
 // TODO: refactor all world.app.logs-blabla-shit to logs
 
-void TGen::Engine::SceneSubsystem::link() {
+void TGen::Engine::Scene::Subsystem::link() {
 	world.app.logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
 	//meshList.relink(world.app.globalResources);
 	modelPool.instantiateAll(world.app.globalResources);
@@ -144,6 +144,6 @@ void TGen::Engine::SceneSubsystem::link() {
 	sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
 }
 
-TGen::SceneNode & TGen::Engine::SceneSubsystem::getSceneRoot() {
+TGen::SceneNode & TGen::Engine::Scene::Subsystem::getSceneRoot() {
 	return sceneRoot;
 }
