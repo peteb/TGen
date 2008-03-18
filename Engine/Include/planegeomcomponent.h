@@ -10,14 +10,14 @@
 #ifndef _TGEN_ENGINE_PLANEGEOMCOMPONENT_H
 #define _TGEN_ENGINE_PLANEGEOMCOMPONENT_H
 
-#include "geomcomponent.h"
+#include "physics/geom.h"
 
 namespace TGen {
 	class Plane3;
 	
 	namespace Engine {
 		namespace Physics {
-			class PlaneGeom : public TGen::Engine::GeomComponent {
+			class PlaneGeom : public TGen::Engine::Physics::Geom {
 			public:
 				PlaneGeom(const std::string & name, const TGen::Plane3 & plane, dSpaceID space);
 			};

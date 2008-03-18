@@ -10,7 +10,7 @@
 #ifndef _TGEN_ENGINE_BOXGEOMCOMPONENT_H
 #define _TGEN_ENGINE_BOXGEOMCOMPONENT_H
 
-#include "geomcomponent.h"
+#include "physics/geom.h"
 
 namespace TGen {
 	class Vector3;
@@ -19,10 +19,12 @@ namespace TGen {
 		class Entity;
 		class EntityList;
 		
-		class BoxGeomComponent : public TGen::Engine::GeomComponent {
-		public:
-			BoxGeomComponent(const std::string & name, const TGen::Vector3 & size, dSpaceID space);
-		};
+		namespace Physics {
+			class BoxGeom : public TGen::Engine::Physics::Geom {
+			public:
+				BoxGeom(const std::string & name, const TGen::Vector3 & size, dSpaceID space);
+			};
+		} // !Physics
 	} // !Engine
 } // !TGen
 

@@ -10,18 +10,19 @@
 #ifndef _TGEN_ENGINE_SPHEREGEOMCOMPONENT_H
 #define _TGEN_ENGINE_SPHEREGEOMCOMPONENT_H
 
-#include "geomcomponent.h"
+#include "physics/geom.h"
 
 namespace TGen {
 	namespace Engine {
 		class Entity;
 		class EntityList;
 		
-		class SphereGeomComponent : public TGen::Engine::GeomComponent {
-		public:
-			SphereGeomComponent(const std::string & name, float radius, dSpaceID space);
-		};
-		
+		namespace Physics {
+			class SphereGeom : public TGen::Engine::Physics::Geom {
+			public:
+				SphereGeom(const std::string & name, float radius, dSpaceID space);
+			};
+		} // !Physics
 	} // !Engine
 } // !TGen
 
