@@ -1,5 +1,5 @@
 /*
- *  jointcomponent.cpp
+ *  joint.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 2/29/08.

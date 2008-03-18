@@ -7,41 +7,41 @@
  *
  */
 
-#include "geomcomponent.h"
-#include "bodycomponent.h"
+#include "physics/geom.h"
+#include "physics/body.h"
 #include "entity.h"
 #include <tgen_core.h>
 
-TGen::Engine::GeomComponent::GeomComponent(const std::string & name)
+TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	: TGen::Engine::Component(name)
 	, geomId(0)
 {
 
 }
 
-TGen::Engine::GeomComponent::~GeomComponent() {
+TGen::Engine::Physics::Geom::~Geom() {
 	
 }
 
-float TGen::Engine::GeomComponent::getFriction() const {
+float TGen::Engine::Physics::Geom::getFriction() const {
 	return friction;
 }
 
-void TGen::Engine::GeomComponent::setFriction(float friction) {
+void TGen::Engine::Physics::Geom::setFriction(float friction) {
 	this->friction = friction;
 }
 
-void TGen::Engine::GeomComponent::setGeomId(dGeomID id) {
+void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 	if (geomId)
-		throw TGen::RuntimeException("GeomComponent::setGeomId", "geomId already set!");
+		throw TGen::RuntimeException("Geom::setGeomId", "geomId already set!");
 	
 	geomId = id;
 	dGeomSetData(geomId, static_cast<void *>(this));
 }
 
-void TGen::Engine::GeomComponent::linkLocally(TGen::Engine::Entity & entity) {
+void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 	try {
-		TGen::Engine::BodyComponent * attachTo = dynamic_cast<TGen::Engine::BodyComponent *>(entity.getComponent("physBody"));
+		TGen::Engine::Physics::Body * attachTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent("physBody"));
 		dGeomSetBody(geomId, attachTo->getBodyId());
 	}
 	catch (...) {	// if there is no physBody we just don't attach to anything
@@ -50,7 +50,7 @@ void TGen::Engine::GeomComponent::linkLocally(TGen::Engine::Entity & entity) {
 	}
 }
 
-void TGen::Engine::GeomComponent::linkGlobally(TGen::Engine::EntityList & entities) {
+void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities) {
 	
 }
 

@@ -1,5 +1,5 @@
 /*
- *  bodycomponent.cpp
+ *  body.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 2/29/08.
@@ -44,7 +44,6 @@ void TGen::Engine::Physics::Body::postStep() {
 
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
 	sceneNodeComponent = dynamic_cast<TGen::Engine::SceneNodeComponent *>(entity.getComponent("sceneNode"));
-	
 	
 	setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 }

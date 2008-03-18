@@ -15,23 +15,25 @@
 
 namespace TGen {
 	namespace Engine {
-		class GeomComponent : public TGen::Engine::Component {
-		public:
-			GeomComponent(const std::string & name);
-			virtual ~GeomComponent();
-			
-			float getFriction() const;
-			void setFriction(float friction);
-			void linkLocally(TGen::Engine::Entity & entity);
-			void linkGlobally(TGen::Engine::EntityList & entities);
+		namespace Physics {
+			class Geom : public TGen::Engine::Component {
+			public:
+				Geom(const std::string & name);
+				virtual ~Geom();
+				
+				float getFriction() const;
+				void setFriction(float friction);
+				void linkLocally(TGen::Engine::Entity & entity);
+				void linkGlobally(TGen::Engine::EntityList & entities);
 
-		protected:
-			void setGeomId(dGeomID id);
-			
-		private:
-			float friction;
-			dGeomID geomId;
-		};
+			protected:
+				void setGeomId(dGeomID id);
+				
+			private:
+				float friction;
+				dGeomID geomId;
+			};
+		} // !Physics
 	} // !Engine
 } // !TGen
 

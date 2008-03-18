@@ -1,5 +1,5 @@
 /*
- *  jointcomponent.h
+ *  joint.h
  *  TGen Engine
  *
  *  Created by Peter Backman on 2/29/08.

@@ -15,7 +15,7 @@
 		D003475A0CEE26740066E8A8 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347570CEE26740066E8A8 /* libjpeg.a */; };
 		D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347580CEE26740066E8A8 /* libpng12.a */; };
 		D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D003482D0CEE29510066E8A8 /* imageloader.cpp */; };
-		D0095B6D0D7874E400D0DC31 /* jointcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* jointcomponent.cpp */; };
+		D0095B6D0D7874E400D0DC31 /* joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* joint.cpp */; };
 		D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095C0C0D787AE300D0DC31 /* entitylist.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
@@ -59,8 +59,7 @@
 		D09330AC0D79FD7D0046DC37 /* planegeomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeomcomponent.cpp */; };
 		D09332230D79FFFF0046DC37 /* spheregeomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeomcomponent.cpp */; };
 		D09336480D7AF9CA0046DC37 /* boxgeomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeomcomponent.cpp */; };
-		D09628EE0D784E97008DABC3 /* physicssubsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */; };
-		D09629780D78529F008DABC3 /* bodycomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09629770D78529F008DABC3 /* bodycomponent.cpp */; };
+		D09629780D78529F008DABC3 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09629770D78529F008DABC3 /* body.cpp */; };
 		D0962AFC0D7866BE008DABC3 /* libode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0962AFB0D7866BE008DABC3 /* libode.a */; };
 		D098901A0D244181006A290D /* vertexcache2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890190D244181006A290D /* vertexcache2.cpp */; };
 		D09890A50D2449C0006A290D /* vertexcacheentry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890A40D2449C0006A290D /* vertexcacheentry.cpp */; };
@@ -72,6 +71,7 @@
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
 		D0E0961A0D8834C3005D5345 /* geomcomponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E096190D8834C3005D5345 /* geomcomponent.cpp */; };
+		D0E4570F0D905A5A00F4D548 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E4570E0D905A5A00F4D548 /* subsystem.cpp */; };
 		D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
 		D0E9D5A60CE356DE0050B530 /* libphysfs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0E9D5A50CE356DE0050B530 /* libphysfs.a */; };
 		D0EF60E40C8222350085C17B /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EF60E30C8222350085C17B /* main.cpp */; };
@@ -227,8 +227,8 @@
 		D00347580CEE26740066E8A8 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
 		D003482D0CEE29510066E8A8 /* imageloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imageloader.cpp; sourceTree = "<group>"; };
 		D003482F0CEE29610066E8A8 /* imageloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imageloader.h; path = ../../Include/imageloader.h; sourceTree = SOURCE_ROOT; };
-		D0095B6B0D7874C700D0DC31 /* jointcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = jointcomponent.h; path = ../../Include/jointcomponent.h; sourceTree = SOURCE_ROOT; };
-		D0095B6C0D7874E400D0DC31 /* jointcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jointcomponent.cpp; sourceTree = "<group>"; };
+		D0095B6B0D7874C700D0DC31 /* joint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joint.h; path = ../../Include/physics/joint.h; sourceTree = SOURCE_ROOT; };
+		D0095B6C0D7874E400D0DC31 /* joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joint.cpp; path = physics/joint.cpp; sourceTree = "<group>"; };
 		D0095C0B0D787AD600D0DC31 /* entitylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entitylist.h; path = ../../Include/entitylist.h; sourceTree = SOURCE_ROOT; };
 		D0095C0C0D787AE300D0DC31 /* entitylist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entitylist.cpp; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
@@ -304,9 +304,8 @@
 		D093363A0D7AF97F0046DC37 /* boxgeomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = boxgeomcomponent.h; path = ../../Include/boxgeomcomponent.h; sourceTree = SOURCE_ROOT; };
 		D09336470D7AF9CA0046DC37 /* boxgeomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = boxgeomcomponent.cpp; sourceTree = "<group>"; };
 		D09628EC0D784E89008DABC3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/physics/subsystem.h; sourceTree = SOURCE_ROOT; };
-		D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = physicssubsystem.cpp; sourceTree = "<group>"; };
-		D09629760D785296008DABC3 /* bodycomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bodycomponent.h; path = ../../Include/bodycomponent.h; sourceTree = SOURCE_ROOT; };
-		D09629770D78529F008DABC3 /* bodycomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bodycomponent.cpp; sourceTree = "<group>"; };
+		D09629760D785296008DABC3 /* body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = body.h; path = ../../Include/physics/body.h; sourceTree = SOURCE_ROOT; };
+		D09629770D78529F008DABC3 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = body.cpp; path = physics/body.cpp; sourceTree = "<group>"; };
 		D0962AFB0D7866BE008DABC3 /* libode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libode.a; path = /usr/local/lib/libode.a; sourceTree = "<absolute>"; };
 		D09890180D24414D006A290D /* vertexcache2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache2.h; path = ../../Include/vertexcache2.h; sourceTree = SOURCE_ROOT; };
 		D09890190D244181006A290D /* vertexcache2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcache2.cpp; sourceTree = "<group>"; };
@@ -348,6 +347,7 @@
 		D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
 		D0E096160D883485005D5345 /* geomcomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geomcomponent.h; path = ../../Include/geomcomponent.h; sourceTree = SOURCE_ROOT; };
 		D0E096190D8834C3005D5345 /* geomcomponent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = geomcomponent.cpp; sourceTree = "<group>"; };
+		D0E4570E0D905A5A00F4D548 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = physics/subsystem.cpp; sourceTree = "<group>"; };
 		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
@@ -733,8 +733,10 @@
 			isa = PBXGroup;
 			children = (
 				D09628EC0D784E89008DABC3 /* subsystem.h */,
-				D09629770D78529F008DABC3 /* bodycomponent.cpp */,
-				D09629760D785296008DABC3 /* bodycomponent.h */,
+				D09629770D78529F008DABC3 /* body.cpp */,
+				D09629760D785296008DABC3 /* body.h */,
+				D0095B6C0D7874E400D0DC31 /* joint.cpp */,
+				D0095B6B0D7874C700D0DC31 /* joint.h */,
 				D09332200D79FFDB0046DC37 /* geoms */,
 				D093321F0D79FFD30046DC37 /* joints */,
 			);
@@ -744,8 +746,6 @@
 		D093321F0D79FFD30046DC37 /* joints */ = {
 			isa = PBXGroup;
 			children = (
-				D0095B6C0D7874E400D0DC31 /* jointcomponent.cpp */,
-				D0095B6B0D7874C700D0DC31 /* jointcomponent.h */,
 			);
 			name = joints;
 			sourceTree = "<group>";
@@ -768,10 +768,10 @@
 		D09628EB0D784E60008DABC3 /* subsystems */ = {
 			isa = PBXGroup;
 			children = (
+				D0E4570E0D905A5A00F4D548 /* subsystem.cpp */,
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C110D075B3200C31FE3 /* scenesubsystem.cpp */,
 				D0843C100D075B0100C31FE3 /* scenesubsystem.h */,
-				D09628ED0D784E97008DABC3 /* physicssubsystem.cpp */,
 			);
 			name = subsystems;
 			sourceTree = "<group>";
@@ -1094,9 +1094,8 @@
 				D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */,
 				D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */,
 				D07147A80D68592A00842110 /* metacreator.cpp in Sources */,
-				D09628EE0D784E97008DABC3 /* physicssubsystem.cpp in Sources */,
-				D09629780D78529F008DABC3 /* bodycomponent.cpp in Sources */,
-				D0095B6D0D7874E400D0DC31 /* jointcomponent.cpp in Sources */,
+				D09629780D78529F008DABC3 /* body.cpp in Sources */,
+				D0095B6D0D7874E400D0DC31 /* joint.cpp in Sources */,
 				D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */,
 				D09330AC0D79FD7D0046DC37 /* planegeomcomponent.cpp in Sources */,
 				D09332230D79FFFF0046DC37 /* spheregeomcomponent.cpp in Sources */,
@@ -1105,6 +1104,7 @@
 				D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */,
 				D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */,
 				D0E0961A0D8834C3005D5345 /* geomcomponent.cpp in Sources */,
+				D0E4570F0D905A5A00F4D548 /* subsystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
