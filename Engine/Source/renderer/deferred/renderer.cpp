@@ -7,7 +7,7 @@
  *
  */
 
-#include "deferredscenerenderer.h"
+#include "renderer/deferred/renderer.h"
 #include "app.h"
 #include "filesystem.h"
 #include "file.h"

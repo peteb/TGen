@@ -14,7 +14,7 @@
 #include "state.h"
 #include "variable.h"
 #include "gamestatevars.h"
-#include "deferredscenerenderer.h"
+#include "renderer/deferred/renderer.h"
 #include "gameinputmapper.h"
 
 namespace TGen {

@@ -13,7 +13,7 @@
 #include <string>
 #include <tgen_math.h>
 #include <tgen_graphics.h> 
-#include "deferredrenderervars.h"
+#include "renderer/deferred/renderervars.h"
 
 namespace TGen {	
 	class ShaderProgram;

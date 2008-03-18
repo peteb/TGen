@@ -7,7 +7,7 @@
  *
  */
 
-#include "deferredrenderervars.h"
+#include "renderer/deferred/renderervars.h"
 #include "app.h"
 #include "variableregister.h"
 
