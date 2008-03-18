@@ -16,11 +16,12 @@ namespace TGen {
 	class Plane3;
 	
 	namespace Engine {
-		class PlaneGeomComponent : public TGen::Engine::GeomComponent {
-		public:
-			PlaneGeomComponent(const std::string & name, const TGen::Plane3 & plane, dSpaceID space);
-		};
-		
+		namespace Physics {
+			class PlaneGeom : public TGen::Engine::GeomComponent {
+			public:
+				PlaneGeom(const std::string & name, const TGen::Plane3 & plane, dSpaceID space);
+			};
+		} // !Physics
 	} // !Engine
 } // !TGen
 

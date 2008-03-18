@@ -1,5 +1,5 @@
 /*
- *  geomcomponent.cpp
+ *  geom.cpp
  *  TGen Engine
  *
  *  Created by Peter Backman on 3/12/08.

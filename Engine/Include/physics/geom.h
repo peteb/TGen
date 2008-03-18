@@ -1,5 +1,5 @@
 /*
- *  geomcomponent.h
+ *  geom.h
  *  TGen Engine
  *
  *  Created by Peter Backman on 3/12/08.
@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_GEOMCOMPONENT_H
-#define _TGEN_ENGINE_GEOMCOMPONENT_H
+#ifndef _TGEN_ENGINE_PHYSICS_GEOM_H
+#define _TGEN_ENGINE_PHYSICS_GEOM_H
 
 #include "component.h"
 #include <ode/ode.h>
@@ -37,5 +37,5 @@ namespace TGen {
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_GEOMCOMPONENT_H
+#endif // !_TGEN_ENGINE_PHYSICS_GEOM_H
 

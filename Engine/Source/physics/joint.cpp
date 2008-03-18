@@ -7,8 +7,8 @@
  *
  */
 
-#include "joint.h"
-#include "body.h"
+#include "physics/joint.h"
+#include "physics/body.h"
 #include "entity.h"
 #include "entitylist.h"
 

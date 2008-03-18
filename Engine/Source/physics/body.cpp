@@ -7,7 +7,7 @@
  *
  */
 
-#include "body.h"
+#include "physics/body.h"
 #include "scenenodecomponent.h"
 #include "entity.h"
 #include <tgen_renderer.h>
