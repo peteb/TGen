@@ -7,10 +7,10 @@
  *
  */
 
-#include "spheregeomcomponent.h"
+#include "physics/spheregeom.h"
 
-TGen::Engine::SphereGeomComponent::SphereGeomComponent(const std::string & name, float radius, dSpaceID space) 
-	: TGen::Engine::GeomComponent(name)
+TGen::Engine::Physics::SphereGeom::SphereGeom(const std::string & name, float radius, dSpaceID space) 
+	: TGen::Engine::Physics::Geom(name)
 {
 	dGeomID newGeom = dCreateSphere(space, radius);
 	setGeomId(newGeom);

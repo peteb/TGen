@@ -7,11 +7,11 @@
  *
  */
 
-#include "boxgeomcomponent.h"
+#include "physics/boxgeom.h"
 #include <tgen_math.h>
 
-TGen::Engine::BoxGeomComponent::BoxGeomComponent(const std::string & name, const TGen::Vector3 & size, dSpaceID space)
-	: TGen::Engine::GeomComponent(name)
+TGen::Engine::Physics::BoxGeom::BoxGeom(const std::string & name, const TGen::Vector3 & size, dSpaceID space)
+	: TGen::Engine::Physics::Geom(name)
 {
 	dGeomID newGeom = dCreateBox(space, size.x, size.y, size.z);
 	setGeomId(newGeom);
