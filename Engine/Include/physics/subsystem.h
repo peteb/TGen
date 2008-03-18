@@ -21,7 +21,6 @@ namespace TGen {
 		class StandardLogs;
 		class BodyComponent;
 		class JointComponent;
-		class PhysicsPropertiesComponent;
 		class GeomComponent;
 		
 		namespace Physics {
@@ -40,7 +39,6 @@ namespace TGen {
 				TGen::Engine::BodyComponent * createBody(const TGen::PropertyTree & properties);
 				TGen::Engine::JointComponent * createJoint(const TGen::PropertyTree & properties);
 				TGen::Engine::GeomComponent * createGeom(const TGen::PropertyTree & properties);
-				TGen::Engine::PhysicsPropertiesComponent * createProps(const TGen::PropertyTree & properties);
 				
 				void setGravity(const TGen::Vector3 & gravity);
 				

@@ -16,27 +16,29 @@
 
 namespace TGen {
 	namespace Engine {
-		class BodyComponent;
+		namespace Physics {
+			class Body;
 		
-		class JointComponent : public TGen::Engine::Component {
-		public:
-			JointComponent(const std::string & name, dJointID jointId, const std::string & attachTo);
-			~JointComponent();
-			
-			void setAnchor(const TGen::Vector3 & anchor);
-			void linkLocally(TGen::Engine::Entity & entity);
-			void linkGlobally(TGen::Engine::EntityList & entities);
-			
-		private:
-			void setSimAnchor(const TGen::Vector3 & anchor);
-			
-			std::string attachTo;
-			
-			TGen::Engine::BodyComponent * body1, * body2;
-			TGen::Vector3 anchor;
-			
-			dJointID jointId;
-		};
+			class Joint : public TGen::Engine::Component {
+			public:
+				Joint(const std::string & name, dJointID jointId, const std::string & attachTo);
+				~Joint();
+				
+				void setAnchor(const TGen::Vector3 & anchor);
+				void linkLocally(TGen::Engine::Entity & entity);
+				void linkGlobally(TGen::Engine::EntityList & entities);
+				
+			private:
+				void setSimAnchor(const TGen::Vector3 & anchor);
+				
+				std::string attachTo;
+				
+				TGen::Engine::Physics::Body * body1, * body2;
+				TGen::Vector3 anchor;
+				
+				dJointID jointId;
+			};
+		} // !Physics
 	}	
 } // !TGen
 
