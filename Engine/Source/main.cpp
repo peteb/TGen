@@ -179,6 +179,7 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 		}
 	}
 	
+	// add dependencies to search path
 	TGen::PropertyTree & deps = props.getNode("game").getNode("deps");
 	TGen::PropertyTree::PropertyMap::const_iterator depIter = deps.getProperties().begin();
 	
@@ -188,7 +189,7 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	TGen::Engine::DeviceCollection inputDevices;
 	
-	// filesystem.logDir, spara loggen där! sen nollställ loggfiler vid run
+	// TODO: filesystem.logDir, spara loggen där! sen nollställ loggfiler vid run
 	
 	// setup env
 	TGen::Engine::Environment * env = new TGen::Engine::SDL(variables, props, logs);

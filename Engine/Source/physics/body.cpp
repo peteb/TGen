@@ -29,16 +29,14 @@ TGen::Engine::Physics::Body::~Body() {
 void TGen::Engine::Physics::Body::preStep() {
 	if (sceneNodeComponent) {
 		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
-		//setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
+		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
 	}
 }
 
 void TGen::Engine::Physics::Body::postStep() {
 	if (sceneNodeComponent) {
-		TGen::Rotation orientation = getOrientation(); //.orthonormalize();
-
 		sceneNodeComponent->getSceneNode()->setPosition(getPosition());
-		sceneNodeComponent->getSceneNode()->setOrientation(orientation);
+		sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
 	}
 }
 

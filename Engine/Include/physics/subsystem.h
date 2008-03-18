@@ -19,11 +19,12 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		class StandardLogs;
-		class BodyComponent;
-		class JointComponent;
-		class GeomComponent;
 		
 		namespace Physics {
+			class Body;
+			class Joint;
+			class Geom;
+			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
 				Subsystem(TGen::Engine::StandardLogs & logs);
@@ -36,13 +37,13 @@ namespace TGen {
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
 				
 			private:
-				TGen::Engine::BodyComponent * createBody(const TGen::PropertyTree & properties);
-				TGen::Engine::JointComponent * createJoint(const TGen::PropertyTree & properties);
-				TGen::Engine::GeomComponent * createGeom(const TGen::PropertyTree & properties);
+				TGen::Engine::Physics::Body * createBody(const TGen::PropertyTree & properties);
+				TGen::Engine::Physics::Joint * createJoint(const TGen::PropertyTree & properties);
+				TGen::Engine::Physics::Geom * createGeom(const TGen::PropertyTree & properties);
 				
 				void setGravity(const TGen::Vector3 & gravity);
 				
-				std::vector<TGen::Engine::BodyComponent *> bodies;
+				std::vector<TGen::Engine::Physics::Body *> bodies;
 				float updateInterval;
 				
 				TGen::Engine::StandardLogs & logs;
