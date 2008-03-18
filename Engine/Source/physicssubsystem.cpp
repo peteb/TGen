@@ -149,13 +149,6 @@ TGen::Engine::GeomComponent * TGen::Engine::Physics::Subsystem::createGeom(const
 	return newComponent;
 }
 
-TGen::Engine::PhysicsPropertiesComponent * TGen::Engine::Physics::Subsystem::createProps(const TGen::PropertyTree & properties) {
-	//TGen::Engine::PhysicsPropertiesComponent * newComponent = new TGen::Engine::PhysicsPropertiesComponent;
-	//newComponent->friction = TGen::lexical_cast<float>(properties.getProperty("friction", "1.0"));
-	
-	return NULL;// newComponent;
-}
-
 void TGen::Engine::Physics::Subsystem::link() {
 	
 }
