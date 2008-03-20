@@ -30,6 +30,18 @@ TGen::Engine::Entity * TGen::Engine::EntityList::getEntity(const std::string & n
 }
 
 void TGen::Engine::EntityList::linkGlobally() {
-	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter)
-		iter->second->linkGlobally(*this);
+	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
+		try {
+			iter->second->linkGlobally(*this);
+		} catch (const std::exception & e) {
+			// TODO: output log, flytta ut renderer från game state!
+		}
+	}
 }
+
+/* RenderStateCats 
+	1. shaders, z-states, blending, textures of different format & size ...
+	2. constants, color, transforms
+	3. textures of same size & format
+	4. vbs of same format
+*/

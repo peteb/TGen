@@ -35,6 +35,8 @@ TGen::Engine::GameState::GameState(TGen::Engine::App & app)
 		throw;
 	}
 	
+	// TODO: renderer ska vara ovanför GameState... såklart
+	
 	if (!throttledNewMap.empty()) {
 		currentWorld = new TGen::Engine::World(app, throttledNewMap);
 		sceneRenderer->setWorld(currentWorld);
