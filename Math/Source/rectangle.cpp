@@ -64,7 +64,7 @@ TGen::Rectangle TGen::Rectangle::FromUpperLeft(const TGen::Vector2 & topleft, sc
 
 TGen::Rectangle::operator std::string() const {
 	std::stringstream ss;
-	ss << "center: " << std::string(center) << " width: " << width << " height: " << height;
+	ss << " width: " << width << " height: " << height << "center: " << std::string(center);
 	
 	return ss.str();
 }

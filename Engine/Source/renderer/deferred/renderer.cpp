@@ -24,7 +24,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Renderer & renderer,
 																 TGen::Engine::StandardLogs & logs, 
 																 TGen::Engine::VariableRegister & variables, 
 																 TGen::Engine::ResourceManager & resources) 
-	: renderer(renderer)
+	: TGen::Engine::WorldRenderer(renderer)
 	, logs(logs)
 	, variables(variables)
 	, resources(resources)
@@ -33,7 +33,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Renderer & renderer,
 	, lastNumLights(0)
 	, lightBatchSize(8)
 	, lightMaterials(NULL)
-	, world(NULL)
+	//, world(NULL)
 	, metaLines(renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
 {
 	logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
@@ -162,14 +162,14 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	mrtSize = mapSize;
 }
 
-void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
-	if (!world) {
+void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, scalar dt) {
+	/*if (!world) {
 		renderWorldless(dt);
 		return;
 	}
-	
+	*/
 	if (!mainCamera) {
-		mainCamera = world->getCamera("maincam");
+		mainCamera = world.getCamera("maincam");
 		
 		if (!mainCamera)
 			return;
@@ -190,9 +190,9 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	// lampor i portalbana fixas genom att ta lampor från alla synliga rum + anslutande rum (även de som inte syns alltså)
 	// kan sen optimeras genom att kolla lightboxen
 	
-	world->prepareLists(mainCamera);
-	TGen::RenderList & renderList = world->getRenderList();
-	TGen::Engine::LightList & lightList = world->getLightList();
+	world.prepareLists(mainCamera);
+	TGen::RenderList & renderList = world.getRenderList();
+	TGen::Engine::LightList & lightList = world.getLightList();
 	
 	renderList.sort(*mainCamera, "default");
 
@@ -211,7 +211,7 @@ void TGen::Engine::DeferredRenderer::renderScene(scalar dt) {
 	renderer.setViewport(mrtSize);
 	renderer.setClearColor(TGen::Color::Black);
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
-	renderer.setAmbientLight(world->getAmbientLight() * 1.5);
+	renderer.setAmbientLight(world.getAmbientLight() * 1.5);
 	
 	renderList.render(renderer, *mainCamera, "default");
 
@@ -357,7 +357,7 @@ void TGen::Engine::DeferredRenderer::postProcessing(const TGen::Rectangle & view
 	renderer.setRenderTarget(postTargets2);
 	
 	/*if (vars.lumTrace) {	// måste ha blendFunc add add för det här...
-		app.renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.1));
+		renderer.setColor(TGen::Color(0.0, 0.0, 0.0, 0.1));
 		renderFillQuad(rhwOnlyColorMaterial);
 	}*/
 	
@@ -447,6 +447,7 @@ int TGen::Engine::DeferredRenderer::ceilPowerOfTwo(int value) {
 	return power;
 }
 
-void TGen::Engine::DeferredRenderer::setWorld(TGen::Engine::World * newWorld) {
+/*void TGen::Engine::DeferredRenderer::setWorld(TGen::Engine::World * newWorld) {
 	world = newWorld;
 }
+*/

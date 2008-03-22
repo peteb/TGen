@@ -20,13 +20,16 @@
 
 namespace TGen {
 	class Camera;
+	class VertexDataSource;
 	
 	namespace Engine {
-		class App;
+		class Filesystem;
+		class StandardLogs;
+		class ResourceManager;
 		
 		class World {
 		public:
-			World(TGen::Engine::App & app, const std::string & mapname);
+			World(TGen::Engine::Filesystem & filesystem, TGen::Engine::ResourceManager & resources, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource, const std::string & mapname);
 			~World();
 			
 			TGen::Camera * getCamera(const std::string & name);
@@ -37,10 +40,11 @@ namespace TGen {
 			void prepareLists(TGen::Camera * camera);
 			
 			void update(scalar dt);
-
-			TGen::Engine::App & app;
 			
 		private:
+			TGen::Engine::Filesystem & filesystem;
+			TGen::Engine::StandardLogs & logs;
+			
 			TGen::Engine::Scene::Subsystem sceneSubsystem;
 			TGen::Engine::Physics::Subsystem physicsSubsystem;
 			

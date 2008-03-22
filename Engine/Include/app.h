@@ -27,6 +27,7 @@ namespace TGen {
 		class State;
 		class Environment;
 		class DeviceCollection;
+		class WorldRenderer;
 		
 		class App {
 		public:
@@ -38,7 +39,8 @@ namespace TGen {
 			bool isRunning() const;
 			void quit();
 			void tick();
-			
+
+		private:
 			TGen::Time startedAt;
 			
 			TGen::Engine::StandardLogs & logs;
@@ -54,8 +56,8 @@ namespace TGen {
 			const TGen::PropertyTree & loadProps;
 			TGen::Renderer & renderer;
 			
-		private:
 			TGen::Engine::State * currentState;
+			TGen::Engine::WorldRenderer * worldRenderer;
 			bool running;
 		};
 		

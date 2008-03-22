@@ -8,58 +8,52 @@
  */
 
 #include "game.h"
-#include "app.h"
 #include "variableregister.h"
 #include <iostream>
-#include "sdl.h"
+#include "environment.h"
 #include "world.h"
 #include "devicecollection.h"
+#include "log.h"
 
-TGen::Engine::GameState::GameState(TGen::Engine::App & app)
-	: TGen::Engine::State(app)
+TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices, TGen::Engine::Environment & env, TGen::Engine::Filesystem & filesystem, TGen::Engine::VariableRegister & variables, TGen::Engine::StandardLogs & logs, TGen::Engine::WorldRenderer & worldRenderer, TGen::Engine::ResourceManager & resources, TGen::VertexDataSource & dataSource)
+	: logs(logs)
+	, inputDevices(inputDevices)
+	, env(env)
+	, filesystem(filesystem)
+	, resources(resources)
+	, dataSource(dataSource)
 	, constructed(false)
 	, lastRender(TGen::Time::Now())
 	, currentWorld(NULL)
-	, sceneRenderer(NULL)
 	, sinceErrorCheck(0.0)
-	, vars(app, this)
+	, worldRenderer(worldRenderer)
+	, vars(variables, logs, *this)
 {
-	app.logs.info["gst+"] << "entering game state..." << endl;
-
-	try {
-		sceneRenderer = new TGen::Engine::DeferredRenderer(app.renderer, app.logs, app.variables, app.globalResources);
-	}
-	catch (const std::exception & e) {
-		app.logs.error["gst+"] << "failed to create deferred renderer: \"" << e.what() << 
-			"\" and there is no fallback! Go ask peter for a fallback or get a better gfx card!" << TGen::endl;
-		throw;
-	}
-	
-	// TODO: renderer ska vara ovanför GameState... såklart
+	logs.info["gst+"] << "entering game state..." << endl;
 	
 	if (!throttledNewMap.empty()) {
-		currentWorld = new TGen::Engine::World(app, throttledNewMap);
-		sceneRenderer->setWorld(currentWorld);
+		std::cout << "a throttled map!" << std::endl;
+		currentWorld = new TGen::Engine::World(filesystem, resources, logs, worldRenderer.getRenderer(), throttledNewMap);
 		inputMapper.setWorld(currentWorld);
 		throttledNewMap = "";
 	}
 
-	app.inputDevices.enterMode(TGen::Engine::TextMode);
-	app.inputDevices.enterMode(TGen::Engine::RelativeMode);
+	inputDevices.enterMode(TGen::Engine::TextMode);
+	inputDevices.enterMode(TGen::Engine::RelativeMode);
 	
 	constructed = true;
 }
 
 TGen::Engine::GameState::~GameState() {
-	app.inputDevices.enterMode(TGen::Engine::DefaultMode);
+	inputDevices.enterMode(TGen::Engine::DefaultMode);
 	
 	delete currentWorld;
 	
-	app.logs.info["gst-"] << "leaving game state..." << endl;
+	logs.info["gst-"] << "leaving game state..." << endl;
 }
 
 void TGen::Engine::GameState::tick() {
-	app.inputDevices.dispatchEvents(inputMapper);
+	inputDevices.dispatchEvents(inputMapper);
 	
 	TGen::Time now = TGen::Time::Now();
 	double sinceLastRender = double(now) - double(lastRender);	// TODO: undersök om scalar kanske räcker, sen operator - på Time. det här suger.
@@ -85,11 +79,13 @@ void TGen::Engine::GameState::tick() {
 // en megabuffer som man vet kommer uppdateras totalt borde discardas först
 
 void TGen::Engine::GameState::render(scalar dt) {
-	sceneRenderer->renderScene(dt);
-	app.env.swapBuffers();
+	if (currentWorld)
+		worldRenderer.renderWorld(*currentWorld, dt);
+	
+	env.swapBuffers();
 	//std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
 	
-	app.renderer.getStatistics().reset();
+	worldRenderer.getRenderer().getStatistics().reset();
 	
 	if (vars.checkErrors)
 		checkErrors();
@@ -101,11 +97,11 @@ void TGen::Engine::GameState::checkErrors() {
 		
 		while (1) {
 			try {
-				if (!app.renderer.throwErrors())
+				if (!worldRenderer.getRenderer().throwErrors())
 					break;
 			}
 			catch (const TGen::RuntimeException & e) {
-				app.logs.warning["game"] << "Renderer issued error: \"" << e.getDescription() << "\"." << TGen::endl;
+				logs.warning["game"] << "Renderer issued error: \"" << e.getDescription() << "\"." << TGen::endl;
 			}
 		}
 	}	
@@ -113,16 +109,12 @@ void TGen::Engine::GameState::checkErrors() {
 
 
 void TGen::Engine::GameState::changeMap(const std::string & mapName) {
-	app.logs.info["game"] << "changing map to '" << mapName << "'..." << TGen::endl;
-
 	if (constructed) {
+		logs.info["game"] << "changing map to '" << mapName << "'..." << TGen::endl;
+
 		delete currentWorld;
-		currentWorld = new TGen::Engine::World(app, mapName);
-	
-		if (!sceneRenderer)
-			throw TGen::RuntimeException("GameState::changeMap", "dude, where's my scene renderer!");
+		currentWorld = new TGen::Engine::World(filesystem, resources, logs, dataSource, mapName);
 		
-		sceneRenderer->setWorld(currentWorld);
 		inputMapper.setWorld(currentWorld);
 	}
 	else {

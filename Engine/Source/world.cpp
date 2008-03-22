@@ -8,23 +8,24 @@
  */
 
 #include "world.h"
-#include "app.h"
 #include "light.h"
 #include "entity.h"
 #include "filesystem.h"
 #include "file.h"
 #include "scene/node.h"
+#include "log.h"
 
-TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
-	: app(app)
-	, sceneSubsystem(*this)
-	, physicsSubsystem(app.logs)
+TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::ResourceManager & resources, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource, const std::string & mapname)
+	: filesystem(filesystem)
+	, logs(logs)
+	, sceneSubsystem(resources, filesystem, logs, dataSource)
+	, physicsSubsystem(logs)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
-	, entityFactory(app.logs)
+	, entityFactory(logs)
 {
-	app.logs.info["world+"] << "initializing world '" << mapname << "'..." << TGen::endl;
+	logs.info["world+"] << "initializing world '" << mapname << "'..." << TGen::endl;
 	
 	entityFactory.registerSubsystem("sceneNode", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
@@ -44,7 +45,7 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
 
-	TGen::Engine::File * entitiesFile = app.filesystem.openRead("/maps/" + mapname + "/entities");
+	TGen::Engine::File * entitiesFile = filesystem.openRead("/maps/" + mapname + "/entities");
 
 	
 	TGen::PropertyTreeParser propParser;
@@ -103,7 +104,7 @@ TGen::Engine::World::World(TGen::Engine::App & app, const std::string & mapname)
 // TODO: depthcheck på light volume
 
 TGen::Engine::World::~World() {
-	app.logs.info["world-"] << "shutting down..." << TGen::endl;
+	logs.info["world-"] << "shutting down..." << TGen::endl;
 
 	/*for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
 		delete iter->second;

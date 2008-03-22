@@ -9,8 +9,7 @@
 
 #include "state.h"
 
-TGen::Engine::State::State(TGen::Engine::App & app)
-	: app(app)
+TGen::Engine::State::State()
 {
 }
 

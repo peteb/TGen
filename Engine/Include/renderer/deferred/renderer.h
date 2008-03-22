@@ -14,6 +14,7 @@
 #include <tgen_math.h>
 #include <tgen_graphics.h> 
 #include "renderer/deferred/renderervars.h"
+#include "renderer/worldrenderer.h"
 
 namespace TGen {	
 	class ShaderProgram;
@@ -32,15 +33,15 @@ namespace TGen {
 		class World;
 		class ResourceManager;
 		
-		class DeferredRenderer : public TGen::ShaderVariableUpdater {
+		class DeferredRenderer : public TGen::Engine::WorldRenderer, TGen::ShaderVariableUpdater {
 		public:	
 			DeferredRenderer(TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs, TGen::Engine::VariableRegister & variables, TGen::Engine::ResourceManager & resources);
 			~DeferredRenderer();
 			
-			void renderScene(scalar dt);
+			void renderWorld(TGen::Engine::World & world, scalar dt);
 			void postProcessing(const TGen::Rectangle & viewport);
 			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
-			void setWorld(TGen::Engine::World * world);
+			//void setWorld(TGen::Engine::World * world);
 			
 		private:
 			void renderWorldless(scalar dt);
@@ -58,14 +59,14 @@ namespace TGen {
 			int ceilPowerOfTwo(int value);
 			
 			//TGen::Engine::App & app;
-			TGen::Renderer & renderer;
+		//	TGen::Renderer & renderer;
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::VariableRegister & variables;
 			TGen::Engine::ResourceManager & resources;
 
 			TGen::Engine::DeferredRendererVars vars;
 
-			TGen::Engine::World * world;	// is linked
+		//	TGen::Engine::World * world;	// is linked
 
 			TGen::Rectangle mrtSize, downsampleSize;
 			TGen::Camera * mainCamera;

@@ -14,12 +14,13 @@
 
 namespace TGen {
 	namespace Engine {
-		class App;
+		class VariableRegister;
 		class GameState;
+		class StandardLogs;
 		
 		class GameStateVars : public TGen::Engine::VariableObserver {
 		public:	
-			GameStateVars(TGen::Engine::App & app, TGen::Engine::GameState * state);
+			GameStateVars(TGen::Engine::VariableRegister & variables, TGen::Engine::StandardLogs & logs, TGen::Engine::GameState & state);
 			
 			void postVariableChange(const TGen::Engine::Variable & variable);
 			void onVariableRemoved(const TGen::Engine::Variable & variable);
@@ -32,8 +33,9 @@ namespace TGen {
 			std::string mapName;
 			
 		private:
-			TGen::Engine::GameState * state;
-			TGen::Engine::App & app;
+			TGen::Engine::GameState & state;
+			TGen::Engine::StandardLogs & logs;
+			TGen::Engine::VariableRegister & variables;
 		};
 		
 	} // !Engine

@@ -14,17 +14,12 @@
 
 namespace TGen {
 	namespace Engine {
-		class App;
-		
 		class State {
 		public:
-			State(TGen::Engine::App & app);
+			State();
 			virtual ~State();
 			
 			virtual void tick() abstract;
-			
-		protected:
-			TGen::Engine::App & app;
 		};
 		
 	} // !Engine

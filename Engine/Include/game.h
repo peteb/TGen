@@ -18,16 +18,25 @@
 #include "gameinputmapper.h"
 
 namespace TGen {
+	class VertexDataSoure;
+	
 	namespace Engine {
 		class GameView;
 		class World;
+		class WorldRenderer;
+		class StandardLogs;
+		class VariableRegister;
+		class Filesystem;
+		class DeviceCollection;
+		class Environment;
+		class ResourceManager;
 		
 		class GameState : public TGen::Engine::State {
 			bool constructed;
 			std::string throttledNewMap;
 
 		public:	
-			GameState(TGen::Engine::App & app);
+			GameState(TGen::Engine::DeviceCollection & inputDevices, TGen::Engine::Environment & env, TGen::Engine::Filesystem & filesystem, TGen::Engine::VariableRegister & variables, TGen::Engine::StandardLogs & logs, TGen::Engine::WorldRenderer & worldRenderer, TGen::Engine::ResourceManager & resources, TGen::VertexDataSource & dataSource);
 			~GameState();
 			
 			void tick();
@@ -37,10 +46,16 @@ namespace TGen {
 		private:
 			void checkErrors();
 			
+			TGen::Engine::DeviceCollection & inputDevices;
+			TGen::Engine::Filesystem & filesystem;
+			TGen::Engine::Environment & env;
 			TGen::Engine::GameStateVars vars;
 			TGen::Engine::GameInputMapper inputMapper;
-			TGen::Engine::DeferredRenderer * sceneRenderer;
+			TGen::Engine::WorldRenderer & worldRenderer;
 			TGen::Engine::World * currentWorld;
+			TGen::Engine::StandardLogs & logs;
+			TGen::Engine::ResourceManager & resources;
+			TGen::VertexDataSource & dataSource;
 			
 			TGen::Time lastRender;
 			scalar sinceErrorCheck;

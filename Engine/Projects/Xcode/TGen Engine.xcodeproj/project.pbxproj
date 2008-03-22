@@ -17,6 +17,7 @@
 		D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D003482D0CEE29510066E8A8 /* imageloader.cpp */; };
 		D0095B6D0D7874E400D0DC31 /* joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* joint.cpp */; };
 		D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095C0C0D787AE300D0DC31 /* entitylist.cpp */; };
+		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
 		D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03F1C7B0D7F50FF001166CE /* PreferencesController.m */; };
@@ -69,6 +70,7 @@
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
+		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
 		D0E0961A0D8834C3005D5345 /* geom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E096190D8834C3005D5345 /* geom.cpp */; };
 		D0E4570F0D905A5A00F4D548 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E4570E0D905A5A00F4D548 /* subsystem.cpp */; };
@@ -231,6 +233,8 @@
 		D0095B6C0D7874E400D0DC31 /* joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joint.cpp; path = physics/joint.cpp; sourceTree = "<group>"; };
 		D0095C0B0D787AD600D0DC31 /* entitylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entitylist.h; path = ../../Include/entitylist.h; sourceTree = SOURCE_ROOT; };
 		D0095C0C0D787AE300D0DC31 /* entitylist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entitylist.cpp; sourceTree = "<group>"; };
+		D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = worldrenderer.h; path = ../../Include/renderer/worldrenderer.h; sourceTree = SOURCE_ROOT; };
+		D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = worldrenderer.cpp; path = renderer/worldrenderer.cpp; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D03F1C5B0D7F4D22001166CE /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
@@ -343,6 +347,8 @@
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
 		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/renderer/lightlist.h; sourceTree = "<group>"; };
 		D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lightlist.cpp; path = renderer/lightlist.cpp; sourceTree = "<group>"; };
+		D0C2CC7C0D95A36600047CD7 /* rendererfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendererfactory.h; path = ../../Include/renderer/rendererfactory.h; sourceTree = SOURCE_ROOT; };
+		D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rendererfactory.cpp; path = renderer/rendererfactory.cpp; sourceTree = "<group>"; };
 		D0CC7A5B0CF9D1DD003EE092 /* preprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = preprocessor.h; path = ../../Include/preprocessor.h; sourceTree = SOURCE_ROOT; };
 		D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
 		D0E096160D883485005D5345 /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geom.h; path = ../../Include/physics/geom.h; sourceTree = SOURCE_ROOT; };
@@ -666,6 +672,10 @@
 		D08395710CD9266900C94467 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */,
+				D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */,
+				D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */,
+				D0C2CC7C0D95A36600047CD7 /* rendererfactory.h */,
 				D0E458330D906FBD00F4D548 /* deferred */,
 				D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */,
 				D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */,
@@ -1105,6 +1115,8 @@
 				D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */,
 				D0E0961A0D8834C3005D5345 /* geom.cpp in Sources */,
 				D0E4570F0D905A5A00F4D548 /* subsystem.cpp in Sources */,
+				D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */,
+				D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

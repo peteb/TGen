@@ -16,9 +16,12 @@
 #include "map.h"
 #include "maploader.h"
 
-TGen::Engine::Scene::Subsystem::Subsystem(TGen::Engine::World & world)
+TGen::Engine::Scene::Subsystem::Subsystem(TGen::Engine::ResourceManager & resources, TGen::Engine::Filesystem & filesystem, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource)
 	: sceneRoot("root")
-	, world(world)
+	, resources(resources)
+	, filesystem(filesystem)
+	, logs(logs)
+	, dataSource(dataSource)
 {
 	
 }
@@ -89,7 +92,8 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
 	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
 	
-	light->linkMaterial(world.app.globalResources);	// TODO: should probably be called somewhere else! like scenesubsystem.link!!
+	light->linkMaterial(resources);	// TODO: should probably be called somewhere else! like scenesubsystem.link!!
+	// TODO: resources -> materialsource
 	
 	return light;
 }
@@ -115,9 +119,9 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 }
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
-	TGen::Engine::MapLoader loader(world.app.logs, world.app.filesystem);
+	TGen::Engine::MapLoader loader(logs, filesystem);
 	TGen::Engine::Map * map = loader.createMap(name, properties.getProperty("model", ""), TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
-	map->createVertexData(world.app.globalResources.vertexCache);
+	map->createVertexData(dataSource);
 	
 	return map;
 }
@@ -133,11 +137,11 @@ TGen::Engine::Scene::Node * TGen::Engine::Scene::Subsystem::getComponent(const s
 // TODO: refactor all world.app.logs-blabla-shit to logs
 
 void TGen::Engine::Scene::Subsystem::link() {
-	world.app.logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
+	logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
 	//meshList.relink(world.app.globalResources);
-	modelPool.instantiateAll(world.app.globalResources);
+	modelPool.instantiateAll(resources);
 	
-	sceneRoot.traverse(TGen::FaceLinker(world.app.globalResources));
+	sceneRoot.traverse(TGen::FaceLinker(resources));
 	//sceneRoot.setPosition(TGen::Vector3(0.0f, 100.0f, 0.0f));
 	sceneRoot.update();
 
