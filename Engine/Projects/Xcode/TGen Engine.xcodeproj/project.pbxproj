@@ -15,6 +15,7 @@
 		D003475A0CEE26740066E8A8 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347570CEE26740066E8A8 /* libjpeg.a */; };
 		D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347580CEE26740066E8A8 /* libpng12.a */; };
 		D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D003482D0CEE29510066E8A8 /* imageloader.cpp */; };
+		D00449CB0D9AA2E500EEBC00 /* modelgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00449CA0D9AA2E500EEBC00 /* modelgenerator.cpp */; };
 		D0095B6D0D7874E400D0DC31 /* joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* joint.cpp */; };
 		D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095C0C0D787AE300D0DC31 /* entitylist.cpp */; };
 		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
@@ -230,6 +231,8 @@
 		D00347580CEE26740066E8A8 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
 		D003482D0CEE29510066E8A8 /* imageloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imageloader.cpp; sourceTree = "<group>"; };
 		D003482F0CEE29610066E8A8 /* imageloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imageloader.h; path = ../../Include/imageloader.h; sourceTree = SOURCE_ROOT; };
+		D00449C90D9AA2D200EEBC00 /* modelgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelgenerator.h; path = ../../Include/modelgenerator.h; sourceTree = SOURCE_ROOT; };
+		D00449CA0D9AA2E500EEBC00 /* modelgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = modelgenerator.cpp; sourceTree = "<group>"; };
 		D0095B6B0D7874C700D0DC31 /* joint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joint.h; path = ../../Include/physics/joint.h; sourceTree = SOURCE_ROOT; };
 		D0095B6C0D7874E400D0DC31 /* joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joint.cpp; path = physics/joint.cpp; sourceTree = "<group>"; };
 		D0095C0B0D787AD600D0DC31 /* entitylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entitylist.h; path = ../../Include/entitylist.h; sourceTree = SOURCE_ROOT; };
@@ -532,6 +535,17 @@
 			name = "Configuration Files";
 			sourceTree = "<group>";
 		};
+		D00449C80D9AA2B800EEBC00 /* models */ = {
+			isa = PBXGroup;
+			children = (
+				D098D6A80D9A959A003B0486 /* modelfactory.cpp */,
+				D098D6A70D9A9589003B0486 /* modelfactory.h */,
+				D00449CA0D9AA2E500EEBC00 /* modelgenerator.cpp */,
+				D00449C90D9AA2D200EEBC00 /* modelgenerator.h */,
+			);
+			name = models;
+			sourceTree = "<group>";
+		};
 		D0064FBF0C86E88800A42B3A /* init */ = {
 			isa = PBXGroup;
 			children = (
@@ -555,6 +569,7 @@
 			isa = PBXGroup;
 			children = (
 				D048B94C0CE743F700607EBA /* meshes */,
+				D00449C80D9AA2B800EEBC00 /* models */,
 				D0EF62B90C82DFFE0085C17B /* variable.cpp */,
 				D0EF62BA0C82DFFE0085C17B /* variable.h */,
 				D0EF62DF0C82E08F0085C17B /* variableregister.cpp */,
@@ -565,8 +580,6 @@
 				D0F4924B0CBE59470080CB46 /* commandregister.h */,
 				D0B649A00CE696F500B93A85 /* resourcemanager.cpp */,
 				D0B649A20CE6970300B93A85 /* resourcemanager.h */,
-				D098D6A80D9A959A003B0486 /* modelfactory.cpp */,
-				D098D6A70D9A9589003B0486 /* modelfactory.h */,
 				D00347120CEE25680066E8A8 /* devilimage.cpp */,
 				D00347140CEE25780066E8A8 /* devilimage.h */,
 				D003482D0CEE29510066E8A8 /* imageloader.cpp */,
@@ -1123,6 +1136,7 @@
 				D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */,
 				D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */,
 				D098D6A90D9A959A003B0486 /* modelfactory.cpp in Sources */,
+				D00449CB0D9AA2E500EEBC00 /* modelgenerator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
