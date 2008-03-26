@@ -60,7 +60,7 @@ void TGen::MD3::StaticModel::addMesh(TGen::MD3::StaticMesh * instance) {
 	meshes.push_back(instance);
 }
 
-void TGen::MD3::StaticModel::fillFaces(TGen::RenderList & list,  TGen::Material * overridingMaterial, TGen::SceneNode const * node) {
+void TGen::MD3::StaticModel::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
 	for (int i = 0; i < meshes.size(); ++i) {
 		list.addFace(TGen::NewFace(meshes[i], (overridingMaterial ? overridingMaterial : meshes[i]->getMaterial()), node));
 	}

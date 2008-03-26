@@ -39,7 +39,7 @@ namespace TGen {
 			int getNumMeshes() const;
 			bool isPureInstance() const;
 			
-			void fillFaces(TGen::RenderList & list,  TGen::Material * overridingMaterial, TGen::SceneNode const * node);
+			void fillFaces(TGen::RenderList & list,  TGen::Material * overridingMaterial, const TGen::SceneNode * node);
 			void linkMaterial(TGen::MaterialSource & source);
 			void unlinkMaterial();
 			void update();

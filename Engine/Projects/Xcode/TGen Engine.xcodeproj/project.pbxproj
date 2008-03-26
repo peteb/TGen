@@ -16,6 +16,8 @@
 		D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D00347580CEE26740066E8A8 /* libpng12.a */; };
 		D003482E0CEE29510066E8A8 /* imageloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D003482D0CEE29510066E8A8 /* imageloader.cpp */; };
 		D00449CB0D9AA2E500EEBC00 /* modelgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00449CA0D9AA2E500EEBC00 /* modelgenerator.cpp */; };
+		D0044A450D9AA89B00EEBC00 /* cubemodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0044A440D9AA89B00EEBC00 /* cubemodel.cpp */; };
+		D0044AA60D9AABD300EEBC00 /* cubemesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0044AA50D9AABD300EEBC00 /* cubemesh.cpp */; };
 		D0095B6D0D7874E400D0DC31 /* joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* joint.cpp */; };
 		D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095C0C0D787AE300D0DC31 /* entitylist.cpp */; };
 		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
@@ -233,6 +235,10 @@
 		D003482F0CEE29610066E8A8 /* imageloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imageloader.h; path = ../../Include/imageloader.h; sourceTree = SOURCE_ROOT; };
 		D00449C90D9AA2D200EEBC00 /* modelgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelgenerator.h; path = ../../Include/modelgenerator.h; sourceTree = SOURCE_ROOT; };
 		D00449CA0D9AA2E500EEBC00 /* modelgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = modelgenerator.cpp; sourceTree = "<group>"; };
+		D0044A410D9AA7A000EEBC00 /* cubemodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cubemodel.h; path = ../../Include/cubemodel.h; sourceTree = SOURCE_ROOT; };
+		D0044A440D9AA89B00EEBC00 /* cubemodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubemodel.cpp; sourceTree = "<group>"; };
+		D0044AA40D9AABC800EEBC00 /* cubemesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = cubemesh.h; path = ../../Include/cubemesh.h; sourceTree = SOURCE_ROOT; };
+		D0044AA50D9AABD300EEBC00 /* cubemesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cubemesh.cpp; sourceTree = "<group>"; };
 		D0095B6B0D7874C700D0DC31 /* joint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = joint.h; path = ../../Include/physics/joint.h; sourceTree = SOURCE_ROOT; };
 		D0095B6C0D7874E400D0DC31 /* joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joint.cpp; path = physics/joint.cpp; sourceTree = "<group>"; };
 		D0095C0B0D787AD600D0DC31 /* entitylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entitylist.h; path = ../../Include/entitylist.h; sourceTree = SOURCE_ROOT; };
@@ -542,6 +548,10 @@
 				D098D6A70D9A9589003B0486 /* modelfactory.h */,
 				D00449CA0D9AA2E500EEBC00 /* modelgenerator.cpp */,
 				D00449C90D9AA2D200EEBC00 /* modelgenerator.h */,
+				D0044A440D9AA89B00EEBC00 /* cubemodel.cpp */,
+				D0044A410D9AA7A000EEBC00 /* cubemodel.h */,
+				D0044AA50D9AABD300EEBC00 /* cubemesh.cpp */,
+				D0044AA40D9AABC800EEBC00 /* cubemesh.h */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -1137,6 +1147,8 @@
 				D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */,
 				D098D6A90D9A959A003B0486 /* modelfactory.cpp in Sources */,
 				D00449CB0D9AA2E500EEBC00 /* modelgenerator.cpp in Sources */,
+				D0044A450D9AA89B00EEBC00 /* cubemodel.cpp in Sources */,
+				D0044AA60D9AABD300EEBC00 /* cubemesh.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,11 +9,38 @@
 
 #include "modelgenerator.h"
 #include "generateline.h"
+#include "cubemesh.h"
+#include "cubemodel.h"
 #include <tgen_core.h>
+#include <tgen_math.h>
 
-TGen::NewModel * TGen::Engine::ModelGenerator::createModel(const TGen::Engine::GenerateLine & line, TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer)
-{
+TGen::NewModel * TGen::Engine::ModelGenerator::createModel(const TGen::Engine::GenerateLine & line, TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) {
 	std::string genName = line.getName().substr(4);
 	
-	throw TGen::RuntimeException("ModelGenerator", "invalid gentype: '" + genName + "'");
+	TGen::NewModel * newModel = NULL;
+	
+	if (genName == "cube") {
+		scalar width = TGen::lexical_cast<scalar>(line.getParameter("width", "1.0"));
+		scalar height = TGen::lexical_cast<scalar>(line.getParameter("height", "1.0"));
+		scalar depth = TGen::lexical_cast<scalar>(line.getParameter("depth", "1.0"));
+		
+		TGen::Vector3 min(-width / 2.0, -height / 2.0, -depth / 2.0);
+		TGen::Vector3 max(width / 2.0, height / 2.0, depth / 2.0);
+		
+		TGen::Engine::CubeMesh * mesh = new TGen::Engine::CubeMesh(line.getParameter("material", "cubemat"), "", min, max);
+		
+		mesh->createVertexData(dataSource);
+		// fill mesh with data. iofs CubeModel och CubeMesh kan gott och väl vara mer generic...
+		
+		
+		TGen::Engine::CubeModel * model = new TGen::Engine::CubeModel(line.getStringLine(), line.getParameter("material", "cubemat"), "", min, max);
+		model->addMesh(mesh);
+		
+		newModel = model;
+	}
+	else {
+		throw TGen::RuntimeException("ModelGenerator", "invalid gentype: '" + genName + "'");
+	}
+	
+	return newModel;
 }

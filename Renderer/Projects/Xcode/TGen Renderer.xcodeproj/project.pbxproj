@@ -428,7 +428,6 @@
 				D098D5550D9A82CB003B0486 /* vertexscaler.h */,
 				D098D6610D9A8FD4003B0486 /* vertexswapper.cpp */,
 				D098D65D0D9A8F4B003B0486 /* vertexswapper.h */,
-				D0ED98400D5BC73D00CEF206 /* mesh */,
 				D0F5185F0C71B756005DB68D /* Render Lists */,
 				D0F371A20C6D049500C11F87 /* bsp */,
 				D0F371A30C6D049C00C11F87 /* md3 */,
@@ -615,6 +614,7 @@
 				D0F16B9F0C79D73B004B4E19 /* md3parser.cpp */,
 				D0F16BA10C79D745004B4E19 /* md3parser.h */,
 				D0ED98410D5BC75300CEF206 /* model */,
+				D0ED98400D5BC73D00CEF206 /* mesh */,
 			);
 			name = md3;
 			sourceTree = "<group>";

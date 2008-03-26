@@ -25,6 +25,7 @@ namespace TGen {
 			const std::string & getName() const;
 			std::string getParameter(const std::string & name) const;
 			std::string getParameter(const std::string & name, const std::string & def) const;
+			std::string getStringLine() const;
 			
 			const ParameterMap & getParameters() const;
 			
@@ -36,8 +37,7 @@ namespace TGen {
 				Tokenizer();
 			};
 			
-			std::string name;
-			std::string lastValue;
+			std::string name, lastValue, wholeLine;
 			ParameterMap parameters;
 		};
 		

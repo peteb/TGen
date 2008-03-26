@@ -36,7 +36,7 @@ namespace TGen {
 		
 		virtual void linkMaterial(TGen::MaterialSource & source);
 		virtual void unlinkMaterial();
-		virtual void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node);
+		virtual void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node);
 		
 		virtual int getNumMeshes() const;
 		virtual TGen::NewMeshInstance * getMesh(int num);
