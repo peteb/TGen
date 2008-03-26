@@ -22,7 +22,7 @@ const TGen::Engine::GenerateLine::ParameterMap & TGen::Engine::GenerateLine::get
 }
 
 void TGen::Engine::GenerateLine::parse(const std::string & text) {
-	std::cout << "parsing " << text << std::endl;
+//	std::cout << "parsing " << text << std::endl;
 	
 	if (text.substr(0, 4) != "gen:")
 		throw TGen::RuntimeException("GenerateLine::parse", "does not begin with 'gen:'");

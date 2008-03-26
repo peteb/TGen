@@ -19,6 +19,7 @@ namespace TGen {
 	class Mesh;
 	class VertexDataSource;
 	class NewModel;
+	class VertexTransformer;
 	
 	namespace MD3 {
 		class File;
@@ -44,13 +45,13 @@ namespace TGen {
 			~File();
 			
 			void printInfo(std::ostream & stream) const;
-			TGen::NewModel * createModel(TGen::VertexDataSource & dataSource, scalar scale) const;
+			TGen::NewModel * createModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const;
 			
 			friend class TGen::MD3::Parser;
 			
 		private:
-			TGen::MD3::StaticModel * createStaticModel(TGen::VertexDataSource & dataSource, scalar scale) const;
-			TGen::MD3::AnimatingModel * createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const;
+			TGen::MD3::StaticModel * createStaticModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const;
+			TGen::MD3::AnimatingModel * createAnimatingModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const;
 			static TGen::Vector3 normalToVector(TGen::MD3::S16 normal);
 			
 			TGen::MD3::Header * header;

@@ -20,7 +20,7 @@
 
 box2 {
 	sceneNode {
-		model "gen:models/cube1.md3 scale '0.01'"
+		model "gen:cube width '1.0' height '1.0' depth '1.0'"  //"models/cube1.md3 scale '0.0001'"
 		origin "2 4 0"
 	}
 	

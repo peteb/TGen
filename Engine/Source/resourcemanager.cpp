@@ -16,6 +16,7 @@
 #include "devilimage.h"
 #include "preprocessor.h"
 #include "generateline.h"
+#include "modelfactory.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer) 
 	: logs(logs)
@@ -230,10 +231,24 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 
 TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const std::string & name) {
 	ModelMap::iterator iter = models.find(name);
-	if (iter != models.end())
-		return iter->second->instantiate();
-
-	std::string filename = name;
+	TGen::NewModel * newModel = NULL;
+	
+	if (iter != models.end()) {	// the model template is already loaded
+		newModel = iter->second;
+	}
+	else {
+		TGen::Engine::ModelFactory factory(filesystem);
+		TGen::Engine::GenerateLine line("gen:" + name);
+		
+		newModel = factory.createModel(line, renderer);
+	}
+	
+	if (!newModel)
+		throw TGen::RuntimeException("ResourceManager", "newModel equals NULL");
+	
+	return newModel->instantiate();
+	
+	/*std::string filename = name;
 	scalar scale = 0.001f;
 	
 	if (name.substr(0, 4) == "gen:") {
@@ -256,9 +271,9 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 		TGen::MD3::Parser modelParser;
 		TGen::MD3::File * md3file = modelParser.parse(*file);
 		//md3file->printInfo(std::cout);
-		newModel = md3file->createModel(renderer, scale);
-
-		 delete md3file;
+		newModel = md3file->createModel(renderer, TGen::VertexScaler(scale));
+		
+		delete md3file;
 	}
 	else if (filename.find(".md5mesh") != std::string::npos) {
 		std::vector<std::string> files;
@@ -279,7 +294,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	}
 	
 	
-	
+	*/
 	
 	// createModel skapar en anim model eller static
 	
@@ -303,11 +318,11 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	
 	
 	
-	delete file;
+	/*delete file;
 	
 	models.insert(ModelMap::value_type(name, newModel));
 	
-	return newModel->instantiate();
+	return newModel->instantiate();*/
 }
 
 TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & name) {
@@ -370,7 +385,7 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	logs.info["res"] << TGen::endl;
 }
 
-void TGen::Engine::ResourceManager::updateMaterials(scalar time) {
+void TGen::Engine::ResourceManager::updateMaterials(scalar time) {	// TODO: borde kanske inte göras här...
 	MaterialMap::iterator iter = materials.begin();
 	for (; iter != materials.end(); ++iter) {
 		iter->second->update(time);

@@ -83,7 +83,7 @@ std::string TGen::Engine::TextPreprocessor::process(const std::string & contents
 		
 		int loopEnd = ret.find("#end", nextPos);
 		if (loopEnd == std::string::npos)
-			throw TGen::RuntimeException("ShaderPreProcessor::process", "no #end for #loop!");
+			throw TGen::RuntimeException("TextPreprocessor::process", "no #end for #loop!");
 		
 		std::string loopContents = ret.substr(lineEndPos + 1, loopEnd - lineEndPos - 1);
 		
@@ -128,7 +128,7 @@ void TGen::Engine::TextPreprocessor::parseParameters(const std::string & paramet
 				paramValue = "1";				
 			}
 			else {
-				throw TGen::RuntimeException("ShaderPreProcessor::parseParameters", "parameter invalid: " + thisParam);
+				throw TGen::RuntimeException("TextPreprocessor::parseParameters", "parameter invalid: " + thisParam);
 			}
 		}
 		else {

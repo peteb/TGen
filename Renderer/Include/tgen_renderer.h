@@ -52,6 +52,10 @@
 #include "modeljoint.h"
 #include "metawriter.h"
 
+#include "vertextransformlist.h"
+#include "vertexscaler.h"
+#include "vertexswapper.h"
+
 namespace TGen {
 	bool isRendererDebug();
 }

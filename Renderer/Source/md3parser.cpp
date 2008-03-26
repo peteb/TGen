@@ -15,6 +15,9 @@
 #include "md3staticmesh.h"
 #include "mesh.h"
 #include "model_new.h"
+#include "vertextransformer.h"
+#include "vertextransformlist.h"
+#include "vertexscaler.h"
 
 TGen::MD3::Parser::Parser() {}
 TGen::MD3::Parser::~Parser() {}
@@ -130,14 +133,18 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 }
 
 
-TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const {
+	TGen::VertexTransformList newTransformer;
+	newTransformer.addTransformer(new TGen::VertexScaler(TGen::MD3::XYZ_SCALE));	// everything we get from MD3 files should be scaled by this amount
+	newTransformer.addTransformer(transformer.clone());
+	
 	if (header->num_frames > 1)
-		return createAnimatingModel(dataSource, scale);
+		return createAnimatingModel(dataSource, newTransformer);
 
-	return createStaticModel(dataSource, scale);
+	return createStaticModel(dataSource, newTransformer);
 }
 
-TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const {
 	TGen::MD3::StaticModel * newModel = new TGen::MD3::StaticModel(reinterpret_cast<const char *>(header->name), "", "");
 	
 	DEBUG_PRINT("[md3]: creating surfaces...");
@@ -168,10 +175,14 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 				TGen::MD3::Vertex const & vertex = surface->vertices[i];
 				
 				TGen::Vector3 normal = normalToVector(vertex.normal);
+				TGen::Vector3 coord(vertex.x, vertex.y, vertex.z);
 				
-				vbpos->x = float(vertex.x) * scale;
-				vbpos->y = float(vertex.z) * scale;
-				vbpos->z = float(vertex.y) * scale;
+				transformer.transform(normal);
+				transformer.transform(coord);
+				
+				vbpos->x = coord.x;
+				vbpos->y = coord.y;
+				vbpos->z = coord.z;
 				vbpos->u = texCoord.st[0];
 				vbpos->v = texCoord.st[1];
 				vbpos->nx = normal.x;
@@ -203,11 +214,18 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 	for (int i = 0; i < header->num_tags; ++i) {
 		TGen::ModelJoint joint;
 		Tag * tag = &header->tags[i];
-		joint.origin = (TGen::Vector3(tag->origin.x, tag->origin.z, tag->origin.y) / TGen::MD3::XYZ_SCALE) * scale;
+		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.y, tag->origin.z);
 		
-		TGen::Matrix3x3 orientation(TGen::Vector3(tag->axis[0].x, tag->axis[0].z, tag->axis[0].y),
-											 TGen::Vector3(tag->axis[1].x, tag->axis[1].z, tag->axis[1].y),
-											 TGen::Vector3(tag->axis[2].x, tag->axis[2].z, tag->axis[2].y));
+		TGen::Vector3 axisX(tag->axis[0].x, tag->axis[0].y, tag->axis[0].z);
+		TGen::Vector3 axisY(tag->axis[1].x, tag->axis[1].y, tag->axis[1].z);
+		TGen::Vector3 axisZ(tag->axis[2].x, tag->axis[2].y, tag->axis[2].z);
+		
+		transformer.transform(joint.origin);
+		transformer.transform(axisX);
+		transformer.transform(axisY);
+		transformer.transform(axisZ);
+		
+		TGen::Matrix3x3 orientation(axisX, axisY, axisZ);
 		
 		joint.orientation = TGen::Quaternion4(orientation);
 		
@@ -217,7 +235,7 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 	return newModel;	
 }
 
-TGen::MD3::AnimatingModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & dataSource, scalar scale) const {
+TGen::MD3::AnimatingModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const {
 	TGen::MD3::AnimatingModel * newModel = new TGen::MD3::AnimatingModel(reinterpret_cast<const char *>(header->name), dataSource);
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
@@ -244,11 +262,18 @@ TGen::MD3::AnimatingModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDa
 			for (int i = 0; i < surface->num_frames; ++i) {
 				TGen::MD3::AnimationFrame * newFrame = new TGen::MD3::AnimationFrame(reinterpret_cast<char *>(header->frames[i].name));
 				
-				newFrame->radius = header->frames[i].radius * scale;
-				newFrame->min = TGen::Vector3(header->frames[i].min_bounds.x, header->frames[i].min_bounds.z, header->frames[i].min_bounds.y) * scale;
-				newFrame->max = TGen::Vector3(header->frames[i].max_bounds.x, header->frames[i].max_bounds.z, header->frames[i].max_bounds.y) * scale;
-				newFrame->origin = TGen::Vector3(header->frames[i].local_origin.x, header->frames[i].local_origin.z, header->frames[i].local_origin.y) * scale;
+				TGen::Vector3 radius(header->frames[i].radius);
+				transformer.transform(radius);
 				
+				newFrame->radius = radius.getMagnitude();
+				newFrame->min = TGen::Vector3(header->frames[i].min_bounds.x, header->frames[i].min_bounds.y, header->frames[i].min_bounds.z);
+				newFrame->max = TGen::Vector3(header->frames[i].max_bounds.x, header->frames[i].max_bounds.y, header->frames[i].max_bounds.z);
+				newFrame->origin = TGen::Vector3(header->frames[i].local_origin.x, header->frames[i].local_origin.y, header->frames[i].local_origin.z);
+				
+				transformer.transform(newFrame->min);
+				transformer.transform(newFrame->max);
+				transformer.transform(newFrame->origin);
+			
 				newFrame->vertices.clear();
 				newFrame->vertices.reserve(surface->num_verts);
 				
@@ -258,7 +283,12 @@ TGen::MD3::AnimatingModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDa
 					TGen::MD3::Vertex const & vertex = surface->vertices[i + vertexBase];
 					
 					TGen::Vector3 normal = normalToVector(vertex.normal);
-					newFrame->vertices.push_back(TGen::MD3::FrameVertexDecl::Type(TGen::Vector3(vertex.x, vertex.z, vertex.y) * scale, normal));
+					TGen::Vector3 coord(vertex.x, vertex.y, vertex.z);
+					
+					transformer.transform(coord);
+					transformer.transform(normal);
+					
+					newFrame->vertices.push_back(TGen::MD3::FrameVertexDecl::Type(coord, normal));
 				}
 				
 				newMesh->addAnimationFrame(newFrame);
@@ -271,11 +301,18 @@ TGen::MD3::AnimatingModel * TGen::MD3::File::createAnimatingModel(TGen::VertexDa
 	for (int i = 0; i < header->num_tags; ++i) {
 		TGen::ModelJoint joint;
 		Tag * tag = &header->tags[i];
-		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.z, tag->origin.y) * scale;
+		joint.origin = TGen::Vector3(tag->origin.x, tag->origin.y, tag->origin.z);
+		transformer.transform(joint.origin);
 		
-		TGen::Matrix3x3 orientation(TGen::Vector3(tag->axis[0].x, tag->axis[0].z, tag->axis[0].y),
-											 TGen::Vector3(tag->axis[1].x, tag->axis[1].z, tag->axis[1].y),
-											 TGen::Vector3(tag->axis[2].x, tag->axis[2].z, tag->axis[2].y));
+		TGen::Vector3 axisX(tag->axis[0].x, tag->axis[0].y, tag->axis[0].z);
+		TGen::Vector3 axisY(tag->axis[1].x, tag->axis[1].y, tag->axis[1].z);
+		TGen::Vector3 axisZ(tag->axis[2].x, tag->axis[2].y, tag->axis[2].z);
+		
+		transformer.transform(axisX);
+		transformer.transform(axisY);
+		transformer.transform(axisZ);
+		
+		TGen::Matrix3x3 orientation(axisX, axisY, axisZ);
 		
 		joint.orientation = TGen::Quaternion4(orientation);
 		
@@ -291,8 +328,8 @@ TGen::Vector3 TGen::MD3::File::normalToVector(TGen::MD3::S16 normal) {
 	
 	TGen::Vector3 ret;
 	ret.x = cos(lat) * sin(lng);
-	ret.y = cos(lng);
-	ret.z = sin(lat) * sin(lng);
+	ret.z = cos(lng);
+	ret.y = sin(lat) * sin(lng);
 	ret.normalize();
 	
 	return ret;
