@@ -40,6 +40,11 @@ material defineTest default 9 {
 	}
 }
 
+
+params deferred/lightDirectional {
+	"light_type" "directional"
+}
+
 #loop NUM_LIGHTS 1 8
 material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 	lod 9 {
@@ -64,6 +69,11 @@ material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 }
 #end
 
+
+params deferred/lightPositional {
+	light_type "positional"
+}
+
 #loop NUM_LIGHTS 1 8 
 material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 	lod 9 {
@@ -72,6 +82,7 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 			// if we're not on top of the camera, then cull front
 			// batchning av poslights kanske är långsammare faktiskt... mer processing per frag
 			
+			disableDepth
 			//blendFunc add
 			back cull
 

@@ -30,6 +30,7 @@ namespace TGen {
 			// ska vara en data-component på entity?
 			
 			void linkMaterial(TGen::MaterialSource & linker);
+			int getType() const;
 			
 			void setMaterialName(const std::string & material);
 			TGen::Light & getLightProperties();

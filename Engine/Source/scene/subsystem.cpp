@@ -84,6 +84,8 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	
 	
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
+	TGen::Vector3 position;
+		
 	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
 	
 	light->setOrientation(rotation);
@@ -91,6 +93,17 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->setMaterialName(properties.getProperty("material", ""));
 	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
 	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
+	
+	light->getLightProperties().constantAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("constantAttenuation", "0"));
+	light->getLightProperties().linearAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("linearAttenuation", "0"));
+	light->getLightProperties().quadraticAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("quadraticAttenuation", "0"));
+	
+	
+	
+	/*spotCutoff, spotExponent;
+	TGen::Vector3 spotDirection;
+	TGen::Vector4 position;
+	TGen::Color diffuse, specular;*/
 	
 	light->linkMaterial(resources);	// TODO: should probably be called somewhere else! like scenesubsystem.link!!
 	// TODO: resources -> materialsource

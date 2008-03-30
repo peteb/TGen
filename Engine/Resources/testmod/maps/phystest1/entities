@@ -20,9 +20,10 @@
 
 box2 {
 	sceneNode {
-		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/cube1.md3 scale '0.0001'"
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		model "models/kub.md3 scale '1.0'"
 		origin "2 4 0"
+		material "Cube"
 	}
 	
 	physBody {
@@ -35,12 +36,72 @@ box2 {
 	}
 	
 	physGeom box {
-		dimensions "0.65 0.65 0.65"
+		dimensions "1.0 1.0 1.0"
 		friction 2.0
 	}
 }
 
 
+box3 {
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+
+
+box4 {
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		model "models/kub.md3 scale '1.0'"
+		material "Cube"
+		origin "2 10 0"
+	}
+	
+	sceneNode {
+		model "models/kub.md3 scale '0.3'"
+		origin "0 1 0"
+		treePosition "box4/"
+	}
+	
+	/*sceneLight {
+		origin "0 1 0"
+		material "deferred/lightPositional"
+		treePosition "box4/"
+		diffuse "0.2 1.0 0.2 1.0"
+		specular "0.5"
+	}*/
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
 
 /*box3 {
 	sceneNode {
@@ -127,7 +188,7 @@ player_start {
 light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
-		orientation "0 -1 -1"
+		orientation "0 0 1"
 		diffuse "0.2 0.2 0.2 1.0"
 		specular "0.5"
 	}

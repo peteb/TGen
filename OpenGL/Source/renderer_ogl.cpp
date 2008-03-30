@@ -1239,6 +1239,8 @@ void TGen::OpenGL::Renderer::setLight(int num, const TGen::Light & light) {
 	GLfloat quadraticAttenuation = light.quadraticAttenuation;
 	GLfloat constantAttenuation = light.constantAttenuation;
 	
+	//std::cout << "SETTING POSITION OF LIGHT " << num << " TO " << light.position.x << " " << light.position.y << " " << light.position.z << " " << light.position.w << std::endl;
+	
 	glLightfv(GL_LIGHT0 + num, GL_DIFFUSE, diffuse);
 	glLightfv(GL_LIGHT0 + num, GL_SPECULAR, specular);
 	glLightfv(GL_LIGHT0 + num, GL_POSITION, position);

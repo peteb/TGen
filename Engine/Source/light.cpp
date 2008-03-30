@@ -13,6 +13,7 @@
 TGen::Engine::Light::Light(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation)
 	: TGen::SceneNode(name, position, orientation)
 	, material(NULL)
+	, type(-1)
 {
 }
 
@@ -38,4 +39,22 @@ TGen::Material * TGen::Engine::Light::getMaterial() {
 
 void TGen::Engine::Light::linkMaterial(TGen::MaterialSource & linker) {
 	material = linker.getMaterial(materialName);
+	
+	try {
+		std::string typeName = material->getParameter("light_type").at(0);
+	
+		if (typeName == "directional")
+			type = LightDirectional;
+		else if (typeName == "positional")
+			type = LightPositional;
+		else if (typeName == "spotlight")
+			type = LightSpotlight;
+	}
+	catch (const std::exception & e) {
+		std::cout << "LIGHT TYPE ERROR FOR " << materialName << ": " << e.what() << std::endl;
+	}
+}
+
+int TGen::Engine::Light::getType() const {
+	return type;
 }

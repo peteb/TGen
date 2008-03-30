@@ -14,6 +14,7 @@
 
 namespace TGen {
 	class Image;
+	class Canvas;
 	
 	namespace Engine {
 		class GenerateLine;
@@ -22,6 +23,17 @@ namespace TGen {
 		public:
 			TGen::Image * generateImage(const TGen::Engine::GenerateLine & line);
 			
+			
+		private:
+			enum FadeDirection {
+				FadeU,
+				FadeV,
+			};
+			
+			void genPlain(const TGen::Engine::GenerateLine & line, TGen::Canvas * canvas);
+			void genFade(const TGen::Engine::GenerateLine & line, TGen::Canvas * canvas, FadeDirection direction);
+			void genFadeCircle(const TGen::Engine::GenerateLine & line, TGen::Canvas * canvas);
+			void genChecker(const TGen::Engine::GenerateLine & line, TGen::Canvas * canvas);
 		};
 		
 	} // !Engine

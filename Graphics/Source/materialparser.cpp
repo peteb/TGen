@@ -149,7 +149,7 @@ void TGen::MaterialParser::parseParamsBlock(TGen::Material * material) {
 	while (currentToken != endIter && currentToken->first != TGen::MaterialTokenBlockEnd) {
 		if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote) {
 			std::string paramName = currentToken->second;
-			std::list<std::string> parameters;
+			std::vector<std::string> parameters;
 			
 			#ifdef _MATPARSER_VERBOSE
 			std::cout << "param name: '" << paramName << "' parameter: ";
@@ -171,6 +171,7 @@ void TGen::MaterialParser::parseParamsBlock(TGen::Material * material) {
 			#ifdef _MATPARSER_VERBOSE
 			std::cout << std::endl;
 			#endif
+			material->setParameter(paramName, parameters);
 		}
 		else if (currentToken->first != TGen::MaterialTokenEndOfLine) {
 			throw TGen::RuntimeException("MaterialParser::ParseParamsBlock", "expecting string parameter name, not '" + currentToken->second + "'!");

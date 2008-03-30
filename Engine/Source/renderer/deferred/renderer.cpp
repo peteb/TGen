@@ -161,6 +161,7 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	
 	mrtSize = mapSize;
 }
+#include <GLUT/GLUT.h>
 
 void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, scalar dt) {
 	/*if (!world) {
@@ -253,7 +254,13 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 			for (int i = 0; i < lights->size(); i += lightBatchSize) {
 				int a = 0;
 				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
-					renderer.setTransform(TGen::TransformWorldView, (*lights)[a]->getTransform());
+					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
+
+					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
+						(*lights)[a]->getLightProperties().position = TGen::Vector4((*lights)[a]->getTransform().getZ(), 0.0f);						
+					else
+						(*lights)[a]->getLightProperties().position = (*lights)[a]->getWorldPosition();
+					
 					renderer.setLight(a, (*lights)[a]->getLightProperties());
 				}
 				
@@ -261,6 +268,8 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 			}
 		}
 	}
+	
+	// TODO: bbox för lights... dvs genCube
 	
 	//}
 	//lightType = 1;	

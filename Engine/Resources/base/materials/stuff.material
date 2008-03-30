@@ -30,3 +30,10 @@ material meta/normal default 9 {
 }
 
 
+material lightbulb default 9 {
+	lod 9 {
+		pass deferred/writeAttributes:COLOR_MAP {
+			map colorMap "lightbulb.png"
+		}	
+	}
+}

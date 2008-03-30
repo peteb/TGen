@@ -30,11 +30,11 @@ TGen::Vector4::Vector4(scalar x, scalar y, scalar z, scalar w)
 		
 }
 
-TGen::Vector4::Vector4(const Vector3 & vector)
+TGen::Vector4::Vector4(const Vector3 & vector, scalar w)
 	: x(vector.x)
 	, y(vector.y)
 	, z(vector.z)
-	, w(1.0)
+	, w(w)
 {
 		
 }
