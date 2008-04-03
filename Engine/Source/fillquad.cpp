@@ -18,9 +18,9 @@ TGen::Engine::FillQuad::FillQuad(const TGen::Vector2 & min, const TGen::Vector2 
 {
 	VertexDecl::Type vertices[4] = {
 		VertexDecl::Type(TGen::Vector2(min.x, min.y), TGen::Vector2(0.0f, 0.0f)),
-		VertexDecl::Type(TGen::Vector2(min.x, max.y), TGen::Vector2(0.0f, 1.0f)),
-		VertexDecl::Type(TGen::Vector2(max.x, max.y), TGen::Vector2(1.0f, 1.0f)),
 		VertexDecl::Type(TGen::Vector2(max.x, min.y), TGen::Vector2(1.0f, 0.0f)),
+		VertexDecl::Type(TGen::Vector2(max.x, max.y), TGen::Vector2(1.0f, 1.0f)),
+		VertexDecl::Type(TGen::Vector2(min.x, max.y), TGen::Vector2(0.0f, 1.0f)),
 	};
 	
 	vb = dataSource.createVertexData(VertexDecl(), sizeof(VertexDecl::Type) * 4, TGen::UsageStatic);

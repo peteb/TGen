@@ -42,7 +42,7 @@ material defineTest default 9 {
 
 
 params deferred/lightDirectional {
-	"light_type" "directional"
+	light_type "directional"
 }
 
 #loop NUM_LIGHTS 1 8

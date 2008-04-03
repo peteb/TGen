@@ -257,7 +257,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
 
 					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
-						(*lights)[a]->getLightProperties().position = TGen::Vector4((*lights)[a]->getTransform().getZ(), 0.0f);						
+						(*lights)[a]->getLightProperties().position = TGen::Vector4((*lights)[a]->getTransform().getZ().normalize(), 0.0f);						
 					else
 						(*lights)[a]->getLightProperties().position = (*lights)[a]->getWorldPosition();
 					
