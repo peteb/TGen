@@ -223,7 +223,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 	
 	// TODO: var ska det här vara egentligen....
 	
-	//vars.postProcessing = true;
+	vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {
@@ -255,6 +255,9 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 		TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 		
 		
+		renderer.setTransform(TGen::TransformProjection, mainCamera->getProjection());		// borde inte vara nödvändigt...
+		
+		
 		TGen::Engine::LightList::LightArray * lights = iter->second;
 		if (lights) {
 			lightBatchSize = 1;
@@ -263,7 +266,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 				
 				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
 					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform() * (*lights)[a]->getTransform());
-
+					
 					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
 						(*lights)[a]->getLightProperties().position = TGen::Vector4((*lights)[a]->getTransform().getZ().normalize(), 0.0f);						
 					else
