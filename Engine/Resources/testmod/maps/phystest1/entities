@@ -75,18 +75,19 @@ box4 {
 	}
 	
 	sceneNode {
-		model "models/kub.md3 scale '0.3'"
+		model "models/kub.md3 scale '0.2'"
 		origin "0 1 0"
 		treePosition "box4/"
 	}
 	
-	/*sceneLight {
+	sceneLight {
 		origin "0 1 0"
 		material "deferred/lightPositional"
 		treePosition "box4/"
 		diffuse "0.2 1.0 0.2 1.0"
 		specular "0.5"
-	}*/
+		model "gen:cube width '2.0' height '2.0' depth '2.0'"
+	}
 	
 	physBody {
 		mass box {

@@ -98,7 +98,10 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->getLightProperties().linearAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("linearAttenuation", "0"));
 	light->getLightProperties().quadraticAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("quadraticAttenuation", "0"));
 	
+	std::string modelName = properties.getProperty("model", "");
 	
+	if (!modelName.empty())
+		light->addModel(modelPool.attach(new TGen::ModelInstanceProxy(modelName, properties.getProperty("material", ""))));
 	
 	/*spotCutoff, spotExponent;
 	TGen::Vector3 spotDirection;

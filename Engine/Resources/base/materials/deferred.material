@@ -98,9 +98,11 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 				sampler miscMap
 			}*/
 
-			texunit 2 $depthmap {
+			/*texunit 2 $depthmap {
 				sampler depthMap
-			}
+			}*/
+			
+			map depthMap $depthmap
 
 		}
 

@@ -34,6 +34,8 @@
 		D04C83480CCA4A7500794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C817B0CCA469B00794CEA /* libtgen_core.a */; };
 		D04C83490CCA4A7F00794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C816E0CCA468E00794CEA /* libtgen_math.a */; };
 		D04C834A0CCA4A8A00794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81600CCA468400794CEA /* libtgen_opengl.a */; };
+		D05008170DA66C1F0018EC08 /* scenenoderenderable.h in Headers */ = {isa = PBXBuildFile; fileRef = D05008160DA66C1F0018EC08 /* scenenoderenderable.h */; };
+		D050081B0DA66C540018EC08 /* scenenoderenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D050081A0DA66C540018EC08 /* scenenoderenderable.cpp */; };
 		D073D4780D427E8400D3C858 /* md5modelparser.h in Headers */ = {isa = PBXBuildFile; fileRef = D073D4770D427E8400D3C858 /* md5modelparser.h */; };
 		D073D47A0D427E9300D3C858 /* md5modelparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D073D4790D427E9300D3C858 /* md5modelparser.cpp */; };
 		D073D47C0D427EB600D3C858 /* md5mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D073D47B0D427EB600D3C858 /* md5mesh.h */; };
@@ -261,6 +263,8 @@
 		D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstantiatepool.cpp; path = Source/modelinstantiatepool.cpp; sourceTree = "<group>"; };
 		D036C1DE0D5681D400916AC6 /* doom.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = doom.tga; sourceTree = "<group>"; };
 		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
+		D05008160DA66C1F0018EC08 /* scenenoderenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenenoderenderable.h; path = Include/scenenoderenderable.h; sourceTree = "<group>"; };
+		D050081A0DA66C540018EC08 /* scenenoderenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scenenoderenderable.cpp; path = Source/scenenoderenderable.cpp; sourceTree = "<group>"; };
 		D073D4710D427E2000D3C858 /* zsecpistol.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zsecpistol.md5mesh; sourceTree = "<group>"; };
 		D073D4770D427E8400D3C858 /* md5modelparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5modelparser.h; path = Include/md5modelparser.h; sourceTree = "<group>"; };
 		D073D4790D427E9300D3C858 /* md5modelparser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5modelparser.cpp; path = Source/md5modelparser.cpp; sourceTree = "<group>"; };
@@ -624,6 +628,8 @@
 			children = (
 				D0F50CD70C707EDA005DB68D /* scenenode.cpp */,
 				D0F50CD50C707ED2005DB68D /* scenenode.h */,
+				D050081A0DA66C540018EC08 /* scenenoderenderable.cpp */,
+				D05008160DA66C1F0018EC08 /* scenenoderenderable.h */,
 				D0F50CCD0C707E6F005DB68D /* camera.cpp */,
 				D0F50CCB0C707E64005DB68D /* camera.h */,
 				D0F50F950C70A925005DB68D /* fpscamera.cpp */,
@@ -714,6 +720,7 @@
 				D098D5280D9A81A9003B0486 /* vertextransformlist.h in Headers */,
 				D098D5560D9A82CB003B0486 /* vertexscaler.h in Headers */,
 				D098D65E0D9A8F4B003B0486 /* vertexswapper.h in Headers */,
+				D05008170DA66C1F0018EC08 /* scenenoderenderable.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -915,6 +922,7 @@
 				D098D52C0D9A822E003B0486 /* vertextransformlist.cpp in Sources */,
 				D098D55C0D9A833A003B0486 /* vertexscaler.cpp in Sources */,
 				D098D6620D9A8FD4003B0486 /* vertexswapper.cpp in Sources */,
+				D050081B0DA66C540018EC08 /* scenenoderenderable.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

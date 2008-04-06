@@ -26,11 +26,15 @@ TGen::Light & TGen::Engine::Light::getLightProperties() {
 }
 
 bool TGen::Engine::Light::fillUser(TGen::RenderList & list, const TGen::Camera & camera) const {
-	light.position = orientation * TGen::Vector3(0.0f, 0.0f, 1.0f);	// we're using the position field for direction
+	//light.position = orientation * TGen::Vector3(0.0f, 0.0f, 1.0f);	// we're using the position field for direction
 	// TODO: globalOrientation perhaps
 	//std::cout << std::string(TGen::Vector3(orientation)) << std::endl;
 	list.addUser(static_cast<void *>(const_cast<TGen::Engine::Light *>(this)), TGen::Engine::UserTypeLight);  // fult knep
 	return true;
+}
+
+bool TGen::Engine::Light::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
+	return false;
 }
 
 TGen::Material * TGen::Engine::Light::getMaterial() {

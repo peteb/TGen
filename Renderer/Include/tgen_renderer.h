@@ -56,6 +56,8 @@
 #include "vertexscaler.h"
 #include "vertexswapper.h"
 
+#include "scenenoderenderable.h"
+
 namespace TGen {
 	bool isRendererDebug();
 }

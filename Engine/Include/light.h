@@ -36,6 +36,7 @@ namespace TGen {
 			TGen::Light & getLightProperties();
 			TGen::Material * getMaterial();
 			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
+			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
 			
 		private:
 			std::string materialName;

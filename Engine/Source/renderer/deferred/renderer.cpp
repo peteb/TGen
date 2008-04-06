@@ -127,7 +127,7 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	miscMap = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	depthMap = renderer.createTexture(mapSize, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps /*| TGen::TextureRectangle*/);	// TODO: ubyte på depth? wtf?
 	
-	postMap1 = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);		// <-- sparar en massa skit... varför? blendfunc?
+	postMap1 = renderer.createTexture(mapSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	postMap2 = renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	postMap3 = renderer.createTexture(downsampleSize, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	
@@ -138,6 +138,8 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	/*colorMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
 	normalMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
 	depthMap->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
+	 
+	 testa rectangle på depth igen.... nej, måste ju vara samma format på alla attachments. men iofs, depth != color
 	*/
 	
 	mapTargets = renderer.createFrameBuffer();
@@ -249,22 +251,42 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 		//       om man är innanför en bbox för ett ljus rita backfaces, annars bara frontfaces
 		//       för mindre ljus kan man köra bbox. kolla mot bounding-sphere eller aabb.
 		
+		
+		TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
+		
+		
 		TGen::Engine::LightList::LightArray * lights = iter->second;
 		if (lights) {
+			lightBatchSize = 1;
 			for (int i = 0; i < lights->size(); i += lightBatchSize) {
 				int a = 0;
+				
 				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
-					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
+					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform() * (*lights)[a]->getTransform());
 
 					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
 						(*lights)[a]->getLightProperties().position = TGen::Vector4((*lights)[a]->getTransform().getZ().normalize(), 0.0f);						
 					else
-						(*lights)[a]->getLightProperties().position = (*lights)[a]->getWorldPosition();
+						(*lights)[a]->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f); //(*lights)[a]->getWorldPosition();
 					
 					renderer.setLight(a, (*lights)[a]->getLightProperties());
+
+					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
+						renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a + 1) + "lights");	// TODO: optimize						
+					else {
+						glIsTexture(1);
+						(*lights)[a]->getMaterial()->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a]), TGen::lexical_cast<std::string>(a + 1) + "lights", 9, textures, this);
+					}
+						
+						//lightPositionalMaterial->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a]), TGen::lexical_cast<std::string>(a + 1) + "lights", 9, NULL, NULL);
+						
+					
 				}
 				
-				renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a) + "lights");	// TODO: optimize
+				//lightPositionalMaterial->render(renderer, *model, TGen::lexical_cast<std::string>(a) + "lights", 9, NULL, NULL);
+
+				
+				
 			}
 		}
 	}
