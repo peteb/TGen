@@ -156,7 +156,7 @@ void TGen::Engine::World::update(scalar dt) {
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {
-	return TGen::Color(0.6, 0.6, 0.6, 1.0);
+	return TGen::Color(0.2, 0.2, 0.2, 1.0);
 }
 
 // rendreraren ber world att uppdatera sig internt för en viss kamera, sen frågar den efter renderlist, lights, osv

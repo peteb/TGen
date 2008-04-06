@@ -48,9 +48,21 @@ void main() {
 	lightpos = gl_ModelViewProjectionMatrixInverse * lightpos;
 	lightpos /= lightpos.w;
 	
+	
+	// pos is in world space, lightpos is in world space
+	// maxrange = 1.5 = 0 ljusstyrka
+	//            0.0 = 1 ljusstyrka
+	// clamp(1.0 - max(distance / maxrange, 0.0), 0.0, 1.0) = 
+	/*
+		
+	*/
+	
 	float d = distance(pos.xyz, lightpos.xyz);
+	float magic = clamp(1.0 - max(d / 2.5, 0.0), 0.0, 1.0);
 	
+	//if (magic < 0.5)
+	//	magic = 0.0;
 	
-	gl_FragColor = vec4((1.5 - d) * 0.9, 0.0, 0.0, 1.0);
+	gl_FragColor = vec4(gl_LightSource[0].diffuse.xyz * magic, 1.0);
 }
 

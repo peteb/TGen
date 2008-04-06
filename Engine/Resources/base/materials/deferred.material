@@ -83,8 +83,8 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 			// batchning av poslights kanske är långsammare faktiskt... mer processing per frag
 			
 			disableDepth
-			//blendFunc add
-			back cull
+			blendFunc add
+			//back fill
 
 			/*texunit 3 $colormap {
 				sampler colorMap

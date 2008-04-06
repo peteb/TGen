@@ -22,8 +22,6 @@ const TGen::Engine::GenerateLine::ParameterMap & TGen::Engine::GenerateLine::get
 }
 
 void TGen::Engine::GenerateLine::parse(const std::string & text) {
-//	std::cout << "parsing " << text << std::endl;
-	
 	if (text.substr(0, 4) != "gen:")
 		throw TGen::RuntimeException("GenerateLine::parse", "does not begin with 'gen:'");
 		
@@ -40,7 +38,7 @@ void TGen::Engine::GenerateLine::parse(const std::string & text) {
 	TGen::TokenStream tokens;
 	TGen::TokenStream::TokenList::iterator iter, endIter;
 	
-	tokenizer.tokenizeString(parameterString, tokens, false);
+	tokenizer.tokenizeString(parameterString + " ", tokens, false);	// we have to add that last space.. 
 	iter = tokens.getFirstToken();
 	endIter = tokens.getEndToken();
 	

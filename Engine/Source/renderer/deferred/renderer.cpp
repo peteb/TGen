@@ -223,7 +223,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 	
 	// TODO: var ska det här vara egentligen....
 	
-	vars.postProcessing = false;
+	//vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {
@@ -256,7 +256,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 		
 		
 		renderer.setTransform(TGen::TransformProjection, mainCamera->getProjection());		// borde inte vara nödvändigt...
-		
+	
 		
 		TGen::Engine::LightList::LightArray * lights = iter->second;
 		if (lights) {
@@ -265,20 +265,20 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 				int a = 0;
 				
 				for (; a < lightBatchSize && i + a < lights->size(); ++a) {
-					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform() * (*lights)[a]->getTransform());
+					renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform() * (*lights)[a + i]->getTransform());
 					
-					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
-						(*lights)[a]->getLightProperties().position = TGen::Vector4((*lights)[a]->getTransform().getZ().normalize(), 0.0f);						
+					if ((*lights)[a + i]->getType() == TGen::Engine::LightDirectional)
+						(*lights)[a + i]->getLightProperties().position = TGen::Vector4((*lights)[a + i]->getTransform().getZ().normalize(), 0.0f);						
 					else
-						(*lights)[a]->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f); //(*lights)[a]->getWorldPosition();
+						(*lights)[a + i]->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f); //(*lights)[a]->getWorldPosition();
 					
-					renderer.setLight(a, (*lights)[a]->getLightProperties());
+					renderer.setLight(a, (*lights)[a + i]->getLightProperties());
 
-					if ((*lights)[a]->getType() == TGen::Engine::LightDirectional)
-						renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a + 1) + "lights");	// TODO: optimize						
+					if ((*lights)[a + i]->getType() == TGen::Engine::LightDirectional)
+						renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a + 1 + i) + "lights");	// TODO: optimize						
 					else {
 						glIsTexture(1);
-						(*lights)[a]->getMaterial()->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a]), TGen::lexical_cast<std::string>(a + 1) + "lights", 9, textures, this);
+						(*lights)[a + i]->getMaterial()->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a + i]), TGen::lexical_cast<std::string>(a + 1 + i) + "lights", 9, textures, this);
 					}
 						
 						//lightPositionalMaterial->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a]), TGen::lexical_cast<std::string>(a + 1) + "lights", 9, NULL, NULL);

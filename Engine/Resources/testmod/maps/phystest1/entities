@@ -39,6 +39,23 @@ box2 {
 		dimensions "1.0 1.0 1.0"
 		friction 2.0
 	}
+	
+	sceneNode {
+		model "models/kub.md3 scale '0.2'"
+		origin "0 1 0"
+		treePosition "box2/"
+	}
+	
+	sceneLight {
+		origin "0 1 0"
+		material "deferred/lightPositional"
+		treePosition "box2/"
+		diffuse "0.2 0.2 1.2 1.0"
+		specular "0.5"
+		model "gen:cube width '5.0' height '5.0' depth '5.0'"
+	}
+
+
 }
 
 
@@ -65,6 +82,249 @@ box3 {
 	}
 }
 
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 14 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 18 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
+box3 {
+	sceneNode {
+		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		material "Cube2"
+		origin "2 7 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1.0 1.0 1.0"
+		friction 2.0
+	}
+}
 
 box4 {
 	sceneNode {
@@ -86,7 +346,7 @@ box4 {
 		treePosition "box4/"
 		diffuse "0.2 1.0 0.2 1.0"
 		specular "0.5"
-		model "gen:cube width '2.0' height '2.0' depth '2.0'"
+		model "gen:cube width 5.0 height 5.0 depth 5.0 "
 	}
 	
 	physBody {
@@ -103,6 +363,7 @@ box4 {
 		friction 2.0
 	}
 }
+
 
 /*box3 {
 	sceneNode {
