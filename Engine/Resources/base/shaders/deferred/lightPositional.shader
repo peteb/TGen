@@ -15,9 +15,9 @@ void main() {
 #section fragment
 
 uniform sampler2D depthMap;
+uniform sampler2D normalMap;
 
-float ZPosFromDepthBufferValue(float depthBufferValue)
-{
+float ZPosFromDepthBufferValue(float depthBufferValue) {
 	float c0 = (1.0 - gl_DepthRange.far / gl_DepthRange.near) / 2.0;
 	float c1 = (1.0 + gl_DepthRange.far / gl_DepthRange.near) / 2.0;
 	
@@ -48,21 +48,17 @@ void main() {
 	lightpos = gl_ModelViewProjectionMatrixInverse * lightpos;
 	lightpos /= lightpos.w;
 	
+	vec3 normal = normalize(vec3(texture2D(normalMap, gl_FragCoord.xy / 512.0)) * 2.0 - 1.0);	
+	vec3 lightToFrag = normalize(lightpos.xyz - pos.xyz);
 	
-	// pos is in world space, lightpos is in world space
-	// maxrange = 1.5 = 0 ljusstyrka
-	//            0.0 = 1 ljusstyrka
-	// clamp(1.0 - max(distance / maxrange, 0.0), 0.0, 1.0) = 
-	/*
-		
-	*/
+	float NdotLD = max(0.0, dot(normal, lightToFrag));
 	
 	float d = distance(pos.xyz, lightpos.xyz);
-	float magic = clamp(1.0 - max(d / 2.5, 0.0), 0.0, 1.0);
+	float power = clamp(1.0 - max(d / 2.5, 0.0), 0.0, 1.0) * NdotLD;
 	
-	//if (magic < 0.5)
-	//	magic = 0.0;
+//	if (power < 0.6)
+	//	power = 0.0;
 	
-	gl_FragColor = vec4(gl_LightSource[0].diffuse.xyz * magic, 1.0);
+	gl_FragColor = vec4(gl_LightSource[0].diffuse.xyz * power, 1.0);
 }
 

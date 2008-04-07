@@ -72,6 +72,7 @@ material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 
 params deferred/lightPositional {
 	light_type "positional"
+	light_bb_cull true
 }
 
 #loop NUM_LIGHTS 1 8 
@@ -80,30 +81,17 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
 			// cull back,
 			// if we're not on top of the camera, then cull front
-			// batchning av poslights kanske är långsammare faktiskt... mer processing per frag
+			// batchning av poslights kanske är långsammare faktiskt... mer processing per frag (fler antal lampor, upp
+			// till 8, som uträknas på alla bboxes)
 			
 			disableDepth
 			blendFunc add
 			//back fill
-
-			/*texunit 3 $colormap {
-				sampler colorMap
-			}
-	
-			texunit 0 $normalmap {
-				sampler normalMap
-			}
-
-			texunit 1 $miscmap {
-				sampler miscMap
-			}*/
-
-			/*texunit 2 $depthmap {
-				sampler depthMap
-			}*/
 			
 			map depthMap $depthmap
-
+			map normalMap $normalmap
+			// map miscMap $miscmap
+			
 		}
 
 
