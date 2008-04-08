@@ -223,7 +223,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 	
 	// TODO: var ska det här vara egentligen....
 	
-	//vars.postProcessing = false;
+	vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {
@@ -466,8 +466,14 @@ void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable &
 		var = !vars.lumTrace;
 	else if (name == "$numlights")
 		var = lastNumLights;		
+	else if (name == "$rtsize")
+		var = TGen::Vector2(mrtSize.width, mrtSize.height);
+	else if (name == "$eye" && mainCamera)
+		var = mainCamera->getTransform().getOrigin();
 	else
-		logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;
+		throw TGen::RuntimeException("DeferredRenderer::updateShaderVariable", "nothing to bind for '" + name + "'!");
+		
+		//logs.warning["dfr"] << "nothing to bind for '" << name << "'!" << TGen::endl;
 }
 
 // TODO: fixa simpel fps

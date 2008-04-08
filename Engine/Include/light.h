@@ -37,6 +37,7 @@ namespace TGen {
 			TGen::Material * getMaterial();
 			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
 			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
+			bool isPointInsideBox(const TGen::Vector3 & point) const;
 			
 		private:
 			std::string materialName;
@@ -44,6 +45,7 @@ namespace TGen {
 			
 			int type;			
 			bool clipBoundingBox;
+			bool lightBoundingBoxCull;
 			TGen::AABB boundingBox;
 			mutable TGen::Light light;
 		};

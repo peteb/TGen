@@ -14,6 +14,7 @@ TGen::Engine::Light::Light(const std::string & name, const TGen::Vector3 & posit
 	: TGen::SceneNode(name, position, orientation)
 	, material(NULL)
 	, type(-1)
+	, lightBoundingBoxCull(false)
 {
 }
 
@@ -53,6 +54,9 @@ void TGen::Engine::Light::linkMaterial(TGen::MaterialSource & linker) {
 			type = LightPositional;
 		else if (typeName == "spotlight")
 			type = LightSpotlight;
+		
+		if (type == LightPositional)
+			lightBoundingBoxCull = TGen::lexical_cast<bool>(material->getParameter("light_bb_cull").at(0));
 	}
 	catch (const std::exception & e) {
 		std::cout << "LIGHT TYPE ERROR FOR " << materialName << ": " << e.what() << std::endl;
@@ -61,4 +65,8 @@ void TGen::Engine::Light::linkMaterial(TGen::MaterialSource & linker) {
 
 int TGen::Engine::Light::getType() const {
 	return type;
+}
+
+bool TGen::Engine::Light::isPointInsideBox(const TGen::Vector3 & point) const {
+	return true;
 }

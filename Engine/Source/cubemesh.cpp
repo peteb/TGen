@@ -34,10 +34,10 @@ void TGen::Engine::CubeMesh::createVertexData(TGen::VertexDataSource & dataSourc
 	float vertices[24 * 8] = 
 		{
 			// FRONT
-			min.x, min.y, max.z, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-			max.x, min.y, max.z, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-			max.x, max.y, max.z, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-			min.x, max.y, max.z, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
+			min.x, min.y, max.z, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
+			max.x, min.y, max.z, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
+			max.x, max.y, max.z, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
+			min.x, max.y, max.z, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
 			
 			// RIGHT
 			max.x, min.y, max.z, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
@@ -58,16 +58,16 @@ void TGen::Engine::CubeMesh::createVertexData(TGen::VertexDataSource & dataSourc
 			min.x, max.y, min.z, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
 			
 			// TOP
-			min.x, min.y, min.z, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-			max.x, min.y, min.z, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-			max.x, min.y, max.z, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-			min.x, min.y, max.z, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			min.x, min.y, min.z, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+			max.x, min.y, min.z, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+			max.x, min.y, max.z, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+			min.x, min.y, max.z, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
 			
 			// BOTTOM
-			min.x, max.y, max.z, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f,
-			max.x, max.y, max.z, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-			max.x, max.y, min.z, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-			min.x, max.y, min.z, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
+			min.x, max.y, max.z, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
+			max.x, max.y, max.z, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
+			max.x, max.y, min.z, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
+			min.x, max.y, min.z, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
 
 		};
 		

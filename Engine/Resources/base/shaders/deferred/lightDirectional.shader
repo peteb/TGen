@@ -35,6 +35,6 @@ void main() {
 		specular += gl_LightSource[#LIGHT_ID#].specular * power;
 	#end
 
-	gl_FragColor = (diffuse + specular * miscInfo.r) * gl_Color;	// TODO: miscInfo.x ska bara användas
+	gl_FragColor = (diffuse + specular * miscInfo.r) * gl_Color;
 }
 

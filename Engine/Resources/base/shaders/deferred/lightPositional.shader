@@ -1,13 +1,24 @@
 #section global
 varying vec3 volumeCoords;
 varying vec2 texCoord;
-//varying vec3 lightInScreen;
+varying vec4 lightpos;
+varying vec3 eyeToLight;
 
 #section vertex
+
+uniform vec3 eye;		// eye position in world
 
 void main() {
 	gl_Position = ftransform();
 	volumeCoords = (gl_ModelViewMatrix * gl_Vertex).xyz;
+
+	lightpos = gl_ProjectionMatrix * gl_LightSource[0].position;
+	lightpos /= lightpos.w;
+	
+	lightpos = gl_ModelViewProjectionMatrixInverse * lightpos;
+	lightpos /= lightpos.w;
+	
+	eyeToLight = eye - lightpos.xyz;
 }
 
 
@@ -16,49 +27,28 @@ void main() {
 
 uniform sampler2D depthMap;
 uniform sampler2D normalMap;
-
-float ZPosFromDepthBufferValue(float depthBufferValue) {
-	float c0 = (1.0 - gl_DepthRange.far / gl_DepthRange.near) / 2.0;
-	float c1 = (1.0 + gl_DepthRange.far / gl_DepthRange.near) / 2.0;
-	
-	return 1.0 / (c0 * depthBufferValue + c1);
-	
-	/*float a = gl_DepthRange.far / (gl_DepthRange.far - gl_DepthRange.near);
-	float b = gl_DepthRange.far * gl_DepthRange.near / (gl_DepthRange.near - gl_DepthRange.far);
-	
-	
-	return -b / (depthBufferValue - a);*/
-	
-	//return (1.0 / gl_DepthRange.near - 1.0 / depthBufferValue) / (1.0 / gl_DepthRange.near - 1.0 / gl_DepthRange.far);
-}
-
-//depth = (1.f / nearZ - 1.f / posz) / (1.f / nearZ - 1.f / farZ);
+uniform vec2 rtSize;	// render target size
+uniform vec3 eye;		// eye position in world
 
 void main() {	
-	float texDepth = texture2D(depthMap, gl_FragCoord.xy / 512.0).r * 2.0 - 1.0;
+	float texDepth = texture2D(depthMap, gl_FragCoord.xy / rtSize).r * 2.0 - 1.0;
+	vec3 normal = normalize(texture2D(normalMap, gl_FragCoord.xy / rtSize).xyz * 2.0 - 1.0);	
 	
-	vec4 pos = gl_ModelViewProjectionMatrixInverse * vec4(gl_FragCoord.xy / 256.0 - 1.0, texDepth, 1.0);
+	vec4 pos = gl_ModelViewProjectionMatrixInverse * vec4(gl_FragCoord.xy / (rtSize / 2.0) - 1.0, texDepth, 1.0);
 	pos /= pos.w;
 
-	vec4 lightpos = gl_ProjectionMatrix * gl_LightSource[0].position;
-	lightpos /= lightpos.w;
 	
-	// fšrkorta detta. plzzzzz..
-	
-	lightpos = gl_ModelViewProjectionMatrixInverse * lightpos;
-	lightpos /= lightpos.w;
-	
-	vec3 normal = normalize(vec3(texture2D(normalMap, gl_FragCoord.xy / 512.0)) * 2.0 - 1.0);	
 	vec3 lightToFrag = normalize(lightpos.xyz - pos.xyz);
+	vec3 view = normalize(eye - pos.xyz);
+	vec3 H = normalize((lightToFrag + view) / 2.0);
 	
-	float NdotLD = max(0.0, dot(normal, lightToFrag));
+	float NdotL = max(0.0, dot(normal, lightToFrag));
 	
-	float d = distance(pos.xyz, lightpos.xyz);
-	float power = clamp(1.0 - max(d / 2.5, 0.0), 0.0, 1.0) * NdotLD;
+	float d = 1.0 - max(distance(pos.xyz, lightpos.xyz) / 2.5, 0.0);   // 0..1 in distance range
+	float diffuse = d * NdotL;
+	float specular = max(0.0, pow(dot(normal, H), 70.0)) * d;
 	
-//	if (power < 0.6)
-	//	power = 0.0;
-	
-	gl_FragColor = vec4(gl_LightSource[0].diffuse.xyz * power, 1.0);
+	//gl_FragColor = vec4(NdotL, NdotL, NdotL, 1.0);
+	gl_FragColor = vec4(gl_LightSource[0].diffuse.rgb * diffuse + gl_LightSource[0].specular.rgb * specular, 1.0);
 }
 

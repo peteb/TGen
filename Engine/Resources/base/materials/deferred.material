@@ -55,15 +55,6 @@ material deferred/lightDirectional #NUM_LIGHTS#lights 9 {
 
 			map normalMap $normalmap			
 			map miscMap $miscmap
-
-			/*texunit 0 $normalmap {
-				sampler normalMap
-			} 
-
-			texunit 1 $miscmap {
-				sampler miscMap
-			}
-			*/
 		}
 	}
 }
@@ -78,7 +69,7 @@ params deferred/lightPositional {
 #loop NUM_LIGHTS 1 8 
 material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 	lod 9 {
-		pass gen:deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
+		pass deferred/lightPositional:NUM_LIGHTS=#NUM_LIGHTS# {
 			// cull back,
 			// if we're not on top of the camera, then cull front
 			// batchning av poslights kanske är långsammare faktiskt... mer processing per frag (fler antal lampor, upp
@@ -86,15 +77,16 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 			
 			disableDepth
 			blendFunc add
-			//back fill
+			back fill
+			front cull
+			
+			bind rtSize $rtsize			
+			bind eye $eye
 			
 			map depthMap $depthmap
 			map normalMap $normalmap
 			// map miscMap $miscmap
-			
 		}
-
-
 	}
 }
 #end
