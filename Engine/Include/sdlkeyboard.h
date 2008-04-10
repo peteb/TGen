@@ -23,6 +23,7 @@ namespace TGen {
 			
 			void onBinaryEvent(const SDL_keysym & keysym, TGen::Engine::StateEvent state);
 			void enterMode(TGen::Engine::InputDeviceMode mode);
+			void reset();
 			
 			void dispatchEvents(TGen::Engine::InputEventResponder & responder);
 			std::string getDeviceName();
@@ -30,6 +31,7 @@ namespace TGen {
 		private:
 			TGen::Engine::InputDeviceMode mode;
 			std::string textBuffer;
+			std::vector<uint16> buttonBuffer;
 		};
 		
 	} // !Engine	

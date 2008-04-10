@@ -86,7 +86,7 @@ box3 {
 }
 
 
-box3 {
+box35 {
 	sceneNode {
 		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
@@ -180,14 +180,33 @@ box4 {
 }*/
 
 ground2 {
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
+		material "Cube"
+		origin "0 -1 0"
+		orientation "0.1 1 0"
+	}
+	
 	physGeom plane {
 		orientation "0.1 1 0"
+
 		distance "-1.0"
 		friction 0.4
 	}
 }
 
 ground3 {
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
+		material "Cube"
+		origin "0 -1 0"
+		orientation "-0.1 1 0"
+	}
+
 	physGeom plane {
 		orientation "-0.1 1 0"
 		distance "-1.0"
@@ -233,14 +252,14 @@ player_start {
 	}
 }
 
-/*light1 {
+light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
-		orientation "0 0 1"
-		diffuse "0.2 0.2 0.2 1.0"
-		specular "0.5"
+		orientation "0 0.5 1"
+		diffuse "0.1"
+		specular "0.9"
 	}
-}*/
+}
 
 maincam {
 	sceneCamera {

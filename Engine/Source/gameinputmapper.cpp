@@ -38,7 +38,7 @@ void TGen::Engine::GameInputMapper::onBinaryEvent(TGen::Engine::InputDevice & de
 
 void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & device, const std::string & text) {
 	for (int i = 0; i < text.size(); ++i) {
-		// det här borde skickas till den textruta som är in-focus
+		// det här borde skickas till den textruta som är in-focus, sen buffras det där
 		
 		if ((unsigned char)(text[i]) <= 127) {
 			std::cout << int(text[i]) << std::endl;
@@ -49,7 +49,21 @@ void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & devi
 		}
 	}
 	
-	std::cout << "'" << this->text << "'" << std::endl;
+	// GÖR PLAYER, ska ha en pekare till kameran
+	// controller sitter på player direkt typ, Player::getController, om playern är i ghost mode så returneras ghostcontroller
+	
+	// world.getPlayer().getController().move(blabla);
+	
+	// GameInputMapper tar referens till controller i constructor, styr på det viset
+	//   controllern är en referens, dvs, operator *. TGen::deref. Så kan player ärva controller och på så vis returnera korrekt controller för läget den är i
+	//   då slipper man skapa ny inputmapper om man dör eller nått. Men gör inte det direkt, man kanske inte behöver byta controller! testa testa
+	
+	
+	// gamestate -> mapper -> controller -> camera
+	
+	std::cout << "Text: '" << this->text << "'" << std::endl;
+	
+	//device.reset();
 }
 
 void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vec) {

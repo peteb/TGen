@@ -26,7 +26,14 @@ void TGen::Engine::SDLKeyboard::dispatchEvents(TGen::Engine::InputEventResponder
 		}
 	}
 	else {
+		for (int i = 0; i < buttonBuffer.size(); ++i) {
+			if (buttonBuffer[i] & 0x8000)
+				responder.onBinaryEvent(*this, buttonBuffer[i] ^ 0x8000, TGen::Engine::StateDown);
+			else
+				responder.onBinaryEvent(*this, buttonBuffer[i], TGen::Engine::StateUp);
+		}
 		
+		buttonBuffer.clear();
 	}
 }
 
@@ -69,7 +76,11 @@ void TGen::Engine::SDLKeyboard::onBinaryEvent(const SDL_keysym & keysym, TGen::E
 		}
 	}
 	else {
-		
+		if (state == TGen::Engine::StateDown)
+			buttonBuffer.push_back(keysym.sym | 0x8000);
+		else if (state == TGen::Engine::StateUp)
+			buttonBuffer.push_back(keysym.sym);
+			
 	}
 	
 	// aktivera TextMode för text, annars kommer inga sånna events!!!!!!!!!!!!!!
@@ -85,13 +96,17 @@ void TGen::Engine::SDLKeyboard::enterMode(TGen::Engine::InputDeviceMode mode) {
 		SDL_EnableUNICODE(SDL_TRUE);
 		SDL_EnableKeyRepeat(155, SDL_DEFAULT_REPEAT_INTERVAL);
 		std::cout << "ENTERED TEXT MODE" << std::endl;
+		this->mode = mode;
 	}
 	else if (mode == TGen::Engine::DefaultMode) {
 		SDL_EnableUNICODE(SDL_FALSE);
 		SDL_EnableKeyRepeat(0, 0);
 		textBuffer = "";
 		std::cout << "LEFT TEXT MODE" << std::endl;
+		this->mode = mode;
 	}
-	
-	this->mode = mode;
+}
+
+void TGen::Engine::SDLKeyboard::reset() {
+	textBuffer = "";
 }

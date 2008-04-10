@@ -223,7 +223,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, sc
 	
 	// TODO: var ska det här vara egentligen....
 	
-	vars.postProcessing = false;
+	// vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	if (vars.postProcessing) {

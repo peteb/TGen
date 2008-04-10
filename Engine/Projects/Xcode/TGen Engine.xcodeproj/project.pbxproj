@@ -674,8 +674,6 @@
 				D074083F0D32CB6E00735304 /* inputeventresponder.h */,
 				D07408500D32CD7300735304 /* devicecollection.cpp */,
 				D074084F0D32CD1600735304 /* devicecollection.h */,
-				D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */,
-				D09DFFBD0D35368300DB6324 /* gameinputmapper.h */,
 			);
 			name = input;
 			sourceTree = "<group>";
@@ -896,6 +894,8 @@
 				D0F835D30CBA5C5B00FF4467 /* game.h */,
 				D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */,
 				D0F83B4C0CBA747E00FF4467 /* gamestatevars.h */,
+				D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */,
+				D09DFFBD0D35368300DB6324 /* gameinputmapper.h */,
 				D0F8393C0CBA67A100FF4467 /* view.cpp */,
 				D0F8393E0CBA67AD00FF4467 /* view.h */,
 			);

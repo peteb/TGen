@@ -38,7 +38,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 		throttledNewMap = "";
 	}
 
-	inputDevices.enterMode(TGen::Engine::TextMode);
+	inputDevices.enterMode(TGen::Engine::DefaultMode);
 	inputDevices.enterMode(TGen::Engine::RelativeMode);
 	
 	constructed = true;

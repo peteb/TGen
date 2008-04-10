@@ -46,6 +46,7 @@ namespace TGen {
 			virtual void dispatchEvents(TGen::Engine::InputEventResponder & responder) abstract;
 			virtual void enterMode(TGen::Engine::InputDeviceMode mode) {}
 			virtual std::string getDeviceName() abstract;
+			virtual void reset() {}
 			
 			const DeviceControls & getControls() const;
 			std::string getName() const;
