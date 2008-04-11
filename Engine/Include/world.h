@@ -26,6 +26,7 @@ namespace TGen {
 		class Filesystem;
 		class StandardLogs;
 		class ResourceManager;
+		class Player;
 		
 		class World {
 		public:
@@ -36,6 +37,8 @@ namespace TGen {
 			TGen::RenderList & getRenderList();
 			TGen::Engine::LightList & getLightList();
 			TGen::Color getAmbientLight();
+			
+			TGen::Engine::Player * createPlayer();
 			
 			void prepareLists(TGen::Camera * camera);
 			
@@ -53,10 +56,9 @@ namespace TGen {
 			TGen::SceneNode sceneRoot;
 			TGen::BasicRenderList renderList;
 			TGen::Engine::LightList lightList;
-			
 			TGen::Engine::EntityList entities;
 			
-			TGen::Engine::Light * lights[4];
+			
 			
 			TGen::Camera * mainCam;
 		};

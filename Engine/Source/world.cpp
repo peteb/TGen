@@ -68,9 +68,9 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	entities.linkGlobally();
 	
-	mainCam = dynamic_cast<TGen::Camera *>(sceneSubsystem.getComponent("maincam")->getSceneNode());
-	if (!mainCam)
-		throw TGen::RuntimeException("World::World", "maincam not defined");
+	//mainCam = dynamic_cast<TGen::Camera *>(sceneSubsystem.getComponent("maincam")->getSceneNode());
+	//if (!mainCam)
+	//	throw TGen::RuntimeException("World::World", "maincam not defined");
 
 	sceneSubsystem.link();
 	sceneSubsystem.getSceneRoot().update();
@@ -114,7 +114,7 @@ TGen::Engine::World::~World() {
 }
 
 TGen::Camera * TGen::Engine::World::getCamera(const std::string & name) {
-	return mainCam;
+	return static_cast<TGen::Camera *>(sceneSubsystem.getSceneRoot().getChild(name));
 }
 
 TGen::RenderList & TGen::Engine::World::getRenderList() {
@@ -159,4 +159,13 @@ TGen::Color TGen::Engine::World::getAmbientLight() {
 	return TGen::Color(0.1, 0.1, 0.1, 1.0);
 }
 
+TGen::Engine::Player * TGen::Engine::World::createPlayer() {
+	TGen::Camera * camera = new TGen::Camera("maincam", TGen::Vector3(0.0f, 2.0f, 0.0f), TGen::Rotation::Identity);
+	sceneSubsystem.getSceneRoot().addChild(camera);
+	
+	// TODO: ange inte playerstuff i entities, men player ska vara en TGen::Engine::Entity!
+	//       dvs, populera entiteten med components här typ.
+	
+	return NULL;
+}
 // rendreraren ber world att uppdatera sig internt för en viss kamera, sen frågar den efter renderlist, lights, osv

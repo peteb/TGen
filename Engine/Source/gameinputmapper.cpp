@@ -14,9 +14,11 @@
 #include <tgen_renderer.h>
 #include "world.h"
 #include "inputdevice.h"
+#include "playercontroller.h"
 
-TGen::Engine::GameInputMapper::GameInputMapper()
+TGen::Engine::GameInputMapper::GameInputMapper(TGen::Engine::PlayerController & controller)
 	: world(NULL)
+	, playerController(controller)
 {
 	
 }
@@ -34,7 +36,32 @@ void TGen::Engine::GameInputMapper::onBinaryEvent(TGen::Engine::InputDevice & de
 	else
 		std::cout << "*** button up on " << deviceName.str() << ": " << id << std::endl;
 
+	int eventId = keyToEventID(id);
+	
+	if (state == TGen::Engine::StateDown)
+		playerController.beginEvent(eventId);
+	else if (state == TGen::Engine::StateUp)
+		playerController.endEvent(eventId);	
 }
+
+int TGen::Engine::GameInputMapper::keyToEventID(int id) const {
+	switch (id) {
+		case 'w':
+			return TGen::Engine::EventForward;
+			
+		case 's':
+			return TGen::Engine::EventBackward;
+			
+		case 'a':
+			return TGen::Engine::EventStrafeLeft;
+			
+		case 'd':
+			return TGen::Engine::EventStrafeRight;
+	}
+	
+	return -1;
+}
+
 
 void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & device, const std::string & text) {
 	for (int i = 0; i < text.size(); ++i) {

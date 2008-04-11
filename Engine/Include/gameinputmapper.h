@@ -15,10 +15,11 @@
 namespace TGen {
 	namespace Engine {
 		class World;
+		class PlayerController;
 		
 		class GameInputMapper : public TGen::Engine::InputEventResponder {
 		public:
-			GameInputMapper();
+			GameInputMapper(TGen::Engine::PlayerController & controller);
 			~GameInputMapper();
 			
 			void onBinaryEvent(TGen::Engine::InputDevice & device, int id, TGen::Engine::StateEvent state);
@@ -27,6 +28,9 @@ namespace TGen {
 			void setWorld(TGen::Engine::World * world);
 			
 		private:
+			int keyToEventID(int id) const;
+			
+			TGen::Engine::PlayerController & playerController;
 			TGen::Engine::World * world;
 			std::string text;
 		};

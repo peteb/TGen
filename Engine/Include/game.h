@@ -16,6 +16,8 @@
 #include "gamestatevars.h"
 #include "renderer/deferred/renderer.h"
 #include "gameinputmapper.h"
+#include "playercontroller.h"
+#include "player.h"
 
 namespace TGen {
 	class VertexDataSoure;
@@ -45,6 +47,7 @@ namespace TGen {
 			
 		private:
 			void checkErrors();
+			void postWorldCreation(TGen::Engine::World & world);
 			
 			TGen::Engine::DeviceCollection & inputDevices;
 			TGen::Engine::Filesystem & filesystem;
@@ -55,7 +58,10 @@ namespace TGen {
 			TGen::Engine::World * currentWorld;
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::ResourceManager & resources;
+			TGen::Engine::PlayerController playerController;
 			TGen::VertexDataSource & dataSource;
+			
+			TGen::Engine::Player * player;
 			
 			TGen::Time lastRender;
 			scalar sinceErrorCheck;

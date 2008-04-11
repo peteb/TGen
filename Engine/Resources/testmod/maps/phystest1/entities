@@ -248,7 +248,8 @@ ground5 {
 
 player_start {
 	sceneNode {
-		origin "0 0 0"
+		origin "0 2 0"
+		orientation "0 0 1"
 	}
 }
 
@@ -261,7 +262,7 @@ light1 {
 	}
 }
 
-maincam {
+/*maincam {
 	sceneCamera {
 		origin "0 2 0"
 		orientation "0 0 1"
@@ -276,4 +277,5 @@ maincam {
 			}
 		}
 	}
-}
+}*/
+

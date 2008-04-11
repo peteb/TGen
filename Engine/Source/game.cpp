@@ -28,6 +28,8 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 	, sinceErrorCheck(0.0)
 	, worldRenderer(worldRenderer)
 	, vars(variables, logs, *this)
+	, inputMapper(playerController)
+	, player(NULL)
 {
 	logs.info["gst+"] << "entering game state..." << endl;
 	
@@ -36,6 +38,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 		currentWorld = new TGen::Engine::World(filesystem, resources, logs, worldRenderer.getRenderer(), throttledNewMap);
 		inputMapper.setWorld(currentWorld);
 		throttledNewMap = "";
+		postWorldCreation(*currentWorld);
 	}
 
 	inputDevices.enterMode(TGen::Engine::DefaultMode);
@@ -61,6 +64,8 @@ void TGen::Engine::GameState::tick() {
 	
 	if (sinceLastRender >= vars.maxRefreshInterval) {
 		lastRender = now;
+		
+		playerController.update(sinceLastRender);
 		
 		if (currentWorld)
 			currentWorld->update(sinceLastRender);
@@ -107,6 +112,11 @@ void TGen::Engine::GameState::checkErrors() {
 	}	
 }
 
+// TODO: ska kanske player vara i world ändå?
+
+void TGen::Engine::GameState::postWorldCreation(TGen::Engine::World & world) {
+	player = world.createPlayer();
+}
 
 void TGen::Engine::GameState::changeMap(const std::string & mapName) {
 	if (constructed) {
@@ -116,6 +126,7 @@ void TGen::Engine::GameState::changeMap(const std::string & mapName) {
 		currentWorld = new TGen::Engine::World(filesystem, resources, logs, dataSource, mapName);
 		
 		inputMapper.setWorld(currentWorld);
+		postWorldCreation(*currentWorld);
 	}
 	else {
 		throttledNewMap = mapName;

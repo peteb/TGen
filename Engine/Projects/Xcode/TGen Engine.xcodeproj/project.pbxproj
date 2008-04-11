@@ -20,6 +20,8 @@
 		D0044AA60D9AABD300EEBC00 /* cubemesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0044AA50D9AABD300EEBC00 /* cubemesh.cpp */; };
 		D0095B6D0D7874E400D0DC31 /* joint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095B6C0D7874E400D0DC31 /* joint.cpp */; };
 		D0095C0D0D787AE300D0DC31 /* entitylist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0095C0C0D787AE300D0DC31 /* entitylist.cpp */; };
+		D00FEA9D0DAF8F05003703A2 /* playercontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FEA9C0DAF8F05003703A2 /* playercontroller.cpp */; };
+		D00FEB4E0DAF99A4003703A2 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FEB4D0DAF99A4003703A2 /* player.cpp */; };
 		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
@@ -243,6 +245,10 @@
 		D0095B6C0D7874E400D0DC31 /* joint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = joint.cpp; path = physics/joint.cpp; sourceTree = "<group>"; };
 		D0095C0B0D787AD600D0DC31 /* entitylist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entitylist.h; path = ../../Include/entitylist.h; sourceTree = SOURCE_ROOT; };
 		D0095C0C0D787AE300D0DC31 /* entitylist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entitylist.cpp; sourceTree = "<group>"; };
+		D00FEA9B0DAF8EF9003703A2 /* playercontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = playercontroller.h; path = ../../Include/playercontroller.h; sourceTree = SOURCE_ROOT; };
+		D00FEA9C0DAF8F05003703A2 /* playercontroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = playercontroller.cpp; sourceTree = "<group>"; };
+		D00FEB4C0DAF999A003703A2 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = player.h; path = ../../Include/player.h; sourceTree = SOURCE_ROOT; };
+		D00FEB4D0DAF99A4003703A2 /* player.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cpp; sourceTree = "<group>"; };
 		D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = worldrenderer.h; path = ../../Include/renderer/worldrenderer.h; sourceTree = SOURCE_ROOT; };
 		D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = worldrenderer.cpp; path = renderer/worldrenderer.cpp; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
@@ -898,6 +904,10 @@
 				D09DFFBD0D35368300DB6324 /* gameinputmapper.h */,
 				D0F8393C0CBA67A100FF4467 /* view.cpp */,
 				D0F8393E0CBA67AD00FF4467 /* view.h */,
+				D00FEA9C0DAF8F05003703A2 /* playercontroller.cpp */,
+				D00FEA9B0DAF8EF9003703A2 /* playercontroller.h */,
+				D00FEB4D0DAF99A4003703A2 /* player.cpp */,
+				D00FEB4C0DAF999A003703A2 /* player.h */,
 			);
 			name = game;
 			sourceTree = "<group>";
@@ -1149,6 +1159,8 @@
 				D00449CB0D9AA2E500EEBC00 /* modelgenerator.cpp in Sources */,
 				D0044A450D9AA89B00EEBC00 /* cubemodel.cpp in Sources */,
 				D0044AA60D9AABD300EEBC00 /* cubemesh.cpp in Sources */,
+				D00FEA9D0DAF8F05003703A2 /* playercontroller.cpp in Sources */,
+				D00FEB4E0DAF99A4003703A2 /* player.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
