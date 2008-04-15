@@ -16,9 +16,9 @@
 #include "inputdevice.h"
 #include "playercontroller.h"
 
-TGen::Engine::GameInputMapper::GameInputMapper(TGen::Engine::PlayerController & controller)
+TGen::Engine::GameInputMapper::GameInputMapper()
 	: world(NULL)
-	, playerController(controller)
+	, playerController(NULL)
 {
 	
 }
@@ -38,10 +38,12 @@ void TGen::Engine::GameInputMapper::onBinaryEvent(TGen::Engine::InputDevice & de
 
 	int eventId = keyToEventID(id);
 	
-	if (state == TGen::Engine::StateDown)
-		playerController.beginEvent(eventId);
-	else if (state == TGen::Engine::StateUp)
-		playerController.endEvent(eventId);	
+	if (playerController) {
+		if (state == TGen::Engine::StateDown)
+			playerController->beginEvent(eventId);
+		else if (state == TGen::Engine::StateUp)
+			playerController->endEvent(eventId);	
+	}
 }
 
 int TGen::Engine::GameInputMapper::keyToEventID(int id) const {
@@ -98,7 +100,7 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 
 	if (world && vec.getMagnitude() < 100.0f) {
-		world->getCamera("maincam")->setPosition(world->getCamera("maincam")->getLocalPosition() + TGen::Vector3(vec.x, 0.0f, -vec.y) * 0.5);
+		//world->getCamera("maincam")->setPosition(world->getCamera("maincam")->getLocalPosition() + TGen::Vector3(vec.x, 0.0f, -vec.y) * 0.5);
 	//	reinterpret_cast<TGen::FPSCamera *>(world->getCamera("maincam"))->rotate(TGen::Vector2(vec) * 0.01f);
 	}
 	
@@ -108,5 +110,9 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 
 void TGen::Engine::GameInputMapper::setWorld(TGen::Engine::World * world) {
 	this->world = world;
+}
+
+void TGen::Engine::GameInputMapper::setPlayerController(TGen::Engine::PlayerController * controller) {
+	playerController = controller;
 }
 

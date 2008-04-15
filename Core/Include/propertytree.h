@@ -32,6 +32,8 @@ namespace TGen {
 		const ConstProperty & getProperty(const std::string & name) const;
 		const PropertyTree & getNode(const std::string & name) const;
 		const PropertyTree & getNode(int num) const;
+		PropertyTree & getNode(int num);
+
 		PropertyTree & getNode(const std::string & name);
 		int getNumProperties() const;
 		int getNumNodes() const;
@@ -45,6 +47,7 @@ namespace TGen {
 		const ConstProperty & operator [] (const std::string & name) const;
 		
 		std::string getName() const;
+		void setName(const std::string & name);
 		
 	private:
 		typedef std::vector<PropertyTree> TreeList;

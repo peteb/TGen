@@ -16,7 +16,11 @@ TGen::PropertyTree::PropertyTree(const std::string & name)
 }
 
 void TGen::PropertyTree::addProperty(const TGen::PropertyTree::Property & property) {
-	properties.insert(property);	
+	PropertyMap::iterator iter = properties.find(property.first);
+	if (iter == properties.end())
+		properties.insert(property);
+	else
+		iter->second = property.second;
 }
 
 void TGen::PropertyTree::addNode(const TGen::PropertyTree & tree) {
@@ -74,6 +78,10 @@ std::string TGen::PropertyTree::getName() const {
 	return name;
 }
 
+void TGen::PropertyTree::setName(const std::string & name) {
+	this->name = name;
+}
+
 int TGen::PropertyTree::getNumProperties() const {
 	return properties.size();
 }
@@ -83,6 +91,10 @@ int TGen::PropertyTree::getNumNodes() const {
 }
 
 const TGen::PropertyTree & TGen::PropertyTree::getNode(int num) const {
+	return nodes[num];
+}
+
+TGen::PropertyTree & TGen::PropertyTree::getNode(int num) {
 	return nodes[num];
 }
 

@@ -84,6 +84,7 @@ void TGen::PropertyTreeParser::parseBlock(TGen::PropertyTree & node) {
 			}
 		}
 		else {
+			
 			line.push_back(currentToken->second);
 			//std::cout << "adding param " << currentToken->second << std::endl;
 		}

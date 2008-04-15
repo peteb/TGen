@@ -28,7 +28,6 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 	, sinceErrorCheck(0.0)
 	, worldRenderer(worldRenderer)
 	, vars(variables, logs, *this)
-	, inputMapper(playerController)
 	, player(NULL)
 {
 	logs.info["gst+"] << "entering game state..." << endl;
@@ -65,11 +64,11 @@ void TGen::Engine::GameState::tick() {
 	if (sinceLastRender >= vars.maxRefreshInterval) {
 		lastRender = now;
 		
-		playerController.update(sinceLastRender);
+		//playerController.update(sinceLastRender);
 		
 		if (currentWorld)
 			currentWorld->update(sinceLastRender);
-		
+			
 		render(sinceLastRender);
 	//	std::cout << 1.0 / sinceLastRender << std::endl;
 		
@@ -115,7 +114,8 @@ void TGen::Engine::GameState::checkErrors() {
 // TODO: ska kanske player vara i world ändå?
 
 void TGen::Engine::GameState::postWorldCreation(TGen::Engine::World & world) {
-	player = world.createPlayer();
+	//player = world.createPlayer();
+	inputMapper.setPlayerController(world.getPlayerController("player_start"));
 }
 
 void TGen::Engine::GameState::changeMap(const std::string & mapName) {

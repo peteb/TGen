@@ -37,6 +37,7 @@
 		D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */ = {isa = PBXBuildFile; fileRef = D0622ECE0D806C45003A31A0 /* Displays.icns */; };
 		D062301E0D807636003A31A0 /* Graphics.png in Resources */ = {isa = PBXBuildFile; fileRef = D062301D0D807636003A31A0 /* Graphics.png */; };
 		D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = D062304D0D807DBA003A31A0 /* Statistics.xib */; };
+		D0637CEF0DB556F700FD1DC4 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */; };
 		D07147A80D68592A00842110 /* metacreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07147A70D68592A00842110 /* metacreator.cpp */; };
 		D073D19C0D419BBC00D3C858 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D073D19A0D419BBC00D3C858 /* base */; };
 		D073D1B50D419E5F00D3C858 /* testmod in Resources */ = {isa = PBXBuildFile; fileRef = D073D1B20D419E5F00D3C858 /* testmod */; };
@@ -265,6 +266,8 @@
 		D0622ECE0D806C45003A31A0 /* Displays.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Displays.icns; sourceTree = "<group>"; };
 		D062301D0D807636003A31A0 /* Graphics.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Graphics.png; sourceTree = "<group>"; };
 		D062304D0D807DBA003A31A0 /* Statistics.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Statistics.xib; sourceTree = "<group>"; };
+		D0637CED0DB556EB00FD1DC4 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/controller/subsystem.h; sourceTree = SOURCE_ROOT; };
+		D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = controller/subsystem.cpp; sourceTree = "<group>"; };
 		D07147A60D68592100842110 /* metacreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metacreator.h; path = ../../Include/metacreator.h; sourceTree = SOURCE_ROOT; };
 		D07147A70D68592A00842110 /* metacreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metacreator.cpp; sourceTree = "<group>"; };
 		D073D19A0D419BBC00D3C858 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
@@ -672,6 +675,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		D0637CE90DB5557500FD1DC4 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */,
+				D0637CED0DB556EB00FD1DC4 /* subsystem.h */,
+				D00FEA9C0DAF8F05003703A2 /* playercontroller.cpp */,
+				D00FEA9B0DAF8EF9003703A2 /* playercontroller.h */,
+			);
+			name = controller;
+			sourceTree = "<group>";
+		};
 		D07407FB0D32C77E00735304 /* input */ = {
 			isa = PBXGroup;
 			children = (
@@ -790,6 +804,7 @@
 			children = (
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
+				D0637CE90DB5557500FD1DC4 /* controller */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D093321E0D79FFC30046DC37 /* physics */,
 			);
@@ -904,8 +919,6 @@
 				D09DFFBD0D35368300DB6324 /* gameinputmapper.h */,
 				D0F8393C0CBA67A100FF4467 /* view.cpp */,
 				D0F8393E0CBA67AD00FF4467 /* view.h */,
-				D00FEA9C0DAF8F05003703A2 /* playercontroller.cpp */,
-				D00FEA9B0DAF8EF9003703A2 /* playercontroller.h */,
 				D00FEB4D0DAF99A4003703A2 /* player.cpp */,
 				D00FEB4C0DAF999A003703A2 /* player.h */,
 			);
@@ -1161,6 +1174,7 @@
 				D0044AA60D9AABD300EEBC00 /* cubemesh.cpp in Sources */,
 				D00FEA9D0DAF8F05003703A2 /* playercontroller.cpp in Sources */,
 				D00FEB4E0DAF99A4003703A2 /* player.cpp in Sources */,
+				D0637CEF0DB556F700FD1DC4 /* subsystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -26,6 +26,7 @@ const std::string & TGen::Engine::Entity::getName() const {
 }
 
 void TGen::Engine::Entity::addComponent(TGen::Engine::Component * component, const std::string & name) {
+	std::cout << "ADDCOMP " << name << " to " << this->name << std::endl;
 	components.insert(ComponentMap::value_type(name, component));
 }
 	

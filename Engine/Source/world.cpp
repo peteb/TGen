@@ -36,7 +36,9 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("physGeom", &physicsSubsystem);
 	entityFactory.registerSubsystem("physJoint", &physicsSubsystem);
 	
-	// TODO: kontrollera om entiteter ska map cullas, vanligtvis på. stäng av med noMapCull eller nått
+	entityFactory.registerSubsystem("controller", &controllerSubsystem);
+	
+	// TODO: kontrollera om entiteter ska map-cullas, vanligtvis på. stäng av med noMapCull eller nått
 	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
 	//       kan kanske fixas genom att överlagra funktionen som ger faces åt renderlist att rendrera, att den då går igenom de rum som syns, 
 	//       men alla entiteter i banan ska uppdateras när banan uppdateras.
@@ -46,60 +48,33 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
 
-	TGen::Engine::File * entitiesFile = filesystem.openRead("/maps/" + mapname + "/entities");
+	loadEntities("/maps/defs");
+	loadEntities("/maps/" + mapname + "/entities");
+	
+	entities.linkGlobally();
+	
+	sceneSubsystem.link();
+	sceneSubsystem.getSceneRoot().update();
+}
 
+void TGen::Engine::World::loadEntities(const std::string & filename) {
+	TGen::Engine::File * entitiesFile = filesystem.openRead(filename);
 	
 	TGen::PropertyTreeParser propParser;
 	TGen::PropertyTree props = propParser.parse(entitiesFile->readAll().c_str());
 	delete entitiesFile;
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
-		TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
-		
-		entities.addEntity(entity);
-		/*if (entities.find(entity->getName()) == entities.end()) {
-			entities.insert(EntityMap::value_type(entity->getName(), entity));
+		if (props.getNode(i).getName() == "class") {
+			props.getNode(i).setName(props.getNode(i).getAttribute(0));   // change the name of the class to the first attribute
+			entityFactory.addClassEntity(props.getNode(i));
 		}
 		else {
-			app.logs.warning["world"] << "entity '" << entity->getName() << "' already set!" << TGen::endl;
-			delete entity;
-		}*/
-	}
-	
-	entities.linkGlobally();
-	
-	//mainCam = dynamic_cast<TGen::Camera *>(sceneSubsystem.getComponent("maincam")->getSceneNode());
-	//if (!mainCam)
-	//	throw TGen::RuntimeException("World::World", "maincam not defined");
-
-	sceneSubsystem.link();
-	sceneSubsystem.getSceneRoot().update();
-
-	
-	/*sceneRoot.addChild(mainCam);
-	
-	
-	TGen::MeshGeometryLinkList meshList;
-	sceneRoot.addChild(new TGen::SceneNode("weapon", TGen::Vector3(0.0f, 0.0f, 1.0f)));
-	sceneRoot.getChild("weapon")->addFace(TGen::Face(meshList.attach(new TGen::MeshGeometry("models/railgun.md3")), "railgunMaterial"));	// hur anger md3:an material?
-
-
-
-
-	TGen::Engine::Light * newLight = new TGen::Engine::Light;
-	lights[0] = newLight;
-	newLight->type = TGen::Engine::LightDirectional;
-	newLight->clipBoundingBox = false;
-	newLight->light.position = TGen::Vector4(0.0f, 0.0f, 1.0f, 0.0f);
-	newLight->light.diffuse = TGen::Color(0.3, 0.3, 0.3, 1.0);
-	newLight->light.specular = TGen::Color(1.0, 1.0, 1.0, 1.0);
-	
-	newLight = new TGen::Engine::Light;
-	lights[1] = newLight;
-	newLight->type = TGen::Engine::LightPositional;
-	newLight->boundingBox = TGen::AABB(TGen::Vector3(-0.4f, -0.4f, -0.4f), TGen::Vector3(0.4f, 0.4f, 0.4f));
-	newLight->light.position = TGen::Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-	*/
+			TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
+			
+			entities.addEntity(entity);
+		}
+	}	
 }
 
 // TODO: depthcheck på light volume
@@ -151,6 +126,7 @@ void TGen::Engine::World::update(scalar dt) {
 	//sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
 	// TODO: add lights IN the scene node of the map
 	
+	controllerSubsystem.update(dt);
 	sceneSubsystem.getSceneRoot().update();	
 	physicsSubsystem.update(dt);
 }
@@ -159,13 +135,34 @@ TGen::Color TGen::Engine::World::getAmbientLight() {
 	return TGen::Color(0.1, 0.1, 0.1, 1.0);
 }
 
-TGen::Engine::Player * TGen::Engine::World::createPlayer() {
+TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const std::string & name) {
+	return controllerSubsystem.getController(name);
+}
+
+/*TGen::Engine::Player * TGen::Engine::World::createPlayer() {
 	TGen::Camera * camera = new TGen::Camera("maincam", TGen::Vector3(0.0f, 2.0f, 0.0f), TGen::Rotation::Identity);
 	sceneSubsystem.getSceneRoot().addChild(camera);
 	
 	// TODO: ange inte playerstuff i entities, men player ska vara en TGen::Engine::Entity!
-	//       dvs, populera entiteten med components här typ.
+	//       dvs, populera entiteten med components i ctor eftersom man vill länka och stå i.
+	//       består av en eller flera scenenodes, en kamera, ljud möjligtvis, phsyGeom, physBody
+	//			healthComponent, ...
+	//       ska kunna finnas flera olika sorters players, ghost, physplayer osv. därför det är viktigt med getPlayerController
+	//       men mest logiskt vore om man fick controllern från game, det är ju den som bestämmer om man ska ha ghostcam eller
+	//       vara i gubben.
+	
+	// Game.getPlayerController!!!!!! sen frågar den world efter olika controllers beroende på vilken mode game är i.
+	//			typ world.getController("ghostplayer"), world.getController("physplayer").
+	//			eftersom en controller är kopplad till en spelare så måste man byta controller när man byter spelare, 
+	//			riktig spelare -> ghost t ex
+	// Game.getPlayerCam = const Camera *. frågar också världen efter den korrekta kameran
+	
+	//{ 1.0f, 2.0f, 1.0f, 2.0f, 4.0f, 2.0f, 1.0f, 2.0f, 1.0f} gaussian
+	
+	// TODO: entitysystemet behöver kunna sätta ihop olika modeller på joints.
+	
+	// TODO: world borde ge playercontroller till inputmapper!!!!! Sen inputMapper.update(dt, world.getPlayerController())!
 	
 	return NULL;
-}
+}*/
 // rendreraren ber world att uppdatera sig internt för en viss kamera, sen frågar den efter renderlist, lights, osv

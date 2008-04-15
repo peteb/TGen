@@ -40,7 +40,7 @@ TGen::Engine::Physics::Subsystem::~Subsystem() {
 	dCloseODE();
 }
 
-TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(const std::string & entityName, const TGen::PropertyTree & properties) {
 	if (properties.getName() == "physBody")
 		return createBody(properties);
 	else if (properties.getName() == "physJoint")

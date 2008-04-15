@@ -19,6 +19,7 @@ namespace TGen {
 		class Entity;
 		class Subsystem;
 		class StandardLogs;
+		class Component;
 		
 		class EntityFactory {
 		public:
@@ -26,12 +27,19 @@ namespace TGen {
 			~EntityFactory();
 			
 			TGen::Engine::Entity * createEntity(const TGen::PropertyTree & properties);
+			void addClassEntity(const TGen::PropertyTree & properties);
+			
 			void registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem);
 			
 		private:
+			TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties) const;
+			TGen::PropertyTree extendTree(const TGen::PropertyTree & base, const TGen::PropertyTree & entity) const;
+			
 			typedef std::map<std::string, TGen::Engine::Subsystem *> SubsystemMap;
+			typedef std::map<std::string, TGen::PropertyTree> ClassMap;
 			
 			SubsystemMap subsystems;
+			ClassMap classDefinitions;
 			
 			TGen::Engine::StandardLogs & logs;
 		};

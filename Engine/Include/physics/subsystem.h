@@ -30,7 +30,7 @@ namespace TGen {
 				Subsystem(TGen::Engine::StandardLogs & logs);
 				~Subsystem();
 			
-				TGen::Engine::Component * createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties);
 				void link();
 				void update(scalar delta);
 				

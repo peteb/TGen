@@ -30,14 +30,19 @@ TGen::Engine::Scene::Subsystem::~Subsystem() {
 
 }
 
-TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(TGen::Engine::Entity * entity, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & entityName, const TGen::PropertyTree & properties) {
 	bool doCreateNode = properties.getName() == "sceneNode";
 	bool doCreateCamera = properties.getName() == "sceneCamera";
 	bool doCreateLight = properties.getName() == "sceneLight";
 	bool doCreateMap = properties.getName() == "sceneMap";
 	
-	std::string name = entity->getName();
-
+	std::string name = entityName;
+	
+	if (properties.getNumAttributes() > 0)
+		name = properties.getAttribute(0);
+	
+	// TODO: vad händer om man mergar med olika attribut på en node, blir fel!
+	
 	TGen::SceneNode * sceneNode = NULL;
 	
 	if (doCreateCamera)
@@ -58,14 +63,14 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(TGen::
 
 	parentNode->addChild(sceneNode);
 
-	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node("sceneNode", sceneNode);
-	if (components.find(entity->getName()) == components.end())
-		components.insert(ComponentMap::value_type(entity->getName(), newComponent));
+	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
+	if (components.find(name) == components.end())
+		components.insert(ComponentMap::value_type(name, newComponent));
 	
 	return newComponent;
 }
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {	
 	TGen::Camera * camera = new TGen::Camera(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), TGen::Rotation::Identity);
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));

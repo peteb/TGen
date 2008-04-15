@@ -18,7 +18,7 @@
 	}
 }*/
 
-box2 {
+/*box2 {
 	sceneNode {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
@@ -58,9 +58,9 @@ box2 {
 
 
 }
+*/
 
-
-box3 {
+/*box3 {
 	sceneNode {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
@@ -149,7 +149,7 @@ box4 {
 		friction 2.0
 	}
 }
-
+*/
 
 /*box3 {
 	sceneNode {
@@ -246,12 +246,18 @@ ground5 {
 }
 */
 
-player_start {
+/*player_start {
 	sceneNode {
 		origin "0 2 0"
 		orientation "0 0 1"
 	}
-}
+	
+	sceneNode {
+		origin "0 6 0"
+		orientation "0 0 1"
+	}
+	
+}*/
 
 light1 {
 	sceneLight {
@@ -262,9 +268,9 @@ light1 {
 	}
 }
 
-/*maincam {
+maincam {
 	sceneCamera {
-		origin "0 2 0"
+		origin "0 2 2"
 		orientation "0 0 1"
 		range "500"
 	}
@@ -277,5 +283,35 @@ light1 {
 			}
 		}
 	}
-}*/
+}
 
+
+player_start extends TheMachoGuy {
+	sceneNode shitaz {
+		material "Cube2"
+		origin "0 2 0"
+	}
+	
+	/*physBody {
+		mass box {
+			total 1.0
+			dimensions "1 1 1"
+		}
+		
+		gravity true
+	}
+	
+	physGeom box {
+		dimensions "1 1 1"
+	}*/
+	
+	sceneCamera HeadCam {
+		origin "0 2 0"
+		range "500"
+	}
+	
+	controller ghost {
+		speed 1.0
+		
+	}
+}

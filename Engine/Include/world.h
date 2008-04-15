@@ -17,6 +17,7 @@
 #include "entityfactory.h"
 #include "scene/subsystem.h"
 #include "physics/subsystem.h"
+#include "controller/subsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -27,6 +28,7 @@ namespace TGen {
 		class StandardLogs;
 		class ResourceManager;
 		class Player;
+		class PlayerController;
 		
 		class World {
 		public:
@@ -37,19 +39,21 @@ namespace TGen {
 			TGen::RenderList & getRenderList();
 			TGen::Engine::LightList & getLightList();
 			TGen::Color getAmbientLight();
-			
-			TGen::Engine::Player * createPlayer();
+			TGen::Engine::PlayerController * getPlayerController(const std::string & name);
 			
 			void prepareLists(TGen::Camera * camera);
 			
 			void update(scalar dt);
 			
 		private:
+			void loadEntities(const std::string & filename);
+			
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;
 			
 			TGen::Engine::Scene::Subsystem sceneSubsystem;
 			TGen::Engine::Physics::Subsystem physicsSubsystem;
+			TGen::Engine::Controller::Subsystem controllerSubsystem;
 			
 			TGen::Engine::EntityFactory entityFactory;
 			
