@@ -30,7 +30,7 @@ namespace TGen {
 				Subsystem(TGen::Engine::ResourceManager & resources, TGen::Engine::Filesystem & filesystem, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource);
 				~Subsystem();
 				
-				TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				void link();
 				
 				TGen::Engine::Scene::Node * getComponent(const std::string & name);

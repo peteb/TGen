@@ -81,10 +81,11 @@ void TGen::Camera::update() {
 		//std::cout << "---" << std::endl << std::string(parent->getTransform() * fixedMat  * TGen::Matrix4x4::Translation(-position)) << std::endl;
 		
 		if (parent)
-			this->transform = parent->getTransform() * fixedMat  * TGen::Matrix4x4::Translation(-position);
+			this->transform = parent->getTransform() * fixedMat  * TGen::Matrix4x4::Translation(position);
 		else
-			this->transform = fixedMat  * TGen::Matrix4x4::Translation(-position);
+			this->transform = fixedMat  * TGen::Matrix4x4::Translation(position);
 
+		this->transform.invert();
 		
 		/*std::cout << "TRANSFORM:" << std::endl << std::string(this->transform) << std::endl << std::endl;
 		std::cout << "LOOKDIR: " << std::endl << std::string(TGen::Matrix4x4::LookInDirection(fixedView, up) * TGen::Matrix4x4::Translation(-position)) << std::endl;

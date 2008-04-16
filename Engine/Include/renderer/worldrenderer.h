@@ -14,6 +14,7 @@
 
 namespace TGen {
 	class Renderer;
+	class Camera;
 	
 	namespace Engine {
 		class World;
@@ -23,7 +24,7 @@ namespace TGen {
 			WorldRenderer(TGen::Renderer & renderer);
 			virtual ~WorldRenderer();
 			
-			virtual void renderWorld(TGen::Engine::World & world, scalar dt) abstract;
+			virtual void renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) abstract;
 			TGen::Renderer & getRenderer();
 			
 		protected:

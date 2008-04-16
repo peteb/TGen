@@ -14,6 +14,7 @@
 #include "world.h"
 #include "devicecollection.h"
 #include "log.h"
+#include "playercontroller.h"
 
 TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices, TGen::Engine::Environment & env, TGen::Engine::Filesystem & filesystem, TGen::Engine::VariableRegister & variables, TGen::Engine::StandardLogs & logs, TGen::Engine::WorldRenderer & worldRenderer, TGen::Engine::ResourceManager & resources, TGen::VertexDataSource & dataSource)
 	: logs(logs)
@@ -84,7 +85,7 @@ void TGen::Engine::GameState::tick() {
 
 void TGen::Engine::GameState::render(scalar dt) {
 	if (currentWorld)
-		worldRenderer.renderWorld(*currentWorld, dt);
+		worldRenderer.renderWorld(*currentWorld, currentWorld->getPlayerController("player_start")->getCamera("headcam"), dt);
 	
 	env.swapBuffers();
 	//std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;

@@ -23,7 +23,7 @@ dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
 TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs) 
 	: logs(logs)
-	, updateInterval(0.02)
+	, updateInterval(0.01)
 {
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
@@ -40,18 +40,18 @@ TGen::Engine::Physics::Subsystem::~Subsystem() {
 	dCloseODE();
 }
 
-TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	if (properties.getName() == "physBody")
-		return createBody(properties);
+		return createBody(name, properties);
 	else if (properties.getName() == "physJoint")
-		return createJoint(properties);
+		return createJoint(name, properties);
 	else if (properties.getName() == "physGeom")
-		return createGeom(properties);
+		return createGeom(name, properties);
 	
 	throw TGen::RuntimeException("PhysicsSubsystem::createComponent", "invalid component type '" + properties.getName() + "'");
 }
 
-TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const TGen::PropertyTree & properties) {
+TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Vector3 position = TGen::Vector3::Parse(properties.getProperty("position", "0 0 0"));
 	bool applyGravity = TGen::lexical_cast<bool>(properties.getProperty("gravity", "true"));
 	
@@ -85,14 +85,14 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 		// No mass defined
 	}
 	
-	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body("physBody", newBodyId);
+	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId);
 	newBody->setPosition(position);
 	bodies.push_back(newBody);
 	
 	return newBody;
 }
 
-TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(const TGen::PropertyTree & properties) {
+TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(const std::string & name, const TGen::PropertyTree & properties) {
 	if (properties.getNumAttributes() == 0)
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "no attributes, plz give some");
 	
@@ -105,24 +105,24 @@ TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(con
 	else
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "joint type '" + jointType + "' invalid");
 	
-	TGen::Engine::Physics::Joint * newComponent = new TGen::Engine::Physics::Joint("physJoint", newJointId, properties.getProperty("attach", ""));
+	TGen::Engine::Physics::Joint * newComponent = new TGen::Engine::Physics::Joint(name, newJointId, properties.getProperty("attach", ""));
 	newComponent->setAnchor(TGen::Vector3::Parse(properties.getProperty("anchor", "0 0 0")));
 	
 	return newComponent;
 }
 
-TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const TGen::PropertyTree & properties) {
-	if (properties.getNumAttributes() == 0)
-		throw TGen::RuntimeException("Physics::Subsystem::createJoint", "no attributes, plz give some");
+TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const std::string & name, const TGen::PropertyTree & properties) {
+	//if (properties.getNumAttributes() == 0)
+//		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "no attributes, plz give some");
 
 	std::auto_ptr<TGen::Engine::Physics::Geom> newComponent;
-	std::string geomType = properties.getAttribute(0);
+	std::string geomType = properties.getProperty("type", "none");
 	
 	if (geomType == "plane") {
 		TGen::Vector3 normal = TGen::Vector3::Parse(properties.getProperty("orientation", "0 1 0"));
 		scalar distance = TGen::lexical_cast<scalar>(properties.getProperty("distance", "0"));
 		
-		newComponent.reset(new TGen::Engine::Physics::PlaneGeom("physGeom", TGen::Plane3(normal, distance), mainSpace));
+		newComponent.reset(new TGen::Engine::Physics::PlaneGeom(name, TGen::Plane3(normal, distance), mainSpace));
 	}
 	else if (geomType == "sphere") {
 		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
@@ -139,6 +139,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	}
 	
 	newComponent->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
+	newComponent->setBodyComponent(properties.getProperty("link", "physBody"));
 	
 	return newComponent.release();
 }

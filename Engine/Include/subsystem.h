@@ -20,7 +20,7 @@ namespace TGen {
 		public:
 			virtual ~Subsystem() {}
 			
-			virtual TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties) abstract;
+			virtual TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) abstract;
 		};
 		
 	} // !Engine

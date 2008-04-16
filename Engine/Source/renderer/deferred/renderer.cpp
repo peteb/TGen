@@ -165,18 +165,15 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 }
 #include <GLUT/GLUT.h>
 
-void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, scalar dt) {
+void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
 	/*if (!world) {
 		renderWorldless(dt);
 		return;
 	}
 	*/
-	if (!mainCamera) {
-		mainCamera = world.getCamera("maincam");
-		
-		if (!mainCamera)
-			return;
-	}
+	
+	mainCamera = camera; //world.getCamera("maincam");   // TODO: mainCamera?!
+
 	
 	// TODO: early-z, z-pass first. ska kunna aktiveras/avaktiveras genom variabel
 	

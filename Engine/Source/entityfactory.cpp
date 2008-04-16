@@ -35,8 +35,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 			if (iter == classDefinitions.end())
 				throw TGen::RuntimeException("EntityFactory::createEntity", "entity class '" + properties.getAttribute(1) + "' invalid");
 			
-			TGen::PropertyTree base = iter->second;
-			props = extendTree(base, properties);
+			props = extendTree(iter->second, properties);
 		}
 	}
 	
@@ -60,7 +59,11 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 		logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getName() << "'" << TGen::endl;
 	}
 	else {
-		return iter->second->createComponent(entityName, properties);
+		std::string componentName = properties.getName();
+		if (properties.getNumAttributes() > 0)
+			componentName = properties.getAttribute(0);
+		
+		return iter->second->createComponent(componentName, entityName, properties);
 	}	
 	
 	return NULL;

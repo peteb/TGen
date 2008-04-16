@@ -151,10 +151,10 @@ box4 {
 }
 */
 
-/*box3 {
+box4 {
 	sceneNode {
-		model "gen:models/cube1.md3 scale '0.01'"
-		origin "4 4 0"
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 4 0"
 	}
 	
 	physBody {
@@ -166,10 +166,20 @@ box4 {
 		gravity true
 	}
 	
-	physGeom box {
-		dimensions "0.65 0.65 0.65"
+	sceneLight {
+		material "deferred/lightPositional"
+		treePosition "box4/"
+		diffuse "0.2 1.0 0.2 1.0"
+		specular "1.0"
+		model "gen:cube width 5.0 height 5.0 depth 5.0"
 	}
-}*/
+	
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
 
 
 /*ground1 {
@@ -189,7 +199,9 @@ ground2 {
 		orientation "0.1 1 0"
 	}
 	
-	physGeom plane {
+	physGeom {
+		type plane
+	
 		orientation "0.1 1 0"
 
 		distance "-1.0"
@@ -207,7 +219,9 @@ ground3 {
 		orientation "-0.1 1 0"
 	}
 
-	physGeom plane {
+	physGeom {
+		type plane
+	
 		orientation "-0.1 1 0"
 		distance "-1.0"
 		friction 0.4
@@ -215,7 +229,9 @@ ground3 {
 }
 
 ground4 {
-	physGeom plane {
+	physGeom {
+		type plane
+		
 		orientation "0 0 1"
 		distance "-10.0"
 		friction 0.4
@@ -223,7 +239,9 @@ ground4 {
 }
 
 ground5 {
-	physGeom plane {
+	physGeom {
+		type plane
+		
 		orientation "0 0 -1"
 		distance "-10.0"
 		friction 0.4
@@ -263,7 +281,7 @@ light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
 		orientation "0 0.5 1"
-		diffuse "0.1"
+		diffuse "0.2"
 		specular "0.9"
 	}
 }
@@ -287,31 +305,38 @@ maincam {
 
 
 player_start extends TheMachoGuy {
-	sceneNode shitaz {
+	sceneNode {
 		material "Cube2"
 		origin "0 2 0"
 	}
 	
-	/*physBody {
+	physBody {
 		mass box {
-			total 1.0
+			total 10.0
 			dimensions "1 1 1"
 		}
 		
 		gravity true
 	}
 	
-	physGeom box {
+	physGeom {
+		type box
+		
 		dimensions "1 1 1"
-	}*/
-	
-	sceneCamera HeadCam {
-		origin "0 2 0"
-		range "500"
 	}
 	
-	controller ghost {
-		speed 1.0
+	sceneCamera HeadCam {
+		origin "0 1 2"
+		range "500"
 		
+		treePosition "player_start/"
+	}
+	
+	controller {
+		type ghost
+		
+		speed 1.0
+		camera HeadCam
+		control sceneNode
 	}
 }

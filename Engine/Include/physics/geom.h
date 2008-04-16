@@ -18,18 +18,21 @@ namespace TGen {
 		namespace Physics {
 			class Geom : public TGen::Engine::Component {
 			public:
-				Geom(const std::string & name);
+				Geom(const std::string & name, const std::string & bodyComponent = "physBody");
 				virtual ~Geom();
 				
 				float getFriction() const;
 				void setFriction(float friction);
+				void setBodyComponent(const std::string & body);
+				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities);
-
+				
 			protected:
 				void setGeomId(dGeomID id);
 				
 			private:
+				std::string bodyComponent;
 				float friction;
 				dGeomID geomId;
 			};

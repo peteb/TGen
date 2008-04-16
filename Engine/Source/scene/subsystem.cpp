@@ -30,29 +30,25 @@ TGen::Engine::Scene::Subsystem::~Subsystem() {
 
 }
 
-TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	bool doCreateNode = properties.getName() == "sceneNode";
 	bool doCreateCamera = properties.getName() == "sceneCamera";
 	bool doCreateLight = properties.getName() == "sceneLight";
 	bool doCreateMap = properties.getName() == "sceneMap";
 	
-	std::string name = entityName;
-	
-	if (properties.getNumAttributes() > 0)
-		name = properties.getAttribute(0);
 	
 	// TODO: vad händer om man mergar med olika attribut på en node, blir fel!
 	
 	TGen::SceneNode * sceneNode = NULL;
 	
 	if (doCreateCamera)
-		sceneNode = createCameraNode(name, properties);
+		sceneNode = createCameraNode(entityName, properties);
 	else if (doCreateLight)
-		sceneNode = createLightNode(name, properties);
+		sceneNode = createLightNode(entityName, properties);
 	else if (doCreateNode)
-		sceneNode = createNode(name, properties);
+		sceneNode = createNode(entityName, properties);
 	else if (doCreateMap)
-		sceneNode = createMapNode(name, properties);
+		sceneNode = createMapNode(entityName, properties);
 	else
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
@@ -64,8 +60,8 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	parentNode->addChild(sceneNode);
 
 	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
-	if (components.find(name) == components.end())
-		components.insert(ComponentMap::value_type(name, newComponent));
+	if (components.find(entityName) == components.end())
+		components.insert(ComponentMap::value_type(entityName, newComponent));
 	
 	return newComponent;
 }
@@ -154,8 +150,6 @@ TGen::Engine::Scene::Node * TGen::Engine::Scene::Subsystem::getComponent(const s
 	
 	throw TGen::RuntimeException("SceneSubsystem::getComponent", "entity '" + name + "' could not be found");
 }
-
-// TODO: refactor all world.app.logs-blabla-shit to logs
 
 void TGen::Engine::Scene::Subsystem::link() {
 	logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;

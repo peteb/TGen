@@ -41,10 +41,15 @@ namespace TGen {
 			void update(scalar dt);
 			
 			void linkLocally(TGen::Engine::Entity & entity);
-			void addCamera(const std::string & name, TGen::Camera * camera);
+			
+			void addCamera(const std::string & name, const std::string & camera);
+			
 			TGen::Camera * getCamera(const std::string & name) const;
 			
 		protected:
+			void linkCameras(TGen::Engine::Entity & entity);
+	//		void addCamera(const std::string & name, TGen::Camera * camera);
+
 			scalar speed;
 			bool checkEvent(int id);
 
@@ -52,8 +57,11 @@ namespace TGen {
 			uint32 activeEvents[20];
 			
 			TGen::SceneNode * node;		// IMPL
-			typedef std::map<std::string, TGen::Camera *> CameraMap;
 			
+			typedef std::map<std::string, TGen::Camera *> CameraMap;
+			typedef std::map<std::string, std::string> StringStringMap;
+			
+			StringStringMap camerasToLink;
 			CameraMap cameras;
 		};
 		

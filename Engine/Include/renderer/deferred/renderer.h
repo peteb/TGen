@@ -38,7 +38,7 @@ namespace TGen {
 			DeferredRenderer(TGen::Renderer & renderer, TGen::Engine::StandardLogs & logs, TGen::Engine::VariableRegister & variables, TGen::Engine::ResourceManager & resources);
 			~DeferredRenderer();
 			
-			void renderWorld(TGen::Engine::World & world, scalar dt);
+			void renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt);
 			void postProcessing(const TGen::Rectangle & viewport);
 			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
 			//void setWorld(TGen::Engine::World * world);

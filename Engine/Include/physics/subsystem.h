@@ -30,16 +30,16 @@ namespace TGen {
 				Subsystem(TGen::Engine::StandardLogs & logs);
 				~Subsystem();
 			
-				TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				void link();
 				void update(scalar delta);
 				
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
 				
 			private:
-				TGen::Engine::Physics::Body * createBody(const TGen::PropertyTree & properties);
-				TGen::Engine::Physics::Joint * createJoint(const TGen::PropertyTree & properties);
-				TGen::Engine::Physics::Geom * createGeom(const TGen::PropertyTree & properties);
+				TGen::Engine::Physics::Body * createBody(const std::string & name, const TGen::PropertyTree & properties);
+				TGen::Engine::Physics::Joint * createJoint(const std::string & name, const TGen::PropertyTree & properties);
+				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties);
 				
 				void setGravity(const TGen::Vector3 & gravity);
 				
