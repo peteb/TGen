@@ -181,12 +181,259 @@ box4 {
 	}
 }
 
+box5 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+	
+	sceneLight {
+		material "deferred/lightPositional"
+		treePosition "box5/"
+		diffuse "0.2 0.2 1.0 1.0"
+		specular "1.0"
+		model "gen:cube width 5.0 height 5.0 depth 5.0"
+	}
+	
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box8 {
+	sceneNode {
+		model "gen:cube width 3 height 3 depth 3" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 1.0
+			dimensions "3.0 3.0 3.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "3 3 3"
+	}
+}
+
+
 
 /*ground1 {
 	physGeom plane {
 		orientation "0 1 0"
 		distance "-1.0"
-	}
+	}รรรร
 }*/
 
 ground2 {
@@ -236,8 +483,54 @@ ground4 {
 		distance "-10.0"
 		friction 0.4
 	}
+	
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
+		material "Cube"
+		origin "0 0 10"
+		orientation "0 0 1"
+	}
 }
 
+ground6 {
+	physGeom {
+		type plane
+		
+		orientation "1 0 0"
+		distance "-10.0"
+		friction 0.4
+	}
+	
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
+		material "Cube"
+		origin "-10 0 0"
+		orientation "1 0 0"
+	}
+}
+
+ground7 {
+	physGeom {
+		type plane
+		
+		orientation "-1 0 0"
+		distance "-10.0"
+		friction 0.4
+	}
+	
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
+		material "Cube"
+		origin "10 0 0"
+		orientation "-1 0 0"
+	}
+}
 ground5 {
 	physGeom {
 		type plane
@@ -246,6 +539,16 @@ ground5 {
 		distance "-10.0"
 		friction 0.4
 	}
+	
+	sceneNode {
+		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
+		//model "models/kub.md3 scale '1.0'"
+		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
+		material "Cube"
+		origin "0 0 -10"
+		orientation "0 0 -1"
+	}
+
 }
 
 /*
@@ -281,8 +584,8 @@ light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
 		orientation "0 0.5 1"
-		diffuse "0.2"
-		specular "0.9"
+		diffuse "0.1"
+		specular "1.0"
 	}
 }
 
@@ -312,7 +615,7 @@ player_start extends TheMachoGuy {
 	
 	physBody {
 		mass box {
-			total 10.0
+			total 2.0
 			dimensions "1 1 1"
 		}
 		
@@ -339,4 +642,13 @@ player_start extends TheMachoGuy {
 		camera HeadCam
 		control sceneNode
 	}
+	
+	sceneLight {
+		material "deferred/lightPositional"
+		treePosition "player_start/"
+		diffuse "1 1 0 1"
+		specular "1.0"
+		model "gen:cube width 5.0 height 5.0 depth 5.0"
+	}
+	
 }

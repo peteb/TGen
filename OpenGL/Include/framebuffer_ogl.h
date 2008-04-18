@@ -21,7 +21,7 @@ namespace TGen {
 		
 		class FrameBuffer : public TGen::FrameBuffer {
 		private:
-			FrameBuffer(GLuint fboId);
+			FrameBuffer(TGen::OpenGL::Renderer & creator, GLuint fboId);
 
 		public:	
 			~FrameBuffer();
@@ -30,6 +30,10 @@ namespace TGen {
 			void attachDepth(TGen::Texture * texture);
 			void attachStencil(TGen::Texture * texture);
 			
+			void setColorUnit(uint unit, TGen::Texture * texture);
+			void setDepthUnit(uint unit, TGen::Texture * texture);
+			void setStencilUnit(uint unit, TGen::Texture * texture);
+			
 			void attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint);
 			GLuint getInternalID() const;
 			void setupDrawBuffers();
@@ -37,9 +41,15 @@ namespace TGen {
 			friend class TGen::OpenGL::Renderer;
 			
 		private:
+			void throwError(GLenum errorCode) const;
+			void setAttachPoint(GLenum pointName, TGen::OpenGL::Texture * texture);
+			
 			GLuint fboId;
+			GLint maxColorAttachments;
+			static GLenum colorPointNames[16];
 			int colorPointsTaken, depthPointsTaken, stencilPointsTaken;
 			std::vector<GLenum> pointsTaken;
+			TGen::OpenGL::Renderer & creator;
 		};
 	
 	} // !OpenGL

@@ -41,9 +41,15 @@ void TGen::Engine::PlayerController::endEvent(int id) {
 
 void TGen::Engine::PlayerController::update(scalar dt) {
 	
+	if (checkEvent(EventJump)) {
+		if (node) {
+			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getY() * dt * 8.0);
+		}
+	}
+	
 	if (checkEvent(EventForward)) {
 		if (node) {
-			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getZ() * dt);
+			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getZ() * dt * 8.0);
 		}
 	}
 	if (checkEvent(EventBackward)) {
@@ -79,6 +85,9 @@ bool TGen::Engine::PlayerController::checkEvent(int id) {
 	
 	return false;
 }
+
+// TODO: fix blog entry
+// TODO: mouse steering, that ball thingie (arcball?)
 
 /*void TGen::Engine::PlayerController::addCamera(const std::string & name, TGen::Camera * camera) {
 	cameras.insert(CameraMap::value_type(name, camera));

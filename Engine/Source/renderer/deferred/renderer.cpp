@@ -161,6 +161,8 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	//depthTarget = app.renderer.createFrameBuffer();
 	//depthTarget->attachDepth(depthMap);
 	
+	// TODO: USE ONLY ONE FBO!!!!!!!!! swap bound textures
+	
 	mrtSize = mapSize;
 }
 #include <GLUT/GLUT.h>

@@ -42,6 +42,8 @@ TGen::OpenGL::Renderer::Renderer()
 	, ibReadOffset(0)
 	, vbReadOffset(0)
 	, indexBufferFormatSize(0)
+	, lastFBO(-1)
+	, lastBoundFBO(NULL)
 	, hasCoordElements(NULL)
 	, hasNormalElements(NULL)
 	, hasColorElements(NULL)
@@ -703,14 +705,14 @@ void TGen::OpenGL::Renderer::drawIndexedPrimitive(TGen::PrimitiveType type, uint
 
 TGen::FrameBuffer * TGen::OpenGL::Renderer::createFrameBuffer() {
 	if (!caps.framebuffer)
-		throw TGen::RuntimeException("OpenGL::Renderer::CreateFrameBuffer", "framebuffers not supported");
+		throw TGen::RuntimeException("OpenGL::Renderer::createFrameBuffer", "framebuffers not supported");
 	
 	GLuint fbo = 0;
 	glGenFramebuffersEXT(1, &fbo);
 	
 	DEBUG_PRINT("[opengl]: created framebuffer " << fbo);
 	
-	return new TGen::OpenGL::FrameBuffer(fbo);
+	return new TGen::OpenGL::FrameBuffer(*this, fbo);
 }
 
 TGen::Shader * TGen::OpenGL::Renderer::createVertexShader(const char * code) {
@@ -809,15 +811,30 @@ TGen::OpenGL::ShaderProgram * TGen::OpenGL::Renderer::createShaderProgram(const 
 
 
 void TGen::OpenGL::Renderer::setRenderTarget(TGen::FrameBuffer * buffer) {
-	TGen::OpenGL::FrameBuffer * fixedBuffer = static_cast<TGen::OpenGL::FrameBuffer *>(buffer);
+	if (buffer != lastBoundFBO) {
+		TGen::OpenGL::FrameBuffer * fixedBuffer = static_cast<TGen::OpenGL::FrameBuffer *>(buffer);
+			
+		if (buffer) {
+			//GLuint newFBO = fixedBuffer->getInternalID();
+		//	if (newFBO != lastFBO) {
+				glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fixedBuffer->getInternalID());		
+				fixedBuffer->setupDrawBuffers();
+			//	lastFBO = newFBO;
+		//	}
+		}
+		else {
+//			if (lastFBO != 0) {
+				glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+	//			lastFBO = 0;
+		//	}
+		}
 		
-	if (buffer) {
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fixedBuffer->getInternalID());		
-		fixedBuffer->setupDrawBuffers();
+		lastBoundFBO = buffer;
 	}
-	else {
-		glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
-	}
+}
+
+TGen::FrameBuffer * TGen::OpenGL::Renderer::getBoundFramebuffer() {
+	return lastBoundFBO;
 }
 
 void TGen::OpenGL::Renderer::setShaderProgram(TGen::ShaderProgram * program) {

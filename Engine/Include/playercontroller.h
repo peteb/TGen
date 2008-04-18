@@ -23,6 +23,7 @@ namespace TGen {
 			EventBackward,
 			EventStrafeLeft,
 			EventStrafeRight,			
+			EventJump,
 		};
 		
 		enum EventFlags {

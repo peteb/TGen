@@ -30,6 +30,9 @@ namespace TGen {
 		virtual void attachDepth(TGen::Texture * texture) abstract;
 		virtual void attachStencil(TGen::Texture * texture) abstract;
 		virtual void attach(TGen::Texture * texture, TGen::FramebufferAttachment attachpoint) abstract;
+		virtual void setColorUnit(uint unit, TGen::Texture * texture) abstract;
+		virtual void setDepthUnit(uint unit, TGen::Texture * texture) abstract;
+		virtual void setStencilUnit(uint unit, TGen::Texture * texture) abstract;
 	};
 } // !TGen
 

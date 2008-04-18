@@ -38,8 +38,13 @@ namespace TGen {
 			void setClearColor(const TGen::Color & color);
 			void setClearDepth(scalar depth);
 			void setViewport(const TGen::Rectangle & viewport);
+			
+			#ifdef _GFX_KEEP_DEPRECATED
 			void setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override = NULL);
 			void setIndexBuffer(TGen::IndexBuffer * buffer);
+			#endif
+			
+			
 			void setVertexBuffer(TGen::VertexData * buffer, TGen::VertexStructure * override = NULL);
 			void setIndexBuffer(TGen::VertexData * buffer);
 
@@ -83,6 +88,7 @@ namespace TGen {
 			bool throwErrors();
 			
 			static bool isExtensionAvailable(const std::string & extension);
+			TGen::FrameBuffer * getBoundFramebuffer();
 			
 		private:
 			void parseExtensions();
@@ -114,9 +120,11 @@ namespace TGen {
 			TGen::IndexBuffer * lastIb;
 			#endif
 			
+			GLuint lastFBO;
 			GLuint lastVb1, lastIb1;
 			uint vbReadOffset, ibReadOffset;
 			TGen::VertexData * lastVb2, * lastIb2;
+			TGen::FrameBuffer * lastBoundFBO;
 			
 			// information to reduce state switches
 			GLenum activeTextureUnit;

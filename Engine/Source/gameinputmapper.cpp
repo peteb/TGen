@@ -59,6 +59,9 @@ int TGen::Engine::GameInputMapper::keyToEventID(int id) const {
 			
 		case 'd':
 			return TGen::Engine::EventStrafeRight;
+			
+		case ' ':
+			return TGen::Engine::EventJump;
 	}
 	
 	return -1;
