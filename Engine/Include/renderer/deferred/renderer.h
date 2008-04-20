@@ -83,6 +83,8 @@ namespace TGen {
 			TGen::FrameBuffer * depthTarget;
 			TGen::Material ** lightMaterials;
 			
+			TGen::FrameBuffer * renderTarget;
+			
 			typedef TGen::Vertex3<float> LightVertexDecl;
 			typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Color4<float> > MetaLineDecl;
 			

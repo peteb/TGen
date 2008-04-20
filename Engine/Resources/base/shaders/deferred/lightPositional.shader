@@ -36,7 +36,6 @@ void main() {
 	
 	vec4 pos = gl_ModelViewProjectionMatrixInverse * vec4(gl_FragCoord.xy / (rtSize / 2.0) - 1.0, texDepth, 1.0);
 	pos /= pos.w;
-
 	
 	vec3 lightToFrag = normalize(lightpos.xyz - pos.xyz);
 	vec3 view = normalize(eye - pos.xyz);
@@ -46,7 +45,7 @@ void main() {
 	
 	float d = 1.0 - max(distance(pos.xyz, lightpos.xyz) / 2.5, 0.0);   // 0..1 in distance range
 	float diffuse = d * NdotL;
-	float specular = max(0.0, pow(dot(normal, H), 70.0)) * d;
+	float specular = max(0.0, pow(dot(normal, H), 70.0)) * d * NdotL;
 	
 	//gl_FragColor = vec4(NdotL, NdotL, NdotL, 1.0);
 	gl_FragColor = vec4(gl_LightSource[0].diffuse.rgb * diffuse + gl_LightSource[0].specular.rgb * specular, 1.0);

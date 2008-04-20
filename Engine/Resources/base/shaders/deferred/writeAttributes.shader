@@ -10,6 +10,9 @@
  *    SPECULAR_MAP: use specular map, sampler specularMap
  *    TRANSFORM_TEX: transform texture coordinates
  *    VERT_INTERPOL: interpolate between frames (needs nextVertex, nextNormal and frameTime)
+ *    NULL_NORMALS: normals will be (0, 0, 0). useful when no lighting is wanted
+ *    NO_AMBIENT: ambient lighting will not be used
+ *    NO_GLOW: turn off glow
  *  
  *  Output:
  *    unit 0: color
@@ -103,20 +106,49 @@ void main() {
 
 void main() {
 	#ifdef COLOR_MAP
-		gl_FragData[0] = texture2D(colorMap, gl_TexCoord[0].st) * gl_Color;
+		#ifndef NO_AMBIENT
+			vec4 color = texture2D(colorMap, gl_TexCoord[0].st) * gl_Color * gl_LightModel.ambient;
+		#else
+			vec4 color = texture2D(colorMap, gl_TexCoord[0].st) * gl_Color;		
+		#endif
 	#endif
 	
-	#ifndef NORMAL_MAP
-		gl_FragData[1] = vec4((normalize(normal) * 0.5 + 0.5).xyz, 1.0);
+	gl_FragData[0] = color;
+	
+	#ifdef NULL_NORMALS
+		gl_FragData[1] = vec4(0.0, 0.0, 0.0, 0.0) * 0.5 + 0.5;
 	#else
-		vec3 normalFromMap = normalize(texture2D(normalMap, gl_TexCoord[0].st).xyz * 2.0 - 1.0);	// TODO: normalize ska kunna stängas av
-		gl_FragData[1] = vec4((normalize(tbnMatrix * normalFromMap) * 0.5 + 0.5).xyz, 1.0);	
+		#ifndef NORMAL_MAP
+			gl_FragData[1] = vec4((normalize(normal) * 0.5 + 0.5).xyz, 1.0);
+		#else
+			vec3 normalFromMap = normalize(texture2D(normalMap, gl_TexCoord[0].st).xyz * 2.0 - 1.0);	// TODO: normalize ska kunna stängas av
+			gl_FragData[1] = vec4((normalize(tbnMatrix * normalFromMap) * 0.5 + 0.5).xyz, 1.0);	
+		#endif
 	#endif
+	
+	vec4 miscValue = vec4(0.0, 0.0, 0.0, 1.0);
 	
 	#ifndef SPECULAR_MAP
-		gl_FragData[2] = vec4(0.4, 0.0, 0.0, 1.0);	
+		miscValue.r = 0.4;	
 	#else
-		gl_FragData[2] = vec4(texture2D(specularMap, gl_TexCoord[0].st).r, 0.0, 0.0, 1.0);
+		miscValue.r = texture2D(specularMap, gl_TexCoord[0].st).r;
 	#endif
+	
+	#ifndef NO_GLOW
+		float lumMin = 0.2;
+		float lumMultiplier = 5.0;
+		float colorGlow = max(dot(color.rgb, vec3(0.299, 0.587, 0.114)), 0.0);
+	
+		float glowBase = (colorGlow - lumMin) * lumMultiplier;
+	
+		#ifdef MEGA_GLOW
+			glowBase = colorGlow * 3.0;
+		#endif
+
+		miscValue.g = glowBase;	
+		
+	#endif
+	
+	gl_FragData[2] = miscValue;
 }
 

@@ -151,7 +151,7 @@ box4 {
 }
 */
 
-box4 {
+/*box4 {
 	sceneNode {
 		model "gen:cube width 1 height 1 depth 1" 
 		origin "0 4 0"
@@ -179,8 +179,9 @@ box4 {
 		
 		dimensions "1 1 1"
 	}
-}
+}*/
 
+/*
 box5 {
 	sceneNode {
 		model "gen:cube width 1 height 1 depth 1" 
@@ -425,7 +426,7 @@ box8 {
 		
 		dimensions "3 3 3"
 	}
-}
+}*/
 
 
 
@@ -551,6 +552,14 @@ ground5 {
 
 }
 
+ceiling {  // sky
+	sceneNode {
+		model "gen:cube width '80.0' height '0.05' depth '80.0'"
+		material "Sky"
+		origin "0 15 0"
+	}
+}
+
 /*
 ground4 {
 	physGeom plane {
@@ -583,9 +592,9 @@ ground5 {
 light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
-		orientation "0 0.5 1"
-		diffuse "0.1"
-		specular "1.0"
+		orientation "0.5 0.5 0"
+		diffuse "0.3 0.0 0.0 1.0"
+		specular "0.4 0.0 0.0 1.0"
 	}
 }
 
@@ -606,6 +615,12 @@ maincam {
 	}
 }
 
+// TODO: ********* mouse control, subclass PlayerController -> GhostController
+// TODO: grafiken är konstig när man flyttar kameran, t ex
+//       glowen blir kraftigare (lampor som adderar styrka?)
+//       och pointlights som hoppar runt!!!!!
+// TODO: egen glowmap, lampor måste ju kunna påverka den. nu skriver lampor förmodligen till alla buffrar, inklusive normal och misc!!
+//       blir hemkst skumt och fel.
 
 player_start extends TheMachoGuy {
 	sceneNode {
@@ -636,7 +651,7 @@ player_start extends TheMachoGuy {
 	}
 	
 	controller {
-		type ghost
+		type fps
 		
 		speed 1.0
 		camera HeadCam

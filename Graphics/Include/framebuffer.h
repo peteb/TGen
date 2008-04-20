@@ -33,6 +33,7 @@ namespace TGen {
 		virtual void setColorUnit(uint unit, TGen::Texture * texture) abstract;
 		virtual void setDepthUnit(uint unit, TGen::Texture * texture) abstract;
 		virtual void setStencilUnit(uint unit, TGen::Texture * texture) abstract;
+		virtual void reset() abstract;
 	};
 } // !TGen
 

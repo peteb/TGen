@@ -76,6 +76,8 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 			// till 8, som uträknas på alla bboxes)
 			
 			disableDepth
+			depthPass lequal		// TODO: rename to depthFunc
+			noDepthWrite
 			blendFunc add
 			back fill
 			front cull
@@ -85,7 +87,7 @@ material deferred/lightPositional #NUM_LIGHTS#lights 9 {
 			
 			map depthMap $depthmap
 			map normalMap $normalmap
-			// map miscMap $miscmap
+			//map miscMap $miscmap
 		}
 	}
 }

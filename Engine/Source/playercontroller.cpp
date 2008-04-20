@@ -43,7 +43,7 @@ void TGen::Engine::PlayerController::update(scalar dt) {
 	
 	if (checkEvent(EventJump)) {
 		if (node) {
-			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getY() * dt * 8.0);
+			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getY() * dt * 8.0);
 		}
 	}
 	
@@ -54,17 +54,17 @@ void TGen::Engine::PlayerController::update(scalar dt) {
 	}
 	if (checkEvent(EventBackward)) {
 		if (node) {
-			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getZ() * dt);
+			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getZ() * dt * 8.0);
 		}
 	}
 	if (checkEvent(EventStrafeLeft)) {
 		if (node) {
-			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getX() * dt);
+			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getX() * dt * 8.0);
 		}
 	}
 	if (checkEvent(EventStrafeRight)) {
 		if (node) {
-			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getX() * dt);
+			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getX() * dt * 8.0);
 		}
 	}
 	

@@ -142,6 +142,8 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	 testa rectangle på depth igen.... nej, måste ju vara samma format på alla attachments. men iofs, depth != color
 	*/
 	
+	renderTarget = renderer.createFrameBuffer();
+	
 	mapTargets = renderer.createFrameBuffer();
 	mapTargets->attachColor(colorMap);
 	mapTargets->attachColor(normalMap);
@@ -209,37 +211,53 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	
 	
 	// UPDATE MAPS (color, normal, spec, depth, etc)
-	renderer.setRenderTarget(mapTargets);
+	
 	renderer.setViewport(mrtSize);
 	renderer.setClearColor(TGen::Color::Black);
-	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
-	renderer.setAmbientLight(world.getAmbientLight() * 1.5);
+
 	
+	renderTarget->reset();
+	renderTarget->setColorUnit(0, colorMap);
+	renderTarget->setColorUnit(1, normalMap);
+	renderTarget->setColorUnit(2, miscMap);
+	renderTarget->setDepthUnit(0, depthMap);
+	renderer.setRenderTarget(renderTarget);
+
+	
+	
+	
+	
+	
+	
+	
+
+	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+	renderer.setAmbientLight(world.getAmbientLight());
+
 	renderList.render(renderer, *mainCamera, "default");
 
 	renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
 	metaNormalMaterial->render(renderer, metaLines, "default", 9, NULL, NULL);
 	
+
 	// TODO: var ska det här vara egentligen....
 	
 	// vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
-	if (vars.postProcessing) {
-		renderer.setRenderTarget(postTargets1);
-		renderer.setViewport(mrtSize);
-	}
-	else {
-		renderer.setRenderTarget(NULL);
-		renderer.setViewport(viewport);
-	}
-	
-	// TODO: styr upp det här nu, någon funktion som writar ett koordinatsystem kanske? dvs xyz-axlarna
+	/*if (vars.postProcessing) {
+	 renderer.setRenderTarget(postTargets1);
+	 renderer.setViewport(mrtSize);
+	 }
+	 else {
+	 renderer.setRenderTarget(NULL);
+	 renderer.setViewport(viewport);
+	 }*/	
 	
 	//app.renderer.clearBuffers(TGen::DepthBuffer);
 
 	// AMBIENT TO RESULT
-	renderFillQuad(lightAmbientMaterial);
+	//renderFillQuad(lightAmbientMaterial);
 	
 	// LIGHTS TO RESULT
 	TGen::Engine::LightList::LightMap & lightsByMaterial = lightList.getLightsByMaterial();
@@ -429,7 +447,7 @@ void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material, c
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFillQuad(TGen::Material * material) {
-	TGen::Texture * textures[] = {NULL, postMap1, normalMap, miscMap, depthMap};
+	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
 	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
 }
@@ -447,7 +465,7 @@ void TGen::Engine::DeferredRenderer::renderPost3FillQuad(TGen::Material * materi
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFinalQuad(TGen::Material * material) {
-	TGen::Texture * textures[] = {NULL, postMap1, postMap2, miscMap, depthMap};
+	TGen::Texture * textures[] = {NULL, colorMap, postMap2, miscMap, depthMap};
 	
 	material->render(renderer, *screenFillMesh, "default", 9, textures, this);		
 }
