@@ -11,11 +11,14 @@
 #include "physics/body.h"
 #include "entity.h"
 #include <tgen_core.h>
+#include "scene/node.h"
+#include <tgen_renderer.h>
 
 TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & bodyComponent)
 	: TGen::Engine::Component(name)
 	, geomId(0)
 	, bodyComponent(bodyComponent)
+	, affectsOthers(true)
 {
 
 }
@@ -51,10 +54,32 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 	}
 	catch (...) {	// if there is no physBody we just don't attach to anything
 		dGeomSetBody(geomId, 0);
+		
+		try {
+			if (dGeomGetClass(geomId) != dPlaneClass) {
+				TGen::Engine::Scene::Node * attachTo = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
+				TGen::Vector3 pos = attachTo->getSceneNode()->getLocalPosition();
+			
+				dGeomSetPosition(geomId, pos.x, pos.y, pos.z);
+			}
+		}
+		catch (...) {
+			
+		}
 	}
 }
 
 void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities) {
 	
 }
+
+void TGen::Engine::Physics::Geom::setAffectsOthers(bool affectOthers) {
+	affectsOthers = affectOthers;
+}
+
+bool TGen::Engine::Physics::Geom::getAffectsOthers() const {
+	return affectsOthers;
+}
+
+
 

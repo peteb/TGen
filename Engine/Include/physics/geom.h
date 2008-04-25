@@ -24,6 +24,8 @@ namespace TGen {
 				float getFriction() const;
 				void setFriction(float friction);
 				void setBodyComponent(const std::string & body);
+				void setAffectsOthers(bool affectOthers);
+				bool getAffectsOthers() const;
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities);
@@ -33,6 +35,7 @@ namespace TGen {
 				
 			private:
 				std::string bodyComponent;
+				bool affectsOthers;
 				float friction;
 				dGeomID geomId;
 			};

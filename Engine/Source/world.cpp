@@ -132,12 +132,13 @@ void TGen::Engine::World::update(scalar dt) {
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {
-	return TGen::Color(0.2, 0.1, 0.1, 1.0) * 1.2;
+	return TGen::Color(0.2, 0.1, 0.1, 1.0) * 1.4;
 }
 
 TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const std::string & name) {
 	return controllerSubsystem.getController(name);
 }
+
 
 /*TGen::Engine::Player * TGen::Engine::World::createPlayer() {
 	TGen::Camera * camera = new TGen::Camera("maincam", TGen::Vector3(0.0f, 2.0f, 0.0f), TGen::Rotation::Identity);
@@ -163,6 +164,8 @@ TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const 
 	
 	// TODO: world borde ge playercontroller till inputmapper!!!!! Sen inputMapper.update(dt, world.getPlayerController())!
 	
+ // DERIVE FPSCONTROLLER. 
+ 
 	return NULL;
 }*/
 // rendreraren ber world att uppdatera sig internt för en viss kamera, sen frågar den efter renderlist, lights, osv

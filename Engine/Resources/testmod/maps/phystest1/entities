@@ -384,27 +384,7 @@ box8 {
 	}
 }
 
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
+
 
 box8 {
 	sceneNode {
@@ -428,13 +408,98 @@ box8 {
 	}
 }*/
 
+step {
+	sceneNode {
+		model "gen:cube width 4 height 3 depth 4"
+		origin "-8 0 -8"
+	}
+	
 
+	physGeom {
+		type box
+
+		dimensions "4 3 4"
+	}
+}
+
+step2 {
+	sceneNode {
+		model "gen:cube width 4 height 3 depth 4"
+		origin "-4 2 -8"
+	}
+	
+
+	physGeom {
+		type box
+
+		dimensions "4 3 4"
+	}
+}
+
+step3 {
+	sceneNode {
+		model "gen:cube width 14 height 0.2 depth 20"
+		origin "5 3.5 0"
+	}
+	
+	
+	physGeom {
+		type box
+
+		dimensions "14 0.2 20"
+	}
+}
+
+
+box8 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "0 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+
+box9 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "-4 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
 
 /*ground1 {
 	physGeom plane {
 		orientation "0 1 0"
 		distance "-1.0"
-	}√√√√
+	}
 }*/
 
 ground2 {
@@ -615,47 +680,48 @@ maincam {
 	}
 }
 
-// TODO: ********* mouse control, subclass PlayerController -> GhostController
+// TODO: ********* mouse control, subclass PlayerController -> FPSController
 // TODO: grafiken är konstig när man flyttar kameran, t ex
 //       glowen blir kraftigare (lampor som adderar styrka?)
 //       och pointlights som hoppar runt!!!!!
 // TODO: egen glowmap, lampor måste ju kunna påverka den. nu skriver lampor förmodligen till alla buffrar, inklusive normal och misc!!
-//       blir hemkst skumt och fel.
+//       blir hemkst skumt och fel, gröna lampor = påverkar mycket i gröna kanalen, vilket är glowkanalen.
 
 player_start extends TheMachoGuy {
 	sceneNode {
-		material "Cube2"
-		origin "0 2 0"
+		material "Cube2"		
+		origin "0 0 0"
 	}
 	
-	physBody {
-		mass box {
-			total 2.0
-			dimensions "1 1 1"
+	physBody {					// fysisk kropp
+		mass box {				// vilken funktion för massa använder vi
+			total 20.0			// totala massan
+			dimensions "1 1 1"	// storleken på lådan för uträkning av mass
 		}
 		
-		gravity true
+		gravity false			// vårat objekt blir påverkat av gravitation
 	}
 	
-	physGeom {
-		type box
+	physGeom {					// definition av fysisk geometri, behövs för collisions osv
+		type box				// vi har formen av en box
 		
-		dimensions "1 1 1"
+		dimensions "1 1 1"		// storleken på boxen
+		affectsOthers false		// ska vi påverka andra fysiska objekt?
 	}
 	
-	sceneCamera HeadCam {
+	sceneCamera HeadCam {		// definiera kameran "HeadCam"
 		origin "0 1 2"
-		range "500"
+		range "500"				// viewing range, used to calculate clipping planes and LOD
 		
-		treePosition "player_start/"
+		treePosition "player_start/"	// länka den med entitetens sceneNode
 	}
 	
-	controller {
+	controller {				// controller component
 		type fps
 		
 		speed 1.0
-		camera HeadCam
-		control sceneNode
+		camera HeadCam			// bind camera
+		control sceneNode		// bind node to control
 	}
 	
 	sceneLight {
@@ -663,7 +729,6 @@ player_start extends TheMachoGuy {
 		treePosition "player_start/"
 		diffuse "1 1 0 1"
 		specular "1.0"
-		model "gen:cube width 5.0 height 5.0 depth 5.0"
-	}
-	
+		model "gen:cube width 5.0 height 5.0 depth 5.0"		// generera en cube-model
+	}	
 }

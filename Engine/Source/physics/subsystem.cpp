@@ -140,6 +140,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	
 	newComponent->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
 	newComponent->setBodyComponent(properties.getProperty("link", "physBody"));
+	newComponent->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	
 	return newComponent.release();
 }
@@ -196,11 +197,17 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 		TGen::Engine::Physics::Geom * geom1 = static_cast<TGen::Engine::Physics::Geom *>(dGeomGetData(o1));
 		TGen::Engine::Physics::Geom * geom2 = static_cast<TGen::Engine::Physics::Geom *>(dGeomGetData(o2));
 		
+		if (!geom1->getAffectsOthers())
+			body2 = 0;
+		
+		if (!geom2->getAffectsOthers())
+			body1 = 0;
 		
 		for (int i = 0; i < numContacts; ++i) {
 			contacts[i].surface.mode = 0;
 			contacts[i].surface.mu = geom1->getFriction() * geom2->getFriction();
 			dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
+			
 			dJointAttach(contactJoint, body1, body2);
 		}
 	}

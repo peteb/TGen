@@ -12,6 +12,7 @@
 
 #define abstract =0
 #define PACKED __attribute__((packed))
+#define nullptr 0
 
 namespace TGen {
 	typedef unsigned long long uint64;
