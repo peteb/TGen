@@ -164,7 +164,7 @@ TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const 
 	
 	// TODO: world borde ge playercontroller till inputmapper!!!!! Sen inputMapper.update(dt, world.getPlayerController())!
 	
- // DERIVE FPSCONTROLLER. 
+ // DERIVE FPSCONTROLLER. FirstPersonController
  
 	return NULL;
 }*/

@@ -79,6 +79,7 @@
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
+		D0DB3C810DC2254C00425EBA /* firstpersoncontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0DB3C800DC2254C00425EBA /* firstpersoncontroller.cpp */; };
 		D0E0961A0D8834C3005D5345 /* geom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E096190D8834C3005D5345 /* geom.cpp */; };
 		D0E4570F0D905A5A00F4D548 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E4570E0D905A5A00F4D548 /* subsystem.cpp */; };
 		D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D0EF60FC0C8222810085C17B /* SDL.framework */; };
@@ -372,6 +373,8 @@
 		D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rendererfactory.cpp; path = renderer/rendererfactory.cpp; sourceTree = "<group>"; };
 		D0CC7A5B0CF9D1DD003EE092 /* preprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = preprocessor.h; path = ../../Include/preprocessor.h; sourceTree = SOURCE_ROOT; };
 		D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
+		D0DB3C7F0DC2253D00425EBA /* firstpersoncontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = firstpersoncontroller.h; path = ../../Include/controller/firstpersoncontroller.h; sourceTree = SOURCE_ROOT; };
+		D0DB3C800DC2254C00425EBA /* firstpersoncontroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = firstpersoncontroller.cpp; path = controller/firstpersoncontroller.cpp; sourceTree = "<group>"; };
 		D0E096160D883485005D5345 /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geom.h; path = ../../Include/physics/geom.h; sourceTree = SOURCE_ROOT; };
 		D0E096190D8834C3005D5345 /* geom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geom.cpp; path = physics/geom.cpp; sourceTree = "<group>"; };
 		D0E4570E0D905A5A00F4D548 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = physics/subsystem.cpp; sourceTree = "<group>"; };
@@ -682,6 +685,8 @@
 				D0637CED0DB556EB00FD1DC4 /* subsystem.h */,
 				D00FEA9C0DAF8F05003703A2 /* playercontroller.cpp */,
 				D00FEA9B0DAF8EF9003703A2 /* playercontroller.h */,
+				D0DB3C800DC2254C00425EBA /* firstpersoncontroller.cpp */,
+				D0DB3C7F0DC2253D00425EBA /* firstpersoncontroller.h */,
 			);
 			name = controller;
 			sourceTree = "<group>";
@@ -1175,6 +1180,7 @@
 				D00FEA9D0DAF8F05003703A2 /* playercontroller.cpp in Sources */,
 				D00FEB4E0DAF99A4003703A2 /* player.cpp in Sources */,
 				D0637CEF0DB556F700FD1DC4 /* subsystem.cpp in Sources */,
+				D0DB3C810DC2254C00425EBA /* firstpersoncontroller.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
