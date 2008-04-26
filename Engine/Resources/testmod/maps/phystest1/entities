@@ -494,6 +494,69 @@ box9 {
 		dimensions "1 1 1"
 	}
 }
+box9 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "-4 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+box9 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "-4 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
+box9 {
+	sceneNode {
+		model "gen:cube width 1 height 1 depth 1" 
+		origin "-4 8 0"
+	}
+	
+	physBody {
+		mass box {
+			total 5.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		
+		dimensions "1 1 1"
+	}
+}
 
 /*ground1 {
 	physGeom plane {
@@ -687,20 +750,20 @@ maincam {
 // TODO: egen glowmap, lampor måste ju kunna påverka den. nu skriver lampor förmodligen till alla buffrar, inklusive normal och misc!!
 //       blir hemkst skumt och fel, gröna lampor = påverkar mycket i gröna kanalen, vilket är glowkanalen.
 
-player_start  {
+/*player_start  {
 	sceneNode {
 		//material "Cube2"		
 		origin "0 0 0"
 	}
 	
-	/*physBody {					// fysisk kropp
+	physBody {					// fysisk kropp
 		mass box {				// vilken funktion för massa använder vi
 			total 20.0			// totala massan
 			dimensions "1 1 1"	// storleken på lådan för uträkning av mass
 		}
 		
 		gravity true			// vårat objekt blir påverkat av gravitation
-	}*/
+	}
 	
 	physGeom {					// definition av fysisk geometri, behövs för collisions osv
 		type box				// vi har formen av en box
@@ -724,7 +787,7 @@ player_start  {
 		control sceneNode		// bind node to control
 	}
 	
-	/*sceneLight {
+	sceneLight {
 		material "deferred/lightPositional"
 		treePosition "player_start/"
 		diffuse "1 1 0 1"
@@ -732,5 +795,29 @@ player_start  {
 		range "2.5 2.5 2.5"
 		
 		model "gen:cube width 5.0 height 5.0 depth 5.0"		// generera en boundingbox
-	}*/	
+	}	
+}*/
+
+player_start {
+	sceneNode {
+		//model "gen:cube width 1.0 height 1.0 depth 1.0"
+		
+		model "models/detonics.md3 scale 0.2"
+		material "Cube2"
+		origin "0 2 0"	
+	}
+	
+	sceneCamera Cam {
+		origin "0 2 2"
+		range "500"
+	}
+
+	controller {
+		type firstperson
+		
+		camera Cam
+		control player_start
+	}
+
 }
+

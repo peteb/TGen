@@ -41,7 +41,7 @@ TGen::NewModel * TGen::Engine::ModelFactory::createModel(const TGen::Engine::Gen
 			}
 		}
 	}
-	
+		
 	if (line.getName().substr(0, 4) == "gen:") {		// a model generator
 		TGen::Engine::ModelGenerator modelGenerator;
 		newModel.reset(modelGenerator.createModel(line, dataSource, transformers));		

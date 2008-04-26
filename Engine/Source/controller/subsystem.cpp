@@ -9,6 +9,7 @@
 
 #include "controller/subsystem.h"
 #include "controller/firstpersoncontroller.h"
+#include "controller/arcball.h"
 #include "playercontroller.h"
 
 TGen::Engine::Controller::Subsystem::Subsystem() {
@@ -27,6 +28,10 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 	
 	if (type == "firstperson") {
 		newController.reset(new TGen::Engine::Controller::FirstPerson(name));
+		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
+	}
+	else if (type == "arcball") {
+		newController.reset(new TGen::Engine::Controller::Arcball(name));
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}
 	else {
