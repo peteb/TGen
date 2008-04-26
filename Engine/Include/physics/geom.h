@@ -14,7 +14,14 @@
 #include <ode/ode.h>
 
 namespace TGen {
+	class Vector3;
+	class Matrix3x3;
+	
 	namespace Engine {
+		namespace Scene {
+			class Node;
+		}
+		
 		namespace Physics {
 			class Geom : public TGen::Engine::Component {
 			public:
@@ -27,6 +34,9 @@ namespace TGen {
 				void setAffectsOthers(bool affectOthers);
 				bool getAffectsOthers() const;
 				
+				void preStep();
+				void postStep();
+				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities);
 				
@@ -34,6 +44,10 @@ namespace TGen {
 				void setGeomId(dGeomID id);
 				
 			private:
+				void setPosition(const TGen::Vector3 & position);				
+				void setOrientation(const TGen::Matrix3x3 & orientation);
+				
+				TGen::Engine::Scene::Node * sceneNodeComponent;
 				std::string bodyComponent;
 				bool affectsOthers;
 				float friction;

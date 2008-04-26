@@ -19,6 +19,7 @@
 TGen::Engine::GameInputMapper::GameInputMapper()
 	: world(NULL)
 	, playerController(NULL)
+	, initialBump(false)
 {
 	
 }
@@ -99,16 +100,19 @@ void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & devi
 }
 
 void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vec) {
-	std::stringstream deviceName;
+	/*std::stringstream deviceName;
 	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 
-	if (world && vec.getMagnitude() < 100.0f) {
-		//world->getCamera("maincam")->setPosition(world->getCamera("maincam")->getLocalPosition() + TGen::Vector3(vec.x, 0.0f, -vec.y) * 0.5);
-	//	reinterpret_cast<TGen::FPSCamera *>(world->getCamera("maincam"))->rotate(TGen::Vector2(vec) * 0.01f);
+	//std::cout << "*** vector move on " << deviceName.str() << " id: " << id << ": " << std::string(vec) << std::endl;
+	*/
+	
+	if (vec.getMagnitude() > 100.0f && !initialBump) {
+		initialBump = true;
+		return;
 	}
 	
-	//rotate(const TGen::Vector2 & rot)
-	std::cout << "*** vector move on " << deviceName.str() << " id: " << id << ": " << std::string(vec) << std::endl;
+	if (playerController)
+		playerController->addViewDelta(vec);
 }
 
 void TGen::Engine::GameInputMapper::setWorld(TGen::Engine::World * world) {

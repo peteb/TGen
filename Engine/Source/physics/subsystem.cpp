@@ -92,6 +92,41 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	return newBody;
 }
 
+TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const std::string & name, const TGen::PropertyTree & properties) {
+	//if (properties.getNumAttributes() == 0)
+	//		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "no attributes, plz give some");
+	
+	std::auto_ptr<TGen::Engine::Physics::Geom> newGeom;
+	std::string geomType = properties.getProperty("type", "none");
+	
+	if (geomType == "plane") {
+		TGen::Vector3 normal = TGen::Vector3::Parse(properties.getProperty("orientation", "0 1 0"));
+		scalar distance = TGen::lexical_cast<scalar>(properties.getProperty("distance", "0"));
+		
+		newGeom.reset(new TGen::Engine::Physics::PlaneGeom(name, TGen::Plane3(normal, distance), mainSpace));
+	}
+	else if (geomType == "sphere") {
+		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
+		
+		newGeom.reset(new TGen::Engine::Physics::SphereGeom("physGeom", radius, mainSpace));
+	}
+	else if (geomType == "box") {
+		TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("dimensions", "1 1 1"));
+		
+		newGeom.reset(new TGen::Engine::Physics::BoxGeom("physGeom", dimensions, mainSpace));
+	}
+	else {
+		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
+	}
+	
+	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
+	newGeom->setBodyComponent(properties.getProperty("link", "physBody"));
+	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
+	geoms.push_back(newGeom.get());
+	
+	return newGeom.release();
+}
+
 TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(const std::string & name, const TGen::PropertyTree & properties) {
 	if (properties.getNumAttributes() == 0)
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "no attributes, plz give some");
@@ -111,40 +146,6 @@ TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(con
 	return newComponent;
 }
 
-TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const std::string & name, const TGen::PropertyTree & properties) {
-	//if (properties.getNumAttributes() == 0)
-//		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "no attributes, plz give some");
-
-	std::auto_ptr<TGen::Engine::Physics::Geom> newComponent;
-	std::string geomType = properties.getProperty("type", "none");
-	
-	if (geomType == "plane") {
-		TGen::Vector3 normal = TGen::Vector3::Parse(properties.getProperty("orientation", "0 1 0"));
-		scalar distance = TGen::lexical_cast<scalar>(properties.getProperty("distance", "0"));
-		
-		newComponent.reset(new TGen::Engine::Physics::PlaneGeom(name, TGen::Plane3(normal, distance), mainSpace));
-	}
-	else if (geomType == "sphere") {
-		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
-		
-		newComponent.reset(new TGen::Engine::Physics::SphereGeom("physGeom", radius, mainSpace));
-	}
-	else if (geomType == "box") {
-		TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("dimensions", "1 1 1"));
-		
-		newComponent.reset(new TGen::Engine::Physics::BoxGeom("physGeom", dimensions, mainSpace));
-	}
-	else {
-		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
-	}
-	
-	newComponent->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
-	newComponent->setBodyComponent(properties.getProperty("link", "physBody"));
-	newComponent->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
-	
-	return newComponent.release();
-}
-
 void TGen::Engine::Physics::Subsystem::link() {
 	
 }
@@ -158,6 +159,8 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		for (int i = 0; i < bodies.size(); ++i)
 			bodies[i]->preStep();
+		for (int i = 0; i < geoms.size(); ++i)
+			geoms[i]->preStep();
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 
@@ -167,6 +170,9 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		for (int i = 0; i < bodies.size(); ++i)
 			bodies[i]->postStep();
+		
+		for (int i = 0; i < geoms.size(); ++i)
+			geoms[i]->postStep();
 	}
 }
 

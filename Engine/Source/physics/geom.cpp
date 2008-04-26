@@ -19,6 +19,7 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & 
 	, geomId(0)
 	, bodyComponent(bodyComponent)
 	, affectsOthers(true)
+	, sceneNodeComponent(NULL)
 {
 
 }
@@ -57,10 +58,9 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 		
 		try {
 			if (dGeomGetClass(geomId) != dPlaneClass) {
-				TGen::Engine::Scene::Node * attachTo = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
-				TGen::Vector3 pos = attachTo->getSceneNode()->getLocalPosition();
-			
-				dGeomSetPosition(geomId, pos.x, pos.y, pos.z);
+				sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
+				
+				setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 			}
 		}
 		catch (...) {
@@ -81,5 +81,46 @@ bool TGen::Engine::Physics::Geom::getAffectsOthers() const {
 	return affectsOthers;
 }
 
+
+void TGen::Engine::Physics::Geom::preStep() {	// update geom with scene node vars if we're linked to one (probably because there is no body)
+	if (sceneNodeComponent) {
+		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
+		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
+	}
+}
+
+void TGen::Engine::Physics::Geom::postStep() {
+/*	if (sceneNodeComponent) {
+		sceneNodeComponent->getSceneNode()->setPosition(getPosition());
+		sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
+	}*/
+}
+
+void TGen::Engine::Physics::Geom::setPosition(const TGen::Vector3 & position) {
+	dGeomSetPosition(geomId, position.x, position.y, position.z);
+}
+
+void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orientation) {
+	dMatrix3 matrix;
+	TGen::Vector3 x = orientation.getX();
+	TGen::Vector3 y = orientation.getY();
+	TGen::Vector3 z = orientation.getZ();
+	
+	// TODO: and transpose here...
+	matrix[0] = x.x;
+	matrix[1] = y.x;
+	matrix[2] = z.x;
+	matrix[3] = 0.0f;
+	matrix[4] = x.y;
+	matrix[5] = y.y;
+	matrix[6] = z.y;
+	matrix[7] = 0.0f;
+	matrix[8] = x.z;
+	matrix[9] = y.z;
+	matrix[10] = z.z;
+	matrix[11] = 0.0f;
+	
+	dGeomSetRotation(geomId, matrix);
+}
 
 

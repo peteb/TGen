@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_PLAYERCONTROLLER_H
 
 #include <tgen_core.h>
+#include <tgen_math.h>
 #include "component.h"
 
 namespace TGen {
@@ -18,52 +19,44 @@ namespace TGen {
 	class SceneNode;
 	
 	namespace Engine {
-		enum Event {
-			EventForward = 1,
-			EventBackward,
-			EventStrafeLeft,
-			EventStrafeRight,			
-			EventJump,
-		};
-		
 		enum EventFlags {
 			EventTriggered =	0x1000,
 			EventKilled =		0x2000,
 			EventRead =			0x4000,
 		};
 		
+		
 		class PlayerController : public TGen::Engine::Component {
 		public:
-			PlayerController(const std::string & name, scalar speed);
+			PlayerController(const std::string & name);
 			virtual ~PlayerController();
+			
+			void addViewDelta(const TGen::Vector3 & view);
 			
 			void beginEvent(int id);
 			void endEvent(int id);
-			void update(scalar dt);
-			
-			void linkLocally(TGen::Engine::Entity & entity);
-			
 			void addCamera(const std::string & name, const std::string & camera);
-			
 			TGen::Camera * getCamera(const std::string & name) const;
 			
+			virtual void linkLocally(TGen::Engine::Entity & entity);
+			virtual void update(scalar dt) abstract;
+			
 		protected:
-			void linkCameras(TGen::Engine::Entity & entity);
-	//		void addCamera(const std::string & name, TGen::Camera * camera);
-
-			scalar speed;
 			bool checkEvent(int id);
-
+			TGen::Vector3 checkViewDelta();
+			
 		private:
-			uint32 activeEvents[20];
-			
-			TGen::SceneNode * node;		// IMPL
-			
+			void linkCameras(TGen::Engine::Entity & entity);
+									
 			typedef std::map<std::string, TGen::Camera *> CameraMap;
 			typedef std::map<std::string, std::string> StringStringMap;
 			
 			StringStringMap camerasToLink;
 			CameraMap cameras;
+
+			uint32 activeEvents[20];
+			
+			TGen::Vector3 viewDelta;
 		};
 		
 	} // !Engine

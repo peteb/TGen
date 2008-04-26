@@ -44,6 +44,8 @@ namespace TGen {
 				void setGravity(const TGen::Vector3 & gravity);
 				
 				std::vector<TGen::Engine::Physics::Body *> bodies;
+				std::vector<TGen::Engine::Physics::Geom *> geoms;
+				
 				float updateInterval;
 				
 				TGen::Engine::StandardLogs & logs;

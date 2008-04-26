@@ -17,6 +17,7 @@ namespace TGen {
 	class Vector2;
 	class Vector3;
 	class Matrix4x4;
+	class Angle;
 	
 	class Matrix3x3 {
 	public:	
@@ -30,9 +31,11 @@ namespace TGen {
 		TGen::Matrix3x3 & operator = (const TGen::Matrix3x3 & matrix);
 		TGen::Vector2 operator * (const TGen::Vector2 & vector) const;
 		TGen::Matrix3x3 operator * (const TGen::Matrix3x3 & matrix) const;
+		TGen::Matrix3x3 & operator *= (const TGen::Matrix3x3 & matrix);
+		
 		scalar & operator () (int x, int y);
 		const scalar & operator () (int x, int y) const;
-
+		
 		operator std::string() const;
 		Matrix3x3 & orthogonalize();
 		
@@ -51,6 +54,9 @@ namespace TGen {
 		static TGen::Matrix3x3 Translation(const TGen::Vector2 & vector);
 		static TGen::Matrix3x3 Scaling(const TGen::Vector2 & scale);
 		static TGen::Matrix3x3 LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up);
+		static TGen::Matrix3x3 RotationZ(const TGen::Angle & angle);
+		static TGen::Matrix3x3 RotationX(const TGen::Angle & angle);
+		static TGen::Matrix3x3 RotationY(const TGen::Angle & angle);
 		
 		scalar elements[3][3];
 		

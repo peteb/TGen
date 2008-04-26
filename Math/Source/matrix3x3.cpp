@@ -11,6 +11,7 @@
 #include "matrix4x4.h"
 #include "vector2.h"
 #include "vector3.h"
+#include "angle.h"
 #include <cstring>
 #include <sstream>
 
@@ -60,15 +61,15 @@ TGen::Matrix3x3::Matrix3x3(const TGen::Matrix4x4 & matrix) {
 	
 	elements[0][0] = matrix.elements[0][0];
 	elements[0][1] = matrix.elements[0][1];
-	elements[0][2] = matrix.elements[0][3];
+	elements[0][2] = matrix.elements[0][2];
 	
 	elements[1][0] = matrix.elements[1][0];
 	elements[1][1] = matrix.elements[1][1];
-	elements[1][2] = matrix.elements[1][3];
+	elements[1][2] = matrix.elements[1][2];
 	
-	elements[2][0] = matrix.elements[3][0];
-	elements[2][1] = matrix.elements[3][1];
-	elements[2][2] = matrix.elements[3][3];
+	elements[2][0] = matrix.elements[2][0];
+	elements[2][1] = matrix.elements[2][1];
+	elements[2][2] = matrix.elements[2][2];
 }
 
 TGen::Matrix3x3::Matrix3x3(scalar e11, scalar e12, scalar e13, scalar e21, scalar e22, scalar e23, scalar e31, scalar e32, scalar e33) {
@@ -114,6 +115,12 @@ TGen::Matrix3x3 TGen::Matrix3x3::operator * (const TGen::Matrix3x3 & Matrix3x3) 
 	
 	
 	return ret;	
+}
+
+TGen::Matrix3x3 & TGen::Matrix3x3::operator *= (const TGen::Matrix3x3 & matrix) {
+	*this = *this * matrix;
+	
+	return *this;
 }
 
 void TGen::Matrix3x3::setOrigin(const TGen::Vector2 & origin) {
@@ -242,3 +249,36 @@ TGen::Matrix3x3 & TGen::Matrix3x3::orthogonalize() {
 	return *this;
 }
 
+TGen::Matrix3x3 TGen::Matrix3x3::RotationX(const TGen::Angle & angle) {
+	TGen::Matrix3x3 ret;
+	ret.elements[0][0] = 1.0;
+	ret.elements[1][1] = TGen::Cos(angle);
+	ret.elements[2][1] = -TGen::Sin(angle);
+	ret.elements[1][2] = TGen::Sin(angle);
+	ret.elements[2][2] = TGen::Cos(angle);
+	
+	return ret;
+}
+
+TGen::Matrix3x3 TGen::Matrix3x3::RotationY(const TGen::Angle & angle) {
+	TGen::Matrix3x3 ret;
+	ret.elements[0][0] = TGen::Cos(angle);
+	ret.elements[2][0] = TGen::Sin(angle);
+	ret.elements[1][1] = 1.0;
+	ret.elements[0][2] = -TGen::Sin(angle);
+	ret.elements[2][2] = TGen::Cos(angle);
+
+	return ret;
+}
+
+
+TGen::Matrix3x3 TGen::Matrix3x3::RotationZ(const TGen::Angle & angle) {
+	TGen::Matrix3x3 ret;
+	ret.elements[0][0] = TGen::Cos(angle);
+	ret.elements[1][0] = -TGen::Sin(angle);
+	ret.elements[0][1] = TGen::Sin(angle);
+	ret.elements[1][1] = TGen::Cos(angle);
+	ret.elements[2][2] = 1.0;	
+	
+	return ret;
+}

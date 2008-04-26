@@ -9,6 +9,7 @@
 
 #include "cubemodel.h"
 #include "cubemesh.h"
+#include "metacreator.h"
 
 TGen::Engine::CubeModel::CubeModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max) 
 	: TGen::NewModel(name, materialName, materialNamePostfix)
@@ -70,4 +71,12 @@ void TGen::Engine::CubeModel::unlinkMaterial() {
 	for (int i = 0; i < meshes.size(); ++i)
 		meshes[i]->unlinkMaterial();		
 }
+
+void TGen::Engine::CubeModel::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
+	TGen::Engine::MetaCreator mc;
+	
+	mc.writeAxes(transform, stream);
+	
+}
+
 

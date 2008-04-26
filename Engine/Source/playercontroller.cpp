@@ -12,10 +12,8 @@
 #include "entity.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::PlayerController::PlayerController(const std::string & name, scalar speed) 
+TGen::Engine::PlayerController::PlayerController(const std::string & name) 
 	: TGen::Engine::Component(name)
-	, speed(speed)
-	, node(NULL)
 {
 	for (int i = 0; i < 20; ++i)
 		activeEvents[i] = 0;	
@@ -39,37 +37,6 @@ void TGen::Engine::PlayerController::endEvent(int id) {
 	}
 }
 
-void TGen::Engine::PlayerController::update(scalar dt) {
-	
-	if (checkEvent(EventJump)) {
-		if (node) {
-			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getY() * dt * 8.0);
-		}
-	}
-	
-	if (checkEvent(EventForward)) {
-		if (node) {
-			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getZ() * dt * 8.0);
-		}
-	}
-	if (checkEvent(EventBackward)) {
-		if (node) {
-			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getZ() * dt * 8.0);
-		}
-	}
-	if (checkEvent(EventStrafeLeft)) {
-		if (node) {
-			node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getX() * dt * 8.0);
-		}
-	}
-	if (checkEvent(EventStrafeRight)) {
-		if (node) {
-			node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getX() * dt * 8.0);
-		}
-	}
-	
-}
-
 bool TGen::Engine::PlayerController::checkEvent(int id) {
 	if (id < 0 || id >= 20)
 		return false;
@@ -84,6 +51,13 @@ bool TGen::Engine::PlayerController::checkEvent(int id) {
 	}
 	
 	return false;
+}
+
+TGen::Vector3 TGen::Engine::PlayerController::checkViewDelta() {
+	TGen::Vector3 ret = viewDelta;
+	viewDelta = TGen::Vector3::Zero;
+	
+	return ret;
 }
 
 // TODO: fix blog entry
@@ -101,26 +75,11 @@ TGen::Camera * TGen::Engine::PlayerController::getCamera(const std::string & nam
 	return iter->second;
 }
 
-void TGen::Engine::PlayerController::linkLocally(TGen::Engine::Entity & entity) {
-	TGen::Engine::Scene::Node * playNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
-	// kanske pga arvet?
-	
-	// såhär: om man inte anger namn på en component så heter den samma som typen, dvs sceneNode. Det heter den i entitetens komponentlista
-	//        men i subsystemet kan den heta något annat..... förmodligen entitetens namn
-	
-	// TODO: subclassa, GhostController
-	// TODO: använd värdena camera och control i controller-component
-	
-	this->node = dynamic_cast<TGen::SceneNode *>(playNode->getSceneNode());
-
-	//TGen::Camera * cam = dynamic_cast<TGen::Camera *>(camNode->getSceneNode());
-	
-	linkCameras(entity);
-}
 
 void TGen::Engine::PlayerController::addCamera(const std::string & name, const std::string & camera) {
 	camerasToLink.insert(StringStringMap::value_type(name, camera));
 }
+
 
 void TGen::Engine::PlayerController::linkCameras(TGen::Engine::Entity & entity) {
 	cameras.clear();
@@ -129,4 +88,12 @@ void TGen::Engine::PlayerController::linkCameras(TGen::Engine::Entity & entity) 
 		TGen::Engine::Scene::Node * camNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(iter->second));
 		cameras.insert(CameraMap::value_type(iter->first, dynamic_cast<TGen::Camera *>(camNode->getSceneNode())));
 	}
+}
+
+void TGen::Engine::PlayerController::linkLocally(TGen::Engine::Entity & entity) {
+	linkCameras(entity);
+}
+
+void TGen::Engine::PlayerController::addViewDelta(const TGen::Vector3 & view) {
+	viewDelta += view;
 }

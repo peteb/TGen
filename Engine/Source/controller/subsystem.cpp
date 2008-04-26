@@ -8,6 +8,7 @@
  */
 
 #include "controller/subsystem.h"
+#include "controller/firstpersoncontroller.h"
 #include "playercontroller.h"
 
 TGen::Engine::Controller::Subsystem::Subsystem() {
@@ -20,14 +21,21 @@ TGen::Engine::Controller::Subsystem::~Subsystem() {
 }
 
 TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	TGen::Engine::PlayerController * newController = new TGen::Engine::PlayerController(name, TGen::lexical_cast<scalar>(properties.getProperty("speed", "1.0")));
+	std::auto_ptr<TGen::Engine::PlayerController> newController;
 	
 	std::string type = properties.getProperty("type", "none");
-	newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	
-	controllers.insert(ControllerMap::value_type(entityName, newController));
+	if (type == "firstperson") {
+		newController.reset(new TGen::Engine::Controller::FirstPerson(name));
+		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
+	}
+	else {
+		throw TGen::RuntimeException("Controller::Subsystem::createComponent", "invalid controller type: '" + type + "'");
+	}
 	
-	return newController;
+	controllers.insert(ControllerMap::value_type(entityName, newController.get()));
+	
+	return newController.release();
 }
 
 TGen::Engine::PlayerController * TGen::Engine::Controller::Subsystem::getController(const std::string & name) {

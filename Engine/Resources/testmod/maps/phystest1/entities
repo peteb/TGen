@@ -687,48 +687,50 @@ maincam {
 // TODO: egen glowmap, lampor måste ju kunna påverka den. nu skriver lampor förmodligen till alla buffrar, inklusive normal och misc!!
 //       blir hemkst skumt och fel, gröna lampor = påverkar mycket i gröna kanalen, vilket är glowkanalen.
 
-player_start extends TheMachoGuy {
+player_start  {
 	sceneNode {
-		material "Cube2"		
+		//material "Cube2"		
 		origin "0 0 0"
 	}
 	
-	physBody {					// fysisk kropp
+	/*physBody {					// fysisk kropp
 		mass box {				// vilken funktion för massa använder vi
 			total 20.0			// totala massan
 			dimensions "1 1 1"	// storleken på lådan för uträkning av mass
 		}
 		
-		gravity false			// vårat objekt blir påverkat av gravitation
-	}
+		gravity true			// vårat objekt blir påverkat av gravitation
+	}*/
 	
 	physGeom {					// definition av fysisk geometri, behövs för collisions osv
 		type box				// vi har formen av en box
 		
 		dimensions "1 1 1"		// storleken på boxen
-		affectsOthers false		// ska vi påverka andra fysiska objekt?
+		affectsOthers true		// ska vi påverka andra fysiska objekt?
 	}
 	
 	sceneCamera HeadCam {		// definiera kameran "HeadCam"
-		origin "0 1 2"
+		origin "0 0 0"
 		range "500"				// viewing range, used to calculate clipping planes and LOD
 		
 		treePosition "player_start/"	// länka den med entitetens sceneNode
 	}
 	
 	controller {				// controller component
-		type fps
+		type firstperson
 		
 		speed 1.0
 		camera HeadCam			// bind camera
 		control sceneNode		// bind node to control
 	}
 	
-	sceneLight {
+	/*sceneLight {
 		material "deferred/lightPositional"
 		treePosition "player_start/"
 		diffuse "1 1 0 1"
 		specular "1.0"
-		model "gen:cube width 5.0 height 5.0 depth 5.0"		// generera en cube-model
-	}	
+		range "2.5 2.5 2.5"
+		
+		model "gen:cube width 5.0 height 5.0 depth 5.0"		// generera en boundingbox
+	}*/	
 }

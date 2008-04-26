@@ -17,6 +17,14 @@ namespace TGen {
 		class World;
 		class PlayerController;
 		
+		enum Event {
+			EventForward = 1,
+			EventBackward,
+			EventStrafeLeft,
+			EventStrafeRight,			
+			EventJump,
+		};
+
 		class GameInputMapper : public TGen::Engine::InputEventResponder {
 		public:
 			GameInputMapper();
@@ -34,6 +42,8 @@ namespace TGen {
 			TGen::Engine::PlayerController * playerController;
 			TGen::Engine::World * world;
 			std::string text;
+			
+			bool initialBump;
 		};
 		
 	} // !Engine
