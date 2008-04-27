@@ -722,7 +722,7 @@ light1 {
 		material "deferred/lightDirectional"
 		orientation "0.5 0.5 0"
 		diffuse "0.3 0.0 0.0 1.0"
-		specular "0.4 0.0 0.0 1.0"
+		specular "1.0"
 	}
 }
 
@@ -807,7 +807,17 @@ class MyArcball {
 		origin "0 2 2"
 		range "500"
 	}
-
+	
+	sceneLight lig {
+		material "deferred/lightPositional"
+		//treePosition "player_start/"
+		diffuse "0.2 0.8 0.2 1"
+		specular "0.8"
+		range "2.5 2.5 2.5"
+		origin "0 1 0"
+		model "gen:cube width 5.0 height 5.0 depth 5.0"		// generera en boundingbox
+	}
+	
 	controller {
 		type arcball
 		
@@ -819,7 +829,7 @@ class MyArcball {
 player_start extends MyArcball {
 	sceneNode exhibit {
 		model "models/detonics.md3 scale 0.2"
-		material "Cube2"
+		material "detonics"
 	}
 }
 

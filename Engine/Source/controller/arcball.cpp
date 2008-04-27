@@ -19,6 +19,7 @@ TGen::Engine::Controller::Arcball::Arcball(const std::string & name, const std::
 	, nodeName(nodeName)
 	, thisRot(TGen::Rotation::Identity)
 	, lastRot(TGen::Rotation::Identity)
+	, camera(NULL)
 {
 	
 }
@@ -36,6 +37,7 @@ void TGen::Engine::Controller::Arcball::linkLocally(TGen::Engine::Entity & entit
 		throw TGen::RuntimeException("Controller::Arcball::linkLocally", "no node found called '" + nodeName + "'");
 	
 	node = sceneNode->getSceneNode();
+	camera = getCamera("headcam");
 }
 
 void TGen::Engine::Controller::Arcball::update(scalar dt) {
@@ -53,6 +55,28 @@ void TGen::Engine::Controller::Arcball::update(scalar dt) {
 		TGen::Rotation totalRot = lastRot * thisRot;
 		node->setOrientation(totalRot);
 	}
+
+	if (camera) {
+		if (checkEvent(TGen::Engine::EventForward))
+			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(0.0f, 0.0f, -1.0f) * dt);
+
+		if (checkEvent(TGen::Engine::EventBackward))
+			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(0.0f, 0.0f, 1.0f) * dt);
+
+		if (checkEvent(TGen::Engine::EventStrafeLeft))
+			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(-1.0f, 0.0f, 0.0f) * dt);
+		
+		if (checkEvent(TGen::Engine::EventStrafeRight))
+			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(1.0f, 0.0f, 0.0f) * dt);
+	
+		if (checkEvent(TGen::Engine::EventJump))
+			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(0.0f, 1.0f, 0.0f) * dt);
+
+		if (checkEvent(TGen::Engine::EventCrouch))
+			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(0.0f, -1.0f, 0.0f) * dt);
+			
+	}
+	
 }
 
 bool TGen::Engine::Controller::Arcball::useRelativeView() const {
