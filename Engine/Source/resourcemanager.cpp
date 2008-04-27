@@ -113,7 +113,7 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 			TGen::Engine::TextPreprocessor processor;
 			contents = processor.process(contents, genString);
 			
-			std::cout << contents << std::endl;
+			//std::cout << contents << std::endl;
 		}
 	}
 	

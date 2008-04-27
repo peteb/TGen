@@ -87,7 +87,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	right = TGen::Vector3::CrossProduct(look, up);
 	
 	
-	TGen::Matrix4x4 rotation = TGen::Matrix4x4(right.getNormalized(), up.getNormalized(), look.getNormalized());
+	TGen::Matrix4x4 rotation(right.getNormalized(), up.getNormalized(), look.getNormalized());
 	
 	node->setOrientation(rotation);
 }

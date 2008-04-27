@@ -53,19 +53,26 @@ bool TGen::Engine::PlayerController::checkEvent(int id) {
 	return false;
 }
 
+void TGen::Engine::PlayerController::setEventRead(int id) {
+	if (id < 0 || id >= 20)
+		return;
+	
+	activeEvents[id] |= EventRead;
+}
+
+bool TGen::Engine::PlayerController::isEventInitial(int id) const {
+	if (id < 0 || id > 20)
+		return false;
+	
+	return activeEvents[id] & EventTriggered && !(activeEvents[id] & EventRead);	
+}
+
 TGen::Vector3 TGen::Engine::PlayerController::checkViewDelta() {
 	TGen::Vector3 ret = viewDelta;
 	viewDelta = TGen::Vector3::Zero;
 	
 	return ret;
 }
-
-// TODO: fix blog entry
-// TODO: mouse steering, that ball thingie (arcball?)
-
-/*void TGen::Engine::PlayerController::addCamera(const std::string & name, TGen::Camera * camera) {
-	cameras.insert(CameraMap::value_type(name, camera));
-}*/
 
 TGen::Camera * TGen::Engine::PlayerController::getCamera(const std::string & name) const {
 	CameraMap::const_iterator iter = cameras.find(name);
@@ -96,4 +103,9 @@ void TGen::Engine::PlayerController::linkLocally(TGen::Engine::Entity & entity) 
 
 void TGen::Engine::PlayerController::addViewDelta(const TGen::Vector3 & view) {
 	viewDelta += view;
+	viewAbs = view;
+}
+
+TGen::Vector3 TGen::Engine::PlayerController::checkViewAbs() {
+	return viewAbs;
 }

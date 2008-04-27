@@ -798,26 +798,28 @@ maincam {
 	}	
 }*/
 
-player_start {
-	sceneNode {
-		//model "gen:cube width 1.0 height 1.0 depth 1.0"
-		
-		model "models/detonics.md3 scale 0.2"
-		material "Cube2"
-		origin "0 2 0"	
+class MyArcball {
+	sceneNode exhibit {
+		origin "0 2 0"
 	}
-	
+
 	sceneCamera Cam {
 		origin "0 2 2"
 		range "500"
 	}
 
 	controller {
-		type firstperson
+		type arcball
 		
 		camera Cam
-		control player_start
+		control exhibit
 	}
+}
 
+player_start extends MyArcball {
+	sceneNode exhibit {
+		model "models/detonics.md3 scale 0.2"
+		material "Cube2"
+	}
 }
 

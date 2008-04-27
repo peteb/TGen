@@ -36,7 +36,6 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 	if (!throttledNewMap.empty()) {
 		std::cout << "a throttled map!" << std::endl;
 		currentWorld = new TGen::Engine::World(filesystem, resources, logs, worldRenderer.getRenderer(), throttledNewMap);
-		inputMapper.setWorld(currentWorld);
 		throttledNewMap = "";
 		postWorldCreation(*currentWorld);
 	}
@@ -126,7 +125,6 @@ void TGen::Engine::GameState::changeMap(const std::string & mapName) {
 		delete currentWorld;
 		currentWorld = new TGen::Engine::World(filesystem, resources, logs, dataSource, mapName);
 		
-		inputMapper.setWorld(currentWorld);
 		postWorldCreation(*currentWorld);
 	}
 	else {

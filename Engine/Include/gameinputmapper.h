@@ -23,6 +23,8 @@ namespace TGen {
 			EventStrafeLeft,
 			EventStrafeRight,			
 			EventJump,
+			EventCrouch,
+			EventPrimaryFire,
 		};
 
 		class GameInputMapper : public TGen::Engine::InputEventResponder {
@@ -33,14 +35,12 @@ namespace TGen {
 			void onBinaryEvent(TGen::Engine::InputDevice & device, int id, TGen::Engine::StateEvent state);
 			void onTextEvent(TGen::Engine::InputDevice & device, const std::string & text);
 			void onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vector);
-			void setWorld(TGen::Engine::World * world);
 			void setPlayerController(TGen::Engine::PlayerController * controller);
 			
 		private:
 			int keyToEventID(int id) const;
 			
 			TGen::Engine::PlayerController * playerController;
-			TGen::Engine::World * world;
 			std::string text;
 			
 			bool initialBump;

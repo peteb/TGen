@@ -12,13 +12,11 @@
 #include <sstream>
 #include <tgen_math.h>
 #include <tgen_renderer.h>
-#include "world.h"
 #include "inputdevice.h"
 #include "playercontroller.h"
 
 TGen::Engine::GameInputMapper::GameInputMapper()
-	: world(NULL)
-	, playerController(NULL)
+	: playerController(NULL)
 	, initialBump(false)
 {
 	
@@ -33,11 +31,20 @@ void TGen::Engine::GameInputMapper::onBinaryEvent(TGen::Engine::InputDevice & de
 	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 	
 	if (state == TGen::Engine::StateDown)
-		std::cout << "*** button down on " << deviceName.str() << ": " << id << std::endl;
+		std::cout << "*** button down on '" << deviceName.str() << "': " << id << std::endl;
 	else
-		std::cout << "*** button up on " << deviceName.str() << ": " << id << std::endl;
+		std::cout << "*** button up on '" << deviceName.str() << "': " << id << std::endl;
 
-	int eventId = keyToEventID(id);
+	int eventId = -1;
+
+	if (device.getName() == "mouse") {
+		if (id == 0) {
+			eventId = TGen::Engine::EventPrimaryFire;
+		}
+	}
+	else {
+		eventId = keyToEventID(id);
+	}
 	
 	if (playerController) {
 		if (state == TGen::Engine::StateDown)
@@ -105,7 +112,13 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 
 	//std::cout << "*** vector move on " << deviceName.str() << " id: " << id << ": " << std::string(vec) << std::endl;
 	*/
+
+	if (playerController && playerController->useRelativeView())
+		device.enterMode(TGen::Engine::RelativeMode);
+	else
+		device.enterMode(TGen::Engine::AbsoluteMode);
 	
+	// if (playerController->useAbsoluteView()) device.setAbsoluteView()...... else device.setRelativeView()
 	if (vec.getMagnitude() > 100.0f && !initialBump) {
 		initialBump = true;
 		return;
@@ -115,9 +128,6 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 		playerController->addViewDelta(vec);
 }
 
-void TGen::Engine::GameInputMapper::setWorld(TGen::Engine::World * world) {
-	this->world = world;
-}
 
 void TGen::Engine::GameInputMapper::setPlayerController(TGen::Engine::PlayerController * controller) {
 	playerController = controller;

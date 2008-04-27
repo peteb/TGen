@@ -44,7 +44,9 @@ namespace TGen {
 		scalar calculateW() const;
 		
 		Quaternion4 operator - () const;
-		operator TGen::Matrix4x4 () const;
+		//operator TGen::Matrix4x4 () const;
+		operator TGen::Matrix3x3 () const;
+		
 		//operator TGen::Vector3 () const;
 		operator TGen::Vector4 () const;
 		operator std::string() const;

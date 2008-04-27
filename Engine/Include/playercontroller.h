@@ -40,10 +40,15 @@ namespace TGen {
 			
 			virtual void linkLocally(TGen::Engine::Entity & entity);
 			virtual void update(scalar dt) abstract;
+			virtual bool useRelativeView() const {return true; }
 			
 		protected:
+			bool isEventInitial(int id) const;
 			bool checkEvent(int id);
+			void setEventRead(int id);
+			
 			TGen::Vector3 checkViewDelta();
+			TGen::Vector3 checkViewAbs();
 			
 		private:
 			void linkCameras(TGen::Engine::Entity & entity);
@@ -53,10 +58,10 @@ namespace TGen {
 			
 			StringStringMap camerasToLink;
 			CameraMap cameras;
-
+		
 			uint32 activeEvents[20];
 			
-			TGen::Vector3 viewDelta;
+			TGen::Vector3 viewDelta, viewAbs;
 		};
 		
 	} // !Engine

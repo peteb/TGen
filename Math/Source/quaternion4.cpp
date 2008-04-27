@@ -77,12 +77,12 @@ TGen::Quaternion4 TGen::Quaternion4::operator * (const TGen::Quaternion4 & quat)
 									 w * quat.w - x * quat.x - y * quat.y - z * quat.z);
 }
 
-TGen::Quaternion4::operator TGen::Matrix4x4 () const {
+/*TGen::Quaternion4::operator TGen::Matrix4x4 () const {
 	return TGen::Matrix4x4(1.0 - (2.0 * y * y + 2.0 * z * z), 2.0 * x * y + 2.0 * z * w, 2.0 * x * z - 2.0 * y * w, 0,
 						   2.0 * x * y - 2.0 * z * w, 1.0 - (2.0 * x * x + 2.0 * z * z), 2.0 * y * z + 2.0 * x * w, 0,
 						   2.0 * x * z + 2.0 * y * w, 2.0 * y * z - 2.0 * x * w, 1.0 - (2.0 * x * x + 2.0 * y * y), 0,
 						   0, 0, 0, 1.0);		
-}
+}*/
 
 //TGen::Quaternion4::operator TGen::Vector3 () const {
 //	return TGen::Vector3(x, y, z);
@@ -214,4 +214,39 @@ TGen::Quaternion4::operator std::string() const {
 	return ss.str();
 	
 }
+
+TGen::Quaternion4::operator TGen::Matrix3x3 () const {
+	scalar n, s;
+	scalar xs, ys, zs;
+	scalar wx, wy, wz;
+	scalar xx, xy, xz;
+	scalar yy, yz, zz;
+		
+	n = (x * x) + (y * y) + (z * z) + (w * w);
+	s = (n > 0.0f) ? (2.0f / n) : 0.0f;
+	
+	xs = x * s;  ys = y * s;  zs = z * s;
+	wx = w * xs; wy = w * ys; wz = w * zs;
+	xx = x * xs; xy = x * ys; xz = x * zs;
+	yy = y * ys; yz = y * zs; zz = z * zs;
+	
+	/*NewObj->s.XX = 1.0f - (yy + zz); NewObj->s.YX =         xy - wz;  NewObj->s.ZX =         xz + wy;
+	NewObj->s.XY =         xy + wz;  NewObj->s.YY = 1.0f - (xx + zz); NewObj->s.ZY =         yz - wx;
+	NewObj->s.XZ =         xz - wy;  NewObj->s.YZ =         yz + wx;  NewObj->s.ZZ = 1.0f - (xx + yy);
+ 	*/
+	
+	//TGen::Matrix3x3 ret(TGen::Vector3(1.0f - (yy + xx), xy + wz, xz - wy),
+	//						  TGen::Vector3(wy - wz, 1.0f - (xx + zz), yz + wx),
+	//						  TGen::Vector3(xz + wy, yz - wx, 1.0f - (xx + yy)));
+	
+	TGen::Matrix3x3 ret(TGen::Vector3(1.0f - (yy + zz), xy + wz, xz - wy),
+							  TGen::Vector3(xy - wz, 1.0f - (xx + zz), yz + wx),
+							  TGen::Vector3(xz + wy, yz - wx, 1.0f - (xx + yy)));
+	
+	//TGen::Matrix3x3 ret(TGen::Vector3(1.0f - (yy + zz), xy - wz, xz + wy),
+	//						  TGen::Vector3(xy + wz, 1.0f - (xx + zz), yz - wx),
+	//						  TGen::Vector3(xz - wy, yz + wx, 1.0f - (xx + yy)));
+	return ret;
+}
+
 

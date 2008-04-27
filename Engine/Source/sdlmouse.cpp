@@ -56,9 +56,11 @@ std::string TGen::Engine::SDLMouse::getDeviceName() {
 
 void TGen::Engine::SDLMouse::onMotionEvent(const SDL_MouseMotionEvent & motion) {
 	if (mode == TGen::Engine::AbsoluteMode) {
+		SDL_ShowCursor(SDL_TRUE);
 		position = TGen::Vector3(motion.x, motion.y, 0.0f);
 	}
 	else if (mode == TGen::Engine::RelativeMode) {
+		SDL_ShowCursor(SDL_FALSE);
 		position += TGen::Vector3(motion.xrel, motion.yrel, 0.0f);
 	}
 	

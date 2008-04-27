@@ -31,7 +31,7 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}
 	else if (type == "arcball") {
-		newController.reset(new TGen::Engine::Controller::Arcball(name));
+		newController.reset(new TGen::Engine::Controller::Arcball(name, properties.getProperty("control", "sceneNode")));
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}
 	else {
