@@ -79,6 +79,9 @@ UniformMatrix4fvPtr glUniformMatrix4fv = NULL;
 Uniform1fPtr glUniform1f = NULL;
 VertexAttrib1fPtr glVertexAttrib1f = NULL;
 
+ProgramParameteriEXTPtr glProgramParameteriEXT = NULL;
+Uniform4fvARBPtr glUniform4fv = NULL;
+VertexAttrib4fvARB glVertexAttrib4fv = NULL;
 
 void TGen::OpenGL::BindFunctions() {
 	DEBUG_PRINT("[ogl]: binding functions... :(");
@@ -135,6 +138,10 @@ void TGen::OpenGL::BindFunctions() {
 	glCheckFramebufferStatusEXT = (CheckFramebufferStatusEXTPtr)_GET_EXT("glCheckFramebufferStatusEXT");
 
 	glDrawBuffersARB = (DrawBuffersARBPtr)_GET_EXT("glDrawBuffersARB");
+
+	glProgramParameteriEXT = (ProgramParameteriEXTPtr)_GET_EXT("glProgramParameteriEXT");
+	glUniform4fv = (Uniform4fvARBPtr)_GET_EXT("glUniform4fvARB");
+	glVertexAttrib4fv = (VertexAttrib4fvARB)_GET_EXT("glVertexAttrib4fvARB");
 
 }
 

@@ -83,6 +83,11 @@ typedef GLenum (GLAPIENTRY *CheckFramebufferStatusEXTPtr) (GLenum target);
 
 typedef void (GLAPIENTRY *DrawBuffersARBPtr) (GLsizei n, const GLenum *bufs);
 
+typedef void (GLAPIENTRY *ProgramParameteriEXTPtr) (GLuint program, GLenum pname, GLint value);
+typedef void (GLAPIENTRY *Uniform4fvARBPtr) (GLint location, GLsizei count, const GLfloat * value);
+typedef void (GLAPIENTRY *VertexAttrib4fvARB) (GLuint index, const GLfloat * v);
+
+
 #ifndef GL_ARRAY_BUFFER
 #define GL_ARRAY_BUFFER 0x8892    // VBO ARB
 #endif
@@ -158,9 +163,25 @@ typedef void (GLAPIENTRY *DrawBuffersARBPtr) (GLsizei n, const GLenum *bufs);
 
 #endif
 
+#ifndef GL_TEXTURE_MAX_ANISOTROPY_EXT
+#define GL_TEXTURE_MAX_ANISOTROPY_EXT 0x84FE
+#endif
+
+#ifndef GL_TEXTURE_RECTANGLE_ARB
+#define GL_TEXTURE_RECTANGLE_ARB            0x84F5
+#define GL_TEXTURE_BINDING_RECTANGLE_ARB	0x84F6
+#endif
+
 #ifndef GL_MAX_ELEMENTS_VERTICES // GL_EXT_draw_range_elements 
 #define GL_MAX_ELEMENTS_VERTICES      0x80E8
 #define GL_MAX_ELEMENTS_INDICES       0x80E9
+#endif
+
+#ifndef GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT
+#define GL_GEOMETRY_INPUT_TYPE_EXT                         0x8DDB
+#define GL_GEOMETRY_OUTPUT_TYPE_EXT                        0x8DDC
+#define GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT				0x8DE0
+#define GL_GEOMETRY_VERTICES_OUT_EXT                       0x8DDA
 #endif
 
 #ifndef GL_VERSION_2_0
@@ -289,7 +310,9 @@ extern CheckFramebufferStatusEXTPtr glCheckFramebufferStatusEXT;
 
 extern DrawBuffersARBPtr glDrawBuffersARB;
 
-
+extern ProgramParameteriEXTPtr glProgramParameteriEXT;
+extern Uniform4fvARBPtr glUniform4fv;
+extern VertexAttrib4fvARB glVertexAttrib4fv;
 
 #endif // !_TGEN_OPENGL_NEED_BINDING
 

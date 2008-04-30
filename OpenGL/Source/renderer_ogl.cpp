@@ -93,7 +93,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, reinterpret_cast<GLint *>(&caps.maxFrameBufferColorAttachments));
 	glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT, reinterpret_cast<GLint *>(&caps.maxGeometryVerticesOutput));
 	
-	// TODO: måste göras platform-def:at
+#ifdef _PLATFORM_OSX
 	CGLError err;
 	CGLContextObj ctx = CGLGetCurrentContext();
 	
@@ -101,7 +101,10 @@ void TGen::OpenGL::Renderer::readCaps() {
 	
 	if (err == kCGLNoError)
 		caps.multithreadable = false;
-	
+#else
+	caps.multithreadable = false;
+#endif
+
 	caps.maxViewportSize = TGen::Rectangle(viewportDims[0], viewportDims[1]);
 	
 	if (glGetString(GL_SHADING_LANGUAGE_VERSION))

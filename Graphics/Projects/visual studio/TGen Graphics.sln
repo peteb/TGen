@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Math", "..\..\..\Math\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Core", "..\..\..\Core\Projects\visual studio\TGen Core.vcproj", "{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TGen Graphics", "TGen Graphics.vcproj", "{EA312372-8427-4748-B939-823C72985D26}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Debug|Win32.Build.0 = Debug|Win32
 		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Release|Win32.ActiveCfg = Release|Win32
 		{D62E43CB-EBF4-4F61-BBD9-34766C6536A1}.Release|Win32.Build.0 = Release|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Debug|Win32.Build.0 = Debug|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Release|Win32.ActiveCfg = Release|Win32
+		{EA312372-8427-4748-B939-823C72985D26}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

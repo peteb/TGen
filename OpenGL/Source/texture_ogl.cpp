@@ -11,6 +11,7 @@
 #include <iostream>
 #include "texture_ogl.h"
 #include "types_converter_ogl.h"
+#include "binder_ogl.h"
 
 TGen::OpenGL::Texture::Texture(TGen::Renderer & creator, GLuint texId, const TGen::Rectangle & size, GLenum target) 
 	: TGen::Texture(creator, size)
