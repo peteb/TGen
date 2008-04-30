@@ -167,7 +167,6 @@ void TGen::Engine::DeferredRenderer::createResources(const TGen::Rectangle & map
 	
 	mrtSize = mapSize;
 }
-#include <GLUT/GLUT.h>
 
 void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
 	/*if (!world) {
@@ -242,7 +241,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 
 	// TODO: var ska det här vara egentligen....
 	
-	// vars.postProcessing = false;
+	//vars.postProcessing = false;
 	// postprocessing kostar 110 fps
 	
 	/*if (vars.postProcessing) {
@@ -294,7 +293,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 					if ((*lights)[a + i]->getType() == TGen::Engine::LightDirectional)
 						renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a + 1 + i) + "lights");	// TODO: optimize						
 					else {
-						glIsTexture(1);
+					//	glIsTexture(1);
 						(*lights)[a + i]->getMaterial()->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a + i]), TGen::lexical_cast<std::string>(a + 1 + i) + "lights", 9, textures, this);
 					}
 						

@@ -13,11 +13,12 @@
 #include "gameinputmapper.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name)
+TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control)
 	: TGen::Engine::PlayerController(name)
 	, node(NULL)
 	, orientX(0.0f)
 	, orientY(0.0f)
+	, control(control)
 {
 	
 }
@@ -30,7 +31,7 @@ TGen::Engine::Controller::FirstPerson::~FirstPerson() {
 void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & entity) {
 	TGen::Engine::PlayerController::linkLocally(entity);
 	
-	TGen::Engine::Scene::Node * playNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
+	TGen::Engine::Scene::Node * playNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(control));
 	// kanske pga arvet?
 	
 	// såhär: om man inte anger namn på en component så heter den samma som typen, dvs sceneNode. Det heter den i entitetens komponentlista

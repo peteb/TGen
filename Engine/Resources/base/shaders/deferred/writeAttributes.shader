@@ -72,8 +72,10 @@ void main() {
 			normal = gl_NormalMatrix * gl_Normal;
 		#endif
 		
-		bitangent = cross(normal, tangent.xyz) * tangent.w;		
-		tbnMatrix = mat3(tangent.xyz, bitangent, normal);
+		// TODO: use the handedness dir in tangent.w
+		
+		bitangent = cross(gl_Normal * tangent.w, tangent.xyz);	//  * tangent.w	
+		tbnMatrix = mat3(gl_NormalMatrix * tangent.xyz, gl_NormalMatrix * bitangent, normal);
 	#else
 		#ifdef VERT_INTERPOL
 			normal = gl_NormalMatrix * (gl_Normal + (nextNormal - gl_Normal) * frameTime);
@@ -115,6 +117,7 @@ void main() {
 	
 	gl_FragData[0] = color;
 	
+	#ifndef NO_NORMALS
 	#ifdef NULL_NORMALS
 		gl_FragData[1] = vec4(0.0, 0.0, 0.0, 0.0) * 0.5 + 0.5;
 	#else
@@ -124,6 +127,7 @@ void main() {
 			vec3 normalFromMap = normalize(texture2D(normalMap, gl_TexCoord[0].st).xyz * 2.0 - 1.0);	// TODO: normalize ska kunna stängas av
 			gl_FragData[1] = vec4((normalize(tbnMatrix * normalFromMap) * 0.5 + 0.5).xyz, 1.0);	
 		#endif
+	#endif
 	#endif
 	
 	vec4 miscValue = vec4(0.0, 0.0, 0.0, 1.0);
@@ -148,7 +152,7 @@ void main() {
 		miscValue.g = glowBase;	
 		
 	#endif
-	
+		
 	gl_FragData[2] = miscValue;
 }
 

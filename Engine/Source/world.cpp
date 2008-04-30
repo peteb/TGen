@@ -132,7 +132,7 @@ void TGen::Engine::World::update(scalar dt) {
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {
-	return TGen::Color(0.2, 0.1, 0.1, 1.0) * 1.4;
+	return TGen::Color(0.2, 0.1, 0.1, 1.0) * 2.0;
 }
 
 TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const std::string & name) {

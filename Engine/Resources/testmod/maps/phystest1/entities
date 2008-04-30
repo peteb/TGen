@@ -438,8 +438,9 @@ step2 {
 
 step3 {
 	sceneNode {
-		model "gen:cube width 14 height 0.2 depth 20"
+		model "gen:cube width 14 height 0.2 depth 20 texwidth 2 texdepth 4"
 		origin "5 3.5 0"
+		material "floor_metal_plate"
 	}
 	
 	
@@ -455,6 +456,7 @@ box8 {
 	sceneNode {
 		model "gen:cube width 1 height 1 depth 1" 
 		origin "0 8 0"
+		material "squaretile"
 	}
 	
 	physBody {
@@ -477,6 +479,7 @@ box9 {
 	sceneNode {
 		model "gen:cube width 1 height 1 depth 1" 
 		origin "-4 8 0"
+		material "lfwall4"
 	}
 	
 	physBody {
@@ -616,8 +619,8 @@ ground4 {
 	sceneNode {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "Cube"
+		model "gen:cube width '20.0' height '20.0' depth '0.05' texwidth 5 texheight 5" 
+		material "a_superpipes"
 		origin "0 0 10"
 		orientation "0 0 1"
 	}
@@ -636,7 +639,7 @@ ground6 {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
 		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "Cube"
+		material "a_superpipes"
 		origin "-10 0 0"
 		orientation "1 0 0"
 	}
@@ -654,8 +657,8 @@ ground7 {
 	sceneNode {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "Cube"
+		model "gen:cube width '20.0' height '20.0' depth '0.05' texwidth 5 texheight 5" 
+		material "a_superpipes"
 		origin "10 0 0"
 		orientation "-1 0 0"
 	}
@@ -673,7 +676,7 @@ ground5 {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
 		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "Cube"
+		material "a_superpipes"
 		origin "0 0 -10"
 		orientation "0 0 -1"
 	}
@@ -722,7 +725,7 @@ light1 {
 		material "deferred/lightDirectional"
 		orientation "0.5 0.5 0"
 		diffuse "0.3 0.0 0.0 1.0"
-		specular "1.0"
+		specular "0.8"
 	}
 }
 
@@ -826,10 +829,67 @@ class MyArcball {
 	}
 }
 
-player_start extends MyArcball {
+/*player_start extends MyArcball {
 	sceneNode exhibit {
 		model "models/detonics.md3 scale 0.2"
 		material "detonics"
 	}
+}*/
+
+player_start {
+	sceneNode main {
+	
+	}
+	
+	/*sceneNode {
+		model "models/detonics.md3 scale 0.1"
+		material "Cube2"		
+		origin "0.3 -0.5 -1.2"
+		orientation "1.0 0 0.05"
+		
+		treePosition "player_start/"
+	}*/
+	
+	sceneNode {
+		model "models/railgun.md3 preset q3 scale 0.1"
+		//material "Cube2"		
+		origin "0.5 -1.0 -0.3"
+		orientation "1.0 0 0.05"
+		
+		treePosition "player_start/"
+	}
+		
+	sceneCamera HeadCam {		// definiera kameran "HeadCam"
+		range "500"				// viewing range, used to calculate clipping planes and LOD
+
+		treePosition "player_start/"	// länka den med entitetens sceneNode
+	}
+	
+	controller {				// controller component
+		type firstperson
+		
+		speed 1.0
+		camera HeadCam			// bind camera
+		control main		// bind node to control
+	}
+	
+
 }
 
+blarg1 {
+	sceneNode {
+		model "gen:cube width 2.0 height 2.0 depth 2.0"
+		material "Cube"
+		origin "20 0 0"
+	}
+
+}
+
+blarg2 {
+	sceneNode {
+		model "gen:cube width 2.0 height 2.0 depth 2.0"
+		material "nomat"
+		origin "20 0 10"
+	}
+
+}

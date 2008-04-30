@@ -26,8 +26,13 @@ TGen::NewModel * TGen::Engine::ModelGenerator::createModel(const TGen::Engine::G
 		
 		TGen::Vector3 min(-width / 2.0, -height / 2.0, -depth / 2.0);
 		TGen::Vector3 max(width / 2.0, height / 2.0, depth / 2.0);
+		TGen::Vector3 texMax;
 		
-		TGen::Engine::CubeMesh * mesh = new TGen::Engine::CubeMesh(line.getParameter("material", "cubemat"), "", min, max);
+		texMax.x = TGen::lexical_cast<scalar>(line.getParameter("texwidth", "1.0"));
+		texMax.y = TGen::lexical_cast<scalar>(line.getParameter("texheight", "1.0"));
+		texMax.z = TGen::lexical_cast<scalar>(line.getParameter("texdepth", "1.0"));
+		
+		TGen::Engine::CubeMesh * mesh = new TGen::Engine::CubeMesh(line.getParameter("material", "cubemat"), "", min, max, TGen::Vector3::Zero, texMax);
 		
 		mesh->createVertexData(dataSource);
 		// fill mesh with data. iofs CubeModel och CubeMesh kan gott och väl vara mer generic...

@@ -3,7 +3,7 @@ material nomat default 9 {
 	lod 9 {
 		pass deferred/writeAttributes:COLOR_MAP,NORMAL_MAP,TRANSFORM_TEX {
 			front fill
-			back fill
+			//back fill
 			color 1 1 1
 			
 			bind tangent "vertexTangent"

@@ -100,6 +100,8 @@ void createVariables(TGen::Engine::VariableRegister & variables) {
 	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
 	variables += TGen::Engine::Variable("map", "phystest1", "phystest1", 0);
 	variables += TGen::Engine::Variable("r_renderer", "deferred", "deferred", 0);
+	variables += TGen::Engine::Variable("r_syncVtrace", "false", "false", 0);
+	
 	//variables += TGen::Engine::Variable("r_postprocessor", "default", "default", 0);	
 }
 

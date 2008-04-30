@@ -16,7 +16,6 @@ namespace TGen {
 	namespace Engine {
 		enum {
 			MapSurfaceTangentAttribute = 10,
-			
 		};
 		
 		class MapSurface : public TGen::Geometry {

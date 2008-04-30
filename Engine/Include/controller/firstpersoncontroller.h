@@ -20,7 +20,7 @@ namespace TGen {
 		namespace Controller {
 			class FirstPerson : public TGen::Engine::PlayerController {
 			public:
-				FirstPerson(const std::string & name);
+				FirstPerson(const std::string & name, const std::string & control);
 				~FirstPerson();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
@@ -29,6 +29,7 @@ namespace TGen {
 			private:
 				TGen::SceneNode * node;		// IMPL
 				
+				std::string control;
 				scalar orientX, orientY;			
 			};
 			
