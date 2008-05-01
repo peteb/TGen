@@ -167,7 +167,7 @@ void TGen::OpenGL::FrameBuffer::setupDrawBuffers() {
 	if (!drawBuffers.empty())
 		glDrawBuffersARB(drawBuffers.size(), &drawBuffers[0]);
 	else
-		glDrawBuffers(0, NULL);
+		glDrawBuffersARB(0, NULL);
 }
 
 
