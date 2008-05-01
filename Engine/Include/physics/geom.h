@@ -34,24 +34,23 @@ namespace TGen {
 				void setAffectsOthers(bool affectOthers);
 				bool getAffectsOthers() const;
 				
-				void preStep();
-				void postStep();
+				virtual void preStep();
+				virtual void postStep();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities);
 				
 			protected:
 				void setGeomId(dGeomID id);
-				
-			private:
 				void setPosition(const TGen::Vector3 & position);				
 				void setOrientation(const TGen::Matrix3x3 & orientation);
+				dGeomID geomId;
 				
+			private:				
 				TGen::Engine::Scene::Node * sceneNodeComponent;
 				std::string bodyComponent;
 				bool affectsOthers;
 				float friction;
-				dGeomID geomId;
 			};
 		} // !Physics
 	} // !Engine

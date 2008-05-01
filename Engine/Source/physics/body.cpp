@@ -18,8 +18,10 @@ TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId)
 	: TGen::Engine::Component(name)
 	, bodyId(bodyId)
 	, sceneNodeComponent(NULL)
+	, turnHeadwise(false)
+	, killTorque(false)
 {
-	
+
 }
 
 TGen::Engine::Physics::Body::~Body() {
@@ -31,17 +33,24 @@ void TGen::Engine::Physics::Body::preStep() {
 		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
 	}
+	
+	if (killTorque)
+		dBodySetTorque(bodyId, 0.0, 0.0, 0.0);
 }
 
 void TGen::Engine::Physics::Body::postStep() {
 	if (sceneNodeComponent) {
 		sceneNodeComponent->getSceneNode()->setPosition(getPosition());
-		sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
+		
+		if (turnHeadwise)
+			sceneNodeComponent->getSceneNode()->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			
+		else
+			sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
 	}
 }
 
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
-	sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
+	sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(nodeComponent));
 	
 	setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 }
@@ -93,3 +102,21 @@ void TGen::Engine::Physics::Body::setOrientation(const TGen::Matrix3x3 & orienta
 	
 	dBodySetRotation(bodyId, matrix);
 }
+
+void TGen::Engine::Physics::Body::setTurnHeadwise(bool turnHeadwise) {
+	this->turnHeadwise = turnHeadwise;
+}
+
+void TGen::Engine::Physics::Body::setMaxAngularSpeed(scalar speed) {
+	if (speed > -0.5f)
+		dBodySetMaxAngularSpeed(bodyId, speed);
+}
+
+void TGen::Engine::Physics::Body::setNodeComponent(const std::string & nodeName) {
+	nodeComponent = nodeName;
+}
+
+void TGen::Engine::Physics::Body::setKillTorque(bool killTorque) {
+	this->killTorque = killTorque;
+}
+

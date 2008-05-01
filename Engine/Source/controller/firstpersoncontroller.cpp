@@ -67,6 +67,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	orientX += viewDelta.x;
 	orientY += viewDelta.y;
 	
+	TGen::SceneNode * camNode = getCamera("headcam");
 	
 	orientY = TGen::Clamp(orientY, -TGen::HALF_PI, TGen::HALF_PI);
 	
@@ -90,6 +91,6 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	
 	TGen::Matrix4x4 rotation(right.getNormalized(), up.getNormalized(), look.getNormalized());
 	
-	node->setOrientation(rotation);
+	camNode->setOrientation(rotation);
 }
 

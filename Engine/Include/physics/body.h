@@ -46,9 +46,16 @@ namespace TGen {
 				void setOrientation(const TGen::Matrix3x3 & orientation);
 				TGen::Matrix3x3 getOrientation() const;
 				
+				void setTurnHeadwise(bool turnHeadwise);
+				void setMaxAngularSpeed(scalar speed);
+				void setNodeComponent(const std::string & nodeName);
+				void setKillTorque(bool killTorque);
+				
 			private:
+				std::string nodeComponent;
 				dBodyID bodyId;
 				TGen::Engine::Scene::Node * sceneNodeComponent;
+				bool turnHeadwise, killTorque;
 			};
 		} // !Physics
 	} // !Engine

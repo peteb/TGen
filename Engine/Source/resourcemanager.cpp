@@ -244,7 +244,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 		TGen::Engine::ModelFactory factory(filesystem);
 		TGen::Engine::GenerateLine line("gen:" + name);
 		
-		newModel = factory.createModel(line, renderer);
+		newModel = factory.createModel(line, vertexCache);
 	}
 	
 	if (!newModel)

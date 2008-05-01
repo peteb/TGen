@@ -43,10 +43,10 @@ void TGen::Engine::CubeMesh::createVertexData(TGen::VertexDataSource & dataSourc
 			
 			// RIGHT
 			
-			max.x, min.y, min.z,  1.0f, 0.0f, 0.0f,  1.0f, 0.0f,  0.0f, 0.0f, -1.0f, 		-1.0f, 
-			max.x, min.y, max.z,  1.0f, 0.0f, 0.0f,  0.0f, 0.0f,  0.0f, 0.0f, -1.0f, 		-1.0f, 
-			max.x, max.y, max.z,  1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  0.0f, 0.0f, -1.0f, 		-1.0f, 
-			max.x, max.y, min.z,  1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  0.0f, 0.0f, -1.0f, 		-1.0f, 
+			max.x, min.y, min.z,  1.0f, 0.0f, 0.0f,  texMax.z, texMin.y,  0.0f, 0.0f, -1.0f, 		-1.0f, 
+			max.x, min.y, max.z,  1.0f, 0.0f, 0.0f,  texMin.z, texMin.y,  0.0f, 0.0f, -1.0f, 		-1.0f, 
+			max.x, max.y, max.z,  1.0f, 0.0f, 0.0f,  texMin.z, texMax.y,  0.0f, 0.0f, -1.0f, 		-1.0f, 
+			max.x, max.y, min.z,  1.0f, 0.0f, 0.0f,  texMax.z, texMax.y,  0.0f, 0.0f, -1.0f, 		-1.0f, 
 
 			// BACK
 			
@@ -57,16 +57,16 @@ void TGen::Engine::CubeMesh::createVertexData(TGen::VertexDataSource & dataSourc
 			
 			// LEFT
 
-			min.x, min.y, max.z,  -1.0f, 0.0f, 0.0f,  1.0f, 0.0f,  0.0f, 0.0f, 1.0f, 		-1.0f, 
-			min.x, min.y, min.z,  -1.0f, 0.0f, 0.0f,  0.0f, 0.0f,  0.0f, 0.0f, 1.0f, 		-1.0f, 
-			min.x, max.y, min.z,  -1.0f, 0.0f, 0.0f,  0.0f, 1.0f,  0.0f, 0.0f, 1.0f, 		-1.0f, 
-			min.x, max.y, max.z,  -1.0f, 0.0f, 0.0f,  1.0f, 1.0f,  0.0f, 0.0f, 1.0f, 		-1.0f, 
+			min.x, min.y, max.z,  -1.0f, 0.0f, 0.0f,  texMax.z, texMin.y,  0.0f, 0.0f, 1.0f, 		-1.0f, 
+			min.x, min.y, min.z,  -1.0f, 0.0f, 0.0f,  texMin.z, texMin.y,  0.0f, 0.0f, 1.0f, 		-1.0f, 
+			min.x, max.y, min.z,  -1.0f, 0.0f, 0.0f,  texMin.z, texMax.y,  0.0f, 0.0f, 1.0f, 		-1.0f, 
+			min.x, max.y, max.z,  -1.0f, 0.0f, 0.0f,  texMax.z, texMax.y,  0.0f, 0.0f, 1.0f, 		-1.0f, 
 
 			// BOTTOM
-			max.x, min.y, min.z,  0.0f, -1.0f, 0.0f,  1.0f, 0.0f,  1.0f, 0.0f, 0.0f, 		-1.0f, 
-			min.x, min.y, min.z,  0.0f, -1.0f, 0.0f,  0.0f, 0.0f,  1.0f, 0.0f, 0.0f, 		-1.0f, 
-			min.x, min.y, max.z,  0.0f, -1.0f, 0.0f,  0.0f, 1.0f,  1.0f, 0.0f, 0.0f, 		-1.0f, 
-			max.x, min.y, max.z,  0.0f, -1.0f, 0.0f,  1.0f, 1.0f,  1.0f, 0.0f, 0.0f, 		-1.0f, 
+			max.x, min.y, min.z,  0.0f, -1.0f, 0.0f,  texMax.x, texMin.z,  1.0f, 0.0f, 0.0f, 		-1.0f, 
+			min.x, min.y, min.z,  0.0f, -1.0f, 0.0f,  texMin.x, texMin.z,  1.0f, 0.0f, 0.0f, 		-1.0f, 
+			min.x, min.y, max.z,  0.0f, -1.0f, 0.0f,  texMin.x, texMax.z,  1.0f, 0.0f, 0.0f, 		-1.0f, 
+			max.x, min.y, max.z,  0.0f, -1.0f, 0.0f,  texMax.x, texMax.z,  1.0f, 0.0f, 0.0f, 		-1.0f, 
 			
 			// TOP
 			max.x, max.y, max.z,  0.0f, 1.0f, 0.0f,  texMax.x, texMax.z,  -1.0f, 0.0f, 0.0f, 		1.0f, 

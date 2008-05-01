@@ -49,6 +49,9 @@ void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 }
 
 void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
+	if (geomId == 0)
+		return;
+	
 	try {
 		TGen::Engine::Physics::Body * attachTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
 		dGeomSetBody(geomId, attachTo->getBodyId());
@@ -97,7 +100,8 @@ void TGen::Engine::Physics::Geom::postStep() {
 }
 
 void TGen::Engine::Physics::Geom::setPosition(const TGen::Vector3 & position) {
-	dGeomSetPosition(geomId, position.x, position.y, position.z);
+	if (geomId != 0)
+		dGeomSetPosition(geomId, position.x, position.y, position.z);
 }
 
 void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orientation) {

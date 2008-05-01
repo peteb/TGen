@@ -31,8 +31,11 @@ TGen::Engine::ImageLoader::~ImageLoader() {
 }
 
 TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file, const std::string & ext) {
-	
+#ifndef _PLATFORM_WINDOWS
+	return loadDevIL(file, ext);
+#else
 	return loadSDLImage(file, ext);
+#endif
 }
 
 TGen::Image * TGen::Engine::ImageLoader::loadDevIL(TGen::Engine::File * file, const std::string & ext) {
@@ -59,8 +62,10 @@ TGen::Image * TGen::Engine::ImageLoader::loadDevIL(TGen::Engine::File * file, co
 	return new TGen::Engine::DevilImage(newImage);
 }
 
+#ifdef _PLATFORM_WINDOWS
 #include "SDL/SDL.h"
 #include "SDL/SDL_image.h"
+
 
 TGen::Image * TGen::Engine::ImageLoader::loadSDLImage(TGen::Engine::File * file, const std::string & ext) {
 	uint fileSize = file->getSize();
@@ -120,7 +125,7 @@ TGen::Image * TGen::Engine::ImageLoader::loadSDLImage(TGen::Engine::File * file,
 
 	return canvas.release();
 }
-
+#endif
 
 
 ILHANDLE TGen::Engine::ImageLoader::Open(const ILstring file) {

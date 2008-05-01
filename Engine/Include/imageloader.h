@@ -34,7 +34,10 @@ namespace TGen {
 
 		private:
 			TGen::Image * loadDevIL(TGen::Engine::File * file, const std::string & ext);
+			
+			#ifdef _PLATFORM_WINDOWS
 			TGen::Image * loadSDLImage(TGen::Engine::File * file, const std::string & ext);
+			#endif
 		};
 		
 		

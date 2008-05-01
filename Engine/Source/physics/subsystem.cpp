@@ -15,6 +15,7 @@
 #include "physics/spheregeom.h"
 #include "physics/boxgeom.h"
 #include "physics/geom.h"
+#include "physics/bipedalgeom.h"
 #include <ode/ode.h>
 #include <tgen_math.h>
 
@@ -87,6 +88,11 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	
 	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId);
 	newBody->setPosition(position);
+	newBody->setTurnHeadwise(TGen::lexical_cast<bool>(properties.getProperty("turnHead", "false")));
+	newBody->setMaxAngularSpeed(TGen::lexical_cast<scalar>(properties.getProperty("maxAngularSpeed", "-1.0")));
+	newBody->setNodeComponent(properties.getProperty("link", "sceneNode"));
+	newBody->setKillTorque(TGen::lexical_cast<bool>(properties.getProperty("killTorque", "false")));
+	
 	bodies.push_back(newBody);
 	
 	return newBody;
@@ -115,9 +121,12 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 		
 		newGeom.reset(new TGen::Engine::Physics::BoxGeom("physGeom", dimensions, mainSpace));
 	}
-	else {
-		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
+	else if (geomType == "bipedal") {
+		newGeom.reset(new TGen::Engine::Physics::BipedalGeom(name, mainSpace));
 	}
+	
+	if (!newGeom.get())
+		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
 	
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
 	newGeom->setBodyComponent(properties.getProperty("link", "physBody"));
@@ -159,14 +168,17 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		for (int i = 0; i < bodies.size(); ++i)
 			bodies[i]->preStep();
+		
 		for (int i = 0; i < geoms.size(); ++i)
 			geoms[i]->preStep();
+		
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 
 		dWorldStep(worldId, updateInterval); // tweak
 
 		dJointGroupEmpty(contactGroup);
+		
 		
 		for (int i = 0; i < bodies.size(); ++i)
 			bodies[i]->postStep();
