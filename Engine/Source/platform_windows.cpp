@@ -8,9 +8,11 @@
  */
 
 #include "platform_windows.h"
-	
+
+#include <windows.h>
+
 extern "C" {
 void DisplayErrorWindow(const char * title, const char * description) {
-
+	MessageBoxA(NULL, description, title, MB_ICONEXCLAMATION);
 }
 }

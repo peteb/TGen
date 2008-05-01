@@ -119,6 +119,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/I../../Include/ /I../../../Core/Include/ /I../../../Math/Include/  /I../../../Graphics/Include/ /I../../../Renderer/Include/ /I../../../OpenGL/Include/ "
+				FavorSizeOrSpeed="1"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -139,6 +140,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="SDL_image.lib  ode-imports.lib physfs.lib devil.lib sdl.lib sdlmain.lib opengl32.lib glu32.lib"
 				LinkIncremental="1"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="1"
 				OptimizeReferences="2"
@@ -150,7 +152,8 @@
 			/>
 			<Tool
 				Name="VCManifestTool"
-				EmbedManifest="false"
+				AdditionalManifestFiles="$(IntDir)\$(TargetFileName).intermediate.manifest"
+				EmbedManifest="true"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
