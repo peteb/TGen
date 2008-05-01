@@ -22,7 +22,7 @@ namespace TGen {
 			ImageLoader();
 			~ImageLoader();
 			
-			TGen::Image * load(TGen::Engine::File * file);
+			TGen::Image * load(TGen::Engine::File * file, const std::string & ext);
 			
 			static ILHANDLE ILAPIENTRY Open(const ILstring file);
 			static void ILAPIENTRY Close(ILHANDLE file);
@@ -30,7 +30,11 @@ namespace TGen {
 			static ILint ILAPIENTRY Getc(ILHANDLE file);
 			static ILint ILAPIENTRY Read(void * data, ILuint objectSize, ILuint objectCount, ILHANDLE file);
 			static ILint ILAPIENTRY Seek(ILHANDLE file, ILint bytes, ILint mode);
-			static ILint ILAPIENTRY Tell(ILHANDLE file);		
+			static ILint ILAPIENTRY Tell(ILHANDLE file);	
+
+		private:
+			TGen::Image * loadDevIL(TGen::Engine::File * file, const std::string & ext);
+			TGen::Image * loadSDLImage(TGen::Engine::File * file, const std::string & ext);
 		};
 		
 		

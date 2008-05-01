@@ -30,7 +30,12 @@ TGen::Engine::ImageLoader::~ImageLoader() {
 	
 }
 
-TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file) {
+TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file, const std::string & ext) {
+	
+	return loadSDLImage(file, ext);
+}
+
+TGen::Image * TGen::Engine::ImageLoader::loadDevIL(TGen::Engine::File * file, const std::string & ext) {
 	ILuint newImage = 0;
 	ilGenImages(1, &newImage);
 	ilBindImage(newImage);
@@ -46,13 +51,77 @@ TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file) {
 			errorCode = ilGetError();
 		}
 
-		throw TGen::RuntimeException("ImageLoader::load", "failed to load image, error codes: " + ss.str());
+		throw TGen::RuntimeException("ImageLoader::loadDevIL", "failed to load image, error codes: " + ss.str());
 	}
 	
 	// TODO: error checking
 	
 	return new TGen::Engine::DevilImage(newImage);
 }
+
+#include "SDL/SDL.h"
+#include "SDL/SDL_image.h"
+
+TGen::Image * TGen::Engine::ImageLoader::loadSDLImage(TGen::Engine::File * file, const std::string & ext) {
+	uint fileSize = file->getSize();
+	//std::auto_ptr<char> data(new char[fileSize]);
+	char * data = new char[fileSize];
+
+	if (!file->read(data, fileSize))
+		throw TGen::RuntimeException("ImageLoader::loadSDLImage", "failed to read!");
+
+	std::cout << "FILE SIZE: " << fileSize << std::endl;
+
+	SDL_RWops * rw = SDL_RWFromMem(data, fileSize);
+	if (!rw)
+		throw TGen::RuntimeException("ImageLoader::loadSDLImage", "failed to create rwops");
+
+	SDL_Surface * imgSurf = NULL;
+	
+	/*if (ext == "TGA")
+		imgSurf = IMG_LoadTGA_RW(rw);
+	else if (ext == "PNG")
+		imgSurf = IMG_LoadPNG_RW(rw);
+	else
+		imgSurf = IMG_Load_RW(rw, 0);
+	*/
+	imgSurf = IMG_LoadTyped_RW(rw, 1, (char *)ext.c_str());
+
+	if (!imgSurf)
+		throw TGen::RuntimeException("ImageLoader::loadSDLImage", "failed to load image to surface: " + std::string(IMG_GetError()));
+
+	TGen::ImageFormat format = TGen::RGBA;
+	if (imgSurf->format->BytesPerPixel == 3)
+		format = TGen::RGB;
+
+	std::auto_ptr<TGen::Canvas> canvas(new TGen::Canvas(TGen::Rectangle(imgSurf->w, imgSurf->h), format));
+
+	SDL_LockSurface(imgSurf);
+	//std::cout << imgSurf->pitch << std::endl;
+	//throw TGen::RuntimeException("barg", "barg ") << imgSurf->pitch;
+
+	canvas.get()->fillData(imgSurf->pixels, imgSurf->w * imgSurf->h * imgSurf->format->BytesPerPixel);
+	/*uint8 * pos = (uint8 *)imgSurf->pixels;
+	uint8 * writePos = (uint8 *)canvas.get()->getData();
+
+	for (int y = 0; y < imgSurf->h; ++y) {
+		memcpy(writePos, pos, imgSurf->w * imgSurf->format->BytesPerPixel);
+		writePos += imgSurf->w * imgSurf->format->BytesPerPixel;
+		pos += imgSurf->pitch;
+	}
+	*/
+	//char data[10000];
+	//memcpy(data, imgSurf->pixels, imgSurf->w * imgSurf->h);
+
+	//throw TGen::RuntimeException("FUNKADe", "FUNKAD!!!! dim: ") << imgSurf->w << " : " << imgSurf->h << " - " << int(imgSurf->format->BitsPerPixel);
+	SDL_UnlockSurface(imgSurf);
+
+	SDL_FreeSurface(imgSurf);
+
+	return canvas.release();
+}
+
+
 
 ILHANDLE TGen::Engine::ImageLoader::Open(const ILstring file) {
 	throw TGen::RuntimeException("DevIL::ImageLoader::Open", "can not open file");
@@ -119,3 +188,4 @@ ILint TGen::Engine::ImageLoader::Tell(ILHANDLE file) {
 	
 	return realFile->getReadPos();
 }
+

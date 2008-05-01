@@ -28,12 +28,13 @@ namespace TGen {
 		TGen::ImageFormat getFormat() const;
 		TGen::FormatType getComponentFormat() const;
 		const void * getData() const;
+		void * getData();
 		
 		void fill(const TGen::Color & color);
 		void setPixel(const TGen::Vector2 & pos, const TGen::Color & color);
 		void drawLine(const TGen::Vector2 & start, const TGen::Vector2 & end, const TGen::Color & color);
-		
-		
+		void fillData(const void * data, uint dataSize);
+
 	private:
 		void setPixelRaw(const TGen::Vector2 & pos, void * data, uint bpp);
 		

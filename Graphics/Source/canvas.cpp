@@ -51,6 +51,10 @@ const void * TGen::Canvas::getData() const {
 	return data;
 }
 
+void * TGen::Canvas::getData() {
+	return data;
+}
+
 void TGen::Canvas::fill(const TGen::Color & color) {
 	int bytesPerPixel = TGen::FormatTypeSize(componentFormat) * ImageFormatComponents(format);
 	int bytesTotal = bytesPerPixel * size.width * size.height;
@@ -123,3 +127,6 @@ void TGen::Canvas::drawLine(const TGen::Vector2 & start, const TGen::Vector2 & e
 	free(fillWith);	
 }
 
+void TGen::Canvas::fillData(const void * data, uint dataSize) {
+	memcpy(this->data, data, dataSize);
+}

@@ -155,10 +155,12 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		else
 			fixedName = name;
 		
-		logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
+		logs.info["res"] << "request for '" + fixedName + "'..." << TGen::endl;
 	
+		std::string ext = TGen::toUpper(fixedName.substr(fixedName.rfind(".") + 1));
+
 		TGen::Engine::File * file = filesystem.openRead(fixedName);
-		TGen::Image * image = imageLoader.load(file);
+		TGen::Image * image = imageLoader.load(file, ext);
 		delete file;
 		
 		newTexture = renderer.createTexture(*image, TGen::RGBA);	// TODO: variable switch between RGBA and format of image image->getFormat()
