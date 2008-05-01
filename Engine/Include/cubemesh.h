@@ -18,7 +18,7 @@ namespace TGen {
 	namespace Engine {
 		class CubeMesh : public TGen::NewMesh {
 		public:
-			CubeMesh(const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max, const TGen::Vector3 & max, const TGen::Vector3 & texMax);
+			CubeMesh(const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max, const TGen::Vector3 & texMin, const TGen::Vector3 & texMax);
 			~CubeMesh();
 			
 			void preRender(TGen::Renderer & renderer) const;

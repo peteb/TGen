@@ -300,7 +300,7 @@
 
 
 #ifdef HAVE_ALLOCA_H
-#include <alloca.h>
+//#include <alloca.h>
 #endif
 #if defined(HAVE_IEEEFP_H) && !defined(__CYGWIN__)
 // This header creates conflicts with math.h in Cygwin.

@@ -139,7 +139,13 @@ void TGen::OpenGL::BindFunctions() {
 
 	glDrawBuffersARB = (DrawBuffersARBPtr)_GET_EXT("glDrawBuffersARB");
 
-	glProgramParameteriEXT = (ProgramParameteriEXTPtr)_GET_EXT("glProgramParameteriEXT");
+	try {
+		glProgramParameteriEXT = (ProgramParameteriEXTPtr)_GET_EXT("glProgramParameteriEXT");
+	}
+	catch (...) {
+
+	}
+
 	glUniform4fv = (Uniform4fvARBPtr)_GET_EXT("glUniform4fvARB");
 	glVertexAttrib4fv = (VertexAttrib4fvARB)_GET_EXT("glVertexAttrib4fvARB");
 

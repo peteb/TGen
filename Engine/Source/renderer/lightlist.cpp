@@ -7,7 +7,7 @@
  *
  */
 
-#include "lightlist.h"
+#include "renderer/lightlist.h"
 #include "light.h"
 
 TGen::Engine::LightList::LightList(int num) {

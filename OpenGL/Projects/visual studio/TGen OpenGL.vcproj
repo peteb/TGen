@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="8,00"
 	Name="TGen OpenGL"
-	ProjectGUID="{3B280BDE-E181-4457-9124-9CEACA5C9101}"
+	ProjectGUID="{DF67438A-9AB7-4C86-B073-203E264CFF6C}"
 	RootNamespace="TGenOpenGL"
 	Keyword="Win32Proj"
 	>

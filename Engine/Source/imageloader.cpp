@@ -35,8 +35,17 @@ TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file) {
 	ilGenImages(1, &newImage);
 	ilBindImage(newImage);
 
+
 	if (ilLoadF(0, static_cast<ILHANDLE>(file)) == IL_FALSE) {
-		throw TGen::RuntimeException("ImageLoader::load", "failed to load image");
+		std::stringstream ss;
+
+		ILenum errorCode = ilGetError();
+		while (errorCode != IL_NO_ERROR) {
+			ss << errorCode << ", ";
+			errorCode = ilGetError();
+		}
+
+		throw TGen::RuntimeException("ImageLoader::load", "failed to load image, error codes: " + ss.str());
 	}
 	
 	// TODO: error checking

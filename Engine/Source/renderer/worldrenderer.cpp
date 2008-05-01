@@ -7,7 +7,7 @@
  *
  */
 
-#include "worldrenderer.h"
+#include "renderer/worldrenderer.h"
 
 TGen::Engine::WorldRenderer::WorldRenderer(TGen::Renderer & renderer)
 	: renderer(renderer)

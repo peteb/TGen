@@ -8,7 +8,7 @@
  */
 
 #include "light.h"
-#include "lightlist.h"
+#include "renderer/lightlist.h"
 
 TGen::Engine::Light::Light(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation)
 	: TGen::SceneNode(name, position, orientation)

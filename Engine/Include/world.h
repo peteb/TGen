@@ -13,7 +13,7 @@
 #include <string>
 #include <tgen_renderer.h>
 #include "entitylist.h"
-#include "lightlist.h"
+#include "renderer/lightlist.h"
 #include "entityfactory.h"
 #include "scene/subsystem.h"
 #include "physics/subsystem.h"

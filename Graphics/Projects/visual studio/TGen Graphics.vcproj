@@ -225,6 +225,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\renderstatistics.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\shader.cpp"
 				>
 			</File>
@@ -352,6 +356,10 @@
 			</File>
 			<File
 				RelativePath="..\..\Include\renderer_types.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\renderstatistics.h"
 				>
 			</File>
 			<File

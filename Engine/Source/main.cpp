@@ -33,7 +33,13 @@
 #ifdef _PLATFORM_OSX
 #define _PLATFORM_FILE "platform_cocoa.h"
 #endif
+
+#ifdef _PLATFORM_WINDOWS
+#define _PLATFORM_FILE "platform_windows.h"
+#endif
+
 #include _PLATFORM_FILE
+#include "platform_cocoa.h"
 
 using TGen::uint8;
 

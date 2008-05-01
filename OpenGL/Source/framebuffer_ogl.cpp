@@ -164,7 +164,10 @@ void TGen::OpenGL::FrameBuffer::setupDrawBuffers() {
 	//if (stencilUnitUsed)
 	//	drawBuffers.push_back(GL_STENCIL_ATTACHMENT_EXT);
 	
-	glDrawBuffersARB(drawBuffers.size(), &drawBuffers[0]);
+	if (!drawBuffers.empty())
+		glDrawBuffersARB(drawBuffers.size(), &drawBuffers[0]);
+	else
+		glDrawBuffers(0, NULL);
 }
 
 
