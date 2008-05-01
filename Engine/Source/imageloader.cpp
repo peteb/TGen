@@ -35,6 +35,7 @@ TGen::Image * TGen::Engine::ImageLoader::load(TGen::Engine::File * file) {
 	ilGenImages(1, &newImage);
 	ilBindImage(newImage);
 
+	// TODO: if windows, use SDL_image instead. pfffffffffffffffff!
 
 	if (ilLoadF(0, static_cast<ILHANDLE>(file)) == IL_FALSE) {
 		std::stringstream ss;
