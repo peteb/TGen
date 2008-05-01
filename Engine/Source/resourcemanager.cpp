@@ -155,8 +155,6 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		else
 			fixedName = name;
 		
-		fixedName = "textures/color.bmp";
-
 		logs.info["res"] << "request for '" + name + "'..." << TGen::endl;
 	
 		TGen::Engine::File * file = filesystem.openRead(fixedName);
