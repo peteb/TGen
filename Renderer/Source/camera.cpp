@@ -28,7 +28,6 @@ TGen::Camera::Camera(const std::string & name, const TGen::Vector3 & position, c
 TGen::Camera::~Camera() {
 	
 }
-#include <OpenGL/glu.h>
 
 void TGen::Camera::update() {
 	if (projectionChanged) {

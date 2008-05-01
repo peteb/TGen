@@ -165,6 +165,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\face_new.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\facelinker.cpp"
 				>
 			</File>
@@ -181,7 +185,27 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\Source\md3mesh.cpp"
+				RelativePath="..\..\Source\md3animmesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md3animmeshdouble.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md3animmeshinst.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md3animmeshsingle.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md3animmodel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md3animmodelinst.cpp"
 				>
 			</File>
 			<File
@@ -189,15 +213,51 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\md3staticmesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md3staticmodel.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\md3struct.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Source\md3submesh.cpp"
+				RelativePath="..\..\Source\md5mesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md5meshinst.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md5model.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md5modelfile.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md5modelinst.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md5modelparser.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\md5tokenizer.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\Source\mesh.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\mesh_new.cpp"
 				>
 			</File>
 			<File
@@ -206,6 +266,26 @@
 			</File>
 			<File
 				RelativePath="..\..\Source\meshgeomlinklist.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\meshinstance_new.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\model_new.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\modelinstance_new.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\modelinstanceproxy.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\modelinstantiatepool.cpp"
 				>
 			</File>
 			<File
@@ -225,11 +305,27 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Source\scenenoderenderable.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Source\staticgeometry.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\..\Source\tgen_renderer.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\vertexscaler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\vertexswapper.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Source\vertextransformlist.cpp"
 				>
 			</File>
 		</Filter>
@@ -255,6 +351,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\face_new.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\facelinker.h"
 				>
 			</File>
@@ -275,7 +375,27 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\Include\md3mesh.h"
+				RelativePath="..\..\Include\md3animmesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md3animmeshdouble.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md3animmeshinst.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md3animmeshsingle.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md3animmodel.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md3animmodelinst.h"
 				>
 			</File>
 			<File
@@ -283,15 +403,51 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\md3staticmesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md3staticmodel.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\md3struct.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Include\md3submesh.h"
+				RelativePath="..\..\Include\md5mesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md5meshinst.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md5model.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md5modelfile.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md5modelinst.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md5modelparser.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\md5tokenizer.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\Include\mesh.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\mesh_new.h"
 				>
 			</File>
 			<File
@@ -303,7 +459,39 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\meshinstance_new.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\meshsource.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\metawriter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\model_new.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\modelinstance_new.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\modelinstanceproxy.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\modelinstantiatepool.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\modelinstantiator.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\modeljoint.h"
 				>
 			</File>
 			<File
@@ -323,11 +511,31 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\Include\scenenoderenderable.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\Include\staticgeometry.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\Include\tgen_renderer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\vertexscaler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\vertexswapper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\vertextransformer.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\Include\vertextransformlist.h"
 				>
 			</File>
 		</Filter>
