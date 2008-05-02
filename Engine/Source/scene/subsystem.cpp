@@ -67,7 +67,9 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 }
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {	
-	TGen::Camera * camera = new TGen::Camera(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), TGen::Rotation::Identity);
+	TGen::Camera * camera = new TGen::Camera(properties.getProperty("globalName", name), 
+														  TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), 
+														  TGen::Rotation::Identity);
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	
@@ -81,7 +83,8 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 }
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties) {
-	TGen::Engine::Light * light = new TGen::Engine::Light(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	TGen::Engine::Light * light = new TGen::Engine::Light(properties.getProperty("globalName", name), 
+																			TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
 	
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
@@ -116,7 +119,8 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 }
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string & name, const TGen::PropertyTree & properties) {
-	TGen::SceneNode * node = new TGen::SceneNode(name, TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	TGen::SceneNode * node = new TGen::SceneNode(properties.getProperty("globalName", name),
+																TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
 	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));

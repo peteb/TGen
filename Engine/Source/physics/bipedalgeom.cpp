@@ -14,7 +14,7 @@
 TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpaceID space)
 	: TGen::Engine::Physics::Geom(name)
 {
-	dGeomID newGeom = dCreateCCylinder(space, 1, 4);
+	dGeomID newGeom = dCreateCCylinder(space, 1, 2);
 	setGeomId(newGeom);
 	
 }
@@ -31,11 +31,11 @@ void TGen::Engine::Physics::BipedalGeom::preStep() {
 
 void TGen::Engine::Physics::BipedalGeom::postStep() {
 	TGen::Engine::Physics::Geom::postStep();
-	setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
+	/*setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
 											TGen::Vector3(0.0f, 0.0f, -1.0f),
 											TGen::Vector3(0.0f, 1.0f, 0.0f)));
 						
-						
+		*/				
 						
 						
 						

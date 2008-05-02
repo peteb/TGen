@@ -11,14 +11,19 @@
 #include "scene/node.h"
 #include "entity.h"
 #include "gameinputmapper.h"
+#include "physics/body.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control)
+TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics)
 	: TGen::Engine::PlayerController(name)
 	, node(NULL)
+	, viewNode(NULL)
+	, controlBody(NULL)
 	, orientX(0.0f)
 	, orientY(0.0f)
 	, control(control)
+	, view(view)
+	, usePhysics(usePhysics)
 {
 	
 }
@@ -31,44 +36,85 @@ TGen::Engine::Controller::FirstPerson::~FirstPerson() {
 void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & entity) {
 	TGen::Engine::PlayerController::linkLocally(entity);
 	
-	TGen::Engine::Scene::Node * playNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(control));
-	// kanske pga arvet?
+	if (!usePhysics) {
+		TGen::Engine::Scene::Node * playNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(control));
+		this->node = dynamic_cast<TGen::SceneNode *>(playNode->getSceneNode());
+	}
+	else {
+		controlBody = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(control));
+	}
 	
-	// såhär: om man inte anger namn på en component så heter den samma som typen, dvs sceneNode. Det heter den i entitetens komponentlista
-	//        men i subsystemet kan den heta något annat..... förmodligen entitetens namn
-	
-	// TODO: använd värdena camera och control i controller-component
-	
-	this->node = dynamic_cast<TGen::SceneNode *>(playNode->getSceneNode());
+	TGen::Engine::Scene::Node * viewNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(view));
+	this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode->getSceneNode());
+
+
 }
 
 void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
-	if (!node)
-		return;
+	TGen::Vector3 moveDelta;
+	bool moveEvent = false;
+	bool jump = false;
 	
-	if (checkEvent(EventJump))
-		node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getY() * dt * 8.0);
+	if (checkEvent(EventJump)) {
+		moveEvent = true;
+		jump = true;
+		//moveDelta += TGen::Vector3(0.0f, 1.0f, 0.0f);
+	}
 	
-	if (checkEvent(EventForward))
-		node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getZ() * dt * 8.0);
-
-	if (checkEvent(EventBackward))
-		node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getZ() * dt * 8.0);
-
-	if (checkEvent(EventStrafeLeft))
-		node->setPosition(node->getLocalPosition() - node->getLocalOrientation().getX() * dt * 8.0);
-
-	if (checkEvent(EventStrafeRight))
-		node->setPosition(node->getLocalPosition() + node->getLocalOrientation().getX() * dt * 8.0);
-
+	if (checkEvent(EventForward)) {
+		moveEvent = true;
+		moveDelta += TGen::Vector3(0.0f, 0.0f, 1.0f);
+	}
+	
+	if (checkEvent(EventBackward)) {
+		moveEvent = true;
+		moveDelta += TGen::Vector3(0.0f, 0.0f, -1.0f);
+	}
+	
+	if (checkEvent(EventStrafeLeft)) {
+		moveEvent = true;
+		moveDelta += TGen::Vector3(-1.0f, 0.0f, 0.0f);
+	}
+	
+	if (checkEvent(EventStrafeRight)) {
+		moveEvent = true;
+		moveDelta += TGen::Vector3(1.0f, 0.0f, 0.0f);
+	}
+	
+	if (moveEvent) {
+		moveDelta.normalize();
+	
+		if (viewNode) {
+			TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(orientX)); //viewNode->getLocalOrientation();
+		//	rot.invert();
+			
+			moveDelta = rot * moveDelta;
+			moveDelta.y = 0.0f;
+			
+			if (jump)
+				moveDelta.y = 1.0f;
+		}
+		
+		moveDelta *= dt * 8.0;
+	
+		if (node && !usePhysics) {
+			node->setPosition(node->getLocalPosition() + moveDelta);
+		}
+		else if (controlBody) {
+		
+			controlBody->addForce(moveDelta * 3000.0);
+		
+		}
+		else {
+			throw TGen::RuntimeException("Controller::FirstPerson::update", "no phys body");
+		}
+	}
 	
 	TGen::Vector3 viewDelta = checkViewDelta() * 0.002;
 
 	orientX += viewDelta.x;
 	orientY += viewDelta.y;
-	
-	TGen::SceneNode * camNode = getCamera("headcam");
-	
+		
 	orientY = TGen::Clamp(orientY, -TGen::HALF_PI, TGen::HALF_PI);
 	
 	TGen::Vector3 up(0.0f, 1.0f, 0.0f);
@@ -91,6 +137,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	
 	TGen::Matrix4x4 rotation(right.getNormalized(), up.getNormalized(), look.getNormalized());
 	
-	camNode->setOrientation(rotation);
+	if (viewNode)
+		viewNode->setOrientation(rotation);
 }
 

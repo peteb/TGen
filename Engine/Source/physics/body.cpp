@@ -120,3 +120,7 @@ void TGen::Engine::Physics::Body::setKillTorque(bool killTorque) {
 	this->killTorque = killTorque;
 }
 
+void TGen::Engine::Physics::Body::addForce(const TGen::Vector3 & force) {
+	dBodySetForce(bodyId, force.x, force.y, force.z);
+}
+

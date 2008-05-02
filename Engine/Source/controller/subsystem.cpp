@@ -27,7 +27,9 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 	std::string type = properties.getProperty("type", "none");
 	
 	if (type == "firstperson") {
-		newController.reset(new TGen::Engine::Controller::FirstPerson(name, properties.getProperty("control", "sceneNode")));
+		newController.reset(new TGen::Engine::Controller::FirstPerson(name, properties.getProperty("control", "sceneNode"), 
+																						  properties.getProperty("view", "sceneNode"), 
+																						  TGen::lexical_cast<bool>(properties.getProperty("usePhysics", "false"))));
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}
 	else if (type == "arcball") {

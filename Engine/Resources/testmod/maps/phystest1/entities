@@ -879,6 +879,8 @@ class MyArcball {
 
 player_start {
 	sceneNode main {
+		globalName "player_start"
+		
 		origin "2 8 0"
 	}
 	
@@ -891,10 +893,17 @@ player_start {
 		treePosition "player_start/"
 	}*/
 	
+	sceneNode CamHead {
+		treePosition "player_start/"
+		globalName "camhead"
+		origin "0 1 0"
+	}
+	
 	sceneCamera HeadCam {		// definiera kameran "HeadCam"
 		range "500"				// viewing range, used to calculate clipping planes and LOD
 
-		treePosition "player_start/"	// länka den med entitetens sceneNode
+		treePosition "player_start/camhead/"	// länka den med entitetens sceneNode
+		globalName "cam"
 	}
 	
 	sceneNode {
@@ -902,14 +911,15 @@ player_start {
 		//material "Cube2"		
 		origin "0.5 -1.0 -0.3"
 		orientation "1.0 0 0.05"
-		
-		treePosition "player_start/"
+		//origin "0 0 4"
+		treePosition "player_start/camhead/"
+		globalName "viewgun"
 	}
 	
 	physBody {
 		mass box {
-			total 6.0
-			dimensions "3 4 2"
+			total 2.0
+			dimensions "2 2 2"
 		}
 		
 		turnHead true
@@ -921,7 +931,7 @@ player_start {
 	
 	physGeom {
 		type bipedal
-	
+		friction 50.0
 	}
 		
 
@@ -929,9 +939,11 @@ player_start {
 	controller {				// controller component
 		type firstperson
 		
+		usePhysics true
 		speed 1.0
 		camera HeadCam			// bind camera
-		control main		// bind node to control
+		control physBody		// bind node to control
+		view CamHead
 	}
 	
 

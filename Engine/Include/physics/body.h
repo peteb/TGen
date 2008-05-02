@@ -51,6 +51,8 @@ namespace TGen {
 				void setNodeComponent(const std::string & nodeName);
 				void setKillTorque(bool killTorque);
 				
+				void addForce(const TGen::Vector3 & force);
+				
 			private:
 				std::string nodeComponent;
 				dBodyID bodyId;

@@ -17,10 +17,14 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		
+		namespace Physics {
+			class Body;
+		}
+		
 		namespace Controller {
 			class FirstPerson : public TGen::Engine::PlayerController {
 			public:
-				FirstPerson(const std::string & name, const std::string & control);
+				FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics);
 				~FirstPerson();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
@@ -28,8 +32,12 @@ namespace TGen {
 				
 			private:
 				TGen::SceneNode * node;		// IMPL
+				TGen::SceneNode * viewNode;
+				TGen::Engine::Physics::Body * controlBody;
 				
-				std::string control;
+				bool usePhysics;
+				
+				std::string control, view;
 				scalar orientX, orientY;			
 			};
 			
