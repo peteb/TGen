@@ -11,10 +11,12 @@
 #include <iostream>
 #include <tgen_math.h>
 
-TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpaceID space)
+TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpaceID space, scalar capRadius, scalar length)
 	: TGen::Engine::Physics::Geom(name)
+	, capRadius(capRadius)
+	, length(length)
 {
-	dGeomID newGeom = dCreateCCylinder(space, 1, 2);
+	dGeomID newGeom = dCreateCCylinder(space, capRadius, length);
 	setGeomId(newGeom);
 	
 }

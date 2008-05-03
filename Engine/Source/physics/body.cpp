@@ -121,6 +121,15 @@ void TGen::Engine::Physics::Body::setKillTorque(bool killTorque) {
 }
 
 void TGen::Engine::Physics::Body::addForce(const TGen::Vector3 & force) {
-	dBodySetForce(bodyId, force.x, force.y, force.z);
+	dBodyAddForce(bodyId, force.x, force.y, force.z);
+}
+
+TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
+	const dReal * force = dBodyGetLinearVel(bodyId);
+	return TGen::Vector3(force[0], force[1], force[2]);
+}
+
+void TGen::Engine::Physics::Body::setLinearDamping(scalar damping) {
+	dBodySetLinearDamping(bodyId, damping);
 }
 

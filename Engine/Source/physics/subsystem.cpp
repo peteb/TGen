@@ -32,7 +32,7 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs)
 	mainSpace = dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
 	
-	setGravity(TGen::Vector3(0.0f, -10.0f, 0.0f));
+	setGravity(TGen::Vector3(0.0f, -16.0f, 0.0f));
 }
 
 TGen::Engine::Physics::Subsystem::~Subsystem() {
@@ -92,6 +92,7 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	newBody->setMaxAngularSpeed(TGen::lexical_cast<scalar>(properties.getProperty("maxAngularSpeed", "-1.0")));
 	newBody->setNodeComponent(properties.getProperty("link", "sceneNode"));
 	newBody->setKillTorque(TGen::lexical_cast<bool>(properties.getProperty("killTorque", "false")));
+	newBody->setLinearDamping(TGen::lexical_cast<scalar>(properties.getProperty("linearDamping", "0.0")));
 	
 	bodies.push_back(newBody);
 	
@@ -122,7 +123,9 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 		newGeom.reset(new TGen::Engine::Physics::BoxGeom("physGeom", dimensions, mainSpace));
 	}
 	else if (geomType == "bipedal") {
-		newGeom.reset(new TGen::Engine::Physics::BipedalGeom(name, mainSpace));
+		newGeom.reset(new TGen::Engine::Physics::BipedalGeom(name, mainSpace, 
+																			  TGen::lexical_cast<scalar>(properties.getProperty("capRadius", "1.0")), 
+																			  TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0"))));
 	}
 	
 	if (!newGeom.get())
@@ -202,7 +205,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 		//	dSpaceCollide(o2, data, &nearCallback);
 	}
 	else {
-		const int MAX_CONTACTS = 20;
+		const int MAX_CONTACTS = 50;
 		dContact contacts[MAX_CONTACTS];
 		int numContacts = dCollide(o1, o2, MAX_CONTACTS, &contacts[0].geom, sizeof(dContact));
 		
@@ -222,6 +225,10 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			body1 = 0;
 		
 		for (int i = 0; i < numContacts; ++i) {
+			TGen::Vector3 contactNormal(contacts[i].geom.normal[0], contacts[i].geom.normal[1], contacts[i].geom.normal[2]);
+			
+			
+						
 			contacts[i].surface.mode = 0;
 			contacts[i].surface.mu = geom1->getFriction() * geom2->getFriction();
 			dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);

@@ -50,8 +50,10 @@ namespace TGen {
 				void setMaxAngularSpeed(scalar speed);
 				void setNodeComponent(const std::string & nodeName);
 				void setKillTorque(bool killTorque);
+				void setLinearDamping(scalar damping);
 				
 				void addForce(const TGen::Vector3 & force);
+				TGen::Vector3 getLinearVelocity() const;
 				
 			private:
 				std::string nodeComponent;

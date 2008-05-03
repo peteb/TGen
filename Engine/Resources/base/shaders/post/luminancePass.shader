@@ -19,9 +19,11 @@ void main() {
 	vec4 fixedColor = color * glow; 
 	vec4 shit = max(vec4(0.0), color - (lumMin - 0.2)) * lumMultiplier;
 	
+	// nVidia wants us to actually use our variables. And not for multiplying with 0!
+	
 	if (killTrace)
-		gl_FragColor = vec4(fixedColor.rgb, 1.0);
+		gl_FragColor = vec4(fixedColor.rgb, 1.0) + shit * 0.5;
 	else
-		gl_FragColor = fixedColor;
+		gl_FragColor = fixedColor + shit * 0.5;
 }
 

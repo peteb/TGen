@@ -609,7 +609,7 @@ box9 {
 	}
 }*/
 
-ground2 {
+/*ground2 {
 	sceneNode {
 		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
 		//model "models/kub.md3 scale '1.0'"
@@ -646,13 +646,28 @@ ground3 {
 		distance "-1.0"
 		friction 0.4
 	}
+}*/
+
+ground2 {
+	sceneNode {
+		model "gen:cube width 20 height 20 depth 0.05"
+		material "Cube"
+		origin "0 -1 0"
+		orientation "-0.1 1 0"
+	}
+	
+	physGeom {
+		type box
+		dimensions "20 20 0.05"
+	}
+
 }
 
 ground4 {
 	physGeom {
 		type plane
 		
-		orientation "0 0 1"
+		orientation "0 0 -1"
 		distance "-10.0"
 		friction 0.4
 	}
@@ -666,7 +681,7 @@ ground4 {
 		orientation "0 0 1"
 	}
 }
-
+/*
 ground6 {
 	physGeom {
 		type plane
@@ -685,6 +700,328 @@ ground6 {
 		orientation "1 0 0"
 	}
 }
+*/
+
+ground 6 {
+	sceneNode {
+		model "gen:cube width 20 height 7 depth 0.05 texwidth 4 textheight 2"
+		material "a_superpipes"
+		origin "-10 6.5 0"
+		orientation "1 0 0"
+	}
+	
+	physGeom {
+		type box
+		dimensions "20 7 0.05"
+	}
+
+}
+
+class wall1 {
+	sceneNode {
+		model "gen:cube width 8 height 5 depth 0.05 texwidth 4"
+		material "sopanel27"
+		orientation "1 0 0"
+	}
+	
+	physGeom {
+		type box
+		dimensions "8 5 0.05"
+	}
+}
+
+wall11 extends wall1 {
+	sceneNode {
+		origin "-10 0.5 -6"
+
+	}
+}
+
+wall12 extends wall1 {
+	sceneNode {
+		origin "-10 0.5 6"
+	}
+}
+
+corridfloor {
+	sceneNode {
+		material "wornmetalplate"
+		model "gen:cube width 40 height 0.1 depth 6 texwidth 20 texdepth 2.5"
+		origin "-30 -2.05 -1"
+	}
+	
+	physGeom {
+		type box
+		dimensions "40 0.1 6"
+	}
+}
+
+corridceiling {
+	sceneNode {
+		material "squaretile"
+		model "gen:cube width 40 height 0.05 depth 16 texwidth 15 texdepth 8"
+		origin "-30 3 -6"
+	}
+	
+	physGeom {
+		type box
+		dimensions "40 0.05 16"
+	}
+}
+
+
+class wall2 {
+	sceneNode {
+		model "gen:cube width 30 height 12 depth 0.05 texwidth 8 texheight 2.5"
+		material "redbrick"
+	}
+	
+	physGeom {
+		type box
+		dimensions "30 12 0.05"
+	}
+}
+
+wall21 extends wall2 {
+	sceneNode {
+		origin "-25 -3.0 2"
+	}
+}
+
+
+wall21 extends wall2 {
+	sceneNode {
+		origin "-25 -3.0 -2"
+	}
+}
+
+sroomwall1 {
+	sceneNode {
+		model "gen:cube width 10 height 10 depth 0.05 texwidth 3 texheight 2" 
+		material "skpanel1a"
+		origin "-45 -2 2"
+	}
+	
+	physGeom {
+		type box
+		dimensions "10 10 0.05"
+	}
+}
+
+sroomwall2 {
+	sceneNode {
+		model "gen:cube width 0.05 height 10 depth 24 texdepth 10 texheight 2" 
+		material "skpanel1a"
+		origin "-50 -2.0 -10"
+	}
+	
+	physGeom {
+		type box
+		dimensions "0.05 10 24"
+	}
+}
+
+sroomwall3 {
+	sceneNode {
+		model "gen:cube width 0.05 height 10 depth 12 texdepth 4 texheight 2" 
+		material "skpanel1a"
+		origin "-40 -2 -8"
+	}
+
+	
+	physGeom {
+		type box
+		dimensions "0.05 10 12"
+	}
+}
+
+sroomwall4 {
+	sceneNode {
+		model "gen:cube width 30 height 10 depth 0.05 texwidth 12.5 texheight 2"
+		material "skpanel1a"
+		origin "-35 -2 -20"
+	}
+	
+	physGeom {
+		type "box"
+		dimensions "30 10 0.05"
+	}
+
+}
+
+sroomwall4 {
+	sceneNode {
+		model "gen:cube width 30 height 10 depth 0.05 texwidth 12.5 texheight 2"
+		material "skpanel1a"
+		origin "-25 -2 -14"
+	}
+	
+	physGeom {
+		type "box"
+		dimensions "30 10 0.05"
+	}
+
+}
+
+
+thres4 {
+	sceneNode {
+		model "gen:cube width 30 height 0.4 depth 0.4 texwidth 8 texheight 2"
+		origin "-34.75 -7.2 -20.0"
+		material "lfwall14g3trim"
+	}
+	
+	physGeom {
+		type box
+		dimensions "30 0.4 0.4"
+	}
+}
+
+ramp {
+	sceneNode {
+		model "gen:cube width 6.5 height 0.1 depth 30 texwidth 4d texdepth 20"
+		origin "-30 -5 -16.8"
+		orientation "2.0 0.5 0.0"
+		material "wornmetalplate"
+	}
+	
+	physGeom {
+		type "box"
+		dimensions "6.5 0.1 30"
+	}
+}
+
+thres1 {
+	sceneNode {
+		model "gen:cube width 0.4 height 0.4 depth 12 texdepth 8 texwidth 2"
+		origin "-40.025 -7.2 -8"
+		material "lfwall14g3trim"
+	}
+	
+	physGeom {
+		type box
+		dimensions "0.4 0.4 12"
+	}
+
+}
+
+thres1 {
+	sceneNode {
+		model "gen:cube width 0.4 height 0.4 depth 24 texdepth 10 texwidth 2 texheight 2"
+		origin "-49.975 -7.2 -8"
+		material "lfwall14g3trim"
+	}
+	
+	physGeom {
+		type box
+		dimensions "0.4 0.4 24"
+	}
+
+}
+
+
+thres1 {
+	sceneNode {
+		model "gen:cube width 10 height 0.4 depth 0.4 texwidth 8 texheight 2"
+		origin "-45 -7.2 2"
+		material "lfwall14g3trim"
+	}
+	
+	physGeom {
+		type box
+		dimensions "10 0.4 0.4"
+	}
+}
+
+
+class stairstep {
+	sceneNode {
+		model "gen:cube width 4 depth 1 height 0.1 texwidth 4"
+		material "wornmetalplate"
+	}
+	
+	physGeom {
+		type box
+		dimensions "4 0.1 1"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -2.5 -4.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -3.0 -5.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -3.5 -6.5"
+	}
+}
+
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -4.0 -7.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -4.5 -8.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -5.0 -9.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -5.5 -10.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -6.0 -11.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -6.5 -12.5"
+	}
+}
+
+step extends stairstep {
+	sceneNode {
+		origin "-48 -7.0 -13.5"
+	}
+}
+
+
+sroomfloor {
+	sceneNode {
+		origin "-20 -7.5 -5"
+		model "gen:cube width 60 height 0.1 depth 30 texwidth 15 texdepth 7"
+		material "subwaybricks"
+	}
+	
+	physGeom {
+		type "box"
+		dimensions "60 0.1 30"
+	}
+
+}
+
 
 ground7 {
 	physGeom {
@@ -704,13 +1041,11 @@ ground7 {
 		orientation "-1 0 0"
 	}
 }
+
 ground5 {
 	physGeom {
-		type plane
-		
-		orientation "0 0 -1"
-		distance "-10.0"
-		friction 0.4
+		type box
+		dimensions "20 20 0.05"		
 	}
 	
 	sceneNode {
@@ -764,9 +1099,9 @@ ground5 {
 light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
-		orientation "0.5 0.5 0"
+		orientation "-0.5 0.5 0"
 		diffuse "0.4 0.0 0.0 1.0"
-		specular "0.9"
+		specular "0.7"
 	}
 }
 
@@ -918,7 +1253,7 @@ player_start {
 	
 	physBody {
 		mass box {
-			total 2.0
+			total 1.5
 			dimensions "2 2 2"
 		}
 		
@@ -927,20 +1262,25 @@ player_start {
 		gravity true
 		link main
 		killTorque true	
+		linearDamping 0.001
 	}
 	
 	physGeom {
 		type bipedal
-		friction 50.0
+		friction 100.0
+		capRadius 1
+		length 2
 	}
 		
 
 	
 	controller {				// controller component
 		type firstperson
+
+		deltaPlane 	48000.0
+		deltaJump  	4.0
 		
-		usePhysics true
-		speed 1.0
+		usePhysics true			// apply forces
 		camera HeadCam			// bind camera
 		control physBody		// bind node to control
 		view CamHead

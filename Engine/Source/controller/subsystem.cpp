@@ -29,7 +29,10 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 	if (type == "firstperson") {
 		newController.reset(new TGen::Engine::Controller::FirstPerson(name, properties.getProperty("control", "sceneNode"), 
 																						  properties.getProperty("view", "sceneNode"), 
-																						  TGen::lexical_cast<bool>(properties.getProperty("usePhysics", "false"))));
+																						  TGen::lexical_cast<bool>(properties.getProperty("usePhysics", "false")),
+																						  TGen::lexical_cast<scalar>(properties.getProperty("deltaPlane", "1.0")),
+																						  TGen::lexical_cast<scalar>(properties.getProperty("deltaJump", "1.0"))
+								  ));
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}
 	else if (type == "arcball") {

@@ -14,7 +14,7 @@
 #include "physics/body.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics)
+TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar deltaJump)
 	: TGen::Engine::PlayerController(name)
 	, node(NULL)
 	, viewNode(NULL)
@@ -24,6 +24,8 @@ TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, con
 	, control(control)
 	, view(view)
 	, usePhysics(usePhysics)
+	, deltaPlane(deltaPlane)
+	, deltaJump(deltaJump)
 {
 	
 }
@@ -90,20 +92,26 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			
 			moveDelta = rot * moveDelta;
 			moveDelta.y = 0.0f;
+			moveDelta.normalize();
 			
 			if (jump)
-				moveDelta.y = 1.0f;
+				moveDelta.y = deltaJump;
 		}
 		
-		moveDelta *= dt * 8.0;
+		moveDelta *= dt;
 	
 		if (node && !usePhysics) {
-			node->setPosition(node->getLocalPosition() + moveDelta);
+			node->setPosition(node->getLocalPosition() + moveDelta * deltaPlane);
 		}
 		else if (controlBody) {
-		
-			controlBody->addForce(moveDelta * 3000.0);
-		
+			std::cout << controlBody->getLinearVelocity().getMagnitude() << std::endl;
+			
+			//scalar maxSpeed = 10000.0;
+			
+			//if (controlBody->getLinearVelocity().getMagnitude() < 10.0)
+			//controlBody->addForce(moveDelta * maxSpeed * (10.0 - controlBody->getLinearVelocity().getMagnitude()));
+			controlBody->addForce(moveDelta * deltaPlane);
+			
 		}
 		else {
 			throw TGen::RuntimeException("Controller::FirstPerson::update", "no phys body");
@@ -140,4 +148,13 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	if (viewNode)
 		viewNode->setOrientation(rotation);
 }
+
+void TGen::Engine::Controller::FirstPerson::setDeltaPlane(scalar speed) {
+	deltaPlane = speed;
+}
+
+void TGen::Engine::Controller::FirstPerson::setDeltaJump(scalar speed) {
+	deltaJump = speed;
+}
+
 

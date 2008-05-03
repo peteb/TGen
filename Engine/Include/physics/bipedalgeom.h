@@ -11,16 +11,20 @@
 #define _TGEN_ENGINE_PHYSICS_BIPEDALGEOM_H
 
 #include "physics/geom.h"
+#include <tgen_core.h>
 
 namespace TGen {
 	namespace Engine {
 		namespace Physics {
 			class BipedalGeom : public TGen::Engine::Physics::Geom {
 			public:
-				BipedalGeom(const std::string & name, dSpaceID space);
+				BipedalGeom(const std::string & name, dSpaceID space, scalar capRadius, scalar length);
 				
 				void preStep();
 				void postStep();
+				
+			private:
+				scalar capRadius, length;
 			};
 		} // !Physics
 	} // !Engine
