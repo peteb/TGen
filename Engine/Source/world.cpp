@@ -14,6 +14,7 @@
 #include "file.h"
 #include "scene/node.h"
 #include "log.h"
+#include "playercontroller.h"
 
 TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::ResourceManager & resources, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource, const std::string & mapname)
 	: filesystem(filesystem)
@@ -113,6 +114,11 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 		}
 	}
 			
+	
+	//TGen::Vector3 pos = controllerSubsystem.getController("player_start")->getPos();
+	//std::cout << std::string(pos) << std::endl;
+	
+
 	// TODO: light ska inte bestämma specularity
 }
 // TODO: RenderFiller ska fråga varje scene node efter geoms, sen kan PortalNode överlagra den och fräsaaaaa

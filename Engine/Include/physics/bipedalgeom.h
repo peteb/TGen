@@ -22,9 +22,12 @@ namespace TGen {
 				
 				void preStep();
 				void postStep();
+				void linkLocally(TGen::Engine::Entity & entity);
+				bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
 				
 			private:
 				scalar capRadius, length;
+				dGeomID raylegs;
 			};
 		} // !Physics
 	} // !Engine

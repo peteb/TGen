@@ -24,13 +24,12 @@ namespace TGen {
 		namespace Controller {
 			class FirstPerson : public TGen::Engine::PlayerController {
 			public:
-				FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar deltaJump);
+				FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar jumpForce, scalar jumpTime, scalar airControl);
 				~FirstPerson();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void update(scalar dt);
 				void setDeltaPlane(scalar speed);
-				void setDeltaJump(scalar speed);
 				
 			private:
 				TGen::SceneNode * node;		// IMPL
@@ -38,10 +37,12 @@ namespace TGen {
 				TGen::Engine::Physics::Body * controlBody;
 				
 				bool usePhysics;
+				scalar airTime;
 				
 				std::string control, view;
 				scalar orientX, orientY;			
-				scalar deltaPlane, deltaJump;
+				scalar deltaPlane;
+				scalar jumpTime, jumpForce, airControl;
 			};
 			
 			

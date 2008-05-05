@@ -27,11 +27,14 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 	std::string type = properties.getProperty("type", "none");
 	
 	if (type == "firstperson") {
+		// TODO: spräng ut alla ctor-params till metoder
 		newController.reset(new TGen::Engine::Controller::FirstPerson(name, properties.getProperty("control", "sceneNode"), 
 																						  properties.getProperty("view", "sceneNode"), 
 																						  TGen::lexical_cast<bool>(properties.getProperty("usePhysics", "false")),
 																						  TGen::lexical_cast<scalar>(properties.getProperty("deltaPlane", "1.0")),
-																						  TGen::lexical_cast<scalar>(properties.getProperty("deltaJump", "1.0"))
+																						  TGen::lexical_cast<scalar>(properties.getProperty("jumpForce", "15000")),
+																						  TGen::lexical_cast<scalar>(properties.getProperty("jumpTime", "0.3")),
+																						  TGen::lexical_cast<scalar>(properties.getProperty("airControl", "0.7"))
 								  ));
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}

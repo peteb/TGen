@@ -14,7 +14,7 @@
 #include "physics/body.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar deltaJump)
+TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar jumpForce, scalar jumpTime, scalar airControl)
 	: TGen::Engine::PlayerController(name)
 	, node(NULL)
 	, viewNode(NULL)
@@ -25,7 +25,10 @@ TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, con
 	, view(view)
 	, usePhysics(usePhysics)
 	, deltaPlane(deltaPlane)
-	, deltaJump(deltaJump)
+	, airTime(0.0)
+	, jumpForce(jumpForce)
+	, jumpTime(jumpTime)
+	, airControl(airControl)
 {
 	
 }
@@ -56,12 +59,35 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	TGen::Vector3 moveDelta;
 	bool moveEvent = false;
 	bool jump = false;
+	bool initialJump = false;
 	
-	if (checkEvent(EventJump)) {
-		moveEvent = true;
-		jump = true;
+	if (isEventInitial(EventJump)) {
+		setEventRead(EventJump);
+		
+		if (controlBody && controlBody->isOnFloor()) {
+			airTime = jumpTime;
+		
+		//moveEvent = true;
+	//	jump = true;
+//		initialJump = true;
+
+			controlBody->addForce(TGen::Vector3(0.0f, jumpForce * 0.01, 0.0f));
+		}
 		//moveDelta += TGen::Vector3(0.0f, 1.0f, 0.0f);
 	}
+	/*else if (checkEvent(EventJump)) {
+		
+		moveEvent = true;
+		jump = true;
+	}
+	
+	if (jump)
+		airTime -= dt * 1.0;
+	else
+		airTime -= dt * 1.3;
+	*/
+	//if (controlBody)
+	//	std::cout << "speed: " << controlBody->getLinearVelocity().getMagnitude() << std::endl;
 	
 	if (checkEvent(EventForward)) {
 		moveEvent = true;
@@ -83,7 +109,8 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 		moveDelta += TGen::Vector3(1.0f, 0.0f, 0.0f);
 	}
 	
-	if (moveEvent) {
+	
+	//if (moveEvent) {
 		moveDelta.normalize();
 	
 		if (viewNode) {
@@ -94,8 +121,8 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			moveDelta.y = 0.0f;
 			moveDelta.normalize();
 			
-			if (jump)
-				moveDelta.y = deltaJump;
+			//if (jump)
+			//	moveDelta.y = deltaJump;
 		}
 		
 		moveDelta *= dt;
@@ -104,19 +131,45 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			node->setPosition(node->getLocalPosition() + moveDelta * deltaPlane);
 		}
 		else if (controlBody) {
-			std::cout << controlBody->getLinearVelocity().getMagnitude() << std::endl;
+			//std::cout << controlBody->getLinearVelocity().getMagnitude() << std::endl;
+			//if (controlBody->isOnFloor())
+			//	std::cout << "on floor!" << std::endl;
+			//scalar dp = controlBody->getSlope();
+			
+			//TGen::Degree slope(TGen::Radian(acos(dp)));
+
+			//std::cout << slope.angle << std::endl;
+			//std::cout << airTime << std::endl;
+
+			
+			if (controlBody->isOnFloor()) {
+				controlBody->addForce(moveDelta * deltaPlane);
+				controlBody->setLinearDamping(0.07);
+			}
+			else {
+				moveDelta.y = 0.0f;
+				controlBody->setLinearDamping(0.0004);
+				controlBody->addForce(moveDelta * deltaPlane * airControl);				
+			}
+			
+			//if (jump) {
+			scalar force = std::max(0.0f, airTime);
+			//std::cout << force << std::endl;
+				
+			//if (force > 0.0)
+			//	controlBody->addForce(TGen::Vector3(0.0f, jumpForce * force, 0.0f));
+			//}
 			
 			//scalar maxSpeed = 10000.0;
 			
 			//if (controlBody->getLinearVelocity().getMagnitude() < 10.0)
 			//controlBody->addForce(moveDelta * maxSpeed * (10.0 - controlBody->getLinearVelocity().getMagnitude()));
-			controlBody->addForce(moveDelta * deltaPlane);
 			
 		}
 		else {
 			throw TGen::RuntimeException("Controller::FirstPerson::update", "no phys body");
 		}
-	}
+//	}
 	
 	TGen::Vector3 viewDelta = checkViewDelta() * 0.002;
 
@@ -151,10 +204,6 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 
 void TGen::Engine::Controller::FirstPerson::setDeltaPlane(scalar speed) {
 	deltaPlane = speed;
-}
-
-void TGen::Engine::Controller::FirstPerson::setDeltaJump(scalar speed) {
-	deltaJump = speed;
 }
 
 

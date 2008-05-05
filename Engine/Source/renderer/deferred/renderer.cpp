@@ -19,6 +19,7 @@
 #include "resourcemanager.h"
 #include "variableregister.h"
 #include <tgen_graphics.h>
+#include "playercontroller.h"
 
 TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Renderer & renderer, 
 																 TGen::Engine::StandardLogs & logs, 

@@ -19,20 +19,21 @@
 #include <ode/ode.h>
 #include <tgen_math.h>
 
-dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
+//dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
 TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs) 
 	: logs(logs)
 	, updateInterval(0.01)
+	, worldId(0)
 {
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
 	worldId = dWorldCreate();
 	mainSpace = dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
-	
-	setGravity(TGen::Vector3(0.0f, -16.0f, 0.0f));
+	dWorldSetLinearDamping(worldId, 0.07);
+	setGravity(TGen::Vector3(0.0f, -50.0f, 0.0f));
 }
 
 TGen::Engine::Physics::Subsystem::~Subsystem() {
@@ -86,13 +87,18 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 		// No mass defined
 	}
 	
-	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId);
+	//dBodySetLinearDamping(newBodyId, 0.07);
+	
+	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId, worldId, mainSpace);
+	
+	dBodySetData(newBodyId, reinterpret_cast<void *>(newBody));
 	newBody->setPosition(position);
 	newBody->setTurnHeadwise(TGen::lexical_cast<bool>(properties.getProperty("turnHead", "false")));
 	newBody->setMaxAngularSpeed(TGen::lexical_cast<scalar>(properties.getProperty("maxAngularSpeed", "-1.0")));
 	newBody->setNodeComponent(properties.getProperty("link", "sceneNode"));
 	newBody->setKillTorque(TGen::lexical_cast<bool>(properties.getProperty("killTorque", "false")));
 	newBody->setLinearDamping(TGen::lexical_cast<scalar>(properties.getProperty("linearDamping", "0.0")));
+	newBody->setFakeGravity(TGen::lexical_cast<scalar>(properties.getProperty("fakeGrav", "-2.0")));
 	
 	bodies.push_back(newBody);
 	
@@ -174,8 +180,7 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		for (int i = 0; i < geoms.size(); ++i)
 			geoms[i]->preStep();
-		
-		
+				
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 
 		dWorldStep(worldId, updateInterval); // tweak
@@ -217,23 +222,68 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 		
 		TGen::Engine::Physics::Geom * geom1 = static_cast<TGen::Engine::Physics::Geom *>(dGeomGetData(o1));
 		TGen::Engine::Physics::Geom * geom2 = static_cast<TGen::Engine::Physics::Geom *>(dGeomGetData(o2));
+		TGen::Engine::Physics::Body * bodyObject1 = NULL, * bodyObject2 = NULL;
+		dWorldID worldId = 0;
 		
-		if (!geom1->getAffectsOthers())
-			body2 = 0;
+		if (body1) {
+			bodyObject1 = reinterpret_cast<TGen::Engine::Physics::Body *>(dBodyGetData(body1));
+			
+			if (bodyObject1 && bodyObject1->getWorldId())
+				worldId = bodyObject1->getWorldId();
+		}
 		
-		if (!geom2->getAffectsOthers())
-			body1 = 0;
+		if (body2) {
+			bodyObject2 = reinterpret_cast<TGen::Engine::Physics::Body *>(dBodyGetData(body2));
+			
+			if (bodyObject2 && bodyObject2->getWorldId())
+				worldId = bodyObject2->getWorldId();
+		}
+		
+		if (!worldId) {
+			//std::cout << "bad world" << std::endl;
+			return;
+		}
+		
+		//if (bodyObject)
+		//	std::cout << "HEY" << std::endl;
+		
+		//if (geom1 && !geom1->getAffectsOthers())
+		//	body2 = 0;
+		
+		//if (geom2 && !geom2->getAffectsOthers())
+		//	body1 = 0;
+		
 		
 		for (int i = 0; i < numContacts; ++i) {
 			TGen::Vector3 contactNormal(contacts[i].geom.normal[0], contacts[i].geom.normal[1], contacts[i].geom.normal[2]);
+			scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, -1.0f, 0.0f));
 			
+			TGen::Degree slope(TGen::Radian(acos(dp)));
+				
+			if (slope.angle >= -35.0f && slope.angle <= 35.0f) {
+				if (bodyObject1)
+					bodyObject1->setOnFloor(true);
+				
+				if (bodyObject2)
+					bodyObject2->setOnFloor(true);
+			}			
+
+			scalar friction = 1.0f;
+			if (geom1)
+				friction *= geom1->getFriction();
 			
-						
+			if (geom2)
+				friction *= geom2->getFriction();
+			
 			contacts[i].surface.mode = 0;
-			contacts[i].surface.mu = geom1->getFriction() * geom2->getFriction();
-			dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
+			contacts[i].surface.mu = friction;
 			
-			dJointAttach(contactJoint, body1, body2);
+			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
+
+				dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
+				dJointAttach(contactJoint, body1, body2);
+
+			}
 		}
 	}
 	

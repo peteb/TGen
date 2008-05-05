@@ -50,7 +50,7 @@ namespace TGen {
 				
 				TGen::Engine::StandardLogs & logs;
 				
-				static dWorldID worldId;
+				dWorldID worldId;
 				dSpaceID mainSpace;
 				static dJointGroupID contactGroup;
 			};

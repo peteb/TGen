@@ -20,6 +20,7 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & 
 	, bodyComponent(bodyComponent)
 	, affectsOthers(true)
 	, sceneNodeComponent(NULL)
+	, attachedTo(NULL)
 {
 
 }
@@ -53,8 +54,8 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 		return;
 	
 	try {
-		TGen::Engine::Physics::Body * attachTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
-		dGeomSetBody(geomId, attachTo->getBodyId());
+		attachedTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
+		dGeomSetBody(geomId, attachedTo->getBodyId());
 	}
 	catch (...) {	// if there is no physBody we just don't attach to anything
 		dGeomSetBody(geomId, 0);

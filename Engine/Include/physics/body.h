@@ -32,7 +32,7 @@ namespace TGen {
 		
 			class Body : public TGen::Engine::Component {
 			public:
-				Body(const std::string & name, dBodyID bodyId);
+				Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId);
 				~Body();
 				
 				void preStep();
@@ -46,20 +46,38 @@ namespace TGen {
 				void setOrientation(const TGen::Matrix3x3 & orientation);
 				TGen::Matrix3x3 getOrientation() const;
 				
+				dWorldID getWorldId();
+				dSpaceID getSpaceId();
+				
 				void setTurnHeadwise(bool turnHeadwise);
 				void setMaxAngularSpeed(scalar speed);
 				void setNodeComponent(const std::string & nodeName);
 				void setKillTorque(bool killTorque);
 				void setLinearDamping(scalar damping);
+				void setFakeGravity(scalar fakeGrav);
 				
 				void addForce(const TGen::Vector3 & force);
 				TGen::Vector3 getLinearVelocity() const;
+
+				
+				
+				void setOnFloor(bool onFloor);
+				bool isOnFloor() const;
+				
+				
+				void setSlope(scalar slope);
+				scalar getSlope() const;
 				
 			private:
 				std::string nodeComponent;
 				dBodyID bodyId;
+				dWorldID worldId;
+				dSpaceID spaceId;
+				
 				TGen::Engine::Scene::Node * sceneNodeComponent;
 				bool turnHeadwise, killTorque;
+				bool onFloor;
+				scalar slope, fakeGrav;
 			};
 		} // !Physics
 	} // !Engine

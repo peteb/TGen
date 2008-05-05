@@ -8,6 +8,8 @@
  */
 
 #include "physics/bipedalgeom.h"
+#include "physics/body.h"
+#include "entity.h"
 #include <iostream>
 #include <tgen_math.h>
 
@@ -18,7 +20,11 @@ TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpace
 {
 	dGeomID newGeom = dCreateCCylinder(space, capRadius, length);
 	setGeomId(newGeom);
+	//raylegs = dCreateRay(space, 1.0);
+
+	//dGeomRaySetLength(raylegs, 3.0);
 	
+	//dGeomSetData(raylegs, reinterpret_cast<void *>(this));
 }
 
 void TGen::Engine::Physics::BipedalGeom::preStep() {
@@ -29,6 +35,13 @@ void TGen::Engine::Physics::BipedalGeom::preStep() {
 											TGen::Vector3(0.0f, 1.0f, 0.0f)));
 	
 	
+	/*const dReal * linearVel = dBodyGetLinearVel(attachedTo->getBodyId());
+	TGen::Vector3 offset(linearVel[0], 0.0, linearVel[2]);
+	if (offset.getMagnitude() > 1.0)
+		offset.normalize();
+	
+	TGen::Vector3 pos = attachedTo->getPosition() + offset * 0.1;
+	dGeomRaySet(raylegs, pos.x, pos.y, pos.z, 0.0, -1.0, 0.0);*/
 }
 
 void TGen::Engine::Physics::BipedalGeom::postStep() {
@@ -43,4 +56,28 @@ void TGen::Engine::Physics::BipedalGeom::postStep() {
 						
 //						TGen::Matrix4x4::RotationX(TGen::Radian(TGen::HALF_PI)));
 
+}
+
+void TGen::Engine::Physics::BipedalGeom::linkLocally(TGen::Engine::Entity & entity) {
+	TGen::Engine::Physics::Geom::linkLocally(entity);
+	
+	//TGen::Engine::Physics::Body * attachTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
+	//dGeomSetBody(raylegs, attachTo->getBodyId());
+}
+
+bool TGen::Engine::Physics::BipedalGeom::onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {
+	if (id == raylegs && with != this) {
+		
+		//scalar diff = std::max(3.0 - contactInfo.geom.depth, 0.0);
+		//std::cout << "RAYLEGS " << contactInfo.geom.depth << " .. " << diff << std::endl;
+
+		//attachedTo->setOnFloor(true);
+		
+		//if (diff > 0.0)
+		//	attachedTo->addForce(TGen::Vector3(0.0f, diff, 0.0f));
+		
+		return false;
+	}
+	
+	return true;
 }

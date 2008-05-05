@@ -14,12 +14,16 @@
 
 // TODO: sceneMap -> sceneNode portalMap i entities
 
-TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId) 
+TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
 	, bodyId(bodyId)
 	, sceneNodeComponent(NULL)
 	, turnHeadwise(false)
 	, killTorque(false)
+	, onFloor(false)
+	, fakeGrav(-4.0f)
+	, worldId(worldId)
+	, spaceId(spaceId)
 {
 
 }
@@ -29,6 +33,15 @@ TGen::Engine::Physics::Body::~Body() {
 }
 
 void TGen::Engine::Physics::Body::preStep() {
+	if (fakeGrav > -2.0 && !onFloor) {
+		TGen::Vector3 realGrav(0.0f, -20.0f, 0.0f);
+		realGrav *= fakeGrav;
+		
+		dBodyAddForce(bodyId, realGrav.x, realGrav.y, realGrav.z);
+	}
+	
+	onFloor = false;
+	
 	if (sceneNodeComponent) {
 		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
@@ -36,6 +49,8 @@ void TGen::Engine::Physics::Body::preStep() {
 	
 	if (killTorque)
 		dBodySetTorque(bodyId, 0.0, 0.0, 0.0);
+	
+
 }
 
 void TGen::Engine::Physics::Body::postStep() {
@@ -47,6 +62,7 @@ void TGen::Engine::Physics::Body::postStep() {
 		else
 			sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
 	}
+	
 }
 
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
@@ -63,6 +79,14 @@ TGen::Vector3 TGen::Engine::Physics::Body::getPosition() const {
 	const dReal * vec = dBodyGetPosition(bodyId);
 	
 	return TGen::Vector3(vec[0], vec[1], vec[2]);
+}
+
+dWorldID TGen::Engine::Physics::Body::getWorldId() {
+	return worldId;
+}
+
+dSpaceID TGen::Engine::Physics::Body::getSpaceId() {
+	return spaceId;
 }
 
 dBodyID TGen::Engine::Physics::Body::getBodyId() const {
@@ -132,4 +156,26 @@ TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
 void TGen::Engine::Physics::Body::setLinearDamping(scalar damping) {
 	dBodySetLinearDamping(bodyId, damping);
 }
+
+void TGen::Engine::Physics::Body::setOnFloor(bool onFloor) {
+	this->onFloor = onFloor;
+}
+
+bool TGen::Engine::Physics::Body::isOnFloor() const {
+	return onFloor;
+}
+
+void TGen::Engine::Physics::Body::setSlope(scalar slope) {
+	this->slope = slope;
+}
+
+// TODO: why doesn't scalar work as return type?
+float TGen::Engine::Physics::Body::getSlope() const {
+	return slope;
+}
+
+void TGen::Engine::Physics::Body::setFakeGravity(scalar fakeGrav) {
+	this->fakeGrav = fakeGrav;
+}
+
 

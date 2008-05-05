@@ -23,6 +23,8 @@ namespace TGen {
 		}
 		
 		namespace Physics {
+			class Body;
+			
 			class Geom : public TGen::Engine::Component {
 			public:
 				Geom(const std::string & name, const std::string & bodyComponent = "physBody");
@@ -37,18 +39,22 @@ namespace TGen {
 				virtual void preStep();
 				virtual void postStep();
 				
-				void linkLocally(TGen::Engine::Entity & entity);
-				void linkGlobally(TGen::Engine::EntityList & entities);
+				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {return true; }
+				
+				virtual void linkLocally(TGen::Engine::Entity & entity);
+				virtual void linkGlobally(TGen::Engine::EntityList & entities);
 				
 			protected:
+				TGen::Engine::Physics::Body * attachedTo;
+				
 				void setGeomId(dGeomID id);
 				void setPosition(const TGen::Vector3 & position);				
 				void setOrientation(const TGen::Matrix3x3 & orientation);
 				dGeomID geomId;
+				std::string bodyComponent;
 				
 			private:				
 				TGen::Engine::Scene::Node * sceneNodeComponent;
-				std::string bodyComponent;
 				bool affectsOthers;
 				float friction;
 			};
