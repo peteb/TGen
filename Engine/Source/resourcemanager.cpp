@@ -250,7 +250,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 	if (!newModel)
 		throw TGen::RuntimeException("ResourceManager", "newModel equals NULL");
 	
-	return newModel->instantiate();
+	return newModel->instantiate(vertexCache);
 	
 	/*std::string filename = name;
 	scalar scale = 0.001f;

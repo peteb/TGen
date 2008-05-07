@@ -19,7 +19,7 @@ namespace TGen {
 	
 	class NewFace {
 	public:
-		NewFace(TGen::NewMeshInstance * mesh, TGen::Material * material, TGen::SceneNode const * sceneNode);
+		NewFace(TGen::NewMeshInstance * mesh, TGen::Material * material, const TGen::SceneNode * sceneNode);
 		
 		TGen::NewMeshInstance * getMesh() const;
 		TGen::Material * getMaterial() const;

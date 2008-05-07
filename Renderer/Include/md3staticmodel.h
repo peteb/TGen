@@ -34,7 +34,7 @@ namespace TGen {
 			TGen::NewMeshInstance * getMesh(int num);
 			void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
 			
-			TGen::MD3::StaticModel * instantiate();
+			TGen::MD3::StaticModel * instantiate(TGen::VertexDataSource & source);
 
 			int getNumMeshes() const;
 			bool isPureInstance() const;

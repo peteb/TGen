@@ -52,7 +52,7 @@ std::string TGen::MD5::Mesh::getDefaultMaterial() const {
 }
 */
 
-TGen::NewModelInstance * TGen::MD5::Model::instantiate() {
+TGen::NewModelInstance * TGen::MD5::Model::instantiate(TGen::VertexDataSource & source) {
 	TGen::MD5::ModelInstance * newInstance = new TGen::MD5::ModelInstance(name + "_instance", "", *this);
 	
 	for (int i = 0; i < meshes.size(); ++i) {

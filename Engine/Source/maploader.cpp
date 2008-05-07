@@ -22,23 +22,25 @@ TGen::Engine::MapLoader::MapLoader(TGen::Engine::StandardLogs & logs, TGen::Engi
 {
 }
 
-TGen::Engine::Map * TGen::Engine::MapLoader::createMap(const std::string & name, const std::string & filename, const TGen::Vector3 & origin) {
+TGen::Engine::Map * TGen::Engine::MapLoader::createMap(const std::string & name, const std::string & filename, const TGen::VertexTransformer & transformer) {
 	logs.info["map"] << "loading map " << filename << "..." << TGen::endl;
 	
-	TGen::Engine::File * file = filesystem.openRead(filename);
+	std::auto_ptr<TGen::Engine::File> file(filesystem.openRead(filename));
 	
 	TGen::Engine::MapTokenizer tokenizer;
 	tokenizer.tokenizeString(file->readAll(), tokens, false);
 	currentToken = tokens.getFirstToken();
 	endIter = tokens.getEndToken();
 	
-	TGen::Engine::Map * newMap = new TGen::Engine::Map(name, origin);
+	TGen::Vector3 origin = TGen::Vector3::Zero;
+	transformer.transform(origin);
 	
-	parseGlobalBlock(newMap);
+	std::auto_ptr<TGen::Engine::Map> newMap(new TGen::Engine::Map(name, origin));
 	
-	delete file;
+	parseGlobalBlock(newMap.get());
 	
-	return newMap;
+	
+	return newMap.release();
 }
 
 void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
@@ -85,24 +87,23 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 }
 
 TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::Map * map) {
-	std::string modelName = currentToken->second;
-	stepAndCheck();
-	std::string surfaceCount = currentToken->second;
-	stepAndCheck();
+	std::string modelName = currentToken->second; stepAndCheck();
+	std::string surfaceCount = currentToken->second; stepAndCheck();
 	
-	std::cout << "model name: " << modelName << " surfaces: " << surfaceCount << std::endl;
+	std::auto_ptr<TGen::Engine::MapModel> model(new TGen::Engine::MapModel(modelName, map));
+
+	std::cout << "create model: model name: " << modelName << " surfaces: " << surfaceCount << std::endl;
 	
-	TGen::Engine::MapModel * model = new TGen::Engine::MapModel(modelName, map);
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenBlockStart) {
 			stepAndCheck();
 			model->addSurface(parseSurfaceBlock());
-			std::cout << "added surf" << std::endl;
+			//std::cout << "added surf" << std::endl;
 		}
 		else if (currentToken->first == ProcTokenBlockEnd) {
 			//stepAndCheck();
-			return model;
+			return model.release();
 		}
 		
 		if (currentToken != endIter)
@@ -113,17 +114,14 @@ TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::
 }
 
 TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
-	std::string materialName = currentToken->second;
-	stepAndCheck();
-	std::string numVerts = currentToken->second;
-	stepAndCheck();
-	std::string numIndices = currentToken->second;
-	stepAndCheck();
+	std::string materialName = currentToken->second; stepAndCheck();
+	std::string numVerts = currentToken->second; stepAndCheck();
+	std::string numIndices = currentToken->second; stepAndCheck();
 	
-	std::cout << "material: " + materialName + " numVerts: " + numVerts + " numIndices: " + numIndices << std::endl;
-	
-	TGen::Engine::MapSurface * surface = new TGen::Engine::MapSurface(materialName);
-		
+	std::auto_ptr<TGen::Engine::MapSurface> surface(new TGen::Engine::MapSurface(materialName));
+
+	std::cout << "create surface: material: " + materialName + " numVerts: " + numVerts + " numIndices: " + numIndices << std::endl;
+			
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenArrayStart) {
 			surface->addVertex(parseVertex());
@@ -139,7 +137,7 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of indices doesn't match");
 			surface->calculateTangents();
 			
-			return surface;
+			return surface.release();
 		}
 				
 		if (currentToken != endIter)

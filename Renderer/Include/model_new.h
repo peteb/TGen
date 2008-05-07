@@ -15,13 +15,14 @@
 
 namespace TGen {
 	class NewMesh;
+	class VertexDataSource;
 	
 	class NewModel : public TGen::NewModelInstance {
 	public:
 		NewModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewModel();
 		
-		virtual TGen::NewModelInstance * instantiate() abstract;
+		virtual TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source) abstract;
 	};	
 	
 } // !TGen

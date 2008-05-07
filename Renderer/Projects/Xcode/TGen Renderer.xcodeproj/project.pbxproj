@@ -59,6 +59,8 @@
 		D074B48A0D561188000B91E1 /* modelinstanceproxy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */; };
 		D074B4BC0D5612B6000B91E1 /* modelinstantiator.h in Headers */ = {isa = PBXBuildFile; fileRef = D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */; };
 		D076D1B30D67016600AF2F32 /* metawriter.h in Headers */ = {isa = PBXBuildFile; fileRef = D076D1B20D67016600AF2F32 /* metawriter.h */; };
+		D07B896B0DD0E962001A38EC /* vertexoffsetter.h in Headers */ = {isa = PBXBuildFile; fileRef = D07B896A0DD0E962001A38EC /* vertexoffsetter.h */; };
+		D07B896D0DD0E992001A38EC /* vertexoffsetter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07B896C0DD0E992001A38EC /* vertexoffsetter.cpp */; };
 		D087F4750D564DD100442D40 /* upper.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D087F46F0D564DBA00442D40 /* upper.md3 */; };
 		D087F4C90D56512A00442D40 /* modeljoint.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F4C80D56512A00442D40 /* modeljoint.h */; };
 		D087F6B80D56624C00442D40 /* md3animmodel.h in Headers */ = {isa = PBXBuildFile; fileRef = D087F6B70D56624C00442D40 /* md3animmodel.h */; };
@@ -288,6 +290,8 @@
 		D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstanceproxy.cpp; path = Source/modelinstanceproxy.cpp; sourceTree = "<group>"; };
 		D074B4BB0D5612B6000B91E1 /* modelinstantiator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiator.h; path = Include/modelinstantiator.h; sourceTree = "<group>"; };
 		D076D1B20D67016600AF2F32 /* metawriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metawriter.h; path = Include/metawriter.h; sourceTree = "<group>"; };
+		D07B896A0DD0E962001A38EC /* vertexoffsetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexoffsetter.h; path = Include/vertexoffsetter.h; sourceTree = "<group>"; };
+		D07B896C0DD0E992001A38EC /* vertexoffsetter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexoffsetter.cpp; path = Source/vertexoffsetter.cpp; sourceTree = "<group>"; };
 		D087F46F0D564DBA00442D40 /* upper.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = upper.md3; sourceTree = "<group>"; };
 		D087F4C80D56512A00442D40 /* modeljoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modeljoint.h; path = Include/modeljoint.h; sourceTree = "<group>"; };
 		D087F6B70D56624C00442D40 /* md3animmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md3animmodel.h; path = Include/md3animmodel.h; sourceTree = "<group>"; };
@@ -432,6 +436,8 @@
 				D098D5550D9A82CB003B0486 /* vertexscaler.h */,
 				D098D6610D9A8FD4003B0486 /* vertexswapper.cpp */,
 				D098D65D0D9A8F4B003B0486 /* vertexswapper.h */,
+				D07B896C0DD0E992001A38EC /* vertexoffsetter.cpp */,
+				D07B896A0DD0E962001A38EC /* vertexoffsetter.h */,
 				D0F5185F0C71B756005DB68D /* Render Lists */,
 				D0F371A20C6D049500C11F87 /* bsp */,
 				D0F371A30C6D049C00C11F87 /* md3 */,
@@ -721,6 +727,7 @@
 				D098D5560D9A82CB003B0486 /* vertexscaler.h in Headers */,
 				D098D65E0D9A8F4B003B0486 /* vertexswapper.h in Headers */,
 				D05008170DA66C1F0018EC08 /* scenenoderenderable.h in Headers */,
+				D07B896B0DD0E962001A38EC /* vertexoffsetter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -923,6 +930,7 @@
 				D098D55C0D9A833A003B0486 /* vertexscaler.cpp in Sources */,
 				D098D6620D9A8FD4003B0486 /* vertexswapper.cpp in Sources */,
 				D050081B0DA66C540018EC08 /* scenenoderenderable.cpp in Sources */,
+				D07B896D0DD0E992001A38EC /* vertexoffsetter.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

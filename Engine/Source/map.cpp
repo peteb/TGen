@@ -23,8 +23,8 @@ void TGen::Engine::Map::addModel(TGen::Engine::MapModel * model) {
 }
 
 bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
-	for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter)
-		iter->second->fillFaces(list, camera);
+	//for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter)
+	//	iter->second->fillFaces(list, camera);
 	
 	return true;
 }
@@ -35,16 +35,17 @@ bool TGen::Engine::Map::fillUser(TGen::RenderList & list, const TGen::Camera & c
 	return true;	
 }
 
-void TGen::Engine::Map::linkMaterials(TGen::MaterialSource & source) {
+void TGen::Engine::Map::linkMaterial(TGen::MaterialSource & source) {
 	for (ModelMap::iterator iter = models.begin(); iter != models.end(); ++iter)
-		iter->second->linkMaterials(source);
+		iter->second->linkMaterial(source);
 }
 
-void TGen::Engine::Map::unlinkMaterials() {
-
+void TGen::Engine::Map::unlinkMaterial() {
+	for (ModelMap::iterator iter = models.begin(); iter != models.end(); ++iter)
+		iter->second->unlinkMaterial();
 }
 
-void TGen::Engine::Map::createVertexData(TGen::VertexDataSource & source) {
+void TGen::Engine::Map::instantiate(TGen::VertexDataSource & source) {
 	for (ModelMap::iterator iter = models.begin(); iter != models.end(); ++iter)
-		iter->second->createVertexData(source);
+		iter->second->instantiate(source);
 }

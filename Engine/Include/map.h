@@ -25,9 +25,9 @@ namespace TGen {
 			void addModel(TGen::Engine::MapModel * model);
 			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
 			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
-			void linkMaterials(TGen::MaterialSource & source);
-			void unlinkMaterials();
-			void createVertexData(TGen::VertexDataSource & source);
+			void linkMaterial(TGen::MaterialSource & source);
+			void unlinkMaterial();
+			void instantiate(TGen::VertexDataSource & source);
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::MapModel *> ModelMap;

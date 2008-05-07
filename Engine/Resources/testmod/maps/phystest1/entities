@@ -1355,3 +1355,16 @@ blarg2 {
 	}
 
 }
+
+
+testmap {
+	sceneMap {
+		model "maps/phystest1/testmap.proc"
+		origin "0 0 0"
+	}
+
+	/*physGeom {
+		collisionModel "maps/testmap/testmap.cm"
+	}*/
+
+}

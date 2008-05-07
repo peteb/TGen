@@ -29,7 +29,7 @@ bool TGen::MD3::StaticModel::isPureInstance() const {
 	return false;
 }
 
-TGen::MD3::StaticModel * TGen::MD3::StaticModel::instantiate() {
+TGen::MD3::StaticModel * TGen::MD3::StaticModel::instantiate(TGen::VertexDataSource & source) {
 	return this;
 }
 

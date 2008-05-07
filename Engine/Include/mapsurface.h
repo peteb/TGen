@@ -58,6 +58,7 @@ namespace TGen {
 			std::string material;
 		};
 		
+		// Dokumentera modellhanteringssystemet, vad man ska göra om man vill uppnå olika saker osv
 	} // !Engine
 } // !TGen
 

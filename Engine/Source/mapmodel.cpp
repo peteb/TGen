@@ -13,8 +13,10 @@
 #include "map.h"
 
 TGen::Engine::MapModel::MapModel(const std::string & name, TGen::Engine::Map * map)
-	: name(name)
+	: TGen::NewModel(name, "", "")
+	, name(name)
 	, map(map)
+	, instantiated(false)
 {
 	
 }
@@ -25,24 +27,54 @@ std::string TGen::Engine::MapModel::getName() const {
 
 void TGen::Engine::MapModel::addSurface(TGen::Engine::MapSurface * surface) {
 	surfaces.push_back(surface);
-	faces.push_back(new TGen::Face(surface, surface->getMaterialName(), map));
+	//faces.push_back(new TGen::NewFace(surface, NULL, map));
 }
 
-bool TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
-	//for (int i = 0; i < faces.size(); ++i)
-	//	list.addFace(faces[i]);
+/*bool TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {
+	for (int i = 0; i < faces.size(); ++i)
+		list.addFace(*faces[i]);
 	
-	throw TGen::RuntimeException("MapModel::fillFaces", "BARG");
+	//throw TGen::RuntimeException("MapModel::fillFaces", "BARG");
 	
 	return true;
 }
 
 void TGen::Engine::MapModel::linkMaterials(TGen::MaterialSource & source) {
-	for (int i = 0; i < faces.size(); ++i)
-		faces[i]->linkMaterial(source);
-}
+//	for (int i = 0; i < faces.size(); ++i)
+	//	faces[i]->linkMaterial(source);
+}*/
 
-void TGen::Engine::MapModel::createVertexData(TGen::VertexDataSource & source) {
+/*void TGen::Engine::MapModel::createVertexData(TGen::VertexDataSource & source) {
 	for (int i = 0; i < surfaces.size(); ++i)
 		surfaces[i]->createVertexData(source);
+}*/
+
+bool TGen::Engine::MapModel::isPureInstance() const {
+	return false;
 }
+
+TGen::NewModelInstance * TGen::Engine::MapModel::instantiate(TGen::VertexDataSource & source) {
+	if (instantiated)
+		throw TGen::RuntimeException("MapMode::instantiate", "already instantiated!");
+	
+	std::cout << "MapModel::instantiate" << std::endl;
+	
+	
+	instantiated = true;
+	
+	return this;
+}
+
+void TGen::Engine::MapModel::linkMaterial(TGen::MaterialSource & source) {
+	std::cout << "link material" << std::endl;
+}
+
+void TGen::Engine::MapModel::unlinkMaterial() {
+	
+}
+
+void TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
+	
+}
+
+

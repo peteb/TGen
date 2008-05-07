@@ -14,13 +14,15 @@
 #include "meshinstance_new.h"
 
 namespace TGen {
+	class VertexDataSource;
+	
 	class NewMesh : public TGen::NewMeshInstance {
 	public:
 		NewMesh(const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewMesh();
 		
 		virtual void update() {}
-		virtual TGen::NewMeshInstance * instantiate() const abstract;
+		virtual TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source) const abstract;
 	};
 	
 	

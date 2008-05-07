@@ -30,7 +30,7 @@ namespace TGen {
 			TGen::NewMeshInstance * getMesh(int num);
 			int getNumMeshes() const;
 			
-			TGen::Engine::CubeModel * instantiate();
+			TGen::Engine::CubeModel * instantiate(TGen::VertexDataSource & source);
 			
 			bool isPureInstance() const;
 			

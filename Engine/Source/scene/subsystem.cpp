@@ -141,8 +141,15 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::MapLoader loader(logs, filesystem);
-	TGen::Engine::Map * map = loader.createMap(name, properties.getProperty("model", ""), TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
-	map->createVertexData(dataSource);
+	std::string modelName = properties.getProperty("model", "");
+	TGen::Vector3 origin = TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0"));
+	TGen::VertexOffsetter offsetter(origin);
+	
+	TGen::Engine::Map * map = loader.createMap(name, modelName, offsetter);
+	map->instantiate(dataSource);
+	map->linkMaterial(resources);
+	
+	exit(1);
 	
 	return map;
 }

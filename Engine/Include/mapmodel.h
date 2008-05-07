@@ -12,9 +12,10 @@
 
 #include <string>
 #include <vector>
+#include <tgen_renderer.h>
 
 namespace TGen {
-	class Face;
+	class NewFace;
 	class RenderList;
 	class Camera;
 	class MaterialSource;
@@ -24,26 +25,31 @@ namespace TGen {
 		class MapSurface;
 		class Map;
 		
-		class MapModel {
+		class MapModel : public TGen::NewModel {
 		public:	
 			MapModel(const std::string & name, TGen::Engine::Map * map);
 			
-			void addSurface(TGen::Engine::MapSurface * surface);
-			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
-			void linkMaterials(TGen::MaterialSource & source);
-			void createVertexData(TGen::VertexDataSource & source);
+			bool isPureInstance() const;
+			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source);
 			
+			void linkMaterial(TGen::MaterialSource & source);
+			void unlinkMaterial();
+			void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node);
+
+			void addSurface(TGen::Engine::MapSurface * surface);
+						
 			std::string getName() const;
 			
 		private:
 			typedef std::vector<TGen::Engine::MapSurface *> SurfaceList;
-			typedef std::vector<TGen::Face *> FaceList;
+			typedef std::vector<TGen::NewFace *> FaceList;
 			
 			SurfaceList surfaces;
 			FaceList faces;
 			
 			std::string name;
 			TGen::Engine::Map * map;
+			bool instantiated;
 		};
 		
 	} // !Engine

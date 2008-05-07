@@ -99,6 +99,6 @@ void TGen::Engine::CubeMesh::updateShaderVariable(TGen::ShaderVariable & var, co
 	vb->bindShaderVariable(10, var);
 }
 
-TGen::Engine::CubeMesh * TGen::Engine::CubeMesh::instantiate() const {
+TGen::Engine::CubeMesh * TGen::Engine::CubeMesh::instantiate(TGen::VertexDataSource & source) const {
 	throw TGen::RuntimeException("CubeMesh::instantiate", "trying to instantiate static mesh!");
 }

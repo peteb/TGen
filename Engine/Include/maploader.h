@@ -14,6 +14,8 @@
 #include "mapsurface.h"
 
 namespace TGen {
+	class VertexTransformer;
+	
 	namespace Engine {
 		class Map;
 		class StandardLogs;
@@ -24,7 +26,7 @@ namespace TGen {
 		public:
 			MapLoader(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem);
 			
-			TGen::Engine::Map * createMap(const std::string & name, const std::string & filename, const TGen::Vector3 & origin);
+			TGen::Engine::Map * createMap(const std::string & name, const std::string & filename, const TGen::VertexTransformer & transformer);
 			
 		private:
 			void parseGlobalBlock(TGen::Engine::Map * map);

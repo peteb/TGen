@@ -23,7 +23,7 @@ TGen::Engine::CubeModel::~CubeModel() {
 	
 }
 
-TGen::Engine::CubeModel * TGen::Engine::CubeModel::instantiate() {
+TGen::Engine::CubeModel * TGen::Engine::CubeModel::instantiate(TGen::VertexDataSource & source) {
 	return this;
 }
 

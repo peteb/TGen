@@ -41,7 +41,7 @@ namespace TGen {
 			
 			std::string getDefaultMaterial() const;*/
 			
-			TGen::NewModelInstance * instantiate();
+			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source);
 			bool isPureInstance() const;
 		
 		private:

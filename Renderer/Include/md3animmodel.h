@@ -35,7 +35,7 @@ namespace TGen {
 			
 			TGen::ModelJoint getJoint(const std::string & name) const;
 			
-			TGen::NewModelInstance * instantiate();
+			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source);
 			bool isPureInstance() const;
 			
 		private:

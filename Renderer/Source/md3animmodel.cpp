@@ -35,7 +35,7 @@ bool TGen::MD3::AnimatingModel::isPureInstance() const {
 // TODO: ett fallbackmaterial ska kunna definieras ... varför? glömt bort
 //       sen ska md5 blir nya modellsystemet...
 
-TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate() {
+TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate(TGen::VertexDataSource & source) {
 	TGen::MD3::AnimatingModelInstance * newInstance = NULL;
 	
 	switch (interpolatingMode) {
