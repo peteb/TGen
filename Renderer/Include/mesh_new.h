@@ -22,7 +22,7 @@ namespace TGen {
 		virtual ~NewMesh();
 		
 		virtual void update() {}
-		virtual TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source) const abstract;
+		virtual TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source) abstract;
 	};
 	
 	

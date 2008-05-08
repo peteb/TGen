@@ -28,6 +28,8 @@ namespace TGen {
 		TGen::Plane3 & normalize();
 		TGen::Plane3 & invert();
 		
+		operator std::string() const;
+		
 		TGen::Vector3 normal;
 		scalar distance;
 	};	

@@ -26,7 +26,7 @@ namespace TGen {
 			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
 
 			void createVertexData(TGen::VertexDataSource & dataSource);
-			TGen::Engine::CubeMesh * instantiate(TGen::VertexDataSource & source) const;
+			TGen::Engine::CubeMesh * instantiate(TGen::VertexDataSource & source);
 			
 		private:
 			typedef TGen::TexCoord2<float, 0> TexCoordDecl;

@@ -35,7 +35,7 @@ void TGen::MD3::StaticMesh::render(TGen::Renderer & renderer) const {
 	renderer.drawIndexedPrimitive(TGen::PrimitiveTriangles, startIndex, numIndices);	
 }
 
-TGen::MD3::StaticMesh * TGen::MD3::StaticMesh::instantiate(TGen::VertexDataSource & source) const {
+TGen::MD3::StaticMesh * TGen::MD3::StaticMesh::instantiate(TGen::VertexDataSource & source) {
 	throw TGen::RuntimeException("MD3::Mesh::instantiate", "trying to instantiate static mesh! (a *model is stupid)");
 }
 

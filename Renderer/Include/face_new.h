@@ -24,7 +24,9 @@ namespace TGen {
 		TGen::NewMeshInstance * getMesh() const;
 		TGen::Material * getMaterial() const;
 		TGen::SceneNode const * getSceneNode() const;
-
+		void setSceneNode(const TGen::SceneNode * node);
+		void setMaterial(TGen::Material * material);
+		
 		TGen::Vector3 getWorldOrigin() const;
 		
 	protected:

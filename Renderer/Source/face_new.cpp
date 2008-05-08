@@ -33,3 +33,11 @@ TGen::SceneNode const * TGen::NewFace::getSceneNode() const {
 TGen::Vector3 TGen::NewFace::getWorldOrigin() const {
 	return sceneNode->getTransform().getOrigin();
 }
+
+void TGen::NewFace::setSceneNode(const TGen::SceneNode * node) {
+	sceneNode = node;
+}
+
+void TGen::NewFace::setMaterial(TGen::Material * material) {
+	this->material = material;
+}

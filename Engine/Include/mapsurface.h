@@ -18,7 +18,7 @@ namespace TGen {
 			MapSurfaceTangentAttribute = 10,
 		};
 		
-		class MapSurface : public TGen::Geometry {
+		class MapSurface : public TGen::NewMesh {
 		public:	
 			MapSurface(const std::string & material);
 			~MapSurface();
@@ -33,7 +33,7 @@ namespace TGen {
 
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
-			void createVertexData(TGen::VertexDataSource & source);
+			TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source);
 			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
 			
 			TGen::Vector3 getMax() const;

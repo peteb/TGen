@@ -15,6 +15,7 @@
 #include "maptokenizer.h"
 #include "mapmodel.h"
 #include "mapsurface.h"
+#include "mapnode.h"
 
 TGen::Engine::MapLoader::MapLoader(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem)
 	: logs(logs)
@@ -70,12 +71,12 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 			parseIAPBlock(procmap);*/
 		}
 		else if (currentToken->first == TGen::Engine::ProcTokenNodes) {
-			/*stepAndCheck();
+			stepAndCheck();
 			if (currentToken->first != ProcTokenBlockStart)
 				throw TGen::RuntimeException("ProcParser::parseGlobalBlock", "nodes: no block start!");
 			
 			stepAndCheck();
-			parseNodesBlock(procmap);*/
+			parseNodesBlock(map);
 		}
 		else {
 			
@@ -147,6 +148,60 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "unexpected end");	
 }
 
+void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map) {
+	std::string numNodes = currentToken->second; stepAndCheck();
+	
+	TGen::Engine::MapLinkNode * rootNode = NULL;
+	
+	while (currentToken != endIter) {
+		if (currentToken->first == ProcTokenArrayStart) {
+			stepAndCheck();
+			std::string x = currentToken->second; stepAndCheck();
+			std::string y = currentToken->second; stepAndCheck();
+			std::string z = currentToken->second; stepAndCheck();
+			std::string d = currentToken->second; stepAndCheck();
+						
+			if (currentToken->first != ProcTokenArrayEnd)
+				throw TGen::RuntimeException("MapLoader::parseNodesBlock", "expecting array end, not " + currentToken->second);
+			
+			stepAndCheck();
+			std::string positiveChild = currentToken->second; stepAndCheck();
+			std::string negativeChild = currentToken->second;
+			
+			TGen::Plane3 plane(TGen::Vector3(TGen::lexical_cast<scalar>(x), TGen::lexical_cast<scalar>(z), TGen::lexical_cast<scalar>(y)), TGen::lexical_cast<scalar>(d) * 0.05);
+			int posChild = TGen::lexical_cast<int>(positiveChild);
+			int negChild = TGen::lexical_cast<int>(negativeChild);
+			
+			TGen::Engine::MapLinkNode * node = new TGen::Engine::MapLinkNode(plane);
+			
+			if (posChild > 0)
+				node->setPosChild(posChild);
+			else if (posChild < 0)
+				node->setPosChild(new TGen::Engine::MapLeafNode(-1 - posChild));
+			
+			if (negChild > 0)
+				node->setNegChild(negChild);
+			else if (negChild < 0)
+				node->setNegChild(new TGen::Engine::MapLeafNode(-1 - negChild));
+			
+			map->addNode(node);
+			
+			if (!rootNode) {
+				rootNode = node;
+				map->setNodeRoot(rootNode);
+			}
+		}
+		else if (currentToken->first == ProcTokenBlockEnd) {
+			rootNode->link(map);
+			
+			return;
+		}
+		
+		if (currentToken != endIter)
+			step();
+	}
+}
+
 TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex() {
 	TGen::Engine::MapSurface::VertexDecl::Type vertex;
 		
@@ -171,16 +226,16 @@ TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex(
 	stepAndCheck();
 	nz = currentToken->second;
 	stepAndCheck();
-	
+		
 	if (currentToken->first != ProcTokenArrayEnd)
 		throw TGen::RuntimeException("ProcParser::parseVertex", "invalid vertex, must end with array end");
 	
 	//stepAndCheck();
 
 	//std::cout << "x: " + x + " y: " + y + " z: " + z + " u: " + u + " v: " + v + " nx: " + nx + " ny: " + ny + " nz: " + nz << std::endl;
-	vertex.MapSurface::Vertex::Type::x = TGen::lexical_cast<float>(x);
-	vertex.MapSurface::Vertex::Type::y = TGen::lexical_cast<float>(z);
-	vertex.MapSurface::Vertex::Type::z = TGen::lexical_cast<float>(y);
+	vertex.MapSurface::Vertex::Type::x = TGen::lexical_cast<float>(x) * 0.05;
+	vertex.MapSurface::Vertex::Type::y = TGen::lexical_cast<float>(z) * 0.05;
+	vertex.MapSurface::Vertex::Type::z = TGen::lexical_cast<float>(y) * 0.05;
 	vertex.MapSurface::TexCoord::Type::u = TGen::lexical_cast<float>(u);
 	vertex.MapSurface::TexCoord::Type::v = TGen::lexical_cast<float>(v);
 	vertex.MapSurface::Normal::Type::nx = TGen::lexical_cast<float>(nx);

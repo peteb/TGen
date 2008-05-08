@@ -8,6 +8,7 @@
  */
 
 #include "plane3.h"
+#include <sstream>
 
 using TGen::scalar;
 
@@ -92,3 +93,10 @@ TGen::Plane3 & TGen::Plane3::invert() {
 scalar TGen::Plane3::getPointSide(const TGen::Vector3 & p) const {
 	return TGen::Vector3::DotProduct(p, normal) - distance;	
 }
+
+TGen::Plane3::operator std::string() const {
+	std::stringstream ss;
+	ss << "normal: " << std::string(normal) << " distance: " << distance;
+	return ss.str();
+}
+

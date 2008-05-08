@@ -58,23 +58,35 @@ TGen::NewModelInstance * TGen::Engine::MapModel::instantiate(TGen::VertexDataSou
 		throw TGen::RuntimeException("MapMode::instantiate", "already instantiated!");
 	
 	std::cout << "MapModel::instantiate" << std::endl;
-	
+	std::cout << "surfaces: " << surfaces.size() << std::endl;
 	
 	instantiated = true;
+	
+	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
+		(*iter)->instantiate(source);
+	}
 	
 	return this;
 }
 
 void TGen::Engine::MapModel::linkMaterial(TGen::MaterialSource & source) {
 	std::cout << "link material" << std::endl;
+	
+	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter)
+		(*iter)->linkMaterial(source);
 }
 
+
 void TGen::Engine::MapModel::unlinkMaterial() {
-	
+	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter)
+		(*iter)->unlinkMaterial();	
 }
 
 void TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
-	
+	//std::cout << "fill faces" << std::endl;
+	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {		
+		list.addFace(TGen::NewFace(*iter, (overridingMaterial ? overridingMaterial : (*iter)->getMaterial()), node));
+	}
 }
 
 

@@ -10,7 +10,7 @@
 #include "mapsurface.h"
 
 TGen::Engine::MapSurface::MapSurface(const std::string & material) 
-	: material(material)
+	: TGen::NewMesh(material, "")
 	, vb(NULL)
 	, ib(NULL)
 {
@@ -60,7 +60,7 @@ TGen::Vector3 TGen::Engine::MapSurface::getOrigin() const {
 	return TGen::Vector3(0.0, 0.0, 0.0);
 }
 
-void TGen::Engine::MapSurface::createVertexData(TGen::VertexDataSource & source) {
+TGen::NewMeshInstance * TGen::Engine::MapSurface::instantiate(TGen::VertexDataSource & source) {
 	if (vb || ib)
 		throw TGen::RuntimeException("MapSurface::createVertexData", "vertex data already created!");
 	
@@ -73,6 +73,8 @@ void TGen::Engine::MapSurface::createVertexData(TGen::VertexDataSource & source)
 	
 	vb->bufferData(&vertices[0], vertices.size() * sizeof(VertexDecl::Type), 0);
 	ib->bufferData(&indices[0], indices.size() * sizeof(IndexDecl::Type), 0);
+	
+	return this;
 }
 
 void TGen::Engine::MapSurface::updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {

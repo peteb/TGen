@@ -30,7 +30,7 @@ namespace TGen {
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 
-			TGen::MD3::StaticMesh * instantiate(TGen::VertexDataSource & source) const;
+			TGen::MD3::StaticMesh * instantiate(TGen::VertexDataSource & source);
 			void createVertexData(TGen::VertexDataSource & dataSource);
 			
 			friend class TGen::MD3::File;

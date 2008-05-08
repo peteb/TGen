@@ -42,10 +42,8 @@ namespace TGen {
 			
 		private:
 			typedef std::vector<TGen::Engine::MapSurface *> SurfaceList;
-			typedef std::vector<TGen::NewFace *> FaceList;
 			
 			SurfaceList surfaces;
-			FaceList faces;
 			
 			std::string name;
 			TGen::Engine::Map * map;

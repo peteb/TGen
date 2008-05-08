@@ -149,7 +149,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	map->instantiate(dataSource);
 	map->linkMaterial(resources);
 	
-	exit(1);
+	//exit(1);
 	
 	return map;
 }
