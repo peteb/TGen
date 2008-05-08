@@ -16,12 +16,16 @@ TGen::Engine::MapLinkNode::MapLinkNode(const TGen::Plane3 & plane)
 	, negChild(0)
 	, pos(NULL)
 	, neg(NULL)
+	, posLeaf(NULL)
+	, negLeaf(NULL)
 {
 }
 
 TGen::Engine::MapLinkNode::~MapLinkNode() {
 	delete pos;
 	delete neg;
+	delete posLeaf;
+	delete negLeaf;
 }
 
 
@@ -40,19 +44,19 @@ void TGen::Engine::MapLinkNode::setPosChild(int posChild) {
 	this->pos = NULL;
 }
 
-void TGen::Engine::MapLinkNode::setPosChild(TGen::Engine::MapNode * posChild) {
-	this->pos = posChild;
-	this->posChild = 0;
-}
-
 void TGen::Engine::MapLinkNode::setNegChild(int negChild) {
 	this->negChild = negChild;
 	this->neg = NULL;
 }
 
-void TGen::Engine::MapLinkNode::setNegChild(TGen::Engine::MapNode * negChild) {
-	this->neg = negChild;
-	this->negChild = 0;	
+void TGen::Engine::MapLinkNode::setPosLeaf(TGen::Engine::MapLeafNode * pos) {
+	delete pos;
+	posLeaf = pos;
+}
+
+void TGen::Engine::MapLinkNode::setNegLeaf(TGen::Engine::MapLeafNode * neg) {
+	delete negLeaf;
+	negLeaf = neg;
 }
 
 void TGen::Engine::MapLinkNode::link(TGen::Engine::Map * map) {
@@ -65,6 +69,10 @@ void TGen::Engine::MapLinkNode::link(TGen::Engine::Map * map) {
 		pos->link(map);
 	if (neg)
 		neg->link(map);
+	if (posLeaf)
+		posLeaf->link(map);
+	if (negLeaf)
+		negLeaf->link(map);
 }
 
 void TGen::Engine::MapLeafNode::link(TGen::Engine::Map * map) {

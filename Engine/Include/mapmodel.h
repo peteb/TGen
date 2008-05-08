@@ -37,7 +37,8 @@ namespace TGen {
 			void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node);
 
 			void addSurface(TGen::Engine::MapSurface * surface);
-						
+			void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
+			
 			std::string getName() const;
 			
 		private:

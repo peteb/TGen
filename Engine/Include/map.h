@@ -18,7 +18,7 @@ namespace TGen {
 	
 	namespace Engine {
 		class MapModel;
-		class MapNode;
+		class MapLinkNode;
 		class MapLeafNode;
 		
 		class Map : public TGen::SceneNode {
@@ -27,27 +27,28 @@ namespace TGen {
 			~Map();
 			
 			
-			void addNode(TGen::Engine::MapNode * node);
+			void addNode(TGen::Engine::MapLinkNode * node);
 			void addModel(TGen::Engine::MapModel * model);
 			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
 			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
 			void linkMaterial(TGen::MaterialSource & source);
 			void unlinkMaterial();
 			void instantiate(TGen::VertexDataSource & source);
-			void setNodeRoot(TGen::Engine::MapNode * root);
+			void setRootNode(TGen::Engine::MapLinkNode * root);
+			bool fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const;
 			
-			TGen::Engine::MapNode * getNode(int num);
+			TGen::Engine::MapLinkNode * getNode(int num);
 			TGen::Engine::MapModel * getModel(const std::string & name);
 			
 		private:
 			TGen::Engine::MapLeafNode * getLeafNode(const TGen::Vector3 & position) const;
 			
 			typedef std::map<std::string, TGen::Engine::MapModel *> ModelMap;
-			typedef std::vector<TGen::Engine::MapNode *> NodeMap;
+			typedef std::vector<TGen::Engine::MapLinkNode *> NodeMap;
 			
 			NodeMap nodes;
 			ModelMap models;
-			TGen::Engine::MapNode * nodeRoot;
+			TGen::Engine::MapLinkNode * rootNode;
 		};
 		
 	} // !Engine

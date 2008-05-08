@@ -16,33 +16,29 @@ namespace TGen {
 	namespace Engine {
 		class Map;
 		class MapModel;
+		class MapLeafNode;
 		
-		class MapNode {
-		public:	
-			virtual ~MapNode() {}
-			
-			virtual void link(TGen::Engine::Map * map) abstract;
-		};
-		
-		class MapLinkNode : public TGen::Engine::MapNode {
+		class MapLinkNode {
 		public:
 			MapLinkNode(const TGen::Plane3 & plane);
 			~MapLinkNode();
 			
 			void setPosChild(int posChild);
-			void setPosChild(TGen::Engine::MapNode * posChild);
 			void setNegChild(int negChild);
-			void setNegChild(TGen::Engine::MapNode * negChild);
+			void setPosLeaf(TGen::Engine::MapLeafNode * pos);
+			void setNegLeaf(TGen::Engine::MapLeafNode * neg);
+			
 			void link(TGen::Engine::Map * map);
 
 			TGen::Plane3 plane;
-			TGen::Engine::MapNode * pos, * neg;
-
+			TGen::Engine::MapLinkNode * pos, * neg;
+			TGen::Engine::MapLeafNode * posLeaf, * negLeaf;
+			
 		private:
 			int posChild, negChild;
 		};
 		
-		class MapLeafNode : public TGen::Engine::MapNode {
+		class MapLeafNode {
 		public:
 			MapLeafNode(int areaNumber);
 			~MapLeafNode();

@@ -177,18 +177,18 @@ void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map) {
 			if (posChild > 0)
 				node->setPosChild(posChild);
 			else if (posChild < 0)
-				node->setPosChild(new TGen::Engine::MapLeafNode(-1 - posChild));
+				node->setPosLeaf(new TGen::Engine::MapLeafNode(-1 - posChild));
 			
 			if (negChild > 0)
 				node->setNegChild(negChild);
 			else if (negChild < 0)
-				node->setNegChild(new TGen::Engine::MapLeafNode(-1 - negChild));
+				node->setNegLeaf(new TGen::Engine::MapLeafNode(-1 - negChild));
 			
 			map->addNode(node);
 			
 			if (!rootNode) {
 				rootNode = node;
-				map->setNodeRoot(rootNode);
+				map->setRootNode(rootNode);
 			}
 		}
 		else if (currentToken->first == ProcTokenBlockEnd) {

@@ -759,7 +759,7 @@ corridfloor {
 deepfloor {
 	sceneNode {
 		material "wornmetalplate"
-		model "gen:cube width 4000 height 0.1 depth 600 texwidth 2000 texdepth 250"
+		//model "gen:cube width 4000 height 0.1 depth 600 texwidth 2000 texdepth 250"
 		origin "-30 -40.05 -1"
 	}
 	
@@ -1359,8 +1359,8 @@ blarg2 {
 
 testmap {
 	sceneMap {
-		model "maps/phystest1/testmap.proc"
-		origin "-40 -39.99 -30"
+		model "maps/phystest1/testmap.proc"     // "maps/phystest1/demo_mars_city1.proc"
+		origin "-40 -40 -30"
 	}
 
 	/*physGeom {

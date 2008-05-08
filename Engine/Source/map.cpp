@@ -13,13 +13,13 @@
 
 TGen::Engine::Map::Map(const std::string & name, const TGen::Vector3 & origin)
 	: TGen::SceneNode(name, origin)
-	, nodeRoot(NULL)
+	, rootNode(NULL)
 {
 }
 
 TGen::Engine::Map::~Map() {
 	nodes.clear();
-	delete nodeRoot;
+	delete rootNode;
 }
 
 void TGen::Engine::Map::addModel(TGen::Engine::MapModel * model) {
@@ -30,13 +30,24 @@ void TGen::Engine::Map::addModel(TGen::Engine::MapModel * model) {
 }
 
 bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {	
-	TGen::Engine::MapLeafNode * leafNode = const_cast<TGen::Engine::MapLeafNode *>(getLeafNode((getTransform() * camera.getTransform()).getOrigin()));
+	TGen::Matrix4x4 invertedCam = camera.getTransform();
+	invertedCam.invert();
+
+	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
+	//pos.y = -pos.y;
+	//std::cout << std::string(pos) << std::endl;
+	//std::cout << std::string(getTransform().getOrigin()) << std::endl;
+	
+	TGen::Engine::MapLeafNode * leafNode = const_cast<TGen::Engine::MapLeafNode *>(getLeafNode(pos));
+	//std::cout << "done" << std::endl;
 	
 	if (!leafNode) {
 		for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter)
 			iter->second->fillFaces(list, iter->second->getOverridingMaterial(), this);
 	}
 	else {
+		//std::cout << "IN LEAF" << std::endl;
+		
 		leafNode->getModel()->fillFaces(list, leafNode->getModel()->getOverridingMaterial(), this);
 	}
 		
@@ -64,18 +75,17 @@ void TGen::Engine::Map::instantiate(TGen::VertexDataSource & source) {
 		iter->second->instantiate(source);
 }
 
-void TGen::Engine::Map::addNode(TGen::Engine::MapNode * node) {
+void TGen::Engine::Map::addNode(TGen::Engine::MapLinkNode * node) {
 	nodes.push_back(node);
 }
 
-void TGen::Engine::Map::setNodeRoot(TGen::Engine::MapNode * root) {
-	if (nodeRoot)
-		delete nodeRoot;
+void TGen::Engine::Map::setRootNode(TGen::Engine::MapLinkNode * root) {
+	delete rootNode;
 	
-	nodeRoot = root;
+	rootNode = root;
 }
 
-TGen::Engine::MapNode * TGen::Engine::Map::getNode(int num) {
+TGen::Engine::MapLinkNode * TGen::Engine::Map::getNode(int num) {
 	return nodes.at(num);
 }
 
@@ -89,22 +99,46 @@ TGen::Engine::MapModel * TGen::Engine::Map::getModel(const std::string & name) {
 
 TGen::Engine::MapLeafNode * TGen::Engine::Map::getLeafNode(const TGen::Vector3 & position) const {
 	//std::cout << std::string(position) << std::endl;
-	TGen::Engine::MapLinkNode * node = nodeRoot;
+	TGen::Engine::MapLinkNode * node = rootNode;
 	while (node) {
-		scalar side = node->plane.getPointSize(position);
+		scalar side = node->plane.getPointSide(TGen::Vector3(-position.x, -position.y, -position.z));
+		//std::cout << node << std::endl;
 		
-		// TODO: en LinkNode kan ha pekare till leaves också, posLeaf, negLeaf, istället för polymorf
+		TGen::Engine::MapLeafNode * leaf = NULL;
 		
-		if (side > 0) {
+	//	std::cout << "SIDE: " << side << std::endl;
+		
+		if (side <= 0) {
+			leaf = node->posLeaf;
+			node = node->pos;
 			
+		//	if (!node)
+		//		std::cout << "no pos node" << std::endl;
 		}
 		else {
-			
+			leaf = node->negLeaf;
+			node = node->neg;
+
+			//if (!node)
+		//		std::cout << "no neg node" << std::endl;
 		}
 		
+		if (leaf) {
+		//	std::cout << "found leaf" << std::endl;
+			return leaf;
+		}		
 	}
 	
+	
 	return NULL;
+}
+
+bool TGen::Engine::Map::fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const {
+	for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter) {
+		list.addMeta(iter->second, this);
+	}
+	
+	return true;
 }
 
 

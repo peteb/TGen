@@ -11,6 +11,7 @@
 #include <tgen_renderer.h>
 #include "mapsurface.h"
 #include "map.h"
+#include "metacreator.h"
 
 TGen::Engine::MapModel::MapModel(const std::string & name, TGen::Engine::Map * map)
 	: TGen::NewModel(name, "", "")
@@ -88,5 +89,13 @@ void TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, TGen::Material *
 		list.addFace(TGen::NewFace(*iter, (overridingMaterial ? overridingMaterial : (*iter)->getMaterial()), node));
 	}
 }
+
+void TGen::Engine::MapModel::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
+	//if (metaType == TGen::MetaPortals) {
+		TGen::Engine::MetaCreator mc;
+		mc.writeAxes(transform, stream);
+	//}
+}
+
 
 
