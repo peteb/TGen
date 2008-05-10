@@ -29,7 +29,8 @@ namespace TGen {
 			void setNegLeaf(TGen::Engine::MapLeafNode * neg);
 			
 			void link(TGen::Engine::Map * map);
-
+			void print(int level = 0);
+			
 			TGen::Plane3 plane;
 			TGen::Engine::MapLinkNode * pos, * neg;
 			TGen::Engine::MapLeafNode * posLeaf, * negLeaf;
@@ -46,7 +47,8 @@ namespace TGen {
 			void link(TGen::Engine::Map * map);
 			const TGen::Engine::MapModel * getModel() const;
 			TGen::Engine::MapModel * getModel();
-
+			void print(int level = 0);
+			
 			TGen::Engine::MapModel * area;
 
 		private:

@@ -24,6 +24,7 @@ namespace TGen {
 		Vector4(const Vector3 & vector, scalar w = 1.0f);
 		Vector4(const Vector2 & vector);
 		
+		TGen::Vector4 & operator /= (scalar div);
 		
 		static Vector4 Identity;
 		

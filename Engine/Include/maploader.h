@@ -30,9 +30,11 @@ namespace TGen {
 			
 		private:
 			void parseGlobalBlock(TGen::Engine::Map * map);
+			void parseNodesBlock(TGen::Engine::Map * map);
+			void parseIAPBlock(TGen::Engine::Map * map);
+
 			TGen::Engine::MapModel * parseModelBlock(TGen::Engine::Map * map);
 			TGen::Engine::MapSurface * parseSurfaceBlock();
-			void parseNodesBlock(TGen::Engine::Map * map);
 			TGen::Engine::MapSurface::VertexDecl::Type parseVertex();
 			
 			void step();

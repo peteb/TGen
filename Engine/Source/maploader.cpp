@@ -16,6 +16,7 @@
 #include "mapmodel.h"
 #include "mapsurface.h"
 #include "mapnode.h"
+#include "mapportal.h"
 
 TGen::Engine::MapLoader::MapLoader(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem)
 	: logs(logs)
@@ -63,12 +64,12 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 			map->addModel(parseModelBlock(map));
 		}
 		else if (currentToken->first == TGen::Engine::ProcTokenIAP) {
-			/*stepAndCheck();
+			stepAndCheck();
 			if (currentToken->first != ProcTokenBlockStart)
 				throw TGen::RuntimeException("ProcParser::parseGlobalBlock", "iap: no block start!");
 			
 			stepAndCheck();
-			parseIAPBlock(procmap);*/
+			parseIAPBlock(map);
 		}
 		else if (currentToken->first == TGen::Engine::ProcTokenNodes) {
 			stepAndCheck();
@@ -95,15 +96,20 @@ TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::
 
 	std::cout << "create model: model name: " << modelName << " surfaces: " << surfaceCount << std::endl;
 	
+	int surfacesAdded = 0;
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenBlockStart) {
 			stepAndCheck();
 			model->addSurface(parseSurfaceBlock());
+			surfacesAdded++;
 			//std::cout << "added surf" << std::endl;
 		}
 		else if (currentToken->first == ProcTokenBlockEnd) {
 			//stepAndCheck();
+			if (surfacesAdded != TGen::lexical_cast<int>(surfaceCount))
+				throw TGen::RuntimeException("MapLoader::parseModelBlock", "surface count missmatch");
+			
 			return model.release();
 		}
 		
@@ -114,6 +120,62 @@ TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::
 	throw TGen::RuntimeException("MapLoader::parseModelBlock", "unexpected end");	
 }
 
+void TGen::Engine::MapLoader::parseIAPBlock(TGen::Engine::Map * map) {
+	std::string numAreas = currentToken->second; stepAndCheck();
+	std::string numIAP = currentToken->second; stepAndCheck();
+	
+	int portalsCreated = 0;
+	
+	while (currentToken != endIter) {
+		if (currentToken->first == ProcTokenBlockEnd) {
+			//stepAndCheck();
+			if (portalsCreated != TGen::lexical_cast<int>(numIAP))
+				throw TGen::RuntimeException("MapLoader::parseIAPBlock", "portal count missmatch");
+			
+			return;
+		}
+		else {
+			std::string numPoints = currentToken->second; stepAndCheck();
+			std::string posArea = currentToken->second; stepAndCheck();
+			std::string negArea = currentToken->second; stepAndCheck();
+			
+			std::cout << "num points: " << numPoints << std::endl;
+
+			int numPointsInt = TGen::lexical_cast<int>(numPoints);
+
+			std::auto_ptr<TGen::Engine::MapPortal> portal(new TGen::Engine::MapPortal(TGen::lexical_cast<int>(posArea), TGen::lexical_cast<int>(negArea)));
+			
+			for (int i = 0; i < numPointsInt; ++i) {
+				if (i > 0)
+					stepAndCheck();
+
+				if (currentToken->first != ProcTokenArrayStart)
+					throw TGen::RuntimeException("MapLoader::parseIAPBlock", "expecting array start, not " + currentToken->second + "!");
+			
+				stepAndCheck();
+				std::string x = currentToken->second; stepAndCheck();
+				std::string y = currentToken->second; stepAndCheck();
+				std::string z = currentToken->second; stepAndCheck();
+				
+				if (currentToken->first != ProcTokenArrayEnd)
+					throw TGen::RuntimeException("MapLoader::parseIAPBlock", "expecting array end, not " + currentToken->second + "!");
+				
+				
+				portal->addPoint(TGen::Vector3(TGen::lexical_cast<scalar>(x), TGen::lexical_cast<scalar>(z), TGen::lexical_cast<scalar>(y)) * 0.05);			
+			}
+			
+			stepAndCheck();
+			
+			map->addPortal(portal.release());
+			portalsCreated++;
+		}
+		
+		//if (currentToken != endIter && currentToken->first != ProcTokenBlockEnd)
+		//	step();		
+	}
+}
+
+
 TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 	std::string materialName = currentToken->second; stepAndCheck();
 	std::string numVerts = currentToken->second; stepAndCheck();
@@ -122,21 +184,25 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 	std::auto_ptr<TGen::Engine::MapSurface> surface(new TGen::Engine::MapSurface(materialName));
 
 	std::cout << "create surface: material: " + materialName + " numVerts: " + numVerts + " numIndices: " + numIndices << std::endl;
-			
+	int vertsAdded = 0, indsAdded = 0;
+	
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenArrayStart) {
 			surface->addVertex(parseVertex());
+			vertsAdded++;
 		}
 		else if (currentToken->first == TGen::TokenValueNumeric) {
 			surface->addIndex(TGen::lexical_cast<uint>(currentToken->second));
+			indsAdded++;
 		}
 		else if (currentToken->first == ProcTokenBlockEnd) {
-			////stepAndCheck();
-			//if (surface->getNumVertices() != TGen::lexical_cast<int>(numVerts))
-			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of vertices doesn't match");
-			//if (surface->getNumIndices() != TGen::lexical_cast<int>(numIndices))
-			//	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "number of indices doesn't match");
 			surface->calculateTangents();
+			
+			if (vertsAdded != TGen::lexical_cast<int>(numVerts))
+				throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "vertex count missmatch");
+			
+			if (indsAdded != TGen::lexical_cast<int>(numIndices))
+				throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "index count missmatch");
 			
 			return surface.release();
 		}
@@ -178,21 +244,26 @@ void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map) {
 				node->setPosChild(posChild);
 			else if (posChild < 0)
 				node->setPosLeaf(new TGen::Engine::MapLeafNode(-1 - posChild));
+			else
+				node->setPosLeaf(NULL);
 			
 			if (negChild > 0)
 				node->setNegChild(negChild);
 			else if (negChild < 0)
 				node->setNegLeaf(new TGen::Engine::MapLeafNode(-1 - negChild));
+			else
+				node->setNegLeaf(NULL);
 			
 			map->addNode(node);
 			
 			if (!rootNode) {
 				rootNode = node;
-				map->setRootNode(rootNode);
 			}
 		}
 		else if (currentToken->first == ProcTokenBlockEnd) {
 			rootNode->link(map);
+			map->setRootNode(rootNode);
+			//rootNode->print();
 			
 			return;
 		}

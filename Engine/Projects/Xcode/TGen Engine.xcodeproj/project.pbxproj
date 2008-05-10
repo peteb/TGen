@@ -81,6 +81,7 @@
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
+		D0C34F220DD3A66D0061F213 /* mapportal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C34F210DD3A66D0061F213 /* mapportal.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
 		D0DB3C810DC2254C00425EBA /* firstpersoncontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0DB3C800DC2254C00425EBA /* firstpersoncontroller.cpp */; };
 		D0E0961A0D8834C3005D5345 /* geom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E096190D8834C3005D5345 /* geom.cpp */; };
@@ -380,6 +381,8 @@
 		D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lightlist.cpp; path = renderer/lightlist.cpp; sourceTree = "<group>"; };
 		D0C2CC7C0D95A36600047CD7 /* rendererfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendererfactory.h; path = ../../Include/renderer/rendererfactory.h; sourceTree = SOURCE_ROOT; };
 		D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rendererfactory.cpp; path = renderer/rendererfactory.cpp; sourceTree = "<group>"; };
+		D0C34F200DD3A6630061F213 /* mapportal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapportal.h; path = ../../Include/mapportal.h; sourceTree = SOURCE_ROOT; };
+		D0C34F210DD3A66D0061F213 /* mapportal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapportal.cpp; sourceTree = "<group>"; };
 		D0CC7A5B0CF9D1DD003EE092 /* preprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = preprocessor.h; path = ../../Include/preprocessor.h; sourceTree = SOURCE_ROOT; };
 		D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
 		D0DB3C7F0DC2253D00425EBA /* firstpersoncontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = firstpersoncontroller.h; path = ../../Include/controller/firstpersoncontroller.h; sourceTree = SOURCE_ROOT; };
@@ -729,6 +732,8 @@
 				D080DA840D27EC9300EEFDFC /* mapsurface.h */,
 				D07B8D910DD2574D001A38EC /* mapnode.cpp */,
 				D07B8D900DD25744001A38EC /* mapnode.h */,
+				D0C34F210DD3A66D0061F213 /* mapportal.cpp */,
+				D0C34F200DD3A6630061F213 /* mapportal.h */,
 			);
 			name = map;
 			sourceTree = "<group>";
@@ -1199,6 +1204,7 @@
 				D020D4550DC3E3C500D0EDA4 /* arcball.cpp in Sources */,
 				D07BB80D0DCA66F7006A8A53 /* bipedalgeom.cpp in Sources */,
 				D07B8D920DD2574D001A38EC /* mapnode.cpp in Sources */,
+				D0C34F220DD3A66D0061F213 /* mapportal.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

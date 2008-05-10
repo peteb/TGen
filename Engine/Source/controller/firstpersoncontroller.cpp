@@ -153,7 +153,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			}
 			
 			//if (jump) {
-			scalar force = std::max(0.0f, airTime);
+			scalar force = std::max(0.0f, float(airTime));
 			//std::cout << force << std::endl;
 				
 			//if (force > 0.0)

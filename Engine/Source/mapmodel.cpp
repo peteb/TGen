@@ -12,6 +12,7 @@
 #include "mapsurface.h"
 #include "map.h"
 #include "metacreator.h"
+#include "mapportal.h"
 
 TGen::Engine::MapModel::MapModel(const std::string & name, TGen::Engine::Map * map)
 	: TGen::NewModel(name, "", "")
@@ -84,17 +85,32 @@ void TGen::Engine::MapModel::unlinkMaterial() {
 }
 
 void TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
-	//std::cout << "fill faces" << std::endl;
 	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {		
 		list.addFace(TGen::NewFace(*iter, (overridingMaterial ? overridingMaterial : (*iter)->getMaterial()), node));
 	}
 }
 
 void TGen::Engine::MapModel::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
-	//if (metaType == TGen::MetaPortals) {
+	//if (metaType == TGen::MetaPortals) {   // TODO: varför funkar inte MetaPortals
 		TGen::Engine::MetaCreator mc;
-		mc.writeAxes(transform, stream);
+		//mc.writeAxes(transform, stream);
+	
+	for (PortalList::iterator iter = portals.begin(); iter != portals.end(); ++iter) {
+		mc.writePolygon(transform, stream, (*iter)->getPoints(), (*iter)->getNumPoints(), ((*iter)->open ? TGen::Color::Green : TGen::Color::Red));
+	}
 	//}
+}
+
+void TGen::Engine::MapModel::addPortal(TGen::Engine::MapPortal * portal) {
+	portals.push_back(portal);
+}
+
+int TGen::Engine::MapModel::getNumPortals() const {
+	return portals.size();
+}
+
+TGen::Engine::MapPortal * TGen::Engine::MapModel::getPortal(int num) {
+	return portals[num];
 }
 
 

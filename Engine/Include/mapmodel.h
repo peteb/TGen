@@ -24,10 +24,15 @@ namespace TGen {
 	namespace Engine {
 		class MapSurface;
 		class Map;
+		class MapPortal;
 		
 		class MapModel : public TGen::NewModel {
 		public:	
 			MapModel(const std::string & name, TGen::Engine::Map * map);
+			
+			void addPortal(TGen::Engine::MapPortal * portal);
+			int getNumPortals() const;
+			TGen::Engine::MapPortal * getPortal(int num);
 			
 			bool isPureInstance() const;
 			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source);
@@ -43,7 +48,9 @@ namespace TGen {
 			
 		private:
 			typedef std::vector<TGen::Engine::MapSurface *> SurfaceList;
+			typedef std::vector<TGen::Engine::MapPortal *> PortalList;
 			
+			PortalList portals;
 			SurfaceList surfaces;
 			
 			std::string name;

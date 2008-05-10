@@ -20,6 +20,7 @@ namespace TGen {
 		class MapModel;
 		class MapLinkNode;
 		class MapLeafNode;
+		class MapPortal;
 		
 		class Map : public TGen::SceneNode {
 		public:
@@ -29,6 +30,8 @@ namespace TGen {
 			
 			void addNode(TGen::Engine::MapLinkNode * node);
 			void addModel(TGen::Engine::MapModel * model);
+			void addPortal(TGen::Engine::MapPortal * portal);
+			
 			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
 			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
 			void linkMaterial(TGen::MaterialSource & source);
@@ -42,10 +45,14 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::MapLeafNode * getLeafNode(const TGen::Vector3 & position) const;
+			void fillModels(TGen::Engine::MapModel * leaf, TGen::RenderList & list, const TGen::Camera & camera) const;
 			
 			typedef std::map<std::string, TGen::Engine::MapModel *> ModelMap;
 			typedef std::vector<TGen::Engine::MapLinkNode *> NodeMap;
+			typedef std::vector<TGen::Engine::MapPortal *> PortalList;
 			
+			mutable std::map<TGen::Engine::MapModel *, bool> modelRendered;
+			PortalList portals;
 			NodeMap nodes;
 			ModelMap models;
 			TGen::Engine::MapLinkNode * rootNode;

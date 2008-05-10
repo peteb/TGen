@@ -13,11 +13,15 @@
 namespace TGen {
 	class VertexStream;
 	class Matrix4x4;
+	class Vector3;
+	class Color;
 	
 	namespace Engine {
 		class MetaCreator {
 		public:
-			void writeAxes(const TGen::Matrix4x4 & coordsys, TGen::VertexStream & stream);			
+			void writeAxes(const TGen::Matrix4x4 & coordsys, TGen::VertexStream & stream);	
+			void writePolygon(const TGen::Matrix4x4 & transform, TGen::VertexStream & stream, const TGen::Vector3 * coords, int numCoords, const TGen::Color & color);
+			
 		};
 		
 	} // !Engine

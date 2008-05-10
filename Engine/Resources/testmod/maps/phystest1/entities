@@ -1261,6 +1261,7 @@ player_start {
 		treePosition "player_start/camhead/"	// länka den med entitetens sceneNode
 		globalName "cam"
 	}
+		
 	
 	sceneNode {
 		model "models/railgun.md3 preset q3 scale 0.1"
@@ -1271,6 +1272,8 @@ player_start {
 		treePosition "player_start/camhead/"
 		globalName "viewgun"
 	}
+
+
 	
 	physBody {
 		mass box {
@@ -1359,12 +1362,24 @@ blarg2 {
 
 testmap {
 	sceneMap {
-		model "maps/phystest1/testmap.proc"     // "maps/phystest1/demo_mars_city1.proc"
+		model "maps/phystest1/test2.proc"     // "maps/phystest1/demo_mars_city1.proc"
 		origin "-40 -40 -30"
 	}
 
 	/*physGeom {
 		collisionModel "maps/testmap/testmap.cm"
 	}*/
-
 }
+
+testmap2 {
+	sceneMap {
+		model "maps/phystest1/corrids.proc"     // "maps/phystest1/demo_mars_city1.proc"
+		origin "-40 -40 -60"
+	}
+
+	/*physGeom {
+		collisionModel "maps/testmap/testmap.cm"
+	}*/
+}
+
+

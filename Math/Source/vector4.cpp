@@ -48,3 +48,13 @@ TGen::Vector4::Vector4(const Vector2 & vector)
 		
 }
 
+TGen::Vector4 & TGen::Vector4::operator /= (scalar div) {
+	x /= div;
+	y /= div;
+	z /= div;
+	w /= div;
+	
+	return *this;
+}
+
+

@@ -66,7 +66,7 @@ namespace TGen {
 				
 				
 				void setSlope(scalar slope);
-				scalar getSlope() const;
+				float getSlope() const;
 				
 			private:
 				std::string nodeComponent;

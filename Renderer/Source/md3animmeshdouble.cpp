@@ -64,7 +64,7 @@ void TGen::MD3::AnimatingMeshDouble::updateVertices(int frameNum, scalar t) {
 	dt = t;
 	
 	if (dtVar)
-		*dtVar = dt; //TGen::Clamp(dt, 0.0f, 1.0f);
+		*dtVar = float(dt); //TGen::Clamp(dt, 0.0f, 1.0f);
 	
 	updateDoubleVertices(frameNum, frameNum + 1);
 }

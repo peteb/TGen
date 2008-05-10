@@ -35,7 +35,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Renderer & renderer,
 	, lightBatchSize(8)
 	, lightMaterials(NULL)
 	//, world(NULL)
-	, metaLines(renderer, 10000, TGen::PrimitiveLines, TGen::UsageStream)
+	, metaLines(renderer, 1000000, TGen::PrimitiveLines, TGen::UsageStream)
 {
 	logs.info["dfr+"] << "deferred renderer initializing..." << TGen::endl;
 	
@@ -474,9 +474,9 @@ void TGen::Engine::DeferredRenderer::renderPostFinalQuad(TGen::Material * materi
 
 void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {
 	if (name == "$texelwidth")		// TODO: helt kontextlöst... kanske inte ska vara så? byta namn alltså, texelwidth -> downsampleTexelWidth
-		var = scalar(1.0 / downsampleSize.width);
+		var = float(1.0 / downsampleSize.width);
 	else if (name == "$texelheight")
-		var = scalar(1.0 / downsampleSize.height);
+		var = float(1.0 / downsampleSize.height);
 	else if (name == "$lummin")
 		var = vars.lumMin;
 	else if (name == "$lummultiplier")

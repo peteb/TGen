@@ -72,5 +72,34 @@ void TGen::Engine::MetaCreator::writeAxes(const TGen::Matrix4x4 & coordsys, TGen
 	
 	for (int i = 0; i < 6; ++i)
 		stream.writeVertex(&axes[i]);
-
 }
+
+void TGen::Engine::MetaCreator::writePolygon(const TGen::Matrix4x4 & transform, TGen::VertexStream & stream, const TGen::Vector3 * coords, int numCoords, const TGen::Color & color) {
+	typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Color4<float> > MetaLineDecl;
+
+	for (int i = 0; i < numCoords; ++i) {
+		MetaLineDecl::Type points[2];
+		TGen::Vector3 coord1 = transform * coords[i];
+		TGen::Vector3 coord2 = transform * coords[(i + 1) % numCoords];
+		
+		points[0].x = coord1.x;
+		points[0].y = coord1.y;
+		points[0].z = coord1.z;
+		points[1].x = coord2.x;
+		points[1].y = coord2.y;
+		points[1].z = coord2.z;
+		
+		points[0].r = color.r;
+		points[0].g = color.g;
+		points[0].b = color.b;
+		points[0].a = color.a;
+		points[1].r = color.r;
+		points[1].g = color.g;
+		points[1].b = color.b;
+		points[1].a = color.a;
+		
+		stream.writeVertex(&points[0]);
+		stream.writeVertex(&points[1]);
+	}
+}
+
