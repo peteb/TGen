@@ -42,10 +42,11 @@ namespace TGen {
 			
 			TGen::Engine::MapLinkNode * getNode(int num);
 			TGen::Engine::MapModel * getModel(const std::string & name);
+			TGen::SceneNode * getNodeFromPoint(const TGen::Vector3 & point);
 			
 		private:
 			TGen::Engine::MapLeafNode * getLeafNode(const TGen::Vector3 & position) const;
-			void fillModels(TGen::Engine::MapModel * leaf, TGen::RenderList & list, const TGen::Camera & camera) const;
+			void fillModels(TGen::Engine::MapModel * leaf, TGen::RenderList & list, const TGen::Camera & camera, const TGen::Rectangle & clipRect) const;
 			
 			typedef std::map<std::string, TGen::Engine::MapModel *> ModelMap;
 			typedef std::vector<TGen::Engine::MapLinkNode *> NodeMap;

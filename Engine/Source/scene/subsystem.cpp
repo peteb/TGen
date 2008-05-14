@@ -52,7 +52,31 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	else
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
-	TGen::SceneNode * parentNode = sceneRoot.getNode(properties.getProperty("treePosition", ""), true);
+	TGen::SceneNode * parentNode = NULL;
+	
+	std::string treePosition = properties.getProperty("treePosition", "");
+	std::string autoTP = properties.getProperty("autoTP", "");
+	
+	if (!autoTP.empty()) {
+		TGen::SceneNode * parent = sceneRoot.getNode(autoTP, true);
+	
+		if (!parent)
+			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node for autoTP");
+		
+		parentNode = parent->getNodeFromPoint(sceneNode->getLocalPosition());
+
+		if (!parentNode) {
+			logs.warning["scene"] << "no node for point " << std::string(sceneNode->getLocalPosition()) << " found! Using parent!" << TGen::endl;
+			parentNode = parent;
+		}
+		
+		if (parentNode == parent) {
+			logs.warning["scene"] << "getNodeFromPoint returned parent!" << TGen::endl;
+		}
+	}
+	else {
+		parentNode = sceneRoot.getNode(treePosition);
+	}
 	
 	if (!parentNode)
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node");

@@ -1275,7 +1275,7 @@ player_start {
 
 
 	
-	physBody {
+	/*physBody {
 		mass box {
 			total 1.0
 			dimensions "2 2 2"
@@ -1295,22 +1295,23 @@ player_start {
 		friction 90.0
 		capRadius 1.0
 		length 2
-	}
+	}*/
 		
 
 	
 	controller {				// controller component
 		type firstperson
 
-		deltaPlane 	69000.0
+		//deltaPlane 	69000.0
+		deltaPlane 	12.0
 
 		jumpForce 1300000
 		jumpTime 0.01 //0.2
 		airControl 0.08
 		
-		usePhysics true			// apply forces
+		usePhysics false			// apply forces
 		camera HeadCam			// bind camera
-		control physBody		// bind node to control
+		control main		// bind node to control
 		view CamHead
 	}
 	
@@ -1362,7 +1363,7 @@ blarg2 {
 
 testmap {
 	sceneMap {
-		model "maps/phystest1/test2.proc"     // "maps/phystest1/demo_mars_city1.proc"
+		model "maps/phystest1/test2.proc" //"maps/phystest1/demo_mars_city1.proc"
 		origin "-40 -40 -30"
 	}
 
@@ -1373,6 +1374,7 @@ testmap {
 
 testmap2 {
 	sceneMap {
+		//  "maps/phystest1/omega1.proc"   //
 		model "maps/phystest1/corrids.proc"     // "maps/phystest1/demo_mars_city1.proc"
 		origin "-40 -40 -60"
 	}
@@ -1381,5 +1383,18 @@ testmap2 {
 		collisionModel "maps/testmap/testmap.cm"
 	}*/
 }
+
+testbox {
+	sceneNode {
+		//treePosition "testmap/_area0"
+		
+		autoTP "testmap"
+	
+		model "gen:cube width 1 height 1 depth 1"
+		origin "0 3 0"
+	}
+
+}
+
 
 

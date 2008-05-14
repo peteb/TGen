@@ -32,6 +32,8 @@ void TGen::Engine::Map::addModel(TGen::Engine::MapModel * model) {
 		throw TGen::RuntimeException("Map::addModel", "model '" + model->getName() + "' already exists");
 	
 	models.insert(ModelMap::value_type(model->getName(), model));
+	
+	addChild(model);
 }
 
 bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const {	
@@ -40,6 +42,7 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 
 	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
 
+	//std::cout << std::string(pos) << std::endl;
 	
 	TGen::Engine::MapLeafNode * leafNode = const_cast<TGen::Engine::MapLeafNode *>(getLeafNode(pos));
 	//std::cout << "done" << std::endl;
@@ -52,7 +55,9 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 		TGen::Engine::MapModel * leaf = leafNode->getModel();
 		modelRendered.clear();
 		
-		fillModels(leaf, list, camera);
+		TGen::Rectangle clipRect(TGen::Vector2(-1.0f, -1.05f), TGen::Vector2(1.0f, 1.0f));
+		
+		fillModels(leaf, list, camera, clipRect);
 		
 		std::cout << "areas rendered: " << modelRendered.size() << std::endl;
 	}
@@ -60,14 +65,38 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	return true;
 }
 
-void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderList & list, const TGen::Camera & camera) const {
+void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderList & list, const TGen::Camera & camera, const TGen::Rectangle & clipRect2) const {
 	modelRendered[leaf] = true;
 	
+	TGen::Rectangle clipRect = clipRect2;
+	/*if (clipRect.width > 2.0f) {
+		clipRect.width = 2.0f;
+		clipRect.center.x = 0.0f;
+	}
+
+	if (clipRect.height > 2.0f) {
+		clipRect.height = 2.0f;
+		clipRect.center.y = 0.0f;
+	}*/
 	
+	/*if (clipRect.width <= 0.0001) {
+		clipRect.width = 2.0f;
+		clipRect.height = 2.0f;
+		clipRect.center.x = 0.0f;
+		clipRect.center.y = 0.0f;
+	}*/
+	
+	TGen::Matrix4x4 projection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(180), 512.0 / 512.0, 0.1, 500.0); //camera.getProjection();
 	TGen::Matrix4x4 camOffset = camera.getTransform();
 	camOffset.invert();
-	camOffset *= TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 0.0f, 2.0f));
+	camOffset *= TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 0.0f, 0.5f));
 	camOffset.invert();
+
+	TGen::Matrix4x4 invertedCam = camera.getTransform();
+	invertedCam.invert();
+	
+	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
+	
 	
 	for (int i = 0; i < leaf->getNumPortals(); ++i) {
 		TGen::Engine::MapPortal * portal = leaf->getPortal(i);
@@ -75,28 +104,30 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 		
 		TGen::Vector2 min, max;
 		TGen::Vector2 min2, max2;
+		TGen::Rectangle portalRect;
 		
 		bool first = true;
 		
 		for (int i = 0; i < portal->getNumPoints(); ++i) {
-			TGen::Vector4 point = portal->getPoint(i);
-			TGen::Vector4 devcoord = camera.getProjection() * camera.getTransform() * getTransform() * point;
+			TGen::Vector4 point = portal->getPoint(i) ;
+			TGen::Vector4 devcoord = projection * camera.getTransform() * getTransform() * point;
+			
 			devcoord /= devcoord.w;
 
 			TGen::Vector2 vect(devcoord.x, devcoord.y);
 			
-			TGen::Vector4 devcoord2 = camera.getProjection() * camOffset * getTransform() * point;
-			devcoord2 /= devcoord2.w;
 			
-			if ((devcoord.z < -1.0f || devcoord.z > 1.0f) && (devcoord2.z < -1.0f || devcoord2.z > 1.0f))
+			/*TGen::Vector4 devcoord2 = projection * camOffset * getTransform() * point;
+			devcoord2 /= devcoord2.w;*/
+			
+			if ((devcoord.z < -1.0f || devcoord.z > 1.0f) ) {
+				//std::cout << "DISCARD POINT DUE TO Z" << std::endl;
 				continue;
+			}
 			
-			TGen::Vector2 vect2(devcoord2.x, devcoord2.y);
-			
-			//std::cout << std::string(TGen::Vector3(devcoord)) << std::endl;
+
 			if (first) {
 				min = max = vect;
-				min2 = max2 = vect2;
 				first = false;
 			}
 			else {
@@ -109,42 +140,51 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 					max.x = vect.x;
 				if (vect.y > max.y)
 					max.y = vect.y;
-				
-				if (vect2.x < min2.x)
-					min2.x = vect2.x;
-				if (vect2.y < min2.y)
-					min2.y = vect2.y;
-				
-				if (vect2.x > max2.x)
-					max2.x = vect2.x;
-				if (vect2.y > max2.y)
-					max2.y = vect2.y;
 			}
 			
-			TGen::Rectangle portalRect(min, max);
-			TGen::Rectangle portalRect2(min2, max2);
-
-			TGen::Rectangle screenRect(TGen::Vector2(-1.0f, -1.0f), TGen::Vector2(1.0f, 1.0f));
+			TGen::Rectangle portalRect1(min, max);
+		//	TGen::Rectangle portalRect2(min2, max2);
+		
 			
-			if (portalRect.intersects(screenRect) || portalRect2.intersects(screenRect))
+			portalRect = portalRect1;
+			
+			if (portalRect1.intersects(clipRect) ) {
 				portal->open = true;
+			}
+			
+			/*if (portalRect2.intersects(clipRect)) {
+				portal->open = true;
+				portalRect = portalRect2;
+			}*/
+			
 		}
 		
+		
+		//std::cout << portal->getPlane().getDistanceTo(pos) << std::endl;
+//
+	//	if (discardZ)
+		//	portal->open = false;
+		
 		if (portal->open) {
-			TGen::Matrix4x4 invertedCam = camera.getTransform();
-			invertedCam.invert();
-			
-			TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
+			//std::cout << "OPEN: " << std::string(portalRect) << std::endl;
 
+			//std::cout << std::string(portalRect) << std::endl;
 			
-			if (portal->getPlane().getDistanceTo(pos) < 0.0) {
+			// TODO: kör frustum istället för clipRect
+			
+			scalar distance = portal->getPlane().getDistanceTo(pos);
+			
+			if (distance < 0.0) {
 				if (!modelRendered[portal->getNegArea()])
-					fillModels(portal->getNegArea(), list, camera);
+					fillModels(portal->getNegArea(), list, camera, clipRect);
 			}
 			else {
 				if (!modelRendered[portal->getPosArea()])
-					fillModels(portal->getPosArea(), list, camera);
+					fillModels(portal->getPosArea(), list, camera, clipRect);
 			}
+		}
+		else {
+			//std::cout << "CLOSED: " << std::string(portalRect) << " IN " << std::string(clipRect) <<  std::endl;
 		}
 	}
 	
@@ -215,6 +255,7 @@ TGen::Engine::MapModel * TGen::Engine::Map::getModel(const std::string & name) {
 TGen::Engine::MapLeafNode * TGen::Engine::Map::getLeafNode(const TGen::Vector3 & position) const {
 	//std::cout << std::string(position) << std::endl;
 	TGen::Engine::MapLinkNode * node = rootNode;
+	
 	while (node) {
 		scalar side = node->plane.getPointSide(TGen::Vector3(-position.x, -position.y, -position.z));
 		
@@ -222,7 +263,7 @@ TGen::Engine::MapLeafNode * TGen::Engine::Map::getLeafNode(const TGen::Vector3 &
 		
 		//std::cout << "SIDE: " << side << std::endl;
 		
-		if (side <= 0) {
+		if (side <= 0.0) {
 			leaf = node->posLeaf;
 			node = node->pos;
 			
@@ -257,5 +298,13 @@ bool TGen::Engine::Map::fillMeta(TGen::RenderList & list, const TGen::Camera & c
 
 void TGen::Engine::Map::addPortal(TGen::Engine::MapPortal * portal) {
 	portals.push_back(portal);
+}
+
+TGen::SceneNode * TGen::Engine::Map::getNodeFromPoint(const TGen::Vector3 & point) {
+	TGen::Engine::MapLeafNode * leaf = getLeafNode(point);
+	if (!leaf)	// position not found
+		return NULL;
+	
+	return leaf->getModel();
 }
 

@@ -16,6 +16,7 @@
 
 TGen::Engine::MapModel::MapModel(const std::string & name, TGen::Engine::Map * map)
 	: TGen::NewModel(name, "", "")
+	, TGen::SceneNode(name)
 	, name(name)
 	, map(map)
 	, instantiated(false)

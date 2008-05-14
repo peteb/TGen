@@ -26,7 +26,7 @@ namespace TGen {
 		class Map;
 		class MapPortal;
 		
-		class MapModel : public TGen::NewModel {
+		class MapModel : public TGen::NewModel, public TGen::SceneNode {
 		public:	
 			MapModel(const std::string & name, TGen::Engine::Map * map);
 			

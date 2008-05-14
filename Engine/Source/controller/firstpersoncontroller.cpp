@@ -115,11 +115,29 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	
 		if (viewNode) {
 			TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(orientX)); //viewNode->getLocalOrientation();
+			
+			if (!usePhysics) {
+				rot = TGen::Matrix4x4(viewNode->getWorldOrientation());
+				
+				if (checkEvent(EventJump))
+					moveDelta += TGen::Vector3(0.0f, 1.0f, 0.0f);
+				
+				if (checkEvent(EventCrouch))
+					moveDelta += TGen::Vector3(0.0f, -1.0f, 0.0f);
+				
+				moveDelta.z = -moveDelta.z;
+				moveDelta = rot * moveDelta;
+			}
+			else {
+				
+				moveDelta = rot * moveDelta;
+				moveDelta.y = 0.0f;
+				
+			}
+			moveDelta.normalize();
+			
 		//	rot.invert();
 			
-			moveDelta = rot * moveDelta;
-			moveDelta.y = 0.0f;
-			moveDelta.normalize();
 			
 			//if (jump)
 			//	moveDelta.y = deltaJump;

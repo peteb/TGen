@@ -171,14 +171,17 @@ TGen::SceneNode * TGen::SceneNode::getNode(const std::string & path, bool create
 	int pos = path.find("/");
 	if (pos == std::string::npos)
 		pos = path.size();
-	
+		
 	std::string nodeName = path.substr(0, pos);
-	if (nodeName == "")
+	if (nodeName.empty())
 		return this;
 	
 	for (SceneNodeList::iterator iter = children.begin(); iter != children.end(); ++iter) {
 		if ((*iter)->getName() == nodeName) {
-			return (*iter)->getNode(path.substr(pos + 1));
+			if (pos == path.size())
+				return (*iter)->getNode("");				
+			else
+				return (*iter)->getNode(path.substr(pos + 1));
 		}
 	}
 	
@@ -332,4 +335,9 @@ bool TGen::SceneNode::fillUser(TGen::RenderList & list, const TGen::Camera & cam
 void TGen::SceneNode::addModel(TGen::NewModelInstance * model) {
 	models.push_back(model);
 }
+
+TGen::SceneNode * TGen::SceneNode::getNodeFromPoint(const TGen::Vector3 & point) {
+	return this;
+}
+
 
