@@ -22,9 +22,13 @@ namespace TGen {
 				Id4CMTokenArrayStart = 23,
 				Id4CMTokenArrayEnd = 24,
 				Id4CMTokenIdent = 25,
-				Id4CMTokenModel = 26,
-				Id4CMTokenIAP = 27,
-				Id4CMTokenNodes = 28,
+				Id4CMTokenCollisionModel = 26,
+				Id4CMTokenVertices = 27,
+				Id4CMTokenEdges = 28,
+				Id4CMTokenNodes = 29,
+				Id4CMTokenPolygons = 30,
+				Id4CMTokenBrushes = 31,
+				
 			};
 						
 			class Id4CMTokenizer : public TGen::Tokenizer {

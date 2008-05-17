@@ -138,8 +138,8 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	}
 	else if (geomType == "id4cm") {
 		TGen::Engine::Physics::Id4CMLoader loader(filesystem);
-		
-		newGeom.reset(loader.createGeom(properties.getProperty("model", "")));
+	
+		newGeom.reset(loader.createGeom(name, properties.getProperty("model", "")));
 	}
 	
 	if (!newGeom.get())

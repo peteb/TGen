@@ -25,6 +25,14 @@ TGen::Engine::Physics::Id4CMTokenizer::Id4CMTokenizer() {
 	tokens["}"] = Id4CMTokenBlockEnd;
 	tokens["("] = Id4CMTokenArrayStart;
 	tokens[")"] = Id4CMTokenArrayEnd;
+	
+	tokens["collisionModel"] = Id4CMTokenCollisionModel;
+	tokens["vertices"] = Id4CMTokenVertices;
+	tokens["edges"] = Id4CMTokenEdges;
+	tokens["nodes"] = Id4CMTokenNodes;
+	tokens["polygons"] = Id4CMTokenPolygons;
+	tokens["brushes"] = Id4CMTokenBrushes;
+	
 	/*tokens["mapProcFile003"] = ProcTokenIdent;
 	tokens["model"] = ProcTokenModel;
 	tokens["interAreaPortals"] = ProcTokenIAP;

@@ -17,7 +17,7 @@ namespace TGen {
 		namespace Physics {
 			class Id4CMGeom : public TGen::Engine::Physics::Geom {
 			public:
-				Id4CMGeom(const std::string & name, const std::string & filePath);
+				Id4CMGeom(const std::string & name);
 				~Id4CMGeom();
 				
 			};

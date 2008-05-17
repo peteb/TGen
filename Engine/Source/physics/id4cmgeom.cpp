@@ -9,7 +9,7 @@
 
 #include "physics/id4cmgeom.h"
 
-TGen::Engine::Physics::Id4CMGeom::Id4CMGeom(const std::string & name, const std::string & filePath) 
+TGen::Engine::Physics::Id4CMGeom::Id4CMGeom(const std::string & name) 
 	: TGen::Engine::Physics::Geom(name)
 {
 	

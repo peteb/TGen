@@ -12,6 +12,8 @@
 
 #include <string>
 #include <tgen_core.h>
+#include <tgen_math.h>
+#include "physics/id4cmpolygon.h"
 
 namespace TGen {
 	namespace Engine {
@@ -24,13 +26,30 @@ namespace TGen {
 			public:
 				Id4CMLoader(TGen::Engine::Filesystem & filesystem);
 				
-				TGen::Engine::Physics::Id4CMGeom * createGeom(const std::string & path);
+				TGen::Engine::Physics::Id4CMGeom * createGeom(const std::string & name, const std::string & path);
 				
 			private:
+				void parseGlobalBlock(TGen::Engine::Physics::Id4CMGeom * geom);
+				void parseCollisionModelBlock(const std::string & name);
+				void parseVertexBlock();
+				void parseEdgeBlock();
+				void parsePolygonBlock();
+				
+				void step();
+				void checkEOS();
+				void stepAndCheck();
+
+					
 				TGen::TokenStream tokens;
 				TGen::TokenStream::TokenList::iterator currentToken, endIter;
 				
 				TGen::Engine::Filesystem & filesystem;
+				
+				
+				// stuff that maybe should be elsewhere
+				std::vector<TGen::Vector3> vertices;
+				std::vector<std::pair<uint, uint> > edges;
+				std::vector<Id4CMPolygon> polygons;
 			};
 			
 		} // !Physics
