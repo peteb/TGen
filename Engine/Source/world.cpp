@@ -20,7 +20,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	: filesystem(filesystem)
 	, logs(logs)
 	, sceneSubsystem(resources, filesystem, logs, dataSource)
-	, physicsSubsystem(logs)
+	, physicsSubsystem(logs, filesystem)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)

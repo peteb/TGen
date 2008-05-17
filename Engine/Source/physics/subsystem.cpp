@@ -24,10 +24,11 @@
 //dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
-TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs) 
+TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem) 
 	: logs(logs)
 	, updateInterval(0.01)
 	, worldId(0)
+	, filesystem(filesystem)
 {
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
@@ -136,7 +137,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 																			  TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0"))));
 	}
 	else if (geomType == "id4cm") {
-		TGen::Engine::Physics::Id4CMLoader loader;
+		TGen::Engine::Physics::Id4CMLoader loader(filesystem);
 		
 		newGeom.reset(loader.createGeom(properties.getProperty("model", "")));
 	}

@@ -19,6 +19,7 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		class StandardLogs;
+		class Filesystem;
 		
 		namespace Physics {
 			class Body;
@@ -27,7 +28,7 @@ namespace TGen {
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
-				Subsystem(TGen::Engine::StandardLogs & logs);
+				Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem);
 				~Subsystem();
 			
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
@@ -52,7 +53,9 @@ namespace TGen {
 				
 				dWorldID worldId;
 				dSpaceID mainSpace;
-				static dJointGroupID contactGroup;
+				static dJointGroupID contactGroup;		// TODO: why???????
+				
+				TGen::Engine::Filesystem & filesystem;
 			};
 		} // !Physics
 	} // !Engine
