@@ -46,6 +46,7 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	
 	TGen::Engine::MapLeafNode * leafNode = const_cast<TGen::Engine::MapLeafNode *>(getLeafNode(pos));
 	//std::cout << "done" << std::endl;
+	modelRendered.clear();
 	
 	if (!leafNode) {
 		for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter)
@@ -53,8 +54,6 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	}
 	else {
 		TGen::Engine::MapModel * leaf = leafNode->getModel();
-		modelRendered.clear();
-		
 		TGen::Rectangle clipRect(TGen::Vector2(-1.0f, -1.05f), TGen::Vector2(1.0f, 1.0f));
 		
 		fillModels(leaf, list, camera, clipRect);
@@ -86,7 +85,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 		clipRect.center.y = 0.0f;
 	}*/
 	
-	TGen::Matrix4x4 projection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(180), 512.0 / 512.0, 0.1, 500.0); //camera.getProjection();
+	TGen::Matrix4x4 projection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(185), 512.0 / 512.0, 0.1, 500.0); //camera.getProjection();
 	TGen::Matrix4x4 camOffset = camera.getTransform();
 	camOffset.invert();
 	camOffset *= TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 0.0f, 0.5f));
@@ -97,6 +96,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 	
 	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
 	
+	// TODO: fysiken kan vara vanliga boxes i början
 	
 	for (int i = 0; i < leaf->getNumPortals(); ++i) {
 		TGen::Engine::MapPortal * portal = leaf->getPortal(i);
@@ -306,5 +306,22 @@ TGen::SceneNode * TGen::Engine::Map::getNodeFromPoint(const TGen::Vector3 & poin
 		return NULL;
 	
 	return leaf->getModel();
+}
+
+void TGen::Engine::Map::traverse(const TGen::SceneNode::Walker & walker) {	
+	if (walker.pre(*this)) {
+		if (walker.getFlags() & TGen::SceneNode::WalkerFollowVisibility) {
+			for (ModelRenderedMap::iterator iter = modelRendered.begin(); iter != modelRendered.end(); ++iter) {
+				iter->first->traverse(walker);
+			}
+		}
+		else {
+			for (SceneNodeList::iterator iter = children.begin(); iter != children.end(); ++iter) {
+				(*iter)->traverse(walker);
+			}
+		}
+	}
+	
+	walker.post(*this);
 }
 

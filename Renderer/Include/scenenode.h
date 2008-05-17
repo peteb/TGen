@@ -56,6 +56,7 @@ namespace TGen {
 		
 		TGen::SceneNode * getChild(const std::string & name);
 		TGen::SceneNode * getNode(const std::string & path, bool create = false);
+		TGen::SceneNode * getParent();
 		
 		TGen::AABB getChildrenBoundingBox() const;
 		
@@ -65,6 +66,8 @@ namespace TGen {
 		TGen::Rotation getLocalOrientation() const;
 		TGen::Vector3 getWorldPosition() const;
 		TGen::Rotation getWorldOrientation() const;
+		
+		void setAutoTP(TGen::SceneNode * autoTP);
 		
 		bool hasChanged() const;
 		//const FaceList & getFaces() const;
@@ -78,21 +81,34 @@ namespace TGen {
 		const TGen::Sphere & getWorldBoundingSphere() const;
 
 		//void traverse(TGen::SceneNode::Walker & walker);
-		void traverse(const TGen::SceneNode::Walker & walker);
-
+		virtual void traverse(const TGen::SceneNode::Walker & walker);
+		
+		// this traverse should be overridden by Map to only walk models that are visible
+		
+		enum WalkerFlags {
+			WalkerFollowVisibility		= 0x0001,
+			
+		};
 		
 		class Walker {
 		public:
-			Walker() {}
+			Walker(uint flags = 0) : flags(flags) {}
 			virtual ~Walker() {}
 			
 			virtual bool pre(TGen::SceneNode & node) const abstract;
 			virtual void post(TGen::SceneNode & node) const {}
+			
+			uint getFlags() const {return flags; }
+			
+		private:
+			uint flags;
 		};		
 		
 	private:
 		void attached(TGen::SceneNode * parent);
 		void detached();
+		
+		TGen::SceneNode * autoParent;
 		
 	protected:
 		typedef std::vector<SceneNode *> SceneNodeList;

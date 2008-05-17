@@ -46,6 +46,8 @@ namespace TGen {
 			
 			std::string getName() const;
 			
+			void traverse(const TGen::SceneNode::Walker & walker);
+			
 		private:
 			typedef std::vector<TGen::Engine::MapSurface *> SurfaceList;
 			typedef std::vector<TGen::Engine::MapPortal *> PortalList;

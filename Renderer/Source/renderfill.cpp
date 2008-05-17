@@ -11,7 +11,8 @@
 #include "renderlist.h"
 
 TGen::RenderFiller::RenderFiller(TGen::RenderList & list, const TGen::Camera & camera)
-	: list(list)
+	: TGen::SceneNode::Walker(TGen::SceneNode::WalkerFollowVisibility)
+	, list(list)
 	, camera(camera)
 {
 	

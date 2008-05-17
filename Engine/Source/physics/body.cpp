@@ -43,7 +43,7 @@ void TGen::Engine::Physics::Body::preStep() {
 	onFloor = false;
 	
 	if (sceneNodeComponent) {
-		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
+		setPosition(sceneNodeComponent->getSceneNode()->getParent()->getTransform() * sceneNodeComponent->getSceneNode()->getLocalPosition());
 		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
 	}
 	
@@ -55,7 +55,9 @@ void TGen::Engine::Physics::Body::preStep() {
 
 void TGen::Engine::Physics::Body::postStep() {
 	if (sceneNodeComponent) {
-		sceneNodeComponent->getSceneNode()->setPosition(getPosition());
+		TGen::Matrix4x4 transform = sceneNodeComponent->getSceneNode()->getParent()->getTransform().getInverse();
+
+		sceneNodeComponent->getSceneNode()->setPosition(transform * getPosition());
 		
 		if (turnHeadwise)
 			sceneNodeComponent->getSceneNode()->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			

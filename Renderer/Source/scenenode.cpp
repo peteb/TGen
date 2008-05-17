@@ -21,6 +21,7 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 	, changed(true)
 	, parent(NULL)
 	, orientation(TGen::Rotation::Identity)
+	, autoParent(NULL)
 {
 		
 }
@@ -79,6 +80,17 @@ void TGen::SceneNode::update() {
 	if (this->changed) {
 		calculateFacesBV();
 		calculateWorldBV();
+		
+		if (autoParent) {
+			TGen::SceneNode * newParent = autoParent->getNodeFromPoint(getLocalPosition());
+		//	if (!newParent)
+			//	newParent = autoParent;
+			
+			if (newParent != parent && newParent && parent) {
+				parent->removeChild(this);
+				newParent->addChild(this);
+			}
+		}
 	}
 	
 	this->changed = false;	
@@ -128,6 +140,10 @@ const TGen::Sphere & TGen::SceneNode::getLocalBoundingSphere() const {
 
 const TGen::Sphere & TGen::SceneNode::getWorldBoundingSphere() const {
 	return worldBoundingSphere;
+}
+
+TGen::SceneNode * TGen::SceneNode::getParent() {
+	return parent;
 }
 
 /*const TGen::SceneNode::FaceList & TGen::SceneNode::getFaces() const {
@@ -340,4 +356,7 @@ TGen::SceneNode * TGen::SceneNode::getNodeFromPoint(const TGen::Vector3 & point)
 	return this;
 }
 
+void TGen::SceneNode::setAutoTP(TGen::SceneNode * autoTP) {
+	this->autoParent = autoTP;
+}
 

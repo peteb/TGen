@@ -55,6 +55,9 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 	
 	try {
 		attachedTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
+		if (!attachedTo)
+			throw TGen::RuntimeException("Geom::linkLocally", "not a body");
+		
 		dGeomSetBody(geomId, attachedTo->getBodyId());
 	}
 	catch (...) {	// if there is no physBody we just don't attach to anything
@@ -62,7 +65,10 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 		
 		try {
 			if (dGeomGetClass(geomId) != dPlaneClass) {
-				sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent("sceneNode"));
+				if (bodyComponent.empty() || bodyComponent == "physBody")
+					bodyComponent = "sceneNode";
+				
+				sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(bodyComponent));
 				
 				setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
 			}
@@ -88,16 +94,13 @@ bool TGen::Engine::Physics::Geom::getAffectsOthers() const {
 
 void TGen::Engine::Physics::Geom::preStep() {	// update geom with scene node vars if we're linked to one (probably because there is no body)
 	if (sceneNodeComponent) {
-		setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
+		setPosition(sceneNodeComponent->getSceneNode()->getWorldPosition());
 		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
 	}
 }
 
 void TGen::Engine::Physics::Geom::postStep() {
-/*	if (sceneNodeComponent) {
-		sceneNodeComponent->getSceneNode()->setPosition(getPosition());
-		sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
-	}*/
+	// Do nothing, without a body we can't be manipulated
 }
 
 void TGen::Engine::Physics::Geom::setPosition(const TGen::Vector3 & position) {

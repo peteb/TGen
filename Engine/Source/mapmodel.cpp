@@ -114,5 +114,14 @@ TGen::Engine::MapPortal * TGen::Engine::MapModel::getPortal(int num) {
 	return portals[num];
 }
 
+void TGen::Engine::MapModel::traverse(const TGen::SceneNode::Walker & walker) {	
+	if (walker.pre(*this)) {
+		for (SceneNodeList::iterator iter = children.begin(); iter != children.end(); ++iter) {
+			(*iter)->traverse(walker);
+		}
+	}
+	
+	walker.post(*this);
+}
 
 

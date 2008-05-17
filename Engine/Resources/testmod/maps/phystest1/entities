@@ -1121,8 +1121,8 @@ light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
 		orientation "-0.5 0.5 0"
-		diffuse "0.4 0.0 0.0 1.0"
-		specular "0.7"
+		diffuse "0.4 0.2 0.2 1.0"
+		specular "0.9"
 	}
 }
 
@@ -1289,13 +1289,17 @@ player_start {
 		linearDamping 0.07
 		//fakeGrav 0.0
 	}
+	*/
 	
 	physGeom {
-		type bipedal
-		friction 90.0
+		type box
+		/*friction 90.0
 		capRadius 1.0
-		length 2
-	}*/
+		length 2*/
+		dimensions "2 2 2"
+		
+		link main
+	}
 		
 
 	
@@ -1372,6 +1376,18 @@ testmap {
 	}*/
 }
 
+testmapfloor {
+	sceneNode {
+		origin "-22 -39 -30"
+	//	model "gen:cube width 50 height 0.05 depth 20"
+	}
+	
+	physGeom {
+		type box
+		dimensions "50 0.05 20"		
+	}
+}
+
 testmap2 {
 	sceneMap {
 		//  "maps/phystest1/omega1.proc"   //
@@ -1384,14 +1400,42 @@ testmap2 {
 	}*/
 }
 
+boxmap {
+	sceneMap {
+		origin "-40 -40 -0"
+		model "maps/phystest1/boxmap.proc"
+	}
+	
+	physGeom {
+		type id4cm
+		model "maps/phystest1/boxmap.cm"
+	}
+
+}
+
 testbox {
-	sceneNode {
+	sceneNode {  // fixa nu: fixa så bara de children som finns i synliga models blir rendrerade
 		//treePosition "testmap/_area0"
 		
 		autoTP "testmap"
 	
 		model "gen:cube width 1 height 1 depth 1"
-		origin "0 3 0"
+		origin "0 5 0"
+	}
+	
+	physBody {
+		mass box {
+			total 8.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		friction 20.0
+		dimensions "1 1 1"
 	}
 
 }

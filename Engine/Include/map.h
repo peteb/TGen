@@ -39,6 +39,8 @@ namespace TGen {
 			void instantiate(TGen::VertexDataSource & source);
 			void setRootNode(TGen::Engine::MapLinkNode * root);
 			bool fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const;
+			void traverse(const TGen::SceneNode::Walker & walker);
+			
 			
 			TGen::Engine::MapLinkNode * getNode(int num);
 			TGen::Engine::MapModel * getModel(const std::string & name);
@@ -51,8 +53,9 @@ namespace TGen {
 			typedef std::map<std::string, TGen::Engine::MapModel *> ModelMap;
 			typedef std::vector<TGen::Engine::MapLinkNode *> NodeMap;
 			typedef std::vector<TGen::Engine::MapPortal *> PortalList;
+			typedef std::map<TGen::Engine::MapModel *, bool> ModelRenderedMap;
 			
-			mutable std::map<TGen::Engine::MapModel *, bool> modelRendered;
+			mutable ModelRenderedMap modelRendered;
 			PortalList portals;
 			NodeMap nodes;
 			ModelMap models;

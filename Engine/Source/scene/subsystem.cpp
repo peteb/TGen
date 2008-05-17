@@ -63,6 +63,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 		if (!parent)
 			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node for autoTP");
 		
+		sceneNode->setAutoTP(parent);
 		parentNode = parent->getNodeFromPoint(sceneNode->getLocalPosition());
 
 		if (!parentNode) {
