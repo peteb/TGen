@@ -26,7 +26,7 @@ namespace TGen {
 				Id4CMTokenVertices = 27,
 				Id4CMTokenEdges = 28,
 				Id4CMTokenNodes = 29,
-				Id4CMTokenPolygons = 30,
+				Id4CMTokenPolygons = 34,
 				Id4CMTokenBrushes = 31,
 				
 			};

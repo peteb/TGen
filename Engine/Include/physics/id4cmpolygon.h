@@ -19,14 +19,14 @@ namespace TGen {
 			public:
 				Id4CMPolygon();
 				
-				void addEdge(uint num);
+				void addEdge(int num);
 				
 				TGen::Plane3 plane;
 				TGen::Vector3 min, max;
 				std::string materialName;
 				
 			private:
-				std::vector<uint> edges;
+				std::vector<int> edges;
 			};
 			
 		} // !Physics

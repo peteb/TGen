@@ -95,10 +95,20 @@ void TGen::Engine::Physics::Id4CMLoader::parseCollisionModelBlock(const std::str
 			
 		}
 		else if (currentToken->first == Id4CMTokenNodes) {
+			stepAndCheck();
+			
+			if (currentToken->first != Id4CMTokenBlockStart)
+				throw TGen::RuntimeException("Id4CMLoader::parseCollisionModel", "nodes: no block start!");
+			
+			stepAndCheck();
+			
+			parseNodeBlock();
 			
 		}
 		else if (currentToken->first == Id4CMTokenPolygons) {
 			stepAndCheck();
+			
+			uint polygonMemory = TGen::lexical_cast<uint>(currentToken->second); stepAndCheck();
 			
 			if (currentToken->first != Id4CMTokenBlockStart)
 				throw TGen::RuntimeException("Id4CMLoader::parseCollisionModel", "polygons: no block start!");
@@ -194,15 +204,28 @@ void TGen::Engine::Physics::Id4CMLoader::parseEdgeBlock() {
  std::string materialName;
  */
 
-void TGen::Engine::Physics::Id4CMLoader::parsePolygonBlock() {
-	uint polygonMemory = TGen::lexical_cast<uint>(currentToken->second);
-		
-	stepAndCheck();
-	
+void TGen::Engine::Physics::Id4CMLoader::parseNodeBlock() {
 	while (currentToken != endIter) {
+		if (currentToken->first == Id4CMTokenBlockEnd) {			
+			return;
+		}
+		else if (currentToken->first == Id4CMTokenArrayStart) {
+			stepAndCheck();
+			
+			std::string axis = currentToken->second; stepAndCheck();
+			std::string position = currentToken->second; stepAndCheck();
+			
+			if (currentToken->first != Id4CMTokenArrayEnd)
+				throw TGen::RuntimeException("Id4CMLoader::parseNodeBlock", "expecting array end, not " + currentToken->second + "!");
+		}
+		
+		if (currentToken != endIter)
+			step();
+	}	
+}
 
-		
-		
+void TGen::Engine::Physics::Id4CMLoader::parsePolygonBlock() {	
+	while (currentToken != endIter) {
 		if (currentToken->first == Id4CMTokenBlockEnd) {
 			
 			return;
@@ -219,7 +242,8 @@ void TGen::Engine::Physics::Id4CMLoader::parsePolygonBlock() {
 			int numSides = TGen::lexical_cast<int>(numSidesStr);
 			
 			for (int i = 0; i < numSides; ++i) {
-				uint edgeNum = abs(TGen::lexical_cast<int>(currentToken->second)); stepAndCheck();
+				int edgeNum = TGen::lexical_cast<int>(currentToken->second); stepAndCheck();	
+				polygon.addEdge(edgeNum);				
 			}
 			
 			if (currentToken->first != Id4CMTokenArrayEnd)
@@ -278,7 +302,7 @@ void TGen::Engine::Physics::Id4CMLoader::parsePolygonBlock() {
 
 			stepAndCheck();
 			
-			polygon.materialName = currentToken->second; stepAndCheck();
+			polygon.materialName = currentToken->second; 
 			polygon.min = TGen::Vector3(TGen::lexical_cast<scalar>(minx),
 												 TGen::lexical_cast<scalar>(miny),
 												 TGen::lexical_cast<scalar>(minz));

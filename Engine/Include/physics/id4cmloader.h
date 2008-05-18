@@ -33,6 +33,7 @@ namespace TGen {
 				void parseCollisionModelBlock(const std::string & name);
 				void parseVertexBlock();
 				void parseEdgeBlock();
+				void parseNodeBlock();
 				void parsePolygonBlock();
 				
 				void step();

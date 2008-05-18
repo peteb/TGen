@@ -13,7 +13,7 @@ TGen::Engine::Physics::Id4CMPolygon::Id4CMPolygon() {
 	edges.reserve(4);
 }
 
-void TGen::Engine::Physics::Id4CMPolygon::addEdge(uint num) {
+void TGen::Engine::Physics::Id4CMPolygon::addEdge(int num) {
 	edges.push_back(num);
 }
 

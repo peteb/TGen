@@ -16,6 +16,7 @@
 #include "physics/boxgeom.h"
 #include "physics/geom.h"
 #include "physics/bipedalgeom.h"
+#include "physics/meshgeom.h"
 #include "physics/id4cmgeom.h"
 #include "physics/id4cmloader.h"
 #include <ode/ode.h>
@@ -135,6 +136,9 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 		newGeom.reset(new TGen::Engine::Physics::BipedalGeom(name, mainSpace, 
 																			  TGen::lexical_cast<scalar>(properties.getProperty("capRadius", "1.0")), 
 																			  TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0"))));
+	}
+	else if (geomType == "mesh") {
+		newGeom.reset(new TGen::Engine::Physics::MeshGeom(name, mainSpace, properties.getNode("vertices"), properties.getNode("indices")));
 	}
 	else if (geomType == "id4cm") {
 		TGen::Engine::Physics::Id4CMLoader loader(filesystem);
