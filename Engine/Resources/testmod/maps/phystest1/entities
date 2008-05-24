@@ -514,6 +514,20 @@ box8 {
 		friction 30.0
 		dimensions "1 1 1"
 	}
+	
+	script {
+		onNodeAttached "map/_area04" {
+			trigger "objectiveReachedArea(this, 'map/_area04')"
+		}
+		
+		onNodeDetached "map/_area04" {
+			trigger "objectiveLeftArea(this, 'map/_area04')"
+		}
+		
+		onCollision "thatBigMonster" {
+			trigger "objectiveTouchedMonster(this)"
+		}
+	}
 }
 
 box9 {
@@ -1393,11 +1407,11 @@ class phys_cam {
 	controller {				// controller component
 		type firstperson
 
-		deltaPlane 	69000.0
+		deltaPlane 	88000.0
 
 		jumpForce 1500000
-		jumpTime 0.01 //0.2
-		airControl 0.08
+		jumpTime 0.03 //0.2
+		airControl 0.15
 		
 		usePhysics true			// apply forces
 		camera HeadCam			// bind camera
@@ -1409,7 +1423,9 @@ class phys_cam {
 }
 
 player_start extends phys_cam {
-
+	sceneNode main {
+		origin "-40 -40 -60"
+	}
 }
 
 /*TheGit {
@@ -1485,24 +1501,58 @@ testmap2 {
 		origin "-40 -40 -60"
 	}
 
-	/*physGeom {
-		collisionModel "maps/testmap/testmap.cm"
-	}*/
+	physGeom {
+		type id4cm
+		model "maps/phystest1/corrids.cm"
+		
+		link sceneMap
+	}
 }
 
 
-/*boxmap {
+boxmap {
 	sceneMap {
-		origin "-40 -40 -0"
-		model "maps/phystest1/boxmap.proc"
+		origin "-40 -35 -0"
+		model "maps/phystest1/boxmap_minimal.proc"
 	}
 	
 	physGeom {
 		type id4cm
-		model "maps/phystest1/boxmap.cm"
+		model "maps/phystest1/boxmap_minimal.cm"
+		
+		link sceneMap
+	}
+	
+
+}
+
+testbox2 {
+	sceneNode {
+		//treePosition "testmap/_area0"
+		
+		//autoTP "boxmap"
+	
+		model "gen:cube width 1 height 1 depth 1"
+		origin "-42 -35 0"
+	}
+	
+	physBody {
+		mass box {
+			total 8.0
+			dimensions "1.0 1.0 1.0"
+		}
+		
+		gravity true
+	}
+		
+	physGeom {
+		type box
+		friction 20.0
+		dimensions "1 1 1"
 	}
 
-}*/
+}
+
 
 thingie {
 	sceneNode {
@@ -1532,6 +1582,13 @@ thingie {
 			2
 			1
 			4
+		}
+		
+		normals {
+			1 "0 1 0"
+			2 "0 1 0"
+			3 "0 1 0"
+			4 "0 1 0"
 		}
 	
 	}

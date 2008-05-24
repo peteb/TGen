@@ -11,6 +11,9 @@
 #define _TGEN_ENGINE_ID4CMGEOM_H
 
 #include "physics/geom.h"
+#include "physics/meshdecl.h"
+
+#include <vector>
 
 namespace TGen {
 	namespace Engine {
@@ -20,6 +23,11 @@ namespace TGen {
 				Id4CMGeom(const std::string & name);
 				~Id4CMGeom();
 				
+				void setGeom(dGeomID id);
+				
+				std::vector<StridedVertex> vertexData;
+				std::vector<StridedNormal> normalData;
+				std::vector<StridedTriangle> indexData;
 			};
 			
 		} // !Physics

@@ -100,7 +100,7 @@ void TGen::OpenGL::Renderer::readCaps() {
 	err = CGLDisable(ctx, kCGLCEMPEngine);
 	
 	if (err == kCGLNoError)
-		caps.multithreadable = false;
+		caps.multithreadable = true;
 #else
 	caps.multithreadable = false;
 #endif

@@ -14,13 +14,17 @@
 #include "filesystem.h"
 #include "file.h"
 
+#include <set>
+
+using TGen::Engine::Physics::StridedVertex;
+using TGen::Engine::Physics::StridedTriangle;
 
 TGen::Engine::Physics::Id4CMLoader::Id4CMLoader(TGen::Engine::Filesystem & filesystem)
 	: filesystem(filesystem)
 {
 }
 
-TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeom(const std::string & name, const std::string & path) {
+TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeom(const std::string & name, const std::string & path, dSpaceID space) {
 	std::auto_ptr<TGen::Engine::File> file(filesystem.openRead(path));
 	
 	TGen::Engine::Physics::Id4CMTokenizer tokenizer;
@@ -30,15 +34,76 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 	
 	std::auto_ptr<TGen::Engine::Physics::Id4CMGeom> newModel(new TGen::Engine::Physics::Id4CMGeom(name));
 	
-	parseGlobalBlock(newModel.get());
+	parseGlobalBlock();
 
+	newModel->vertexData.reserve(vertices.size());
+	newModel->indexData.reserve(polygons.size() * 6);
 	
-	exit(0);
+	for (int i = 0; i < vertices.size(); ++i) {
+		StridedVertex vertex;
+		TGen::Vector3 coord = TGen::Vector3(vertices[i].x, vertices[i].z, vertices[i].y) * 0.05;
+		vertex.vertex[0] = coord.x;
+		vertex.vertex[1] = coord.y;
+		vertex.vertex[2] = coord.z;
+		
+		newModel->vertexData.push_back(vertex);
+	}
+	
+	uint numIndices = 0;
+	
+	for (int i = 0; i < polygons.size(); ++i) {
+		std::vector<uint> indices;
+		
+		getContour(indices, polygons[i]);
+		
+		
+		std::cout << "TRI: " << indices.size() << std::endl;
+		
+		TGen::Engine::Physics::StridedTriangle tri1, tri2;
+		tri1.indices[0] = indices[2];
+		tri1.indices[1] = indices[1];
+		tri1.indices[2] = indices[0];
+		
+		tri2.indices[0] = indices[0];
+		tri2.indices[1] = indices[3];
+		tri2.indices[2] = indices[2];
+		
+		newModel->indexData.push_back(tri1);
+		newModel->indexData.push_back(tri2);		
+		
+		numIndices += 6;
+	}
+	
+	dTriMeshDataID meshData = dGeomTriMeshDataCreate();
+	dGeomTriMeshDataBuildSingle(meshData, &newModel->vertexData[0], sizeof(StridedVertex), vertices.size(),
+										 &newModel->indexData[0], numIndices, sizeof(StridedTriangle));
+	dGeomTriMeshDataPreprocess(meshData);
+	
+	dGeomID geomId = dCreateTriMesh(space, meshData, NULL, NULL, NULL);
+	newModel->setGeom(geomId);
 	
 	return newModel.release();
 }
 
-void TGen::Engine::Physics::Id4CMLoader::parseGlobalBlock(TGen::Engine::Physics::Id4CMGeom * geom) {
+void TGen::Engine::Physics::Id4CMLoader::getContour(std::vector<uint> & contour, const TGen::Engine::Physics::Id4CMPolygon & polygon) {
+	for (int i = 0; i < polygon.getNumEdges(); ++i) {
+		int edgeNumSigned = polygon.getEdge(i);
+		int edgeNum = abs(edgeNumSigned);
+		int firstVert = edges[edgeNum].first;
+		int secondVert = edges[edgeNum].second;
+		
+		if (edgeNumSigned < 0)
+			std::swap(firstVert, secondVert);
+		
+		if (std::find(contour.begin(), contour.end(), firstVert) == contour.end())
+			contour.push_back(firstVert);
+		
+		if (std::find(contour.begin(), contour.end(), secondVert) == contour.end())
+			contour.push_back(secondVert);		
+	}
+}
+
+void TGen::Engine::Physics::Id4CMLoader::parseGlobalBlock() {
 	if (currentToken == endIter)
 		throw TGen::RuntimeException("Id4CMLoader::parseGlobalBlock", "no tokens!");
 	

@@ -11,29 +11,21 @@
 #define _TGEN_ENGINE_MESHGEOM_H
 
 #include "physics/geom.h"
+#include "physics/meshdecl.h"
 
 namespace TGen {
 	class PropertyTree;
 	
 	namespace Engine {
 		namespace Physics {			
-			
-			struct StridedVertex {		// TODO: ska flyttas in i en gemensam header för alla som vill använda
-				dVector3 vertex;
-			};
-			
-			struct StridedTriangle {
-				int indices[3];
-			};
-			
-			
 			class MeshGeom : public TGen::Engine::Physics::Geom {
 			public:
-				MeshGeom(const std::string & name, dSpaceID space, const TGen::PropertyTree & vertices, const TGen::PropertyTree & indices);
+				MeshGeom(const std::string & name, dSpaceID space, const TGen::PropertyTree & vertices, const TGen::PropertyTree & indices, const TGen::PropertyTree & normals);
 				
 				
 			private:
 				std::auto_ptr<StridedVertex> vertexData;
+				std::auto_ptr<StridedNormal> normalData;
 				std::auto_ptr<StridedTriangle> indexData;
 			};
 			

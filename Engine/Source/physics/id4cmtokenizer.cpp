@@ -32,12 +32,6 @@ TGen::Engine::Physics::Id4CMTokenizer::Id4CMTokenizer() {
 	tokens["nodes"] = Id4CMTokenNodes;
 	tokens["polygons"] = Id4CMTokenPolygons;
 	tokens["brushes"] = Id4CMTokenBrushes;
-	
-	/*tokens["mapProcFile003"] = ProcTokenIdent;
-	tokens["model"] = ProcTokenModel;
-	tokens["interAreaPortals"] = ProcTokenIAP;
-	tokens["nodes"] = ProcTokenNodes;	
-	*/
 }
 
 int TGen::Engine::Physics::Id4CMTokenizer::getSpecialToken(char * text, TGen::TokenStream & stream) {

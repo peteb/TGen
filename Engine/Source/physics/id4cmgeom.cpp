@@ -19,3 +19,6 @@ TGen::Engine::Physics::Id4CMGeom::~Id4CMGeom() {
 	
 }
 
+void TGen::Engine::Physics::Id4CMGeom::setGeom(dGeomID id) {
+	setGeomId(id);
+}

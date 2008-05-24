@@ -74,6 +74,15 @@ bool TGen::PropertyTree::hasProperty(const std::string & name) const {
 	return (properties.find(name) != properties.end());
 }
 
+bool TGen::PropertyTree::hasNode(const std::string & name) const {
+	for (int i = 0; i < nodes.size(); ++i) {
+		if (nodes[i].getName() == name)
+			return true;
+	}
+	
+	return false;
+}
+
 std::string TGen::PropertyTree::getName() const {
 	return name;
 }

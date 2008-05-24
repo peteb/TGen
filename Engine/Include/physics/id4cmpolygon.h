@@ -24,6 +24,8 @@ namespace TGen {
 				TGen::Plane3 plane;
 				TGen::Vector3 min, max;
 				std::string materialName;
+				int getNumEdges() const;
+				int getEdge(int num) const;
 				
 			private:
 				std::vector<int> edges;

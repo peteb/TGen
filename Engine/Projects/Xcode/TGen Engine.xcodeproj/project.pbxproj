@@ -368,6 +368,7 @@
 		D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinputmapper.cpp; sourceTree = "<group>"; };
 		D0A4777B0DDF902800DC1640 /* meshgeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeom.h; path = ../../Include/physics/meshgeom.h; sourceTree = SOURCE_ROOT; };
 		D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeom.cpp; path = physics/meshgeom.cpp; sourceTree = "<group>"; };
+		D0A479B50DE1FC8400DC1640 /* meshdecl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshdecl.h; path = ../../Include/physics/meshdecl.h; sourceTree = SOURCE_ROOT; };
 		D0AA64470D78696600CC5091 /* collision.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = collision.h; sourceTree = "<group>"; };
 		D0AA64480D78696600CC5091 /* collision_space.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = collision_space.h; sourceTree = "<group>"; };
 		D0AA64490D78696600CC5091 /* collision_trimesh.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = collision_trimesh.h; sourceTree = "<group>"; };
@@ -835,6 +836,7 @@
 				D093363A0D7AF97F0046DC37 /* boxgeom.h */,
 				D07BB80C0DCA66F7006A8A53 /* bipedalgeom.cpp */,
 				D07BB80B0DCA66E2006A8A53 /* bipedalgeom.h */,
+				D0A479B50DE1FC8400DC1640 /* meshdecl.h */,
 				D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */,
 				D0A4777B0DDF902800DC1640 /* meshgeom.h */,
 				D08DC5C90DDF3D9E0072AF9C /* id4cmgeom.cpp */,

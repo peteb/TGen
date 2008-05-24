@@ -17,3 +17,11 @@ void TGen::Engine::Physics::Id4CMPolygon::addEdge(int num) {
 	edges.push_back(num);
 }
 
+int TGen::Engine::Physics::Id4CMPolygon::getNumEdges() const {
+	return edges.size();
+}
+
+int TGen::Engine::Physics::Id4CMPolygon::getEdge(int num) const {
+	return edges[num];
+}
+
