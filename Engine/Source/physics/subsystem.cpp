@@ -279,12 +279,16 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			
 			TGen::Degree slope(TGen::Radian(acos(dp)));
 				
-			if (slope.angle >= -35.0f && slope.angle <= 35.0f) {
+			bool onGround = false;
+			
+			if (slope.angle >= -45.0f && slope.angle <= 45.0f) {
 				if (bodyObject1)
 					bodyObject1->setOnFloor(true);
 				
 				if (bodyObject2)
 					bodyObject2->setOnFloor(true);
+				
+				onGround = true;
 			}			
 
 			scalar friction = 1.0f;
@@ -293,9 +297,13 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			
 			if (geom2)
 				friction *= geom2->getFriction();
+		
+			if (!onGround)
+				friction = 0.0f;		// TODO: det här är fulhack...
 			
 			contacts[i].surface.mode = 0;
 			contacts[i].surface.mu = friction;
+			
 			
 			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
 

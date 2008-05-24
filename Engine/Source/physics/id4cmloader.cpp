@@ -13,8 +13,7 @@
 
 #include "filesystem.h"
 #include "file.h"
-
-#include <set>
+#include "ectriangulator.h"
 
 using TGen::Engine::Physics::StridedVertex;
 using TGen::Engine::Physics::StridedTriangle;
@@ -53,25 +52,48 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 	
 	for (int i = 0; i < polygons.size(); ++i) {
 		std::vector<uint> indices;
+		std::vector<uint> newIndices;
 		
 		getContour(indices, polygons[i]);
 		
+
+		if (indices.size() == 4) {
+			newIndices.push_back(indices[0]);
+			newIndices.push_back(indices[1]);
+			newIndices.push_back(indices[2]);
+			newIndices.push_back(indices[2]);
+			newIndices.push_back(indices[3]);
+			newIndices.push_back(indices[0]);
+			
+		}
+		else {
+			TGen::Engine::EarClippingTriangulator triangulator;
+			
+			for (int i = 0; i < indices.size(); ++i)
+				triangulator.add(vertices[indices[i]]);
+			
+			
+			triangulator.triangulate(newIndices);
+			
+			for (int i = 0; i < newIndices.size(); ++i)
+				newIndices[i] = indices[newIndices[i]];
+		}
 		
-		std::cout << "TRI: " << indices.size() << std::endl;
+		std::cout << "TRI: " << newIndices.size() << std::endl;
+
+		for (int i = 0; i < newIndices.size(); i += 3) {
+			TGen::Engine::Physics::StridedTriangle tri;
+			
+			std::cout << newIndices[i] << " - " << newIndices[i + 1] << " - " << newIndices[i + 2] << std::endl;
+			
+			tri.indices[2] = newIndices[i + 0];
+			tri.indices[1] = newIndices[i + 1];
+			tri.indices[0] = newIndices[i + 2];
+			
+			newModel->indexData.push_back(tri);			
+		}
 		
-		TGen::Engine::Physics::StridedTriangle tri1, tri2;
-		tri1.indices[0] = indices[2];
-		tri1.indices[1] = indices[1];
-		tri1.indices[2] = indices[0];
-		
-		tri2.indices[0] = indices[0];
-		tri2.indices[1] = indices[3];
-		tri2.indices[2] = indices[2];
-		
-		newModel->indexData.push_back(tri1);
-		newModel->indexData.push_back(tri2);		
-		
-		numIndices += 6;
+		numIndices += newIndices.size();				
 	}
 	
 	dTriMeshDataID meshData = dGeomTriMeshDataCreate();
@@ -200,8 +222,8 @@ void TGen::Engine::Physics::Id4CMLoader::parseVertexBlock() {
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == Id4CMTokenBlockEnd) {
-			if (vertices.size() != numVertices)
-				throw TGen::RuntimeException("Id4CMLoader::parseVertexBlock", "vertex count mismatch");
+//			if (vertices.size() != numVertices)
+	//			throw TGen::RuntimeException("Id4CMLoader::parseVertexBlock", "vertex count mismatch");
 			
 			return;
 		}
@@ -235,8 +257,8 @@ void TGen::Engine::Physics::Id4CMLoader::parseEdgeBlock() {
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == Id4CMTokenBlockEnd) {
-			if (edges.size() != numEdges)
-				throw TGen::RuntimeException("Id4CMLoader::parseEdgeBlock", "edge count mismatch");
+			//if (edges.size() != numEdges)
+			//	throw TGen::RuntimeException("Id4CMLoader::parseEdgeBlock", "edge count mismatch");
 			
 			return;
 		}

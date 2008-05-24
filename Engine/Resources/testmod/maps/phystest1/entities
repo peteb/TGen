@@ -1,413 +1,3 @@
-/*box1 {
-	sceneNode {
-		model "gen:models/cube1.md3 scale '0.01'"
-		origin "0 4 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	physGeom box {
-		dimensions "0.65 0.65 0.65"
-	}
-}*/
-
-/*box2 {
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		origin "2 4 0"
-		material "Cube"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	physGeom box {
-		dimensions "1.0 1.0 1.0"
-		friction 2.0
-	}
-	
-	sceneNode {
-		model "models/kub.md3 scale '0.2'"
-		origin "0 1 0"
-		treePosition "box2/"
-	}
-	
-	sceneLight {
-		origin "0 1 0"
-		material "deferred/lightPositional"
-		treePosition "box2/"
-		diffuse "0.2 0.2 1.2 1.0"
-		specular "1.0 0.0 0.0"
-		model "gen:cube width '5.0' height '5.0' depth '5.0'"
-	}
-
-
-}
-*/
-
-/*box3 {
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		//model "models/railgun.md3 scale 0.1"
-		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		material "Cube2"
-		origin "2 7 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	physGeom box {
-		dimensions "1.0 1.0 1.0"
-		friction 2.0
-	}
-}
-
-
-box35 {
-	sceneNode {
-		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		material "Cube2"
-		origin "2 7 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	physGeom box {
-		dimensions "1.0 1.0 1.0"
-		friction 2.0
-	}
-}
-
-
-
-box4 {
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		material "Cube"
-		origin "2 10 0"
-	}
-	
-	sceneNode {
-		model "models/kub.md3 scale '0.2'"
-		origin "0 1 0"
-		treePosition "box4/"
-	}
-	
-	sceneLight {
-		origin "0 1 0"
-		material "deferred/lightPositional"
-		treePosition "box4/"
-		diffuse "0.2 1.0 0.2 1.0"
-		specular "1.0"
-		model "gen:cube width 5.0 height 5.0 depth 5.0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	physGeom box {
-		dimensions "1.0 1.0 1.0"
-		friction 2.0
-	}
-}
-*/
-
-/*box4 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 4 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	sceneLight {
-		material "deferred/lightPositional"
-		treePosition "box4/"
-		diffuse "0.2 1.0 0.2 1.0"
-		specular "1.0"
-		model "gen:cube width 5.0 height 5.0 depth 5.0"
-	}
-	
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}*/
-
-/*
-box5 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-	
-	sceneLight {
-		material "deferred/lightPositional"
-		treePosition "box5/"
-		diffuse "0.2 0.2 1.0 1.0"
-		specular "1.0"
-		model "gen:cube width 5.0 height 5.0 depth 5.0"
-	}
-	
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-
-box8 {
-	sceneNode {
-		model "gen:cube width 1 height 1 depth 1" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 5.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "1 1 1"
-	}
-}
-
-
-
-box8 {
-	sceneNode {
-		model "gen:cube width 3 height 3 depth 3" 
-		origin "0 8 0"
-	}
-	
-	physBody {
-		mass box {
-			total 1.0
-			dimensions "3.0 3.0 3.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		
-		dimensions "3 3 3"
-	}
-}*/
-
 step {
 	sceneNode {
 		model "gen:cube width 4 height 3 depth 4"
@@ -616,52 +206,6 @@ box9 {
 	}
 }
 
-/*ground1 {
-	physGeom plane {
-		orientation "0 1 0"
-		distance "-1.0"
-	}
-}*/
-
-/*ground2 {
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "Cube"
-		origin "0 -1 0"
-		orientation "0.1 1 0"
-	}
-	
-	physGeom {
-		type plane
-	
-		orientation "0.1 1 0"
-
-		distance "-1.0"
-		friction 0.4
-	}
-}
-
-ground3 {
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "Cube"
-		origin "0 -1 0"
-		orientation "-0.1 1 0"
-	}
-
-	physGeom {
-		type plane
-	
-		orientation "-0.1 1 0"
-		distance "-1.0"
-		friction 0.4
-	}
-}*/
-
 ground2 {
 	sceneNode {
 		model "gen:cube width 20 height 20 depth 0.05"
@@ -676,45 +220,6 @@ ground2 {
 	}
 
 }
-
-ground4 {
-	physGeom {
-		type plane
-		
-		orientation "0 0 -1"
-		distance "-10.0"
-		friction 0.4
-	}
-	
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05' texwidth 5 texheight 5" 
-		material "a_superpipes"
-		origin "0 0 10"
-		orientation "0 0 1"
-	}
-}
-/*
-ground6 {
-	physGeom {
-		type plane
-		
-		orientation "1 0 0"
-		distance "-10.0"
-		friction 0.4
-	}
-	
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05'" 
-		material "a_superpipes"
-		origin "-10 0 0"
-		orientation "1 0 0"
-	}
-}
-*/
 
 ground 6 {
 	sceneNode {
@@ -770,7 +275,7 @@ corridfloor {
 	}
 }
 
-deepfloor {
+/*deepfloor {
 	sceneNode {
 		material "wornmetalplate"
 		//model "gen:cube width 4000 height 0.1 depth 600 texwidth 2000 texdepth 250"
@@ -781,7 +286,7 @@ deepfloor {
 		type box
 		dimensions "4000 0.1 600"
 	}
-}
+}*/
 
 corridceiling {
 	sceneNode {
@@ -1058,24 +563,6 @@ sroomfloor {
 }
 
 
-ground7 {
-	physGeom {
-		type plane
-		
-		orientation "-1 0 0"
-		distance "-10.0"
-		friction 0.4
-	}
-	
-	sceneNode {
-		//model "gen:cube width '1.0' height '1.0' depth '1.0'" 
-		//model "models/kub.md3 scale '1.0'"
-		model "gen:cube width '20.0' height '20.0' depth '0.05' texwidth 5 texheight 5" 
-		material "a_superpipes"
-		origin "10 0 0"
-		orientation "-1 0 0"
-	}
-}
 
 ground5 {
 	physGeom {
@@ -1102,34 +589,7 @@ ceiling {  // sky
 	}
 }
 
-/*
-ground4 {
-	physGeom plane {
-		orientation "0 1 -0.1"
-		distance "-1.0"
-	}
-}
 
-ground5 {
-	physGeom plane {
-		orientation "0 1 0.1"
-		distance "-1.0"
-	}
-}
-*/
-
-/*player_start {
-	sceneNode {
-		origin "0 2 0"
-		orientation "0 0 1"
-	}
-	
-	sceneNode {
-		origin "0 6 0"
-		orientation "0 0 1"
-	}
-	
-}*/
 
 light1 {
 	sceneLight {
@@ -1164,53 +624,6 @@ maincam {
 // TODO: egen glowmap, lampor måste ju kunna påverka den. nu skriver lampor förmodligen till alla buffrar, inklusive normal och misc!!
 //       blir hemkst skumt och fel, gröna lampor = påverkar mycket i gröna kanalen, vilket är glowkanalen.
 
-/*player_start  {
-	sceneNode {
-		//material "Cube2"		
-		origin "0 0 0"
-	}
-	
-	physBody {					// fysisk kropp
-		mass box {				// vilken funktion för massa använder vi
-			total 20.0			// totala massan
-			dimensions "1 1 1"	// storleken på lådan för uträkning av mass
-		}
-		
-		gravity true			// vårat objekt blir påverkat av gravitation
-	}
-	
-	physGeom {					// definition av fysisk geometri, behövs för collisions osv
-		type box				// vi har formen av en box
-		
-		dimensions "1 1 1"		// storleken på boxen
-		affectsOthers true		// ska vi påverka andra fysiska objekt?
-	}
-	
-	sceneCamera HeadCam {		// definiera kameran "HeadCam"
-		origin "0 0 0"
-		range "500"				// viewing range, used to calculate clipping planes and LOD
-		
-		treePosition "player_start/"	// länka den med entitetens sceneNode
-	}
-	
-	controller {				// controller component
-		type firstperson
-		
-		speed 1.0
-		camera HeadCam			// bind camera
-		control sceneNode		// bind node to control
-	}
-	
-	sceneLight {
-		material "deferred/lightPositional"
-		treePosition "player_start/"
-		diffuse "1 1 0 1"
-		specular "1.0"
-		range "2.5 2.5 2.5"
-		
-		model "gen:cube width 5.0 height 5.0 depth 5.0"		// generera en boundingbox
-	}	
-}*/
 
 class MyArcball {
 	sceneNode exhibit {
@@ -1277,7 +690,7 @@ class ghost_cam {
 	}
 		
 	
-	sceneNode {
+	/*sceneNode {
 		model "models/railgun.md3 preset q3 scale 0.1"
 		//material "Cube2"		
 		origin "0.5 -1.0 -0.3"
@@ -1285,7 +698,7 @@ class ghost_cam {
 		//origin "0 0 4"
 		treePosition "player_start/camhead/"
 		globalName "viewgun"
-	}
+	}*/
 
 
 	
@@ -1367,7 +780,7 @@ class phys_cam {
 	}
 		
 	
-	sceneNode {
+	/*sceneNode {
 		model "models/railgun.md3 preset q3 scale 0.1"
 		//material "Cube2"		
 		origin "0.5 -1.0 -0.3"
@@ -1375,7 +788,7 @@ class phys_cam {
 		//origin "0 0 4"
 		treePosition "player_start/camhead/"
 		globalName "viewgun"
-	}
+	}*/
 
 
 	
@@ -1428,199 +841,22 @@ player_start extends phys_cam {
 	}
 }
 
-/*TheGit {
-	sceneNode {
-		model "gen:cube width 2.0 height 4.0 depth 2.0 texwidth 1.0 texdepth 0.6 texheight 1.3"
-		origin "2 8 0"
-	}
-		
-	physBody {
-		mass box {
-			total 6.0
-			dimensions "3 4 2"
-		}
-		
-		turnHead true
-		maxAngularSpeed 0.0
-		gravity true			
-	}
-	
-	physGeom {
-		type bipedal
-	
-	}
-
-}*/
-
-blarg1 {
-	sceneNode {
-		model "gen:cube width 2.0 height 2.0 depth 2.0"
-		material "Cube"
-		origin "20 0 0"
-	}
-
-}
-
-blarg2 {
-	sceneNode {
-		model "gen:cube width 2.0 height 2.0 depth 2.0"
-		material "nomat"
-		origin "20 0 10"
-	}
-
-}
-
-
-testmap {
-	sceneMap {
-		model "maps/phystest1/test2.proc" //"maps/phystest1/demo_mars_city1.proc"
-		origin "-40 -40 -30"
-	}
-
-	/*physGeom {
-		collisionModel "maps/testmap/testmap.cm"
-	}*/
-}
-
-testmapfloor {
-	sceneNode {
-		origin "-22 -39 -30"
-	//	model "gen:cube width 50 height 0.05 depth 20"
-	}
-	
-	physGeom {
-		type box
-		dimensions "50 0.05 20"		
-	}
-}
-
 testmap2 {
 	sceneMap {
 		//  "maps/phystest1/omega1.proc"   //
 		model "maps/phystest1/corrids.proc"     // "maps/phystest1/demo_mars_city1.proc"
-		origin "-40 -40 -60"
+		//model "maps/phystest1/demo_mars_city1.proc"
+		
+		//origin "-27 -51 8"
+		origin "-40 -43 -60"
 	}
 
 	physGeom {
 		type id4cm
 		model "maps/phystest1/corrids.cm"
+		//model "maps/phystest1/demo_mars_city1.cm"
 		
 		link sceneMap
 	}
 }
-
-
-boxmap {
-	sceneMap {
-		origin "-40 -35 -0"
-		model "maps/phystest1/boxmap_minimal.proc"
-	}
-	
-	physGeom {
-		type id4cm
-		model "maps/phystest1/boxmap_minimal.cm"
-		
-		link sceneMap
-	}
-	
-
-}
-
-testbox2 {
-	sceneNode {
-		//treePosition "testmap/_area0"
-		
-		//autoTP "boxmap"
-	
-		model "gen:cube width 1 height 1 depth 1"
-		origin "-42 -35 0"
-	}
-	
-	physBody {
-		mass box {
-			total 8.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		friction 20.0
-		dimensions "1 1 1"
-	}
-
-}
-
-
-thingie {
-	sceneNode {
-		model "gen:cube width 4 height 0.04 depth 4"
-		origin "-5 2 0"
-		material "squaretile"
-	}
-	
-	/*physBody {
-		gravity true
-	}*/
-	
-	physGeom {
-		type mesh
-		
-		vertices {
-			1 "-2 0 -2"
-			2 " 2 0 -2"
-			3 " 2 0  2"
-			4 "-2 0  2"
-		}
-		
-		indices {
-			4
-			3
-			2
-			2
-			1
-			4
-		}
-		
-		normals {
-			1 "0 1 0"
-			2 "0 1 0"
-			3 "0 1 0"
-			4 "0 1 0"
-		}
-	
-	}
-}
-
-
-testbox {
-	sceneNode {
-		//treePosition "testmap/_area0"
-		
-		autoTP "testmap"
-	
-		model "gen:cube width 1 height 1 depth 1"
-		origin "0 5 0"
-	}
-	
-	physBody {
-		mass box {
-			total 8.0
-			dimensions "1.0 1.0 1.0"
-		}
-		
-		gravity true
-	}
-		
-	physGeom {
-		type box
-		friction 20.0
-		dimensions "1 1 1"
-	}
-
-}
-
-
 
