@@ -58,7 +58,7 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 		
 		fillModels(leaf, list, camera, clipRect);
 		
-		std::cout << "areas rendered: " << modelRendered.size() << std::endl;
+		//std::cout << "areas rendered: " << modelRendered.size() << std::endl;
 	}
 		
 	return true;

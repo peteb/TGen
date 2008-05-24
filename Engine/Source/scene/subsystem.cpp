@@ -9,6 +9,8 @@
 
 #include "scene/subsystem.h"
 #include "scene/node.h"
+#include "scene/transformnode.h"
+
 #include "world.h"
 #include "app.h"
 #include "entity.h"
@@ -35,7 +37,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	bool doCreateCamera = properties.getName() == "sceneCamera";
 	bool doCreateLight = properties.getName() == "sceneLight";
 	bool doCreateMap = properties.getName() == "sceneMap";
-	
+	bool doCreateTransform = properties.getName() == "sceneTransform";
 	
 	// TODO: vad händer om man mergar med olika attribut på en node, blir fel!
 	
@@ -49,6 +51,8 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 		sceneNode = createNode(entityName, properties);
 	else if (doCreateMap)
 		sceneNode = createMapNode(entityName, properties);
+	else if (doCreateTransform)
+		sceneNode = createTransformNode(entityName, properties);
 	else
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
@@ -80,7 +84,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	}
 	
 	if (!parentNode)
-		throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node");
+		throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node '" + treePosition + "'");
 
 	parentNode->addChild(sceneNode);
 
@@ -97,6 +101,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 														  TGen::Rotation::Identity);
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
+	camera->setFov(TGen::lexical_cast<float>(properties.getProperty("fov", "80")));
 	
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
 	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
@@ -178,6 +183,19 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	
 	return map;
 }
+
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createTransformNode(const std::string & name, const TGen::PropertyTree & properties) {
+	std::auto_ptr<TGen::Engine::Scene::TransformNode> newTransformer(new TGen::Engine::Scene::TransformNode(properties.getProperty("globalName", name)));
+	
+	if (properties.hasNode("transPosition"))
+		newTransformer->addPositionTransformer(properties.getNode("transPosition"));
+	
+	if (properties.hasNode("transOrientation"))
+		newTransformer->addOrientationTransformer(properties.getNode("transOrientation"));
+	
+	return newTransformer.release();
+}
+
 
 TGen::Engine::Scene::Node * TGen::Engine::Scene::Subsystem::getComponent(const std::string & name) {
 	ComponentMap::iterator iter = components.find(name);

@@ -594,7 +594,7 @@ ceiling {  // sky
 light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
-		orientation "-0.5 0.5 0"
+		orientation "0.2 0.5 0"
 		diffuse "0.4 0.2 0.2 1.0"
 		specular "0.9"
 	}
@@ -769,7 +769,7 @@ class phys_cam {
 	sceneNode CamHead {
 		treePosition "player_start/"
 		globalName "camhead"
-		origin "0 1 0"
+		origin "0 1.3 0"
 	}
 	
 	sceneCamera HeadCam {		// definiera kameran "HeadCam"
@@ -777,6 +777,7 @@ class phys_cam {
 
 		treePosition "player_start/camhead/"	// länka den med entitetens sceneNode
 		globalName "cam"
+		fov 60
 	}
 		
 	
@@ -858,5 +859,33 @@ testmap2 {
 		
 		link sceneMap
 	}
+}
+
+jumpbox {
+	sceneNode transbase {
+		origin "-40 -41 -60"
+		globalName "transbase"
+	}
+	
+	sceneTransform transsine {
+		transPosition {
+			type sine
+			axis "0 1 0"
+			phase 0
+			amplitude 1
+			frequency 1
+		}
+		
+		treePosition "transbase"
+		globalName "transsine"
+	}
+	
+	sceneNode hm {
+		model "gen:cube width 0.5 height 0.5 depth 0.5"
+		
+		material "squaretile"
+		treePosition "transbase/transsine"
+	}
+
 }
 
