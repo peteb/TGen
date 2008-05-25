@@ -595,8 +595,8 @@ light1 {
 	sceneLight {
 		material "deferred/lightDirectional"
 		orientation "0.2 0.5 0"
-		diffuse "0.4 0.2 0.2 1.0"
-		specular "0.9"
+		diffuse "0.2 0.2 0.2 1.0"
+		specular "0.85"
 	}
 }
 
@@ -863,7 +863,7 @@ testmap2 {
 
 jumpbox {
 	sceneNode transbase {
-		origin "-40 -41 -60"
+		origin "-40 -42 -60"
 		globalName "transbase"
 	}
 	
@@ -872,7 +872,7 @@ jumpbox {
 			type sine
 			axis "0 1 0"
 			phase 0
-			amplitude 0.2
+			amplitude 0.12
 			frequency 1
 		}
 		
@@ -880,7 +880,7 @@ jumpbox {
 			type const
 			axis "0 1 0"
 			base 0
-			frequency 0.7
+			frequency 0.6
 			amplitude 1
 			
 			relative false
@@ -891,10 +891,73 @@ jumpbox {
 	}
 	
 	sceneNode hm {
-		model "gen:cube width 0.5 height 0.5 depth 0.5"
-		
-		material "squaretile"
+		model "models/powerups/ammo/railgunam.md3 preset q3 scale 0.04"
 		treePosition "transbase/transsine"
+		//autoTP "testmap2"		// TODO: autoTP funkar inte bra när den bobbar runt, kan bero på att treePosition är kört!!!!
+								// MÅSTE kunna referera till nodes i entiteten utan att använda scenenodenamnet
+								// eller så utförs inte autoTP när nodesen laddas...
+								// första valet är klart bättre, men hur gör man det, jo en ny property! link!! :D
+								// syntax: link {entity:}component
 	}
 }
+
+class stackedbox {
+	sceneNode {
+		model "models/powerups/ammo/railgunam.md3 preset q3 scale 0.04"
+	}
+	
+	physBody {
+		mass box {
+			total 3.0
+			dimensions "0.95 0.8 1.15"
+		}
+		
+		gravity true
+	}
+	
+	physGeom {
+		type box
+		dimensions "0.95 0.8 1.15"
+		friction 30.0
+
+	}
+}
+
+
+worldinfo {	// global stuff, will be overriden by areainfo (attached to current node)
+	sndGlobal {
+	
+	}
+
+	sndLocal {
+	
+	}
+}
+
+// TODO: riktig dt, in i scenenodes
+
+sbox extends stackedbox {
+	sceneNode {
+		origin "-40 -42 -45"
+	}
+}
+
+sbox extends stackedbox {
+	sceneNode {
+		origin "-41 -42 -45"
+	}
+}
+
+sbox extends stackedbox {
+	sceneNode {
+		origin "-39 -42 -45"
+	}
+}
+
+sbox extends stackedbox {
+	sceneNode {
+		origin "-40 -41 -45"
+	}
+}
+
 
