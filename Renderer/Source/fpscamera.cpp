@@ -20,7 +20,7 @@ TGen::FPSCamera::~FPSCamera() {
 	
 }
 
-void TGen::FPSCamera::update() {
+void TGen::FPSCamera::update(scalar dt) {
 	TGen::Clamp(orientationY, -TGen::HALF_PI, TGen::HALF_PI);
 	
 	if ((parent && parent->hasChanged()) || this->changed) {
@@ -54,7 +54,7 @@ void TGen::FPSCamera::update() {
 		this->changed = true;
 	}
 	
-	updateChildren();
+	updateChildren(dt);
 	
 	this->changed = false;
 }

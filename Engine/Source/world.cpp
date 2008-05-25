@@ -56,7 +56,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entities.linkGlobally();
 	
 	sceneSubsystem.link();
-	sceneSubsystem.getSceneRoot().update();
+	sceneSubsystem.getSceneRoot().update(0.0f);
 }
 
 void TGen::Engine::World::loadEntities(const std::string & filename) {
@@ -135,7 +135,7 @@ void TGen::Engine::World::update(scalar dt) {
 	
 	controllerSubsystem.update(dt);				// perform controlling
 	physicsSubsystem.update(dt);					
-	sceneSubsystem.getSceneRoot().update();	
+	sceneSubsystem.getSceneRoot().update(dt);	
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {

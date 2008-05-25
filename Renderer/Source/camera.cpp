@@ -29,7 +29,7 @@ TGen::Camera::~Camera() {
 	
 }
 
-void TGen::Camera::update() {
+void TGen::Camera::update(scalar dt) {
 	if (projectionChanged) {
 		projectionMatrix = TGen::Matrix4x4::PerspectiveProjection(fov, aspectRatio, clipNear, clipFar);
 		projectionChanged = false;
@@ -115,7 +115,7 @@ void TGen::Camera::update() {
 		this->changed = true;
 	}
 	
-	updateChildren();
+	updateChildren(dt);
 	
 	this->changed = false;
 }

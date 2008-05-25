@@ -52,7 +52,7 @@ TGen::SceneNode::~SceneNode() {
 	}
 }
 
-void TGen::SceneNode::update() {
+void TGen::SceneNode::update(scalar dt) {
 	for (int i = 0; i < models.size(); ++i)
 		TGen::DerefRes(models[i])->update();
 	
@@ -75,7 +75,7 @@ void TGen::SceneNode::update() {
 		this->changed = true;
 	}
 	
-	updateChildren();
+	updateChildren(dt);
 	
 	if (this->changed) {
 		calculateFacesBV();
@@ -96,9 +96,9 @@ void TGen::SceneNode::update() {
 	this->changed = false;	
 }
 
-void TGen::SceneNode::updateChildren() {
+void TGen::SceneNode::updateChildren(scalar dt) {
 	for (int i = 0; i < children.size(); ++i) {
-		children[i]->update();
+		children[i]->update(dt);
 	}	
 }
 

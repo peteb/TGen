@@ -27,7 +27,7 @@ namespace TGen {
 		FPSCamera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation);
 		~FPSCamera();
 		
-		void update();
+		void update(scalar dt);
 		void move(const TGen::Vector3 & direction);
 		void rotate(const TGen::Vector2 & rot);
 		

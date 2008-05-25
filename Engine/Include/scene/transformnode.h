@@ -25,7 +25,7 @@ namespace TGen {
 				void addPositionTransformer(const TGen::PropertyTree & properties);
 				void addOrientationTransformer(const TGen::PropertyTree & properties);
 				
-				void update();
+				void update(scalar dt);
 				
 			private:
 				TGen::WaveGenerator * createWaveGenerator(const TGen::PropertyTree & properties) const;

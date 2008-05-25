@@ -107,7 +107,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
 	
 	camera->setOrientation(rotation);
-	camera->update();
+	camera->update(0.0f);
 	
 	return camera;
 }
@@ -212,7 +212,7 @@ void TGen::Engine::Scene::Subsystem::link() {
 	
 	sceneRoot.traverse(TGen::FaceLinker(resources));
 	//sceneRoot.setPosition(TGen::Vector3(0.0f, 100.0f, 0.0f));
-	sceneRoot.update();
+	sceneRoot.update(0.0f);
 
 	sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
 }

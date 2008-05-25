@@ -37,7 +37,7 @@ namespace TGen {
 		
 		virtual ~SceneNode();
 		
-		virtual void update();
+		virtual void update(scalar dt);
 		virtual void calculateFacesBV();
 		virtual void calculateWorldBV();
 		virtual bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
@@ -48,7 +48,7 @@ namespace TGen {
 		virtual void linkMaterials(TGen::MaterialSource & source) {}
 		virtual void unlinkMaterials() {}
 		
-		void updateChildren();
+		void updateChildren(scalar dt);
 		void addChild(TGen::SceneNode * node);
 		void removeChild(TGen::SceneNode * node);
 		void addFace(const TGen::Face & face);

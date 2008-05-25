@@ -912,7 +912,7 @@ class stackedbox {
 			dimensions "0.95 0.8 1.15"
 		}
 		
-		gravity true
+		gravity false
 	}
 	
 	physGeom {

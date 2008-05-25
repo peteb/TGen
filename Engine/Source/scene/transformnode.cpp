@@ -81,15 +81,12 @@ TGen::WaveGenerator * TGen::Engine::Scene::TransformNode::createWaveGenerator(co
 }
 
 
-void TGen::Engine::Scene::TransformNode::update() {
-	// TODO: PositionTransformer, OrientationTransformer
-	//       saves axis, etc. has a function for applying its transformation onto the node
-	
-	age += 0.01f;	// TODO: dt
+void TGen::Engine::Scene::TransformNode::update(scalar dt) {
+	age += dt;
 	
 	for (int i = 0; i < transformers.size(); ++i) {
 		transformers[i]->transform(*this, age);
 	}
 	
-	TGen::SceneNode::update();
+	TGen::SceneNode::update(dt);
 }
