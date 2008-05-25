@@ -282,3 +282,22 @@ TGen::Matrix3x3 TGen::Matrix3x3::RotationZ(const TGen::Angle & angle) {
 	
 	return ret;
 }
+
+TGen::Matrix3x3 TGen::Matrix3x3::Rotation(const TGen::Vector3 & axis, const TGen::Angle & angle) {
+	Matrix3x3 ret;
+	scalar c = cos(TGen::Radian(angle).angle);
+	scalar s = sin(TGen::Radian(angle).angle);
+	scalar omc = 1.0 - c;
+	
+	ret.elements[0][0] = 1.0 + omc * (axis.x * axis.x - 1.0);
+	ret.elements[1][0] = -axis.z * s + omc * axis.x * axis.y;
+	ret.elements[2][0] = axis.y * s + omc * axis.x * axis.z;
+	ret.elements[0][1] = axis.z * s + omc * axis.x * axis.y;
+	ret.elements[1][1] = 1.0 + omc * (axis.y * axis.y - 1.0);
+	ret.elements[2][1] = -axis.x * s + omc * axis.y * axis.z;
+	ret.elements[0][2] = -axis.y * s + omc * axis.x * axis.z;
+	ret.elements[1][2] = axis.x * s + omc * axis.y * axis.z;
+	ret.elements[2][2] = 1.0 + omc * (axis.z * axis.z - 1.0);
+
+	return ret;	
+}

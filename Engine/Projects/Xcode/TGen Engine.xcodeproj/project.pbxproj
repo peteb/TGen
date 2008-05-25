@@ -24,6 +24,7 @@
 		D00FEB4E0DAF99A4003703A2 /* player.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D00FEB4D0DAF99A4003703A2 /* player.cpp */; };
 		D0170EC00DE87BF6007380B9 /* ectriangulator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0170EBF0DE87BF6007380B9 /* ectriangulator.cpp */; };
 		D0170FEA0DE8B454007380B9 /* transformnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0170FE90DE8B454007380B9 /* transformnode.cpp */; };
+		D01710E80DE9ABCC007380B9 /* nodetransformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01710E70DE9ABCC007380B9 /* nodetransformer.cpp */; };
 		D020D4550DC3E3C500D0EDA4 /* arcball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D020D4540DC3E3C500D0EDA4 /* arcball.cpp */; };
 		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
@@ -266,6 +267,8 @@
 		D0170EBF0DE87BF6007380B9 /* ectriangulator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ectriangulator.cpp; sourceTree = "<group>"; };
 		D0170FE80DE8B447007380B9 /* transformnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = transformnode.h; path = ../../Include/scene/transformnode.h; sourceTree = SOURCE_ROOT; };
 		D0170FE90DE8B454007380B9 /* transformnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = transformnode.cpp; path = scene/transformnode.cpp; sourceTree = "<group>"; };
+		D01710E60DE9ABC1007380B9 /* nodetransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = nodetransformer.h; path = ../../Include/scene/nodetransformer.h; sourceTree = SOURCE_ROOT; };
+		D01710E70DE9ABCC007380B9 /* nodetransformer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = nodetransformer.cpp; path = scene/nodetransformer.cpp; sourceTree = "<group>"; };
 		D020D4530DC3E3B900D0EDA4 /* arcball.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = arcball.h; path = ../../Include/controller/arcball.h; sourceTree = SOURCE_ROOT; };
 		D020D4540DC3E3C500D0EDA4 /* arcball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arcball.cpp; path = controller/arcball.cpp; sourceTree = "<group>"; };
 		D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = worldrenderer.h; path = ../../Include/renderer/worldrenderer.h; sourceTree = SOURCE_ROOT; };
@@ -908,6 +911,8 @@
 				D0843BD30D0759D200C31FE3 /* node.h */,
 				D0170FE90DE8B454007380B9 /* transformnode.cpp */,
 				D0170FE80DE8B447007380B9 /* transformnode.h */,
+				D01710E70DE9ABCC007380B9 /* nodetransformer.cpp */,
+				D01710E60DE9ABC1007380B9 /* nodetransformer.h */,
 			);
 			name = scene;
 			sourceTree = "<group>";
@@ -1249,6 +1254,7 @@
 				D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */,
 				D0170EC00DE87BF6007380B9 /* ectriangulator.cpp in Sources */,
 				D0170FEA0DE8B454007380B9 /* transformnode.cpp in Sources */,
+				D01710E80DE9ABCC007380B9 /* nodetransformer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

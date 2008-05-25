@@ -55,6 +55,10 @@ scalar TGen::WaveGenerator::getValue(double time) const {
 		case TGen::WaveInverseSawtooth:
 			y = 1.0f - x;
 			break;
+			
+		case TGen::WaveConst:
+			y = x;
+			break;
 	}
 	
 	return y * amplitude + base;

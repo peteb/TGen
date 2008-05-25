@@ -36,6 +36,7 @@ namespace TGen {
 		WaveTriangle,
 		WaveSawtooth,
 		WaveInverseSawtooth,
+		WaveConst,
 	};
 	
 	class WaveGenerator : public ColorGenerator, public ScalarGenerator {

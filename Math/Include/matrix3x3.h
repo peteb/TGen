@@ -57,6 +57,7 @@ namespace TGen {
 		static TGen::Matrix3x3 RotationZ(const TGen::Angle & angle);
 		static TGen::Matrix3x3 RotationX(const TGen::Angle & angle);
 		static TGen::Matrix3x3 RotationY(const TGen::Angle & angle);
+		static TGen::Matrix3x3 Rotation(const TGen::Vector3 & axis, const TGen::Angle & angle);
 		
 		scalar elements[3][3];
 		

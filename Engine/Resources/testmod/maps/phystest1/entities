@@ -872,8 +872,18 @@ jumpbox {
 			type sine
 			axis "0 1 0"
 			phase 0
-			amplitude 1
+			amplitude 0.2
 			frequency 1
+		}
+		
+		transOrientation {
+			type const
+			axis "0 1 0"
+			base 0
+			frequency 0.7
+			amplitude 1
+			
+			relative false
 		}
 		
 		treePosition "transbase"
@@ -886,6 +896,5 @@ jumpbox {
 		material "squaretile"
 		treePosition "transbase/transsine"
 	}
-
 }
 
