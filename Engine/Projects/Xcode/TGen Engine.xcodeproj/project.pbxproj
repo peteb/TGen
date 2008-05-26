@@ -74,6 +74,8 @@
 		D08DC6250DDF42AA0072AF9C /* id4cmtokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC6240DDF42AA0072AF9C /* id4cmtokenizer.cpp */; };
 		D08DC7DA0DDF55120072AF9C /* id4cmpolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC7D90DDF55120072AF9C /* id4cmpolygon.cpp */; };
 		D08F3CF90DEB3AFB0051EDD6 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */; };
+		D08F3D840DEB3E0E0051EDD6 /* libfmodex.dylib in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */; };
+		D08F3DA70DEB41CB0051EDD6 /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */; };
 		D09330AC0D79FD7D0046DC37 /* planegeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeom.cpp */; };
 		D09332230D79FFFF0046DC37 /* spheregeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeom.cpp */; };
 		D09336480D7AF9CA0046DC37 /* boxgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeom.cpp */; };
@@ -216,6 +218,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				D08F3D840DEB3E0E0051EDD6 /* libfmodex.dylib in Copy Frameworks */,
 				D0E9D5990CE355F30050B530 /* SDL.framework in Copy Frameworks */,
 			);
 			name = "Copy Frameworks";
@@ -239,7 +242,7 @@
 		4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = /System/Library/Frameworks/CoreServices.framework; sourceTree = "<absolute>"; };
 		5048396D09E3307300765E4B /* TGen EngineProj.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineProj.xcconfig"; sourceTree = "<group>"; };
 		5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.xcconfig; path = "TGen EngineTarget.xcconfig"; sourceTree = "<group>"; };
-		508344B209E5C41E0093A071 /* TGen Engine Debug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine Debug.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		508344B209E5C41E0093A071 /* TGen Engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TGen Engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D0C4E960486CD37000505A6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Info.plist; sourceTree = "<group>"; };
 		D00343A60CEE14C10066E8A8 /* world.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = world.cpp; sourceTree = "<group>"; };
 		D00343B50CEE14FE0066E8A8 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = world.h; path = ../../Include/world.h; sourceTree = SOURCE_ROOT; };
@@ -356,6 +359,7 @@
 		D08DC7D90DDF55120072AF9C /* id4cmpolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id4cmpolygon.cpp; path = physics/id4cmpolygon.cpp; sourceTree = "<group>"; };
 		D08F3CF50DEB3AD50051EDD6 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/sound/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = sound/subsystem.cpp; sourceTree = "<group>"; };
+		D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodex.dylib; sourceTree = "<group>"; };
 		D09330AA0D79FD7D0046DC37 /* planegeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = planegeom.h; path = ../../Include/physics/planegeom.h; sourceTree = SOURCE_ROOT; };
 		D09330AB0D79FD7D0046DC37 /* planegeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planegeom.cpp; path = physics/planegeom.cpp; sourceTree = "<group>"; };
 		D09332220D79FFFF0046DC37 /* spheregeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spheregeom.cpp; path = physics/spheregeom.cpp; sourceTree = "<group>"; };
@@ -490,6 +494,7 @@
 				D003475A0CEE26740066E8A8 /* libjpeg.a in Frameworks */,
 				D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */,
 				D0962AFC0D7866BE008DABC3 /* libode.a in Frameworks */,
+				D08F3DA70DEB41CB0051EDD6 /* libfmodex.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -499,7 +504,7 @@
 		195DF8CFFE9D517E11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				508344B209E5C41E0093A071 /* TGen Engine Debug.app */,
+				508344B209E5C41E0093A071 /* TGen Engine.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -570,6 +575,7 @@
 				D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */,
 				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
 				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
+				D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */,
 				D00347560CEE26740066E8A8 /* libIL.a */,
 				D00347570CEE26740066E8A8 /* libjpeg.a */,
 				D00347580CEE26740066E8A8 /* libpng12.a */,
@@ -1029,6 +1035,7 @@
 				8D0C4E910486CD37000505A6 /* Frameworks */,
 				D0EF67CA0C82FDDF0085C17B /* CopyFiles */,
 				D0E9D5A40CE3560B0050B530 /* Copy Frameworks */,
+				D08F3DE70DEB47940051EDD6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1039,7 +1046,7 @@
 			name = "TGen Engine";
 			productInstallPath = "$(HOME)/Applications";
 			productName = "TGen Engine";
-			productReference = 508344B209E5C41E0093A071 /* TGen Engine Debug.app */;
+			productReference = 508344B209E5C41E0093A071 /* TGen Engine.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1174,6 +1181,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		D08F3DE70DEB47940051EDD6 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "install_name_tool -change ./libfmodex.dylib @executable_path/../Frameworks/libfmodex.dylib \"$TARGET_BUILD_DIR/$PRODUCT_NAME.app/Contents/MacOS/TGen Engine\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8D0C4E8F0486CD37000505A6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1303,7 +1326,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5048396E09E3307300765E4B /* TGen EngineTarget.xcconfig */;
 			buildSettings = {
-				ARCHS = i386;
+				ARCHS = "$(NATIVE_ARCH)";
 				COPY_PHASE_STRIP = NO;
 				GCC_PREFIX_HEADER = "";
 				GCC_WARN_HIDDEN_VIRTUAL_FUNCTIONS = NO;
@@ -1319,12 +1342,14 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
+					"\"$(SRCROOT)\"",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				OTHER_CFLAGS = "-D_DEBUG";
 				OTHER_LDFLAGS = "-lz";
+				PRODUCT_NAME = "TGen Engine";
 				USER_HEADER_SEARCH_PATHS = "../../Include/ ../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
 			};
 			name = Debug;
@@ -1346,12 +1371,14 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
+					"\"$(SRCROOT)\"",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2 = "\"$(SRCROOT)\"";
 				OTHER_LDFLAGS = "-lz";
 				PRESERVE_DEAD_CODE_INITS_AND_TERMS = YES;
+				PRODUCT_NAME = "TGen Engine";
 				USER_HEADER_SEARCH_PATHS = "../../Include/ ../../../OpenGL/Include/ ../../../Core/Include/ ../../../Math/Include/ ../../../Graphics/Include/ ../../../Renderer/Include/ /usr/local/include/";
 			};
 			name = Release;

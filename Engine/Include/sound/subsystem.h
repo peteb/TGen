@@ -14,13 +14,18 @@
 
 namespace TGen {
 	namespace Engine {
+		class StandardLogs;
+		
 		namespace Sound {
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:	
-				Subsystem();
+				Subsystem(TGen::Engine::StandardLogs & logs);
 				~Subsystem();
 				
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				
+			private:
+				TGen::Engine::StandardLogs & logs;
 			};
 			
 		} // !Sound

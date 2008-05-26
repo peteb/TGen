@@ -925,11 +925,7 @@ class stackedbox {
 
 
 worldinfo {	// global stuff, will be overriden by areainfo (attached to current node)
-	sndGlobal {
-	
-	}
-
-	sndLocal {
+	sound {
 	
 	}
 }

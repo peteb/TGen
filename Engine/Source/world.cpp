@@ -21,6 +21,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, logs(logs)
 	, sceneSubsystem(resources, filesystem, logs, dataSource)
 	, physicsSubsystem(logs, filesystem)
+	, soundSubsystem(logs)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
@@ -40,8 +41,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	entityFactory.registerSubsystem("controller", &controllerSubsystem);
 	
-	entityFactory.registerSubsystem("sndGlobal", &soundSubsystem);
-	entityFactory.registerSubsystem("sndLocal", &soundSubsystem);
+	entityFactory.registerSubsystem("sound", &soundSubsystem);
 	
 	// TODO: kontrollera om entiteter ska map-cullas, vanligtvis på. stäng av med noMapCull eller nått
 	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
