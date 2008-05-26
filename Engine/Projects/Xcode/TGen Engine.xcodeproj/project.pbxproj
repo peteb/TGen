@@ -73,6 +73,7 @@
 		D08DC5FC0DDF3F520072AF9C /* id4cmloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC5FB0DDF3F520072AF9C /* id4cmloader.cpp */; };
 		D08DC6250DDF42AA0072AF9C /* id4cmtokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC6240DDF42AA0072AF9C /* id4cmtokenizer.cpp */; };
 		D08DC7DA0DDF55120072AF9C /* id4cmpolygon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC7D90DDF55120072AF9C /* id4cmpolygon.cpp */; };
+		D08F3CF90DEB3AFB0051EDD6 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */; };
 		D09330AC0D79FD7D0046DC37 /* planegeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeom.cpp */; };
 		D09332230D79FFFF0046DC37 /* spheregeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeom.cpp */; };
 		D09336480D7AF9CA0046DC37 /* boxgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeom.cpp */; };
@@ -353,6 +354,8 @@
 		D08DC6240DDF42AA0072AF9C /* id4cmtokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id4cmtokenizer.cpp; path = physics/id4cmtokenizer.cpp; sourceTree = "<group>"; };
 		D08DC7D80DDF55030072AF9C /* id4cmpolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id4cmpolygon.h; path = ../../Include/physics/id4cmpolygon.h; sourceTree = SOURCE_ROOT; };
 		D08DC7D90DDF55120072AF9C /* id4cmpolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id4cmpolygon.cpp; path = physics/id4cmpolygon.cpp; sourceTree = "<group>"; };
+		D08F3CF50DEB3AD50051EDD6 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/sound/subsystem.h; sourceTree = SOURCE_ROOT; };
+		D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = sound/subsystem.cpp; sourceTree = "<group>"; };
 		D09330AA0D79FD7D0046DC37 /* planegeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = planegeom.h; path = ../../Include/physics/planegeom.h; sourceTree = SOURCE_ROOT; };
 		D09330AB0D79FD7D0046DC37 /* planegeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planegeom.cpp; path = physics/planegeom.cpp; sourceTree = "<group>"; };
 		D09332220D79FFFF0046DC37 /* spheregeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spheregeom.cpp; path = physics/spheregeom.cpp; sourceTree = "<group>"; };
@@ -812,6 +815,15 @@
 			name = entity;
 			sourceTree = "<group>";
 		};
+		D08F3CEF0DEB3AA80051EDD6 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */,
+				D08F3CF50DEB3AD50051EDD6 /* subsystem.h */,
+			);
+			name = sound;
+			sourceTree = "<group>";
+		};
 		D093321E0D79FFC30046DC37 /* physics */ = {
 			isa = PBXGroup;
 			children = (
@@ -867,6 +879,7 @@
 			children = (
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
+				D08F3CEF0DEB3AA80051EDD6 /* sound */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D093321E0D79FFC30046DC37 /* physics */,
@@ -1255,6 +1268,7 @@
 				D0170EC00DE87BF6007380B9 /* ectriangulator.cpp in Sources */,
 				D0170FEA0DE8B454007380B9 /* transformnode.cpp in Sources */,
 				D01710E80DE9ABCC007380B9 /* nodetransformer.cpp in Sources */,
+				D08F3CF90DEB3AFB0051EDD6 /* subsystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

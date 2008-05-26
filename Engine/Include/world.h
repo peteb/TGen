@@ -15,9 +15,11 @@
 #include "entitylist.h"
 #include "renderer/lightlist.h"
 #include "entityfactory.h"
+
 #include "scene/subsystem.h"
 #include "physics/subsystem.h"
 #include "controller/subsystem.h"
+#include "sound/subsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -54,6 +56,7 @@ namespace TGen {
 			TGen::Engine::Scene::Subsystem sceneSubsystem;
 			TGen::Engine::Physics::Subsystem physicsSubsystem;
 			TGen::Engine::Controller::Subsystem controllerSubsystem;
+			TGen::Engine::Sound::Subsystem soundSubsystem;
 			
 			TGen::Engine::EntityFactory entityFactory;
 			

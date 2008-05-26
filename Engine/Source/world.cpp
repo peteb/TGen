@@ -40,6 +40,9 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	entityFactory.registerSubsystem("controller", &controllerSubsystem);
 	
+	entityFactory.registerSubsystem("sndGlobal", &soundSubsystem);
+	entityFactory.registerSubsystem("sndLocal", &soundSubsystem);
+	
 	// TODO: kontrollera om entiteter ska map-cullas, vanligtvis på. stäng av med noMapCull eller nått
 	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
 	//       kan kanske fixas genom att överlagra funktionen som ger faces åt renderlist att rendrera, att den då går igenom de rum som syns, 
