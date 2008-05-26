@@ -32,6 +32,7 @@ namespace TGen {
 				
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				void link();
+				void update(scalar delta);
 				
 				TGen::Engine::Scene::Node * getComponent(const std::string & name);
 				TGen::SceneNode & getSceneRoot();

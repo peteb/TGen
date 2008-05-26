@@ -21,7 +21,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, logs(logs)
 	, sceneSubsystem(resources, filesystem, logs, dataSource)
 	, physicsSubsystem(logs, filesystem)
-	, soundSubsystem(logs)
+	, soundSubsystem(logs, filesystem)
 	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
@@ -59,7 +59,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entities.linkGlobally();
 	
 	sceneSubsystem.link();
-	sceneSubsystem.getSceneRoot().update(0.0f);
+	sceneSubsystem.update(0.0f);
 }
 
 void TGen::Engine::World::loadEntities(const std::string & filename) {
@@ -94,7 +94,8 @@ TGen::Engine::World::~World() {
 }
 
 TGen::Camera * TGen::Engine::World::getCamera(const std::string & name) {
-	return static_cast<TGen::Camera *>(sceneSubsystem.getSceneRoot().getChild(name));
+	throw TGen::RuntimeException("World::getCamera", "shiet, remove this");
+	return NULL; //static_cast<TGen::Camera *>(sceneSubsystem.getSceneRoot().getChild(name));
 }
 
 TGen::RenderList & TGen::Engine::World::getRenderList() {
@@ -138,7 +139,8 @@ void TGen::Engine::World::update(scalar dt) {
 	
 	controllerSubsystem.update(dt);				// perform controlling
 	physicsSubsystem.update(dt);					
-	sceneSubsystem.getSceneRoot().update(dt);	
+	sceneSubsystem.update(dt);	
+	soundSubsystem.update(dt);
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {

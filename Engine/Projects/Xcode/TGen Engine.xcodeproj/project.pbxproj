@@ -76,6 +76,7 @@
 		D08F3CF90DEB3AFB0051EDD6 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */; };
 		D08F3D840DEB3E0E0051EDD6 /* libfmodex.dylib in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */; };
 		D08F3DA70DEB41CB0051EDD6 /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */; };
+		D08F3FCA0DEB5CE90051EDD6 /* soundsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */; };
 		D09330AC0D79FD7D0046DC37 /* planegeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeom.cpp */; };
 		D09332230D79FFFF0046DC37 /* spheregeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeom.cpp */; };
 		D09336480D7AF9CA0046DC37 /* boxgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeom.cpp */; };
@@ -360,6 +361,8 @@
 		D08F3CF50DEB3AD50051EDD6 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/sound/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = sound/subsystem.cpp; sourceTree = "<group>"; };
 		D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodex.dylib; sourceTree = "<group>"; };
+		D08F3FC80DEB5CDE0051EDD6 /* soundsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundsource.h; path = ../../Include/sound/soundsource.h; sourceTree = SOURCE_ROOT; };
+		D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = soundsource.cpp; path = sound/soundsource.cpp; sourceTree = "<group>"; };
 		D09330AA0D79FD7D0046DC37 /* planegeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = planegeom.h; path = ../../Include/physics/planegeom.h; sourceTree = SOURCE_ROOT; };
 		D09330AB0D79FD7D0046DC37 /* planegeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planegeom.cpp; path = physics/planegeom.cpp; sourceTree = "<group>"; };
 		D09332220D79FFFF0046DC37 /* spheregeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spheregeom.cpp; path = physics/spheregeom.cpp; sourceTree = "<group>"; };
@@ -826,6 +829,8 @@
 			children = (
 				D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */,
 				D08F3CF50DEB3AD50051EDD6 /* subsystem.h */,
+				D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */,
+				D08F3FC80DEB5CDE0051EDD6 /* soundsource.h */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -1292,6 +1297,7 @@
 				D0170FEA0DE8B454007380B9 /* transformnode.cpp in Sources */,
 				D01710E80DE9ABCC007380B9 /* nodetransformer.cpp in Sources */,
 				D08F3CF90DEB3AFB0051EDD6 /* subsystem.cpp in Sources */,
+				D08F3FCA0DEB5CE90051EDD6 /* soundsource.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

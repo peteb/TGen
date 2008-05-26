@@ -607,14 +607,14 @@ maincam {
 		range "500"
 	}
 
-	sound {
+	/*sound {
 		local {
 			randomize {
 				delay "direct"
 				"sounds/sound1"
 			}
 		}
-	}
+	}*/
 }
 
 // TODO: ********* mouse control, subclass PlayerController -> FPSController
@@ -926,11 +926,11 @@ class stackedbox {
 
 worldinfo {	// global stuff, will be overriden by areainfo (attached to current node)
 	sound {
-	
+		stream "sound/08_Track_08.mp3"
+		startPaused true
 	}
 }
 
-// TODO: riktig dt, in i scenenodes
 
 sbox extends stackedbox {
 	sceneNode {

@@ -220,3 +220,7 @@ void TGen::Engine::Scene::Subsystem::link() {
 TGen::SceneNode & TGen::Engine::Scene::Subsystem::getSceneRoot() {
 	return sceneRoot;
 }
+
+void TGen::Engine::Scene::Subsystem::update(scalar delta) {
+	sceneRoot.update(delta);
+}
