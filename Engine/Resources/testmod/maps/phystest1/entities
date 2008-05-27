@@ -872,7 +872,7 @@ jumpbox {
 			type sine
 			axis "0 1 0"
 			phase 0
-			amplitude 0.12
+			amplitude 10.12
 			frequency 1
 		}
 		
@@ -899,6 +899,17 @@ jumpbox {
 								// första valet är klart bättre, men hur gör man det, jo en ny property! link!! :D
 								// syntax: link {entity:}component
 	}
+	
+	sound {
+		stream "sound/08_Track_08.mp3"    // European_Siren
+		play true
+		loop true
+		minDistance 2.0
+		singleChannel true
+		positional true
+		link hm
+	}
+
 }
 
 class stackedbox {
@@ -921,14 +932,21 @@ class stackedbox {
 		friction 30.0
 
 	}
+	
+	sound {
+		stream "sound/Warp_Engineering_05.wav"
+		play true
+		loop true
+		minDistance 1.0
+		singleChannel true
+		positional true
+		link physBody
+	}
 }
 
 
 worldinfo {	// global stuff, will be overriden by areainfo (attached to current node)
-	sound {
-		stream "sound/08_Track_08.mp3"
-		startPaused true
-	}
+
 }
 
 

@@ -95,7 +95,7 @@ dBodyID TGen::Engine::Physics::Body::getBodyId() const {
 	return bodyId;
 }
 
-TGen::Matrix3x3 TGen::Engine::Physics::Body::getOrientation() const {
+TGen::Rotation TGen::Engine::Physics::Body::getOrientation() const {
 	const dReal * orient = dBodyGetRotation(bodyId);
 	
 	// TODO: transpose this if something is wrong
@@ -103,10 +103,10 @@ TGen::Matrix3x3 TGen::Engine::Physics::Body::getOrientation() const {
 	TGen::Vector3 y(orient[1], orient[5], orient[9]);
 	TGen::Vector3 z(orient[2], orient[6], orient[10]);
 	
-	return TGen::Matrix3x3(x, y, z);
+	return TGen::Rotation(x, y, z);
 }
 
-void TGen::Engine::Physics::Body::setOrientation(const TGen::Matrix3x3 & orientation) {
+void TGen::Engine::Physics::Body::setOrientation(const TGen::Rotation & orientation) {
 	dMatrix3 matrix;
 	TGen::Vector3 x = orientation.getX();
 	TGen::Vector3 y = orientation.getY();
@@ -180,4 +180,6 @@ void TGen::Engine::Physics::Body::setFakeGravity(scalar fakeGrav) {
 	this->fakeGrav = fakeGrav;
 }
 
-
+TGen::Vector3 TGen::Engine::Physics::Body::getVelocity() const {
+	return getLinearVelocity();
+}

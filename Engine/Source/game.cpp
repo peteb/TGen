@@ -66,9 +66,24 @@ void TGen::Engine::GameState::tick() {
 		
 		//playerController.update(sinceLastRender);
 		
-		if (currentWorld)
+		if (currentWorld) {
+			TGen::Vector3 playerPosition, playerVelocity, playerForward, playerUp;
+			TGen::Engine::PlayerController * controller = currentWorld->getPlayerController("player_start");
+			
+			
+			TGen::Matrix4x4 invertedCam = controller->getCamera("headcam")->getTransform().getInverse();
+			
+			playerPosition = controller->getPosition();
+			playerVelocity = controller->getVelocity();
+			playerForward = invertedCam.getZ();
+			playerUp = invertedCam.getY();
+			
+			currentWorld->updateListener(playerPosition, playerVelocity, playerForward, playerUp);
 			currentWorld->update(sinceLastRender);
 			
+			
+		}
+		
 		render(sinceLastRender);
 	//	std::cout << 1.0 / sinceLastRender << std::endl;
 		

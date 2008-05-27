@@ -42,8 +42,7 @@ void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & e
 	TGen::Engine::PlayerController::linkLocally(entity);
 	
 	if (!usePhysics) {
-		TGen::Engine::Scene::Node * playNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(control));
-		this->node = dynamic_cast<TGen::SceneNode *>(playNode->getSceneNode());
+		node = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(control));
 	}
 	else {
 		controlBody = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(control));
@@ -146,7 +145,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 		moveDelta *= dt;
 	
 		if (node && !usePhysics) {
-			node->setPosition(node->getLocalPosition() + moveDelta * deltaPlane);
+			node->getSceneNode()->setPosition(node->getSceneNode()->getLocalPosition() + moveDelta * deltaPlane);
 		}
 		else if (controlBody) {
 			//std::cout << controlBody->getLinearVelocity().getMagnitude() << std::endl;
@@ -223,5 +222,33 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 void TGen::Engine::Controller::FirstPerson::setDeltaPlane(scalar speed) {
 	deltaPlane = speed;
 }
+
+TGen::Vector3 TGen::Engine::Controller::FirstPerson::getVelocity() const {
+	if (controlBody)
+		return controlBody->getVelocity();
+	else if (node)
+		return node->getVelocity();
+	
+	return TGen::Vector3::Zero;
+}
+
+TGen::Vector3 TGen::Engine::Controller::FirstPerson::getPosition() const {
+	if (controlBody)
+		return controlBody->getPosition();
+	else if (node)
+		return node->getPosition();
+	
+	return TGen::Vector3::Zero;
+}
+
+TGen::Rotation TGen::Engine::Controller::FirstPerson::getOrientation() const {
+	if (controlBody)
+		return controlBody->getOrientation();
+	else if (node)
+		return node->getOrientation();
+	
+	return TGen::Rotation::Identity;
+}
+
 
 

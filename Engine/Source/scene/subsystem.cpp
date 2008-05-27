@@ -92,6 +92,8 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	if (components.find(entityName) == components.end())
 		components.insert(ComponentMap::value_type(entityName, newComponent));
 	
+	nodes.push_back(newComponent);
+	
 	return newComponent;
 }
 
@@ -223,4 +225,8 @@ TGen::SceneNode & TGen::Engine::Scene::Subsystem::getSceneRoot() {
 
 void TGen::Engine::Scene::Subsystem::update(scalar delta) {
 	sceneRoot.update(delta);
+	
+	for (int i = 0; i < nodes.size(); ++i) {
+		nodes[i]->update(delta);
+	}
 }

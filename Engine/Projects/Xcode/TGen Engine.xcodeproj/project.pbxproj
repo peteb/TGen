@@ -363,6 +363,7 @@
 		D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodex.dylib; sourceTree = "<group>"; };
 		D08F3FC80DEB5CDE0051EDD6 /* soundsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundsource.h; path = ../../Include/sound/soundsource.h; sourceTree = SOURCE_ROOT; };
 		D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = soundsource.cpp; path = sound/soundsource.cpp; sourceTree = "<group>"; };
+		D08F41630DEB67F90051EDD6 /* componentinterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentinterfaces.h; path = ../../Include/componentinterfaces.h; sourceTree = SOURCE_ROOT; };
 		D09330AA0D79FD7D0046DC37 /* planegeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = planegeom.h; path = ../../Include/physics/planegeom.h; sourceTree = SOURCE_ROOT; };
 		D09330AB0D79FD7D0046DC37 /* planegeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planegeom.cpp; path = physics/planegeom.cpp; sourceTree = "<group>"; };
 		D09332220D79FFFF0046DC37 /* spheregeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spheregeom.cpp; path = physics/spheregeom.cpp; sourceTree = "<group>"; };
@@ -890,6 +891,7 @@
 			children = (
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
+				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
 				D0E457D00D90696300F4D548 /* scene */,

@@ -143,6 +143,10 @@ void TGen::Engine::World::update(scalar dt) {
 	soundSubsystem.update(dt);
 }
 
+void TGen::Engine::World::updateListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up) {
+	soundSubsystem.setListener(position, velocity, forward, up);	
+}
+
 TGen::Color TGen::Engine::World::getAmbientLight() {
 	return TGen::Color(0.4, 0.4, 0.4, 1.0);
 }

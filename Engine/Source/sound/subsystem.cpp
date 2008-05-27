@@ -42,6 +42,11 @@ TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGe
 
 TGen::Engine::Sound::Subsystem::~Subsystem() {
 	logs.info["snd-"] << "*** SHUTTING DOWN SOUND ***" << TGen::endl;
+	
+	for (SoundSourceList::iterator iter = soundSources.begin(); iter != soundSources.end(); ++iter)
+		delete *iter;
+	
+	fmodSystem->release();
 }
 
 
@@ -49,27 +54,55 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	std::string fileName = properties.getProperty("file", "");
 	std::string streamName = properties.getProperty("stream", "");
 	
+	bool positional = TGen::lexical_cast<bool>(properties.getProperty("positional", "false"));
+	bool threedee = positional;
+	bool hardware = false;
+	bool loop = TGen::lexical_cast<bool>(properties.getProperty("loop", "false"));
+	
+	
+	
 	FMOD::Sound * sound;
 	FMOD_RESULT result;
+	FMOD_MODE flags = FMOD_INIT_3D_RIGHTHANDED;
+	
+	/*if (hardware)
+		flags |= FMOD_HARDWARE;
+	else
+		flags |= FMOD_SOFTWARE;
+	*/
+	
+	if (threedee)
+		flags |= FMOD_3D;
+	else
+		flags |= FMOD_2D;
+	
+	if (loop)
+		flags |= FMOD_LOOP_NORMAL;
+	else
+		flags |= FMOD_LOOP_OFF;
+	
 	
 	if (!fileName.empty())
-		result = fmodSystem->createSound(fileName.c_str(), FMOD_DEFAULT, 0, &sound);
+		result = fmodSystem->createSound(fileName.c_str(), flags, 0, &sound);
 	else if (!streamName.empty())
-		result = fmodSystem->createStream(streamName.c_str(), FMOD_DEFAULT, 0, &sound);
+		result = fmodSystem->createStream(streamName.c_str(), flags, 0, &sound);
 	else
 		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "no file or stream specified");
 	
 	if (result != FMOD_OK)
 		throw TGen::RuntimeException("Sound::Subsystem::createComponent", FMOD_ErrorString(result));
 	
-	/*FMOD::Channel * channel;
-	result = fmodSystem->playSound(FMOD_CHANNEL_FREE, sound, false, &channel);
-
-	if (result != FMOD_OK)
-		throw TGen::RuntimeException("BOOOOOOOM", "BAAAAM");
-	*/
+	if (positional) {
+		sound->set3DMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
+											TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
+	}
 	
-	TGen::Engine::Sound::SoundSource * newSource(new TGen::Engine::Sound::SoundSource(name, sound));
+	TGen::Engine::Sound::SoundSource * newSource(new TGen::Engine::Sound::SoundSource(name, sound, *this, properties.getProperty("link", "sceneNode")));
+	
+	newSource->setSingleChannel(TGen::lexical_cast<bool>(properties.getProperty("singleChannel", "false")));
+	
+	if (TGen::lexical_cast<bool>(properties.getProperty("play", "true")))
+		newSource->play();
 	
 	soundSources.push_back(newSource);
 	
@@ -82,19 +115,49 @@ void TGen::Engine::Sound::Subsystem::update(scalar dt) {
 	for (SoundSourceList::iterator iter = soundSources.begin(); iter != soundSources.end(); ++iter) {
 		(*iter)->update(dt);
 	}
+	
+	fmodSystem->update();
 }
 
+FMOD::System * TGen::Engine::Sound::Subsystem::getFmodSystem() {
+	return fmodSystem;
+}
 
+void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up) {
+	FMOD_VECTOR p, v, f, u;
+	p.x = position.x;
+	p.y = position.y;
+	p.z = position.z;
+	
+	v.x = velocity.x;
+	v.y = velocity.y;
+	v.z = velocity.z;
+	
+	f.x = forward.x;
+	f.y = forward.y;
+	f.z = forward.z;
+	
+	u.x = forward.x;
+	u.y = forward.y;
+	u.z = forward.z;
+	
+	fmodSystem->set3DListenerAttributes(0, &p, &v, &f, &u);
+}
 
 
 FMOD_RESULT F_CALLBACK TGen::Engine::Sound::Subsystem::openCallback(const char * name, int unicode, unsigned int * filesize, void ** handle, void ** userdata) {	
 	if (!filesystem)
 		throw TGen::RuntimeException("Sound::Subsystem::openCallback", "no filesystem! I hate globals.");
 	
-	TGen::Engine::File * file(filesystem->openRead(name));
+	try {
+		TGen::Engine::File * file(filesystem->openRead(name));
 	
-	*reinterpret_cast<TGen::Engine::File **>(handle) = file;
-	*filesize = file->getSize();
+		*reinterpret_cast<TGen::Engine::File **>(handle) = file;
+		*filesize = file->getSize();
+	}
+	catch (...) {
+		return FMOD_ERR_FILE_NOTFOUND;
+	}
 	
 	return FMOD_OK;
 }

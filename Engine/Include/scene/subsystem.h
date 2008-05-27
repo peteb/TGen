@@ -55,6 +55,8 @@ namespace TGen {
 				
 				typedef std::map<std::string, TGen::Engine::Scene::Node *> ComponentMap;
 				ComponentMap components;
+				
+				std::vector<TGen::Engine::Scene::Node *> nodes;
 			};
 		} // !Scene
 	} // !Engine

@@ -21,6 +21,10 @@ namespace TGen {
 			class Body;
 		}
 		
+		namespace Scene {
+			class Node;
+		}
+		
 		namespace Controller {
 			class FirstPerson : public TGen::Engine::PlayerController {
 			public:
@@ -30,9 +34,12 @@ namespace TGen {
 				void linkLocally(TGen::Engine::Entity & entity);
 				void update(scalar dt);
 				void setDeltaPlane(scalar speed);
+				TGen::Vector3 getVelocity() const;
+				TGen::Vector3 getPosition() const;
+				TGen::Rotation getOrientation() const;		
 				
 			private:
-				TGen::SceneNode * node;		// IMPL
+				TGen::Engine::Scene::Node * node;		// IMPL
 				TGen::SceneNode * viewNode;
 				TGen::Engine::Physics::Body * controlBody;
 				

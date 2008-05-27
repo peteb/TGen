@@ -13,6 +13,7 @@
 #include <tgen_core.h>
 #include <tgen_math.h>
 #include "component.h"
+#include "componentinterfaces.h"
 
 namespace TGen {
 	class Camera;
@@ -26,7 +27,7 @@ namespace TGen {
 		};
 		
 		
-		class PlayerController : public TGen::Engine::Component {
+		class PlayerController : public TGen::Engine::Component, public TGen::Engine::ObjectInterface {
 		public:
 			PlayerController(const std::string & name);
 			virtual ~PlayerController();
@@ -41,6 +42,10 @@ namespace TGen {
 			virtual void linkLocally(TGen::Engine::Entity & entity);
 			virtual void update(scalar dt) abstract;
 			virtual bool useRelativeView() const {return true; }
+
+			virtual TGen::Vector3 getVelocity() const;
+			virtual TGen::Vector3 getPosition() const;
+			virtual TGen::Rotation getOrientation() const;		
 			
 		protected:
 			bool isEventInitial(int id) const;

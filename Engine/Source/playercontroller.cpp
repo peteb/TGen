@@ -109,3 +109,17 @@ void TGen::Engine::PlayerController::addViewDelta(const TGen::Vector3 & view) {
 TGen::Vector3 TGen::Engine::PlayerController::checkViewAbs() {
 	return viewAbs;
 }
+
+TGen::Vector3 TGen::Engine::PlayerController::getVelocity() const {
+	return TGen::Vector3::Zero;
+}
+
+TGen::Vector3 TGen::Engine::PlayerController::getPosition() const {
+	return TGen::Vector3::Zero;
+}
+
+TGen::Rotation TGen::Engine::PlayerController::getOrientation() const {
+	return TGen::Rotation::Identity;	
+}
+
+

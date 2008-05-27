@@ -16,18 +16,33 @@
 
 namespace TGen {
 	namespace Engine {
+		class ObjectInterface;
+		
 		namespace Sound {
+			class Subsystem;
+			
 			class SoundSource : public TGen::Engine::Component {
 			public:
-				SoundSource(const std::string & name, FMOD::Sound * sound);
+				SoundSource(const std::string & name, FMOD::Sound * sound, TGen::Engine::Sound::Subsystem & subsystem, const std::string & linkWith);
 				~SoundSource();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities);		
 				void update(scalar dt);
+				void play();
+				void setSingleChannel(bool single);
 				
 			private:
+				void spawnChannel();
+				
 				FMOD::Sound * sound;
+				TGen::Engine::Sound::Subsystem & subsystem;
+				TGen::Engine::ObjectInterface * track;
+				
+				bool shouldPlay, isPlaying, singleChannel;
+				std::string linkWith;
+				
+				std::vector<FMOD::Channel *> channels;
 			};
 		} // !Sound		
 	} // !Engine

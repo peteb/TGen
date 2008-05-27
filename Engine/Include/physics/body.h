@@ -11,6 +11,8 @@
 #define _TGEN_ENGINE_PHYSICS_BODY_H
 
 #include "component.h"
+#include "componentinterfaces.h"
+
 #include <tgen_math.h>
 #include <ode/ode.h>
 
@@ -30,7 +32,7 @@ namespace TGen {
 		namespace Physics {
 			class Subsystem;
 		
-			class Body : public TGen::Engine::Component {
+			class Body : public TGen::Engine::Component, public TGen::Engine::ObjectInterface {
 			public:
 				Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId);
 				~Body();
@@ -43,8 +45,8 @@ namespace TGen {
 				void setPosition(const TGen::Vector3 & position);
 				TGen::Vector3 getPosition() const;
 				
-				void setOrientation(const TGen::Matrix3x3 & orientation);
-				TGen::Matrix3x3 getOrientation() const;
+				void setOrientation(const TGen::Rotation & orientation);
+				TGen::Rotation getOrientation() const;
 				
 				dWorldID getWorldId();
 				dSpaceID getSpaceId();
@@ -59,6 +61,9 @@ namespace TGen {
 				void addForce(const TGen::Vector3 & force);
 				TGen::Vector3 getLinearVelocity() const;
 
+				
+				// interfaces
+				TGen::Vector3 getVelocity() const;
 				
 				
 				void setOnFloor(bool onFloor);

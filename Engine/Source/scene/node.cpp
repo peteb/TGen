@@ -8,6 +8,7 @@
  */
 
 #include "scene/node.h"
+#include <tgen_renderer.h>
 
 TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * sceneNode) 
 	: TGen::Engine::Component(name)
@@ -22,6 +23,23 @@ TGen::Engine::Scene::Node::~Node() {
 
 TGen::SceneNode * TGen::Engine::Scene::Node::getSceneNode() {
 	return sceneNode;
+}
+
+TGen::Vector3 TGen::Engine::Scene::Node::getPosition() const {
+	return sceneNode->getWorldPosition();
+}
+
+TGen::Rotation TGen::Engine::Scene::Node::getOrientation() const {
+	return sceneNode->getWorldOrientation();
+}
+
+TGen::Vector3 TGen::Engine::Scene::Node::getVelocity() const {
+	return velocity;
+}
+
+void TGen::Engine::Scene::Node::update(scalar dt) {
+	velocity = (sceneNode->getWorldPosition() - lastPos) / dt;
+	lastPos = sceneNode->getWorldPosition();
 }
 
 /*

@@ -45,6 +45,7 @@ namespace TGen {
 			
 			void prepareLists(TGen::Camera * camera);
 			
+			void updateListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up);
 			void update(scalar dt);
 			
 		private:
