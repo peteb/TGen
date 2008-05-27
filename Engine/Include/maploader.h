@@ -29,13 +29,13 @@ namespace TGen {
 			TGen::Engine::Map * createMap(const std::string & name, const std::string & filename, const TGen::VertexTransformer & transformer);
 			
 		private:
-			void parseGlobalBlock(TGen::Engine::Map * map);
-			void parseNodesBlock(TGen::Engine::Map * map);
-			void parseIAPBlock(TGen::Engine::Map * map);
+			void parseGlobalBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer);
+			void parseNodesBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer);
+			void parseIAPBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer);
 
-			TGen::Engine::MapModel * parseModelBlock(TGen::Engine::Map * map);
-			TGen::Engine::MapSurface * parseSurfaceBlock();
-			TGen::Engine::MapSurface::VertexDecl::Type parseVertex();
+			TGen::Engine::MapModel * parseModelBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer);
+			TGen::Engine::MapSurface * parseSurfaceBlock(const TGen::VertexTransformer & transformer);
+			TGen::Engine::MapSurface::VertexDecl::Type parseVertex(const TGen::VertexTransformer & transformer);
 			
 			void step();
 			void checkEOS();			

@@ -49,8 +49,8 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	modelRendered.clear();
 	
 	if (!leafNode) {
-		for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter)
-			iter->second->fillFaces(list, iter->second->getOverridingMaterial(), this);
+		//for (ModelMap::const_iterator iter = models.begin(); iter != models.end(); ++iter)
+		//	iter->second->fillFaces(list, iter->second->getOverridingMaterial(), this);
 	}
 	else {
 		TGen::Engine::MapModel * leaf = leafNode->getModel();
@@ -165,7 +165,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 	//	if (discardZ)
 		//	portal->open = false;
 		
-		if (portal->open) {
+		/*if (portal->open) {
 			//std::cout << "OPEN: " << std::string(portalRect) << std::endl;
 
 			//std::cout << std::string(portalRect) << std::endl;
@@ -185,7 +185,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 		}
 		else {
 			//std::cout << "CLOSED: " << std::string(portalRect) << " IN " << std::string(clipRect) <<  std::endl;
-		}
+		}*/
 	}
 	
 	TGen::Material * mat = leaf->getOverridingMaterial();

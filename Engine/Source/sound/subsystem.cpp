@@ -141,9 +141,11 @@ void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position,
 	u.y = forward.y;
 	u.z = forward.z;
 	
+	//std::cout << "vel: " << velocity.getMagnitude() << " m/s (" << velocity.getMagnitude() * 3.6 << " km/h) pos: " << std::string(position) << std::endl;
 	fmodSystem->set3DListenerAttributes(0, &p, &v, &f, &u);
 }
 
+// TODO: skala om portalvärldar, styr upp fysiken
 
 FMOD_RESULT F_CALLBACK TGen::Engine::Sound::Subsystem::openCallback(const char * name, int unicode, unsigned int * filesize, void ** handle, void ** userdata) {	
 	if (!filesystem)

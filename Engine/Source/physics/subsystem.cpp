@@ -8,7 +8,6 @@
  */
 
 #include "physics/subsystem.h"
-#include "log.h"
 #include "physics/body.h"
 #include "physics/joint.h"
 #include "physics/planegeom.h"
@@ -19,8 +18,14 @@
 #include "physics/meshgeom.h"
 #include "physics/id4cmgeom.h"
 #include "physics/id4cmloader.h"
+
+#include "generateline.h"
+#include "log.h"
+#include "transformerfactory.h"
+
 #include <ode/ode.h>
 #include <tgen_math.h>
+#include <tgen_renderer.h>
 
 //dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
@@ -149,8 +154,13 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	}
 	else if (geomType == "id4cm") {
 		TGen::Engine::Physics::Id4CMLoader loader(filesystem);
-	
-		newGeom.reset(loader.createGeom(name, properties.getProperty("model", ""), mainSpace));
+		TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
+		TGen::Engine::TransformerFactory transFactory;
+		
+		TGen::VertexTransformList transformers;
+		transformers.addTransformer(transFactory.createTransformers(line));
+		
+		newGeom.reset(loader.createGeom(name, line.getName(), transformers, mainSpace));
 	}
 	
 	if (!newGeom.get())

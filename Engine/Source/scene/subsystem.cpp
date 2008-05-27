@@ -17,6 +17,8 @@
 #include "light.h"
 #include "map.h"
 #include "maploader.h"
+#include "generateline.h"
+#include "transformerfactory.h"
 
 TGen::Engine::Scene::Subsystem::Subsystem(TGen::Engine::ResourceManager & resources, TGen::Engine::Filesystem & filesystem, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource)
 	: sceneRoot("root")
@@ -173,11 +175,19 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::MapLoader loader(logs, filesystem);
-	std::string modelName = properties.getProperty("model", "");
-	TGen::Vector3 origin = TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0"));
-	TGen::VertexOffsetter offsetter(origin);
 	
-	TGen::Engine::Map * map = loader.createMap(name, modelName, offsetter);
+	TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
+
+	std::string modelName = line.getName();
+	TGen::Vector3 origin = TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0"));
+	
+	TGen::Engine::TransformerFactory transFactory;
+	
+	TGen::VertexTransformList transformers;
+	//transformers.addTransformer(new TGen::VertexOffsetter(origin));
+	transformers.addTransformer(transFactory.createTransformers(line));
+	
+	TGen::Engine::Map * map = loader.createMap(name, modelName, transformers);
 	map->instantiate(dataSource);
 	map->linkMaterial(resources);
 	

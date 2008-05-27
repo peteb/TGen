@@ -39,13 +39,13 @@ TGen::Engine::Map * TGen::Engine::MapLoader::createMap(const std::string & name,
 	
 	std::auto_ptr<TGen::Engine::Map> newMap(new TGen::Engine::Map(name, origin));
 	
-	parseGlobalBlock(newMap.get());
+	parseGlobalBlock(newMap.get(), transformer);
 	
 	
 	return newMap.release();
 }
 
-void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
+void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer) {
 	if (currentToken == endIter)
 		throw TGen::RuntimeException("MapLoader::parseGlobalBlock", "no tokens!");
 	
@@ -61,7 +61,7 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 				throw TGen::RuntimeException("MapLoader::parseGlobalBlock", "model: no block start!");
 			
 			stepAndCheck();
-			map->addModel(parseModelBlock(map));
+			map->addModel(parseModelBlock(map, transformer));
 		}
 		else if (currentToken->first == TGen::Engine::ProcTokenIAP) {
 			stepAndCheck();
@@ -69,7 +69,7 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 				throw TGen::RuntimeException("ProcParser::parseGlobalBlock", "iap: no block start!");
 			
 			stepAndCheck();
-			parseIAPBlock(map);
+			parseIAPBlock(map, transformer);
 		}
 		else if (currentToken->first == TGen::Engine::ProcTokenNodes) {
 			stepAndCheck();
@@ -77,7 +77,7 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 				throw TGen::RuntimeException("ProcParser::parseGlobalBlock", "nodes: no block start!");
 			
 			stepAndCheck();
-			parseNodesBlock(map);
+			parseNodesBlock(map, transformer);
 		}
 		else {
 			
@@ -88,7 +88,7 @@ void TGen::Engine::MapLoader::parseGlobalBlock(TGen::Engine::Map * map) {
 	}	
 }
 
-TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::Map * map) {
+TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer) {
 	std::string modelName = currentToken->second; stepAndCheck();
 	std::string surfaceCount = currentToken->second; stepAndCheck();
 	
@@ -101,7 +101,7 @@ TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenBlockStart) {
 			stepAndCheck();
-			model->addSurface(parseSurfaceBlock());
+			model->addSurface(parseSurfaceBlock(transformer));
 			surfacesAdded++;
 			//std::cout << "added surf" << std::endl;
 		}
@@ -120,7 +120,7 @@ TGen::Engine::MapModel * TGen::Engine::MapLoader::parseModelBlock(TGen::Engine::
 	throw TGen::RuntimeException("MapLoader::parseModelBlock", "unexpected end");	
 }
 
-void TGen::Engine::MapLoader::parseIAPBlock(TGen::Engine::Map * map) {
+void TGen::Engine::MapLoader::parseIAPBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer) {
 	std::string numAreas = currentToken->second; stepAndCheck();
 	std::string numIAP = currentToken->second; stepAndCheck();
 	
@@ -160,8 +160,10 @@ void TGen::Engine::MapLoader::parseIAPBlock(TGen::Engine::Map * map) {
 				if (currentToken->first != ProcTokenArrayEnd)
 					throw TGen::RuntimeException("MapLoader::parseIAPBlock", "expecting array end, not " + currentToken->second + "!");
 				
+				TGen::Vector3 point(TGen::lexical_cast<scalar>(x), TGen::lexical_cast<scalar>(y), TGen::lexical_cast<scalar>(z));
+				transformer.transform(point);
 				
-				portal->addPoint(TGen::Vector3(TGen::lexical_cast<scalar>(x), TGen::lexical_cast<scalar>(z), TGen::lexical_cast<scalar>(y)) * 0.05);			
+				portal->addPoint(point);			
 			}
 			
 			stepAndCheck();
@@ -176,7 +178,7 @@ void TGen::Engine::MapLoader::parseIAPBlock(TGen::Engine::Map * map) {
 }
 
 
-TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
+TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock(const TGen::VertexTransformer & transformer) {
 	std::string materialName = currentToken->second; stepAndCheck();
 	std::string numVerts = currentToken->second; stepAndCheck();
 	std::string numIndices = currentToken->second; stepAndCheck();
@@ -188,7 +190,7 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenArrayStart) {
-			surface->addVertex(parseVertex());
+			surface->addVertex(parseVertex(transformer));
 			vertsAdded++;
 		}
 		else if (currentToken->first == TGen::TokenValueNumeric) {
@@ -214,7 +216,7 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock() {
 	throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "unexpected end");	
 }
 
-void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map) {
+void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map, const TGen::VertexTransformer & transformer) {
 	std::string numNodes = currentToken->second; stepAndCheck();
 	
 	TGen::Engine::MapLinkNode * rootNode = NULL;
@@ -234,7 +236,21 @@ void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map) {
 			std::string positiveChild = currentToken->second; stepAndCheck();
 			std::string negativeChild = currentToken->second;
 			
-			TGen::Plane3 plane(TGen::Vector3(TGen::lexical_cast<scalar>(x), TGen::lexical_cast<scalar>(z), TGen::lexical_cast<scalar>(y)), TGen::lexical_cast<scalar>(d) * 0.05);
+			TGen::Vector3 normal(TGen::lexical_cast<scalar>(x),
+										TGen::lexical_cast<scalar>(y),
+										TGen::lexical_cast<scalar>(z));
+			
+			TGen::Vector3 distance(TGen::lexical_cast<scalar>(d), 0.0f, 0.0f);
+			
+			scalar sign = (TGen::lexical_cast<scalar>(d) < 0.0 ? -1.0 : 1.0);
+			
+			transformer.transform(normal);
+			transformer.transform(distance);
+
+			normal.normalize();
+			
+			TGen::Plane3 plane(normal, distance.getMagnitude() * sign);
+						
 			int posChild = TGen::lexical_cast<int>(positiveChild);
 			int negChild = TGen::lexical_cast<int>(negativeChild);
 			
@@ -273,7 +289,7 @@ void TGen::Engine::MapLoader::parseNodesBlock(TGen::Engine::Map * map) {
 	}
 }
 
-TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex() {
+TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex(const TGen::VertexTransformer & transformer) {
 	TGen::Engine::MapSurface::VertexDecl::Type vertex;
 		
 	if (currentToken->first != ProcTokenArrayStart)
@@ -281,37 +297,42 @@ TGen::Engine::MapSurface::VertexDecl::Type TGen::Engine::MapLoader::parseVertex(
 	
 	std::string x, y, z, u, v, nx, ny, nz;
 	stepAndCheck();
-	x = currentToken->second;
-	stepAndCheck();
-	y = currentToken->second;
-	stepAndCheck();
-	z = currentToken->second;
-	stepAndCheck();
-	u = currentToken->second;
-	stepAndCheck();
-	v = currentToken->second;
-	stepAndCheck();
-	nx = currentToken->second;
-	stepAndCheck();
-	ny = currentToken->second;
-	stepAndCheck();
-	nz = currentToken->second;
-	stepAndCheck();
+	x = currentToken->second; stepAndCheck();
+	y = currentToken->second; stepAndCheck();
+	z = currentToken->second; stepAndCheck();
+	u = currentToken->second; stepAndCheck();
+	v = currentToken->second; stepAndCheck();
+	nx = currentToken->second; stepAndCheck();
+	ny = currentToken->second; stepAndCheck();
+	nz = currentToken->second; stepAndCheck();
 		
 	if (currentToken->first != ProcTokenArrayEnd)
 		throw TGen::RuntimeException("ProcParser::parseVertex", "invalid vertex, must end with array end");
 	
 	//stepAndCheck();
 
-	//std::cout << "x: " + x + " y: " + y + " z: " + z + " u: " + u + " v: " + v + " nx: " + nx + " ny: " + ny + " nz: " + nz << std::endl;
-	vertex.MapSurface::Vertex::Type::x = TGen::lexical_cast<float>(x) * 0.05;
-	vertex.MapSurface::Vertex::Type::y = TGen::lexical_cast<float>(z) * 0.05;
-	vertex.MapSurface::Vertex::Type::z = TGen::lexical_cast<float>(y) * 0.05;
+	TGen::Vector3 coord(TGen::lexical_cast<scalar>(x), 
+							  TGen::lexical_cast<scalar>(y), 
+							  TGen::lexical_cast<scalar>(z));
+	
+	TGen::Vector3 normal(TGen::lexical_cast<scalar>(nx),
+								TGen::lexical_cast<scalar>(ny),
+								TGen::lexical_cast<scalar>(nz));
+	
+	transformer.transform(coord);
+	transformer.transform(normal);
+	
+	normal.normalize();  // transformer might scale the normal, we do this to fix that
+	
+
+	vertex.MapSurface::Vertex::Type::x = coord.x; //TGen::lexical_cast<float>(x) * 0.05;
+	vertex.MapSurface::Vertex::Type::y = coord.y; //TGen::lexical_cast<float>(z) * 0.05;
+	vertex.MapSurface::Vertex::Type::z = coord.z; //TGen::lexical_cast<float>(y) * 0.05;
 	vertex.MapSurface::TexCoord::Type::u = TGen::lexical_cast<float>(u);
 	vertex.MapSurface::TexCoord::Type::v = TGen::lexical_cast<float>(v);
-	vertex.MapSurface::Normal::Type::nx = TGen::lexical_cast<float>(nx);
-	vertex.MapSurface::Normal::Type::ny = TGen::lexical_cast<float>(nz);
-	vertex.MapSurface::Normal::Type::nz = TGen::lexical_cast<float>(ny);
+	vertex.MapSurface::Normal::Type::nx = normal.x; //TGen::lexical_cast<float>(nx);
+	vertex.MapSurface::Normal::Type::ny = normal.y; //TGen::lexical_cast<float>(nz);
+	vertex.MapSurface::Normal::Type::nz = normal.z; //TGen::lexical_cast<float>(ny);
 	vertex.MapSurface::Tangent::Type::x = 0.0;
 	vertex.MapSurface::Tangent::Type::y = 0.0;
 	vertex.MapSurface::Tangent::Type::z = 0.0;

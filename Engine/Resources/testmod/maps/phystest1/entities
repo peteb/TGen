@@ -769,7 +769,7 @@ class phys_cam {
 	sceneNode CamHead {
 		treePosition "player_start/"
 		globalName "camhead"
-		origin "0 1.3 0"
+		origin "0 0.5 0"
 	}
 	
 	sceneCamera HeadCam {		// definiera kameran "HeadCam"
@@ -812,8 +812,8 @@ class phys_cam {
 	physGeom {
 		type bipedal
 		friction 90.0
-		capRadius 1.0
-		length 2
+		capRadius 0.5
+		length 1.3
 	}
 		
 
@@ -821,9 +821,9 @@ class phys_cam {
 	controller {				// controller component
 		type firstperson
 
-		deltaPlane 	88000.0
+		deltaPlane 	38000.0
 
-		jumpForce 1500000
+		jumpForce 450000
 		jumpTime 0.03 //0.2
 		airControl 0.15
 		
@@ -843,18 +843,52 @@ player_start extends phys_cam {
 }
 
 testmap2 {
+	
+	sceneNode {
+		origin "-40 -43 -60"
+	
+		globalName "transbase"
+	}
+	
+	sceneTransform transsine {
+		/*transPosition {
+			type sine
+			axis "0 1 0"
+			phase 0
+			amplitude 0.04
+			frequency 20
+		}*/
+	
+		/*transOrientation {
+			type const
+			axis "0 1 0"
+			base 0
+			frequency 0.1
+			amplitude 1
+			
+			relative false
+		}*/
+		
+		treePosition "transbase"
+		globalName "transsine"
+	}
+	
+	// TODO: snurren snurrar inte fysiken!
+	
+
 	sceneMap {
 		//  "maps/phystest1/omega1.proc"   //
-		model "maps/phystest1/corrids.proc"     // "maps/phystest1/demo_mars_city1.proc"
+		model "maps/phystest1/corrids.proc preset idtech scale 0.03"     // "maps/phystest1/demo_mars_city1.proc"
 		//model "maps/phystest1/demo_mars_city1.proc"
 		
+		treePosition "transbase/transsine"
 		//origin "-27 -51 8"
-		origin "-40 -43 -60"
 	}
+
 
 	physGeom {
 		type id4cm
-		model "maps/phystest1/corrids.cm"
+		model "maps/phystest1/corrids.cm preset idtech scale 0.03"
 		//model "maps/phystest1/demo_mars_city1.cm"
 		
 		link sceneMap
@@ -923,7 +957,7 @@ class stackedbox {
 			dimensions "0.95 0.8 1.15"
 		}
 		
-		gravity false
+		gravity true
 	}
 	
 	physGeom {
@@ -941,6 +975,20 @@ class stackedbox {
 		singleChannel true
 		positional true
 		link physBody
+	}
+}
+
+shitty {
+	sceneNode {
+		origin "-38 -42.5 -60"
+		model "gen:cube width 1.0 height 1.0 depth 1.0"
+	}
+}
+
+shitty2 {
+	sceneNode {
+		origin "-38 -41.5 -61"
+		model "gen:cube width 1.0 height 1.0 depth 1.0"
 	}
 }
 

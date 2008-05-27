@@ -21,7 +21,7 @@ TGen::Engine::ModelFactory::ModelFactory(TGen::Engine::Filesystem & filesystem)
 }
 
 TGen::NewModel * TGen::Engine::ModelFactory::createModel(const TGen::Engine::GenerateLine & line, TGen::VertexDataSource & dataSource) {
-	std::auto_ptr<TGen::NewModel> newModel(NULL);
+	std::auto_ptr<TGen::NewModel> newModel;
 	
 	TGen::VertexTransformList transformers;
 	

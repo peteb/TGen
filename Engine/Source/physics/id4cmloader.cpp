@@ -14,6 +14,7 @@
 #include "filesystem.h"
 #include "file.h"
 #include "ectriangulator.h"
+#include <tgen_renderer.h>
 
 using TGen::Engine::Physics::StridedVertex;
 using TGen::Engine::Physics::StridedTriangle;
@@ -23,7 +24,7 @@ TGen::Engine::Physics::Id4CMLoader::Id4CMLoader(TGen::Engine::Filesystem & files
 {
 }
 
-TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeom(const std::string & name, const std::string & path, dSpaceID space) {
+TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeom(const std::string & name, const std::string & path, const TGen::VertexTransformer & transformer, dSpaceID space) {
 	std::auto_ptr<TGen::Engine::File> file(filesystem.openRead(path));
 	
 	TGen::Engine::Physics::Id4CMTokenizer tokenizer;
@@ -40,7 +41,10 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 	
 	for (int i = 0; i < vertices.size(); ++i) {
 		StridedVertex vertex;
-		TGen::Vector3 coord = TGen::Vector3(vertices[i].x, vertices[i].z, vertices[i].y) * 0.05;
+		TGen::Vector3 coord = TGen::Vector3(vertices[i].x, vertices[i].y, vertices[i].z);
+		
+		transformer.transform(coord);
+		
 		vertex.vertex[0] = coord.x;
 		vertex.vertex[1] = coord.y;
 		vertex.vertex[2] = coord.z;

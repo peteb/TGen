@@ -1,0 +1,32 @@
+/*
+ *  transformerfactory.cpp
+ *  TGen Engine
+ *
+ *  Created by Peter Backman on 5/27/08.
+ *  Copyright 2008 Peter Backman. All rights reserved.
+ *
+ */
+
+#include "transformerfactory.h"
+#include "generateline.h"
+#include <tgen_renderer.h>
+
+TGen::VertexTransformList * TGen::Engine::TransformerFactory::createTransformers(const TGen::Engine::GenerateLine & line) const {
+	std::auto_ptr<TGen::VertexTransformList> transformers(new TGen::VertexTransformList);
+	
+	for (TGen::Engine::GenerateLine::ParameterMap::const_iterator iter = line.getParameters().begin(); iter != line.getParameters().end(); ++iter) {
+		if (iter->first == "scale") {
+			transformers->addTransformer(new TGen::VertexScaler(TGen::lexical_cast<scalar>(iter->second)));
+		}
+		else if (iter->first == "preset") {
+			if (iter->second == "q3" || iter->second == "idtech") {
+				transformers->addTransformer(new TGen::VertexSwapper(TGen::VertexSwapper::Y_AXIS, TGen::VertexSwapper::Z_AXIS));
+			}
+			else {
+				throw TGen::RuntimeException("TransformerFactory::createTransformers", "invalid component transform preset: '" + iter->second + "'");
+			}
+		}
+	}
+	
+	return transformers.release();
+}

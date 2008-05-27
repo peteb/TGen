@@ -77,6 +77,7 @@
 		D08F3D840DEB3E0E0051EDD6 /* libfmodex.dylib in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */; };
 		D08F3DA70DEB41CB0051EDD6 /* libfmodex.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */; };
 		D08F3FCA0DEB5CE90051EDD6 /* soundsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */; };
+		D08F456E0DEC4C830051EDD6 /* transformerfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08F456D0DEC4C830051EDD6 /* transformerfactory.cpp */; };
 		D09330AC0D79FD7D0046DC37 /* planegeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09330AB0D79FD7D0046DC37 /* planegeom.cpp */; };
 		D09332230D79FFFF0046DC37 /* spheregeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeom.cpp */; };
 		D09336480D7AF9CA0046DC37 /* boxgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeom.cpp */; };
@@ -364,6 +365,8 @@
 		D08F3FC80DEB5CDE0051EDD6 /* soundsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundsource.h; path = ../../Include/sound/soundsource.h; sourceTree = SOURCE_ROOT; };
 		D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = soundsource.cpp; path = sound/soundsource.cpp; sourceTree = "<group>"; };
 		D08F41630DEB67F90051EDD6 /* componentinterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentinterfaces.h; path = ../../Include/componentinterfaces.h; sourceTree = SOURCE_ROOT; };
+		D08F456C0DEC4C780051EDD6 /* transformerfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = transformerfactory.h; path = ../../Include/transformerfactory.h; sourceTree = SOURCE_ROOT; };
+		D08F456D0DEC4C830051EDD6 /* transformerfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = transformerfactory.cpp; sourceTree = "<group>"; };
 		D09330AA0D79FD7D0046DC37 /* planegeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = planegeom.h; path = ../../Include/physics/planegeom.h; sourceTree = SOURCE_ROOT; };
 		D09330AB0D79FD7D0046DC37 /* planegeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = planegeom.cpp; path = physics/planegeom.cpp; sourceTree = "<group>"; };
 		D09332220D79FFFF0046DC37 /* spheregeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = spheregeom.cpp; path = physics/spheregeom.cpp; sourceTree = "<group>"; };
@@ -642,6 +645,8 @@
 			children = (
 				D048B94C0CE743F700607EBA /* meshes */,
 				D00449C80D9AA2B800EEBC00 /* models */,
+				D08F456D0DEC4C830051EDD6 /* transformerfactory.cpp */,
+				D08F456C0DEC4C780051EDD6 /* transformerfactory.h */,
 				D0EF62B90C82DFFE0085C17B /* variable.cpp */,
 				D0EF62BA0C82DFFE0085C17B /* variable.h */,
 				D0EF62DF0C82E08F0085C17B /* variableregister.cpp */,
@@ -1300,6 +1305,7 @@
 				D01710E80DE9ABCC007380B9 /* nodetransformer.cpp in Sources */,
 				D08F3CF90DEB3AFB0051EDD6 /* subsystem.cpp in Sources */,
 				D08F3FCA0DEB5CE90051EDD6 /* soundsource.cpp in Sources */,
+				D08F456E0DEC4C830051EDD6 /* transformerfactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

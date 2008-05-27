@@ -17,6 +17,8 @@
 #include <ode/ode.h>
 
 namespace TGen {
+	class VertexTransformer;
+	
 	namespace Engine {
 		class Filesystem;
 		
@@ -27,7 +29,7 @@ namespace TGen {
 			public:
 				Id4CMLoader(TGen::Engine::Filesystem & filesystem);
 				
-				TGen::Engine::Physics::Id4CMGeom * createGeom(const std::string & name, const std::string & path, dSpaceID space);
+				TGen::Engine::Physics::Id4CMGeom * createGeom(const std::string & name, const std::string & path, const TGen::VertexTransformer & transformer, dSpaceID space);
 				
 			private:
 				void parseGlobalBlock();
