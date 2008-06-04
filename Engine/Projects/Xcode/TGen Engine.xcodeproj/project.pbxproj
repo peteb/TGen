@@ -93,6 +93,8 @@
 		D0A310FD0DF4A8490007A749 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A310FC0DF4A8490007A749 /* sound.cpp */; };
 		D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
+		D0B4212B0DF730C2004AB272 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D0B4208E0DF730C2004AB272 /* base */; };
+		D0B4212C0DF730C2004AB272 /* testmod in Resources */ = {isa = PBXBuildFile; fileRef = D0B420AB0DF730C2004AB272 /* testmod */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
@@ -422,6 +424,8 @@
 		D0AA645A0D78696600CC5091 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
+		D0B4208E0DF730C2004AB272 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
+		D0B420AB0DF730C2004AB272 /* testmod */ = {isa = PBXFileReference; lastKnownFileType = folder; name = testmod; path = ../../Resources/testmod; sourceTree = SOURCE_ROOT; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
 		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/renderer/lightlist.h; sourceTree = "<group>"; };
@@ -566,6 +570,8 @@
 		20286C2CFDCF999611CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D0B4208E0DF730C2004AB272 /* base */,
+				D0B420AB0DF730C2004AB272 /* testmod */,
 				D062301D0D807636003A31A0 /* Graphics.png */,
 				D0622ECE0D806C45003A31A0 /* Displays.icns */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
@@ -1200,6 +1206,8 @@
 				D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */,
 				D062301E0D807636003A31A0 /* Graphics.png in Resources */,
 				D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */,
+				D0B4212B0DF730C2004AB272 /* base in Resources */,
+				D0B4212C0DF730C2004AB272 /* testmod in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1419,7 +1427,9 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				SDKROOT = macosx10.5;
 				ZERO_LINK = YES;
 			};
@@ -1437,6 +1447,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
+				LINK_WITH_STANDARD_LIBRARIES = YES;
 				SDKROOT = macosx10.5;
 				SEPARATE_STRIP = YES;
 			};
