@@ -43,8 +43,6 @@
 		D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = D062304D0D807DBA003A31A0 /* Statistics.xib */; };
 		D0637CEF0DB556F700FD1DC4 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */; };
 		D07147A80D68592A00842110 /* metacreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07147A70D68592A00842110 /* metacreator.cpp */; };
-		D073D19C0D419BBC00D3C858 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D073D19A0D419BBC00D3C858 /* base */; };
-		D073D1B50D419E5F00D3C858 /* testmod in Resources */ = {isa = PBXBuildFile; fileRef = D073D1B20D419E5F00D3C858 /* testmod */; };
 		D07407FF0D32C86A00735304 /* inputdevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07407FE0D32C86A00735304 /* inputdevice.cpp */; };
 		D07408020D32CA1F00735304 /* sdlkeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408010D32CA1F00735304 /* sdlkeyboard.cpp */; };
 		D07408510D32CD7300735304 /* devicecollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408500D32CD7300735304 /* devicecollection.cpp */; };
@@ -301,8 +299,6 @@
 		D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = controller/subsystem.cpp; sourceTree = "<group>"; };
 		D07147A60D68592100842110 /* metacreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metacreator.h; path = ../../Include/metacreator.h; sourceTree = SOURCE_ROOT; };
 		D07147A70D68592A00842110 /* metacreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metacreator.cpp; sourceTree = "<group>"; };
-		D073D19A0D419BBC00D3C858 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
-		D073D1B20D419E5F00D3C858 /* testmod */ = {isa = PBXFileReference; lastKnownFileType = folder; name = testmod; path = ../../Resources/testmod; sourceTree = SOURCE_ROOT; };
 		D07407FD0D32C7E100735304 /* inputdevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputdevice.h; path = ../../Include/inputdevice.h; sourceTree = SOURCE_ROOT; };
 		D07407FE0D32C86A00735304 /* inputdevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inputdevice.cpp; sourceTree = "<group>"; };
 		D07408000D32CA1300735304 /* sdlkeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlkeyboard.h; path = ../../Include/sdlkeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -572,8 +568,6 @@
 			children = (
 				D062301D0D807636003A31A0 /* Graphics.png */,
 				D0622ECE0D806C45003A31A0 /* Displays.icns */,
-				D073D1B20D419E5F00D3C858 /* testmod */,
-				D073D19A0D419BBC00D3C858 /* base */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
 				0867D6AAFE840B52C02AAC07 /* InfoPlist.strings */,
 				D03F1C5B0D7F4D22001166CE /* Preferences.xib */,
@@ -1202,8 +1196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D0C4E8D0486CD37000505A6 /* InfoPlist.strings in Resources */,
-				D073D19C0D419BBC00D3C858 /* base in Resources */,
-				D073D1B50D419E5F00D3C858 /* testmod in Resources */,
 				D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */,
 				D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */,
 				D062301E0D807636003A31A0 /* Graphics.png in Resources */,
