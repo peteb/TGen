@@ -30,11 +30,12 @@ TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpace
 void TGen::Engine::Physics::BipedalGeom::preStep() {
 	//TGen::Engine::Physics::Geom::preStep();
 	TGen::Engine::Physics::Geom::preStep();
+	
+
 	setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
 											TGen::Vector3(0.0f, 0.0f, -1.0f),
 											TGen::Vector3(0.0f, 1.0f, 0.0f)));
-	
-	
+
 	/*const dReal * linearVel = dBodyGetLinearVel(attachedTo->getBodyId());
 	TGen::Vector3 offset(linearVel[0], 0.0, linearVel[2]);
 	if (offset.getMagnitude() > 1.0)

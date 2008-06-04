@@ -61,7 +61,7 @@ namespace TGen {
 			
 			TGen::Engine::Player * player;
 			
-			TGen::Time lastRender;
+			TGen::Time lastRender, lastUpdate;
 			scalar sinceErrorCheck;
 		};
 		

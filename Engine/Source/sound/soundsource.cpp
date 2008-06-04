@@ -86,3 +86,39 @@ void TGen::Engine::Sound::SoundSource::spawnChannel() {
 	
 	isPlaying = true;
 }
+
+
+
+
+
+
+TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, bool stream) 
+	: TGen::Engine::Component(name)
+	, stream(stream)
+	, filename(filename)
+{
+}
+
+TGen::Engine::Sound::Source::~Source() {
+	
+}
+
+void TGen::Engine::Sound::Source::link(TGen::Engine::Sound::Subsystem & linker) {
+	if (stream)
+		linkedSound = linker.getStream(filename);
+	else
+		linkedSound = linker.getSound(filename);
+}
+
+void TGen::Engine::Sound::Source::unlink() {
+	linkedSound = NULL;
+}
+
+
+
+
+
+
+
+
+

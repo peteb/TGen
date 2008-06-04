@@ -48,7 +48,8 @@ namespace TGen {
 				std::vector<TGen::Engine::Physics::Geom *> geoms;
 				
 				float updateInterval;
-				
+				double lastUpdate;
+			
 				TGen::Engine::StandardLogs & logs;
 				
 				dWorldID worldId;

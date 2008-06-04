@@ -128,11 +128,10 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 				moveDelta = rot * moveDelta;
 			}
 			else {
-				
 				moveDelta = rot * moveDelta;
 				moveDelta.y = 0.0f;
-				
 			}
+
 			moveDelta.normalize();
 			
 		//	rot.invert();

@@ -21,6 +21,7 @@ TGen::VertexTransformList * TGen::Engine::TransformerFactory::createTransformers
 		else if (iter->first == "preset") {
 			if (iter->second == "q3" || iter->second == "idtech") {
 				transformers->addTransformer(new TGen::VertexSwapper(TGen::VertexSwapper::Y_AXIS, TGen::VertexSwapper::Z_AXIS));
+				transformers->addTransformer(new TGen::VertexScaler(0.0254));		// 0.038 
 			}
 			else {
 				throw TGen::RuntimeException("TransformerFactory::createTransformers", "invalid component transform preset: '" + iter->second + "'");

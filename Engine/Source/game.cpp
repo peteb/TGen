@@ -25,6 +25,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 	, dataSource(dataSource)
 	, constructed(false)
 	, lastRender(TGen::Time::Now())
+	, lastUpdate(TGen::Time::Now())
 	, currentWorld(NULL)
 	, sinceErrorCheck(0.0)
 	, worldRenderer(worldRenderer)
@@ -57,7 +58,9 @@ TGen::Engine::GameState::~GameState() {
 void TGen::Engine::GameState::tick() {
 	inputDevices.dispatchEvents(inputMapper);
 	
-	TGen::Time now = TGen::Time::Now();
+	// gör om det här, render kallas varje tick medans physics bara lite då och då, typ 40 fps
+	
+	/*TGen::Time now = TGen::Time::Now();
 	double sinceLastRender = double(now) - double(lastRender);	// TODO: undersök om scalar kanske räcker, sen operator - på Time. det här suger.
 	sinceErrorCheck += sinceLastRender;
 	
@@ -91,7 +94,29 @@ void TGen::Engine::GameState::tick() {
 	else {
 		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render updates
 			TGen::Sleep(TGen::Time(sinceLastRender));
+	}*/
+	
+	TGen::Time now = TGen::Time::Now();
+	double sinceLastRender = double(now) - double(lastRender);
+	//double sinceLastUpdate = double(now) - double(lastUpdate);
+	
+	if (currentWorld) {
+		TGen::Vector3 playerPosition, playerVelocity, playerForward, playerUp;
+		TGen::Engine::PlayerController * controller = currentWorld->getPlayerController("player_start");
+		
+		TGen::Matrix4x4 invertedCam = controller->getCamera("headcam")->getTransform().getInverse();
+		
+		playerPosition = controller->getPosition();
+		playerVelocity = controller->getVelocity();
+		playerForward = invertedCam.getZ();
+		playerUp = invertedCam.getY();
+		
+		currentWorld->updateListener(playerPosition, playerVelocity, playerForward, playerUp);		
+		currentWorld->update(sinceLastRender);	
 	}
+	
+	render(sinceLastRender);
+	lastRender = now;
 }
 
 // glBufferData lite som discard, tänk på det. det är samma grej som med lock fast bufferSubData

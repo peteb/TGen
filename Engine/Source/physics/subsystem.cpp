@@ -32,9 +32,10 @@ dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
 TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem) 
 	: logs(logs)
-	, updateInterval(0.01)
+	, updateInterval(1.0/100.0)
 	, worldId(0)
 	, filesystem(filesystem)
+	, lastUpdate(0.0f)
 {
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
@@ -198,31 +199,32 @@ void TGen::Engine::Physics::Subsystem::link() {
 }
 
 void TGen::Engine::Physics::Subsystem::update(scalar dt) {
-	static float sumDeltas = 0.0f;
-	sumDeltas += dt;
+	lastUpdate += dt;
 	
-	if (sumDeltas > updateInterval) {
-		sumDeltas -= updateInterval;
+	if (lastUpdate < updateInterval)
+		return;
+
+
+	for (int i = 0; i < bodies.size(); ++i)
+		bodies[i]->preStep();
+	
+	for (int i = 0; i < geoms.size(); ++i)
+		geoms[i]->preStep();
 		
-		for (int i = 0; i < bodies.size(); ++i)
-			bodies[i]->preStep();
-		
-		for (int i = 0; i < geoms.size(); ++i)
-			geoms[i]->preStep();
-				
+	while (lastUpdate >= updateInterval) {				
 		dSpaceCollide(mainSpace, 0, &nearCallback);
-
 		dWorldStep(worldId, updateInterval); // tweak
-
 		dJointGroupEmpty(contactGroup);
 		
-		
-		for (int i = 0; i < bodies.size(); ++i)
-			bodies[i]->postStep();
-		
-		for (int i = 0; i < geoms.size(); ++i)
-			geoms[i]->postStep();
+		lastUpdate -= updateInterval;		
 	}
+
+	
+	for (int i = 0; i < bodies.size(); ++i)
+		bodies[i]->postStep();
+	
+	for (int i = 0; i < geoms.size(); ++i)
+		geoms[i]->postStep();	
 }
 
 void TGen::Engine::Physics::Subsystem::setGravity(const TGen::Vector3 & gravity) {

@@ -40,7 +40,7 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	TGen::Matrix4x4 invertedCam = camera.getTransform();
 	invertedCam.invert();
 
-	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
+	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() - invertedCam.getZ() * (camera.getClipNear() + 0.1);
 
 	//std::cout << std::string(pos) << std::endl;
 	
@@ -54,7 +54,7 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	}
 	else {
 		TGen::Engine::MapModel * leaf = leafNode->getModel();
-		TGen::Rectangle clipRect(TGen::Vector2(-1.0f, -1.05f), TGen::Vector2(1.0f, 1.0f));
+		TGen::Rectangle clipRect(TGen::Vector2(-1.0f, -1.0f), TGen::Vector2(1.0f, 1.0f));
 		
 		fillModels(leaf, list, camera, clipRect);
 		
@@ -85,7 +85,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 		clipRect.center.y = 0.0f;
 	}*/
 	
-	TGen::Matrix4x4 projection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(185), 512.0 / 512.0, 0.1, 500.0); //camera.getProjection();
+	TGen::Matrix4x4 projection = camera.getProjection(); // TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(185), 512.0 / 512.0, 0.1, 500.0); //camera.getProjection();
 	TGen::Matrix4x4 camOffset = camera.getTransform();
 	camOffset.invert();
 	camOffset *= TGen::Matrix4x4::Translation(TGen::Vector3(0.0f, 0.0f, 0.5f));
@@ -94,7 +94,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 	TGen::Matrix4x4 invertedCam = camera.getTransform();
 	invertedCam.invert();
 	
-	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin();
+	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() + invertedCam.getZ() * (camera.getClipNear() + 0.1);
 	
 	// TODO: fysiken kan vara vanliga boxes i början
 	
@@ -164,8 +164,9 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 //
 	//	if (discardZ)
 		//	portal->open = false;
-		
-		/*if (portal->open) {
+		if (abs(portal->getPlane().getDistanceTo(pos)) <= 0.1)
+			portal->open = true;
+		if (portal->open) {
 			//std::cout << "OPEN: " << std::string(portalRect) << std::endl;
 
 			//std::cout << std::string(portalRect) << std::endl;
@@ -173,6 +174,14 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 			// TODO: kör frustum istället för clipRect
 			
 			scalar distance = portal->getPlane().getDistanceTo(pos);
+			
+			if (abs(distance) <= 0.1) {
+				if (!modelRendered[portal->getNegArea()])
+					portal->getNegArea()->fillFaces(list, portal->getNegArea()->getOverridingMaterial(), this);
+				if (!modelRendered[portal->getPosArea()])
+					portal->getPosArea()->fillFaces(list, portal->getPosArea()->getOverridingMaterial(), this);
+				
+			}
 			
 			if (distance < 0.0) {
 				if (!modelRendered[portal->getNegArea()])
@@ -185,7 +194,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 		}
 		else {
 			//std::cout << "CLOSED: " << std::string(portalRect) << " IN " << std::string(clipRect) <<  std::endl;
-		}*/
+		}
 	}
 	
 	TGen::Material * mat = leaf->getOverridingMaterial();

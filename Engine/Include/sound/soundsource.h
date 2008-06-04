@@ -44,6 +44,21 @@ namespace TGen {
 				
 				std::vector<FMOD::Channel *> channels;
 			};
+			
+			class Source : public TGen::Engine::Component {
+			public:
+				Source(const std::string & name, const std::string & filename, bool stream);
+				virtual ~Source();
+				
+				void link(TGen::Engine::Sound::Subsystem & linker);
+				void unlink();
+				
+			private:
+				FMOD::Sound * linkedSound;
+				std::string filename;
+				bool stream;
+			};
+			
 		} // !Sound		
 	} // !Engine
 } // !TGen

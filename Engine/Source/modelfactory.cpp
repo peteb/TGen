@@ -12,6 +12,8 @@
 #include "filesystem.h"
 #include "file.h"
 #include "modelgenerator.h"
+#include "transformerfactory.h"
+
 #include <tgen_renderer.h>
 #include <tgen_core.h>
 
@@ -24,23 +26,9 @@ TGen::NewModel * TGen::Engine::ModelFactory::createModel(const TGen::Engine::Gen
 	std::auto_ptr<TGen::NewModel> newModel;
 	
 	TGen::VertexTransformList transformers;
+	TGen::Engine::TransformerFactory transFactory;
 	
-	// Parse transformers from gline:
-	for (TGen::Engine::GenerateLine::ParameterMap::const_iterator iter = line.getParameters().begin();
-		  iter != line.getParameters().end(); ++iter) {
-		
-		if (iter->first == "scale") {
-			transformers.addTransformer(new TGen::VertexScaler(TGen::lexical_cast<scalar>(iter->second)));
-		}
-		else if (iter->first == "preset") {
-			if (iter->second == "q3") {
-				transformers.addTransformer(new TGen::VertexSwapper(TGen::VertexSwapper::Y_AXIS, TGen::VertexSwapper::Z_AXIS));
-			}
-			else {
-				throw TGen::RuntimeException("ModelFactory::createModel", "invalid component transform preset: '" + iter->second + "'");
-			}
-		}
-	}
+	transformers.addTransformer(transFactory.createTransformers(line));
 		
 	if (line.getName().substr(0, 4) == "gen:") {		// a model generator
 		TGen::Engine::ModelGenerator modelGenerator;
