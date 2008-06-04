@@ -402,26 +402,6 @@
 		D0A4777B0DDF902800DC1640 /* meshgeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeom.h; path = ../../Include/physics/meshgeom.h; sourceTree = SOURCE_ROOT; };
 		D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeom.cpp; path = physics/meshgeom.cpp; sourceTree = "<group>"; };
 		D0A479B50DE1FC8400DC1640 /* meshdecl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshdecl.h; path = ../../Include/physics/meshdecl.h; sourceTree = SOURCE_ROOT; };
-		D0AA64470D78696600CC5091 /* collision.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = collision.h; sourceTree = "<group>"; };
-		D0AA64480D78696600CC5091 /* collision_space.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = collision_space.h; sourceTree = "<group>"; };
-		D0AA64490D78696600CC5091 /* collision_trimesh.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = collision_trimesh.h; sourceTree = "<group>"; };
-		D0AA644A0D78696600CC5091 /* common.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
-		D0AA644B0D78696600CC5091 /* compatibility.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = compatibility.h; sourceTree = "<group>"; };
-		D0AA644C0D78696600CC5091 /* config.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = config.h; sourceTree = "<group>"; };
-		D0AA644D0D78696600CC5091 /* contact.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = contact.h; sourceTree = "<group>"; };
-		D0AA644E0D78696600CC5091 /* error.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = error.h; sourceTree = "<group>"; };
-		D0AA644F0D78696600CC5091 /* export-dif.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = "export-dif.h"; sourceTree = "<group>"; };
-		D0AA64500D78696600CC5091 /* mass.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = mass.h; sourceTree = "<group>"; };
-		D0AA64510D78696600CC5091 /* matrix.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = matrix.h; sourceTree = "<group>"; };
-		D0AA64520D78696600CC5091 /* memory.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = memory.h; sourceTree = "<group>"; };
-		D0AA64530D78696600CC5091 /* misc.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = misc.h; sourceTree = "<group>"; };
-		D0AA64540D78696600CC5091 /* objects.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = objects.h; sourceTree = "<group>"; };
-		D0AA64550D78696600CC5091 /* ode.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = ode.h; sourceTree = "<group>"; };
-		D0AA64560D78696600CC5091 /* odecpp.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = odecpp.h; sourceTree = "<group>"; };
-		D0AA64570D78696600CC5091 /* odecpp_collision.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = odecpp_collision.h; sourceTree = "<group>"; };
-		D0AA64580D78696600CC5091 /* odemath.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = odemath.h; sourceTree = "<group>"; };
-		D0AA64590D78696600CC5091 /* rotation.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = rotation.h; sourceTree = "<group>"; };
-		D0AA645A0D78696600CC5091 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B4208E0DF730C2004AB272 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
@@ -447,7 +427,6 @@
 		D0EF60F80C8222670085C17B /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = ../Projects/Xcode/SDLMain.m; sourceTree = "<group>"; };
 		D0EF60FC0C8222810085C17B /* SDL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL.framework; path = /Library/Frameworks/SDL.framework; sourceTree = "<absolute>"; };
 		D0EF61330C8222A40085C17B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
-		D0EF614D0C82D0C20085C17B /* physfs.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; path = physfs.h; sourceTree = "<group>"; };
 		D0EF614F0C82D8E20085C17B /* app.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = app.h; path = ../Include/app.h; sourceTree = "<group>"; };
 		D0EF61500C82D8E20085C17B /* app.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = app.cpp; sourceTree = "<group>"; };
 		D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "TGen OpenGL.xcodeproj"; path = "../../../OpenGL/Projects/Xcode/TGen OpenGL.xcodeproj"; sourceTree = SOURCE_ROOT; };
@@ -531,9 +510,9 @@
 		20286C29FDCF999611CA2CEA /* TGen Engine */ = {
 			isa = PBXGroup;
 			children = (
-				5048396909E3304600765E4B /* Configuration Files */,
 				20286C2AFDCF999611CA2CEA /* Source */,
 				20286C2CFDCF999611CA2CEA /* Resources */,
+				5048396909E3304600765E4B /* Configuration Files */,
 				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
 				195DF8CFFE9D517E11CA2CBB /* Products */,
 			);
@@ -585,21 +564,19 @@
 		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D0AA64460D78696600CC5091 /* ode */,
-				D0962AFB0D7866BE008DABC3 /* libode.a */,
-				D0F83A670CBA6DC200FF4467 /* OpenGL.framework */,
-				D0EF614C0C82D0C20085C17B /* physfs */,
 				D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */,
 				D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */,
 				D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */,
 				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
 				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
+				D0962AFB0D7866BE008DABC3 /* libode.a */,
 				D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */,
 				D00347560CEE26740066E8A8 /* libIL.a */,
 				D00347570CEE26740066E8A8 /* libjpeg.a */,
 				D00347580CEE26740066E8A8 /* libpng12.a */,
 				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
 				D0E9D5A50CE356DE0050B530 /* libphysfs.a */,
+				D0F83A670CBA6DC200FF4467 /* OpenGL.framework */,
 				D0EF61330C8222A40085C17B /* Cocoa.framework */,
 				D0EF60FC0C8222810085C17B /* SDL.framework */,
 				20286C33FDCF999611CA2CEA /* Carbon.framework */,
@@ -925,34 +902,6 @@
 			name = subsystems;
 			sourceTree = "<group>";
 		};
-		D0AA64460D78696600CC5091 /* ode */ = {
-			isa = PBXGroup;
-			children = (
-				D0AA64470D78696600CC5091 /* collision.h */,
-				D0AA64480D78696600CC5091 /* collision_space.h */,
-				D0AA64490D78696600CC5091 /* collision_trimesh.h */,
-				D0AA644A0D78696600CC5091 /* common.h */,
-				D0AA644B0D78696600CC5091 /* compatibility.h */,
-				D0AA644C0D78696600CC5091 /* config.h */,
-				D0AA644D0D78696600CC5091 /* contact.h */,
-				D0AA644E0D78696600CC5091 /* error.h */,
-				D0AA644F0D78696600CC5091 /* export-dif.h */,
-				D0AA64500D78696600CC5091 /* mass.h */,
-				D0AA64510D78696600CC5091 /* matrix.h */,
-				D0AA64520D78696600CC5091 /* memory.h */,
-				D0AA64530D78696600CC5091 /* misc.h */,
-				D0AA64540D78696600CC5091 /* objects.h */,
-				D0AA64550D78696600CC5091 /* ode.h */,
-				D0AA64560D78696600CC5091 /* odecpp.h */,
-				D0AA64570D78696600CC5091 /* odecpp_collision.h */,
-				D0AA64580D78696600CC5091 /* odemath.h */,
-				D0AA64590D78696600CC5091 /* rotation.h */,
-				D0AA645A0D78696600CC5091 /* timer.h */,
-			);
-			includeInIndex = 1;
-			path = ode;
-			sourceTree = "<group>";
-		};
 		D0E457D00D90696300F4D548 /* scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -977,14 +926,6 @@
 				D08212E10CF33155000EFA7E /* renderervars.h */,
 			);
 			name = deferred;
-			sourceTree = "<group>";
-		};
-		D0EF614C0C82D0C20085C17B /* physfs */ = {
-			isa = PBXGroup;
-			children = (
-				D0EF614D0C82D0C20085C17B /* physfs.h */,
-			);
-			path = physfs;
 			sourceTree = "<group>";
 		};
 		D0F493070CBE89500080CB46 /* commands */ = {
