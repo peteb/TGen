@@ -54,8 +54,13 @@ TGen::Engine::Sound::Subsystem::~Subsystem() {
 
 
 TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	bool stream = TGen::lexical_cast<bool>(properties.getProperty("stream", "false"));
+	bool stream = false;
 	std::string filename = properties.getProperty("file", "unknown");
+	
+	if (filename.substr(0, 7) == "stream:") {
+		stream = true;
+		filename = filename.substr(7);
+	}
 	
 	if (properties.getName() == "sndLocal") {
 		
@@ -65,14 +70,14 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 		
 		// en channel skapas antingen med en FMOD_Channel eller en string..
 		globalSources.push_back(newSource.get());
-		
+
 		return newSource.release();
 	}
 	else {
 		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "invalid component type: " + properties.getName());
 	}
 	
-	std::string fileName = properties.getProperty("file", "");
+	/*std::string fileName = properties.getProperty("file", "");
 	std::string streamName = properties.getProperty("stream", "");
 	
 	bool positional = TGen::lexical_cast<bool>(properties.getProperty("positional", "false"));
@@ -86,11 +91,11 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	FMOD_RESULT result;
 	FMOD_MODE flags = FMOD_INIT_3D_RIGHTHANDED;
 	
-	/*if (hardware)
+	if (hardware)
 		flags |= FMOD_HARDWARE;
 	else
 		flags |= FMOD_SOFTWARE;
-	*/
+	
 	
 	if (threedee)
 		flags |= FMOD_3D;
@@ -129,7 +134,7 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	
 	//throw TGen::RuntimeException("blah", "blah " + properties.getProperty("file", "bla"));
 	
-	return newSource;
+	return newSource;*/
 }
 
 void TGen::Engine::Sound::Subsystem::update(scalar dt) {
