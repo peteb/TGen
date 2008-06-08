@@ -11,18 +11,22 @@
 #define _TGEN_ENGINE_CHANNEL_H
 
 #include <string>
+#include "fmod/fmod.hpp"
 
 namespace TGen {
 	namespace Engine {
 		namespace Sound {
 			class Channel {
 			public:
-				Channel(const std::string & resource);
+				Channel(FMOD::Channel * channel);
+				virtual ~Channel();
+				
+				void setLoop(bool loop);
+				void reset();
 				
 			private:
-				std::string resourceName;
-				
-			};
+				FMOD::Channel * channel;
+ 			};
 			
 		} // !Sound
 	} // !Engine

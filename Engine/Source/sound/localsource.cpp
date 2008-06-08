@@ -9,8 +9,8 @@
 
 #include "sound/localsource.h"
 
-TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename, bool stream)
-	: TGen::Engine::Sound::Source(name, filename, stream)
+TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename)
+	: TGen::Engine::Sound::Source(name, filename)
 {
 	
 }

@@ -10,7 +10,8 @@
 #ifndef _TGEN_ENGINE_SOUND_SOUND_H
 #define _TGEN_ENGINE_SOUND_SOUND_H
 
-#include <fmod/fmod.hpp>
+#include "fmod/fmod.hpp"
+#include "sound/channel.h"
 
 namespace TGen {
 	namespace Engine {
@@ -18,10 +19,13 @@ namespace TGen {
 			class Sound {
 			public:	
 				Sound(FMOD::Sound * sound);
+				virtual ~Sound();
 				
+				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				
 			private:
 				FMOD::Sound * sound;
+
 			};
 			
 		} // !Sound

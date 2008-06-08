@@ -9,9 +9,14 @@
 
 #include "sound/soundsource.h"
 #include "sound/subsystem.h"
+#include "sound/channel.h"
+#include "sound/sound.h"
+
 #include "fmod/fmod_errors.h"
 #include "componentinterfaces.h"
 #include "entity.h"
+
+using TGen::Engine::Sound::Channel;
 
 TGen::Engine::Sound::SoundSource::SoundSource(const std::string & name, FMOD::Sound * sound, TGen::Engine::Sound::Subsystem & subsystem, const std::string & linkWith) 
 	: TGen::Engine::Component(name)
@@ -92,31 +97,57 @@ void TGen::Engine::Sound::SoundSource::spawnChannel() {
 
 
 
-TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, bool stream) 
+
+
+
+
+TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename) 
 	: TGen::Engine::Component(name)
-	, stream(stream)
 	, filename(filename)
+	, autoplay(false)
 {
 }
 
 TGen::Engine::Sound::Source::~Source() {
-	
+	for (int i = 0; i < channels.size(); ++i)
+		delete channels[i];
 }
 
 void TGen::Engine::Sound::Source::link(TGen::Engine::Sound::Subsystem & linker) {
-	if (stream)
-		linkedSound = linker.getStream(filename);
-	else
-		linkedSound = linker.getSound(filename);
+	linkedSound = linker.getSound(filename);
 }
 
 void TGen::Engine::Sound::Source::unlink() {
 	linkedSound = NULL;
 }
 
+TGen::Engine::Sound::Channel * TGen::Engine::Sound::Source::spawnChannel(bool paused) {
+	if (!linkedSound)
+		throw TGen::RuntimeException("Sound::Source", "no sound linked for " + filename);
+	
+	TGen::Engine::Sound::Channel * ret = linkedSound->spawnChannel(paused);
+	channels.push_back(ret);
+	
+	return ret;
+}
 
 
+void TGen::Engine::Sound::Source::update(scalar dt) {
+	if (autoplay && dt >= 0.0001) {	// just to make sure that this isn't a pre-game update (where dts are <= 0.0)
+		autoplay = false;		// only play once
+		
+		Channel * newChannel = spawnChannel(false);
+		newChannel->setLoop(loop);		
+	}
+}
 
+void TGen::Engine::Sound::Source::setAutoplay(bool autoplay) {
+	this->autoplay = autoplay;
+}
+
+void TGen::Engine::Sound::Source::setLoop(bool loop) {
+	this->loop = loop;
+}
 
 
 

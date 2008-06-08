@@ -529,7 +529,7 @@
 				D07407FB0D32C77E00735304 /* input */,
 				D01B6CF60C8A14C700D8943C /* data */,
 				D0F493070CBE89500080CB46 /* commands */,
-				D01B6CED0C8A149200D8943C /* fs */,
+				D01B6CED0C8A149200D8943C /* filesystem */,
 				D077FA470D26DA4B00217E07 /* map */,
 				D0843BD20D0759D200C31FE3 /* entity */,
 				D09628EB0D784E60008DABC3 /* subsystems */,
@@ -618,7 +618,7 @@
 			name = init;
 			sourceTree = "<group>";
 		};
-		D01B6CED0C8A149200D8943C /* fs */ = {
+		D01B6CED0C8A149200D8943C /* filesystem */ = {
 			isa = PBXGroup;
 			children = (
 				D0EF65210C82F5120085C17B /* filesystem.cpp */,
@@ -626,7 +626,7 @@
 				D0EF65260C82F5530085C17B /* file.cpp */,
 				D0EF65250C82F5530085C17B /* file.h */,
 			);
-			name = fs;
+			name = filesystem;
 			sourceTree = "<group>";
 		};
 		D01B6CF60C8A14C700D8943C /* data */ = {
@@ -1380,10 +1380,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5048396D09E3307300765E4B /* TGen EngineProj.xcconfig */;
 			buildSettings = {
-				ARCHS = (
-					ppc,
-					i386,
-				);
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;

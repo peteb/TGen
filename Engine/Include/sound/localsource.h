@@ -18,7 +18,7 @@ namespace TGen {
 		namespace Sound {
 			class LocalSource : public TGen::Engine::Sound::Source {
 			public:
-				LocalSource(const std::string & name, const std::string & filename, bool stream);
+				LocalSource(const std::string & name, const std::string & filename);
 				
 			};
 			

@@ -19,7 +19,7 @@ namespace TGen {
 			
 			class GlobalSource : public TGen::Engine::Sound::Source {
 			public:
-				GlobalSource(const std::string & name, const std::string & filename, bool stream);
+				GlobalSource(const std::string & name, const std::string & filename);
 				
 			};
 			

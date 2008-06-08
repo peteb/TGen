@@ -20,6 +20,8 @@ namespace TGen {
 		
 		namespace Sound {
 			class Subsystem;
+			class Sound;
+			class Channel;
 			
 			class SoundSource : public TGen::Engine::Component {
 			public:
@@ -45,18 +47,31 @@ namespace TGen {
 				std::vector<FMOD::Channel *> channels;
 			};
 			
+			
+			
+			
+			
 			class Source : public TGen::Engine::Component {
 			public:
-				Source(const std::string & name, const std::string & filename, bool stream);
+				Source(const std::string & name, const std::string & filename);
 				virtual ~Source();
 				
 				void link(TGen::Engine::Sound::Subsystem & linker);
 				void unlink();
+				virtual void update(scalar dt);
+				
+				void setAutoplay(bool autoplay);
+				void setLoop(bool loop);
+				
+				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
+				
+			protected:
+				TGen::Engine::Sound::Sound * linkedSound;
+				std::vector<TGen::Engine::Sound::Channel *> channels;
 				
 			private:
-				FMOD::Sound * linkedSound;
 				std::string filename;
-				bool stream;
+				bool autoplay, loop;
 			};
 			
 		} // !Sound		

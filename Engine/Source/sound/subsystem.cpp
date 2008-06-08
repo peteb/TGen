@@ -11,8 +11,10 @@
 #include "sound/soundsource.h"
 #include "sound/globalsource.h"
 #include "sound/localsource.h"
+#include "sound/sound.h"
 
 #include "log.h"
+#include "generateline.h"
 #include "fmod/fmod_errors.h"
 #include "filesystem.h"
 #include "file.h"
@@ -46,117 +48,55 @@ TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGe
 TGen::Engine::Sound::Subsystem::~Subsystem() {
 	logs.info["snd-"] << "*** SHUTTING DOWN SOUND ***" << TGen::endl;
 	
-	for (SoundSourceList::iterator iter = soundSources.begin(); iter != soundSources.end(); ++iter)
-		delete *iter;
+	//for (SoundSourceList::iterator iter = soundSources.begin(); iter != soundSources.end(); ++iter)
+	//	delete *iter;
+	
+	for (SoundMap::iterator iter = sounds.begin(); iter != sounds.end(); ++iter)
+		delete iter->second;
+	
+	for (int i = 0; i < localSources.size(); ++i)
+		delete localSources[i];
 	
 	fmodSystem->release();
 }
 
 
 TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	bool stream = false;
 	std::string filename = properties.getProperty("file", "unknown");
+	TGen::Engine::Sound::Source * ret = NULL;
 	
-	if (filename.substr(0, 7) == "stream:") {
-		stream = true;
-		filename = filename.substr(7);
-	}
-	
-	if (properties.getName() == "sndLocal") {
+	/*if (properties.getName() == "sndLocal") {
 		
 	}
-	else if (properties.getName() == "sndGlobal") {
-		std::auto_ptr<TGen::Engine::Sound::GlobalSource> newSource(new TGen::Engine::Sound::GlobalSource(name, filename, stream));
+	else */if (properties.getName() == "sndGlobal") {
+		TGen::Engine::Sound::GlobalSource * newSource = new TGen::Engine::Sound::GlobalSource(name, filename);
 		
-		// en channel skapas antingen med en FMOD_Channel eller en string..
-		globalSources.push_back(newSource.get());
+		globalSources.push_back(newSource);
 
-		return newSource.release();
+		ret = newSource;
 	}
 	else {
-		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "invalid component type: " + properties.getName());
+		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "invalid component type: " + properties.getName());		
 	}
 	
-	/*std::string fileName = properties.getProperty("file", "");
-	std::string streamName = properties.getProperty("stream", "");
+	ret->setAutoplay(TGen::lexical_cast<bool>(properties.getProperty("autoplay", "false")));
+	ret->setLoop(TGen::lexical_cast<bool>(properties.getProperty("loop", "false")));
 	
-	bool positional = TGen::lexical_cast<bool>(properties.getProperty("positional", "false"));
-	bool threedee = positional;
-	bool hardware = false;
-	bool loop = TGen::lexical_cast<bool>(properties.getProperty("loop", "false"));
-	
-	
-	
-	FMOD::Sound * sound;
-	FMOD_RESULT result;
-	FMOD_MODE flags = FMOD_INIT_3D_RIGHTHANDED;
-	
-	if (hardware)
-		flags |= FMOD_HARDWARE;
-	else
-		flags |= FMOD_SOFTWARE;
-	
-	
-	if (threedee)
-		flags |= FMOD_3D;
-	else
-		flags |= FMOD_2D;
-	
-	if (loop)
-		flags |= FMOD_LOOP_NORMAL;
-	else
-		flags |= FMOD_LOOP_OFF;
-	
-	
-	if (!fileName.empty())
-		result = fmodSystem->createSound(fileName.c_str(), flags, 0, &sound);
-	else if (!streamName.empty())
-		result = fmodSystem->createStream(streamName.c_str(), flags, 0, &sound);
-	else
-		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "no file or stream specified");
-	
-	if (result != FMOD_OK)
-		throw TGen::RuntimeException("Sound::Subsystem::createComponent", FMOD_ErrorString(result));
-	
-	if (positional) {
-		sound->set3DMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
-											TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
-	}
-	
-	TGen::Engine::Sound::SoundSource * newSource(new TGen::Engine::Sound::SoundSource(name, sound, *this, properties.getProperty("link", "sceneNode")));
-	
-	newSource->setSingleChannel(TGen::lexical_cast<bool>(properties.getProperty("singleChannel", "false")));
-	
-	if (TGen::lexical_cast<bool>(properties.getProperty("play", "true")))
-		newSource->play();
-	
-	soundSources.push_back(newSource);
-	
-	//throw TGen::RuntimeException("blah", "blah " + properties.getProperty("file", "bla"));
-	
-	return newSource;*/
+	return ret;	
 }
 
 void TGen::Engine::Sound::Subsystem::update(scalar dt) {
-	for (SoundSourceList::iterator iter = soundSources.begin(); iter != soundSources.end(); ++iter) {
-		(*iter)->update(dt);
-	}
+	for (int i = 0; i < localSources.size(); ++i)
+		localSources[i]->update(dt);
 	
+	for (int i = 0; i < globalSources.size(); ++i)
+		globalSources[i]->update(dt);
+		
 	fmodSystem->update();
 }
 
 FMOD::System * TGen::Engine::Sound::Subsystem::getFmodSystem() {
 	return fmodSystem;
-}
-
-void TGen::Engine::Sound::Subsystem::createChannels(TGen::Engine::Sound::Source & source, const TGen::PropertyTree & properties) {
-	for (int i = 0; i < properties.getNumNodes(); ++i) {
-		const TGen::PropertyTree & channel = properties.getNode(i);
-		
-		if (channel.getName() == "channel") {
-			
-		}
-	}
 }
 
 
@@ -183,53 +123,11 @@ void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position,
 }
 
 
-FMOD::Sound * TGen::Engine::Sound::Subsystem::getStream(const std::string & name) {
-	FMOD::Sound * ret = NULL;
-
-	logs.info["snd"] << "request for stream \"" << name << "\"" << TGen::endl;
-	
-	SoundMap::iterator iter = streams.find(name);
-	if (iter != streams.end()) {
-		ret = iter->second;
-	}
-	else {
-		logs.info["snd"] << "   not loaded, loading..." << TGen::endl;
-
-		FMOD_MODE flags = 0;
-		
-		/*if (hardware)
-		 flags |= FMOD_HARDWARE;
-		 else
-		 flags |= FMOD_SOFTWARE;
-		 */
-		
-		if (false)
-			flags |= FMOD_3D;
-		else
-			flags |= FMOD_2D;
-		
-		if (false)
-			flags |= FMOD_LOOP_NORMAL;
-		else
-			flags |= FMOD_LOOP_OFF;
-		
-		
-		FMOD_RESULT result = fmodSystem->createStream(name.c_str(), flags, 0, &ret);
-		// TODO: get flags from genline.. loop normal hardware true positional true
-		
-		if (result != FMOD_OK)
-			throw TGen::RuntimeException("Sound::Subsystem::getStream", "Failed to get stream '" + name + "': " + FMOD_ErrorString(result));
-		
-		
-	}
-	
-	return ret;
-}
-
-FMOD::Sound * TGen::Engine::Sound::Subsystem::getSound(const std::string & name) {
-	FMOD::Sound * ret = NULL;
-
+TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std::string & name) {
 	logs.info["snd"] << "request for sound \"" << name << "\"" << TGen::endl;
+
+	
+	TGen::Engine::Sound::Sound * ret = NULL;
 	
 	SoundMap::iterator iter = sounds.find(name);
 	if (iter != sounds.end()) {
@@ -237,10 +135,42 @@ FMOD::Sound * TGen::Engine::Sound::Subsystem::getSound(const std::string & name)
 	}
 	else {
 		logs.info["snd"] << "   not loaded, loading..." << TGen::endl;		
+
+		TGen::Engine::GenerateLine genline("gen:" + name);
+
+		ret = createSound(genline);
+		sounds.insert(std::make_pair(name, ret));
+	}
 		
+	return ret;
+}
+
+TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const TGen::Engine::GenerateLine & genline) {
+	FMOD::Sound * ret = NULL;
+	
+	bool stream = false;
+	std::string filename;
+	
+	if (genline.getName().substr(0, 7) == "stream:") {
+		stream = true;
+		filename = genline.getName().substr(7);
+	}
+	else {
+		filename = genline.getName();
 	}
 	
-	return ret;
+	FMOD_MODE flags = FMOD_DEFAULT;
+	FMOD_RESULT result;
+	
+	if (stream)
+		result = fmodSystem->createStream(filename.c_str(), flags, NULL, &ret);
+	else
+		result = fmodSystem->createSound(filename.c_str(), flags, NULL, &ret);
+	
+	if (result != FMOD_OK)
+		throw TGen::RuntimeException("Sound::Subsystem::createSound", "failed to load sound '" + filename + "': ") << FMOD_ErrorString(result);
+	
+	return new TGen::Engine::Sound::Sound(ret);
 }
 
 void TGen::Engine::Sound::Subsystem::link() {

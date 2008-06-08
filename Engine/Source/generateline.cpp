@@ -31,7 +31,11 @@ void TGen::Engine::GenerateLine::parse(const std::string & text) {
 	
 	name = text.substr(4, firstSpace - 4);
 	
-	std::string parameterString = text.substr(firstSpace + 1, text.size() - firstSpace);
+	std::string parameterString;
+	
+	if (firstSpace != text.size())
+		parameterString = text.substr(firstSpace + 1, text.size() - firstSpace);
+	
 	wholeLine = name + " " + parameterString;
 	
 	Tokenizer tokenizer;
@@ -42,6 +46,7 @@ void TGen::Engine::GenerateLine::parse(const std::string & text) {
 	iter = tokens.getFirstToken();
 	endIter = tokens.getEndToken();
 	
+
 	for (; iter != endIter; ++iter) {
 		if (!lastValue.empty()) {
 			parameters.insert(ParameterMap::value_type(lastValue, iter->second));

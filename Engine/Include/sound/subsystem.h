@@ -18,12 +18,14 @@ namespace TGen {
 	namespace Engine {
 		class Filesystem;
 		class StandardLogs;
+		class GenerateLine;
 		
 		namespace Sound {
 			class SoundSource;
 			class Source;
 			class GlobalSource;
 			class LocalSource;
+			class Sound;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:	
@@ -38,8 +40,7 @@ namespace TGen {
 				FMOD::System * getFmodSystem();
 				void setListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up);
 				
-				FMOD::Sound * getStream(const std::string & name);
-				FMOD::Sound * getSound(const std::string & name);
+				TGen::Engine::Sound::Sound * getSound(const std::string & name);
 				
 				static FMOD_RESULT F_CALLBACK openCallback(const char * name, int unicode, unsigned int * filesize, void ** handle, void ** userdata);
 				static FMOD_RESULT F_CALLBACK closeCallback(void * handle, void * data);
@@ -48,13 +49,9 @@ namespace TGen {
 				static TGen::Engine::Filesystem * filesystem;
 				
 			private:
-				typedef std::vector<TGen::Engine::Sound::SoundSource *> SoundSourceList;
-				typedef std::map<std::string, FMOD::Sound *> SoundMap;
+				typedef std::map<std::string, TGen::Engine::Sound::Sound *> SoundMap;
 				
-				
-				void createChannels(TGen::Engine::Sound::Source & source, const TGen::PropertyTree & properties);
-				
-				SoundSourceList soundSources;
+				TGen::Engine::Sound::Sound * createSound(const TGen::Engine::GenerateLine & genline);
 				
 				TGen::Engine::StandardLogs & logs;
 				TGen::Engine::Filesystem & fs;
@@ -62,7 +59,7 @@ namespace TGen {
 				
 				std::vector<TGen::Engine::Sound::GlobalSource *> globalSources;
 				std::vector<TGen::Engine::Sound::LocalSource *> localSources;
-				SoundMap streams, sounds;
+				SoundMap sounds;
 			};
 			
 		} // !Sound
