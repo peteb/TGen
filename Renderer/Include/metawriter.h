@@ -18,6 +18,7 @@ namespace TGen {
 		MetaTBN = 2,
 		MetaJoints = 3,
 		MetaPortals = 4,
+		MetaAxis = 5,
 	};
 	
 	// writes vertices to a vertex stream, used for rendering metadata like joints, aabbs, portal visibility, normals, etc

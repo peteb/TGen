@@ -18,9 +18,7 @@ namespace TGen {
 	class Matrix3x3;
 	
 	namespace Engine {
-		namespace Scene {
-			class Node;
-		}
+		class ObjectInterface;
 		
 		namespace Physics {
 			class Body;
@@ -32,7 +30,7 @@ namespace TGen {
 				
 				float getFriction() const;
 				void setFriction(float friction);
-				void setBodyComponent(const std::string & body);
+				void setLinkedComponent(const std::string & componentName);
 				void setAffectsOthers(bool affectOthers);
 				bool getAffectsOthers() const;
 				
@@ -45,16 +43,18 @@ namespace TGen {
 				virtual void linkGlobally(TGen::Engine::EntityList & entities);
 				
 			protected:
-				TGen::Engine::Physics::Body * attachedTo;
-				
 				void setGeomId(dGeomID id);
 				void setPosition(const TGen::Vector3 & position);				
 				void setOrientation(const TGen::Matrix3x3 & orientation);
 				dGeomID geomId;
 				std::string bodyComponent;
 				
-			private:				
-				TGen::Engine::Scene::Node * sceneNodeComponent;
+			private:	
+				void updateFromLink();
+				void sendToLink();
+				
+				TGen::Engine::ObjectInterface * linkedTo;
+				
 				bool affectsOthers;
 				float friction;
 			};

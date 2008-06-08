@@ -43,9 +43,14 @@ namespace TGen {
 			virtual void update(scalar dt) abstract;
 			virtual bool useRelativeView() const {return true; }
 
+			
+			// object interface
 			virtual TGen::Vector3 getVelocity() const;
 			virtual TGen::Vector3 getPosition() const;
 			virtual TGen::Rotation getOrientation() const;		
+			virtual void setPosition(const TGen::Vector3 & pos) {}
+			virtual void setOrientation(const TGen::Rotation & orientation) {}
+			
 			
 		protected:
 			bool isEventInitial(int id) const;

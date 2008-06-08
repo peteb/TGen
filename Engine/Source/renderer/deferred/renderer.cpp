@@ -61,7 +61,7 @@ TGen::Engine::DeferredRenderer::DeferredRenderer(TGen::Renderer & renderer,
 		mapTargets = postTargets1 = postTargets2 = postTargets3 = NULL;
 		
 		createResources(mapSize);
-	}
+	} // TODO: clean up, auto_ptr
 	catch (const TGen::RuntimeException & e) {	// trying power-of-two texture size
 		delete colorMap; delete depthMap; delete normalMap; delete miscMap; delete mapTargets; delete postMap1; delete postMap2; delete postTargets1; delete postTargets2; delete postMap3; delete postTargets3;
 		colorMap = depthMap = normalMap = miscMap = postMap1 = postMap2 = postMap3 = NULL;
@@ -205,7 +205,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	metaLines.beginBatch();
 	mc.writeAxes(TGen::Matrix4x4::Identity, metaLines);
 	//renderList.writeMeta(TGen::MetaNormals, TGen::Matrix4x4::Identity, metaLines);
-	renderList.writeMeta(TGen::MetaPortals, TGen::Matrix4x4::Identity, metaLines);
+	renderList.writeMeta(TGen::MetaAxis, TGen::Matrix4x4::Identity, metaLines);
 	
 	metaLines.endBatch();
 	

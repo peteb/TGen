@@ -92,14 +92,14 @@ void TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, TGen::Material *
 }
 
 void TGen::Engine::MapModel::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
-	//if (metaType == TGen::MetaPortals) {   // TODO: varför funkar inte MetaPortals
+	if (metaType == TGen::MetaPortals) {
 		TGen::Engine::MetaCreator mc;
 		//mc.writeAxes(transform, stream);
 	
-	for (PortalList::iterator iter = portals.begin(); iter != portals.end(); ++iter) {
-		mc.writePolygon(transform, stream, (*iter)->getPoints(), (*iter)->getNumPoints(), ((*iter)->open ? TGen::Color::Green : TGen::Color::Red));
+		for (PortalList::iterator iter = portals.begin(); iter != portals.end(); ++iter) {
+			mc.writePolygon(transform, stream, (*iter)->getPoints(), (*iter)->getNumPoints(), ((*iter)->open ? TGen::Color::Green : TGen::Color::Red));
+		}
 	}
-	//}
 }
 
 void TGen::Engine::MapModel::addPortal(TGen::Engine::MapPortal * portal) {

@@ -19,8 +19,7 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & 
 	, geomId(0)
 	, bodyComponent(bodyComponent)
 	, affectsOthers(true)
-	, sceneNodeComponent(NULL)
-	, attachedTo(NULL)
+	, linkedTo(NULL)
 {
 
 }
@@ -37,8 +36,8 @@ void TGen::Engine::Physics::Geom::setFriction(float friction) {
 	this->friction = friction;
 }
 
-void TGen::Engine::Physics::Geom::setBodyComponent(const std::string & body) {
-	bodyComponent = body;
+void TGen::Engine::Physics::Geom::setLinkedComponent(const std::string & componentName) {
+	bodyComponent = componentName;
 }
 
 void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
@@ -52,29 +51,26 @@ void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 	if (geomId == 0)
 		return;
-	
-	try {
-		attachedTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
-		if (!attachedTo)
-			throw TGen::RuntimeException("Geom::linkLocally", "not a body");
-		
-		dGeomSetBody(geomId, attachedTo->getBodyId());
-	}
-	catch (...) {	// if there is no physBody we just don't attach to anything
-		dGeomSetBody(geomId, 0);
+
+	if (dGeomGetClass(geomId) != dPlaneClass) {
+		TGen::Engine::Component * component = NULL;
 		
 		try {
-			if (dGeomGetClass(geomId) != dPlaneClass) {
-				if (bodyComponent.empty() || bodyComponent == "physBody")
-					bodyComponent = "sceneNode";
-				
-				sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(bodyComponent));
-				
-				setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
-			}
+			component = entity.getComponent(bodyComponent);
 		}
-		catch (...) {
-			
+		catch (...) {	// fall back on "sceneNode"
+			component = entity.getComponent("sceneNode");
+		}
+		
+		TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(component);
+	
+		if (body) {	// we don't need a link if we've got a body
+			dGeomSetBody(geomId, body->getBodyId());
+			linkedTo = NULL;
+		}
+		else {
+			linkedTo = dynamic_cast<TGen::Engine::ObjectInterface *>(component);
+			updateFromLink();			
 		}
 	}
 }
@@ -93,14 +89,11 @@ bool TGen::Engine::Physics::Geom::getAffectsOthers() const {
 
 
 void TGen::Engine::Physics::Geom::preStep() {	// update geom with scene node vars if we're linked to one (probably because there is no body)
-	if (sceneNodeComponent) {
-		setPosition(sceneNodeComponent->getSceneNode()->getWorldPosition());
-		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
-	}
+	updateFromLink();
 }
 
 void TGen::Engine::Physics::Geom::postStep() {
-	// Do nothing, without a body we can't be manipulated
+	// Do nothing, without a body we can't be moved physically
 }
 
 void TGen::Engine::Physics::Geom::setPosition(const TGen::Vector3 & position) {
@@ -131,4 +124,14 @@ void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orienta
 	dGeomSetRotation(geomId, matrix);
 }
 
+void TGen::Engine::Physics::Geom::updateFromLink() {
+	if (linkedTo) {
+		setPosition(linkedTo->getPosition());
+		setOrientation(linkedTo->getOrientation());
+	}	
+}
+
+void TGen::Engine::Physics::Geom::sendToLink() {
+	
+}
 

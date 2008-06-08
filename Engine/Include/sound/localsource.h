@@ -30,7 +30,7 @@ namespace TGen {
 				
 			private:
 				std::string linkWith;
-				TGen::Engine::ObjectInterface * follow;
+				TGen::Engine::ObjectInterface * linkedTo;
 				
 				scalar minDistance, maxDistance;
 			};

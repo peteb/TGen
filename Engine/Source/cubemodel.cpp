@@ -73,10 +73,11 @@ void TGen::Engine::CubeModel::unlinkMaterial() {
 }
 
 void TGen::Engine::CubeModel::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
-	TGen::Engine::MetaCreator mc;
+	if (metaType == TGen::MetaAxis) {
+		TGen::Engine::MetaCreator mc;
 	
-	mc.writeAxes(transform, stream);
-	
+		mc.writeAxes(transform, stream);
+	}
 }
 
 

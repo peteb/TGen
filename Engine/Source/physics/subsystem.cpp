@@ -168,7 +168,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
 	
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
-	newGeom->setBodyComponent(properties.getProperty("link", "physBody"));
+	newGeom->setLinkedComponent(properties.getProperty("link", "physBody"));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	geoms.push_back(newGeom.get());
 	

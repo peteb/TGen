@@ -37,6 +37,22 @@ TGen::Vector3 TGen::Engine::Scene::Node::getVelocity() const {
 	return velocity;
 }
 
+TGen::Matrix4x4 TGen::Engine::Scene::Node::getSpaceTransform() const {
+	if (sceneNode->getParent())
+		return sceneNode->getParent()->getTransform();
+	
+	return TGen::Matrix4x4::Identity;
+}
+
+void TGen::Engine::Scene::Node::setPosition(const TGen::Vector3 & pos) {
+	sceneNode->setPosition(pos);
+}
+
+void TGen::Engine::Scene::Node::setOrientation(const TGen::Rotation & orientation) {
+	sceneNode->setOrientation(orientation);
+}
+
+
 void TGen::Engine::Scene::Node::update(scalar dt) {
 	velocity = (sceneNode->getWorldPosition() - lastPos) / dt;
 	lastPos = sceneNode->getWorldPosition();

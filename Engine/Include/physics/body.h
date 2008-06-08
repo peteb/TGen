@@ -74,12 +74,15 @@ namespace TGen {
 				float getSlope() const;
 				
 			private:
+				void updateFromScene();
+				void updateScene();
+				
 				std::string nodeComponent;
 				dBodyID bodyId;
 				dWorldID worldId;
 				dSpaceID spaceId;
 				
-				TGen::Engine::Scene::Node * sceneNodeComponent;
+				TGen::Engine::ObjectInterface * linkedTo;
 				bool turnHeadwise, killTorque;
 				bool onFloor;
 				scalar slope, fakeGrav;

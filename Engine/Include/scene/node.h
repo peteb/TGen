@@ -24,12 +24,16 @@ namespace TGen {
 				~Node();
 				
 				TGen::SceneNode * getSceneNode();
-				
+				void update(scalar dt);
+
+				// object interface
 				TGen::Vector3 getPosition() const;
 				TGen::Rotation getOrientation() const;
 				TGen::Vector3 getVelocity() const;
+				TGen::Matrix4x4 getSpaceTransform() const;
+				void setPosition(const TGen::Vector3 & pos);
+				void setOrientation(const TGen::Rotation & orientation);			
 				
-				void update(scalar dt);
 				
 			private:
 				TGen::SceneNode * sceneNode;

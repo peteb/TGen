@@ -14,25 +14,18 @@
 
 namespace TGen {
 	namespace Engine {
-		class PosOrientInterface {
-		public:
-			virtual ~PosOrientInterface() {}
-			
-			virtual TGen::Vector3 getPosition() const abstract;
-			virtual TGen::Rotation getOrientation() const abstract;
-		};
-
-		
-		class VelocityInterface {
-		public:
-			virtual ~VelocityInterface() {}
-			
-			virtual TGen::Vector3 getVelocity() const abstract;
-		};
-		
-		class ObjectInterface : public PosOrientInterface, public VelocityInterface {
+		class ObjectInterface {
 		public:
 			virtual ~ObjectInterface() {}
+			
+			virtual TGen::Vector3 getPosition() const abstract;
+			virtual TGen::Rotation getOrientation() const abstract;			
+			virtual TGen::Vector3 getVelocity() const abstract;
+			virtual TGen::Matrix4x4 getSpaceTransform() const {return TGen::Matrix4x4::Identity; }
+			
+			virtual void setPosition(const TGen::Vector3 & pos) abstract;
+			virtual void setOrientation(const TGen::Rotation & orientation) abstract;			
+			
 		};
 		
 	} // !Engine

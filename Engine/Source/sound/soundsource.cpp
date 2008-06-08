@@ -56,6 +56,13 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 		Channel * newChannel = spawnChannel(false);
 		newChannel->setLoop(loop);		
 	}
+	
+	for (ChannelList::iterator iter = channels.begin(); iter != channels.end();) {
+		if (!(*iter)->isPlaying())
+			iter = channels.erase(iter);
+		else
+			++iter;
+	}
 }
 
 void TGen::Engine::Sound::Source::setAutoplay(bool autoplay) {

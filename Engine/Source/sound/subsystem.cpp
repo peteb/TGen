@@ -51,9 +51,6 @@ TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGe
 TGen::Engine::Sound::Subsystem::~Subsystem() {
 	logs.info["snd-"] << "*** SHUTTING DOWN SOUND ***" << TGen::endl;
 	
-	//for (SoundSourceList::iterator iter = soundSources.begin(); iter != soundSources.end(); ++iter)
-	//	delete *iter;
-	
 	for (SoundMap::iterator iter = sounds.begin(); iter != sounds.end(); ++iter)
 		delete iter->second;
 	
@@ -101,9 +98,9 @@ void TGen::Engine::Sound::Subsystem::update(scalar dt) {
 	fmodSystem->update();
 }
 
-FMOD::System * TGen::Engine::Sound::Subsystem::getFmodSystem() {
+/*FMOD::System * TGen::Engine::Sound::Subsystem::getFmodSystem() {
 	return fmodSystem;
-}
+}*/
 
 
 void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up) {

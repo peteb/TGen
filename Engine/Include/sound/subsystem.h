@@ -37,7 +37,7 @@ namespace TGen {
 				void update(scalar delta);
 				void link();
 				
-				FMOD::System * getFmodSystem();
+				//FMOD::System * getFmodSystem();
 				void setListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up);
 				
 				TGen::Engine::Sound::Sound * getSound(const std::string & name);

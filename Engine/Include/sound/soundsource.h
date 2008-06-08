@@ -38,8 +38,10 @@ namespace TGen {
 				virtual TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				
 			protected:
+				typedef std::vector<TGen::Engine::Sound::Channel *> ChannelList;
+				
 				TGen::Engine::Sound::Sound * linkedSound;
-				std::vector<TGen::Engine::Sound::Channel *> channels;
+				ChannelList channels;
 				
 			private:
 				std::string filename;

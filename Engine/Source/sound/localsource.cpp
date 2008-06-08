@@ -16,7 +16,7 @@
 TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith)
 	: TGen::Engine::Sound::Source(name, filename)
 	, linkWith(linkWith)
-	, follow(NULL)
+	, linkedTo(NULL)
 	, minDistance(1.0)
 	, maxDistance(10000.0)
 {
@@ -24,15 +24,15 @@ TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const st
 }
 
 void TGen::Engine::Sound::LocalSource::linkLocally(TGen::Engine::Entity & entity) {
-	follow = dynamic_cast<TGen::Engine::ObjectInterface *>(entity.getComponent(linkWith));
+	linkedTo = dynamic_cast<TGen::Engine::ObjectInterface *>(entity.getComponent(linkWith));
 }
 
 void TGen::Engine::Sound::LocalSource::update(scalar dt) {
 	TGen::Engine::Sound::Source::update(dt);
 	
-	if (follow) {
+	if (linkedTo) {
 		for (int i = 0; i < channels.size(); ++i)
-			channels[i]->set3DAttributes(follow->getPosition(), follow->getVelocity());				
+			channels[i]->set3DAttributes(linkedTo->getPosition(), linkedTo->getVelocity());				
 	}
 }
 

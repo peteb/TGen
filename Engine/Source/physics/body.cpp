@@ -17,7 +17,7 @@
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
 	, bodyId(bodyId)
-	, sceneNodeComponent(NULL)
+	, linkedTo(NULL)
 	, turnHeadwise(false)
 	, killTorque(false)
 	, onFloor(false)
@@ -42,35 +42,20 @@ void TGen::Engine::Physics::Body::preStep() {
 	
 	onFloor = false;
 	
-	if (sceneNodeComponent) {
-		setPosition(sceneNodeComponent->getSceneNode()->getParent()->getTransform() * sceneNodeComponent->getSceneNode()->getLocalPosition());
-		setOrientation(sceneNodeComponent->getSceneNode()->getLocalOrientation());
-	}
+	updateFromScene();
 	
 	if (killTorque)
 		dBodySetTorque(bodyId, 0.0, 0.0, 0.0);
-	
-
 }
 
 void TGen::Engine::Physics::Body::postStep() {
-	if (sceneNodeComponent) {
-		TGen::Matrix4x4 transform = sceneNodeComponent->getSceneNode()->getParent()->getTransform().getInverse();
-
-		sceneNodeComponent->getSceneNode()->setPosition(transform * getPosition());
-		
-		if (turnHeadwise)
-			sceneNodeComponent->getSceneNode()->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			
-		else
-			sceneNodeComponent->getSceneNode()->setOrientation(getOrientation());
-	}
-	
+	updateScene();	
 }
 
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
-	sceneNodeComponent = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(nodeComponent));
+	linkedTo = dynamic_cast<TGen::Engine::ObjectInterface *>(entity.getComponent(nodeComponent));
 	
-	setPosition(sceneNodeComponent->getSceneNode()->getLocalPosition());
+	updateFromScene();
 }
 
 void TGen::Engine::Physics::Body::setPosition(const TGen::Vector3 & position) {
@@ -93,6 +78,28 @@ dSpaceID TGen::Engine::Physics::Body::getSpaceId() {
 
 dBodyID TGen::Engine::Physics::Body::getBodyId() const {
 	return bodyId;
+}
+
+
+void TGen::Engine::Physics::Body::updateFromScene() {
+	if (linkedTo) {
+		setPosition(linkedTo->getPosition());
+		setOrientation(linkedTo->getOrientation());
+	}	
+}
+
+void TGen::Engine::Physics::Body::updateScene() {
+	if (linkedTo) {
+		TGen::Matrix4x4 transform = TGen::Matrix4x4::Identity; // linkedTo->getSpaceTransform().getInverse();
+		// TODO: ObjectInterface ska bara hantera allt i worldcoords!!
+		
+		linkedTo->setPosition(transform * getPosition());
+		
+		if (turnHeadwise)
+			linkedTo->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			
+		else
+			linkedTo->setOrientation(getOrientation());
+	}	
 }
 
 TGen::Rotation TGen::Engine::Physics::Body::getOrientation() const {

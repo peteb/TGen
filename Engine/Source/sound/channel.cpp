@@ -64,3 +64,21 @@ void TGen::Engine::Sound::Channel::set3DAttributes(const TGen::Vector3 & positio
 void TGen::Engine::Sound::Channel::set3DMinMaxDistance(scalar minDistance, scalar maxDistance) {
 	channel->set3DMinMaxDistance(minDistance, maxDistance);
 }
+
+bool TGen::Engine::Sound::Channel::isPlaying() {
+	bool ret = false;
+	
+	FMOD_RESULT result = channel->isPlaying(&ret);
+	if (result != FMOD_OK)
+		ret = false;
+	
+	return ret;
+}
+
+bool TGen::Engine::Sound::Channel::isPaused() {
+	bool ret = false;
+	
+	channel->getPaused(&ret);
+	
+	return ret;
+}

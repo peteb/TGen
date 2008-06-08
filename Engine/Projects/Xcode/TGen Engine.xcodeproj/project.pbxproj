@@ -778,11 +778,11 @@
 		D08395710CD9266900C94467 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				D0E458330D906FBD00F4D548 /* deferred */,
 				D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */,
 				D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */,
 				D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */,
 				D0C2CC7C0D95A36600047CD7 /* rendererfactory.h */,
-				D0E458330D906FBD00F4D548 /* deferred */,
 				D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */,
 				D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */,
 				D07AFB5F0CFA331300DBCD9D /* light.cpp */,
