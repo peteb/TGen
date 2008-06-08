@@ -65,6 +65,7 @@
 		D0843BD50D0759D200C31FE3 /* node.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD40D0759D200C31FE3 /* node.cpp */; };
 		D0843BD80D0759D200C31FE3 /* entityfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843BD70D0759D200C31FE3 /* entityfactory.cpp */; };
 		D0843C120D075B3200C31FE3 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843C110D075B3200C31FE3 /* subsystem.cpp */; };
+		D0891C850DFC5AEA0074401E /* convert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0891C840DFC5AEA0074401E /* convert.cpp */; };
 		D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7BF30D10919B008622BC /* imagegenerator.cpp */; };
 		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
 		D08DC5CA0DDF3D9E0072AF9C /* id4cmgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC5C90DDF3D9E0072AF9C /* id4cmgeom.cpp */; };
@@ -349,6 +350,8 @@
 		D0843C110D075B3200C31FE3 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = scene/subsystem.cpp; sourceTree = "<group>"; };
 		D0843C210D075BFB00C31FE3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D0843C430D075C9C00C31FE3 /* component.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = component.h; path = ../../Include/component.h; sourceTree = SOURCE_ROOT; };
+		D0891C830DFC5ADA0074401E /* convert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = convert.h; path = ../../Include/sound/convert.h; sourceTree = SOURCE_ROOT; };
+		D0891C840DFC5AEA0074401E /* convert.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = convert.cpp; path = sound/convert.cpp; sourceTree = "<group>"; };
 		D08C7BF20D109190008622BC /* imagegenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imagegenerator.h; path = ../../Include/imagegenerator.h; sourceTree = SOURCE_ROOT; };
 		D08C7BF30D10919B008622BC /* imagegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagegenerator.cpp; sourceTree = "<group>"; };
 		D08C7C230D109514008622BC /* generateline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generateline.h; path = ../../Include/generateline.h; sourceTree = SOURCE_ROOT; };
@@ -824,6 +827,8 @@
 			children = (
 				D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */,
 				D08F3CF50DEB3AD50051EDD6 /* subsystem.h */,
+				D0891C840DFC5AEA0074401E /* convert.cpp */,
+				D0891C830DFC5ADA0074401E /* convert.h */,
 				D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */,
 				D08F3FC80DEB5CDE0051EDD6 /* soundsource.h */,
 				D09C62BF0DF0928200B83C1E /* localsource.cpp */,
@@ -1271,6 +1276,7 @@
 				D09C62F00DF0975000B83C1E /* globalsource.cpp in Sources */,
 				D0A310EE0DF355BB0007A749 /* channel.cpp in Sources */,
 				D0A310FD0DF4A8490007A749 /* sound.cpp in Sources */,
+				D0891C850DFC5AEA0074401E /* convert.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

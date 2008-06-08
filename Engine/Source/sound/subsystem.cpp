@@ -19,6 +19,9 @@
 #include "filesystem.h"
 #include "file.h"
 
+using TGen::Engine::Sound::GlobalSource;
+using TGen::Engine::Sound::LocalSource;
+
 TGen::Engine::Filesystem * TGen::Engine::Sound::Subsystem::filesystem = NULL;
 
 TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & fs) 
@@ -62,17 +65,20 @@ TGen::Engine::Sound::Subsystem::~Subsystem() {
 
 
 TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	std::string filename = properties.getProperty("file", "unknown");
+	std::string filename = properties.getProperty("sound", "unknown");
 	TGen::Engine::Sound::Source * ret = NULL;
 	
-	/*if (properties.getName() == "sndLocal") {
+	if (properties.getName() == "sndLocal") {
+		LocalSource * newSource = new LocalSource(name, filename, properties.getProperty("link", "sceneNode"));
+		newSource->setMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
+											  TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
 		
+		localSources.push_back(newSource);
+		ret = newSource;
 	}
-	else */if (properties.getName() == "sndGlobal") {
-		TGen::Engine::Sound::GlobalSource * newSource = new TGen::Engine::Sound::GlobalSource(name, filename);
-		
+	else if (properties.getName() == "sndGlobal") {
+		GlobalSource * newSource = new GlobalSource(name, filename);
 		globalSources.push_back(newSource);
-
 		ret = newSource;
 	}
 	else {

@@ -11,9 +11,12 @@
 #define _TGEN_ENGINE_CHANNEL_H
 
 #include <string>
+#include <tgen_core.h>
 #include "fmod/fmod.hpp"
 
 namespace TGen {
+	class Vector3;
+	
 	namespace Engine {
 		namespace Sound {
 			class Channel {
@@ -22,6 +25,12 @@ namespace TGen {
 				virtual ~Channel();
 				
 				void setLoop(bool loop);
+				void set3D(bool enable);
+				void setPaused(bool paused);
+				
+				void set3DAttributes(const TGen::Vector3 & position, const TGen::Vector3 & velocity);
+				void set3DMinMaxDistance(scalar minDistance, scalar maxDistance);
+				
 				void reset();
 				
 			private:

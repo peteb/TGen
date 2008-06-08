@@ -15,11 +15,24 @@
 
 namespace TGen {
 	namespace Engine {
+		class Entity;
+		
 		namespace Sound {
 			class LocalSource : public TGen::Engine::Sound::Source {
 			public:
-				LocalSource(const std::string & name, const std::string & filename);
+				LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith);
 				
+				void linkLocally(TGen::Engine::Entity & entity);
+				void update(scalar dt);
+				void setMinMaxDistance(scalar min, scalar max);
+				
+				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
+				
+			private:
+				std::string linkWith;
+				TGen::Engine::ObjectInterface * follow;
+				
+				scalar minDistance, maxDistance;
 			};
 			
 		} // !Sound

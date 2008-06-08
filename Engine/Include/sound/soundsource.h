@@ -23,34 +23,6 @@ namespace TGen {
 			class Sound;
 			class Channel;
 			
-			class SoundSource : public TGen::Engine::Component {
-			public:
-				SoundSource(const std::string & name, FMOD::Sound * sound, TGen::Engine::Sound::Subsystem & subsystem, const std::string & linkWith);
-				~SoundSource();
-				
-				void linkLocally(TGen::Engine::Entity & entity);
-				void linkGlobally(TGen::Engine::EntityList & entities);		
-				void update(scalar dt);
-				void play();
-				void setSingleChannel(bool single);
-				
-			private:
-				void spawnChannel();
-				
-				FMOD::Sound * sound;
-				TGen::Engine::Sound::Subsystem & subsystem;
-				TGen::Engine::ObjectInterface * track;
-				
-				bool shouldPlay, isPlaying, singleChannel;
-				std::string linkWith;
-				
-				std::vector<FMOD::Channel *> channels;
-			};
-			
-			
-			
-			
-			
 			class Source : public TGen::Engine::Component {
 			public:
 				Source(const std::string & name, const std::string & filename);
@@ -63,7 +35,7 @@ namespace TGen {
 				void setAutoplay(bool autoplay);
 				void setLoop(bool loop);
 				
-				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
+				virtual TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				
 			protected:
 				TGen::Engine::Sound::Sound * linkedSound;
@@ -71,7 +43,7 @@ namespace TGen {
 				
 			private:
 				std::string filename;
-				bool autoplay, loop;
+				bool autoplay, loop, threedee;
 			};
 			
 		} // !Sound		

@@ -7,9 +7,12 @@
  *
  */
 
+#include <tgen_math.h>
+
 #include "sound/channel.h"
+#include "sound/convert.h"
+
 #include "fmod/fmod_errors.h"
-#include <tgen_core.h>
 
 TGen::Engine::Sound::Channel::Channel(FMOD::Channel * channel)
 	: channel(channel)
@@ -23,8 +26,8 @@ TGen::Engine::Sound::Channel::~Channel() {
 	
 	FMOD_RESULT result = channel->stop();
 	
-	if (result != FMOD_OK)
-		throw TGen::RuntimeException("Sound::~Channel", "failed to stop channel on dtor: ") << FMOD_ErrorString(result);
+	//if (result != FMOD_OK)
+	//	throw TGen::RuntimeException("Sound::~Channel", "failed to stop channel on dtor: ") << FMOD_ErrorString(result);
 }
 
 void TGen::Engine::Sound::Channel::setLoop(bool loop) {
@@ -34,6 +37,30 @@ void TGen::Engine::Sound::Channel::setLoop(bool loop) {
 		channel->setMode(FMOD_LOOP_OFF);
 }
 
+void TGen::Engine::Sound::Channel::set3D(bool enable) {
+	if (enable)
+		channel->setMode(FMOD_3D);
+	else
+		channel->setMode(FMOD_2D);
+}
+
+void TGen::Engine::Sound::Channel::setPaused(bool paused) {
+	channel->setPaused(paused);
+}
+
 void TGen::Engine::Sound::Channel::reset() {
 	channel->setPosition(0, FMOD_TIMEUNIT_MS);
+}
+
+void TGen::Engine::Sound::Channel::set3DAttributes(const TGen::Vector3 & position, const TGen::Vector3 & velocity) {
+	FMOD_VECTOR pos, vel;
+	
+	TGen::Engine::Sound::TVecToFVec(position, pos);
+	TGen::Engine::Sound::TVecToFVec(velocity, vel);
+	
+	channel->set3DAttributes(&pos, &vel);
+}
+
+void TGen::Engine::Sound::Channel::set3DMinMaxDistance(scalar minDistance, scalar maxDistance) {
+	channel->set3DMinMaxDistance(minDistance, maxDistance);
 }
