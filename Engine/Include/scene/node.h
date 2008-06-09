@@ -29,6 +29,7 @@ namespace TGen {
 				void update(scalar dt);
 
 				void setLinkWith(const std::string & linkWith);
+				void setAutoParent(const std::string & autoParent);
 				void linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity);
 				
 				// object interface
@@ -46,7 +47,7 @@ namespace TGen {
 				TGen::Vector3 velocity, lastPos;
 				TGen::Matrix4x4 parentInverseTransform;
 				bool changed;
-				std::string linkWith;
+				std::string linkWith, autoParent;
 			};
 		
 		} // !Scene

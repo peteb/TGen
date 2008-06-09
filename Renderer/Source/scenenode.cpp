@@ -84,19 +84,40 @@ void TGen::SceneNode::update(scalar dt) {
 		calculateWorldBV();
 		
 		if (autoParent) {
-			TGen::SceneNode * newParent = autoParent->getNodeFromPoint(autoParent->getTransform().getInverse() * getLocalPosition());
-		//	if (!newParent)
-			//	newParent = autoParent;
+			TGen::SceneNode * newParent = autoParent->getNodeFromPoint(autoParent->getTransform().getInverse() * getWorldPosition());
+			if (!newParent) {
+				std::cout << "NOPARENT" << std::endl;
+				newParent = autoParent;
+			}
 			
 			if (newParent != parent && newParent && parent) {
-				parent->removeChild(this);
-				newParent->addChild(this);
+				moveTo(newParent);
 			}
 		}
 	}
 	
 	this->changedSinceLastCheck = this->changed;
 	this->changed = false;	
+}
+
+
+void TGen::SceneNode::moveTo(TGen::SceneNode * newParent, bool translate) {
+	TGen::SceneNode * oldParent = parent;
+	
+	if (parent)
+		parent->removeChild(this);
+	
+	newParent->addChild(this);	
+
+	if (translate) {
+		TGen::Vector3 globalPos = oldParent->getTransform() * getLocalPosition();
+		TGen::Vector3 newLocal = newParent->getTransform().getInverse() * globalPos;
+		
+		TGen::Matrix4x4 globalTransform = oldParent->getTransform() * newParent->getTransform().getInverse();
+	
+		setPosition(globalTransform * getLocalPosition());
+		setOrientation(globalTransform * getLocalOrientation());
+	}
 }
 
 void TGen::SceneNode::updateChildren(scalar dt) {

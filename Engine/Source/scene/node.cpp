@@ -76,14 +76,27 @@ void TGen::Engine::Scene::Node::setLinkWith(const std::string & linkWith) {
 	this->linkWith = linkWith;
 }
 
+void TGen::Engine::Scene::Node::setAutoParent(const std::string & autoParent) {
+	this->autoParent = autoParent;
+}
+
 void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
 	if (!linkWith.empty()) {
 		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(list.getComponent(linkWith, entity));
 		
-		if (sceneNode->getParent())
-			sceneNode->getParent()->removeChild(sceneNode);
+		sceneNode->moveTo(parent->getSceneNode(), false);
 		
-		parent->getSceneNode()->addChild(sceneNode);
+		changed = true;
+	}
+	
+	if (!autoParent.empty()) {
+		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(list.getComponent(autoParent, entity));
+		if (!parent)
+			throw TGen::RuntimeException("Scene::Node::linkGlobally", "no node called '" + autoParent + "' for autoParent");
+		
+		std::cout << "AUTOPARENT: " << autoParent << std::endl;
+		sceneNode->setAutoTP(parent->getSceneNode());
+		
 		changed = true;
 	}
 }

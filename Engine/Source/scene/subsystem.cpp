@@ -61,12 +61,12 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	
 	TGen::SceneNode * parentNode = NULL;
 	
-	std::string treePosition = properties.getProperty("parent", "");
-	std::string autoTP = properties.getProperty("autoTP", "");
+	//std::string treePosition = properties.getProperty("relative", "");
+	std::string autoTP = properties.getProperty("autoParent", "");
 	
 	// fixa autoParent först, den använder en link till en component
 	
-	if (!autoTP.empty()) {
+	/*if (!autoTP.empty()) {
 		TGen::SceneNode * parent = sceneRoot.getNode(autoTP, true);
 		// TODO: treePosition ska sätta parent, autoTP sätter bara vad den ska kolla mot
 		// treePosition borde även heta parent
@@ -87,24 +87,31 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 			logs.warning["scene"] << "getNodeFromPoint returned parent!" << TGen::endl;
 		}
 	}
-	else {
-		parentNode = sceneRoot.getNode(treePosition);
-	}
+	else {*/
+	//}
 	
-	std::string linkParent = properties.getProperty("link", "");
+	//parentNode = sceneRoot.getNode(treePosition);
+
+	//if (!parentNode)
+		//parentNode = &sceneRoot;
 	
-	if (linkParent.empty()) {
+	std::string linkParent = properties.getProperty("relative", properties.getProperty("link", ""));
+	
+	sceneRoot.addChild(sceneNode);
+	
+	/*if (linkParent.empty()) {
 		if (!parentNode)
 			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node '" + treePosition + "'");
 
 		parentNode->addChild(sceneNode);
-	}
+	}*/
 
 	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
 	if (components.find(entityName) == components.end())
 		components.insert(ComponentMap::value_type(entityName, newComponent));
 	
 	newComponent->setLinkWith(linkParent);
+	newComponent->setAutoParent(autoTP);
 	
 	nodes.push_back(newComponent);
 	

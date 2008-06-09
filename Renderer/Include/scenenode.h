@@ -71,6 +71,7 @@ namespace TGen {
 		
 		bool hasChanged() const;
 		bool checkChanged();
+		void moveTo(TGen::SceneNode * newParent, bool translate = true);
 		
 		//const FaceList & getFaces() const;
 		FaceList & getFaces();
