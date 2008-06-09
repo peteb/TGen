@@ -53,7 +53,7 @@ void TGen::Engine::Physics::Body::postStep() {
 }
 
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
-	linkedTo = dynamic_cast<TGen::Engine::ObjectInterface *>(entity.getComponent(nodeComponent));
+	linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(nodeComponent));
 	
 	updateFromScene();
 }
@@ -90,10 +90,10 @@ void TGen::Engine::Physics::Body::updateFromScene() {
 
 void TGen::Engine::Physics::Body::updateScene() {
 	if (linkedTo) {
-		TGen::Matrix4x4 transform = TGen::Matrix4x4::Identity; // linkedTo->getSpaceTransform().getInverse();
-		// TODO: ObjectInterface ska bara hantera allt i worldcoords!!
+	//	TGen::Matrix4x4 transform =  linkedTo->getSpaceTransform().getInverse();
+		// TODO: WorldObject ska bara hantera allt i worldcoords!!
 		
-		linkedTo->setPosition(transform * getPosition());
+		linkedTo->setPosition(getPosition());
 		
 		if (turnHeadwise)
 			linkedTo->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			

@@ -39,6 +39,30 @@ void TGen::Engine::EntityList::linkGlobally() {
 	}
 }
 
+TGen::Engine::Component * TGen::Engine::EntityList::getComponent(const std::string & name, TGen::Engine::Entity & from) {
+	std::string entityName;
+	std::string componentName;
+	
+	int colonPos = name.find(":");
+	
+	if (colonPos != std::string::npos) {
+		entityName = name.substr(0, colonPos);
+		componentName = name.substr(colonPos + 1);
+	}
+	else {
+		componentName = name;
+	}
+	
+	if (entityName.empty()) {
+		return from.getComponent(componentName);
+	}
+	else {
+		return getEntity(entityName)->getComponent(componentName);
+	}
+
+	return NULL;
+}
+
 /* RenderStateCats 
 	1. shaders, z-states, blending, textures of different format & size ...
 	2. constants, color, transforms

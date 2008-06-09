@@ -70,6 +70,8 @@ namespace TGen {
 		void setAutoTP(TGen::SceneNode * autoTP);
 		
 		bool hasChanged() const;
+		bool checkChanged();
+		
 		//const FaceList & getFaces() const;
 		FaceList & getFaces();
 		ModelInstanceList & getModels();
@@ -125,7 +127,7 @@ namespace TGen {
 		FaceList faces;
 		ModelInstanceList models;
 		
-		bool changed;
+		bool changed, changedSinceLastCheck;
 	};
 	
 } // !TGen

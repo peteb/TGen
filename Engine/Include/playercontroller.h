@@ -27,7 +27,7 @@ namespace TGen {
 		};
 		
 		
-		class PlayerController : public TGen::Engine::Component, public TGen::Engine::ObjectInterface {
+		class PlayerController : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 		public:
 			PlayerController(const std::string & name);
 			virtual ~PlayerController();

@@ -69,7 +69,7 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 			linkedTo = NULL;
 		}
 		else {
-			linkedTo = dynamic_cast<TGen::Engine::ObjectInterface *>(component);
+			linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(component);
 			updateFromLink();			
 		}
 	}

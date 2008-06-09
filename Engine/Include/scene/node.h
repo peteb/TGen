@@ -17,8 +17,10 @@ namespace TGen {
 	class SceneNode;
 	
 	namespace Engine {
+		//class EntityList;
+		
 		namespace Scene {
-			class Node : public TGen::Engine::Component, public TGen::Engine::ObjectInterface {
+			class Node : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 			public:
 				Node(const std::string & name, TGen::SceneNode * sceneNode);
 				~Node();
@@ -26,18 +28,25 @@ namespace TGen {
 				TGen::SceneNode * getSceneNode();
 				void update(scalar dt);
 
+				void setLinkWith(const std::string & linkWith);
+				void linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity);
+				
 				// object interface
 				TGen::Vector3 getPosition() const;
 				TGen::Rotation getOrientation() const;
 				TGen::Vector3 getVelocity() const;
-				TGen::Matrix4x4 getSpaceTransform() const;
 				void setPosition(const TGen::Vector3 & pos);
 				void setOrientation(const TGen::Rotation & orientation);			
 				
 				
 			private:
+				const TGen::Matrix4x4 & getParentInverseTransform();
+				
 				TGen::SceneNode * sceneNode;
 				TGen::Vector3 velocity, lastPos;
+				TGen::Matrix4x4 parentInverseTransform;
+				bool changed;
+				std::string linkWith;
 			};
 		
 		} // !Scene

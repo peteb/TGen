@@ -32,7 +32,9 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 	, orientation(orientation)
 	, up(0.0f, 1.0f, 0.0f)
 	, changed(true)
+	, changedSinceLastCheck(false)
 	, parent(NULL)
+	, autoParent(NULL)
 {
 	
 }
@@ -82,7 +84,7 @@ void TGen::SceneNode::update(scalar dt) {
 		calculateWorldBV();
 		
 		if (autoParent) {
-			TGen::SceneNode * newParent = autoParent->getNodeFromPoint(getLocalPosition());
+			TGen::SceneNode * newParent = autoParent->getNodeFromPoint(autoParent->getTransform().getInverse() * getLocalPosition());
 		//	if (!newParent)
 			//	newParent = autoParent;
 			
@@ -93,6 +95,7 @@ void TGen::SceneNode::update(scalar dt) {
 		}
 	}
 	
+	this->changedSinceLastCheck = this->changed;
 	this->changed = false;	
 }
 
@@ -306,6 +309,13 @@ void TGen::SceneNode::detached() {
 
 bool TGen::SceneNode::hasChanged() const {
 	return changed;
+}
+
+bool TGen::SceneNode::checkChanged() {
+	bool ret = changedSinceLastCheck;
+	changedSinceLastCheck = false;
+	
+	return ret;	
 }
 
 void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {

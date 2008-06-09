@@ -18,7 +18,7 @@ namespace TGen {
 	class Matrix3x3;
 	
 	namespace Engine {
-		class ObjectInterface;
+		class WorldObject;
 		
 		namespace Physics {
 			class Body;
@@ -53,7 +53,7 @@ namespace TGen {
 				void updateFromLink();
 				void sendToLink();
 				
-				TGen::Engine::ObjectInterface * linkedTo;
+				TGen::Engine::WorldObject * linkedTo;
 				
 				bool affectsOthers;
 				float friction;

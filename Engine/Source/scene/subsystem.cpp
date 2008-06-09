@@ -31,6 +31,7 @@ TGen::Engine::Scene::Subsystem::Subsystem(TGen::Engine::ResourceManager & resour
 }
 
 TGen::Engine::Scene::Subsystem::~Subsystem() {
+	sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
 
 }
 
@@ -65,7 +66,10 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	
 	if (!autoTP.empty()) {
 		TGen::SceneNode * parent = sceneRoot.getNode(autoTP, true);
-	
+		// TODO: treePosition ska sätta parent, autoTP sätter bara vad den ska kolla mot
+		// treePosition borde även heta parent
+		// nu dock: WorldObject ska göra allt i world coords! och ta bort spacetransform
+		
 		if (!parent)
 			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node for autoTP");
 		
@@ -85,14 +89,20 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 		parentNode = sceneRoot.getNode(treePosition);
 	}
 	
-	if (!parentNode)
-		throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node '" + treePosition + "'");
+	std::string linkParent = properties.getProperty("link", "");
+	
+	if (linkParent.empty()) {
+		if (!parentNode)
+			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node '" + treePosition + "'");
 
-	parentNode->addChild(sceneNode);
+		parentNode->addChild(sceneNode);
+	}
 
 	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
 	if (components.find(entityName) == components.end())
 		components.insert(ComponentMap::value_type(entityName, newComponent));
+	
+	newComponent->setLinkWith(linkParent);
 	
 	nodes.push_back(newComponent);
 	
@@ -226,7 +236,6 @@ void TGen::Engine::Scene::Subsystem::link() {
 	//sceneRoot.setPosition(TGen::Vector3(0.0f, 100.0f, 0.0f));
 	sceneRoot.update(0.0f);
 
-	sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
 }
 
 TGen::SceneNode & TGen::Engine::Scene::Subsystem::getSceneRoot() {

@@ -16,6 +16,7 @@
 namespace TGen {
 	namespace Engine {
 		class Entity;
+		class Component;
 		
 		class EntityList {
 		public:
@@ -23,6 +24,8 @@ namespace TGen {
 			
 			void addEntity(TGen::Engine::Entity * entity);
 			TGen::Engine::Entity * getEntity(const std::string & name);
+			TGen::Engine::Component * getComponent(const std::string & name, TGen::Engine::Entity & from);
+			
 			void linkGlobally();
 			
 		private:

@@ -26,7 +26,7 @@ namespace TGen {
 			std::string getName() const {return name; }
 			
 			virtual void linkLocally(TGen::Engine::Entity & entity) {}
-			virtual void linkGlobally(TGen::Engine::EntityList & entities) {}
+			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {}
 			
 		protected:
 			const std::string name;

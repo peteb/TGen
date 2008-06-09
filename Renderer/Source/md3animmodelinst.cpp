@@ -30,8 +30,8 @@ bool TGen::MD3::AnimatingModelInstance::isPureInstance() const {
 	return true;
 }
 
-// TODO: riktig animering, indexbuffers ska INTE DUPLICERAS FÃ–R VARJE KEYFRAME OMG FFS
-//       ska vara en samling tags per frame, sÃ¥ interpolerar man hÃ¤r typ, getJoint
+// TODO: riktig animering, indexbuffers ska INTE DUPLICERAS FÖR VARJE KEYFRAME OMG FFS
+//       ska vara en samling tags per frame, så interpolerar man här typ, getJoint
 
 void TGen::MD3::AnimatingModelInstance::update() {
 	static float num = 0.0f;
@@ -80,8 +80,33 @@ void TGen::MD3::AnimatingModelInstance::addMesh(TGen::MD3::AnimatingMeshInstance
 	meshes.push_back(mesh);
 }
 
-void TGen::MD3::AnimatingModelInstance::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {
-
+void TGen::MD3::AnimatingModelInstance::writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream) {	
+	if (metaType == TGen::MetaAxis) {
+		typedef TGen::JoinVertexElements2<TGen::Vertex3<float>, TGen::Color4<float> > MetaLineDecl;
+		
+		TGen::Vector3 start = transform.getOrigin();
+		TGen::Vector3 end = start + transform.getZ();
+		
+		MetaLineDecl::Type points[2];
+		points[0].x = start.x;
+		points[0].y = start.y;
+		points[0].z = start.z;
+		points[0].r = 1.0f;
+		points[0].g = 1.0f;
+		points[0].b = 0.0f;
+		points[0].a = 1.0f;
+			
+		points[1].x = end.x;
+		points[1].y = end.y;
+		points[1].z = end.z;
+		points[1].r = 1.0f;
+		points[1].g = 1.0f;
+		points[1].b = 0.0f;
+		points[1].a = 1.0f;
+			
+		stream.writeVertex(&points[0]);
+		stream.writeVertex(&points[1]);
+	}
 	
 }
 

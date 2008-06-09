@@ -24,7 +24,7 @@ TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const st
 }
 
 void TGen::Engine::Sound::LocalSource::linkLocally(TGen::Engine::Entity & entity) {
-	linkedTo = dynamic_cast<TGen::Engine::ObjectInterface *>(entity.getComponent(linkWith));
+	linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(linkWith));
 }
 
 void TGen::Engine::Sound::LocalSource::update(scalar dt) {

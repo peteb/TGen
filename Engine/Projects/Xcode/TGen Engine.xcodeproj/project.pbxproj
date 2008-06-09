@@ -534,7 +534,6 @@
 				D0F493070CBE89500080CB46 /* commands */,
 				D01B6CED0C8A149200D8943C /* filesystem */,
 				D077FA470D26DA4B00217E07 /* map */,
-				D0843BD20D0759D200C31FE3 /* entity */,
 				D09628EB0D784E60008DABC3 /* subsystems */,
 				D0F8393B0CBA679200FF4467 /* game */,
 				D08395710CD9266900C94467 /* renderer */,
@@ -896,12 +895,13 @@
 		D09628EB0D784E60008DABC3 /* subsystems */ = {
 			isa = PBXGroup;
 			children = (
+				D0843BD20D0759D200C31FE3 /* entity */,
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
+				D0E457D00D90696300F4D548 /* scene */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
-				D0E457D00D90696300F4D548 /* scene */,
 				D093321E0D79FFC30046DC37 /* physics */,
 			);
 			name = subsystems;

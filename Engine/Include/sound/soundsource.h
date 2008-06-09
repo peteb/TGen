@@ -16,7 +16,7 @@
 
 namespace TGen {
 	namespace Engine {
-		class ObjectInterface;
+		class WorldObject;
 		
 		namespace Sound {
 			class Subsystem;

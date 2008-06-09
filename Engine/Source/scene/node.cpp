@@ -8,11 +8,15 @@
  */
 
 #include "scene/node.h"
+#include "entitylist.h"
+#include "entity.h"
 #include <tgen_renderer.h>
 
 TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * sceneNode) 
 	: TGen::Engine::Component(name)
 	, sceneNode(sceneNode)
+	, changed(true)
+	, parentInverseTransform(TGen::Matrix4x4::Identity)
 {
 	
 }
@@ -37,39 +41,50 @@ TGen::Vector3 TGen::Engine::Scene::Node::getVelocity() const {
 	return velocity;
 }
 
-TGen::Matrix4x4 TGen::Engine::Scene::Node::getSpaceTransform() const {
-	if (sceneNode->getParent())
-		return sceneNode->getParent()->getTransform();
-	
-	return TGen::Matrix4x4::Identity;
-}
 
 void TGen::Engine::Scene::Node::setPosition(const TGen::Vector3 & pos) {
-	sceneNode->setPosition(pos);
+	sceneNode->setPosition(getParentInverseTransform() * pos);
 }
 
 void TGen::Engine::Scene::Node::setOrientation(const TGen::Rotation & orientation) {
-	sceneNode->setOrientation(orientation);
+	sceneNode->setOrientation(getParentInverseTransform() * orientation);
 }
 
 
 void TGen::Engine::Scene::Node::update(scalar dt) {
 	velocity = (sceneNode->getWorldPosition() - lastPos) / dt;
 	lastPos = sceneNode->getWorldPosition();
+	
+	if (sceneNode->checkChanged())
+		changed = true;
 }
 
-/*
-Fysiksystemet steppas, alla objekt som flyttats (dvs inte har kommit i vila) triggrar sina update-events vilket
- SceneNode-komponenten har reggat och då uppdateras det i det systemet, utan att triggra en update åt andra hållet,
- SceneNode uppdateras manuellt -> update till physcomponent, updatering i physsystemet. physsystemet har sista talan
- (scene -> phys *step* phys -> scene) -> sound & logic    man måste separera, går inte att ha direkt-events... flaggor!
- scenesystem.update();
- physsystem.updateFromScene();
- physsystem.update();
- scenesystem.updateFromPhys(); // nodes är fortfarande markerade updated
- soundsystem.update();
- logicsystem.update();
- scenesystem.resetFlags();
- Det här kommer inte lösa problemet med att scenenoden puttar ett objekt från A till B och phys puttar tillbaka till A, och scenenoden markeras fortfarande som updated
- SceneNodeComponent reggar listener på scenenoden om när den blir uppdaterad
- */
+const TGen::Matrix4x4 & TGen::Engine::Scene::Node::getParentInverseTransform() {
+	if (changed) {
+		if (sceneNode->getParent())
+			parentInverseTransform = sceneNode->getParent()->getTransform().getInverse();
+		else
+			parentInverseTransform = TGen::Matrix4x4::Identity;
+		
+		changed = false;
+	}
+		
+	return parentInverseTransform;
+}
+
+void TGen::Engine::Scene::Node::setLinkWith(const std::string & linkWith) {
+	this->linkWith = linkWith;
+}
+
+void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
+	if (!linkWith.empty()) {
+		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(list.getComponent(linkWith, entity));
+		
+		if (sceneNode->getParent())
+			sceneNode->getParent()->removeChild(sceneNode);
+		
+		parent->getSceneNode()->addChild(sceneNode);
+		changed = true;
+	}
+}
+

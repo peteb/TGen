@@ -48,5 +48,5 @@ void TGen::Engine::Entity::linkLocally() {
 
 void TGen::Engine::Entity::linkGlobally(TGen::Engine::EntityList & entities) {
 	for (ComponentMap::iterator iter = components.begin(); iter != components.end(); ++iter)
-		iter->second->linkGlobally(entities);
+		iter->second->linkGlobally(entities, *this);
 }

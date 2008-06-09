@@ -32,7 +32,7 @@ namespace TGen {
 		namespace Physics {
 			class Subsystem;
 		
-			class Body : public TGen::Engine::Component, public TGen::Engine::ObjectInterface {
+			class Body : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 			public:
 				Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId);
 				~Body();
@@ -82,7 +82,7 @@ namespace TGen {
 				dWorldID worldId;
 				dSpaceID spaceId;
 				
-				TGen::Engine::ObjectInterface * linkedTo;
+				TGen::Engine::WorldObject * linkedTo;
 				bool turnHeadwise, killTorque;
 				bool onFloor;
 				scalar slope, fakeGrav;
