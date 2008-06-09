@@ -61,8 +61,10 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	
 	TGen::SceneNode * parentNode = NULL;
 	
-	std::string treePosition = properties.getProperty("treePosition", "");
+	std::string treePosition = properties.getProperty("parent", "");
 	std::string autoTP = properties.getProperty("autoTP", "");
+	
+	// fixa autoParent först, den använder en link till en component
 	
 	if (!autoTP.empty()) {
 		TGen::SceneNode * parent = sceneRoot.getNode(autoTP, true);
