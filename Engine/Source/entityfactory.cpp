@@ -70,16 +70,30 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 }
 
 TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyTree & base, const TGen::PropertyTree & entity) const {
+	// entity overrides base
 	TGen::PropertyTree ret = base;
 	
 	for (int i = 0; i < entity.getNumNodes(); ++i) {
 		try {
-			TGen::PropertyTree & baseBranch = ret.getNode(entity.getNode(i).getName());
+			const TGen::PropertyTree & entityBranch = entity.getNode(i);
+			TGen::PropertyTree & baseBranch = ret.getNode(entityBranch.getName());			
 			const TGen::PropertyTree::PropertyMap & entityProperties = entity.getNode(i).getProperties();
 			
-			for (TGen::PropertyTree::PropertyMap::const_iterator iter = entityProperties.begin(); iter != entityProperties.end(); ++iter) {
-				baseBranch.addProperty(TGen::PropertyTree::Property(*iter));
-				
+			std::string baseName, entityName;
+			
+			if (baseBranch.getNumAttributes() > 0)
+				baseName = baseBranch.getAttribute(0);
+			
+			if (entityBranch.getNumAttributes() > 0)
+				entityName = entityBranch.getAttribute(0);
+
+			if (baseName != entityName) {
+				ret.addNode(entity.getNode(i));
+			}
+			else {	// the components have the same name
+				for (TGen::PropertyTree::PropertyMap::const_iterator iter = entityProperties.begin(); iter != entityProperties.end(); ++iter) {
+					baseBranch.addProperty(TGen::PropertyTree::Property(*iter));
+				}
 			}
 		}
 		catch (...) {
@@ -92,7 +106,25 @@ TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyT
 }
 
 void TGen::Engine::EntityFactory::addClassEntity(const TGen::PropertyTree & properties) {
-	classDefinitions.insert(ClassMap::value_type(properties.getName(), properties));
+	TGen::PropertyTree props;
+	
+	std::cout << "CLASS: " << properties.getName() << std::endl;
+	
+	if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "extends") {
+		ClassMap::iterator iter = classDefinitions.find(properties.getAttribute(2));
+		if (iter == classDefinitions.end())
+			throw TGen::RuntimeException("EntityFactory::addClassEntity", "entity class '" + properties.getAttribute(2) + "' invalid");
+			
+		props = extendTree(iter->second, properties);
+	}
+	else {
+		props = properties;
+	}
+
+	for (int i = 0; i < props.getNumNodes(); ++i)
+		std::cout << props.getNode(i).getName() << std::endl;
+	
+	classDefinitions.insert(ClassMap::value_type(properties.getName(), props));
 }
 
 void TGen::Engine::EntityFactory::registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem) {

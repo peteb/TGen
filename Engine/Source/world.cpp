@@ -45,14 +45,9 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("sndGlobal", &soundSubsystem);
 	
 	entityFactory.registerSubsystem("inventory", &inventorySubsystem);
-	
-	// TODO: kontrollera om entiteter ska map-cullas, vanligtvis på. stäng av med noMapCull eller nått
-	// TODO: entiteter ska kunna höra till banan och på så vis bara bli rendrerade om de är i ett rum som syns
-	//       kan kanske fixas genom att överlagra funktionen som ger faces åt renderlist att rendrera, att den då går igenom de rum som syns, 
-	//       men alla entiteter i banan ska uppdateras när banan uppdateras.
-	// TODO: överlagra addChild för map, den för in entiteten i den area som origin pekar på
+
+	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
-	// TODO: riktig file-logger. som resettar filen när man startar
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
 

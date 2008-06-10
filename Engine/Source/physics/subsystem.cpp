@@ -278,11 +278,11 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 		//if (bodyObject)
 		//	std::cout << "HEY" << std::endl;
 		
-		//if (geom1 && !geom1->getAffectsOthers())
-		//	body2 = 0;
+		if (geom1 && !geom1->getAffectsOthers())
+			body2 = 0;
 		
-		//if (geom2 && !geom2->getAffectsOthers())
-		//	body1 = 0;
+		if (geom2 && !geom2->getAffectsOthers())
+			body1 = 0;
 		
 		
 		for (int i = 0; i < numContacts; ++i) {

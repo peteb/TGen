@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_INVENTORY_SUBSYSTEM_H
 
 #include "../subsystem.h"
+#include "item.h"
 
 namespace TGen {
 	namespace Engine {
@@ -21,6 +22,9 @@ namespace TGen {
 				~Subsystem();
 				
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				
+			private:
+				TGen::Engine::Inventory::Item createItem(const TGen::PropertyTree & properties);
 			}; 
 		} // !Inventory
 	} // !Engine
