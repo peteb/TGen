@@ -110,9 +110,6 @@ void TGen::SceneNode::moveTo(TGen::SceneNode * newParent, bool translate) {
 	newParent->addChild(this);	
 
 	if (translate) {
-		TGen::Vector3 globalPos = oldParent->getTransform() * getLocalPosition();
-		TGen::Vector3 newLocal = newParent->getTransform().getInverse() * globalPos;
-		
 		TGen::Matrix4x4 globalTransform = oldParent->getTransform() * newParent->getTransform().getInverse();
 	
 		setPosition(globalTransform * getLocalPosition());

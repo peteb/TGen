@@ -48,6 +48,7 @@
 		D07408510D32CD7300735304 /* devicecollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408500D32CD7300735304 /* devicecollection.cpp */; };
 		D07408DA0D32D1BD00735304 /* sdlmouse.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408D90D32D1BD00735304 /* sdlmouse.cpp */; };
 		D07409020D32D37B00735304 /* sdlgamepad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07409010D32D37B00735304 /* sdlgamepad.cpp */; };
+		D07430800DFEA2F300F9F407 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074307F0DFEA2F300F9F407 /* subsystem.cpp */; };
 		D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0765B900D19C62B006F7073 /* platform_cocoa.cpp */; };
 		D077FA670D26DC6C00217E07 /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FA660D26DC6C00217E07 /* map.cpp */; };
 		D077FAB20D26DF0F00217E07 /* maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FAB10D26DF0F00217E07 /* maploader.cpp */; };
@@ -313,6 +314,8 @@
 		D07408D90D32D1BD00735304 /* sdlmouse.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdlmouse.cpp; sourceTree = "<group>"; };
 		D07409000D32D37100735304 /* sdlgamepad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlgamepad.h; path = ../../Include/sdlgamepad.h; sourceTree = SOURCE_ROOT; };
 		D07409010D32D37B00735304 /* sdlgamepad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdlgamepad.cpp; sourceTree = "<group>"; };
+		D074307E0DFEA2E800F9F407 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/inventory/subsystem.h; sourceTree = SOURCE_ROOT; };
+		D074307F0DFEA2F300F9F407 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = inventory/subsystem.cpp; sourceTree = "<group>"; };
 		D0765B900D19C62B006F7073 /* platform_cocoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_cocoa.cpp; sourceTree = "<group>"; };
 		D0765B920D19C63F006F7073 /* platform_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_cocoa.h; path = ../../Include/platform_cocoa.h; sourceTree = SOURCE_ROOT; };
 		D077FA650D26DB7600217E07 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = map.h; path = ../../Include/map.h; sourceTree = SOURCE_ROOT; };
@@ -753,6 +756,15 @@
 			name = input;
 			sourceTree = "<group>";
 		};
+		D074307C0DFEA29C00F9F407 /* inventory */ = {
+			isa = PBXGroup;
+			children = (
+				D074307F0DFEA2F300F9F407 /* subsystem.cpp */,
+				D074307E0DFEA2E800F9F407 /* subsystem.h */,
+			);
+			name = inventory;
+			sourceTree = "<group>";
+		};
 		D077FA470D26DA4B00217E07 /* map */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +911,7 @@
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
+				D074307C0DFEA29C00F9F407 /* inventory */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
@@ -1277,6 +1290,7 @@
 				D0A310EE0DF355BB0007A749 /* channel.cpp in Sources */,
 				D0A310FD0DF4A8490007A749 /* sound.cpp in Sources */,
 				D0891C850DFC5AEA0074401E /* convert.cpp in Sources */,
+				D07430800DFEA2F300F9F407 /* subsystem.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

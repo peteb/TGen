@@ -94,9 +94,7 @@ void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TG
 		if (!parent)
 			throw TGen::RuntimeException("Scene::Node::linkGlobally", "no node called '" + autoParent + "' for autoParent");
 		
-		std::cout << "AUTOPARENT: " << autoParent << std::endl;
-		sceneNode->setAutoTP(parent->getSceneNode());
-		
+		sceneNode->setAutoTP(parent->getSceneNode());		
 		changed = true;
 	}
 }

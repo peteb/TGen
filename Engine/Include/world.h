@@ -20,6 +20,7 @@
 #include "physics/subsystem.h"
 #include "controller/subsystem.h"
 #include "sound/subsystem.h"
+#include "inventory/subsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -58,6 +59,7 @@ namespace TGen {
 			TGen::Engine::Physics::Subsystem physicsSubsystem;
 			TGen::Engine::Controller::Subsystem controllerSubsystem;
 			TGen::Engine::Sound::Subsystem soundSubsystem;
+			TGen::Engine::Inventory::Subsystem inventorySubsystem;
 			
 			TGen::Engine::EntityFactory entityFactory;
 			
