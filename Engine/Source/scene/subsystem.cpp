@@ -10,6 +10,7 @@
 #include "scene/subsystem.h"
 #include "scene/node.h"
 #include "scene/transformnode.h"
+#include "scene/equipmentnode.h"
 
 #include "world.h"
 #include "app.h"
@@ -41,25 +42,33 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	bool doCreateLight = properties.getName() == "sceneLight";
 	bool doCreateMap = properties.getName() == "sceneMap";
 	bool doCreateTransform = properties.getName() == "sceneTransform";
+	bool doCreateEquipmentNode = properties.getName() == "sceneEqNode";
 	
 	// TODO: vad händer om man mergar med olika attribut på en node, blir fel!
 	
 	TGen::SceneNode * sceneNode = NULL;
 	
+	std::string useName = name;
+	
+	if (useName == properties.getName())
+		useName = entityName;
+	
 	if (doCreateCamera)
-		sceneNode = createCameraNode(entityName, properties);
+		sceneNode = createCameraNode(useName, properties);
 	else if (doCreateLight)
-		sceneNode = createLightNode(entityName, properties);
+		sceneNode = createLightNode(useName, properties);
 	else if (doCreateNode)
-		sceneNode = createNode(entityName, properties);
+		sceneNode = createNode(useName, properties);
 	else if (doCreateMap)
-		sceneNode = createMapNode(entityName, properties);
+		sceneNode = createMapNode(useName, properties);
 	else if (doCreateTransform)
-		sceneNode = createTransformNode(entityName, properties);
+		sceneNode = createTransformNode(useName, properties);
+	else if (doCreateEquipmentNode)
+		sceneNode = createEquipmentNode(useName, properties);
 	else
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
-	TGen::SceneNode * parentNode = NULL;
+	//TGen::SceneNode * parentNode = NULL;
 	
 	//std::string treePosition = properties.getProperty("relative", "");
 	std::string autoTP = properties.getProperty("autoParent", "");
@@ -183,14 +192,26 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 	std::string modelName = properties.getProperty("model", "");
 	
 	if (!modelName.empty()) {
-		//TGen::MeshGeometry * mesh = new TGen::MeshGeometry(modelName);
-		//meshList.attach(mesh);
-		//node->addFace(TGen::Face(mesh, properties.getProperty("material", "")));
 		node->addModel(modelPool.attach(new TGen::ModelInstanceProxy(modelName, properties.getProperty("material", ""))));
 	}
 	
 	return node;
 }
+
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties) {
+	TGen::Engine::Scene::EquipmentNode * node = new TGen::Engine::Scene::EquipmentNode(properties.getProperty("globalName", name));
+	
+	TGen::Vector3 origin = TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0"));
+	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
+	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
+	
+	node->setPosition(origin);
+	node->setOrientation(rotation);
+	node->setInitialChild(properties.getProperty("initial", ""));
+	
+	return node;
+}
+
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::MapLoader loader(logs, filesystem);

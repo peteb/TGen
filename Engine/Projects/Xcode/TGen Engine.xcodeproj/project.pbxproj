@@ -51,6 +51,7 @@
 		D07430800DFEA2F300F9F407 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D074307F0DFEA2F300F9F407 /* subsystem.cpp */; };
 		D07430BD0DFEA8D700F9F407 /* inventory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07430BC0DFEA8D700F9F407 /* inventory.cpp */; };
 		D07430F40DFEAB5200F9F407 /* item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07430F30DFEAB5200F9F407 /* item.cpp */; };
+		D07432640DFED6FE00F9F407 /* equipmentnode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07432630DFED6FE00F9F407 /* equipmentnode.cpp */; };
 		D0765B910D19C62B006F7073 /* platform_cocoa.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0765B900D19C62B006F7073 /* platform_cocoa.cpp */; };
 		D077FA670D26DC6C00217E07 /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FA660D26DC6C00217E07 /* map.cpp */; };
 		D077FAB20D26DF0F00217E07 /* maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FAB10D26DF0F00217E07 /* maploader.cpp */; };
@@ -322,6 +323,8 @@
 		D07430BC0DFEA8D700F9F407 /* inventory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = inventory.cpp; path = inventory/inventory.cpp; sourceTree = "<group>"; };
 		D07430F20DFEAB4000F9F407 /* item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = item.h; path = ../../Include/inventory/item.h; sourceTree = SOURCE_ROOT; };
 		D07430F30DFEAB5200F9F407 /* item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = item.cpp; path = inventory/item.cpp; sourceTree = "<group>"; };
+		D07432620DFED6F200F9F407 /* equipmentnode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = equipmentnode.h; path = ../../Include/scene/equipmentnode.h; sourceTree = SOURCE_ROOT; };
+		D07432630DFED6FE00F9F407 /* equipmentnode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = equipmentnode.cpp; path = scene/equipmentnode.cpp; sourceTree = "<group>"; };
 		D0765B900D19C62B006F7073 /* platform_cocoa.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = platform_cocoa.cpp; sourceTree = "<group>"; };
 		D0765B920D19C63F006F7073 /* platform_cocoa.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = platform_cocoa.h; path = ../../Include/platform_cocoa.h; sourceTree = SOURCE_ROOT; };
 		D077FA650D26DB7600217E07 /* map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = map.h; path = ../../Include/map.h; sourceTree = SOURCE_ROOT; };
@@ -775,6 +778,13 @@
 			name = inventory;
 			sourceTree = "<group>";
 		};
+		D07433850DFEF16B00F9F407 /* weapons */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = weapons;
+			sourceTree = "<group>";
+		};
 		D077FA470D26DA4B00217E07 /* map */ = {
 			isa = PBXGroup;
 			children = (
@@ -922,6 +932,7 @@
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D074307C0DFEA29C00F9F407 /* inventory */,
+				D07433850DFEF16B00F9F407 /* weapons */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
@@ -941,6 +952,8 @@
 				D0170FE80DE8B447007380B9 /* transformnode.h */,
 				D01710E70DE9ABCC007380B9 /* nodetransformer.cpp */,
 				D01710E60DE9ABC1007380B9 /* nodetransformer.h */,
+				D07432630DFED6FE00F9F407 /* equipmentnode.cpp */,
+				D07432620DFED6F200F9F407 /* equipmentnode.h */,
 			);
 			name = scene;
 			sourceTree = "<group>";
@@ -1303,6 +1316,7 @@
 				D07430800DFEA2F300F9F407 /* subsystem.cpp in Sources */,
 				D07430BD0DFEA8D700F9F407 /* inventory.cpp in Sources */,
 				D07430F40DFEAB5200F9F407 /* item.cpp in Sources */,
+				D07432640DFED6FE00F9F407 /* equipmentnode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

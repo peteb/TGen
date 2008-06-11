@@ -34,7 +34,8 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("sceneLight", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneMap", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneTransform", &sceneSubsystem);
-
+	entityFactory.registerSubsystem("sceneEqNode", &sceneSubsystem);
+	
 	entityFactory.registerSubsystem("physBody", &physicsSubsystem);
 	entityFactory.registerSubsystem("physGeom", &physicsSubsystem);
 	entityFactory.registerSubsystem("physJoint", &physicsSubsystem);

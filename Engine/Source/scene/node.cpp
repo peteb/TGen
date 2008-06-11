@@ -8,6 +8,8 @@
  */
 
 #include "scene/node.h"
+#include "scene/equipmentnode.h"
+
 #include "entitylist.h"
 #include "entity.h"
 #include <tgen_renderer.h>
@@ -96,6 +98,12 @@ void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TG
 		
 		sceneNode->setAutoTP(parent->getSceneNode());		
 		changed = true;
+	}
+	
+	TGen::Engine::Scene::EquipmentNode * equipmentNode = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode);
+	
+	if (equipmentNode) {	// much easier than to subclass this class just for eq node
+		equipmentNode->linkGlobally(list, entity);
 	}
 }
 
