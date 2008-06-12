@@ -43,6 +43,9 @@
 		D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = D062304D0D807DBA003A31A0 /* Statistics.xib */; };
 		D0637CEF0DB556F700FD1DC4 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */; };
 		D07147A80D68592A00842110 /* metacreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07147A70D68592A00842110 /* metacreator.cpp */; };
+		D072BC780E01645200999FC2 /* noderecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D072BC770E01645200999FC2 /* noderecipe.cpp */; };
+		D072BCF50E0166F000999FC2 /* entityrecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D072BCF40E0166F000999FC2 /* entityrecipe.cpp */; };
+		D072C0E20E01D64E00999FC2 /* weapon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D072C0E10E01D64E00999FC2 /* weapon.cpp */; };
 		D07407FF0D32C86A00735304 /* inputdevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07407FE0D32C86A00735304 /* inputdevice.cpp */; };
 		D07408020D32CA1F00735304 /* sdlkeyboard.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408010D32CA1F00735304 /* sdlkeyboard.cpp */; };
 		D07408510D32CD7300735304 /* devicecollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07408500D32CD7300735304 /* devicecollection.cpp */; };
@@ -306,6 +309,13 @@
 		D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = controller/subsystem.cpp; sourceTree = "<group>"; };
 		D07147A60D68592100842110 /* metacreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metacreator.h; path = ../../Include/metacreator.h; sourceTree = SOURCE_ROOT; };
 		D07147A70D68592A00842110 /* metacreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metacreator.cpp; sourceTree = "<group>"; };
+		D072BC6F0E01636A00999FC2 /* componentrecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentrecipe.h; path = ../../Include/componentrecipe.h; sourceTree = SOURCE_ROOT; };
+		D072BC720E0163F000999FC2 /* noderecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = noderecipe.h; path = ../../Include/scene/noderecipe.h; sourceTree = SOURCE_ROOT; };
+		D072BC770E01645200999FC2 /* noderecipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = noderecipe.cpp; path = scene/noderecipe.cpp; sourceTree = "<group>"; };
+		D072BCF30E0166E600999FC2 /* entityrecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entityrecipe.h; path = ../../Include/entityrecipe.h; sourceTree = SOURCE_ROOT; };
+		D072BCF40E0166F000999FC2 /* entityrecipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entityrecipe.cpp; sourceTree = "<group>"; };
+		D072C0E00E01D63F00999FC2 /* weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = weapon.h; path = ../../Include/inventory/weapon.h; sourceTree = SOURCE_ROOT; };
+		D072C0E10E01D64E00999FC2 /* weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = weapon.cpp; path = inventory/weapon.cpp; sourceTree = "<group>"; };
 		D07407FD0D32C7E100735304 /* inputdevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputdevice.h; path = ../../Include/inputdevice.h; sourceTree = SOURCE_ROOT; };
 		D07407FE0D32C86A00735304 /* inputdevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inputdevice.cpp; sourceTree = "<group>"; };
 		D07408000D32CA1300735304 /* sdlkeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlkeyboard.h; path = ../../Include/sdlkeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -774,15 +784,10 @@
 				D07430BB0DFEA8CA00F9F407 /* inventory.h */,
 				D07430F30DFEAB5200F9F407 /* item.cpp */,
 				D07430F20DFEAB4000F9F407 /* item.h */,
+				D072C0E10E01D64E00999FC2 /* weapon.cpp */,
+				D072C0E00E01D63F00999FC2 /* weapon.h */,
 			);
 			name = inventory;
-			sourceTree = "<group>";
-		};
-		D07433850DFEF16B00F9F407 /* weapons */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = weapons;
 			sourceTree = "<group>";
 		};
 		D077FA470D26DA4B00217E07 /* map */ = {
@@ -845,6 +850,8 @@
 			children = (
 				D0843BC90D0759D200C31FE3 /* entity.cpp */,
 				D0843BC80D0759D200C31FE3 /* entity.h */,
+				D072BCF40E0166F000999FC2 /* entityrecipe.cpp */,
+				D072BCF30E0166E600999FC2 /* entityrecipe.h */,
 				D0095C0C0D787AE300D0DC31 /* entitylist.cpp */,
 				D0095C0B0D787AD600D0DC31 /* entitylist.h */,
 				D0843BD70D0759D200C31FE3 /* entityfactory.cpp */,
@@ -930,9 +937,9 @@
 				D0843BD20D0759D200C31FE3 /* entity */,
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
+				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D074307C0DFEA29C00F9F407 /* inventory */,
-				D07433850DFEF16B00F9F407 /* weapons */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
@@ -948,6 +955,8 @@
 				D0843C100D075B0100C31FE3 /* subsystem.h */,
 				D0843BD40D0759D200C31FE3 /* node.cpp */,
 				D0843BD30D0759D200C31FE3 /* node.h */,
+				D072BC770E01645200999FC2 /* noderecipe.cpp */,
+				D072BC720E0163F000999FC2 /* noderecipe.h */,
 				D0170FE90DE8B454007380B9 /* transformnode.cpp */,
 				D0170FE80DE8B447007380B9 /* transformnode.h */,
 				D01710E70DE9ABCC007380B9 /* nodetransformer.cpp */,
@@ -1317,6 +1326,9 @@
 				D07430BD0DFEA8D700F9F407 /* inventory.cpp in Sources */,
 				D07430F40DFEAB5200F9F407 /* item.cpp in Sources */,
 				D07432640DFED6FE00F9F407 /* equipmentnode.cpp in Sources */,
+				D072BC780E01645200999FC2 /* noderecipe.cpp in Sources */,
+				D072BCF50E0166F000999FC2 /* entityrecipe.cpp in Sources */,
+				D072C0E20E01D64E00999FC2 /* weapon.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

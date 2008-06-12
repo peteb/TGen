@@ -25,6 +25,8 @@ namespace TGen {
 			class Node;
 		}
 		
+		class WeaponInterface;
+		
 		namespace Controller {
 			class FirstPerson : public TGen::Engine::PlayerController {
 			public:
@@ -32,8 +34,11 @@ namespace TGen {
 				~FirstPerson();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void update(scalar dt);
 				void setDeltaPlane(scalar speed);
+				void setWeaponLink(const std::string & weaponName);
+				
 				TGen::Vector3 getVelocity() const;
 				TGen::Vector3 getPosition() const;
 				TGen::Rotation getOrientation() const;		
@@ -42,11 +47,12 @@ namespace TGen {
 				TGen::Engine::Scene::Node * node;		// IMPL
 				TGen::SceneNode * viewNode;
 				TGen::Engine::Physics::Body * controlBody;
+				TGen::Engine::WeaponInterface * weapon;
 				
-				bool usePhysics;
+				bool usePhysics, primaryFire, secondaryFire;
 				scalar airTime;
 				
-				std::string control, view;
+				std::string control, view, weaponName;
 				scalar orientX, orientY;			
 				scalar deltaPlane;
 				scalar jumpTime, jumpForce, airControl;

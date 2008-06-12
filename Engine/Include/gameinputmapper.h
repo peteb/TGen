@@ -25,6 +25,7 @@ namespace TGen {
 			EventJump,
 			EventCrouch,
 			EventPrimaryFire,
+			EventSecondaryFire,
 		};
 
 		class GameInputMapper : public TGen::Engine::InputEventResponder {

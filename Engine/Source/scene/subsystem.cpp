@@ -32,8 +32,12 @@ TGen::Engine::Scene::Subsystem::Subsystem(TGen::Engine::ResourceManager & resour
 }
 
 TGen::Engine::Scene::Subsystem::~Subsystem() {
-	sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
-
+	try {
+		sceneRoot.traverse(TGen::ScenePrinter(std::cout));	
+	}
+	catch (...) {
+		
+	}
 }
 
 TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
@@ -126,6 +130,43 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	
 	return newComponent;
 }
+
+TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+	TGen::SceneNode * prototypeNode = createNode(name + "_prototype", properties); // new TGen::SceneNode(name);
+	sceneRoot.addChild(prototypeNode);
+	
+	std::auto_ptr<TGen::Engine::Scene::NodeRecipe> newRecipe(new TGen::Engine::Scene::NodeRecipe(name, prototypeNode));
+	
+	std::cout << "hey" << std::endl;
+
+	/*
+	 TGen::SceneNode * node = new TGen::SceneNode(properties.getProperty("globalName", name),
+	 TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	 
+	 TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
+	 TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
+	 
+	 node->setOrientation(rotation);
+	 
+	 std::string modelName = properties.getProperty("model", "");
+	 
+	 if (!modelName.empty()) {
+	 node->addModel(modelPool.attach(new TGen::ModelInstanceProxy(modelName, properties.getProperty("material", ""))));
+	 }
+	
+	 */
+	
+	std::string origin = properties.getProperty("origin", "0 0 0");
+	std::string orientation = properties.getProperty("orientation", "0 0 1");
+	
+	newRecipe->setOrigin(TGen::Vector3::Parse(origin));
+	newRecipe->setOrientation(TGen::Rotation::LookInDirection(TGen::Vector3::Parse(orientation), TGen::Vector3(0.0f, 1.0f, 0.0f)));
+	//newRecipe->setModel(properties.getProperty("model", ""), properties.getProperty("material", ""));	
+	//newRecipe->setLinkWith(properties.getProperty("relative", properties.getProperty("link", "")));
+	
+	return newRecipe.release();
+}
+
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {	
 	TGen::Camera * camera = new TGen::Camera(properties.getProperty("globalName", name), 

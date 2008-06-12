@@ -35,7 +35,7 @@ TGen::Engine::Component * TGen::Engine::Entity::getComponent(const std::string &
 	
 	if (iter == components.end())
 		throw TGen::RuntimeException("Entity::getComponent", "no component called '" + name + "' loaded!");
-	
+
 	return iter->second;
 }
 

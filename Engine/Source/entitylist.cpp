@@ -9,16 +9,24 @@
 
 #include "entitylist.h"
 #include "entity.h"
+#include "entityrecipe.h"
 #include <tgen_core.h>
 
 TGen::Engine::EntityList::~EntityList() {
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter)
 		delete iter->second;
+	
+	for (PrototypeMap::iterator iter = prototypes.begin(); iter != prototypes.end(); ++iter)
+		delete iter->second;
 }
 
 
 void TGen::Engine::EntityList::addEntity(TGen::Engine::Entity * entity) {
-	entities.insert(EntityMap::value_type(entity->getName(), entity));
+	entities.insert(std::make_pair(entity->getName(), entity));
+}
+
+void TGen::Engine::EntityList::addPrototype(TGen::Engine::EntityRecipe * recipe) {
+	prototypes.insert(std::make_pair(recipe->getName(), recipe));
 }
 
 TGen::Engine::Entity * TGen::Engine::EntityList::getEntity(const std::string & name) {
@@ -31,12 +39,16 @@ TGen::Engine::Entity * TGen::Engine::EntityList::getEntity(const std::string & n
 
 void TGen::Engine::EntityList::linkGlobally() {
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
-		try {
+		//try {
 			iter->second->linkGlobally(*this);
-		} catch (const std::exception & e) {
-			// TODO: output log, flytta ut renderer från game state!
-		}
+		//} catch (const std::exception & e) {
+			
+			// TODO: output log, flytta ut renderer från game state! Huh?
+		//}
 	}
+	
+	for (PrototypeMap::iterator iter = prototypes.begin(); iter != prototypes.end(); ++iter)
+		iter->second->linkGlobally(*this);
 }
 
 TGen::Engine::Component * TGen::Engine::EntityList::getComponent(const std::string & name, TGen::Engine::Entity & from) {
@@ -52,8 +64,9 @@ TGen::Engine::Component * TGen::Engine::EntityList::getComponent(const std::stri
 	else {
 		componentName = name;
 	}
-	
+
 	if (entityName.empty()) {
+		from.getComponent(componentName);
 		return from.getComponent(componentName);
 	}
 	else {

@@ -86,7 +86,7 @@ void TGen::SceneNode::update(scalar dt) {
 		if (autoParent) {
 			TGen::SceneNode * newParent = autoParent->getNodeFromPoint(autoParent->getTransform().getInverse() * getWorldPosition());
 			if (!newParent) {
-				std::cout << "NOPARENT" << std::endl;
+				//std::cout << "NOPARENT" << std::endl;	// TODO:
 				newParent = autoParent;
 			}
 			

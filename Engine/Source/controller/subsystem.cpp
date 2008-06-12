@@ -22,13 +22,14 @@ TGen::Engine::Controller::Subsystem::~Subsystem() {
 }
 
 TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	std::auto_ptr<TGen::Engine::PlayerController> newController;
+	TGen::Engine::PlayerController * ret = NULL;
 	
 	std::string type = properties.getProperty("type", "none");
 	
 	if (type == "firstperson") {
 		// TODO: spräng ut alla ctor-params till metoder
-		newController.reset(new TGen::Engine::Controller::FirstPerson(name, properties.getProperty("control", "sceneNode"), 
+
+		std::auto_ptr<TGen::Engine::Controller::FirstPerson> newController(new TGen::Engine::Controller::FirstPerson(name, properties.getProperty("control", "sceneNode"), 
 																						  properties.getProperty("view", "sceneNode"), 
 																						  TGen::lexical_cast<bool>(properties.getProperty("usePhysics", "false")),
 																						  TGen::lexical_cast<scalar>(properties.getProperty("deltaPlane", "1.0")),
@@ -36,19 +37,23 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 																						  TGen::lexical_cast<scalar>(properties.getProperty("jumpTime", "0.3")),
 																						  TGen::lexical_cast<scalar>(properties.getProperty("airControl", "0.7"))
 								  ));
+		
+		
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
+		newController->setWeaponLink(properties.getProperty("weapon", ""));
+		ret = newController.release();
 	}
 	else if (type == "arcball") {
-		newController.reset(new TGen::Engine::Controller::Arcball(name, properties.getProperty("control", "sceneNode")));
-		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
+		ret = new TGen::Engine::Controller::Arcball(name, properties.getProperty("control", "sceneNode"));
+		ret->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 	}
 	else {
 		throw TGen::RuntimeException("Controller::Subsystem::createComponent", "invalid controller type: '" + type + "'");
 	}
 	
-	controllers.insert(ControllerMap::value_type(entityName, newController.get()));
+	controllers.insert(std::make_pair(entityName, ret));
 	
-	return newController.release();
+	return ret;
 }
 
 TGen::Engine::PlayerController * TGen::Engine::Controller::Subsystem::getController(const std::string & name) {

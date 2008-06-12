@@ -46,6 +46,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("sndGlobal", &soundSubsystem);
 	
 	entityFactory.registerSubsystem("inventory", &inventorySubsystem);
+	entityFactory.registerSubsystem("weapon", &inventorySubsystem);
 
 	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
@@ -74,6 +75,12 @@ void TGen::Engine::World::loadEntities(const std::string & filename) {
 		if (props.getNode(i).getName() == "class") {
 			props.getNode(i).setName(props.getNode(i).getAttribute(0));   // change the name of the class to the first attribute
 			entityFactory.addClassEntity(props.getNode(i));
+		}
+		else if (props.getNode(i).getName() == "prototype") {
+			props.getNode(i).setName(props.getNode(i).getAttribute(0));
+			
+			TGen::Engine::EntityRecipe * recipe = entityFactory.createPrototypeEntity(props.getNode(i));
+			entities.addPrototype(recipe);
 		}
 		else {
 			TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));

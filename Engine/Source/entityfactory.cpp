@@ -9,6 +9,8 @@
 
 #include "entityfactory.h"
 #include "entity.h"
+#include "entityrecipe.h"
+#include "componentrecipe.h"
 #include "component.h"
 #include "subsystem.h"
 #include "log.h"
@@ -21,7 +23,7 @@ TGen::Engine::EntityFactory::EntityFactory(TGen::Engine::StandardLogs & logs)
 }
 
 TGen::Engine::EntityFactory::~EntityFactory() {
-	
+
 }
 
 TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::PropertyTree & properties) {	
@@ -43,8 +45,8 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 		TGen::Engine::Component * newComponent = createComponent(entity->getName(), props.getNode(i));
 		if (newComponent)
 			entity->addComponent(newComponent, newComponent->getName());
-		//else
-		//	throw TGen::RuntimeException("EntityFactory::createEntity", "failed to create component");
+		else
+			throw TGen::RuntimeException("EntityFactory::createEntity", "failed to create component");
 	}
 	
 	entity->linkLocally();
@@ -62,11 +64,28 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 		std::string componentName = properties.getName();
 		if (properties.getNumAttributes() > 0)
 			componentName = properties.getAttribute(0);
-		
+				
 		return iter->second->createComponent(componentName, entityName, properties);
 	}	
 	
 	return NULL;
+}
+
+TGen::Engine::ComponentRecipe * TGen::Engine::EntityFactory::createComponentRecipe(const std::string & entityName, const TGen::PropertyTree & properties) const {
+	SubsystemMap::const_iterator iter = subsystems.find(properties.getName());
+	
+	if (iter == subsystems.end()) {
+		logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getName() << "'" << TGen::endl;
+	}
+	else {
+		std::string componentName = properties.getName();
+		if (properties.getNumAttributes() > 0)
+			componentName = properties.getAttribute(0);
+		
+		return iter->second->createComponentRecipe(componentName, entityName, properties);
+	}	
+	
+	return NULL;	
 }
 
 TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyTree & base, const TGen::PropertyTree & entity) const {
@@ -125,6 +144,41 @@ void TGen::Engine::EntityFactory::addClassEntity(const TGen::PropertyTree & prop
 		std::cout << props.getNode(i).getName() << std::endl;
 	
 	classDefinitions.insert(ClassMap::value_type(properties.getName(), props));
+}
+
+TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(const TGen::PropertyTree & properties) {
+	std::cout << "PROTOTYPE: " << properties.getName() << std::endl;
+
+	std::auto_ptr<TGen::Engine::EntityRecipe> entity(new TGen::Engine::EntityRecipe(properties.getName()));
+
+	TGen::PropertyTree props;
+	
+	if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "extends") {
+		ClassMap::iterator iter = classDefinitions.find(properties.getAttribute(2));
+		if (iter == classDefinitions.end())
+			throw TGen::RuntimeException("EntityFactory::addPrototypeEntity", "entity prototype '" + properties.getAttribute(2) + "' invalid");
+		
+		props = extendTree(iter->second, properties);
+	}
+	else {
+		props = properties;
+	}
+	
+	for (int i = 0; i < props.getNumNodes(); ++i) {
+		//TGen::Engine::ComponentRecipe * newRecipe = createComponentRecipe(entity->getName(), props.getNode(i));
+		
+		std::cout << "CREATING RECIPE: " << props.getNode(i).getName() << std::endl;
+		TGen::Engine::ComponentRecipe * newRecipe = createComponentRecipe(entity->getName(), props.getNode(i));
+		//if (!newRecipe)
+		//	throw TGen::RuntimeException("EntityFactory::createPrototypeEntity", "failed to create component recipe");
+			
+		if (newRecipe)
+			entity->addComponentRecipe(newRecipe, newRecipe->getName());
+	}	
+	
+	std::cout << "CREATED RECIPE" << std::endl;
+	
+	return entity.release();
 }
 
 void TGen::Engine::EntityFactory::registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem) {

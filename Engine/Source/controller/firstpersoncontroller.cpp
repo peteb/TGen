@@ -10,8 +10,11 @@
 #include "controller/firstpersoncontroller.h"
 #include "scene/node.h"
 #include "entity.h"
+#include "entitylist.h"
 #include "gameinputmapper.h"
 #include "physics/body.h"
+#include "componentinterfaces.h"
+
 #include <tgen_renderer.h>
 
 TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar jumpForce, scalar jumpTime, scalar airControl)
@@ -29,6 +32,9 @@ TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, con
 	, jumpForce(jumpForce)
 	, jumpTime(jumpTime)
 	, airControl(airControl)
+	, weapon(NULL)
+	, primaryFire(false)
+	, secondaryFire(false)
 {
 	
 }
@@ -52,6 +58,21 @@ void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & e
 	this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode->getSceneNode());
 
 
+}
+
+void TGen::Engine::Controller::FirstPerson::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+	TGen::Engine::PlayerController::linkGlobally(entities, entity);
+	
+	if (!weaponName.empty()) {
+		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(entities.getComponent(weaponName, entity));
+		
+		if (!weapon)
+			throw TGen::RuntimeException("FirstPerson::linkGlobally", "failed to get weapon '" + weaponName + "'");
+	}
+}
+
+void TGen::Engine::Controller::FirstPerson::setWeaponLink(const std::string & weaponName) {
+	this->weaponName = weaponName;
 }
 
 void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
@@ -108,6 +129,22 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 		moveDelta += TGen::Vector3(1.0f, 0.0f, 0.0f);
 	}
 	
+	if (checkEvent(EventPrimaryFire)) {
+		if (!primaryFire) {
+			primaryFire = true;
+			
+			if (weapon)
+				weapon->beginFire(0);
+		}
+	}
+	else {
+		if (primaryFire) {
+			primaryFire = false;
+			
+			if (weapon)
+				weapon->endFire(0);
+		}
+	}
 	
 	//if (moveEvent) {
 		moveDelta.normalize();

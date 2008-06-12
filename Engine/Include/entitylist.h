@@ -17,12 +17,14 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		class Component;
+		class EntityRecipe;
 		
 		class EntityList {
 		public:
 			~EntityList();
 			
 			void addEntity(TGen::Engine::Entity * entity);
+			void addPrototype(TGen::Engine::EntityRecipe * recipe);
 			TGen::Engine::Entity * getEntity(const std::string & name);
 			TGen::Engine::Component * getComponent(const std::string & name, TGen::Engine::Entity & from);
 			
@@ -30,8 +32,10 @@ namespace TGen {
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Entity *> EntityMap;
-			
+			typedef std::map<std::string, TGen::Engine::EntityRecipe *> PrototypeMap;
+
 			EntityMap entities;
+			PrototypeMap prototypes;
 		};
 	} // !Engine
 } // !TGen

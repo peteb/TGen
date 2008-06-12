@@ -27,6 +27,14 @@ namespace TGen {
 			
 		};
 		
+		class WeaponInterface {
+		public:
+			virtual ~WeaponInterface() {}
+			
+			virtual void beginFire(int mode) abstract;
+			virtual void endFire(int mode) abstract;
+		};
+		
 	} // !Engine
 } // !TGen
 

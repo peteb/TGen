@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_SCENE_SUBSYSTEM_H
 
 #include "../subsystem.h"
+#include "noderecipe.h"
 #include <tgen_renderer.h>
 
 namespace TGen {
@@ -31,6 +32,7 @@ namespace TGen {
 				~Subsystem();
 				
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Scene::NodeRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				void link();
 				void update(scalar delta);
 				
