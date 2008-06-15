@@ -15,13 +15,25 @@
 
 namespace TGen {
 	namespace Engine {
+		class EntityRecipe;
+		
 		namespace Inventory {
 			class Weapon : public TGen::Engine::Component, public TGen::Engine::WeaponInterface {
 			public:
 				Weapon(const std::string & name);
 
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void setAmmoSpawn(const std::string & ammoSpawn);
+				
 				void beginFire(int mode);
 				void endFire(int mode);
+				
+			private:
+				TGen::Engine::EntityRecipe * prototype;
+				TGen::Engine::WorldObject * ammoSpawn;
+				
+				std::string ammoSpawnName;
+				
 			};
 			
 		} // !Inventory

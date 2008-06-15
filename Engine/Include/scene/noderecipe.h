@@ -15,17 +15,20 @@
 
 namespace TGen {
 	namespace Engine {
-		namespace Scene {			
+		namespace Scene {	
+			class Subsystem;
+			
 			class NodeRecipe : public TGen::Engine::ComponentRecipe {
 			public:
-				NodeRecipe(const std::string & name, TGen::SceneNode * prototypeNode);
+				NodeRecipe(const std::string & name, TGen::SceneNode * prototypeNode, TGen::Engine::Scene::Subsystem & subsystem);
 				~NodeRecipe();
 				
-				TGen::Engine::Scene::Node * createComponent();
+				TGen::Engine::Scene::Node * createComponent(const TGen::Engine::EntityRecipe & entity);
 				void setOrigin(const TGen::Vector3 & origin);
 				void setOrientation(const TGen::Rotation & orientation);
 				void setModel(const std::string & name, const std::string & materialName);
 				void setLinkWith(const std::string & linkWith);
+				TGen::SceneNode * getPrototypeNode();
 				
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
 				
@@ -34,6 +37,7 @@ namespace TGen {
 				TGen::Rotation orientation;
 				TGen::Engine::Scene::Node * parent;
 				TGen::SceneNode * prototypeNode;
+				TGen::Engine::Scene::Subsystem & subsystem;	// the component should be added to the subsystem when created
 				
 				std::string modelName, materialName;
 				std::string linkWith;

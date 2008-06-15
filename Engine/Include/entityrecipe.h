@@ -12,11 +12,13 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace TGen {
 	namespace Engine {
 		class ComponentRecipe;
 		class EntityList;
+		class Entity;
 		
 		class EntityRecipe {
 		public:
@@ -26,12 +28,17 @@ namespace TGen {
 			const std::string & getName() const;
 			void addComponentRecipe(TGen::Engine::ComponentRecipe * recipe, const std::string & name);
 			void linkGlobally(TGen::Engine::EntityList & entities);
+			TGen::Engine::Entity * createEntity() const;
+			TGen::Engine::ComponentRecipe * getComponentRecipe(const std::string & name);
 			
 		private:
 			std::string name;
 			
 			typedef std::vector<TGen::Engine::ComponentRecipe *> RecipeList;
+			typedef std::map<std::string, TGen::Engine::ComponentRecipe *> RecipeMap;
+			
 			RecipeList componentRecipes;
+			RecipeMap recipeLookup;
 		};
 		
 	} // !Engine

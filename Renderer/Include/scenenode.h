@@ -34,6 +34,8 @@ namespace TGen {
 		
 		SceneNode(const std::string & name, const TGen::Vector3 & position = TGen::Vector3(0.0f, 0.0f, 0.0f));
 		SceneNode(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation);
+		SceneNode(const SceneNode & node);
+		SceneNode(const SceneNode & node, SceneNode & parent);
 		
 		virtual ~SceneNode();
 		
@@ -54,6 +56,8 @@ namespace TGen {
 		void addFace(const TGen::Face & face);
 		void addModel(TGen::NewModelInstance * model);
 		
+		int getNumChildren() const;
+		const TGen::SceneNode * getChild(int index) const;
 		TGen::SceneNode * getChild(const std::string & name);
 		TGen::SceneNode * getNode(const std::string & path, bool create = false);
 		TGen::SceneNode * getParent();

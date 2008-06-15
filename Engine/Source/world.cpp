@@ -72,18 +72,20 @@ void TGen::Engine::World::loadEntities(const std::string & filename) {
 	delete entitiesFile;
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
-		if (props.getNode(i).getName() == "class") {
-			props.getNode(i).setName(props.getNode(i).getAttribute(0));   // change the name of the class to the first attribute
-			entityFactory.addClassEntity(props.getNode(i));
+		TGen::PropertyTree & node = props.getNode(i);
+		
+		if (node.getName() == "class") {
+			node.setName(node.getAttribute(0));   // change the name of the class to the first attribute
+			entityFactory.addClassEntity(node);
 		}
-		else if (props.getNode(i).getName() == "prototype") {
-			props.getNode(i).setName(props.getNode(i).getAttribute(0));
+		else if (node.getName() == "prototype") {
+			node.setName(node.getAttribute(0));
 			
-			TGen::Engine::EntityRecipe * recipe = entityFactory.createPrototypeEntity(props.getNode(i));
+			TGen::Engine::EntityRecipe * recipe = entityFactory.createPrototypeEntity(node);
 			entities.addPrototype(recipe);
 		}
 		else {
-			TGen::Engine::Entity * entity = entityFactory.createEntity(props.getNode(i));
+			TGen::Engine::Entity * entity = entityFactory.createEntity(node);
 			
 			entities.addEntity(entity);
 		}

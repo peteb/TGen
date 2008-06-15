@@ -120,22 +120,28 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	}*/
 
 	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
-	if (components.find(entityName) == components.end())
-		components.insert(ComponentMap::value_type(entityName, newComponent));
+
+	addComponent(newComponent, name);
 	
 	newComponent->setLinkWith(linkParent);
 	newComponent->setAutoParent(autoTP);
 	
-	nodes.push_back(newComponent);
 	
 	return newComponent;
+}
+
+void TGen::Engine::Scene::Subsystem::addComponent(TGen::Engine::Scene::Node * node, const std::string & name) {
+	if (components.find(name) == components.end())
+		components.insert(std::make_pair(name, node));
+	
+	nodes.push_back(node);
 }
 
 TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	TGen::SceneNode * prototypeNode = createNode(name + "_prototype", properties); // new TGen::SceneNode(name);
 	sceneRoot.addChild(prototypeNode);
 	
-	std::auto_ptr<TGen::Engine::Scene::NodeRecipe> newRecipe(new TGen::Engine::Scene::NodeRecipe(name, prototypeNode));
+	std::auto_ptr<TGen::Engine::Scene::NodeRecipe> newRecipe(new TGen::Engine::Scene::NodeRecipe(name, prototypeNode, *this));
 	
 	std::cout << "hey" << std::endl;
 
@@ -162,7 +168,7 @@ TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponen
 	newRecipe->setOrigin(TGen::Vector3::Parse(origin));
 	newRecipe->setOrientation(TGen::Rotation::LookInDirection(TGen::Vector3::Parse(orientation), TGen::Vector3(0.0f, 1.0f, 0.0f)));
 	//newRecipe->setModel(properties.getProperty("model", ""), properties.getProperty("material", ""));	
-	//newRecipe->setLinkWith(properties.getProperty("relative", properties.getProperty("link", "")));
+	newRecipe->setLinkWith(properties.getProperty("relative", properties.getProperty("link", "")));
 	
 	return newRecipe.release();
 }

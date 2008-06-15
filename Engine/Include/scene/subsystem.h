@@ -37,8 +37,10 @@ namespace TGen {
 				void update(scalar delta);
 				
 				TGen::Engine::Scene::Node * getComponent(const std::string & name);
-				TGen::SceneNode & getSceneRoot();
+				void addComponent(TGen::Engine::Scene::Node * node, const std::string & name);
 				
+				TGen::SceneNode & getSceneRoot();
+
 			private:
 				TGen::SceneNode * createCameraNode(const std::string & name, const TGen::PropertyTree & properties);
 				TGen::SceneNode * createLightNode(const std::string & name, const TGen::PropertyTree & properties);

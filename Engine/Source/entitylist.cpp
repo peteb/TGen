@@ -37,6 +37,14 @@ TGen::Engine::Entity * TGen::Engine::EntityList::getEntity(const std::string & n
 	return iter->second;
 }
 
+TGen::Engine::EntityRecipe * TGen::Engine::EntityList::getPrototype(const std::string & name) {
+	PrototypeMap::iterator iter = prototypes.find(name);
+	if (iter == prototypes.end())
+		throw TGen::RuntimeException("EntityList::getPrototype", "prototype '" + name + "' does not exist");
+	
+	return iter->second;
+}
+
 void TGen::Engine::EntityList::linkGlobally() {
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
 		//try {

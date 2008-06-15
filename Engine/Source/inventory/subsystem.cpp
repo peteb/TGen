@@ -35,7 +35,9 @@ TGen::Engine::Component * TGen::Engine::Inventory::Subsystem::createComponent(co
 		ret = newInventory.release();
 	}
 	else if (type == "weapon") {
-		ret = new TGen::Engine::Inventory::Weapon(name);
+		TGen::Engine::Inventory::Weapon * newWeapon = new TGen::Engine::Inventory::Weapon(name);
+		newWeapon->setAmmoSpawn(properties.getProperty("ammospawn", ""));
+		ret = newWeapon;
 	}
 	else {
 		throw TGen::RuntimeException("Inventory::Subsystem::createComponent", "invalid component type: '" + name + "'");

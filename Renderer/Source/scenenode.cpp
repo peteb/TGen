@@ -39,6 +39,56 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 	
 }
 
+TGen::SceneNode::SceneNode(const SceneNode & node) 
+	: name(node.getName())
+	, position(node.getLocalPosition())
+	, orientation(node.getLocalOrientation())
+	, up(node.up)
+	, changed(true)
+	, changedSinceLastCheck(false)
+	, parent(NULL)
+	, autoParent(node.autoParent)
+	, models(node.models)
+	, faces(node.faces)
+	//, children(node.children)		// TODO: I hope this works, the children shouldn't be shared! It doesn't work.
+{
+	if (node.parent)
+		node.parent->addChild(this);
+	
+	// TODO: copying model instances is not a good thing :/ model instance.clone or something?
+	
+	/*for (int i = 0; i < node.getNumChildren(); ++i) {
+		const TGen::SceneNode * base = node.getChild(i);
+		
+		TGen::SceneNode * newNode = new TGen::SceneNode(*base, *this);
+	}*/
+}
+
+TGen::SceneNode::SceneNode(const SceneNode & node, SceneNode & parent) 
+	: name(node.getName())
+	, position(node.getLocalPosition())
+	, orientation(node.getLocalOrientation())
+	, up(node.up)
+	, changed(true)
+	, changedSinceLastCheck(false)
+	, parent(NULL)
+	, autoParent(node.autoParent)
+	, models(node.models)
+	, faces(node.faces)
+{
+	parent.addChild(this);
+	
+	// TODO: copying model instances is not a good thing :/ model instance.clone or something?
+	
+	for (int i = 0; i < node.getNumChildren(); ++i) {
+		const TGen::SceneNode * base = node.getChild(i);
+		
+		TGen::SceneNode * newNode = new TGen::SceneNode(*base, *this);
+	}
+}
+
+																		
+																		
 TGen::SceneNode::~SceneNode() {
 	if (parent)
 		parent->removeChild(this);
@@ -116,6 +166,15 @@ void TGen::SceneNode::moveTo(TGen::SceneNode * newParent, bool translate) {
 		setOrientation(globalTransform * getLocalOrientation());
 	}
 }
+
+int TGen::SceneNode::getNumChildren() const {
+	return children.size();
+}
+
+const TGen::SceneNode * TGen::SceneNode::getChild(int index) const {
+	return children[index];
+}
+
 
 void TGen::SceneNode::updateChildren(scalar dt) {
 	for (int i = 0; i < children.size(); ++i) {

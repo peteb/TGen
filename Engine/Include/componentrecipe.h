@@ -27,7 +27,7 @@ namespace TGen {
 			
 			virtual ~ComponentRecipe() {}
 			
-			virtual TGen::Engine::Component * createComponent() abstract;
+			virtual TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity) abstract;
 			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity) {}
 
 			const std::string & getName() const {return name; }

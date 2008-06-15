@@ -25,7 +25,9 @@ namespace TGen {
 			
 			void addEntity(TGen::Engine::Entity * entity);
 			void addPrototype(TGen::Engine::EntityRecipe * recipe);
+			
 			TGen::Engine::Entity * getEntity(const std::string & name);
+			TGen::Engine::EntityRecipe * getPrototype(const std::string & name);
 			TGen::Engine::Component * getComponent(const std::string & name, TGen::Engine::Entity & from);
 			
 			void linkGlobally();
