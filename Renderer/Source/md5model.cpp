@@ -52,8 +52,8 @@ std::string TGen::MD5::Mesh::getDefaultMaterial() const {
 }
 */
 
-TGen::NewModelInstance * TGen::MD5::Model::instantiate(TGen::VertexDataSource & source) {
-	TGen::MD5::ModelInstance * newInstance = new TGen::MD5::ModelInstance(name + "_instance", "", *this);
+TGen::NewModelInstance * TGen::MD5::Model::instantiate(TGen::VertexDataSource & source) const {
+	TGen::MD5::ModelInstance * newInstance = new TGen::MD5::ModelInstance(name + "_instance", "", const_cast<TGen::MD5::Model &>(*this));
 	
 	for (int i = 0; i < meshes.size(); ++i) {
 		TGen::MD5::Mesh const & baseMesh = *meshes[i];

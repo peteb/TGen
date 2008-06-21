@@ -28,7 +28,7 @@ void TGen::Engine::Inventory::Weapon::beginFire(int mode) {
 		std::cout << "HAS PROTOTYPE" << std::endl;
 		
 		TGen::Engine::Entity * newEntity = prototype->createEntity();
-		TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(newEntity->getComponent("graphics"));
+		TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(newEntity->getComponent(prototype->getWorldInterface()));
 		
 		if (!object)
 			throw TGen::RuntimeException("blabla", "blaaaaaaa");

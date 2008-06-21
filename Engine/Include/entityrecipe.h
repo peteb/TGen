@@ -31,8 +31,11 @@ namespace TGen {
 			TGen::Engine::Entity * createEntity() const;
 			TGen::Engine::ComponentRecipe * getComponentRecipe(const std::string & name);
 			
+			void setWorldInterface(const std::string & worldInterface);
+			const std::string & getWorldInterface() const;
+			
 		private:
-			std::string name;
+			std::string name, worldInterface;
 			
 			typedef std::vector<TGen::Engine::ComponentRecipe *> RecipeList;
 			typedef std::map<std::string, TGen::Engine::ComponentRecipe *> RecipeMap;

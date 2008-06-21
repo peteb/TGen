@@ -78,3 +78,7 @@ int TGen::NewModelInstance::getNumMeshes() const {
 TGen::NewMeshInstance * TGen::NewModelInstance::getMesh(int num) {
 	throw TGen::RuntimeException("ModelInstance::getMesh", "no implementation! Did you dereference links?");
 }
+
+TGen::NewModelInstance * TGen::NewModelInstance::clone() const {
+	throw TGen::RuntimeException("ModelInstance::clone", "no implementation");
+}

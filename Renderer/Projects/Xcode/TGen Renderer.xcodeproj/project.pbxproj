@@ -70,6 +70,8 @@
 		D09030B30D47D98D00074021 /* md5model.h in Headers */ = {isa = PBXBuildFile; fileRef = D09030B20D47D98D00074021 /* md5model.h */; };
 		D09030B50D47D9A200074021 /* md5model.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09030B40D47D9A200074021 /* md5model.cpp */; };
 		D09034500D48041500074021 /* zfat.md5mesh in CopyFiles */ = {isa = PBXBuildFile; fileRef = D09034450D4803F400074021 /* zfat.md5mesh */; };
+		D09687470E06B20600231EC0 /* vertexmattransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = D09687460E06B20600231EC0 /* vertexmattransformer.h */; };
+		D09687490E06B21900231EC0 /* vertexmattransformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09687480E06B21900231EC0 /* vertexmattransformer.cpp */; };
 		D098D4C30D9A80C8003B0486 /* vertextransformer.h in Headers */ = {isa = PBXBuildFile; fileRef = D098D4C20D9A80C8003B0486 /* vertextransformer.h */; };
 		D098D5280D9A81A9003B0486 /* vertextransformlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D098D5270D9A81A9003B0486 /* vertextransformlist.h */; };
 		D098D52C0D9A822E003B0486 /* vertextransformlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D098D52B0D9A822E003B0486 /* vertextransformlist.cpp */; };
@@ -301,6 +303,8 @@
 		D09030B20D47D98D00074021 /* md5model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5model.h; path = Include/md5model.h; sourceTree = "<group>"; };
 		D09030B40D47D9A200074021 /* md5model.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5model.cpp; path = Source/md5model.cpp; sourceTree = "<group>"; };
 		D09034450D4803F400074021 /* zfat.md5mesh */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = text; path = zfat.md5mesh; sourceTree = "<group>"; };
+		D09687460E06B20600231EC0 /* vertexmattransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexmattransformer.h; path = Include/vertexmattransformer.h; sourceTree = "<group>"; };
+		D09687480E06B21900231EC0 /* vertexmattransformer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexmattransformer.cpp; path = source/vertexmattransformer.cpp; sourceTree = "<group>"; };
 		D098D4C20D9A80C8003B0486 /* vertextransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertextransformer.h; path = Include/vertextransformer.h; sourceTree = "<group>"; };
 		D098D5270D9A81A9003B0486 /* vertextransformlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertextransformlist.h; path = Include/vertextransformlist.h; sourceTree = "<group>"; };
 		D098D52B0D9A822E003B0486 /* vertextransformlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertextransformlist.cpp; path = Source/vertextransformlist.cpp; sourceTree = "<group>"; };
@@ -438,6 +442,8 @@
 				D098D65D0D9A8F4B003B0486 /* vertexswapper.h */,
 				D07B896C0DD0E992001A38EC /* vertexoffsetter.cpp */,
 				D07B896A0DD0E962001A38EC /* vertexoffsetter.h */,
+				D09687480E06B21900231EC0 /* vertexmattransformer.cpp */,
+				D09687460E06B20600231EC0 /* vertexmattransformer.h */,
 				D0F5185F0C71B756005DB68D /* Render Lists */,
 				D0F371A20C6D049500C11F87 /* bsp */,
 				D0F371A30C6D049C00C11F87 /* md3 */,
@@ -728,13 +734,14 @@
 				D098D65E0D9A8F4B003B0486 /* vertexswapper.h in Headers */,
 				D05008170DA66C1F0018EC08 /* scenenoderenderable.h in Headers */,
 				D07B896B0DD0E962001A38EC /* vertexoffsetter.h in Headers */,
+				D09687470E06B20600231EC0 /* vertexmattransformer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Graphics */ = {
+		8DD76F620486A84900D96B5E /* TGen Renderer */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Renderer" */;
 			buildPhases = (
@@ -806,7 +813,7 @@
 			);
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Graphics */,
+				8DD76F620486A84900D96B5E /* TGen Renderer */,
 				D0F371390C6D02CE00C11F87 /* tgen_renderer */,
 			);
 		};
@@ -931,6 +938,7 @@
 				D098D6620D9A8FD4003B0486 /* vertexswapper.cpp in Sources */,
 				D050081B0DA66C540018EC08 /* scenenoderenderable.cpp in Sources */,
 				D07B896D0DD0E992001A38EC /* vertexoffsetter.cpp in Sources */,
+				D09687490E06B21900231EC0 /* vertexmattransformer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

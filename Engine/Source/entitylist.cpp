@@ -84,6 +84,23 @@ TGen::Engine::Component * TGen::Engine::EntityList::getComponent(const std::stri
 	return NULL;
 }
 
+TGen::Engine::Component * TGen::Engine::EntityList::getComponent(const std::string & name) {
+	std::string entityName;
+	std::string componentName;
+	
+	int colonPos = name.find(":");
+	
+	if (colonPos != std::string::npos) {
+		entityName = name.substr(0, colonPos);
+		componentName = name.substr(colonPos + 1);
+	}
+	else {
+		return NULL;
+	}
+	
+	return getEntity(entityName)->getComponent(componentName);
+}
+
 /* RenderStateCats 
 	1. shaders, z-states, blending, textures of different format & size ...
 	2. constants, color, transforms

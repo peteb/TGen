@@ -35,7 +35,7 @@ namespace TGen {
 			TGen::Engine::MapPortal * getPortal(int num);
 			
 			bool isPureInstance() const;
-			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source);
+			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source) const;
 			
 			void linkMaterial(TGen::MaterialSource & source);
 			void unlinkMaterial();
@@ -57,7 +57,7 @@ namespace TGen {
 			
 			std::string name;
 			TGen::Engine::Map * map;
-			bool instantiated;
+			mutable bool instantiated;
 		};
 		
 	} // !Engine

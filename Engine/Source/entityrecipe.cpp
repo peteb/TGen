@@ -41,7 +41,7 @@ TGen::Engine::Entity * TGen::Engine::EntityRecipe::createEntity() const {
 	std::auto_ptr<TGen::Engine::Entity> newEntity(new TGen::Engine::Entity(name));
 	
 	for (RecipeList::const_iterator iter = componentRecipes.begin(); iter != componentRecipes.end(); ++iter) {
-		TGen::Engine::Component * newComponent = (*iter)->createComponent(*this);
+		TGen::Engine::Component * newComponent = (*iter)->createComponent(*this, *newEntity.get());
 		newEntity->addComponent(newComponent, newComponent->getName());
 	}
 	
@@ -51,7 +51,19 @@ TGen::Engine::Entity * TGen::Engine::EntityRecipe::createEntity() const {
 TGen::Engine::ComponentRecipe * TGen::Engine::EntityRecipe::getComponentRecipe(const std::string & name) {
 	RecipeMap::iterator iter = recipeLookup.find(name);
 	if (iter == recipeLookup.end())
-		throw TGen::RuntimeException("EntityRecipe::getComponentRecipe", "recipe " + name + " does not exist");
+		return NULL;
+		
+		//throw TGen::RuntimeException("EntityRecipe::getComponentRecipe", "recipe " + name + " does not exist");
 	
 	return iter->second;
+}
+
+void TGen::Engine::EntityRecipe::setWorldInterface(const std::string & worldInterface) {
+	this->worldInterface = worldInterface;
+}
+
+// TODO: dummy scene node, does everything except draw itself
+
+const std::string & TGen::Engine::EntityRecipe::getWorldInterface() const {
+	return worldInterface;
 }

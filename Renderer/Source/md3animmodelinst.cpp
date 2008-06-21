@@ -17,6 +17,8 @@ TGen::MD3::AnimatingModelInstance::AnimatingModelInstance(const std::string & na
 																			 TGen::MD3::AnimatingModel & base) 
 	: TGen::NewModelInstance(name, "", materialNamePostfix)
 	, base(base)
+	, materialSource(NULL)
+	, num(0.0f)
 {
 	
 }
@@ -30,12 +32,10 @@ bool TGen::MD3::AnimatingModelInstance::isPureInstance() const {
 	return true;
 }
 
-// TODO: riktig animering, indexbuffers ska INTE DUPLICERAS FÖR VARJE KEYFRAME OMG FFS
-//       ska vara en samling tags per frame, så interpolerar man här typ, getJoint
+// TODO: riktig animering, indexbuffers ska INTE DUPLICERAS FÃ·R VARJE KEYFRAME OMG FFS
+//       ska vara en samling tags per frame, sÃ‚ interpolerar man hâ€°r typ, getJoint
 
-void TGen::MD3::AnimatingModelInstance::update() {
-	static float num = 0.0f;
-	
+void TGen::MD3::AnimatingModelInstance::update() {	
 	for (int i = 0; i < meshes.size(); ++i)
 		meshes[i]->updateVertices(int(num), num - float(int(num)));
 	
@@ -51,12 +51,16 @@ TGen::ModelJoint TGen::MD3::AnimatingModelInstance::getJoint(const std::string &
 void TGen::MD3::AnimatingModelInstance::linkMaterial(TGen::MaterialSource & source) {
 	TGen::NewModelInstance::linkMaterial(source);
 	
+	materialSource = &source;
+	
 	for (int i = 0; i < meshes.size(); ++i)
 		meshes[i]->linkMaterial(source);
 }
 
 void TGen::MD3::AnimatingModelInstance::unlinkMaterial() {
 	TGen::NewModelInstance::unlinkMaterial();
+	
+	materialSource = NULL;
 	
 	for (int i = 0; i < meshes.size(); ++i)
 		meshes[i]->unlinkMaterial();	
@@ -110,3 +114,11 @@ void TGen::MD3::AnimatingModelInstance::writeMeta(uint metaType, const TGen::Mat
 	
 }
 
+TGen::NewModelInstance * TGen::MD3::AnimatingModelInstance::clone() const {
+	TGen::NewModelInstance * newInstance = base.instantiate(base.getDataSource());
+	
+	if (materialSource)
+		newInstance->linkMaterial(*materialSource);
+	
+	return newInstance;
+}

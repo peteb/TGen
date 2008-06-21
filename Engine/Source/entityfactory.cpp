@@ -151,8 +151,10 @@ TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(
 
 	std::auto_ptr<TGen::Engine::EntityRecipe> entity(new TGen::Engine::EntityRecipe(properties.getName()));
 
+	entity->setWorldInterface(properties.getProperty("worldInterface", ""));
+
 	TGen::PropertyTree props;
-	
+		
 	if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "extends") {
 		ClassMap::iterator iter = classDefinitions.find(properties.getAttribute(2));
 		if (iter == classDefinitions.end())

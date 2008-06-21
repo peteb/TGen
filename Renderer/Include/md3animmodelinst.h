@@ -29,6 +29,8 @@ namespace TGen {
 			void linkMaterial(TGen::MaterialSource & source);
 			void unlinkMaterial();
 			void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node);
+
+			TGen::NewModelInstance * clone() const;
 			
 			void addMesh(TGen::MD3::AnimatingMeshInstance * mesh);
 			void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
@@ -38,8 +40,12 @@ namespace TGen {
 						
 		private:
 			TGen::MD3::AnimatingModel & base;
+			TGen::MaterialSource * materialSource;
 			
 			std::vector<TGen::MD3::AnimatingMeshInstance *> meshes;
+			
+			
+			float num;		// TODO: animation time. should be fixed!
 		};
 		
 	} // !MD3	

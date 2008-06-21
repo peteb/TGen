@@ -20,7 +20,7 @@ namespace TGen {
 		
 		class StaticModel : public TGen::NewModel {
 		public:	
-			StaticModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);		
+			StaticModel(const std::string & name, TGen::VertexDataSource & dataSource, const std::string & materialName, const std::string & materialNamePostfix);		
 			~StaticModel();
 
 			TGen::Vector3 getMax() const;
@@ -29,12 +29,15 @@ namespace TGen {
 			
 			void addJoint(const std::string & name, const TGen::ModelJoint & joint);
 			void addMesh(TGen::MD3::StaticMesh * instance);
-
+			
+			
 			TGen::ModelJoint getJoint(const std::string & name) const;
 			TGen::NewMeshInstance * getMesh(int num);
+			TGen::NewModelInstance * clone() const;
+			
 			void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
 			
-			TGen::MD3::StaticModel * instantiate(TGen::VertexDataSource & source);
+			TGen::MD3::StaticModel * instantiate(TGen::VertexDataSource & source) const;
 
 			int getNumMeshes() const;
 			bool isPureInstance() const;
@@ -50,6 +53,8 @@ namespace TGen {
 			
 			JointMap joints;
 			MeshList meshes;
+			
+			TGen::VertexDataSource & dataSource;
 		};
 		
 	} // !MD3	

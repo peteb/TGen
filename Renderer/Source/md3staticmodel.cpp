@@ -13,8 +13,9 @@
 #include "renderlist.h"
 #include "model_new.h"
 
-TGen::MD3::StaticModel::StaticModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix)
+TGen::MD3::StaticModel::StaticModel(const std::string & name, TGen::VertexDataSource & dataSource, const std::string & materialName, const std::string & materialNamePostfix)
 	: TGen::NewModel(name, materialName, materialNamePostfix)
+	, dataSource(dataSource)
 {
 		
 }
@@ -29,9 +30,14 @@ bool TGen::MD3::StaticModel::isPureInstance() const {
 	return false;
 }
 
-TGen::MD3::StaticModel * TGen::MD3::StaticModel::instantiate(TGen::VertexDataSource & source) {
-	return this;
+TGen::MD3::StaticModel * TGen::MD3::StaticModel::instantiate(TGen::VertexDataSource & source) const {
+	return const_cast<TGen::MD3::StaticModel *>(this);
 }
+
+TGen::NewModelInstance * TGen::MD3::StaticModel::clone() const {
+	return instantiate(dataSource);
+}
+
 
 TGen::ModelJoint TGen::MD3::StaticModel::getJoint(const std::string & name) const {
 	JointMap::const_iterator iter = joints.find(name);

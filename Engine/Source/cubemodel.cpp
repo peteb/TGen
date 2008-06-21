@@ -23,8 +23,8 @@ TGen::Engine::CubeModel::~CubeModel() {
 	
 }
 
-TGen::Engine::CubeModel * TGen::Engine::CubeModel::instantiate(TGen::VertexDataSource & source) {
-	return this;
+TGen::Engine::CubeModel * TGen::Engine::CubeModel::instantiate(TGen::VertexDataSource & source) const {
+	return const_cast<TGen::Engine::CubeModel *>(this);
 }
 
 bool TGen::Engine::CubeModel::isPureInstance() const {

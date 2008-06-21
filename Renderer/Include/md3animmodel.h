@@ -34,8 +34,9 @@ namespace TGen {
 			void setInterpolatingMode(TGen::MD3::InterpolatingMode mode);
 			
 			TGen::ModelJoint getJoint(const std::string & name) const;
+			TGen::VertexDataSource & getDataSource() const;
 			
-			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source);
+			TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source) const;
 			bool isPureInstance() const;
 			
 		private:

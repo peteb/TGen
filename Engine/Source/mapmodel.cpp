@@ -56,7 +56,7 @@ bool TGen::Engine::MapModel::isPureInstance() const {
 	return false;
 }
 
-TGen::NewModelInstance * TGen::Engine::MapModel::instantiate(TGen::VertexDataSource & source) {
+TGen::NewModelInstance * TGen::Engine::MapModel::instantiate(TGen::VertexDataSource & source) const {
 	if (instantiated)
 		throw TGen::RuntimeException("MapMode::instantiate", "already instantiated!");
 	
@@ -65,11 +65,11 @@ TGen::NewModelInstance * TGen::Engine::MapModel::instantiate(TGen::VertexDataSou
 	
 	instantiated = true;
 	
-	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
+	for (SurfaceList::const_iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {
 		(*iter)->instantiate(source);
 	}
 	
-	return this;
+	return const_cast<TGen::Engine::MapModel *>(this);
 }
 
 void TGen::Engine::MapModel::linkMaterial(TGen::MaterialSource & source) {

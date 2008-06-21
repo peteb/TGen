@@ -293,7 +293,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				
 			bool onGround = false;
 			
-			//if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
+			if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
 				if (bodyObject1)
 					bodyObject1->setOnFloor(true);
 				
@@ -301,7 +301,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					bodyObject2->setOnFloor(true);
 				
 				onGround = true;
-			//}			
+			}			
 
 			scalar friction = 1.0f;
 			if (geom1)

@@ -161,13 +161,7 @@ TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponen
 	 }
 	
 	 */
-	
-	std::string origin = properties.getProperty("origin", "0 0 0");
-	std::string orientation = properties.getProperty("orientation", "0 0 1");
-	
-	newRecipe->setOrigin(TGen::Vector3::Parse(origin));
-	newRecipe->setOrientation(TGen::Rotation::LookInDirection(TGen::Vector3::Parse(orientation), TGen::Vector3(0.0f, 1.0f, 0.0f)));
-	//newRecipe->setModel(properties.getProperty("model", ""), properties.getProperty("material", ""));	
+		
 	newRecipe->setLinkWith(properties.getProperty("relative", properties.getProperty("link", "")));
 	
 	return newRecipe.release();

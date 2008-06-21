@@ -37,7 +37,7 @@ void TGen::Engine::VertexCacheEntry::unlock() {
 }
 
 void TGen::Engine::VertexCacheEntry::bufferData(const void * data, uint size, void * offset) {
-	std::cout << "VERTEX CACHE ENTRY BUFFERDATA!!!" << std::endl;
+	//std::cout << "VERTEX CACHE ENTRY BUFFERDATA!!!" << std::endl;
 	buffer->bufferData(data, size, reinterpret_cast<char *>(entryAt) + reinterpret_cast<uint>(offset));
 }
 

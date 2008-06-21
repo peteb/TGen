@@ -56,6 +56,7 @@
 #include "vertexscaler.h"
 #include "vertexswapper.h"
 #include "vertexoffsetter.h"
+#include "vertexmattransformer.h"
 
 #include "scenenoderenderable.h"
 

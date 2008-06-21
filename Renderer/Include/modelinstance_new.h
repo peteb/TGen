@@ -33,6 +33,7 @@ namespace TGen {
 		virtual bool isPureInstance() const abstract;
 		virtual TGen::ModelJoint getJoint(const std::string & name) const;		
 		virtual TGen::NewModelInstance * operator *() {return this; }
+		virtual TGen::NewModelInstance * clone() const;
 		
 		virtual void linkMaterial(TGen::MaterialSource & source);
 		virtual void unlinkMaterial();

@@ -145,12 +145,14 @@ TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSourc
 }
 
 TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSource & dataSource, const TGen::VertexTransformer & transformer) const {
-	TGen::MD3::StaticModel * newModel = new TGen::MD3::StaticModel(reinterpret_cast<const char *>(header->name), "", "");
+	TGen::MD3::StaticModel * newModel = new TGen::MD3::StaticModel(reinterpret_cast<const char *>(header->name), dataSource, "", "");
 	
 	DEBUG_PRINT("[md3]: creating surfaces...");
 	
 	// TODO: portalbanor skickar egen user-grej... ClippedRoom (entities to draw, room vertices)
 	//       eller sÂ fixas ClippedFace ist‰llet, kanske! dÂ kan man sortera baserat pÂ clipping 
+	
+	//newModel->setDataSource(&dataSource);
 	
 	for (int i = 0; i < surfaces.size(); ++i) {
 		TGen::MD3::Surface * surface = surfaces[i];

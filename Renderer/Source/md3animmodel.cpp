@@ -25,7 +25,6 @@ TGen::MD3::AnimatingModel::AnimatingModel(const std::string & name, TGen::Vertex
 TGen::MD3::AnimatingModel::~AnimatingModel() {
 	for (int i = 0; i < meshes.size(); ++i)
 		delete meshes[i];
-	
 }
 
 bool TGen::MD3::AnimatingModel::isPureInstance() const {
@@ -35,16 +34,16 @@ bool TGen::MD3::AnimatingModel::isPureInstance() const {
 // TODO: ett fallbackmaterial ska kunna definieras ... varför? glömt bort
 //       sen ska md5 blir nya modellsystemet...
 
-TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate(TGen::VertexDataSource & source) {
+TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate(TGen::VertexDataSource & source) const {
 	TGen::MD3::AnimatingModelInstance * newInstance = NULL;
 	
 	switch (interpolatingMode) {
 		case TGen::MD3::CPU:
-			newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", "", *this);
+			newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", "", const_cast<TGen::MD3::AnimatingModel &>(*this));
 			break;
 			
 		case TGen::MD3::GPU:
-			newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", "gpuinterpol", *this);
+			newInstance = new TGen::MD3::AnimatingModelInstance(name + "_instance", "gpuinterpol", const_cast<TGen::MD3::AnimatingModel &>(*this));
 			break;			
 			
 		default:
@@ -75,6 +74,7 @@ TGen::NewModelInstance * TGen::MD3::AnimatingModel::instantiate(TGen::VertexData
 	return newInstance;
 }
 
+
 TGen::ModelJoint TGen::MD3::AnimatingModel::getJoint(const std::string & name) const {
 	JointMap::const_iterator iter = joints.find(name);
 	if (iter == joints.end())
@@ -98,4 +98,7 @@ void TGen::MD3::AnimatingModel::setInterpolatingMode(TGen::MD3::InterpolatingMod
 	interpolatingMode = mode;
 }
 
+TGen::VertexDataSource & TGen::MD3::AnimatingModel::getDataSource() const {
+	return dataSource;
+}
 

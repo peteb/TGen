@@ -22,10 +22,15 @@ TGen::VertexTransformList * TGen::Engine::TransformerFactory::createTransformers
 			if (iter->second == "q3" || iter->second == "idtech") {
 				transformers->addTransformer(new TGen::VertexSwapper(TGen::VertexSwapper::Y_AXIS, TGen::VertexSwapper::Z_AXIS));
 				transformers->addTransformer(new TGen::VertexScaler(0.0254));		// 0.038 
+				transformers->addTransformer(new TGen::VertexMatrixTransformer(TGen::Matrix4x4::RotationY(TGen::Degree(90))));
 			}
 			else {
 				throw TGen::RuntimeException("TransformerFactory::createTransformers", "invalid component transform preset: '" + iter->second + "'");
 			}
+		}
+		else if (iter->first == "rotY") {
+			TGen::Matrix4x4 transform = TGen::Matrix4x4::RotationY(TGen::Degree(TGen::lexical_cast<scalar>(iter->second)));
+			transformers->addTransformer(new TGen::VertexMatrixTransformer(transform));
 		}
 	}
 	

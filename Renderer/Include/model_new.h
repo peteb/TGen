@@ -22,7 +22,7 @@ namespace TGen {
 		NewModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix);
 		virtual ~NewModel();
 		
-		virtual TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source) abstract;
+		virtual TGen::NewModelInstance * instantiate(TGen::VertexDataSource & source) const abstract;
 	};	
 	
 } // !TGen

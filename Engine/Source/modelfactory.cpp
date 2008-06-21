@@ -41,7 +41,7 @@ TGen::NewModel * TGen::Engine::ModelFactory::createModel(const TGen::Engine::Gen
 		if (filename.find(".md3") != std::string::npos) {
 			TGen::MD3::Parser modelParser;
 			std::auto_ptr<TGen::MD3::File> md3file(modelParser.parse(*file));
-			//md3file->printInfo(std::cout);
+			md3file->printInfo(std::cout);
 			newModel.reset(md3file->createModel(dataSource, transformers));
 		}	
 	}

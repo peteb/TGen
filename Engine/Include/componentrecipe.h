@@ -17,6 +17,7 @@ namespace TGen {
 		class Component;
 		class EntityList;
 		class EntityRecipe;
+		class Entity;
 		
 		class ComponentRecipe {
 		public:
@@ -27,7 +28,7 @@ namespace TGen {
 			
 			virtual ~ComponentRecipe() {}
 			
-			virtual TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity) abstract;
+			virtual TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) abstract;
 			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity) {}
 
 			const std::string & getName() const {return name; }

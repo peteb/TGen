@@ -48,42 +48,12 @@ TGen::SceneNode::SceneNode(const SceneNode & node)
 	, changedSinceLastCheck(false)
 	, parent(NULL)
 	, autoParent(node.autoParent)
-	, models(node.models)
+	//, models(node.models)
 	, faces(node.faces)
 	//, children(node.children)		// TODO: I hope this works, the children shouldn't be shared! It doesn't work.
 {
-	if (node.parent)
-		node.parent->addChild(this);
-	
-	// TODO: copying model instances is not a good thing :/ model instance.clone or something?
-	
-	/*for (int i = 0; i < node.getNumChildren(); ++i) {
-		const TGen::SceneNode * base = node.getChild(i);
-		
-		TGen::SceneNode * newNode = new TGen::SceneNode(*base, *this);
-	}*/
-}
-
-TGen::SceneNode::SceneNode(const SceneNode & node, SceneNode & parent) 
-	: name(node.getName())
-	, position(node.getLocalPosition())
-	, orientation(node.getLocalOrientation())
-	, up(node.up)
-	, changed(true)
-	, changedSinceLastCheck(false)
-	, parent(NULL)
-	, autoParent(node.autoParent)
-	, models(node.models)
-	, faces(node.faces)
-{
-	parent.addChild(this);
-	
-	// TODO: copying model instances is not a good thing :/ model instance.clone or something?
-	
-	for (int i = 0; i < node.getNumChildren(); ++i) {
-		const TGen::SceneNode * base = node.getChild(i);
-		
-		TGen::SceneNode * newNode = new TGen::SceneNode(*base, *this);
+	for (ModelInstanceList::const_iterator iter = node.models.begin(); iter != node.models.end(); ++iter) {
+		models.push_back(TGen::DerefRes(*iter)->clone());
 	}
 }
 
