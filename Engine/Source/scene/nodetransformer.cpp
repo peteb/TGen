@@ -53,3 +53,31 @@ void TGen::Engine::Scene::NodeOrientationWaveTransformer::transform(TGen::Engine
 	else
 		node.setOrientation(rotMat);
 }
+
+TGen::Engine::Scene::NodePositionWaveTransformer::NodePositionWaveTransformer(const NodePositionWaveTransformer & other) 
+	: TGen::Engine::Scene::NodeTransformer(other)
+	, axis(other.axis)
+	, generator(other.generator->clone())
+{
+	
+}
+
+TGen::Engine::Scene::NodeOrientationWaveTransformer::NodeOrientationWaveTransformer(const NodeOrientationWaveTransformer & other) 
+	: TGen::Engine::Scene::NodeTransformer(other)
+	, axis(other.axis)
+	, generator(other.generator->clone())
+{
+	
+}
+
+TGen::Engine::Scene::NodeTransformer * TGen::Engine::Scene::NodeTransformer::clone() {
+	throw TGen::RuntimeException("Scene::NodeTransformer::clone", "no implementation");
+}
+
+TGen::Engine::Scene::NodePositionWaveTransformer * TGen::Engine::Scene::NodePositionWaveTransformer::clone() {
+	return new TGen::Engine::Scene::NodePositionWaveTransformer(*this);
+}
+
+TGen::Engine::Scene::NodeOrientationWaveTransformer * TGen::Engine::Scene::NodeOrientationWaveTransformer::clone() {
+	return new TGen::Engine::Scene::NodeOrientationWaveTransformer(*this);
+}

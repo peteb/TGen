@@ -24,7 +24,8 @@ namespace TGen {
 				virtual ~NodeTransformer() {}
 				
 				virtual void transform(TGen::Engine::Scene::TransformNode & node, scalar time) abstract;
-			
+				virtual NodeTransformer * clone();
+				
 			protected:
 				bool relative;
 			};
@@ -34,8 +35,10 @@ namespace TGen {
 			class NodePositionWaveTransformer : public NodeTransformer {
 			public:
 				NodePositionWaveTransformer(bool relative, const TGen::Vector3 & axis, std::auto_ptr<TGen::ScalarGenerator> & generator);
+				NodePositionWaveTransformer(const NodePositionWaveTransformer & other);
 				
 				void transform(TGen::Engine::Scene::TransformNode & node, scalar time);
+				NodePositionWaveTransformer * clone();
 				
 			private:
 				std::auto_ptr<TGen::ScalarGenerator> generator;
@@ -46,8 +49,10 @@ namespace TGen {
 			class NodeOrientationWaveTransformer : public NodeTransformer {
 			public:
 				NodeOrientationWaveTransformer(bool relative, const TGen::Vector3 & axis, std::auto_ptr<TGen::ScalarGenerator> & generator);
+				NodeOrientationWaveTransformer(const NodeOrientationWaveTransformer & other);
 				
 				void transform(TGen::Engine::Scene::TransformNode & node, scalar time);
+				NodeOrientationWaveTransformer * clone();
 				
 			private:
 				std::auto_ptr<TGen::ScalarGenerator> generator;

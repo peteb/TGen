@@ -316,6 +316,7 @@
 		D072BCF40E0166F000999FC2 /* entityrecipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = entityrecipe.cpp; sourceTree = "<group>"; };
 		D072C0E00E01D63F00999FC2 /* weapon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = weapon.h; path = ../../Include/inventory/weapon.h; sourceTree = SOURCE_ROOT; };
 		D072C0E10E01D64E00999FC2 /* weapon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = weapon.cpp; path = inventory/weapon.cpp; sourceTree = "<group>"; };
+		D0734A910E0EB6F100976974 /* dummynode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = dummynode.h; path = ../../Include/scene/dummynode.h; sourceTree = SOURCE_ROOT; };
 		D07407FD0D32C7E100735304 /* inputdevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = inputdevice.h; path = ../../Include/inputdevice.h; sourceTree = SOURCE_ROOT; };
 		D07407FE0D32C86A00735304 /* inputdevice.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = inputdevice.cpp; sourceTree = "<group>"; };
 		D07408000D32CA1300735304 /* sdlkeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sdlkeyboard.h; path = ../../Include/sdlkeyboard.h; sourceTree = SOURCE_ROOT; };
@@ -963,6 +964,7 @@
 				D01710E60DE9ABC1007380B9 /* nodetransformer.h */,
 				D07432630DFED6FE00F9F407 /* equipmentnode.cpp */,
 				D07432620DFED6F200F9F407 /* equipmentnode.h */,
+				D0734A910E0EB6F100976974 /* dummynode.h */,
 			);
 			name = scene;
 			sourceTree = "<group>";

@@ -18,14 +18,15 @@ namespace TGen {
 		namespace Sound {
 			class Sound {
 			public:	
-				Sound(FMOD::Sound * sound);
+				Sound(FMOD::Sound * sound, bool stream);
 				virtual ~Sound();
 				
 				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
+				bool isStream() const;
 				
 			private:
 				FMOD::Sound * sound;
-
+				bool stream;
 			};
 			
 		} // !Sound

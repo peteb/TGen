@@ -39,6 +39,7 @@ namespace TGen {
 		void clear();
 		void print();
 		int getNumUserInfo();
+		int getNumFaces();
 		UserInfo & getUserInfo(int id);
 		
 	private:			

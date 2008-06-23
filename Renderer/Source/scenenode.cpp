@@ -417,3 +417,7 @@ void TGen::SceneNode::setAutoTP(TGen::SceneNode * autoTP) {
 	this->autoParent = autoTP;
 }
 
+TGen::SceneNode * TGen::SceneNode::clone() {
+	return new TGen::SceneNode(*this);
+}
+

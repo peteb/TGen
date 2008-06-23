@@ -35,6 +35,7 @@ void TGen::Engine::Sound::Channel::setLoop(bool loop) {
 		channel->setMode(FMOD_LOOP_NORMAL);
 	else
 		channel->setMode(FMOD_LOOP_OFF);
+	
 }
 
 void TGen::Engine::Sound::Channel::set3D(bool enable) {

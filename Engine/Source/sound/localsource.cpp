@@ -30,7 +30,7 @@ void TGen::Engine::Sound::LocalSource::linkLocally(TGen::Engine::Entity & entity
 void TGen::Engine::Sound::LocalSource::update(scalar dt) {
 	TGen::Engine::Sound::Source::update(dt);
 	
-	if (linkedTo) {
+	if (linkedTo) {		
 		for (int i = 0; i < channels.size(); ++i)
 			channels[i]->set3DAttributes(linkedTo->getPosition(), linkedTo->getVelocity());				
 	}

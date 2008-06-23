@@ -16,6 +16,14 @@ TGen::Engine::Scene::TransformNode::TransformNode(const std::string & name)
 {
 }
 
+TGen::Engine::Scene::TransformNode::TransformNode(const TransformNode & node) 
+	: TGen::SceneNode(node)
+	, age(node.age)
+{
+	for (int i = 0; i < node.transformers.size(); ++i)
+		transformers.push_back(node.transformers[i]->clone());
+}
+
 TGen::Engine::Scene::TransformNode::~TransformNode() {
 	for (int i = 0; i < transformers.size(); ++i)
 		delete transformers[i];
@@ -26,12 +34,7 @@ void TGen::Engine::Scene::TransformNode::addPositionTransformer(const TGen::Prop
 	std::string type = properties.getProperty("type", "unknown");
 	std::string axis = properties.getProperty("axis", "0 1 0");
 	
-	std::auto_ptr<TGen::ScalarGenerator> generator;
-	
-	if (type == "sine" || type == "square" || type == "triangle" || type == "sawtooth" || type == "invsawtooth" || type == "const")
-		generator.reset(createWaveGenerator(properties));
-	else
-		throw TGen::RuntimeException("Scene::TransformNode::addPositionTransformer", "invalid type '" + type + "'");
+	std::auto_ptr<TGen::ScalarGenerator> generator(createWaveGenerator(properties));
 
 	transformers.push_back(new TGen::Engine::Scene::NodePositionWaveTransformer(TGen::lexical_cast<bool>(properties.getProperty("relative", "false")),
 																										 TGen::Vector3::Parse(axis),
@@ -90,3 +93,8 @@ void TGen::Engine::Scene::TransformNode::update(scalar dt) {
 	
 	TGen::SceneNode::update(dt);
 }
+
+TGen::Engine::Scene::TransformNode * TGen::Engine::Scene::TransformNode::clone() {
+	return new TGen::Engine::Scene::TransformNode(*this);
+}
+

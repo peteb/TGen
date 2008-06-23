@@ -88,7 +88,7 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	return ret;	
 }
 
-void TGen::Engine::Sound::Subsystem::update(scalar dt) {
+void TGen::Engine::Sound::Subsystem::update(scalar dt) {	
 	for (int i = 0; i < localSources.size(); ++i)
 		localSources[i]->update(dt);
 	
@@ -135,6 +135,9 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std:
 	SoundMap::iterator iter = sounds.find(name);
 	if (iter != sounds.end()) {
 		ret = iter->second;
+		
+		if (ret->isStream())
+			throw TGen::RuntimeException("Sound::Subsystem::getSound", "can't reuse stream sound");
 	}
 	else {
 		logs.info["snd"] << "   not loaded, loading..." << TGen::endl;		
@@ -165,6 +168,18 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 	FMOD_MODE flags = FMOD_DEFAULT;
 	FMOD_RESULT result;
 	
+	std::string loopMode = genline.getParameter("loop", "off");
+	
+	if (loopMode == "normal")
+		flags |= FMOD_LOOP_NORMAL;
+	else if (loopMode == "bidi")
+		flags |= FMOD_LOOP_BIDI;
+	
+	if (TGen::lexical_cast<bool>(genline.getParameter("software", "false")))
+		flags |= FMOD_SOFTWARE;
+	else
+		flags |= FMOD_HARDWARE;
+	
 	if (stream)
 		result = fmodSystem->createStream(filename.c_str(), flags, NULL, &ret);
 	else
@@ -173,7 +188,7 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 	if (result != FMOD_OK)
 		throw TGen::RuntimeException("Sound::Subsystem::createSound", "failed to load sound '" + filename + "': ") << FMOD_ErrorString(result);
 	
-	return new TGen::Engine::Sound::Sound(ret);
+	return new TGen::Engine::Sound::Sound(ret, stream);
 }
 
 void TGen::Engine::Sound::Subsystem::link() {
@@ -218,6 +233,8 @@ FMOD_RESULT F_CALLBACK TGen::Engine::Sound::Subsystem::readCallback(void * handl
 	TGen::Engine::File * file = reinterpret_cast<TGen::Engine::File *>(handle);
 	
 	*bytesread = file->read(reinterpret_cast<char *>(buffer), sizebytes);
+	
+	//std::cout << "READ: " << *bytesread << " OF " << sizebytes << std::endl;
 	
 	if (*bytesread < sizebytes)
 		return FMOD_ERR_FILE_EOF;

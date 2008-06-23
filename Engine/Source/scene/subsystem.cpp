@@ -9,6 +9,7 @@
 
 #include "scene/subsystem.h"
 #include "scene/node.h"
+#include "scene/dummynode.h"
 #include "scene/transformnode.h"
 #include "scene/equipmentnode.h"
 
@@ -138,12 +139,19 @@ void TGen::Engine::Scene::Subsystem::addComponent(TGen::Engine::Scene::Node * no
 }
 
 TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	TGen::SceneNode * prototypeNode = createNode(name + "_prototype", properties); // new TGen::SceneNode(name);
+	TGen::SceneNode * prototypeNode = NULL;
+	
+	if (properties.getName() == "sceneNode")
+		prototypeNode = createNode(name + "_p", properties, true); // new TGen::SceneNode(name);
+	else if (properties.getName() == "sceneTransform")
+		prototypeNode = createTransformNode(name + "_p", properties, true);
+	else
+		throw TGen::RuntimeException("Scene::Subsystem::createComponentRecipe", "invalid component type: " + properties.getName());
+	
 	sceneRoot.addChild(prototypeNode);
 	
 	std::auto_ptr<TGen::Engine::Scene::NodeRecipe> newRecipe(new TGen::Engine::Scene::NodeRecipe(name, prototypeNode, *this));
 	
-	std::cout << "hey" << std::endl;
 
 	/*
 	 TGen::SceneNode * node = new TGen::SceneNode(properties.getProperty("globalName", name),
@@ -221,15 +229,20 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	return light;
 }
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string & name, const TGen::PropertyTree & properties) {
-	TGen::SceneNode * node = new TGen::SceneNode(properties.getProperty("globalName", name),
-																TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
-
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
+	TGen::SceneNode * node = NULL;
+	
+	if (!dummy)
+		node = new TGen::SceneNode(properties.getProperty("globalName", name));
+	else
+		node = new TGen::Engine::Scene::DummyNode(properties.getProperty("globalName", name));
+	
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
 	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
 	
 	node->setOrientation(rotation);
-
+	node->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	
 	std::string modelName = properties.getProperty("model", "");
 	
 	if (!modelName.empty()) {
@@ -277,9 +290,14 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	return map;
 }
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createTransformNode(const std::string & name, const TGen::PropertyTree & properties) {
-	std::auto_ptr<TGen::Engine::Scene::TransformNode> newTransformer(new TGen::Engine::Scene::TransformNode(properties.getProperty("globalName", name)));
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createTransformNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
+	std::auto_ptr<TGen::Engine::Scene::TransformNode> newTransformer;
 	
+	if (!dummy)
+		newTransformer.reset(new TGen::Engine::Scene::TransformNode(properties.getProperty("globalName", name)));
+	else
+		newTransformer.reset(new TGen::Engine::Scene::DummyTransformNode(properties.getProperty("globalName", name)));
+		
 	if (properties.hasNode("transPosition"))
 		newTransformer->addPositionTransformer(properties.getNode("transPosition"));
 	

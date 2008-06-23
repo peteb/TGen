@@ -26,6 +26,7 @@ namespace TGen {
 		virtual ~ScalarGenerator() {}
 		
 		virtual scalar getValue(double time) const abstract;
+		virtual ScalarGenerator * clone() {return NULL; }
 	};
 	
 	// rgbGen = new SineGenerator
@@ -46,6 +47,8 @@ namespace TGen {
 		
 		TGen::Color getColor(double time, float alpha) const;
 		scalar getValue(double time) const;
+		
+		WaveGenerator * clone();
 		
 	protected:
 		WaveType type;

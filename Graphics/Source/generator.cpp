@@ -57,9 +57,14 @@ scalar TGen::WaveGenerator::getValue(double time) const {
 			break;
 			
 		case TGen::WaveConst:
-			y = x;
+			y = time * frequency;
 			break;
 	}
 	
 	return y * amplitude + base;
 }
+
+TGen::WaveGenerator * TGen::WaveGenerator::clone() {
+	return new TGen::WaveGenerator(*this);
+}
+

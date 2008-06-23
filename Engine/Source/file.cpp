@@ -80,11 +80,11 @@ void TGen::Engine::File::seekReadPos(uint pos, TGen::Seek rel) {
 }
 
 int TGen::Engine::File::read(char * data, uint size) {
-	return PHYSFS_read(file, data, size, 1);
+	return PHYSFS_read(file, data, 1, size);
 }
 
 int64 TGen::Engine::File::read(void * buffer, uint32 size, uint32 count) {
-	return PHYSFS_read(file,  buffer,  size,  count);
+	return PHYSFS_read(file,  buffer, size, count);
 }
 
 uint TGen::Engine::File::getSize() {

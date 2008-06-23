@@ -20,18 +20,27 @@ namespace TGen {
 			class TransformNode : public TGen::SceneNode {
 			public:	
 				TransformNode(const std::string & name);
+				TransformNode(const TransformNode & node);
 				~TransformNode();
 				
 				void addPositionTransformer(const TGen::PropertyTree & properties);
 				void addOrientationTransformer(const TGen::PropertyTree & properties);
 				
-				void update(scalar dt);
+				virtual void update(scalar dt);
+				TransformNode * clone();
 				
 			private:
 				TGen::WaveGenerator * createWaveGenerator(const TGen::PropertyTree & properties) const;
 				
 				std::vector<TGen::Engine::Scene::NodeTransformer *> transformers;
 				scalar age;
+			};
+			
+			class DummyTransformNode : public TransformNode {
+			public:
+				DummyTransformNode(const std::string & name) : TransformNode(name) {}
+				
+				void update(scalar dt) {}
 			};
 			
 		} // !Scene

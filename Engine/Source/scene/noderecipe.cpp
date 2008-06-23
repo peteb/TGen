@@ -29,7 +29,10 @@ TGen::Engine::Scene::NodeRecipe::~NodeRecipe() {
 }
 
 TGen::Engine::Scene::Node * TGen::Engine::Scene::NodeRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
-	TGen::SceneNode * newNode = new TGen::SceneNode(*prototypeNode);
+	TGen::SceneNode * newNode = prototypeNode->clone();
+	
+	// TODO: SceneNode::clone! special case for transform, camera, etc.
+	// TODO: why doesn't multiple sound sources work?
 	
 	if (!refersSelfEntity) {
 		prototypeNode->getParent()->addChild(newNode);

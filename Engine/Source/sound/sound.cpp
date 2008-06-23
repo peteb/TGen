@@ -14,8 +14,9 @@
 
 using TGen::Engine::Sound::Channel;
 
-TGen::Engine::Sound::Sound::Sound(FMOD::Sound * sound) 
+TGen::Engine::Sound::Sound::Sound(FMOD::Sound * sound, bool stream) 
 	: sound(sound)
+	, stream(stream)
 {
 
 }
@@ -35,10 +36,15 @@ Channel * TGen::Engine::Sound::Sound::spawnChannel(bool paused) {
 	FMOD::System * system = NULL;
 	
 	sound->getSystemObject(&system);
+	
 	FMOD_RESULT result = system->playSound(FMOD_CHANNEL_FREE, sound, paused, &channel);
 	
 	if (result != FMOD_OK)
 		throw TGen::RuntimeException("Sound::Sound::spawnChannel", "failed to spawn channel: ") << FMOD_ErrorString(result);
 	
 	return new Channel(channel);
+}
+
+bool TGen::Engine::Sound::Sound::isStream() const {
+	return stream;
 }

@@ -57,6 +57,7 @@ namespace TGen {
 		virtual void addMeta(TGen::MetaWriter * metaWriter, const TGen::SceneNode * node) abstract;
 		virtual void addFace(const TGen::NewFace & face) abstract;
 		virtual void addUser(void * user, int id) abstract;
+		virtual int getNumFaces() abstract;
 		virtual int getNumUserInfo() abstract;
 		virtual UserInfo & getUserInfo(int id) abstract;
 		virtual void sort(const TGen::Camera & camera, const std::string & specialization) abstract;

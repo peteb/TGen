@@ -61,6 +61,7 @@ namespace TGen {
 		TGen::SceneNode * getChild(const std::string & name);
 		TGen::SceneNode * getNode(const std::string & path, bool create = false);
 		TGen::SceneNode * getParent();
+		virtual TGen::SceneNode * clone();
 		
 		TGen::AABB getChildrenBoundingBox() const;
 		

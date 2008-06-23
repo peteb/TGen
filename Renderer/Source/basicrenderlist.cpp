@@ -244,3 +244,7 @@ void TGen::BasicRenderList::writeMeta(uint metaType, const TGen::Matrix4x4 & tra
 		metaWriters[i].writer->writeMeta(metaType, metaWriters[i].node->getTransform(), stream);		
 	}
 }
+
+int TGen::BasicRenderList::getNumFaces() {
+	return faces.size();
+}
