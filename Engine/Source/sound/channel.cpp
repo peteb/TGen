@@ -26,7 +26,7 @@ TGen::Engine::Sound::Channel::~Channel() {
 	
 	FMOD_RESULT result = channel->stop();
 	
-	//if (result != FMOD_OK)
+	//if (result != FMOD_OK)	// commented because you shouldn't throw in a dtor.
 	//	throw TGen::RuntimeException("Sound::~Channel", "failed to stop channel on dtor: ") << FMOD_ErrorString(result);
 }
 

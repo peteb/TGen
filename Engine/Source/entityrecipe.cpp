@@ -45,6 +45,11 @@ TGen::Engine::Entity * TGen::Engine::EntityRecipe::createEntity() const {
 		newEntity->addComponent(newComponent, newComponent->getName());
 	}
 	
+	for (int i = 0; i < componentRecipes.size(); ++i) {
+	//	fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
+		componentRecipes[i]->fastLinkConstructed(*newEntity->getComponent(i), *newEntity);
+	}
+	
 	return newEntity.release();
 }
 
@@ -67,3 +72,13 @@ void TGen::Engine::EntityRecipe::setWorldInterface(const std::string & worldInte
 const std::string & TGen::Engine::EntityRecipe::getWorldInterface() const {
 	return worldInterface;
 }
+
+int TGen::Engine::EntityRecipe::getComponentIndex(const std::string & name) const {
+	for (int i = 0; i < componentRecipes.size(); ++i) {
+		if (componentRecipes[i]->getName() == name)
+			return i;
+	}
+	
+	return -1;
+}
+

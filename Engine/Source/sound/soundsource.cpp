@@ -22,6 +22,7 @@ TGen::Engine::Sound::Source::Source(const std::string & name, const std::string 
 	: TGen::Engine::Component(name)
 	, filename(filename)
 	, autoplay(false)
+	, prototype(false)
 {
 }
 
@@ -51,6 +52,9 @@ TGen::Engine::Sound::Channel * TGen::Engine::Sound::Source::spawnChannel(bool pa
 
 
 void TGen::Engine::Sound::Source::update(scalar dt) {
+	if (prototype)
+		return;
+	
 	if (autoplay && dt >= 0.0001) {	// just to make sure that this isn't a pre-game update (where dts are <= 0.0)
 		autoplay = false;		// only play once
 		
@@ -78,5 +82,11 @@ void TGen::Engine::Sound::Source::setLoop(bool loop) {
 	this->loop = loop;
 }
 
+void TGen::Engine::Sound::Source::setPrototype(bool prototype) {
+	this->prototype = prototype;
+}
 
+TGen::Engine::Sound::Sound * TGen::Engine::Sound::Source::getLinkedSound() const {
+	return linkedSound;
+}
 

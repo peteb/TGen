@@ -97,6 +97,7 @@
 		D09C62C00DF0928200B83C1E /* localsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09C62BF0DF0928200B83C1E /* localsource.cpp */; };
 		D09C62F00DF0975000B83C1E /* globalsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09C62EF0DF0975000B83C1E /* globalsource.cpp */; };
 		D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */; };
+		D09FC1FF0E0FE18800BF59F0 /* localrecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09FC1FE0E0FE18800BF59F0 /* localrecipe.cpp */; };
 		D0A310EE0DF355BB0007A749 /* channel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A310ED0DF355BB0007A749 /* channel.cpp */; };
 		D0A310FD0DF4A8490007A749 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A310FC0DF4A8490007A749 /* sound.cpp */; };
 		D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */; };
@@ -421,6 +422,8 @@
 		D09C62EF0DF0975000B83C1E /* globalsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = globalsource.cpp; path = sound/globalsource.cpp; sourceTree = "<group>"; };
 		D09DFFBD0D35368300DB6324 /* gameinputmapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gameinputmapper.h; path = ../../Include/gameinputmapper.h; sourceTree = SOURCE_ROOT; };
 		D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameinputmapper.cpp; sourceTree = "<group>"; };
+		D09FC1FD0E0FE17C00BF59F0 /* localrecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = localrecipe.h; path = ../../Include/sound/localrecipe.h; sourceTree = SOURCE_ROOT; };
+		D09FC1FE0E0FE18800BF59F0 /* localrecipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = localrecipe.cpp; path = sound/localrecipe.cpp; sourceTree = "<group>"; };
 		D0A310EC0DF355AF0007A749 /* channel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = channel.h; path = ../../Include/sound/channel.h; sourceTree = SOURCE_ROOT; };
 		D0A310ED0DF355BB0007A749 /* channel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = channel.cpp; path = sound/channel.cpp; sourceTree = "<group>"; };
 		D0A310FB0DF4A83D0007A749 /* sound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sound.h; path = ../../Include/sound/sound.h; sourceTree = SOURCE_ROOT; };
@@ -878,6 +881,8 @@
 				D0A310EC0DF355AF0007A749 /* channel.h */,
 				D0A310FC0DF4A8490007A749 /* sound.cpp */,
 				D0A310FB0DF4A83D0007A749 /* sound.h */,
+				D09FC1FE0E0FE18800BF59F0 /* localrecipe.cpp */,
+				D09FC1FD0E0FE17C00BF59F0 /* localrecipe.h */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -1331,6 +1336,7 @@
 				D072BC780E01645200999FC2 /* noderecipe.cpp in Sources */,
 				D072BCF50E0166F000999FC2 /* entityrecipe.cpp in Sources */,
 				D072C0E20E01D64E00999FC2 /* weapon.cpp in Sources */,
+				D09FC1FF0E0FE18800BF59F0 /* localrecipe.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -42,11 +42,11 @@ namespace TGen {
 				TGen::SceneNode & getSceneRoot();
 
 			private:
-				TGen::SceneNode * createCameraNode(const std::string & name, const TGen::PropertyTree & properties);
-				TGen::SceneNode * createLightNode(const std::string & name, const TGen::PropertyTree & properties);
+				TGen::SceneNode * createCameraNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy = false);
+				TGen::SceneNode * createLightNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy = false);
 				TGen::SceneNode * createNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy = false);
-				TGen::SceneNode * createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties);
-				TGen::SceneNode * createMapNode(const std::string & name, const TGen::PropertyTree & properties);
+				TGen::SceneNode * createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy = false);
+				TGen::SceneNode * createMapNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy = false);
 				TGen::SceneNode * createTransformNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy = false);
 				
 				TGen::Engine::ResourceManager & resources;

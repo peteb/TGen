@@ -25,6 +25,7 @@ namespace TGen {
 				void linkLocally(TGen::Engine::Entity & entity);
 				void update(scalar dt);
 				void setMinMaxDistance(scalar min, scalar max);
+				void setLink(TGen::Engine::WorldObject * link);
 				
 				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				

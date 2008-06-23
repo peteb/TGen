@@ -34,6 +34,9 @@ namespace TGen {
 				
 				void setAutoplay(bool autoplay);
 				void setLoop(bool loop);
+				void setPrototype(bool prototype);
+				
+				TGen::Engine::Sound::Sound * getLinkedSound() const;
 				
 				virtual TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				
@@ -42,6 +45,7 @@ namespace TGen {
 				
 				TGen::Engine::Sound::Sound * linkedSound;
 				ChannelList channels;
+				bool prototype;
 				
 			private:
 				std::string filename;

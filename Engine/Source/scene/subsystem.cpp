@@ -141,10 +141,18 @@ void TGen::Engine::Scene::Subsystem::addComponent(TGen::Engine::Scene::Node * no
 TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	TGen::SceneNode * prototypeNode = NULL;
 	
+	std::string useName = name + "_p";
+	
 	if (properties.getName() == "sceneNode")
-		prototypeNode = createNode(name + "_p", properties, true); // new TGen::SceneNode(name);
+		prototypeNode = createNode(useName, properties, true); // new TGen::SceneNode(name);
 	else if (properties.getName() == "sceneTransform")
-		prototypeNode = createTransformNode(name + "_p", properties, true);
+		prototypeNode = createTransformNode(useName, properties, true);
+	else if (properties.getName() == "sceneLight")
+		prototypeNode = createLightNode(useName, properties, true);
+	else if (properties.getName() == "sceneCamera")
+		prototypeNode = createCameraNode(useName, properties, true);
+	else if (properties.getName() == "sceneEqNode")
+		prototypeNode = createEquipmentNode(useName, properties, true);
 	else
 		throw TGen::RuntimeException("Scene::Subsystem::createComponentRecipe", "invalid component type: " + properties.getName());
 	
@@ -176,7 +184,7 @@ TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponen
 }
 
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties) {	
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {	
 	TGen::Camera * camera = new TGen::Camera(properties.getProperty("globalName", name), 
 														  TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), 
 														  TGen::Rotation::Identity);
@@ -193,7 +201,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 	return camera;
 }
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	TGen::Engine::Light * light = new TGen::Engine::Light(properties.getProperty("globalName", name), 
 																			TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
@@ -217,6 +225,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	
 	if (!modelName.empty())
 		light->addModel(modelPool.attach(new TGen::ModelInstanceProxy(modelName, properties.getProperty("material", ""))));
+	
 	
 	/*spotCutoff, spotExponent;
 	TGen::Vector3 spotDirection;
@@ -252,7 +261,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 	return node;
 }
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	TGen::Engine::Scene::EquipmentNode * node = new TGen::Engine::Scene::EquipmentNode(properties.getProperty("globalName", name));
 	
 	TGen::Vector3 origin = TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0"));
@@ -267,7 +276,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std:
 }
 
 
-TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties) {
+TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	TGen::Engine::MapLoader loader(logs, filesystem);
 	
 	TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));

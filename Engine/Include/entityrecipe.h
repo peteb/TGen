@@ -30,6 +30,7 @@ namespace TGen {
 			void linkGlobally(TGen::Engine::EntityList & entities);
 			TGen::Engine::Entity * createEntity() const;
 			TGen::Engine::ComponentRecipe * getComponentRecipe(const std::string & name);
+			int getComponentIndex(const std::string & name) const;
 			
 			void setWorldInterface(const std::string & worldInterface);
 			const std::string & getWorldInterface() const;

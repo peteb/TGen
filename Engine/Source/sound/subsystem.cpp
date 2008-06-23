@@ -12,6 +12,7 @@
 #include "sound/globalsource.h"
 #include "sound/localsource.h"
 #include "sound/sound.h"
+#include "sound/localrecipe.h"
 
 #include "log.h"
 #include "generateline.h"
@@ -47,6 +48,7 @@ TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGe
 	logs.info["snd+"] << "fmod initialized" << TGen::endl;
 	
 }
+
 
 TGen::Engine::Sound::Subsystem::~Subsystem() {
 	logs.info["snd-"] << "*** SHUTTING DOWN SOUND ***" << TGen::endl;
@@ -87,6 +89,38 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	
 	return ret;	
 }
+
+
+TGen::Engine::ComponentRecipe * TGen::Engine::Sound::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+	std::cout << "RECIPE: " << name << std::endl;
+
+	std::string filename = properties.getProperty("sound", "unknown");
+	 
+	LocalSource * prototypeSource = new LocalSource(name, filename, properties.getProperty("link", "sceneNode"));
+	
+	prototypeSource->setMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
+													TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
+	 
+	prototypeSource->setAutoplay(TGen::lexical_cast<bool>(properties.getProperty("autoplay", "false")));
+	prototypeSource->setLoop(TGen::lexical_cast<bool>(properties.getProperty("loop", "false")));
+	prototypeSource->setPrototype(true);
+	 
+	localSources.push_back(prototypeSource);
+	
+	
+	
+	TGen::Engine::Sound::LocalRecipe * newRecipe = new TGen::Engine::Sound::LocalRecipe(name, *this);
+	
+	
+	
+	newRecipe->setSoundPrototype(prototypeSource);
+	newRecipe->setLinkWith(properties.getProperty("link", "sceneNode"));
+	
+	
+	
+	return newRecipe;
+}
+
 
 void TGen::Engine::Sound::Subsystem::update(scalar dt) {	
 	for (int i = 0; i < localSources.size(); ++i)
@@ -149,6 +183,10 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std:
 	}
 		
 	return ret;
+}
+
+void TGen::Engine::Sound::Subsystem::addLocalSource(TGen::Engine::Sound::LocalSource * source) {
+	localSources.push_back(source);
 }
 
 TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const TGen::Engine::GenerateLine & genline) {

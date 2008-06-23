@@ -12,6 +12,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 namespace TGen {
 	namespace Engine {
@@ -26,14 +27,16 @@ namespace TGen {
 			const std::string & getName() const;
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
 			TGen::Engine::Component * getComponent(const std::string & name);
+			TGen::Engine::Component * getComponent(int index);
+			
 			void linkLocally();
 			void linkGlobally(TGen::Engine::EntityList & entities);
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Component *> ComponentMap;
 			
-			//std::vector<TGen::Engine::Component *> components;
-			ComponentMap components;
+			std::vector<TGen::Engine::Component *> components;
+			ComponentMap componentLookup;
 			
 			std::string name;
 		}; 

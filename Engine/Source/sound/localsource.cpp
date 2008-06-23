@@ -28,12 +28,16 @@ void TGen::Engine::Sound::LocalSource::linkLocally(TGen::Engine::Entity & entity
 }
 
 void TGen::Engine::Sound::LocalSource::update(scalar dt) {
-	TGen::Engine::Sound::Source::update(dt);
-	
+	if (prototype)
+		return;
+
 	if (linkedTo) {		
 		for (int i = 0; i < channels.size(); ++i)
 			channels[i]->set3DAttributes(linkedTo->getPosition(), linkedTo->getVelocity());				
 	}
+	
+	TGen::Engine::Sound::Source::update(dt);
+	
 }
 
 TGen::Engine::Sound::Channel * TGen::Engine::Sound::LocalSource::spawnChannel(bool paused) {
@@ -48,4 +52,8 @@ TGen::Engine::Sound::Channel * TGen::Engine::Sound::LocalSource::spawnChannel(bo
 void TGen::Engine::Sound::LocalSource::setMinMaxDistance(scalar min, scalar max) {
 	minDistance = min;
 	maxDistance = max;
+}
+
+void TGen::Engine::Sound::LocalSource::setLink(TGen::Engine::WorldObject * link) {
+	linkedTo = link;
 }

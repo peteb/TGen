@@ -27,26 +27,31 @@ const std::string & TGen::Engine::Entity::getName() const {
 
 void TGen::Engine::Entity::addComponent(TGen::Engine::Component * component, const std::string & name) {
 	std::cout << "ADDCOMP " << name << " to " << this->name << std::endl;
-	components.insert(ComponentMap::value_type(name, component));
+	componentLookup.insert(ComponentMap::value_type(name, component));
+	components.push_back(component);
 }
 	
 TGen::Engine::Component * TGen::Engine::Entity::getComponent(const std::string & name) {
-	ComponentMap::iterator iter = components.find(name);
+	ComponentMap::iterator iter = componentLookup.find(name);
 	
-	if (iter == components.end())
+	if (iter == componentLookup.end())
 		throw TGen::RuntimeException("Entity::getComponent", "no component called '" + name + "' loaded!");
 
 	return iter->second;
 }
 
+TGen::Engine::Component * TGen::Engine::Entity::getComponent(int index) {
+	return components.at(index);
+}
+
 void TGen::Engine::Entity::linkLocally() {
 	// Links references to other components for this entity
 	
-	for (ComponentMap::iterator iter = components.begin(); iter != components.end(); ++iter)
+	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter)
 		iter->second->linkLocally(*this);
 }
 
 void TGen::Engine::Entity::linkGlobally(TGen::Engine::EntityList & entities) {
-	for (ComponentMap::iterator iter = components.begin(); iter != components.end(); ++iter)
+	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter)
 		iter->second->linkGlobally(entities, *this);
 }
