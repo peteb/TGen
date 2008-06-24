@@ -137,6 +137,8 @@
 		D0F83B4B0CBA747200FF4467 /* gamestatevars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83B4A0CBA747200FF4467 /* gamestatevars.cpp */; };
 		D0F83E060CBAD6B300FF4467 /* log.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83E050CBAD6B300FF4467 /* log.cpp */; };
 		D0F83F0B0CBADBAE00FF4467 /* logtarget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */; };
+		D0FD60550E113C1F00D7D604 /* geomrecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FD60540E113C1F00D7D604 /* geomrecipe.cpp */; };
+		D0FD61890E114CEA00D7D604 /* bodyrecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FD61880E114CEA00D7D604 /* bodyrecipe.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -499,6 +501,10 @@
 		D0F83E050CBAD6B300FF4467 /* log.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = log.cpp; sourceTree = "<group>"; };
 		D0F83E690CBAD7FC00FF4467 /* logtarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = logtarget.h; path = ../../Include/logtarget.h; sourceTree = SOURCE_ROOT; };
 		D0F83F0A0CBADBAE00FF4467 /* logtarget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = logtarget.cpp; sourceTree = "<group>"; };
+		D0FD60530E113C1200D7D604 /* geomrecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geomrecipe.h; path = ../../Include/physics/geomrecipe.h; sourceTree = SOURCE_ROOT; };
+		D0FD60540E113C1F00D7D604 /* geomrecipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geomrecipe.cpp; path = physics/geomrecipe.cpp; sourceTree = "<group>"; };
+		D0FD61870E114CDB00D7D604 /* bodyrecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bodyrecipe.h; path = ../../Include/physics/bodyrecipe.h; sourceTree = SOURCE_ROOT; };
+		D0FD61880E114CEA00D7D604 /* bodyrecipe.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bodyrecipe.cpp; path = physics/bodyrecipe.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -898,6 +904,10 @@
 				D0E096160D883485005D5345 /* geom.h */,
 				D0095B6C0D7874E400D0DC31 /* joint.cpp */,
 				D0095B6B0D7874C700D0DC31 /* joint.h */,
+				D0FD60540E113C1F00D7D604 /* geomrecipe.cpp */,
+				D0FD60530E113C1200D7D604 /* geomrecipe.h */,
+				D0FD61880E114CEA00D7D604 /* bodyrecipe.cpp */,
+				D0FD61870E114CDB00D7D604 /* bodyrecipe.h */,
 				D09332200D79FFDB0046DC37 /* geoms */,
 				D093321F0D79FFD30046DC37 /* joints */,
 			);
@@ -1337,6 +1347,8 @@
 				D072BCF50E0166F000999FC2 /* entityrecipe.cpp in Sources */,
 				D072C0E20E01D64E00999FC2 /* weapon.cpp in Sources */,
 				D09FC1FF0E0FE18800BF59F0 /* localrecipe.cpp in Sources */,
+				D0FD60550E113C1F00D7D604 /* geomrecipe.cpp in Sources */,
+				D0FD61890E114CEA00D7D604 /* bodyrecipe.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,8 @@
 #include "physics/meshgeom.h"
 #include "physics/id4cmgeom.h"
 #include "physics/id4cmloader.h"
+#include "physics/geomrecipe.h"
+#include "physics/bodyrecipe.h"
 
 #include "generateline.h"
 #include "log.h"
@@ -62,6 +64,48 @@ TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(cons
 	
 	throw TGen::RuntimeException("PhysicsSubsystem::createComponent", "invalid component type '" + properties.getName() + "'");
 }
+
+TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+	TGen::Engine::ComponentRecipe * ret = NULL;
+	
+	if (properties.getName() == "physGeom") {
+		std::string type = properties.getProperty("type", "unknown");
+
+		TGen::Engine::Physics::GeomRecipe * newRecipe = NULL; 
+		
+		
+		if (type == "sphere") {
+			newRecipe = new TGen::Engine::Physics::GeomRecipe(TGen::Engine::Physics::SphereGeomType, name, mainSpace, *this);
+			newRecipe->setScalarValue1(TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0")));
+		}
+		else if (type == "ccylinder") {
+			newRecipe = new TGen::Engine::Physics::GeomRecipe(TGen::Engine::Physics::CappedCylinderGeomType, name, mainSpace, *this);
+			newRecipe->setScalarValue1(TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0")));
+			newRecipe->setScalarValue2(TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0")));
+			
+		}
+		else {
+			throw TGen::RuntimeException("Physics::Subsystem::createComponentRecipe", "invalid geom type: " + type);
+		}
+		
+		newRecipe->setLink(properties.getProperty("link", "sceneNode"));
+		
+		ret = newRecipe;
+	}
+	else if (properties.getName() == "physBody") {
+		TGen::Engine::Physics::BodyRecipe * newRecipe = new TGen::Engine::Physics::BodyRecipe(name, mainSpace, *this);
+		
+		newRecipe->setLink(properties.getProperty("link", "sceneNode"));
+		ret = newRecipe;
+	}
+	else {
+		throw TGen::RuntimeException("Physics::Subsystem::createComponentRecipe", "invalid component type: " + properties.getName());
+	}
+
+	
+	return ret;
+}
+
 
 TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Vector3 position = TGen::Vector3::Parse(properties.getProperty("position", "0 0 0"));
@@ -113,6 +157,14 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	bodies.push_back(newBody);
 	
 	return newBody;
+}
+
+void TGen::Engine::Physics::Subsystem::addGeom(TGen::Engine::Physics::Geom * geom) {
+	geoms.push_back(geom);
+}
+
+void TGen::Engine::Physics::Subsystem::addBody(TGen::Engine::Physics::Body * body) {
+	bodies.push_back(body);
 }
 
 TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const std::string & name, const TGen::PropertyTree & properties) {
@@ -327,4 +379,10 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 	}
 	
 }
+
+dWorldID TGen::Engine::Physics::Subsystem::getWorldId() {
+	return worldId;
+}
+
+
 

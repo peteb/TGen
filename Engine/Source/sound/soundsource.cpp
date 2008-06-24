@@ -86,7 +86,4 @@ void TGen::Engine::Sound::Source::setPrototype(bool prototype) {
 	this->prototype = prototype;
 }
 
-TGen::Engine::Sound::Sound * TGen::Engine::Sound::Source::getLinkedSound() const {
-	return linkedSound;
-}
 

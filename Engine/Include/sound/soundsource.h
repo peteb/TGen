@@ -36,8 +36,6 @@ namespace TGen {
 				void setLoop(bool loop);
 				void setPrototype(bool prototype);
 				
-				TGen::Engine::Sound::Sound * getLinkedSound() const;
-				
 				virtual TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				
 			protected:

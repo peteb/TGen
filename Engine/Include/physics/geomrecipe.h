@@ -1,0 +1,54 @@
+/*
+ *  geomrecipe.h
+ *  TGen Engine
+ *
+ *  Created by Peter Backman on 6/24/08.
+ *  Copyright 2008 Peter Backman. All rights reserved.
+ *
+ */
+
+#ifndef _TGEN_ENGINE_GEOMRECIPE_H
+#define _TGEN_ENGINE_GEOMRECIPE_H
+
+#include "componentrecipe.h"
+#include <ODE/ODE.h>
+
+namespace TGen {
+	namespace Engine {
+		namespace Physics {
+			class Subsystem;
+			
+			enum GeomRecipeType {
+				SphereGeomType,
+				CappedCylinderGeomType,
+			};
+			
+			class GeomRecipe : public TGen::Engine::ComponentRecipe {
+			public:
+				GeomRecipe(GeomRecipeType type, const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem);
+				
+				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
+				
+				void setScalarValue1(scalar value);
+				void setScalarValue2(scalar value);
+				
+				void setLink(const std::string & link);
+				void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
+				
+			private:
+				TGen::Engine::Physics::Subsystem & subsystem;
+				
+				scalar scalarValue1, scalarValue2;
+				std::string linkName;
+				int componentLinkNum;
+				dSpaceID space;
+				GeomRecipeType type;
+			};
+			
+		} // !Physics
+	} // !Engine
+} // !TGen
+
+#endif // !_TGEN_ENGINE_GEOMRECIPE_H
+

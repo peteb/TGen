@@ -31,8 +31,12 @@ namespace TGen {
 				float getFriction() const;
 				void setFriction(float friction);
 				void setLinkedComponent(const std::string & componentName);
+				void setLinkedComponent(TGen::Engine::WorldObject * linkedTo);
+				void setBody(TGen::Engine::Physics::Body * body);
+				
 				void setAffectsOthers(bool affectOthers);
 				bool getAffectsOthers() const;
+				
 				
 				virtual void preStep();
 				virtual void postStep();
@@ -41,9 +45,9 @@ namespace TGen {
 				
 				virtual void linkLocally(TGen::Engine::Entity & entity);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities);
+				void setGeomId(dGeomID id);
 				
 			protected:
-				void setGeomId(dGeomID id);
 				void setPosition(const TGen::Vector3 & position);				
 				void setOrientation(const TGen::Matrix3x3 & orientation);
 				dGeomID geomId;

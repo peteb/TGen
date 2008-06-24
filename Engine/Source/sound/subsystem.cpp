@@ -67,7 +67,7 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	std::string filename = properties.getProperty("sound", "unknown");
 	TGen::Engine::Sound::Source * ret = NULL;
 	
-	if (properties.getName() == "sndLocal") {
+	if (properties.getName() == "soundLocal") {
 		LocalSource * newSource = new LocalSource(name, filename, properties.getProperty("link", "sceneNode"));
 		newSource->setMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
 											  TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
@@ -75,7 +75,7 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 		localSources.push_back(newSource);
 		ret = newSource;
 	}
-	else if (properties.getName() == "sndGlobal") {
+	else if (properties.getName() == "soundGlobal") {
 		GlobalSource * newSource = new GlobalSource(name, filename);
 		globalSources.push_back(newSource);
 		ret = newSource;
@@ -94,6 +94,9 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 TGen::Engine::ComponentRecipe * TGen::Engine::Sound::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	std::cout << "RECIPE: " << name << std::endl;
 
+	if (properties.getName() != "soundLocal")
+		throw TGen::RuntimeException("Sound::Subsystem::createComponentRecipe", "can only create local sounds with recipes");
+	
 	std::string filename = properties.getProperty("sound", "unknown");
 	 
 	LocalSource * prototypeSource = new LocalSource(name, filename, properties.getProperty("link", "sceneNode"));

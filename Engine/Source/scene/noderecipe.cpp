@@ -45,6 +45,8 @@ TGen::Engine::Scene::Node * TGen::Engine::Scene::NodeRecipe::createComponent(con
 		parent->getSceneNode()->addChild(newNode);
 	}
 	
+	//newNode->update(0.0f);
+	
 	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, newNode);	
 	subsystem.addComponent(newComponent, entity.getName());
 	

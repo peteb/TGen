@@ -40,6 +40,10 @@ void TGen::Engine::Physics::Geom::setLinkedComponent(const std::string & compone
 	bodyComponent = componentName;
 }
 
+void TGen::Engine::Physics::Geom::setLinkedComponent(TGen::Engine::WorldObject * linkedTo) {
+	this->linkedTo = linkedTo;
+}
+
 void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 	if (geomId)
 		throw TGen::RuntimeException("Physics::Geom::setGeomId", "geomId already set!");
@@ -72,6 +76,12 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 			linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(component);
 			updateFromLink();			
 		}
+	}
+}
+
+void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
+	if (dGeomGetClass(geomId) != dPlaneClass) {
+		dGeomSetBody(geomId, body->getBodyId());
 	}
 }
 

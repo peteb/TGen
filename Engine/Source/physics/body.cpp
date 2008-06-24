@@ -149,6 +149,12 @@ void TGen::Engine::Physics::Body::setNodeComponent(const std::string & nodeName)
 	nodeComponent = nodeName;
 }
 
+void TGen::Engine::Physics::Body::setLink(TGen::Engine::WorldObject * linkedTo) {
+	this->linkedTo = linkedTo;
+	
+	updateFromScene();
+}
+
 void TGen::Engine::Physics::Body::setKillTorque(bool killTorque) {
 	this->killTorque = killTorque;
 }

@@ -32,8 +32,13 @@ namespace TGen {
 				~Subsystem();
 			
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				
 				void link();
 				void update(scalar delta);
+				void addGeom(TGen::Engine::Physics::Geom * geom);
+				void addBody(TGen::Engine::Physics::Body * body);
+				dWorldID getWorldId();
 				
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
 				

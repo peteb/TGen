@@ -54,6 +54,7 @@ namespace TGen {
 				void setTurnHeadwise(bool turnHeadwise);
 				void setMaxAngularSpeed(scalar speed);
 				void setNodeComponent(const std::string & nodeName);
+				void setLink(TGen::Engine::WorldObject * linkedTo);
 				void setKillTorque(bool killTorque);
 				void setLinearDamping(scalar damping);
 				void setFakeGravity(scalar fakeGrav);
