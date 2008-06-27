@@ -113,6 +113,13 @@ TGen::Rotation TGen::Engine::Physics::Body::getOrientation() const {
 	return TGen::Rotation(x, y, z);
 }
 
+// TESTA MED BOX, om det blir samma konstigheter, orientation på sceneNode och body kan vara olika.
+// > gör koden som kodades igår fin först
+
+// TODO: varför är orientation fel? den sätts dock EFTER att body har blivit länkad, så den får inte orientation initialt, men borde ju ändå få när man kör preStep?
+// TODO: egen klass för ccylinder, men varför är det konstigt med raketerna? checka så cylindern verkligen är där den ska, testa med box också?
+// TODO: geom och body-recipes ska styras upp, men kör på en recipe-klass och inte flera för varje, typ BoxRecipe osv. 
+
 void TGen::Engine::Physics::Body::setOrientation(const TGen::Rotation & orientation) {
 	dMatrix3 matrix;
 	TGen::Vector3 x = orientation.getX();

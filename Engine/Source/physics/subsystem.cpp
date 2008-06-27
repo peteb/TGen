@@ -82,6 +82,18 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponen
 			newRecipe = new TGen::Engine::Physics::GeomRecipe(TGen::Engine::Physics::CappedCylinderGeomType, name, mainSpace, *this);
 			newRecipe->setScalarValue1(TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0")));
 			newRecipe->setScalarValue2(TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0")));
+		}
+		else if (type == "box") {
+			newRecipe = new TGen::Engine::Physics::GeomRecipe(TGen::Engine::Physics::BoxGeomType, name, mainSpace, *this);
+			TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("dimensions", "1 1 1"));
+			
+			newRecipe->setScalarValue1(dimensions.x);
+			newRecipe->setScalarValue2(dimensions.y);
+			newRecipe->setScalarValue3(dimensions.z);
+		}
+		else if (type == "ray") {
+			newRecipe = new TGen::Engine::Physics::GeomRecipe(TGen::Engine::Physics::RayGeomType, name, mainSpace, *this);
+			newRecipe->setScalarValue1(TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0")));
 			
 		}
 		else {
@@ -89,11 +101,12 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponen
 		}
 		
 		newRecipe->setLink(properties.getProperty("link", "sceneNode"));
+		newRecipe->setFriction(TGen::lexical_cast<scalar>(properties.getProperty("friction", "10")));
 		
 		ret = newRecipe;
 	}
 	else if (properties.getName() == "physBody") {
-		TGen::Engine::Physics::BodyRecipe * newRecipe = new TGen::Engine::Physics::BodyRecipe(name, mainSpace, *this);
+		TGen::Engine::Physics::BodyRecipe * newRecipe = new TGen::Engine::Physics::BodyRecipe(name, mainSpace, getMass(properties), *this);
 		
 		newRecipe->setLink(properties.getProperty("link", "sceneNode"));
 		ret = newRecipe;
@@ -115,25 +128,7 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	dBodySetGravityMode(newBodyId, applyGravity);
 	
 	try {
-		std::string massType = properties.getNode("mass").getAttribute(0);
-		
-		dMass mass;
-		
-		if (massType == "box") {
-			scalar totalMass = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("total", "1.0"));
-			TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getNode("mass").getProperty("dimensions", "1.0 1.0 1.0"));
-			
-			dMassSetBox(&mass, totalMass, dimensions.x, dimensions.y, dimensions.z);
-		}
-		else if (massType == "sphere") {
-			scalar totalMass = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("total", "1.0"));
-			scalar radius = TGen::lexical_cast<scalar>(properties.getNode("mass").getProperty("radius", "1.0"));
-			
-			dMassSetSphere(&mass, totalMass, radius);
-		}
-		else {
-			throw TGen::RuntimeException("PhysicsSubsystem::createBody", "invalid mass type '" + massType + "'");
-		}
+		dMass mass = getMass(properties);
 		
 		dBodySetMass(newBodyId, &mass);
 	}
@@ -157,6 +152,29 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	bodies.push_back(newBody);
 	
 	return newBody;
+}
+
+dMass TGen::Engine::Physics::Subsystem::getMass(const TGen::PropertyTree & properties) {
+	dMass ret;
+	std::string massType = properties.getProperty("massType", "unknown");
+
+	if (massType == "box") {
+		scalar totalMass = TGen::lexical_cast<scalar>(properties.getProperty("massTotal", "1.0"));
+		TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("massDimensions", "1.0 1.0 1.0"));
+		
+		dMassSetBox(&ret, totalMass, dimensions.x, dimensions.y, dimensions.z);
+	}
+	else if (massType == "sphere") {
+		scalar totalMass = TGen::lexical_cast<scalar>(properties.getProperty("massTotal", "1.0"));
+		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("massRadius", "1.0"));
+		
+		dMassSetSphere(&ret, totalMass, radius);
+	}
+	else {
+		throw TGen::RuntimeException("Physics::Subsystem::getMass", "invalid mass type '" + massType + "'");
+	}
+	
+	return ret;
 }
 
 void TGen::Engine::Physics::Subsystem::addGeom(TGen::Engine::Physics::Geom * geom) {
@@ -345,7 +363,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				
 			bool onGround = false;
 			
-			if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
+			//if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
 				if (bodyObject1)
 					bodyObject1->setOnFloor(true);
 				
@@ -353,7 +371,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					bodyObject2->setOnFloor(true);
 				
 				onGround = true;
-			}			
+			//}			
 
 			scalar friction = 1.0f;
 			if (geom1)

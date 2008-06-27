@@ -29,7 +29,7 @@ namespace TGen {
 	typedef float scalar;
 	
 	template<typename T>
-	void PatchPointer(T & pointer, void * base) {
+	void OffsetPointer(T & pointer, void * base) {
 		pointer = reinterpret_cast<T>(reinterpret_cast<uint8 *>(pointer) + uint(base));
 	}
 	

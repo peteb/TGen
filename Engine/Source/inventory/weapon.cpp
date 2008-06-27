@@ -50,7 +50,7 @@ void TGen::Engine::Inventory::Weapon::endFire(int mode) {
 }
 
 void TGen::Engine::Inventory::Weapon::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	prototype = entities.getPrototype("rocket");
+	prototype = entities.getPrototype("bullet");
 	ammoSpawn = dynamic_cast<TGen::Engine::WorldObject *>(entities.getComponent(ammoSpawnName, entity));
 }
 

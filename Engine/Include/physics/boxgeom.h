@@ -16,9 +16,6 @@ namespace TGen {
 	class Vector3;
 	
 	namespace Engine {
-		class Entity;
-		class EntityList;
-		
 		namespace Physics {
 			class BoxGeom : public TGen::Engine::Physics::Geom {
 			public:

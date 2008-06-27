@@ -13,9 +13,10 @@
 #include "physics/subsystem.h"
 #include "physics/body.h"
 
-TGen::Engine::Physics::BodyRecipe::BodyRecipe(const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem)
+TGen::Engine::Physics::BodyRecipe::BodyRecipe(const std::string & name, dSpaceID space, dMass mass, TGen::Engine::Physics::Subsystem & subsystem)
 	: TGen::Engine::ComponentRecipe(name)
 	, space(space)
+	, mass(mass)
 	, subsystem(subsystem)
 	, linkComponentNum(-1)
 {
@@ -23,6 +24,7 @@ TGen::Engine::Physics::BodyRecipe::BodyRecipe(const std::string & name, dSpaceID
 
 TGen::Engine::Component * TGen::Engine::Physics::BodyRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
 	dBodyID newBodyId = dBodyCreate(subsystem.getWorldId());
+	dBodySetMass(newBodyId, &mass);
 	
 	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId, subsystem.getWorldId(), space);
 	
@@ -47,3 +49,4 @@ void TGen::Engine::Physics::BodyRecipe::fastLinkConstructed(TGen::Engine::Compon
 void TGen::Engine::Physics::BodyRecipe::setLink(const std::string & name) {
 	linkName = name;
 }
+

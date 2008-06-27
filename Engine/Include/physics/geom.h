@@ -49,7 +49,8 @@ namespace TGen {
 				
 			protected:
 				void setPosition(const TGen::Vector3 & position);				
-				void setOrientation(const TGen::Matrix3x3 & orientation);
+				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
+				
 				dGeomID geomId;
 				std::string bodyComponent;
 				

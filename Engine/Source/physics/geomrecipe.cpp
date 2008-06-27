@@ -12,9 +12,12 @@
 #include "entity.h"
 #include "componentinterfaces.h"
 
-#include "physics/spheregeom.h"
 #include "physics/subsystem.h"
 #include "physics/body.h"
+#include "physics/ccylindergeom.h"
+#include "physics/spheregeom.h"
+#include "physics/boxgeom.h"
+#include "physics/raygeom.h"
 
 TGen::Engine::Physics::GeomRecipe::GeomRecipe(GeomRecipeType type, const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem)
 	: TGen::Engine::ComponentRecipe(name)
@@ -22,27 +25,40 @@ TGen::Engine::Physics::GeomRecipe::GeomRecipe(GeomRecipeType type, const std::st
 	, componentLinkNum(-1)
 	, space(space)
 	, subsystem(subsystem)
+	, friction(1.0)
 {
 }
 
 
 TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
 	TGen::Engine::Physics::Geom * ret = NULL;
+	std::string name = "physGeom";
 	
 	if (type == SphereGeomType) {
-		TGen::Engine::Physics::SphereGeom * newGeom = new TGen::Engine::Physics::SphereGeom("physGeom", scalarValue1, space);
+		TGen::Engine::Physics::SphereGeom * newGeom = new TGen::Engine::Physics::SphereGeom(name, scalarValue1, space);
 	
 		ret = newGeom;
 	}
 	else if (type == CappedCylinderGeomType) {
-		dGeomID newGeom = dCreateCCylinder(space, scalarValue1, scalarValue2);
+		TGen::Engine::Physics::CCylinderGeom * newGeom = new TGen::Engine::Physics::CCylinderGeom(name, scalarValue1, scalarValue2, space);
+
+		ret = newGeom;
+	}
+	else if (type == BoxGeomType) {
+		TGen::Engine::Physics::BoxGeom * newGeom = new TGen::Engine::Physics::BoxGeom(name, TGen::Vector3(scalarValue1, scalarValue2, scalarValue3), space);
 		
-		ret = new TGen::Engine::Physics::Geom("physGeom");
-		ret->setGeomId(newGeom);
+		ret = newGeom;
+	}
+	else if (type == RayGeomType) {
+		TGen::Engine::Physics::RayGeom * newGeom = new TGen::Engine::Physics::RayGeom(name, scalarValue1, space);
 		
+		ret = newGeom;
+	}
+	else {
+		throw TGen::RuntimeException("Physics::GeomRecipe::createComponent", "invalid geom type");
 	}
 	
-	ret->setFriction(10.0);
+	ret->setFriction(friction);
 	subsystem.addGeom(ret);
 	
 	return ret;
@@ -77,6 +93,14 @@ void TGen::Engine::Physics::GeomRecipe::setScalarValue2(scalar value) {
 	scalarValue2 = value;
 }
 
+void TGen::Engine::Physics::GeomRecipe::setScalarValue3(scalar value) {
+	scalarValue3 = value;
+}
+
 void TGen::Engine::Physics::GeomRecipe::setLink(const std::string & link) {
 	linkName = link;
+}
+
+void TGen::Engine::Physics::GeomRecipe::setFriction(scalar friction) {
+	this->friction = friction;
 }

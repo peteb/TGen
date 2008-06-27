@@ -19,7 +19,7 @@ namespace TGen {
 		
 		class CubeModel : public TGen::NewModel {
 		public:
-			CubeModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max);
+			CubeModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max, TGen::VertexDataSource & dataSource);
 			~CubeModel();
 			
 			TGen::Vector3 getMax() const;
@@ -28,6 +28,8 @@ namespace TGen {
 			void addMesh(TGen::Engine::CubeMesh * instance);
 
 			TGen::NewMeshInstance * getMesh(int num);
+			CubeModel * clone() const;
+			
 			int getNumMeshes() const;
 			
 			TGen::Engine::CubeModel * instantiate(TGen::VertexDataSource & source) const;
@@ -46,6 +48,7 @@ namespace TGen {
 			
 			MeshList meshes;			
 			TGen::Vector3 min, max;
+			TGen::VertexDataSource & dataSource;
 		};
 	} // !Engine
 } // !TGen

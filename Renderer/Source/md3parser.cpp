@@ -57,23 +57,25 @@ TGen::MD3::File * TGen::MD3::Parser::parse(TGen::InputStream & source) {
 	SwapLocalLe32(header->surfaces);
 	SwapLocalLe32(header->eof);
 
-	if (header->ident != TGen::MD3::MAGIC)
+	if (header->ident != TGen::MD3::MAGIC) {
+		free(header);
 		throw TGen::RuntimeException("MD3::Parser", "header invalid!");
+	}
 	
-	PatchPointer(header->frames, header);
-	PatchPointer(header->tags, header);
-	PatchPointer(header->first_surface, header);
-	PatchPointer(header->eof, header);
+	OffsetPointer(header->frames, header);
+	OffsetPointer(header->tags, header);
+	OffsetPointer(header->first_surface, header);
+	OffsetPointer(header->eof, header);
 	
 	TGen::MD3::SurfaceList surfaces;
 	TGen::MD3::Surface * surface = header->first_surface;
 
 	for (int i = 0; i < header->num_surfaces; ++i) {
-		PatchPointer(surface->triangles, surface);
-		PatchPointer(surface->shaders, surface);
-		PatchPointer(surface->texCoords, surface);
-		PatchPointer(surface->vertices, surface);
-		PatchPointer(surface->next, surface);
+		OffsetPointer(surface->triangles, surface);
+		OffsetPointer(surface->shaders, surface);
+		OffsetPointer(surface->texCoords, surface);
+		OffsetPointer(surface->vertices, surface);
+		OffsetPointer(surface->next, surface);
 		
 		surfaces.push_back(surface);
 		surface = surface->next;

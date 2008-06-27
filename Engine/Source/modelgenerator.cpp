@@ -38,7 +38,7 @@ TGen::NewModel * TGen::Engine::ModelGenerator::createModel(const TGen::Engine::G
 		// fill mesh with data. iofs CubeModel och CubeMesh kan gott och väl vara mer generic...
 		
 		
-		TGen::Engine::CubeModel * model = new TGen::Engine::CubeModel(line.getStringLine(), line.getParameter("material", "cubemat"), "", min, max);
+		TGen::Engine::CubeModel * model = new TGen::Engine::CubeModel(line.getStringLine(), line.getParameter("material", "cubemat"), "", min, max, dataSource);
 		model->addMesh(mesh);
 		
 		newModel = model;

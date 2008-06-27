@@ -20,7 +20,7 @@ namespace TGen {
 			
 			class BodyRecipe : public TGen::Engine::ComponentRecipe {
 			public:
-				BodyRecipe(const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem);
+				BodyRecipe(const std::string & name, dSpaceID space, dMass mass, TGen::Engine::Physics::Subsystem & subsystem);
 				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
@@ -33,6 +33,7 @@ namespace TGen {
 				
 				std::string linkName;
 				int linkComponentNum;
+				dMass mass;
 			};
 			
 		} // !Physics

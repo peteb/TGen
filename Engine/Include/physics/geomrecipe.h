@@ -21,6 +21,8 @@ namespace TGen {
 			enum GeomRecipeType {
 				SphereGeomType,
 				CappedCylinderGeomType,
+				BoxGeomType,
+				RayGeomType,
 			};
 			
 			class GeomRecipe : public TGen::Engine::ComponentRecipe {
@@ -31,7 +33,9 @@ namespace TGen {
 				
 				void setScalarValue1(scalar value);
 				void setScalarValue2(scalar value);
+				void setScalarValue3(scalar value);
 				
+				void setFriction(scalar friction);
 				void setLink(const std::string & link);
 				void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
@@ -39,7 +43,9 @@ namespace TGen {
 			private:
 				TGen::Engine::Physics::Subsystem & subsystem;
 				
-				scalar scalarValue1, scalarValue2;
+				scalar scalarValue1, scalarValue2, scalarValue3;
+				scalar friction;
+				
 				std::string linkName;
 				int componentLinkNum;
 				dSpaceID space;

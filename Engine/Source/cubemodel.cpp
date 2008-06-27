@@ -11,10 +11,11 @@
 #include "cubemesh.h"
 #include "metacreator.h"
 
-TGen::Engine::CubeModel::CubeModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max) 
+TGen::Engine::CubeModel::CubeModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max, TGen::VertexDataSource & dataSource) 
 	: TGen::NewModel(name, materialName, materialNamePostfix)
 	, min(min)
 	, max(max)
+	, dataSource(dataSource)
 {
 
 }
@@ -80,4 +81,7 @@ void TGen::Engine::CubeModel::writeMeta(uint metaType, const TGen::Matrix4x4 & t
 	}
 }
 
+TGen::Engine::CubeModel * TGen::Engine::CubeModel::clone() const {
+	return instantiate(dataSource);
+}
 
