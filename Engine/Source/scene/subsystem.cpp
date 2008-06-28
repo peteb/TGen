@@ -12,6 +12,7 @@
 #include "scene/dummynode.h"
 #include "scene/transformnode.h"
 #include "scene/equipmentnode.h"
+#include "scene/equipmentdata.h"
 
 #include "world.h"
 #include "app.h"
@@ -262,17 +263,29 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 }
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
-	TGen::Engine::Scene::EquipmentNode * node = new TGen::Engine::Scene::EquipmentNode(properties.getProperty("globalName", name));
+	TGen::Engine::Scene::EquipmentNode * newNode = new TGen::Engine::Scene::EquipmentNode(properties.getProperty("globalName", name));
 	
 	TGen::Vector3 origin = TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0"));
 	TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
 	TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
 	
-	node->setPosition(origin);
-	node->setOrientation(rotation);
-	node->setInitialChild(properties.getProperty("initial", ""));
+	newNode->setPosition(origin);
+	newNode->setOrientation(rotation);
+	newNode->setInitialChild(properties.getProperty("initial", ""));
 	
-	return node;
+	for (int i = 0; i < properties.getNumNodes(); ++i) {
+		const TGen::PropertyTree & node = properties.getNode(i);
+		
+		if (node.getName() == "equipment") {
+			TGen::Engine::Scene::EquipmentData * newEquipment = new TGen::Engine::Scene::EquipmentData(node.getAttribute(0));
+			newEquipment->setWeapon(node.getProperty("weapon", ""));
+			newEquipment->setRequires(node.getProperty("requires", ""));
+			
+			newNode->setEquipmentData(node.getAttribute(0), newEquipment);
+		}
+	}
+	
+	return newNode;
 }
 
 

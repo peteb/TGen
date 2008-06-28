@@ -200,7 +200,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	
 	renderList.sort(*mainCamera, "default");
 	
-	std::cout << "renderlist: " << renderList.getNumFaces() << std::endl;
+	//std::cout << "renderlist: " << renderList.getNumFaces() << std::endl;
 	
 	TGen::Engine::MetaCreator mc;
 	

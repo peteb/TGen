@@ -41,6 +41,7 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 		
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 		newController->setWeaponLink(properties.getProperty("weapon", ""));
+		newController->setEquipment(properties.getProperty("equipment", ""));
 		ret = newController.release();
 	}
 	else if (type == "arcball") {

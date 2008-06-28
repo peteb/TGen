@@ -10,6 +10,7 @@
 #include "inventory/subsystem.h"
 #include "inventory/inventory.h"
 #include "inventory/weapon.h"
+#include "inventory/firemode.h"
 
 TGen::Engine::Inventory::Subsystem::Subsystem() {
 	
@@ -36,7 +37,23 @@ TGen::Engine::Component * TGen::Engine::Inventory::Subsystem::createComponent(co
 	}
 	else if (type == "weapon") {
 		TGen::Engine::Inventory::Weapon * newWeapon = new TGen::Engine::Inventory::Weapon(name);
-		newWeapon->setAmmoSpawn(properties.getProperty("ammospawn", ""));
+		
+		for (int i = 0; i < properties.getNumNodes(); ++i) {
+			const TGen::PropertyTree & node = properties.getNode(i);
+			
+			if (node.getName() == "fireMode") {
+				int modeNum = TGen::lexical_cast<int>(node.getAttribute(0));
+				
+				std::cout << "FIRE MODE " << modeNum << std::endl;
+				
+				TGen::Engine::Inventory::FireMode * newFireMode = createFireMode(node);
+				newWeapon->setFireMode(modeNum, newFireMode);
+			}
+		}
+		
+	//	exit(1);
+		weapons.push_back(newWeapon);
+		
 		ret = newWeapon;
 	}
 	else {
@@ -46,6 +63,17 @@ TGen::Engine::Component * TGen::Engine::Inventory::Subsystem::createComponent(co
 	return ret;
 }
 
+TGen::Engine::Inventory::FireMode * TGen::Engine::Inventory::Subsystem::createFireMode(const TGen::PropertyTree & properties) {
+	TGen::Engine::Inventory::FireMode * newFireMode = new TGen::Engine::Inventory::FireMode;
+
+	newFireMode->setOrigin(properties.getProperty("origin", ""));
+	newFireMode->setProjectile(properties.getProperty("projectile", ""));
+	newFireMode->setRequires(properties.getProperty("requires", ""));
+	newFireMode->setRate(TGen::lexical_cast<scalar>(properties.getProperty("rate", "1.0")));
+	
+	return newFireMode;
+}
+
 TGen::Engine::Inventory::Item TGen::Engine::Inventory::Subsystem::createItem(const TGen::PropertyTree & properties) {
 	TGen::Engine::Inventory::Item ret;
 	
@@ -53,4 +81,9 @@ TGen::Engine::Inventory::Item TGen::Engine::Inventory::Subsystem::createItem(con
 	ret.maxValue = TGen::lexical_cast<int>(properties.getProperty("max", "1"));
 	
 	return ret;
+}
+
+void TGen::Engine::Inventory::Subsystem::update(scalar dt) {
+	for (int i = 0; i < weapons.size(); ++i)
+		weapons[i]->update(dt);
 }

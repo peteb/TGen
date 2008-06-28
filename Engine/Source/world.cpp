@@ -147,6 +147,7 @@ void TGen::Engine::World::update(scalar dt) {
 	//sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
 	// TODO: add lights IN the scene node of the map
 	
+	inventorySubsystem.update(dt);
 	controllerSubsystem.update(dt);				// perform controlling
 	physicsSubsystem.update(dt);					
 	sceneSubsystem.update(dt);	

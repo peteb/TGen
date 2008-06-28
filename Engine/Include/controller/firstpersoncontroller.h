@@ -23,6 +23,7 @@ namespace TGen {
 		
 		namespace Scene {
 			class Node;
+			class EquipmentNode;
 		}
 		
 		class WeaponInterface;
@@ -38,6 +39,7 @@ namespace TGen {
 				void update(scalar dt);
 				void setDeltaPlane(scalar speed);
 				void setWeaponLink(const std::string & weaponName);
+				void setEquipment(const std::string & equipmentName);
 				
 				TGen::Vector3 getVelocity() const;
 				TGen::Vector3 getPosition() const;
@@ -48,11 +50,12 @@ namespace TGen {
 				TGen::SceneNode * viewNode;
 				TGen::Engine::Physics::Body * controlBody;
 				TGen::Engine::WeaponInterface * weapon;
+				TGen::Engine::Scene::EquipmentNode * equipment;
 				
 				bool usePhysics, primaryFire, secondaryFire;
 				scalar airTime;
 				
-				std::string control, view, weaponName;
+				std::string control, view, weaponName, equipmentName;
 				scalar orientX, orientY;			
 				scalar deltaPlane;
 				scalar jumpTime, jumpForce, airControl;

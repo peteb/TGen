@@ -9,6 +9,8 @@
 
 #include "controller/firstpersoncontroller.h"
 #include "scene/node.h"
+#include "scene/equipmentnode.h"
+
 #include "entity.h"
 #include "entitylist.h"
 #include "gameinputmapper.h"
@@ -35,6 +37,7 @@ TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, con
 	, weapon(NULL)
 	, primaryFire(false)
 	, secondaryFire(false)
+	, equipment(NULL)
 {
 	
 }
@@ -63,11 +66,21 @@ void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & e
 void TGen::Engine::Controller::FirstPerson::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
 	TGen::Engine::PlayerController::linkGlobally(entities, entity);
 	
+	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(equipmentName, entity));
+	if (sceneNode)
+		equipment = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode->getSceneNode());
+	
 	if (!weaponName.empty()) {
 		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(entities.getComponent(weaponName, entity));
 		
-		if (!weapon)
-			throw TGen::RuntimeException("FirstPerson::linkGlobally", "failed to get weapon '" + weaponName + "'");
+		if (!weapon) {
+			TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(weaponName, entity));
+			if (sceneNode)
+				weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(sceneNode->getSceneNode());
+			
+			if (!weapon)
+				throw TGen::RuntimeException("FirstPerson::linkGlobally", "failed to get weapon '" + weaponName + "'");
+		}
 	}
 }
 
@@ -75,11 +88,21 @@ void TGen::Engine::Controller::FirstPerson::setWeaponLink(const std::string & we
 	this->weaponName = weaponName;
 }
 
+void TGen::Engine::Controller::FirstPerson::setEquipment(const std::string & equipmentName) {
+	this->equipmentName = equipmentName;
+}
+
 void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	TGen::Vector3 moveDelta;
 	bool moveEvent = false;
 	bool jump = false;
 	bool initialJump = false;
+	
+	if (checkEvent(EventNextWeapon) && equipment)
+		equipment->changeEquipmentRelative(-1);
+	
+	if (checkEvent(EventPreviousWeapon) && equipment)
+		equipment->changeEquipmentRelative(1);
 	
 	if (isEventInitial(EventJump)) {
 		setEventRead(EventJump);

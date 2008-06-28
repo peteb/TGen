@@ -38,8 +38,22 @@ void TGen::Engine::GameInputMapper::onBinaryEvent(TGen::Engine::InputDevice & de
 	int eventId = -1;
 
 	if (device.getName() == "mouse") {
-		if (id == 0) {
-			eventId = TGen::Engine::EventPrimaryFire;
+		switch (id) {
+			case 0:
+				eventId = TGen::Engine::EventPrimaryFire;
+				break;
+				
+			case 1:
+				eventId = TGen::Engine::EventSecondaryFire;
+				break;
+				
+			case 3:
+				eventId = TGen::Engine::EventPreviousWeapon;
+				break;
+				
+			case 4:
+				eventId = TGen::Engine::EventNextWeapon;
+				break;
 		}
 	}
 	else {
