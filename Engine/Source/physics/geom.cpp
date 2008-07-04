@@ -20,12 +20,13 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & 
 	, bodyComponent(bodyComponent)
 	, affectsOthers(true)
 	, linkedTo(NULL)
+	, bodyLinked(NULL)
 {
 
 }
 
 TGen::Engine::Physics::Geom::~Geom() {
-	
+	dGeomDestroy(geomId);
 }
 
 float TGen::Engine::Physics::Geom::getFriction() const {
@@ -71,12 +72,18 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 		if (body) {	// we don't need a link if we've got a body
 			dGeomSetBody(geomId, body->getBodyId());
 			linkedTo = NULL;
+			bodyLinked = body;
 		}
 		else {
 			linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(component);
+			bodyLinked = NULL;
 			updateFromLink();			
 		}
 	}
+}
+
+TGen::Engine::Physics::Body * TGen::Engine::Physics::Geom::getBody() {
+	return bodyLinked;
 }
 
 void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {

@@ -170,6 +170,10 @@ void TGen::Engine::Physics::Body::addForce(const TGen::Vector3 & force) {
 	dBodyAddForce(bodyId, force.x, force.y, force.z);
 }
 
+void TGen::Engine::Physics::Body::addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force) {
+	dBodyAddRelForceAtPos(bodyId, force.x, force.y, force.z, absPos.x, absPos.y, absPos.z);
+}
+
 TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
 	const dReal * force = dBodyGetLinearVel(bodyId);
 	return TGen::Vector3(force[0], force[1], force[2]);

@@ -20,8 +20,12 @@ namespace TGen {
 			public:
 				RayGeom(const std::string & name, scalar length, dSpaceID space);
 				
+				bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
+				
 			protected:
 				void setOrientation(const TGen::Matrix3x3 & orientation);
+				
+				bool collided;
 			};
 			
 		} // !Physics

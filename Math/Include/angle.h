@@ -10,8 +10,9 @@
 #ifndef _TGEN_ANGLE_H
 #define _TGEN_ANGLE_H
 
-#include "tgen_core.h"
+//#include <tgen_core.h>
 #include <cmath>
+#include "types.h"
 
 namespace TGen {
 	const scalar PI = scalar(3.1415926535897932384626433832795);
@@ -22,15 +23,15 @@ namespace TGen {
 	
 	class Angle {
 	protected:
-		Angle(scalar anAngle = 0.0) : angle(anAngle) {}
-		Angle(const Angle & anAngle) {setAngle(anAngle); }
+		__nothrow Angle(scalar anAngle = 0.0) : angle(anAngle) {}
+		__nothrow Angle(const Angle & anAngle) {setAngle(anAngle); }
 
 	public:
 		virtual ~Angle() {}
 		
 		virtual scalar getRoundAngle() const abstract;
-		void setAngle(const Angle & angle) {this->angle = (angle.angle / angle.getRoundAngle()) * getRoundAngle(); }
-		bool isAcute(const Angle & anAngle) const {return (fabs((anAngle.angle / anAngle.getRoundAngle()) * getRoundAngle() - angle) < getRoundAngle() * 0.25f); }
+		__nothrow void setAngle(const Angle & angle) {this->angle = (angle.angle / angle.getRoundAngle()) * getRoundAngle(); }
+		__nothrow bool isAcute(const Angle & anAngle) const {return (fabs((anAngle.angle / anAngle.getRoundAngle()) * getRoundAngle() - angle) < getRoundAngle() * 0.25f); }
 		
 		virtual Angle & operator =(float anAngle) {angle = anAngle; return *this; }
 				
@@ -41,33 +42,33 @@ namespace TGen {
 	
 	class Degree : public Angle {
 	public:
-		Degree(scalar angle = 0.0) : Angle(angle) {}
-		Degree(const Angle & anAngle) {setAngle(anAngle); }
+		__nothrow Degree(scalar angle = 0.0) : Angle(angle) {}
+		__nothrow Degree(const Angle & anAngle) {setAngle(anAngle); }
 		
-		inline scalar getRoundAngle() const {return RoundAngle; }
+		__nothrow inline scalar getRoundAngle() const {return RoundAngle; }
 		
-		Degree & operator =(const Angle & anAngle) {angle = Degree(anAngle).angle; return *this; }
-		inline Degree operator +(Angle & anAngle) {Degree ret(angle + Degree(anAngle).angle); return ret; }
-		inline Degree operator -(Angle & anAngle) {Degree ret(angle - Degree(anAngle).angle); return ret; }
-		inline Angle & operator +=(Angle & anAngle) {*this = *this + anAngle; return *this; }
-		inline Angle & operator -=(Angle & anAngle) {*this = *this - anAngle; return *this; }
+		__nothrow Degree & operator =(const Angle & anAngle) {angle = Degree(anAngle).angle; return *this; }
+		__nothrow inline Degree operator +(Angle & anAngle) {Degree ret(angle + Degree(anAngle).angle); return ret; }
+		__nothrow inline Degree operator -(Angle & anAngle) {Degree ret(angle - Degree(anAngle).angle); return ret; }
+		__nothrow inline Angle & operator +=(Angle & anAngle) {*this = *this + anAngle; return *this; }
+		__nothrow inline Angle & operator -=(Angle & anAngle) {*this = *this - anAngle; return *this; }
 		
 		const static scalar RoundAngle;
 	};
 	
 	class Radian : public Angle {
 	public:
-		Radian(scalar angle = 0.0) : Angle(angle) {}
-		Radian(const Angle & anAngle) {setAngle(anAngle); }
+		__nothrow Radian(scalar angle = 0.0) : Angle(angle) {}
+		__nothrow Radian(const Angle & anAngle) {setAngle(anAngle); }
 		
-		inline scalar getRoundAngle() const {return RoundAngle; }
+		__nothrow inline scalar getRoundAngle() const {return RoundAngle; }
 		
-		Radian & operator =(const Degree & anAngle) {angle = Radian(anAngle).angle; return *this; }			
-		inline Radian operator +(Angle & anAngle) {Radian ret(angle + Radian(anAngle).angle); return ret; }
-		inline Radian operator -(Angle & anAngle) {Radian ret(angle - Radian(anAngle).angle); return ret; }
-		inline Angle & operator +=(Angle & anAngle) {*this = *this + anAngle; return *this; }
-		inline Angle & operator -=(Angle & anAngle) {*this = *this - anAngle; return *this; }
-		inline Radian operator / (scalar value) {return Radian(angle / value); }
+		__nothrow Radian & operator =(const Degree & anAngle) {angle = Radian(anAngle).angle; return *this; }			
+		__nothrow inline Radian operator +(Angle & anAngle) {Radian ret(angle + Radian(anAngle).angle); return ret; }
+		__nothrow inline Radian operator -(Angle & anAngle) {Radian ret(angle - Radian(anAngle).angle); return ret; }
+		__nothrow inline Angle & operator +=(Angle & anAngle) {*this = *this + anAngle; return *this; }
+		__nothrow inline Angle & operator -=(Angle & anAngle) {*this = *this - anAngle; return *this; }
+		__nothrow inline Radian operator / (scalar value) {return Radian(angle / value); }
 		
 		const static scalar RoundAngle;	
 	};

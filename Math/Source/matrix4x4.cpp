@@ -21,9 +21,9 @@ using TGen::scalar;
 
 TGen::Matrix4x4 TGen::Matrix4x4::Identity(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
 
-TGen::Matrix4x4::Matrix4x4() {
+/*TGen::Matrix4x4::Matrix4x4() {
 	Clear();
-}
+}*/
 
 TGen::Matrix4x4::Matrix4x4(const TGen::Vector3 & x, const TGen::Vector3 & y, const TGen::Vector3 & z) {
 	Clear();
@@ -39,9 +39,9 @@ TGen::Matrix4x4::Matrix4x4(const TGen::Vector3 & x, const TGen::Vector3 & y, con
 	elements[3][3] = 1.0f;
 }
 
-TGen::Matrix4x4::Matrix4x4(const TGen::Matrix4x4 & matrix) {
+/*TGen::Matrix4x4::Matrix4x4(const TGen::Matrix4x4 & matrix) {
 	memcpy(&elements, &matrix.elements, 4 * 4 * sizeof(scalar));	
-}
+}*/
 
 TGen::Matrix4x4::Matrix4x4(const TGen::Matrix3x3 & matrix) {
 	Clear();
@@ -124,7 +124,7 @@ TGen::Matrix4x4 & TGen::Matrix4x4::operator = (const TGen::Matrix4x4 & matrix) {
 	return *this;
 }
 
-TGen::Vector3 TGen::Matrix4x4::operator * (const TGen::Vector3 & vector) const {
+TGen::Vector3 TGen::Matrix4x4::operator * (const TGen::Vector3 & vector) const {	
 	TGen::Vector3 ret;
 	ret.x = vector.x * elements[0][0] + vector.y * elements[1][0] + vector.z * elements[2][0] + elements[3][0];
 	ret.y = vector.x * elements[0][1] + vector.y * elements[1][1] + vector.z * elements[2][1] + elements[3][1];

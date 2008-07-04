@@ -124,11 +124,11 @@ void TGen::Engine::GameInputMapper::onTextEvent(TGen::Engine::InputDevice & devi
 }
 
 void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & device, int id, const TGen::Vector3 & vec) {
-	/*std::stringstream deviceName;
-	deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
+	//std::stringstream deviceName;
+	//deviceName << device.getName() << device.getId() << " (" << device.getDeviceName() << ")";
 
 	//std::cout << "*** vector move on " << deviceName.str() << " id: " << id << ": " << std::string(vec) << std::endl;
-	*/
+	
 
 	if (playerController && playerController->useRelativeView())
 		device.enterMode(TGen::Engine::RelativeMode);
@@ -141,7 +141,7 @@ void TGen::Engine::GameInputMapper::onVectorEvent(TGen::Engine::InputDevice & de
 		return;
 	}
 	
-	if (playerController)
+	if (playerController && id == 0)
 		playerController->addViewDelta(vec);
 }
 

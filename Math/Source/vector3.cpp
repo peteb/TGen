@@ -12,21 +12,21 @@
 #include "vector2.h"
 #include <sstream>
 #include <cmath>
-#include <tgen_core.h>
+//#include <tgen_core.h>
 
 using TGen::scalar;
 
 TGen::Vector3 TGen::Vector3::Identity(1.0f, 1.0f, 1.0f);
 TGen::Vector3 TGen::Vector3::Zero(0.0f, 0.0f, 0.0f);
 
-TGen::Vector3::Vector3(const TGen::Vector4 & vector)
+/*TGen::Vector3::Vector3(const TGen::Vector4 & vector) 
 	: x(vector.x)
 	, y(vector.y)
 	, z(vector.z)
 {
-}
+}*/
 
-TGen::Vector3::Vector3(const TGen::Vector3 & vector) 
+/*TGen::Vector3::Vector3(const TGen::Vector3 & vector) 
 	: x(vector.x)
 	, y(vector.y)
 	, z(vector.z) 
@@ -39,46 +39,33 @@ TGen::Vector3::Vector3(const TGen::Vector2 & vector)
 	, z(0.0f) 
 {
 }
-
-TGen::Vector3::Vector3(scalar x, scalar y, scalar z) 
+*/
+/*TGen::Vector3::Vector3(scalar x, scalar y, scalar z)
 	: x(x)
 	, y(y)
 	, z(z) 
 {
 }
 
-TGen::Vector3::Vector3(scalar scalar) 
-	: x(scalar)
-	, y(scalar)
-	, z(scalar) 
+TGen::Vector3::Vector3(scalar value)
+	: x(value)
+	, y(value)
+	, z(value) 
 {
 }
+*/
+/*TGen::Vector3::Vector3() 
+	: x(0.0f)
+	, y(0.0f)
+	, z(0.0f)
+{
+}*/
 
 TGen::Vector3::operator std::string() const {
 	std::stringstream ss;
 	ss << "(" << x << ", " << y << ", " << z << ")";
 	
 	return ss.str();
-}
-
-scalar TGen::Vector3::getMagnitude() const {
-	return fabs(sqrt(x * x + y * y + z * z));
-}
-
-TGen::Vector3 TGen::Vector3::getNormalized() const {
-	return TGen::Vector3(*this).normalize();
-}
-
-TGen::Vector3 & TGen::Vector3::normalize() {
-	scalar magnitude = getMagnitude();
-	if (magnitude == 0.0)
-		return *this;
-	
-	x /= magnitude;
-	y /= magnitude;
-	z /= magnitude;
-	
-	return *this;
 }
 
 scalar TGen::Vector3::DotProduct(const TGen::Vector3 & v1, const TGen::Vector3 & v2) {

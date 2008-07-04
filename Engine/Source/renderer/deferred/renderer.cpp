@@ -207,7 +207,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	metaLines.beginBatch();
 	mc.writeAxes(TGen::Matrix4x4::Identity, metaLines);
 	//renderList.writeMeta(TGen::MetaNormals, TGen::Matrix4x4::Identity, metaLines);
-	renderList.writeMeta(TGen::MetaPortals, TGen::Matrix4x4::Identity, metaLines);
+	//renderList.writeMeta(TGen::MetaPortals, TGen::Matrix4x4::Identity, metaLines);
 	
 	metaLines.endBatch();
 	

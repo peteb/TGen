@@ -11,6 +11,7 @@
 #include "pass.h"
 #include "passlist.h"
 #include <iostream>
+#include <tgen_core.h>
 
 TGen::Technique::Technique() 
 	: expressLane(NULL)

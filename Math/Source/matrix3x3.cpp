@@ -57,7 +57,7 @@ TGen::Matrix3x3::Matrix3x3(const TGen::Matrix3x3 & matrix) {
 }
 
 TGen::Matrix3x3::Matrix3x3(const TGen::Matrix4x4 & matrix) {
-	Clear();
+	//Clear();
 	
 	elements[0][0] = matrix.elements[0][0];
 	elements[0][1] = matrix.elements[0][1];
@@ -101,18 +101,16 @@ TGen::Vector2 TGen::Matrix3x3::operator * (const TGen::Vector2 & Vector2) const 
 	return ret;
 }
 
-TGen::Matrix3x3 TGen::Matrix3x3::operator * (const TGen::Matrix3x3 & Matrix3x3) const {
-	TGen::Matrix3x3 ret = TGen::Matrix3x3::Identity;
-	
+TGen::Matrix3x3 TGen::Matrix3x3::operator * (const TGen::Matrix3x3 & other) const {
+	TGen::Matrix3x3 ret;
 	int i, j, k;
 	
 	for (i = 0; i < 3; i++) {
 		for (j = 0; j < 3; j++) {
 			for (k = 0, ret.elements[i][j] = 0; k < 3; k++)
-				ret.elements[i][j] += elements[i][k] * Matrix3x3.elements[k][j];	
+				ret.elements[i][j] += elements[i][k] * other.elements[k][j];	
 		}
 	}
-	
 	
 	return ret;	
 }

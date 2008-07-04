@@ -38,7 +38,6 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 																						  TGen::lexical_cast<scalar>(properties.getProperty("airControl", "0.7"))
 								  ));
 		
-		
 		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 		newController->setWeaponLink(properties.getProperty("weapon", ""));
 		newController->setEquipment(properties.getProperty("equipment", ""));

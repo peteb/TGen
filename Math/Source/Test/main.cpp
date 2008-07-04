@@ -1,10 +1,13 @@
 #include <iostream>
 #include <iomanip>
 #include "tgen_math.h"
-#include "tgen_core.h"
+//#include <tgen_core.h>
 
-int main(int argc, char ** const argv) {
-	std::cout << "TGen Math (debug binary: " << std::boolalpha << TGen::isMathDebug() << ")" << std::endl;
+__nothrow int main(int argc, char ** const argv) {
+	TGen::Vector3 vec1;
+	std::cout << std::string(vec1) << std::endl;
+	
+	/*std::cout << "TGen Math (debug binary: " << std::boolalpha << TGen::isMathDebug() << ")" << std::endl;
 	
 	// 1.
 	std::cout << "1. Matrix3x3::Identity" << std::endl;
@@ -36,7 +39,7 @@ int main(int argc, char ** const argv) {
 	std::cout << "8. PI = " << TGen::PI << std::endl;
 	
 	// 9.
-	std::cout << "9. sizeof(scalar) = " << sizeof(scalar) << std::endl;
+	std::cout << "9. sizeof(scalar) = " << sizeof(TGen::scalar) << std::endl;
 	
 	// 10.
 	std::cout << "10. cos(PI) =  " << std::fixed << TGen::Cos(TGen::Radian(TGen::PI)) << std::endl;
@@ -119,6 +122,7 @@ int main(int argc, char ** const argv) {
 	int hej;
 	std::cin >> hej;
 	#endif
-
+	*/
+	
 	return EXIT_SUCCESS;
 }

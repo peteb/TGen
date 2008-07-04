@@ -10,6 +10,7 @@
 #include "physics/meshgeom.h"
 #include <iostream>
 #include <tgen_math.h>
+#include <tgen_core.h>
 #include "ode/ode.h"
 
 using TGen::PropertyTree;

@@ -83,6 +83,7 @@ TGen::WaveGenerator * TGen::Engine::Scene::TransformNode::createWaveGenerator(co
 											 TGen::lexical_cast<scalar>(properties.getProperty("frequency", "1")));
 }
 
+// events on inventory items, when reached zero do this. good for health
 
 void TGen::Engine::Scene::TransformNode::update(scalar dt) {
 	age += dt;

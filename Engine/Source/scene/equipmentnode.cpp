@@ -14,6 +14,7 @@
 TGen::Engine::Scene::EquipmentNode::EquipmentNode(const std::string & name) 
 	: TGen::SceneNode(name)
 	, visibleEquipment(NULL)
+	, previousEquipment(NULL)
 {
 	
 }
@@ -57,6 +58,8 @@ void TGen::Engine::Scene::EquipmentNode::setEquipmentData(const std::string & na
 }
 
 void TGen::Engine::Scene::EquipmentNode::changeEquipment(TGen::Engine::Scene::EquipmentData * equipment) {
+	previousEquipment = visibleEquipment;
+	
 	if (equipment->inInventory())
 		visibleEquipment = equipment;
 	else
@@ -81,8 +84,18 @@ void TGen::Engine::Scene::EquipmentNode::changeEquipmentRelative(int relative) {
 	if (newIndex < 0)
 		newIndex = equipmentSorted.size() + newIndex;
 	
-	//if (newIndex > equipmentSorted.size() - 1)
-		newIndex %= equipmentSorted.size();
+	newIndex %= equipmentSorted.size();
+	
+	int i = 0;
+	
+	while (!equipmentSorted[newIndex]->inInventory() && i++ < equipmentSorted.size()) {
+		newIndex += relative;
+
+		if (newIndex < 0)
+			newIndex = equipmentSorted.size() + newIndex;
+		
+		newIndex %= equipmentSorted.size();		
+	}
 	
 	std::cout << "NEW INDEX: " << newIndex << std::endl;
 	

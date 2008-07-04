@@ -37,6 +37,7 @@ namespace TGen {
 				void setAffectsOthers(bool affectOthers);
 				bool getAffectsOthers() const;
 				
+				TGen::Engine::Physics::Body * getBody();
 				
 				virtual void preStep();
 				virtual void postStep();
@@ -59,6 +60,7 @@ namespace TGen {
 				void sendToLink();
 				
 				TGen::Engine::WorldObject * linkedTo;
+				TGen::Engine::Physics::Body * bodyLinked;
 				
 				bool affectsOthers;
 				float friction;

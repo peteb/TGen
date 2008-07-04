@@ -40,6 +40,10 @@ namespace TGen {
 			
 			std::string name;
 		}; 
+		
+		// TODO: * returnerar NULL om inte hittas, & kastar exception
+		// TODO: link ska heta samma överallt i stort sett, linkName heter membern, void setLink(string), setLink(object)
+		
 	} // !Engine
 } // !TGen
 

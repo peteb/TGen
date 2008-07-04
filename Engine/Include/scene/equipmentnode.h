@@ -41,7 +41,7 @@ namespace TGen {
 				void changeEquipment(TGen::Engine::Scene::EquipmentData * equipment);
 				
 				std::string initialChild;
-				TGen::Engine::Scene::EquipmentData * visibleEquipment;
+				TGen::Engine::Scene::EquipmentData * visibleEquipment, * previousEquipment;
 				
 				typedef std::map<std::string, TGen::Engine::Scene::EquipmentData *> EquipmentMap;
 				EquipmentMap equipmentData;

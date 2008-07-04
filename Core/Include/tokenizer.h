@@ -37,7 +37,7 @@ namespace TGen {
 		uint type;
 	};
 	
-	class TokenStream {	// ska kunna ha en position i tokenstreamen s√• man kan l√§sa relativt. det h√§r √§r gammal skr√§pkod!!
+	class TokenStream {	// ska kunna ha en position i tokenstreamen sÂ man kan l‰sa relativt. det h‰r ‰r gammal skr‰pkod!!
 	public:
 		virtual ~TokenStream() {currentToken = tokens.begin(); }
 		

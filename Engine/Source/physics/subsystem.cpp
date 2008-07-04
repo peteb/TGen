@@ -281,7 +281,12 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	for (int i = 0; i < geoms.size(); ++i)
 		geoms[i]->preStep();
 		
+	int updates = 0;
+	
 	while (lastUpdate >= updateInterval) {				
+		if (updates++ > 10)
+			break;
+		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 		dWorldStep(worldId, updateInterval); // tweak
 		dJointGroupEmpty(contactGroup);

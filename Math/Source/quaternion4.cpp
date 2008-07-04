@@ -11,6 +11,7 @@
 #include "matrix3x3.h"
 #include <cmath>
 #include "angle.h"
+#include <sstream>
 
 using TGen::scalar;
 

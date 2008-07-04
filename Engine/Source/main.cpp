@@ -41,12 +41,58 @@
 #include _PLATFORM_FILE
 #include "platform_cocoa.h"
 
+#include <sys/time.h>
+
 using TGen::uint8;
 
 int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs);
 void preExit();
+// FIXA BINÄR och stoppa det här i egen fil
+
+FILE * heapLog = NULL;
+
+void * operator new(size_t size) throw() {
+	void * alloced = malloc(size);
+	
+	if (alloced) {
+		//std::cout << "+" << size;
+		
+		timeval t;
+		gettimeofday(&t, NULL);
+		
+		/*static timeval start = t;
+		
+		if (t.tv_sec - start.tv_sec > 20)
+			asm("int $3");
+		*/
+		
+		if (heapLog)
+			fprintf(heapLog, "%i:%i alloc 0x%x 0x%x\n", t.tv_sec, t.tv_usec, alloced, size);
+	}
+	
+	return alloced;
+}
+
+void operator delete(void * object) throw() {
+	if (object) {
+		timeval t;
+		gettimeofday(&t, NULL);
+		
+		if (heapLog)
+			fprintf(heapLog, "%i:%i free 0x%x\n", t.tv_sec, t.tv_usec, object);
+		
+		free(object);
+	}
+}
+  
 
 int main(int argc, char ** argv) {
+	heapLog = fopen("heap.log", "w");
+	fwrite("", 0, 0, heapLog);
+	fclose(heapLog);
+	
+	heapLog = fopen("heap.log", "a");
+	
 	try {
 		// initialize log system
 		TGen::Engine::StandardLogs logs;

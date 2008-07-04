@@ -14,6 +14,12 @@
 #define PACKED __attribute__((packed))
 #define nullptr 0
 
+#ifdef __GNUG__
+#define __nothrow __attribute__((__nothrow__))
+#define __noinline __attribute__((__noinline__))
+#define __puref __attribute__((const)
+#endif
+
 namespace TGen {
 	typedef unsigned long long uint64;
 	typedef unsigned int uint32;

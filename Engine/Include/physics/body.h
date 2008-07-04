@@ -60,6 +60,8 @@ namespace TGen {
 				void setFakeGravity(scalar fakeGrav);
 				
 				void addForce(const TGen::Vector3 & force);
+				void addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force);
+				
 				TGen::Vector3 getLinearVelocity() const;
 
 				
