@@ -24,25 +24,27 @@ namespace TGen {
 			Entity(const std::string & name);
 			~Entity();
 			
-			const std::string & getName() const;
-			void addComponent(TGen::Engine::Component * component, const std::string & name);
-			TGen::Engine::Component * getComponent(const std::string & name);
-			TGen::Engine::Component * getComponent(int index);
-			
 			void linkLocally();
 			void linkGlobally(TGen::Engine::EntityList & entities);
+			void addComponent(TGen::Engine::Component * component, const std::string & name);
+			
+			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
+			TGen::Engine::Component & getComponent(const std::string & name);
+			
+			TGen::Engine::Component * getComponent(int index, std::nothrow_t noth);
+			TGen::Engine::Component & getComponent(int index);
+
+			const std::string & getName() const;
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Component *> ComponentMap;
 			
 			std::vector<TGen::Engine::Component *> components;
-			ComponentMap componentLookup;
-			
+			ComponentMap componentLookup;			
+
 			std::string name;
 		}; 
 		
-		// TODO: * returnerar NULL om inte hittas, & kastar exception
-		// TODO: link ska heta samma överallt i stort sett, linkName heter membern, void setLink(string), setLink(object)
 		
 	} // !Engine
 } // !TGen

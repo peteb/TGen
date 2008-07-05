@@ -32,19 +32,19 @@ namespace TGen {
 			PlayerController(const std::string & name);
 			virtual ~PlayerController();
 			
-			void addViewDelta(const TGen::Vector3 & view);
-			
-			void beginEvent(int id);
-			void endEvent(int id);
-			void addCamera(const std::string & name, const std::string & camera);
-			TGen::Camera * getCamera(const std::string & name) const;
-			
 			virtual void linkLocally(TGen::Engine::Entity & entity);
 			virtual void update(scalar dt) abstract;
 			virtual bool useRelativeView() const {return true; }
-
 			
-			// object interface
+			void beginEvent(int id);
+			void endEvent(int id);
+			void addViewDelta(const TGen::Vector3 & view);
+
+			void addCamera(const std::string & name, const std::string & camera);
+			TGen::Camera * getCamera(const std::string & name) const;
+			
+			
+			// world object interface
 			virtual TGen::Vector3 getVelocity() const;
 			virtual TGen::Vector3 getPosition() const;
 			virtual TGen::Rotation getOrientation() const;		

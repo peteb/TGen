@@ -44,9 +44,9 @@ void TGen::Engine::Inventory::FireMode::update(scalar dt) {
 }
 
 void TGen::Engine::Inventory::FireMode::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	projectile = entities.getPrototype(projectileName);
-	spawnOrigin = dynamic_cast<TGen::Engine::WorldObject *>(entities.getComponent(originName, entity));
-	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(entity.getComponent("inventory"));
+	projectile = entities.getPrototype(projectileName, std::nothrow);
+	spawnOrigin = &dynamic_cast<TGen::Engine::WorldObject &>(entities.getComponent(originName, entity));
+	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(entity.getComponent("inventory", std::nothrow));
 }
 
 void TGen::Engine::Inventory::FireMode::fire() {
@@ -66,15 +66,15 @@ void TGen::Engine::Inventory::FireMode::fire() {
 	}
 	
 	TGen::Engine::Entity * newEntity = projectile->createEntity();
-	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(newEntity->getComponent(projectile->getWorldInterface()));
+	TGen::Engine::WorldObject & object = dynamic_cast<TGen::Engine::WorldObject &>(newEntity->getComponent(projectile->getWorldInterfaceIndex()));
 	
-	if (!object || !spawnOrigin) {
+	if (!spawnOrigin) {
 		std::cout << "failed to create object or spawn it at origin spawn" << std::endl;
 		return;
 	}
 		
-	object->setPosition(spawnOrigin->getPosition());
-	object->setOrientation(spawnOrigin->getOrientation());
+	object.setPosition(spawnOrigin->getPosition());
+	object.setOrientation(spawnOrigin->getOrientation());
 }
 
 void TGen::Engine::Inventory::FireMode::setOrigin(const std::string & originName) {

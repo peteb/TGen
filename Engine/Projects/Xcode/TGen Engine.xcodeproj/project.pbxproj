@@ -976,11 +976,11 @@
 		D09628EB0D784E60008DABC3 /* subsystems */ = {
 			isa = PBXGroup;
 			children = (
-				D0843BD20D0759D200C31FE3 /* entity */,
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
+				D0843BD20D0759D200C31FE3 /* entity */,
 				D074307C0DFEA29C00F9F407 /* inventory */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,

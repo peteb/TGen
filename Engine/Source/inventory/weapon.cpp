@@ -36,7 +36,11 @@ void TGen::Engine::Inventory::Weapon::beginFire(int mode) {
 }
 
 void TGen::Engine::Inventory::Weapon::endFire(int mode) {
-	if (fireModes.size() <= mode) {
+	if (mode == -1) {
+		for (int i = 0; i < fireModes.size(); ++i)
+			fireModes[i]->endFire();
+	}
+	else if (fireModes.size() <= mode) {
 		std::cout << "can't fire, no firing mode" << std::endl;
 	}
 	else {

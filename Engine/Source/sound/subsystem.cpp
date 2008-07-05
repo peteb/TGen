@@ -56,8 +56,8 @@ TGen::Engine::Sound::Subsystem::~Subsystem() {
 	for (SoundMap::iterator iter = sounds.begin(); iter != sounds.end(); ++iter)
 		delete iter->second;
 	
-	for (int i = 0; i < localSources.size(); ++i)
-		delete localSources[i];
+	//for (int i = 0; i < localSources.size(); ++i)
+	//	delete localSources[i];
 	
 	fmodSystem->release();
 }

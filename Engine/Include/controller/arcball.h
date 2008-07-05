@@ -19,12 +19,14 @@ namespace TGen {
 		namespace Controller {
 			class Arcball : public TGen::Engine::PlayerController {
 			public:	
-				Arcball(const std::string & name, const std::string & nodeName);
+				Arcball(const std::string & name);
 				~Arcball();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void update(scalar dt);
 				bool useRelativeView() const;
+				
+				void setControl(const std::string & controlName);
 				
 			private:
 				TGen::Rotation dragTo(const TGen::Vector3 & end);
@@ -34,7 +36,7 @@ namespace TGen {
 				TGen::Rotation lastRot, thisRot;
 				TGen::Camera * camera;
 				TGen::SceneNode * node;
-				std::string nodeName;
+				std::string controlName;
 			};
 			
 		} // !Controller

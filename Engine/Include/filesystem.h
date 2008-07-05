@@ -19,13 +19,13 @@ namespace TGen {
 		public:
 			Filesystem(const char * argv0, TGen::Engine::StandardLogs & logs);
 			~Filesystem();
+
+			void addSearchPath(const std::string & path, bool override);
 			
 			TGen::Engine::File * openRead(const std::string & path);
 			TGen::Engine::File * openWrite(const std::string & path);
 			TGen::Engine::File * openAppend(const std::string & path);
-
 			
-			void addSearchPath(const std::string & path, bool override);
 			bool exists(const std::string & path);
 			//void outputPath(const std::string & path);
 			void enumerateFiles(const std::string & path, std::vector<std::string> & output, bool recurse = false);

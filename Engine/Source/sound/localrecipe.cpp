@@ -36,9 +36,9 @@ TGen::Engine::Component * TGen::Engine::Sound::LocalRecipe::createComponent(cons
 
 // called when the entity has been constructed from the prototype
 void TGen::Engine::Sound::LocalRecipe::fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
-	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(componentLinkNum));
+	TGen::Engine::WorldObject & object = dynamic_cast<TGen::Engine::WorldObject &>(entity.getComponent(componentLinkNum));
 	
-	dynamic_cast<TGen::Engine::Sound::LocalSource &>(constructed).setLink(object);
+	dynamic_cast<TGen::Engine::Sound::LocalSource &>(constructed).setLink(&object);
 }
 
 

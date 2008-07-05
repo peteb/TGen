@@ -53,7 +53,7 @@ namespace TGen {
 				
 				void setTurnHeadwise(bool turnHeadwise);
 				void setMaxAngularSpeed(scalar speed);
-				void setNodeComponent(const std::string & nodeName);
+				void setLink(const std::string & linkName);
 				void setLink(TGen::Engine::WorldObject * linkedTo);
 				void setKillTorque(bool killTorque);
 				void setLinearDamping(scalar damping);
@@ -65,7 +65,7 @@ namespace TGen {
 				TGen::Vector3 getLinearVelocity() const;
 
 				
-				// interfaces
+				// world object interface
 				TGen::Vector3 getVelocity() const;
 				
 				
@@ -80,7 +80,7 @@ namespace TGen {
 				void updateFromScene();
 				void updateScene();
 				
-				std::string nodeComponent;
+				std::string linkName;
 				dBodyID bodyId;
 				dWorldID worldId;
 				dSpaceID spaceId;

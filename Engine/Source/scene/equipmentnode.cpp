@@ -59,6 +59,10 @@ void TGen::Engine::Scene::EquipmentNode::setEquipmentData(const std::string & na
 
 void TGen::Engine::Scene::EquipmentNode::changeEquipment(TGen::Engine::Scene::EquipmentData * equipment) {
 	previousEquipment = visibleEquipment;
+
+	if (previousEquipment) {
+		previousEquipment->getWeapon()->endFire(-1);
+	}
 	
 	if (equipment->inInventory())
 		visibleEquipment = equipment;

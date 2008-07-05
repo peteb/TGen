@@ -19,21 +19,19 @@
 
 #include <tgen_renderer.h>
 
-TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar jumpForce, scalar jumpTime, scalar airControl)
+TGen::Engine::Controller::FirstPerson::FirstPerson(const std::string & name, scalar deltaPlane, scalar jumpForce, scalar jumpTime)
 	: TGen::Engine::PlayerController(name)
 	, node(NULL)
 	, viewNode(NULL)
 	, controlBody(NULL)
 	, orientX(0.0f)
 	, orientY(0.0f)
-	, control(control)
-	, view(view)
-	, usePhysics(usePhysics)
+	, usePhysics(false)
 	, deltaPlane(deltaPlane)
 	, airTime(0.0)
 	, jumpForce(jumpForce)
 	, jumpTime(jumpTime)
-	, airControl(airControl)
+	, airControl(0.7)
 	, weapon(NULL)
 	, primaryFire(false)
 	, secondaryFire(false)
@@ -51,30 +49,28 @@ void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & e
 	TGen::Engine::PlayerController::linkLocally(entity);
 	
 	if (!usePhysics) {
-		node = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(control));
+		node = &dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(controlName));
 	}
 	else {
-		controlBody = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(control));
+		controlBody = &dynamic_cast<TGen::Engine::Physics::Body &>(entity.getComponent(controlName));
 	}
 	
-	TGen::Engine::Scene::Node * viewNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(view));
-	this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode->getSceneNode());
-
-
+	TGen::Engine::Scene::Node & viewNode = dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(viewName));
+	this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode.getSceneNode());
 }
 
 void TGen::Engine::Controller::FirstPerson::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
 	TGen::Engine::PlayerController::linkGlobally(entities, entity);
 	
-	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(equipmentName, entity));
+	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(equipmentName, entity, std::nothrow));
 	if (sceneNode)
 		equipment = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode->getSceneNode());
 	
 	if (!weaponName.empty()) {
-		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(entities.getComponent(weaponName, entity));
+		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(entities.getComponent(weaponName, entity, std::nothrow));
 		
 		if (!weapon) {
-			TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(weaponName, entity));
+			TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(weaponName, entity, std::nothrow));
 			if (sceneNode)
 				weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(sceneNode->getSceneNode());
 			
@@ -90,6 +86,22 @@ void TGen::Engine::Controller::FirstPerson::setWeaponLink(const std::string & we
 
 void TGen::Engine::Controller::FirstPerson::setEquipment(const std::string & equipmentName) {
 	this->equipmentName = equipmentName;
+}
+
+void TGen::Engine::Controller::FirstPerson::setUsePhysics(bool usePhysics) {
+	this->usePhysics = usePhysics;
+}
+
+void TGen::Engine::Controller::FirstPerson::setAirControl(scalar airControl) {
+	this->airControl = airControl;
+}
+
+void TGen::Engine::Controller::FirstPerson::setView(const std::string & viewName) {
+	this->viewName = viewName;
+}
+
+void TGen::Engine::Controller::FirstPerson::setControl(const std::string & controlName) {
+	this->controlName = controlName;
 }
 
 void TGen::Engine::Controller::FirstPerson::update(scalar dt) {

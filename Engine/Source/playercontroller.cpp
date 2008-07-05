@@ -92,8 +92,8 @@ void TGen::Engine::PlayerController::linkCameras(TGen::Engine::Entity & entity) 
 	cameras.clear();
 	
 	for (StringStringMap::iterator iter = camerasToLink.begin(); iter != camerasToLink.end(); ++iter) {
-		TGen::Engine::Scene::Node * camNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(iter->second));
-		cameras.insert(CameraMap::value_type(iter->first, dynamic_cast<TGen::Camera *>(camNode->getSceneNode())));
+		TGen::Engine::Scene::Node & camNode = dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(iter->second));
+		cameras.insert(CameraMap::value_type(iter->first, dynamic_cast<TGen::Camera *>(camNode.getSceneNode())));
 	}
 }
 

@@ -74,58 +74,16 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	else
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
-	//TGen::SceneNode * parentNode = NULL;
-	
-	//std::string treePosition = properties.getProperty("relative", "");
-	std::string autoTP = properties.getProperty("autoParent", "");
-	
-	// fixa autoParent först, den använder en link till en component
-	
-	/*if (!autoTP.empty()) {
-		TGen::SceneNode * parent = sceneRoot.getNode(autoTP, true);
-		// TODO: treePosition ska sätta parent, autoTP sätter bara vad den ska kolla mot
-		// treePosition borde även heta parent
-		// nu dock: WorldObject ska göra allt i world coords! och ta bort spacetransform
-		
-		if (!parent)
-			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node for autoTP");
-		
-		sceneNode->setAutoTP(parent);
-		parentNode = parent->getNodeFromPoint(sceneNode->getLocalPosition());
-
-		if (!parentNode) {
-			logs.warning["scene"] << "no node for point " << std::string(sceneNode->getLocalPosition()) << " found! Using parent!" << TGen::endl;
-			parentNode = parent;
-		}
-		
-		if (parentNode == parent) {
-			logs.warning["scene"] << "getNodeFromPoint returned parent!" << TGen::endl;
-		}
-	}
-	else {*/
-	//}
-	
-	//parentNode = sceneRoot.getNode(treePosition);
-
-	//if (!parentNode)
-		//parentNode = &sceneRoot;
-	
+	std::string autoTP = properties.getProperty("autoParent", "");	
 	std::string linkParent = properties.getProperty("relative", properties.getProperty("link", ""));
 	
 	sceneRoot.addChild(sceneNode);
 	
-	/*if (linkParent.empty()) {
-		if (!parentNode)
-			throw TGen::RuntimeException("SceneSubsystem::createComponent", "failed to get parent node '" + treePosition + "'");
-
-		parentNode->addChild(sceneNode);
-	}*/
-
 	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
 
 	addComponent(newComponent, name);
 	
-	newComponent->setLinkWith(linkParent);
+	newComponent->setLink(linkParent);
 	newComponent->setAutoParent(autoTP);
 	
 	
@@ -160,26 +118,8 @@ TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponen
 	sceneRoot.addChild(prototypeNode);
 	
 	std::auto_ptr<TGen::Engine::Scene::NodeRecipe> newRecipe(new TGen::Engine::Scene::NodeRecipe(name, prototypeNode, *this));
-	
-
-	/*
-	 TGen::SceneNode * node = new TGen::SceneNode(properties.getProperty("globalName", name),
-	 TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
-	 
-	 TGen::Vector3 orientation = TGen::Vector3::Parse(properties.getProperty("orientation", "0 0 1")).normalize();
-	 TGen::Rotation rotation = TGen::Rotation::LookInDirection(orientation, TGen::Vector3(0.0f, 1.0f, 0.0f));
-	 
-	 node->setOrientation(rotation);
-	 
-	 std::string modelName = properties.getProperty("model", "");
-	 
-	 if (!modelName.empty()) {
-	 node->addModel(modelPool.attach(new TGen::ModelInstanceProxy(modelName, properties.getProperty("material", ""))));
-	 }
-	
-	 */
 		
-	newRecipe->setLinkWith(properties.getProperty("relative", properties.getProperty("link", "")));
+	newRecipe->setLink(properties.getProperty("relative", properties.getProperty("link", "")));
 	
 	return newRecipe.release();
 }

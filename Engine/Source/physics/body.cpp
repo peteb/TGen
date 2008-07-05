@@ -12,8 +12,6 @@
 #include "entity.h"
 #include <tgen_renderer.h>
 
-// TODO: sceneMap -> sceneNode portalMap i entities
-
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
 	, bodyId(bodyId)
@@ -28,9 +26,11 @@ TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWor
 
 }
 
+
 TGen::Engine::Physics::Body::~Body() {
 	dBodyDestroy(bodyId);
 }
+
 
 void TGen::Engine::Physics::Body::preStep() {
 	if (fakeGrav > -2.0 && !onFloor) {
@@ -48,19 +48,23 @@ void TGen::Engine::Physics::Body::preStep() {
 		dBodySetTorque(bodyId, 0.0, 0.0, 0.0);
 }
 
+
 void TGen::Engine::Physics::Body::postStep() {
 	updateScene();	
 }
 
+
 void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
-	linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(nodeComponent));
+	linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(linkName, std::nothrow));
 	
 	updateFromScene();
 }
 
+
 void TGen::Engine::Physics::Body::setPosition(const TGen::Vector3 & position) {
 	dBodySetPosition(bodyId, position.x, position.y, position.z);
 }
+
 
 TGen::Vector3 TGen::Engine::Physics::Body::getPosition() const {
 	const dReal * vec = dBodyGetPosition(bodyId);
@@ -68,13 +72,16 @@ TGen::Vector3 TGen::Engine::Physics::Body::getPosition() const {
 	return TGen::Vector3(vec[0], vec[1], vec[2]);
 }
 
+
 dWorldID TGen::Engine::Physics::Body::getWorldId() {
 	return worldId;
 }
 
+
 dSpaceID TGen::Engine::Physics::Body::getSpaceId() {
 	return spaceId;
 }
+
 
 dBodyID TGen::Engine::Physics::Body::getBodyId() const {
 	return bodyId;
@@ -87,6 +94,7 @@ void TGen::Engine::Physics::Body::updateFromScene() {
 		setOrientation(linkedTo->getOrientation());
 	}	
 }
+
 
 void TGen::Engine::Physics::Body::updateScene() {
 	if (linkedTo) {
@@ -102,6 +110,7 @@ void TGen::Engine::Physics::Body::updateScene() {
 	}	
 }
 
+
 TGen::Rotation TGen::Engine::Physics::Body::getOrientation() const {
 	const dReal * orient = dBodyGetRotation(bodyId);
 	
@@ -113,12 +122,7 @@ TGen::Rotation TGen::Engine::Physics::Body::getOrientation() const {
 	return TGen::Rotation(x, y, z);
 }
 
-// TESTA MED BOX, om det blir samma konstigheter, orientation på sceneNode och body kan vara olika.
-// > gör koden som kodades igår fin först
-
 // TODO: varför är orientation fel? den sätts dock EFTER att body har blivit länkad, så den får inte orientation initialt, men borde ju ändå få när man kör preStep?
-// TODO: egen klass för ccylinder, men varför är det konstigt med raketerna? checka så cylindern verkligen är där den ska, testa med box också?
-// TODO: geom och body-recipes ska styras upp, men kör på en recipe-klass och inte flera för varje, typ BoxRecipe osv. 
 
 void TGen::Engine::Physics::Body::setOrientation(const TGen::Rotation & orientation) {
 	dMatrix3 matrix;
@@ -143,18 +147,22 @@ void TGen::Engine::Physics::Body::setOrientation(const TGen::Rotation & orientat
 	dBodySetRotation(bodyId, matrix);
 }
 
+
 void TGen::Engine::Physics::Body::setTurnHeadwise(bool turnHeadwise) {
 	this->turnHeadwise = turnHeadwise;
 }
+
 
 void TGen::Engine::Physics::Body::setMaxAngularSpeed(scalar speed) {
 	if (speed > -0.5f)
 		dBodySetMaxAngularSpeed(bodyId, speed);
 }
 
-void TGen::Engine::Physics::Body::setNodeComponent(const std::string & nodeName) {
-	nodeComponent = nodeName;
+
+void TGen::Engine::Physics::Body::setLink(const std::string & linkName) {
+	this->linkName = linkName;
 }
+
 
 void TGen::Engine::Physics::Body::setLink(TGen::Engine::WorldObject * linkedTo) {
 	this->linkedTo = linkedTo;
@@ -162,34 +170,42 @@ void TGen::Engine::Physics::Body::setLink(TGen::Engine::WorldObject * linkedTo) 
 	updateFromScene();
 }
 
+
 void TGen::Engine::Physics::Body::setKillTorque(bool killTorque) {
 	this->killTorque = killTorque;
 }
+
 
 void TGen::Engine::Physics::Body::addForce(const TGen::Vector3 & force) {
 	dBodyAddForce(bodyId, force.x, force.y, force.z);
 }
 
+
 void TGen::Engine::Physics::Body::addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force) {
 	dBodyAddRelForceAtPos(bodyId, force.x, force.y, force.z, absPos.x, absPos.y, absPos.z);
 }
+
 
 TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
 	const dReal * force = dBodyGetLinearVel(bodyId);
 	return TGen::Vector3(force[0], force[1], force[2]);
 }
 
+
 void TGen::Engine::Physics::Body::setLinearDamping(scalar damping) {
 	dBodySetLinearDamping(bodyId, damping);
 }
+
 
 void TGen::Engine::Physics::Body::setOnFloor(bool onFloor) {
 	this->onFloor = onFloor;
 }
 
+
 bool TGen::Engine::Physics::Body::isOnFloor() const {
 	return onFloor;
 }
+
 
 void TGen::Engine::Physics::Body::setSlope(scalar slope) {
 	this->slope = slope;
@@ -200,9 +216,11 @@ float TGen::Engine::Physics::Body::getSlope() const {
 	return slope;
 }
 
+
 void TGen::Engine::Physics::Body::setFakeGravity(scalar fakeGrav) {
 	this->fakeGrav = fakeGrav;
 }
+
 
 TGen::Vector3 TGen::Engine::Physics::Body::getVelocity() const {
 	return getLinearVelocity();

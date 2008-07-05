@@ -48,11 +48,13 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, T
 	setGravity(TGen::Vector3(0.0f, -50.0f, 0.0f));
 }
 
+
 TGen::Engine::Physics::Subsystem::~Subsystem() {
 	logs.info["phys-"] << "*** SHUTTING DOWN PHYSICS ***" << TGen::endl;
 	
 	dCloseODE();
 }
+
 
 TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	if (properties.getName() == "physBody")
@@ -64,6 +66,7 @@ TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(cons
 	
 	throw TGen::RuntimeException("PhysicsSubsystem::createComponent", "invalid component type '" + properties.getName() + "'");
 }
+
 
 TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	TGen::Engine::ComponentRecipe * ret = NULL;
@@ -144,7 +147,7 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	newBody->setPosition(position);
 	newBody->setTurnHeadwise(TGen::lexical_cast<bool>(properties.getProperty("turnHead", "false")));
 	newBody->setMaxAngularSpeed(TGen::lexical_cast<scalar>(properties.getProperty("maxAngularSpeed", "-1.0")));
-	newBody->setNodeComponent(properties.getProperty("link", "sceneNode"));
+	newBody->setLink(properties.getProperty("link", "sceneNode"));
 	newBody->setKillTorque(TGen::lexical_cast<bool>(properties.getProperty("killTorque", "false")));
 	newBody->setLinearDamping(TGen::lexical_cast<scalar>(properties.getProperty("linearDamping", "0.0")));
 	newBody->setFakeGravity(TGen::lexical_cast<scalar>(properties.getProperty("fakeGrav", "-2.0")));
@@ -153,6 +156,7 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Subsystem::createBody(const
 	
 	return newBody;
 }
+
 
 dMass TGen::Engine::Physics::Subsystem::getMass(const TGen::PropertyTree & properties) {
 	dMass ret;
@@ -177,18 +181,18 @@ dMass TGen::Engine::Physics::Subsystem::getMass(const TGen::PropertyTree & prope
 	return ret;
 }
 
+
 void TGen::Engine::Physics::Subsystem::addGeom(TGen::Engine::Physics::Geom * geom) {
 	geoms.push_back(geom);
 }
+
 
 void TGen::Engine::Physics::Subsystem::addBody(TGen::Engine::Physics::Body * body) {
 	bodies.push_back(body);
 }
 
+
 TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const std::string & name, const TGen::PropertyTree & properties) {
-	//if (properties.getNumAttributes() == 0)
-	//		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "no attributes, plz give some");
-	
 	std::auto_ptr<TGen::Engine::Physics::Geom> newGeom;
 	std::string geomType = properties.getProperty("type", "none");
 	
@@ -238,12 +242,13 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
 	
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
-	newGeom->setLinkedComponent(properties.getProperty("link", "physBody"));
+	newGeom->setLink(properties.getProperty("link", "physBody"));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	geoms.push_back(newGeom.get());
 	
 	return newGeom.release();
 }
+
 
 TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(const std::string & name, const TGen::PropertyTree & properties) {
 	if (properties.getNumAttributes() == 0)
@@ -258,15 +263,19 @@ TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(con
 	else
 		throw TGen::RuntimeException("PhysicsSubsystem::createJoint", "joint type '" + jointType + "' invalid");
 	
-	TGen::Engine::Physics::Joint * newComponent = new TGen::Engine::Physics::Joint(name, newJointId, properties.getProperty("attach", ""));
+	TGen::Engine::Physics::Joint * newComponent = new TGen::Engine::Physics::Joint(name, newJointId);
+	newComponent->setLink1(properties.getProperty("attach1", ""));
+	newComponent->setLink1(properties.getProperty("attach2", ""));
 	newComponent->setAnchor(TGen::Vector3::Parse(properties.getProperty("anchor", "0 0 0")));
 	
 	return newComponent;
 }
 
+
 void TGen::Engine::Physics::Subsystem::link() {
 	
 }
+
 
 void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	lastUpdate += dt;
@@ -302,9 +311,11 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		geoms[i]->postStep();	
 }
 
+
 void TGen::Engine::Physics::Subsystem::setGravity(const TGen::Vector3 & gravity) {
 	dWorldSetGravity(worldId, gravity.x, gravity.y, gravity.z);
 }
+
 
 void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
 	if (dGeomIsSpace(o1) || dGeomIsSpace(o2)) {
@@ -402,6 +413,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 	}
 	
 }
+
 
 dWorldID TGen::Engine::Physics::Subsystem::getWorldId() {
 	return worldId;

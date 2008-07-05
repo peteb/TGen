@@ -48,8 +48,8 @@ TGen::Engine::Inventory::Weapon * TGen::Engine::Scene::EquipmentData::getWeapon(
 
 void TGen::Engine::Scene::EquipmentData::linkGlobally(TGen::Engine::Scene::EquipmentNode * node, TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
 	this->node = node->getChild(name);
-	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(entity.getComponent("inventory"));
-	weapon = dynamic_cast<TGen::Engine::Inventory::Weapon *>(entity.getComponent(weaponName));
+	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(entity.getComponent("inventory", std::nothrow));
+	weapon = dynamic_cast<TGen::Engine::Inventory::Weapon *>(entity.getComponent(weaponName, std::nothrow));
 }
 
 bool TGen::Engine::Scene::EquipmentData::inInventory() {

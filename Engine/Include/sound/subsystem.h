@@ -32,17 +32,16 @@ namespace TGen {
 				Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & fs);
 				~Subsystem();
 				
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				
 				void update(scalar delta);
 				void link();
-				
-				//FMOD::System * getFmodSystem();
-				void setListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up);
-				
-				TGen::Engine::Sound::Sound * getSound(const std::string & name);
 				void addLocalSource(TGen::Engine::Sound::LocalSource * source);
+
+				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+
+				TGen::Engine::Sound::Sound * getSound(const std::string & name);
+								
+				void setListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up);				
 				
 				static FMOD_RESULT F_CALLBACK openCallback(const char * name, int unicode, unsigned int * filesize, void ** handle, void ** userdata);
 				static FMOD_RESULT F_CALLBACK closeCallback(void * handle, void * data);

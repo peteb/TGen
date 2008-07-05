@@ -19,12 +19,13 @@
 TGen::Engine::EntityFactory::EntityFactory(TGen::Engine::StandardLogs & logs)
 	: logs(logs)
 {
-	
 }
+
 
 TGen::Engine::EntityFactory::~EntityFactory() {
 
 }
+
 
 TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::PropertyTree & properties) {	
 	TGen::Engine::Entity * entity = new TGen::Engine::Entity(properties.getName());
@@ -54,6 +55,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	return entity;
 }
 
+
 TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std::string & entityName, const TGen::PropertyTree & properties) const {
 	SubsystemMap::const_iterator iter = subsystems.find(properties.getName());
 	
@@ -71,6 +73,7 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 	return NULL;
 }
 
+
 TGen::Engine::ComponentRecipe * TGen::Engine::EntityFactory::createComponentRecipe(const std::string & entityName, const TGen::PropertyTree & properties) const {
 	SubsystemMap::const_iterator iter = subsystems.find(properties.getName());
 	
@@ -87,6 +90,7 @@ TGen::Engine::ComponentRecipe * TGen::Engine::EntityFactory::createComponentReci
 	
 	return NULL;	
 }
+
 
 TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyTree & base, const TGen::PropertyTree & entity) const {
 	// entity overrides base
@@ -124,6 +128,7 @@ TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyT
 	return ret;
 }
 
+
 void TGen::Engine::EntityFactory::addClassEntity(const TGen::PropertyTree & properties) {
 	TGen::PropertyTree props;
 	
@@ -146,9 +151,8 @@ void TGen::Engine::EntityFactory::addClassEntity(const TGen::PropertyTree & prop
 	classDefinitions.insert(ClassMap::value_type(properties.getName(), props));
 }
 
-TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(const TGen::PropertyTree & properties) {
-	std::cout << "PROTOTYPE: " << properties.getName() << std::endl;
 
+TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(const TGen::PropertyTree & properties) {
 	std::auto_ptr<TGen::Engine::EntityRecipe> entity(new TGen::Engine::EntityRecipe(properties.getName()));
 
 	entity->setWorldInterface(properties.getProperty("worldInterface", ""));
@@ -167,21 +171,15 @@ TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(
 	}
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
-		//TGen::Engine::ComponentRecipe * newRecipe = createComponentRecipe(entity->getName(), props.getNode(i));
-		
-		std::cout << "CREATING RECIPE: " << props.getNode(i).getName() << std::endl;
 		TGen::Engine::ComponentRecipe * newRecipe = createComponentRecipe(entity->getName(), props.getNode(i));
-		//if (!newRecipe)
-		//	throw TGen::RuntimeException("EntityFactory::createPrototypeEntity", "failed to create component recipe");
-			
+
 		if (newRecipe)
 			entity->addComponentRecipe(newRecipe, newRecipe->getName());
 	}	
 	
-	std::cout << "CREATED RECIPE" << std::endl;
-	
 	return entity.release();
 }
+
 
 void TGen::Engine::EntityFactory::registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem) {
 	if (subsystems.find(componentName) != subsystems.end())

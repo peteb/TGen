@@ -33,7 +33,7 @@ TGen::Engine::Physics::GeomRecipe::GeomRecipe(GeomRecipeType type, const std::st
 TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
 	TGen::Engine::Physics::Geom * ret = NULL;
 	std::string name = "physGeom";
-	
+
 	if (type == SphereGeomType) {
 		TGen::Engine::Physics::SphereGeom * newGeom = new TGen::Engine::Physics::SphereGeom(name, scalarValue1, space);
 	
@@ -60,7 +60,7 @@ TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(con
 	
 	ret->setFriction(friction);
 	subsystem.addGeom(ret);
-	
+
 	return ret;
 }
 
@@ -68,20 +68,19 @@ void TGen::Engine::Physics::GeomRecipe::linkGlobally(TGen::Engine::EntityList & 
 	componentLinkNum = prototype.getComponentIndex(linkName);
 }
 
+// TODO: link ska heta samma överallt i stort sett, linkName heter membern, void setLink(string), setLink(object)
+
 void TGen::Engine::Physics::GeomRecipe::fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
 	TGen::Engine::Physics::Geom & geom = dynamic_cast<TGen::Engine::Physics::Geom &>(constructed);
-	TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(componentLinkNum));
+	TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(componentLinkNum, std::nothrow));
 	
 	if (body) {
 		geom.setBody(body);
 	}
 	else {
-		TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(componentLinkNum));
+		TGen::Engine::WorldObject & object = dynamic_cast<TGen::Engine::WorldObject &>(entity.getComponent(componentLinkNum));
 		
-		if (object)
-			geom.setLinkedComponent(object);
-		else
-			throw TGen::RuntimeException("Physics::GeomRecipe::linkGlobally", "failed to link id ") << componentLinkNum;
+		geom.setLink(&object);
 	}
 }
 

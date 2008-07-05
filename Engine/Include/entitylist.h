@@ -23,16 +23,22 @@ namespace TGen {
 		public:
 			~EntityList();
 			
+			void linkGlobally();
 			void addEntity(TGen::Engine::Entity * entity);
 			void addPrototype(TGen::Engine::EntityRecipe * recipe);
 			
-			TGen::Engine::Entity * getEntity(const std::string & name);
-			TGen::Engine::EntityRecipe * getPrototype(const std::string & name);
-			TGen::Engine::Component * getComponent(const std::string & name, TGen::Engine::Entity & from);
-			TGen::Engine::Component * getComponent(const std::string & name);
+			TGen::Engine::Entity * getEntity(const std::string & name, std::nothrow_t noth);
+			TGen::Engine::Entity & getEntity(const std::string & name);
+
+			TGen::Engine::EntityRecipe * getPrototype(const std::string & name, std::nothrow_t nth);
+			TGen::Engine::EntityRecipe & getPrototype(const std::string & name);
+
+			TGen::Engine::Component * getComponent(const std::string & name, TGen::Engine::Entity & from, std::nothrow_t noth);
+			TGen::Engine::Component & getComponent(const std::string & name, TGen::Engine::Entity & from);
 			
-			void linkGlobally();
-			
+			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
+			TGen::Engine::Component & getComponent(const std::string & name);
+						
 		private:
 			typedef std::map<std::string, TGen::Engine::Entity *> EntityMap;
 			typedef std::map<std::string, TGen::Engine::EntityRecipe *> PrototypeMap;

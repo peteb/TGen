@@ -14,10 +14,9 @@
 #include "scene/node.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & bodyComponent)
+TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	: TGen::Engine::Component(name)
 	, geomId(0)
-	, bodyComponent(bodyComponent)
 	, affectsOthers(true)
 	, linkedTo(NULL)
 	, bodyLinked(NULL)
@@ -25,25 +24,31 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name, const std::string & 
 
 }
 
+
 TGen::Engine::Physics::Geom::~Geom() {
 	dGeomDestroy(geomId);
 }
+
 
 float TGen::Engine::Physics::Geom::getFriction() const {
 	return friction;
 }
 
+
 void TGen::Engine::Physics::Geom::setFriction(float friction) {
 	this->friction = friction;
 }
 
-void TGen::Engine::Physics::Geom::setLinkedComponent(const std::string & componentName) {
-	bodyComponent = componentName;
+
+void TGen::Engine::Physics::Geom::setLink(const std::string & linkName) {
+	this->linkName = linkName;
 }
 
-void TGen::Engine::Physics::Geom::setLinkedComponent(TGen::Engine::WorldObject * linkedTo) {
+
+void TGen::Engine::Physics::Geom::setLink(TGen::Engine::WorldObject * linkedTo) {
 	this->linkedTo = linkedTo;
 }
+
 
 void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 	if (geomId)
@@ -53,6 +58,7 @@ void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 	dGeomSetData(geomId, static_cast<void *>(this));
 }
 
+
 void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 	if (geomId == 0)
 		return;
@@ -61,10 +67,10 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 		TGen::Engine::Component * component = NULL;
 		
 		try {
-			component = entity.getComponent(bodyComponent);
+			component = &entity.getComponent(linkName);
 		}
 		catch (...) {	// fall back on "sceneNode"
-			component = entity.getComponent("sceneNode");
+			component = &entity.getComponent("sceneNode");
 		}
 		
 		TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(component);
@@ -82,9 +88,11 @@ void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
 	}
 }
 
+
 TGen::Engine::Physics::Body * TGen::Engine::Physics::Geom::getBody() {
 	return bodyLinked;
 }
+
 
 void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 	if (dGeomGetClass(geomId) != dPlaneClass) {
@@ -92,13 +100,16 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 	}
 }
 
+
 void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities) {
 	
 }
 
+
 void TGen::Engine::Physics::Geom::setAffectsOthers(bool affectOthers) {
 	affectsOthers = affectOthers;
 }
+
 
 bool TGen::Engine::Physics::Geom::getAffectsOthers() const {
 	return affectsOthers;
@@ -109,14 +120,17 @@ void TGen::Engine::Physics::Geom::preStep() {	// update geom with scene node var
 	updateFromLink();
 }
 
+
 void TGen::Engine::Physics::Geom::postStep() {
 	// Do nothing, without a body we can't be moved physically
 }
+
 
 void TGen::Engine::Physics::Geom::setPosition(const TGen::Vector3 & position) {
 	if (geomId != 0)
 		dGeomSetPosition(geomId, position.x, position.y, position.z);
 }
+
 
 void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orientation) {
 	dMatrix3 matrix;
@@ -141,12 +155,14 @@ void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orienta
 	dGeomSetRotation(geomId, matrix);
 }
 
+
 void TGen::Engine::Physics::Geom::updateFromLink() {
 	if (linkedTo) {
 		setPosition(linkedTo->getPosition());
 		setOrientation(linkedTo->getOrientation());
 	}	
 }
+
 
 void TGen::Engine::Physics::Geom::sendToLink() {
 	

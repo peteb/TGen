@@ -13,16 +13,16 @@
 #include "entity.h"
 #include "gameinputmapper.h"
 
-TGen::Engine::Controller::Arcball::Arcball(const std::string & name, const std::string & nodeName) 
+TGen::Engine::Controller::Arcball::Arcball(const std::string & name) 
 	: TGen::Engine::PlayerController(name)
 	, node(NULL)
-	, nodeName(nodeName)
 	, thisRot(TGen::Rotation::Identity)
 	, lastRot(TGen::Rotation::Identity)
 	, camera(NULL)
 {
 	
 }
+
 
 TGen::Engine::Controller::Arcball::~Arcball() {
 	
@@ -32,13 +32,12 @@ TGen::Engine::Controller::Arcball::~Arcball() {
 void TGen::Engine::Controller::Arcball::linkLocally(TGen::Engine::Entity & entity) {
 	TGen::Engine::PlayerController::linkLocally(entity);
 
-	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entity.getComponent(nodeName));
-	if (!sceneNode)
-		throw TGen::RuntimeException("Controller::Arcball::linkLocally", "no node found called '" + nodeName + "'");
+	TGen::Engine::Scene::Node & sceneNode = dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(controlName));
 	
-	node = sceneNode->getSceneNode();
+	node = sceneNode.getSceneNode();
 	camera = getCamera("headcam");
 }
+
 
 void TGen::Engine::Controller::Arcball::update(scalar dt) {
 	if (!node)
@@ -79,9 +78,16 @@ void TGen::Engine::Controller::Arcball::update(scalar dt) {
 	
 }
 
+
 bool TGen::Engine::Controller::Arcball::useRelativeView() const {
 	return false;
 }
+
+
+void TGen::Engine::Controller::Arcball::setControl(const std::string & controlName) {
+	this->controlName = controlName;
+}
+
 
 TGen::Vector3 TGen::Engine::Controller::Arcball::mapToSphere(const TGen::Vector3 & vec) const {
 	TGen::Vector3 inPos = vec;
@@ -102,6 +108,7 @@ TGen::Vector3 TGen::Engine::Controller::Arcball::mapToSphere(const TGen::Vector3
 	
 	return newPoint;
 }
+
 
 TGen::Rotation TGen::Engine::Controller::Arcball::dragTo(const TGen::Vector3 & end) {
 	TGen::Vector3 perp = TGen::Vector3::CrossProduct(start, end);

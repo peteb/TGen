@@ -31,18 +31,19 @@ namespace TGen {
 				Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem);
 				~Subsystem();
 			
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				
 				void link();
 				void update(scalar delta);
 				void addGeom(TGen::Engine::Physics::Geom * geom);
 				void addBody(TGen::Engine::Physics::Body * body);
+				
+				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				
 				dWorldID getWorldId();
 				
-				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
-				
 			private:
+				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
+
 				TGen::Engine::Physics::Body * createBody(const std::string & name, const TGen::PropertyTree & properties);
 				TGen::Engine::Physics::Joint * createJoint(const std::string & name, const TGen::PropertyTree & properties);
 				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties);

@@ -23,10 +23,10 @@ namespace TGen {
 				: name(name) {}
 			virtual ~Component() {}
 			
-			std::string getName() const {return name; }
-			
 			virtual void linkLocally(TGen::Engine::Entity & entity) {}
 			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {}
+
+			const std::string & getName() const {return name; }
 			
 		protected:
 			const std::string name;

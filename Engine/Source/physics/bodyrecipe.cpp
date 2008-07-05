@@ -40,9 +40,9 @@ void TGen::Engine::Physics::BodyRecipe::linkGlobally(TGen::Engine::EntityList & 
 }
 
 void TGen::Engine::Physics::BodyRecipe::fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
-	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(linkComponentNum));
+	TGen::Engine::WorldObject & object = dynamic_cast<TGen::Engine::WorldObject &>(entity.getComponent(linkComponentNum));
 	
-	dynamic_cast<TGen::Engine::Physics::Body &>(constructed).setLink(object);
+	dynamic_cast<TGen::Engine::Physics::Body &>(constructed).setLink(&object);
 	
 }
 

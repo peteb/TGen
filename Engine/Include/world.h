@@ -55,12 +55,6 @@ namespace TGen {
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;
 			
-			TGen::Engine::Scene::Subsystem sceneSubsystem;
-			TGen::Engine::Physics::Subsystem physicsSubsystem;
-			TGen::Engine::Controller::Subsystem controllerSubsystem;
-			TGen::Engine::Sound::Subsystem soundSubsystem;
-			TGen::Engine::Inventory::Subsystem inventorySubsystem;
-			
 			TGen::Engine::EntityFactory entityFactory;
 			
 			TGen::SceneNode sceneRoot;
@@ -68,6 +62,11 @@ namespace TGen {
 			TGen::Engine::LightList lightList;
 			TGen::Engine::EntityList entities;
 			
+			TGen::Engine::Scene::Subsystem sceneSubsystem;
+			TGen::Engine::Physics::Subsystem physicsSubsystem;
+			TGen::Engine::Controller::Subsystem controllerSubsystem;
+			TGen::Engine::Sound::Subsystem soundSubsystem;
+			TGen::Engine::Inventory::Subsystem inventorySubsystem;
 			
 			
 			TGen::Camera * mainCam;

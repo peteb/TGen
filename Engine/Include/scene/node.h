@@ -28,11 +28,12 @@ namespace TGen {
 				TGen::SceneNode * getSceneNode();
 				void update(scalar dt);
 
-				void setLinkWith(const std::string & linkWith);
+				void setLink(const std::string & linkName);
 				void setAutoParent(const std::string & autoParent);
 				void linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity);
 				
-				// object interface
+				
+				// world object interface
 				TGen::Vector3 getPosition() const;
 				TGen::Rotation getOrientation() const;
 				TGen::Vector3 getVelocity() const;
@@ -47,7 +48,7 @@ namespace TGen {
 				TGen::Vector3 velocity, lastPos;
 				TGen::Matrix4x4 parentInverseTransform;
 				bool changed;
-				std::string linkWith, autoParent;
+				std::string linkName, autoParent;
 			};
 		
 		} // !Scene

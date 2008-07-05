@@ -24,25 +24,22 @@ TGen::Engine::Scene::NodeRecipe::NodeRecipe(const std::string & name, TGen::Scen
 	
 }
 
+
 TGen::Engine::Scene::NodeRecipe::~NodeRecipe() {
-	//delete prototypeNode;  // TODO: remove prototype node when recipe is removed
+	//delete prototypeNode;  // probably removed by the scene subsystem because it's in the scene graph
 }
+
 
 TGen::Engine::Scene::Node * TGen::Engine::Scene::NodeRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
 	TGen::SceneNode * newNode = prototypeNode->clone();
-	
-	// TODO: SceneNode::clone! special case for transform, camera, etc.
-	// TODO: why doesn't multiple sound sources work?
 	
 	if (!refersSelfEntity) {
 		prototypeNode->getParent()->addChild(newNode);
 	}
 	else {
-		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(constructing.getComponent(linkWith));
-		if (!parent)
-			throw TGen::RuntimeException("Scene::NodeRecipe::createComponent", "can't find parent component: " + linkWith);
-		
-		parent->getSceneNode()->addChild(newNode);
+		TGen::Engine::Scene::Node & parent = dynamic_cast<TGen::Engine::Scene::Node &>(constructing.getComponent(linkName));
+
+		parent.getSceneNode()->addChild(newNode);
 	}
 	
 	//newNode->update(0.0f);
@@ -53,28 +50,28 @@ TGen::Engine::Scene::Node * TGen::Engine::Scene::NodeRecipe::createComponent(con
 	return newComponent;
 }
 
-void TGen::Engine::Scene::NodeRecipe::setLinkWith(const std::string & linkWith) {
-	this->linkWith = linkWith;
+
+void TGen::Engine::Scene::NodeRecipe::setLink(const std::string & linkName) {
+	this->linkName = linkName;
 }
+
 
 TGen::SceneNode * TGen::Engine::Scene::NodeRecipe::getPrototypeNode() {
 	return prototypeNode;
 }
 
+
 void TGen::Engine::Scene::NodeRecipe::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity) {
 	// called when the global entitylist is linked, entities created at runtime are not linked
-	// TODO: fix: autoParent, copy model instances
+	// TODO: fix: autoParent
 	
-	if (!linkWith.empty()) {
-		TGen::Engine::Scene::NodeRecipe * parent = dynamic_cast<TGen::Engine::Scene::NodeRecipe *>(entity.getComponentRecipe(linkWith));
+	if (!linkName.empty()) {
+		TGen::Engine::Scene::NodeRecipe * parent = dynamic_cast<TGen::Engine::Scene::NodeRecipe *>(entity.getComponentRecipe(linkName, std::nothrow));
 		
 		if (!parent) {
-			TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(linkWith));
-			
-			if (!parent)
-				throw TGen::RuntimeException("NodeRecipe::linkGlobally", "failed to link with " + linkWith);
-			else
-				prototypeNode->moveTo(parent->getSceneNode(), false);
+			TGen::Engine::Scene::Node & parent = dynamic_cast<TGen::Engine::Scene::Node &>(entities.getComponent(linkName));
+
+			prototypeNode->moveTo(parent.getSceneNode(), false);
 		}
 		else {
 			refersSelfEntity = true;

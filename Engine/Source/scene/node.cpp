@@ -74,8 +74,8 @@ const TGen::Matrix4x4 & TGen::Engine::Scene::Node::getParentInverseTransform() {
 	return parentInverseTransform;
 }
 
-void TGen::Engine::Scene::Node::setLinkWith(const std::string & linkWith) {
-	this->linkWith = linkWith;
+void TGen::Engine::Scene::Node::setLink(const std::string & linkName) {
+	this->linkName = linkName;
 }
 
 void TGen::Engine::Scene::Node::setAutoParent(const std::string & autoParent) {
@@ -83,8 +83,8 @@ void TGen::Engine::Scene::Node::setAutoParent(const std::string & autoParent) {
 }
 
 void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
-	if (!linkWith.empty()) {
-		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(list.getComponent(linkWith, entity));
+	if (!linkName.empty()) {
+		TGen::Engine::Scene::Node * parent = &dynamic_cast<TGen::Engine::Scene::Node &>(list.getComponent(linkName, entity));
 		
 		sceneNode->moveTo(parent->getSceneNode(), false);
 		
@@ -92,11 +92,9 @@ void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TG
 	}
 	
 	if (!autoParent.empty()) {
-		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(list.getComponent(autoParent, entity));
-		if (!parent)
-			throw TGen::RuntimeException("Scene::Node::linkGlobally", "no node called '" + autoParent + "' for autoParent");
+		TGen::Engine::Scene::Node & parent = dynamic_cast<TGen::Engine::Scene::Node &>(list.getComponent(autoParent, entity));
 		
-		sceneNode->setAutoTP(parent->getSceneNode());		
+		sceneNode->setAutoTP(parent.getSceneNode());		
 		changed = true;
 	}
 	

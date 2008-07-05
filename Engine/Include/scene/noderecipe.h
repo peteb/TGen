@@ -23,19 +23,19 @@ namespace TGen {
 				NodeRecipe(const std::string & name, TGen::SceneNode * prototypeNode, TGen::Engine::Scene::Subsystem & subsystem);
 				~NodeRecipe();
 				
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
+				void setLink(const std::string & linkName);
+
 				TGen::Engine::Scene::Node * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 
-				void setLinkWith(const std::string & linkWith);
 				TGen::SceneNode * getPrototypeNode();
 				
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
-				
 			private:
+				TGen::Engine::Scene::Subsystem & subsystem;	// the component should be added to the subsystem when created
 				TGen::Engine::Scene::Node * parent;
 				TGen::SceneNode * prototypeNode;
-				TGen::Engine::Scene::Subsystem & subsystem;	// the component should be added to the subsystem when created
 				
-				std::string linkWith;
+				std::string linkName;
 				bool refersSelfEntity;
 			};
 			

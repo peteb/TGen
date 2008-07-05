@@ -25,13 +25,13 @@ namespace TGen {
 			
 			class Geom : public TGen::Engine::Component {
 			public:
-				Geom(const std::string & name, const std::string & bodyComponent = "physBody");
+				Geom(const std::string & name);
 				virtual ~Geom();
 				
 				float getFriction() const;
 				void setFriction(float friction);
-				void setLinkedComponent(const std::string & componentName);
-				void setLinkedComponent(TGen::Engine::WorldObject * linkedTo);
+				void setLink(const std::string & linkName);
+				void setLink(TGen::Engine::WorldObject * linkedTo);
 				void setBody(TGen::Engine::Physics::Body * body);
 				
 				void setAffectsOthers(bool affectOthers);
@@ -53,7 +53,7 @@ namespace TGen {
 				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
 				
 				dGeomID geomId;
-				std::string bodyComponent;
+				std::string linkName;
 				
 			private:	
 				void updateFromLink();

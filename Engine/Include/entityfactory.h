@@ -28,15 +28,15 @@ namespace TGen {
 			EntityFactory(TGen::Engine::StandardLogs & logs);
 			~EntityFactory();
 			
-			TGen::Engine::Entity * createEntity(const TGen::PropertyTree & properties);
 			void addClassEntity(const TGen::PropertyTree & properties);
-			TGen::Engine::EntityRecipe * createPrototypeEntity(const TGen::PropertyTree & properties);
-			
 			void registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem);
+
+			TGen::Engine::EntityRecipe * createPrototypeEntity(const TGen::PropertyTree & properties);
+			TGen::Engine::Entity * createEntity(const TGen::PropertyTree & properties);
 			
 		private:
-			TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties) const;
 			TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & entityName, const TGen::PropertyTree & properties) const;
+			TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties) const;
 			
 			TGen::PropertyTree extendTree(const TGen::PropertyTree & base, const TGen::PropertyTree & entity) const;
 			

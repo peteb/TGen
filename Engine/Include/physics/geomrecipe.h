@@ -29,6 +29,9 @@ namespace TGen {
 			public:
 				GeomRecipe(GeomRecipeType type, const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem);
 				
+				void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
+
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				
 				void setScalarValue1(scalar value);
@@ -37,8 +40,6 @@ namespace TGen {
 				
 				void setFriction(scalar friction);
 				void setLink(const std::string & link);
-				void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity);
 				
 			private:
 				TGen::Engine::Physics::Subsystem & subsystem;

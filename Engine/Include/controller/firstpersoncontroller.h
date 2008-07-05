@@ -31,16 +31,23 @@ namespace TGen {
 		namespace Controller {
 			class FirstPerson : public TGen::Engine::PlayerController {
 			public:
-				FirstPerson(const std::string & name, const std::string & control, const std::string & view, bool usePhysics, scalar deltaPlane, scalar jumpForce, scalar jumpTime, scalar airControl);
+				FirstPerson(const std::string & name, scalar deltaPlane, scalar jumpForce, scalar jumpTime);
 				~FirstPerson();
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void update(scalar dt);
+
 				void setDeltaPlane(scalar speed);
 				void setWeaponLink(const std::string & weaponName);
 				void setEquipment(const std::string & equipmentName);
+				void setUsePhysics(bool usePhysics);
+				void setAirControl(scalar airControl);
+				void setView(const std::string & viewName);
+				void setControl(const std::string & controlName);
+								
 				
+				// world object interface
 				TGen::Vector3 getVelocity() const;
 				TGen::Vector3 getPosition() const;
 				TGen::Rotation getOrientation() const;		
@@ -55,7 +62,7 @@ namespace TGen {
 				bool usePhysics, primaryFire, secondaryFire;
 				scalar airTime;
 				
-				std::string control, view, weaponName, equipmentName;
+				std::string controlName, viewName, weaponName, equipmentName;
 				scalar orientX, orientY;			
 				scalar deltaPlane;
 				scalar jumpTime, jumpForce, airControl;
