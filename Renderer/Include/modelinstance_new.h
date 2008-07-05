@@ -14,6 +14,7 @@
 #include <tgen_core.h>
 #include "modeljoint.h"
 #include "metawriter.h"
+#include "modelrenderproperties.h"
 
 // ModelInstance OWNS MeshInstances, when the ModelInstance dies, the MeshInstances die too
 
@@ -23,6 +24,7 @@ namespace TGen {
 	class RenderList;
 	class SceneNode;
 	class Material;
+	class ModelRenderProperties;
 	
 	class NewModelInstance : public TGen::MetaWriter {
 	public:
@@ -37,7 +39,7 @@ namespace TGen {
 		
 		virtual void linkMaterial(TGen::MaterialSource & source);
 		virtual void unlinkMaterial();
-		virtual void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node);
+		virtual void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node, const TGen::ModelRenderProperties * renderProperties);
 		
 		virtual int getNumMeshes() const;
 		virtual TGen::NewMeshInstance * getMesh(int num);

@@ -42,6 +42,7 @@ TGen::Engine::Scene::Subsystem::~Subsystem() {
 	}
 }
 
+
 TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	bool doCreateNode = properties.getName() == "sceneNode";
 	bool doCreateCamera = properties.getName() == "sceneCamera";
@@ -90,12 +91,14 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	return newComponent;
 }
 
+
 void TGen::Engine::Scene::Subsystem::addComponent(TGen::Engine::Scene::Node * node, const std::string & name) {
 	if (components.find(name) == components.end())
 		components.insert(std::make_pair(name, node));
 	
 	nodes.push_back(node);
 }
+
 
 TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	TGen::SceneNode * prototypeNode = NULL;
@@ -142,6 +145,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 	return camera;
 }
 
+
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	TGen::Engine::Light * light = new TGen::Engine::Light(properties.getProperty("globalName", name), 
 																			TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
@@ -179,6 +183,8 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	return light;
 }
 
+
+// per-model-data måste sparas per-node och skickas till modellens fillFaces
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	TGen::SceneNode * node = NULL;
 	
@@ -193,6 +199,9 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 	node->setOrientation(rotation);
 	node->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
+	if (properties.getProperty("modelFront", "ccw") == "cw")
+		node->getRenderProperties().frontFaceDef = TGen::FaceWindingCW;
+	
 	std::string modelName = properties.getProperty("model", "");
 	
 	if (!modelName.empty()) {
@@ -201,6 +210,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createNode(const std::string &
 	
 	return node;
 }
+
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	TGen::Engine::Scene::EquipmentNode * newNode = new TGen::Engine::Scene::EquipmentNode(properties.getProperty("globalName", name));
@@ -252,6 +262,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	return map;
 }
 
+
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createTransformNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
 	std::auto_ptr<TGen::Engine::Scene::TransformNode> newTransformer;
 	
@@ -278,6 +289,7 @@ TGen::Engine::Scene::Node * TGen::Engine::Scene::Subsystem::getComponent(const s
 	throw TGen::RuntimeException("SceneSubsystem::getComponent", "entity '" + name + "' could not be found");
 }
 
+
 void TGen::Engine::Scene::Subsystem::link() {
 	logs.info["scene"] << "*** LINKING SCENE ***" << TGen::endl;
 	//meshList.relink(world.app.globalResources);
@@ -289,9 +301,11 @@ void TGen::Engine::Scene::Subsystem::link() {
 
 }
 
+
 TGen::SceneNode & TGen::Engine::Scene::Subsystem::getSceneRoot() {
 	return sceneRoot;
 }
+
 
 void TGen::Engine::Scene::Subsystem::update(scalar delta) {
 	sceneRoot.update(delta);

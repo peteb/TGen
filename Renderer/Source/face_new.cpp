@@ -10,10 +10,11 @@
 #include "face_new.h"
 #include "scenenode.h"
 
-TGen::NewFace::NewFace(TGen::NewMeshInstance * mesh, TGen::Material * material, TGen::SceneNode const * sceneNode)
+TGen::NewFace::NewFace(TGen::NewMeshInstance * mesh, TGen::Material * material, TGen::SceneNode const * sceneNode, const TGen::ModelRenderProperties * renderProperties)
 	: mesh(mesh)
 	, material(material)
 	, sceneNode(sceneNode)
+	, renderProperties(renderProperties)
 {
 
 }
@@ -40,4 +41,8 @@ void TGen::NewFace::setSceneNode(const TGen::SceneNode * node) {
 
 void TGen::NewFace::setMaterial(TGen::Material * material) {
 	this->material = material;
+}
+
+const TGen::ModelRenderProperties * TGen::NewFace::getRenderProperties() const {
+	return renderProperties;
 }

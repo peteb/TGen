@@ -31,6 +31,7 @@ namespace TGen {
 			typedef TGen::JoinVertexElements4<Vertex, TexCoord, Normal, Tangent> VertexDecl;
 			typedef TGen::Index<unsigned int> IndexDecl;
 
+			void swapWinding();
 			void preRender(TGen::Renderer & renderer) const;
 			void render(TGen::Renderer & renderer) const;
 			TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source);

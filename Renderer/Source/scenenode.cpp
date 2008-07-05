@@ -387,7 +387,7 @@ bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & ca
 		TGen::NewModelInstance * model = models[i];
 
 		model = TGen::DerefRes(model);
-		model->fillFaces(list, models[i]->getOverridingMaterial(), this);
+		model->fillFaces(list, models[i]->getOverridingMaterial(), this, &renderProperties);
 	}
 	
 	return true;
@@ -420,4 +420,9 @@ void TGen::SceneNode::setAutoTP(TGen::SceneNode * autoTP) {
 TGen::SceneNode * TGen::SceneNode::clone() {
 	return new TGen::SceneNode(*this);
 }
+
+TGen::ModelRenderProperties & TGen::SceneNode::getRenderProperties() {
+	return renderProperties;
+}
+
 

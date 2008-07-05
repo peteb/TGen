@@ -146,3 +146,11 @@ void TGen::Engine::MapSurface::calculateTangents() {
 	
 	delete[] tan1;
 }
+
+void TGen::Engine::MapSurface::swapWinding() {
+	for (int i = 0; i < indices.size(); i += 3) {
+		std::swap(indices[i + 0], indices[i + 2]);
+	}
+	
+}
+

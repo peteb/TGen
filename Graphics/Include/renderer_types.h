@@ -99,6 +99,11 @@ namespace TGen {
 		PolygonFaceCull,		
 	};
 	
+	enum FaceWinding {
+		FaceWindingCCW = 1,
+		FaceWindingCW = 2,
+	};
+	
 	enum BlendFunc {
 		BlendZero = 1,
 		BlendOne,

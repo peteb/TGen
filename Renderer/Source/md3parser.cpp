@@ -140,6 +140,8 @@ TGen::NewModel * TGen::MD3::File::createModel(TGen::VertexDataSource & dataSourc
 	newTransformer.addTransformer(new TGen::VertexScaler(TGen::MD3::XYZ_SCALE));	// everything we get from MD3 files should be scaled by this amount
 	newTransformer.addTransformer(transformer.clone());
 	
+	
+	
 	if (header->num_frames > 1)
 		return createAnimatingModel(dataSource, newTransformer);
 

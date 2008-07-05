@@ -28,7 +28,7 @@ namespace TGen {
 			
 			void linkMaterial(TGen::MaterialSource & source);
 			void unlinkMaterial();
-			void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node);
+			void fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node, const TGen::ModelRenderProperties * renderProperties);
 
 			TGen::NewModelInstance * clone() const;
 			

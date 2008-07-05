@@ -15,6 +15,7 @@
 #include "meshinstance_new.h"
 #include <tgen_graphics.h>
 #include <algorithm>
+#include "modelrenderproperties.h"
 
 TGen::BasicRenderList::BasicRenderList() {
 	faces.reserve(11000);
@@ -114,6 +115,9 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 		
 		//std::cout << lod << std::endl;
 		if (lod > 0) {
+			if (face->getRenderProperties())
+				renderer.setFaceWinding(face->getRenderProperties()->frontFaceDef);
+			
 			TGen::Material * globalMaterial = face->getMaterial();
 			globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh());
 		}
@@ -121,7 +125,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 	
 	return;
 	
-	// OPT: allt det h√§r √§r f√∂rmodligen v√§ldigt segt....
+	// OPT: allt det h‰r ‰r fˆrmodligen v‰ldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 	/*	scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
 		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);

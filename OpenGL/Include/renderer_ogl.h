@@ -38,6 +38,7 @@ namespace TGen {
 			void setClearColor(const TGen::Color & color);
 			void setClearDepth(scalar depth);
 			void setViewport(const TGen::Rectangle & viewport);
+			void setFaceWinding(TGen::FaceWinding winding);
 			
 			#ifdef _GFX_KEEP_DEPRECATED
 			void setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override = NULL);
@@ -139,6 +140,7 @@ namespace TGen {
 			TGen::RenderContext lastContext;
 			TGen::TextureCoordGen textureCoordGenU, textureCoordGenV;
 			
+			TGen::FaceWinding currentWinding;
 		};
 		
 	} // !OpenGL	

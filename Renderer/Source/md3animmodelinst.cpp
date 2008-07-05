@@ -66,9 +66,9 @@ void TGen::MD3::AnimatingModelInstance::unlinkMaterial() {
 		meshes[i]->unlinkMaterial();	
 }
 
-void TGen::MD3::AnimatingModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node) {
+void TGen::MD3::AnimatingModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, TGen::SceneNode const * node, const TGen::ModelRenderProperties * renderProperties) {
 	for (int i = 0; i < meshes.size(); ++i) {
-		list.addFace(TGen::NewFace(meshes[i], (overridingMaterial ? overridingMaterial : meshes[i]->getMaterial()), node));
+		list.addFace(TGen::NewFace(meshes[i], (overridingMaterial ? overridingMaterial : meshes[i]->getMaterial()), node, renderProperties));
 	}	
 }
 

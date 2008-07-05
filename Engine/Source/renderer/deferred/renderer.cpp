@@ -235,7 +235,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	
 	
 
-	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
+	renderer.clearBuffers(/*TGen::ColorBuffer |*/ TGen::DepthBuffer);
 	renderer.setAmbientLight(world.getAmbientLight());
 
 	renderList.render(renderer, *mainCamera, "default");

@@ -199,6 +199,7 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock(const TGen
 		}
 		else if (currentToken->first == ProcTokenBlockEnd) {
 			surface->calculateTangents();
+			surface->swapWinding();
 			
 			if (vertsAdded != TGen::lexical_cast<int>(numVerts))
 				throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "vertex count missmatch");

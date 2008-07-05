@@ -79,6 +79,7 @@
 		D098D55C0D9A833A003B0486 /* vertexscaler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D098D55B0D9A833A003B0486 /* vertexscaler.cpp */; };
 		D098D65E0D9A8F4B003B0486 /* vertexswapper.h in Headers */ = {isa = PBXBuildFile; fileRef = D098D65D0D9A8F4B003B0486 /* vertexswapper.h */; };
 		D098D6620D9A8FD4003B0486 /* vertexswapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D098D6610D9A8FD4003B0486 /* vertexswapper.cpp */; };
+		D09BF42F0E1FD78800AE0941 /* modelrenderproperties.h in Headers */ = {isa = PBXBuildFile; fileRef = D09BF42E0E1FD78800AE0941 /* modelrenderproperties.h */; };
 		D0BF7FCE0D5F820E0094D533 /* md5modelinst.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BF7FCD0D5F820E0094D533 /* md5modelinst.cpp */; };
 		D0BF7FD00D5F82270094D533 /* md5modelinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BF7FCF0D5F82270094D533 /* md5modelinst.h */; };
 		D0BF800D0D5F84FB0094D533 /* md5meshinst.h in Headers */ = {isa = PBXBuildFile; fileRef = D0BF800C0D5F84FB0094D533 /* md5meshinst.h */; };
@@ -312,6 +313,7 @@
 		D098D55B0D9A833A003B0486 /* vertexscaler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexscaler.cpp; path = Source/vertexscaler.cpp; sourceTree = "<group>"; };
 		D098D65D0D9A8F4B003B0486 /* vertexswapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexswapper.h; path = Include/vertexswapper.h; sourceTree = "<group>"; };
 		D098D6610D9A8FD4003B0486 /* vertexswapper.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexswapper.cpp; path = Source/vertexswapper.cpp; sourceTree = "<group>"; };
+		D09BF42E0E1FD78800AE0941 /* modelrenderproperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelrenderproperties.h; path = include/modelrenderproperties.h; sourceTree = "<group>"; };
 		D0BF7FCD0D5F820E0094D533 /* md5modelinst.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md5modelinst.cpp; path = Source/md5modelinst.cpp; sourceTree = "<group>"; };
 		D0BF7FCF0D5F82270094D533 /* md5modelinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5modelinst.h; path = Include/md5modelinst.h; sourceTree = "<group>"; };
 		D0BF800C0D5F84FB0094D533 /* md5meshinst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = md5meshinst.h; path = Include/md5meshinst.h; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				D074B3470D560411000B91E1 /* face_new.h */,
 				D074B4890D561188000B91E1 /* modelinstanceproxy.cpp */,
 				D074B4720D560F61000B91E1 /* modelinstanceproxy.h */,
+				D09BF42E0E1FD78800AE0941 /* modelrenderproperties.h */,
 				D087F4C80D56512A00442D40 /* modeljoint.h */,
 				D076D1B20D67016600AF2F32 /* metawriter.h */,
 			);
@@ -735,6 +738,7 @@
 				D05008170DA66C1F0018EC08 /* scenenoderenderable.h in Headers */,
 				D07B896B0DD0E962001A38EC /* vertexoffsetter.h in Headers */,
 				D09687470E06B20600231EC0 /* vertexmattransformer.h in Headers */,
+				D09BF42F0E1FD78800AE0941 /* modelrenderproperties.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

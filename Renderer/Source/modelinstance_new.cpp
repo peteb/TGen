@@ -67,7 +67,7 @@ std::string TGen::NewModelInstance::getMaterialNamePostfix() const {
 	return materialNamePostfix;
 }
 
-void TGen::NewModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
+void TGen::NewModelInstance::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node, const TGen::ModelRenderProperties * renderProperties) {
 	throw TGen::RuntimeException("ModelInstance::fillFaces", "no implementation! Did you dereference links?");	
 }
 

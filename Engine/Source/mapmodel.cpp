@@ -87,7 +87,7 @@ void TGen::Engine::MapModel::unlinkMaterial() {
 
 void TGen::Engine::MapModel::fillFaces(TGen::RenderList & list, TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
 	for (SurfaceList::iterator iter = surfaces.begin(); iter != surfaces.end(); ++iter) {		
-		list.addFace(TGen::NewFace(*iter, (overridingMaterial ? overridingMaterial : (*iter)->getMaterial()), node));
+		list.addFace(TGen::NewFace(*iter, (overridingMaterial ? overridingMaterial : (*iter)->getMaterial()), node, NULL));
 	}
 }
 

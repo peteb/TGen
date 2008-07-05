@@ -50,6 +50,7 @@ TGen::OpenGL::Renderer::Renderer()
 	, hasEdgeElements(NULL)
 	, textureCoordGenU(TGen::TextureCoordGenBase)
 	, textureCoordGenV(TGen::TextureCoordGenBase)
+	, currentWinding(TGen::FaceWindingCCW)
 {
 	TGen::OpenGL::BindFunctions();	// will be needed if we're running on a sucky platform with old OpenGL (Windows, I'm looking at you...)
 	
@@ -1237,6 +1238,18 @@ void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen
 
 void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
+}
+
+void TGen::OpenGL::Renderer::setFaceWinding(TGen::FaceWinding winding) {
+	if (currentWinding == winding)
+		return;
+	
+	currentWinding = winding;
+	
+	if (winding == TGen::FaceWindingCCW)
+		glFrontFace(GL_CCW);
+	else if (winding == TGen::FaceWindingCW)
+		glFrontFace(GL_CW);
 }
 
 // TODO: manuell mipmapping

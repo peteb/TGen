@@ -17,6 +17,7 @@
 
 #include <tgen_math.h>
 #include <vector>
+#include "modelrenderproperties.h"
 
 namespace TGen {
 	class Face;
@@ -62,6 +63,8 @@ namespace TGen {
 		TGen::SceneNode * getNode(const std::string & path, bool create = false);
 		TGen::SceneNode * getParent();
 		virtual TGen::SceneNode * clone();
+		
+		TGen::ModelRenderProperties & getRenderProperties();
 		
 		TGen::AABB getChildrenBoundingBox() const;
 		
@@ -121,6 +124,8 @@ namespace TGen {
 	protected:
 		typedef std::vector<SceneNode *> SceneNodeList;
 		
+		TGen::ModelRenderProperties renderProperties;
+
 		std::string name;
 		SceneNode * parent;
 		TGen::Vector3 position, up;

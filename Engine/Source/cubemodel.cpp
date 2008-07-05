@@ -53,9 +53,9 @@ void TGen::Engine::CubeModel::addMesh(TGen::Engine::CubeMesh * instance) {
 	meshes.push_back(instance);
 }
 
-void TGen::Engine::CubeModel::fillFaces(TGen::RenderList & list,  TGen::Material * overridingMaterial, const TGen::SceneNode * node) {
+void TGen::Engine::CubeModel::fillFaces(TGen::RenderList & list,  TGen::Material * overridingMaterial, const TGen::SceneNode * node, const TGen::ModelRenderProperties * renderProperties) {
 	for (int i = 0; i < meshes.size(); ++i) {
-		list.addFace(TGen::NewFace(meshes[i], (overridingMaterial ? overridingMaterial : meshes[i]->getMaterial()), node));		
+		list.addFace(TGen::NewFace(meshes[i], (overridingMaterial ? overridingMaterial : meshes[i]->getMaterial()), node, renderProperties));		
 	}
 }
 
