@@ -70,6 +70,7 @@ TGen::Engine::Inventory::FireMode * TGen::Engine::Inventory::Subsystem::createFi
 	newFireMode->setProjectile(properties.getProperty("projectile", ""));
 	newFireMode->setRequires(properties.getProperty("requires", ""));
 	newFireMode->setRate(TGen::lexical_cast<scalar>(properties.getProperty("rate", "1.0")));
+	newFireMode->setSpread(TGen::Vector2::Parse(properties.getProperty("spread", "0 0")));
 	
 	return newFireMode;
 }

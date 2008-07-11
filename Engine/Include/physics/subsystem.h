@@ -48,6 +48,7 @@ namespace TGen {
 				TGen::Engine::Physics::Joint * createJoint(const std::string & name, const TGen::PropertyTree & properties);
 				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties);
 				dMass getMass(const TGen::PropertyTree & properties);
+				uint getCategoryBits(const std::string & name);
 				
 				void setGravity(const TGen::Vector3 & gravity);
 				

@@ -12,6 +12,7 @@
 
 #include "component.h"
 #include <ode/ode.h>
+#include <tgen_core.h>
 
 namespace TGen {
 	class Vector3;
@@ -47,6 +48,8 @@ namespace TGen {
 				virtual void linkLocally(TGen::Engine::Entity & entity);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities);
 				void setGeomId(dGeomID id);
+				void setCategory(uint category);
+				void setCollidesWith(uint collidesWith);
 				
 			protected:
 				void setPosition(const TGen::Vector3 & position);				
@@ -64,6 +67,7 @@ namespace TGen {
 				
 				bool affectsOthers;
 				float friction;
+				uint categoryBits, collidesWith;
 			};
 		} // !Physics
 	} // !Engine

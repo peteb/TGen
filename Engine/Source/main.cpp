@@ -51,7 +51,7 @@ void preExit();
 
 FILE * heapLog = NULL;
 
-void * operator new(size_t size) throw() {
+/*void * operator new(size_t size) throw() {
 	void * alloced = malloc(size);
 	
 	if (alloced) {
@@ -59,13 +59,7 @@ void * operator new(size_t size) throw() {
 		
 		timeval t;
 		gettimeofday(&t, NULL);
-		
-		/*static timeval start = t;
-		
-		if (t.tv_sec - start.tv_sec > 20)
-			asm("int $3");
-		*/
-		
+				
 		if (heapLog)
 			fprintf(heapLog, "%i:%i alloc 0x%x 0x%x\n", t.tv_sec, t.tv_usec, alloced, size);
 	}
@@ -83,7 +77,7 @@ void operator delete(void * object) throw() {
 		
 		free(object);
 	}
-}
+}*/
   
 
 int main(int argc, char ** argv) {

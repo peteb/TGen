@@ -40,6 +40,8 @@ namespace TGen {
 				
 				void setFriction(scalar friction);
 				void setLink(const std::string & link);
+				void setCategory(uint category);
+				void setCollidesWith(uint collidesWith);
 				
 			private:
 				TGen::Engine::Physics::Subsystem & subsystem;
@@ -51,6 +53,8 @@ namespace TGen {
 				int componentLinkNum;
 				dSpaceID space;
 				GeomRecipeType type;
+				uint categoryBits, collidesWith;
+				
 			};
 			
 		} // !Physics

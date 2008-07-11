@@ -29,6 +29,8 @@
 #include <tgen_math.h>
 #include <tgen_renderer.h>
 
+using TGen::uint;
+
 //dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
@@ -45,7 +47,7 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, T
 	mainSpace = dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
 	dWorldSetLinearDamping(worldId, 0.07);
-	setGravity(TGen::Vector3(0.0f, -50.0f, 0.0f));
+	setGravity(TGen::Vector3(0.0f, -40.0f, 0.0f));
 }
 
 
@@ -105,6 +107,10 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponen
 		
 		newRecipe->setLink(properties.getProperty("link", "sceneNode"));
 		newRecipe->setFriction(TGen::lexical_cast<scalar>(properties.getProperty("friction", "10")));
+		uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
+		
+		newRecipe->setCategory(getCategoryBits(properties.getProperty("category", "default")));
+		newRecipe->setCollidesWith(collideWith);
 		
 		ret = newRecipe;
 	}
@@ -244,9 +250,50 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
 	newGeom->setLink(properties.getProperty("link", "physBody"));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
+	
+	
+	uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
+	
+	newGeom->setCategory(getCategoryBits(properties.getProperty("category", "default")));
+	newGeom->setCollidesWith(collideWith);
+	
+	
+	
 	geoms.push_back(newGeom.get());
 	
 	return newGeom.release();
+}
+
+
+uint TGen::Engine::Physics::Subsystem::getCategoryBits(const std::string & name) {
+	static TGen::SymbolTable symbols;
+	
+	if (name.empty())
+		return 0;
+	
+	uint ret = 0;
+	uint pos = 0;
+	
+	while (1) {
+		int nextPos = name.find(" ", pos);
+		std::string fixedName = name;
+
+		if (nextPos == std::string::npos)
+			fixedName = name.substr(pos);
+		else
+			fixedName = name.substr(pos, nextPos - pos);
+		
+		int symbolNumber = symbols[name];
+		
+		ret |= 1 << symbolNumber;
+		
+		if (nextPos == std::string::npos)
+			break;
+		
+		pos = nextPos + 1;
+	}
+	
+	return ret;
 }
 
 
@@ -293,16 +340,23 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	int updates = 0;
 	
 	while (lastUpdate >= updateInterval) {				
-		if (updates++ > 10)
+		if (updates++ > 10) {
+			lastUpdate = 0.0;
 			break;
+		}
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 		dWorldStep(worldId, updateInterval); // tweak
+
 		dJointGroupEmpty(contactGroup);
 		
 		lastUpdate -= updateInterval;		
 	}
 
+	// TODO: spridning på skott
+	// TODO: hur ska man göra så elden visas? från vapen
+	//  ska man spawna en ny nod eller sätta visibility på en som redan finns?
+	//  kolla hur md3 gör.. men det blir nog en event isf, så vänta
 	
 	for (int i = 0; i < bodies.size(); ++i)
 		bodies[i]->postStep();
@@ -414,6 +468,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 	
 }
 
+// FIXA MATERIAL FÖR SENASTE GREJORNA
 
 dWorldID TGen::Engine::Physics::Subsystem::getWorldId() {
 	return worldId;

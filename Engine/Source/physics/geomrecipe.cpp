@@ -26,6 +26,8 @@ TGen::Engine::Physics::GeomRecipe::GeomRecipe(GeomRecipeType type, const std::st
 	, space(space)
 	, subsystem(subsystem)
 	, friction(1.0)
+	, categoryBits(0)
+	, collidesWith(0)
 {
 }
 
@@ -59,6 +61,9 @@ TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(con
 	}
 	
 	ret->setFriction(friction);
+	ret->setCategory(categoryBits);
+	ret->setCollidesWith(collidesWith);
+	
 	subsystem.addGeom(ret);
 
 	return ret;
@@ -103,3 +108,12 @@ void TGen::Engine::Physics::GeomRecipe::setLink(const std::string & link) {
 void TGen::Engine::Physics::GeomRecipe::setFriction(scalar friction) {
 	this->friction = friction;
 }
+
+void TGen::Engine::Physics::GeomRecipe::setCategory(uint category) {
+	this->categoryBits = category;
+}
+
+void TGen::Engine::Physics::GeomRecipe::setCollidesWith(uint collidesWith) {
+	this->collidesWith = collidesWith;
+}
+

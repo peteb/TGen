@@ -20,6 +20,8 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	, affectsOthers(true)
 	, linkedTo(NULL)
 	, bodyLinked(NULL)
+	, categoryBits(0)
+	, collidesWith(0)
 {
 
 }
@@ -50,12 +52,25 @@ void TGen::Engine::Physics::Geom::setLink(TGen::Engine::WorldObject * linkedTo) 
 }
 
 
+void TGen::Engine::Physics::Geom::setCategory(uint category) {
+	this->categoryBits = category;
+	dGeomSetCategoryBits(geomId, categoryBits);
+}
+
+
+void TGen::Engine::Physics::Geom::setCollidesWith(uint collidesWith) {
+	this->collidesWith = collidesWith;
+	dGeomSetCollideBits(geomId, collidesWith);
+}
+
+
+
 void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 	if (geomId)
 		throw TGen::RuntimeException("Physics::Geom::setGeomId", "geomId already set!");
 	
 	geomId = id;
-	dGeomSetData(geomId, static_cast<void *>(this));
+	dGeomSetData(geomId, static_cast<void *>(this));	
 }
 
 

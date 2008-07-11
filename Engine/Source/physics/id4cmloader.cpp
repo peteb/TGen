@@ -65,12 +65,45 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[1]);
 			newIndices.push_back(indices[2]);
+			
 			newIndices.push_back(indices[2]);
 			newIndices.push_back(indices[3]);
 			newIndices.push_back(indices[0]);
+		}
+		else if (indices.size() == 3) {
+			newIndices.push_back(indices[0]);
+			newIndices.push_back(indices[1]);
+			newIndices.push_back(indices[2]);			
+		}
+		else if (indices.size() == 5) {
+			/*std::cout << "VERT$: " << std::endl;
+			for (int i = 0; i < 5; ++i)
+				std::cout << std::string(vertices[indices[i]]) << std::endl;
+			*/
+			//exit(1);
+			
+			newIndices.push_back(indices[0]);
+			newIndices.push_back(indices[1]);
+			newIndices.push_back(indices[2]);
+
+			newIndices.push_back(indices[2]);
+			newIndices.push_back(indices[3]);
+			newIndices.push_back(indices[4]);
+			
+			newIndices.push_back(indices[4]);
+			newIndices.push_back(indices[0]);
+			newIndices.push_back(indices[2]);
+			
+			
 			
 		}
 		else {
+			//exit(1);
+			std::cerr << "EAR CLIP: " << indices.size() << std::endl;
+			//exit(1);
+			continue;
+			// TODO: använd delaunay för triangulering
+			
 			TGen::Engine::EarClippingTriangulator triangulator;
 			
 			for (int i = 0; i < indices.size(); ++i)

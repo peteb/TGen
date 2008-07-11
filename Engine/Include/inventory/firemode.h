@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_FIREMODE_H
 
 #include <tgen_core.h>
+#include <tgen_math.h>
 
 namespace TGen {
 	namespace Engine {
@@ -35,6 +36,7 @@ namespace TGen {
 				void setProjectile(const std::string & projectileName);
 				void setRequires(const std::string & requiresName);
 				void setRate(scalar rate);
+				void setSpread(const TGen::Vector2 & spread);
 				
 			private:
 				void fire();
@@ -42,6 +44,7 @@ namespace TGen {
 				bool doFire;
 				scalar frequency, timeSinceFire;
 				std::string originName, projectileName, requiresName;
+				TGen::Vector2 spread;
 				
 				TGen::Engine::EntityRecipe * projectile;
 				TGen::Engine::WorldObject * spawnOrigin;

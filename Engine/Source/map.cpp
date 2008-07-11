@@ -193,6 +193,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 			}
 		}
 		else {
+			
 			//std::cout << "CLOSED: " << std::string(portalRect) << " IN " << std::string(clipRect) <<  std::endl;
 		}
 	}

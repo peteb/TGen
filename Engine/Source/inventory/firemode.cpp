@@ -72,9 +72,17 @@ void TGen::Engine::Inventory::FireMode::fire() {
 		std::cout << "failed to create object or spawn it at origin spawn" << std::endl;
 		return;
 	}
-		
+	
+	TGen::Vector2 randDir(scalar(rand()) / RAND_MAX, scalar(rand()) / RAND_MAX);
+	randDir *= spread;
+	randDir -= spread / 2.0f;
+	
+	TGen::Rotation direction = spawnOrigin->getOrientation();
+	direction *= TGen::Rotation::RotationY(TGen::Degree(randDir.x));
+	direction *= TGen::Rotation::RotationZ(TGen::Degree(randDir.y));
+	
 	object.setPosition(spawnOrigin->getPosition());
-	object.setOrientation(spawnOrigin->getOrientation());
+	object.setOrientation(direction);
 }
 
 void TGen::Engine::Inventory::FireMode::setOrigin(const std::string & originName) {
@@ -92,4 +100,9 @@ void TGen::Engine::Inventory::FireMode::setRequires(const std::string & requires
 void TGen::Engine::Inventory::FireMode::setRate(scalar rate) {
 	this->frequency = 1.0 / rate;
 }
+
+void TGen::Engine::Inventory::FireMode::setSpread(const TGen::Vector2 & spread) {
+	this->spread = spread;
+}
+
 
