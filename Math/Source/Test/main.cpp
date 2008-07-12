@@ -7,6 +7,19 @@ __nothrow int main(int argc, char ** const argv) {
 	TGen::Vector3 vec1;
 	std::cout << std::string(vec1) << std::endl;
 	
+	TGen::Matrix4x4 hey;
+	hey = TGen::Matrix4x4::Translation(TGen::Vector3(100.0f, 123.0f, -300.0f));
+	hey *= TGen::Matrix4x4::Rotation(TGen::Vector3(1.0f, 1.0f, 1.0f), TGen::Degree(90));
+	
+	TGen::Vector3 vec2(3.0, 3.0, 3.0);
+	std::cout << std::string(hey * vec2) << std::endl;
+	TGen::Vector4 vec3(vec2);
+	vec3 = hey * vec3;
+	
+	//vec3 /= vec3.w;
+	std::cout << vec3.w << std::endl;
+	std::cout << std::string(TGen::Vector3(vec3)) << std::endl;
+	
 	/*std::cout << "TGen Math (debug binary: " << std::boolalpha << TGen::isMathDebug() << ")" << std::endl;
 	
 	// 1.

@@ -50,6 +50,7 @@ namespace TGen {
 				void setGeomId(dGeomID id);
 				void setCategory(uint category);
 				void setCollidesWith(uint collidesWith);
+				uint getCategory() const;
 				
 			protected:
 				void setPosition(const TGen::Vector3 & position);				

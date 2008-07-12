@@ -58,12 +58,14 @@ namespace TGen {
 				void setKillTorque(bool killTorque);
 				void setLinearDamping(scalar damping);
 				void setFakeGravity(scalar fakeGrav);
+				void setGroundNormal(const TGen::Vector3 & groundNormal);
+				const TGen::Vector3 & getGroundNormal() const;
 				
 				void addForce(const TGen::Vector3 & force);
 				void addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force);
 				
 				TGen::Vector3 getLinearVelocity() const;
-
+				TGen::Vector3 getForce() const;
 				
 				// world object interface
 				TGen::Vector3 getVelocity() const;
@@ -85,6 +87,7 @@ namespace TGen {
 				dWorldID worldId;
 				dSpaceID spaceId;
 				
+				TGen::Vector3 groundNormal;
 				TGen::Engine::WorldObject * linkedTo;
 				bool turnHeadwise, killTorque;
 				bool onFloor;

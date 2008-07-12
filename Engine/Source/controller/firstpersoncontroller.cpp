@@ -105,6 +105,8 @@ void TGen::Engine::Controller::FirstPerson::setControl(const std::string & contr
 }
 
 void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
+	//std::cout << "SPEED: " << controlBody->getLinearVelocity().getMagnitude() << std::endl;
+	
 	TGen::Vector3 moveDelta;
 	bool moveEvent = false;
 	bool jump = false;
@@ -213,10 +215,10 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			//	moveDelta.y = deltaJump;
 		}
 		
-		moveDelta *= dt;
+		//moveDelta *= dt;
 	
 		if (node && !usePhysics) {
-			node->getSceneNode()->setPosition(node->getSceneNode()->getLocalPosition() + moveDelta * deltaPlane);
+			node->getSceneNode()->setPosition(node->getSceneNode()->getLocalPosition() + moveDelta * dt * deltaPlane);
 		}
 		else if (controlBody) {
 			//std::cout << controlBody->getLinearVelocity().getMagnitude() << std::endl;
@@ -228,11 +230,34 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 
 			//std::cout << slope.angle << std::endl;
 			//std::cout << airTime << std::endl;
+			
+			TGen::Vector3 up = controlBody->getGroundNormal();
 
+			up *= TGen::Vector3::DotProduct(up, TGen::Vector3(0.0f, 1.0f, 0.0f));
+			// den här kan man göra en if (<0) up = -up
+			
+			TGen::Vector3 look(0.0f, 0.0f, 1.0f);
+			TGen::Vector3 right(1.0f, 0.0f, 0.0f);
+			look = TGen::Vector3::CrossProduct(right, up);
+			right = TGen::Vector3::CrossProduct(up, look);
+			
+			TGen::Matrix4x4 mat(right, up, look);
+			
+			moveDelta = mat * moveDelta;
+						
+			scalar slope = TGen::Vector3::DotProduct(moveDelta, TGen::Vector3(0.0f, 1.0f, 0.0f));
+			
+			//moveDelta *= (1.0 + TGen::Vector3::DotProduct(moveDelta, TGen::Vector3(0.0f, 1.0f, 0.0f)) * 0.8);
+			//moveDelta *= 1.0 + slope;
+			if (slope < 0.0f)
+				slope = 0.0f;
+			
+			moveDelta += TGen::Vector3(0.0f, slope, 0.0f);
+			moveDelta *= (1.0 + slope) * dt;
 			
 			if (controlBody->isOnFloor()) {
 				controlBody->addForce(moveDelta * deltaPlane);
-				controlBody->setLinearDamping(0.07);
+				controlBody->setLinearDamping(0.12);
 			}
 			else {
 				moveDelta.y = 0.0f;

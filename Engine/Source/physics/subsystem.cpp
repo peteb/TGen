@@ -78,7 +78,6 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponen
 
 		TGen::Engine::Physics::GeomRecipe * newRecipe = NULL; 
 		
-		
 		if (type == "sphere") {
 			newRecipe = new TGen::Engine::Physics::GeomRecipe(TGen::Engine::Physics::SphereGeomType, name, mainSpace, *this);
 			newRecipe->setScalarValue1(TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0")));
@@ -424,7 +423,6 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 		if (geom2 && !geom2->getAffectsOthers())
 			body1 = 0;
 		
-		
 		for (int i = 0; i < numContacts; ++i) {
 			TGen::Vector3 contactNormal(contacts[i].geom.normal[0], contacts[i].geom.normal[1], contacts[i].geom.normal[2]);
 			scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, -1.0f, 0.0f));
@@ -433,29 +431,90 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				
 			bool onGround = false;
 			
+			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
+				//std::cout << "geom1: " << std::hex << geom1->getCategory() << " geom2: " << geom2->getCategory() << " normal: " << std::string(contactNormal) << std::endl;
+				
+				if (bodyObject1) {
+					scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
+					
+					if (fabs(dp) <= 1.2f && fabs(dp) >= 0.8) {
+						bodyObject1->setGroundNormal(contactNormal);
+						bodyObject1->setOnFloor(true);
+
+						//	std::cout << "body1: " << dp << std::endl;
+					}
+					else {
+						//bodyObject1->setGroundNormal(TGen::Vector3(0.0f, -1.0f, 0.0f));
+					}
+				}
+				if (bodyObject2) {
+					scalar dp = TGen::Vector3::DotProduct(-contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
+					
+					if (fabs(dp) <= 1.2f && fabs(dp) >= 0.8) {
+						bodyObject2->setGroundNormal(-contactNormal);
+						bodyObject2->setOnFloor(true);
+						//std::cout << "body2: " << dp << std::endl;
+					}
+					else {
+						//bodyObject2->setGroundNormal(TGen::Vector3(0.0f, -1.0f, 0.0f));
+					}
+				}
+			}
+			
 			//if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
-				if (bodyObject1)
-					bodyObject1->setOnFloor(true);
-				
-				if (bodyObject2)
-					bodyObject2->setOnFloor(true);
-				
+
 				onGround = true;
 			//}			
-
-			scalar friction = 1.0f;
-			if (geom1)
-				friction *= geom1->getFriction();
 			
-			if (geom2)
+			scalar friction = 1.0f;
+			scalar dp2 = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
+
+			if (geom1) {
+				friction *= geom1->getFriction();
+			}
+			
+			if (geom2) {
 				friction *= geom2->getFriction();
-		
+			}
+			
 			if (!onGround)
 				friction = 0.0f;		// TODO: det här är fulhack...
+			else
+				friction *= (1.0 + fabs(dp2));
 			
 			contacts[i].surface.mode = 0;
 			contacts[i].surface.mu = friction;
 			
+			TGen::Vector3 force1, force2;
+			
+			if (bodyObject1)
+				force1 = bodyObject1->getLinearVelocity();
+			
+			if (bodyObject2)
+				force2 = bodyObject2->getLinearVelocity();
+			
+			scalar totalForce = fabs(TGen::Vector3::DotProduct(force1 - force2, contactNormal));
+
+			// each force should be multiplied by mass
+			
+			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
+				scalar dir = 1.0f;
+				
+				/*if (geom1->getCategory() == 2)
+					dir *= TGen::Vector3::DotProduct(force1.getNormalized(), contactNormal);
+				
+				if (geom2->getCategory() == 2)
+					dir *= TGen::Vector3::DotProduct(force2.getNormalized(), contactNormal);
+				*/
+				//std::cout << dir << " DIR" << std::endl;
+				
+				totalForce -= 10.0;
+				totalForce = std::max(totalForce, 0.0f);
+				//totalForce *= dir;
+				
+				if (totalForce > 0.1)
+					std::cout << "HURT: " << totalForce << std::endl;
+			}
 			
 			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
 

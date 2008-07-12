@@ -192,6 +192,12 @@ TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
 }
 
 
+TGen::Vector3 TGen::Engine::Physics::Body::getForce() const {
+	const dReal * force = dBodyGetForce(bodyId);
+	return TGen::Vector3(force[0], force[1], force[2]);	
+}
+
+
 void TGen::Engine::Physics::Body::setLinearDamping(scalar damping) {
 	dBodySetLinearDamping(bodyId, damping);
 }
@@ -225,3 +231,12 @@ void TGen::Engine::Physics::Body::setFakeGravity(scalar fakeGrav) {
 TGen::Vector3 TGen::Engine::Physics::Body::getVelocity() const {
 	return getLinearVelocity();
 }
+
+void TGen::Engine::Physics::Body::setGroundNormal(const TGen::Vector3 & groundNormal) {
+	this->groundNormal = groundNormal;
+}
+
+const TGen::Vector3 & TGen::Engine::Physics::Body::getGroundNormal() const {
+	return groundNormal;
+}
+

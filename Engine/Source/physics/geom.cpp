@@ -14,6 +14,8 @@
 #include "scene/node.h"
 #include <tgen_renderer.h>
 
+using TGen::uint;
+
 TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	: TGen::Engine::Component(name)
 	, geomId(0)
@@ -183,3 +185,7 @@ void TGen::Engine::Physics::Geom::sendToLink() {
 	
 }
 
+
+uint TGen::Engine::Physics::Geom::getCategory() const {
+	return categoryBits;
+}
