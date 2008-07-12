@@ -25,7 +25,7 @@ namespace TGen {
 			
 			class Source : public TGen::Engine::Component {
 			public:
-				Source(const std::string & name, const std::string & filename);
+				Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator);
 				virtual ~Source();
 				
 				void link(TGen::Engine::Sound::Subsystem & linker);
@@ -35,6 +35,9 @@ namespace TGen {
 				void setAutoplay(bool autoplay);
 				void setLoop(bool loop);
 				void setPrototype(bool prototype);
+				void addChannel(TGen::Engine::Sound::Channel * channel);
+				
+				TGen::Engine::Sound::Subsystem & getCreator() const;
 				
 				virtual TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				
@@ -44,6 +47,7 @@ namespace TGen {
 				TGen::Engine::Sound::Sound * linkedSound;
 				ChannelList channels;
 				bool prototype;
+				TGen::Engine::Sound::Subsystem & creator;
 				
 			private:
 				std::string filename;

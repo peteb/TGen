@@ -9,8 +9,8 @@
 
 #include "sound/globalsource.h"
 
-TGen::Engine::Sound::GlobalSource::GlobalSource(const std::string & name, const std::string & filename)
-	: TGen::Engine::Sound::Source(name, filename)
+TGen::Engine::Sound::GlobalSource::GlobalSource(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator)
+	: TGen::Engine::Sound::Source(name, filename, creator)
 {
 
 }

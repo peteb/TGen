@@ -20,7 +20,7 @@ namespace TGen {
 		namespace Sound {
 			class LocalSource : public TGen::Engine::Sound::Source {
 			public:
-				LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith);
+				LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith, TGen::Engine::Sound::Subsystem & creator);
 				
 				void linkLocally(TGen::Engine::Entity & entity);
 				void update(scalar dt);

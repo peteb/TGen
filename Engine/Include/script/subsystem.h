@@ -29,6 +29,8 @@ namespace TGen {
 				
 			private: 
 				TGen::Engine::Script::EventOperation * createOperation(const TGen::PropertyTree & properties);
+				void createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
+				
 				TGen::Engine::StandardLogs & logs;
 			};
 			

@@ -13,8 +13,8 @@
 #include "entity.h"
 #include "componentinterfaces.h"
 
-TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith)
-	: TGen::Engine::Sound::Source(name, filename)
+TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith, TGen::Engine::Sound::Subsystem & creator)
+	: TGen::Engine::Sound::Source(name, filename, creator)
 	, linkWith(linkWith)
 	, linkedTo(NULL)
 	, minDistance(1.0)
@@ -37,7 +37,6 @@ void TGen::Engine::Sound::LocalSource::update(scalar dt) {
 	}
 	
 	TGen::Engine::Sound::Source::update(dt);
-	
 }
 
 TGen::Engine::Sound::Channel * TGen::Engine::Sound::LocalSource::spawnChannel(bool paused) {

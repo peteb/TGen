@@ -18,11 +18,12 @@
 
 using TGen::Engine::Sound::Channel;
 
-TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename) 
+TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator) 
 	: TGen::Engine::Component(name)
 	, filename(filename)
 	, autoplay(false)
 	, prototype(false)
+	, creator(creator)
 {
 }
 
@@ -32,7 +33,8 @@ TGen::Engine::Sound::Source::~Source() {
 }
 
 void TGen::Engine::Sound::Source::link(TGen::Engine::Sound::Subsystem & linker) {
-	linkedSound = linker.getSound(filename);
+	if (!filename.empty())
+		linkedSound = linker.getSound(filename);
 }
 
 void TGen::Engine::Sound::Source::unlink() {
@@ -86,4 +88,10 @@ void TGen::Engine::Sound::Source::setPrototype(bool prototype) {
 	this->prototype = prototype;
 }
 
+void TGen::Engine::Sound::Source::addChannel(TGen::Engine::Sound::Channel * channel) {
+	channels.push_back(channel);
+}
 
+TGen::Engine::Sound::Subsystem & TGen::Engine::Sound::Source::getCreator() const {
+	return creator;
+}
