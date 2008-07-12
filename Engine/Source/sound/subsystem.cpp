@@ -30,7 +30,7 @@ TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGe
 	, fmodSystem(NULL)
 	, fs(fs)
 {
-	logs.info["snd+"] << "*** INITIALIZING SOUND ***" << TGen::endl;
+	logs.info["sound+"] << "*** INITIALIZING SOUND ***" << TGen::endl;
 	
 	FMOD_RESULT result;
 	
@@ -45,13 +45,13 @@ TGen::Engine::Sound::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGe
 	filesystem = &fs;
 	fmodSystem->setFileSystem(&openCallback, &closeCallback, &readCallback, &seekCallback, -1);
 	
-	logs.info["snd+"] << "fmod initialized" << TGen::endl;
+	logs.info["sound+"] << "fmod initialized" << TGen::endl;
 	
 }
 
 
 TGen::Engine::Sound::Subsystem::~Subsystem() {
-	logs.info["snd-"] << "*** SHUTTING DOWN SOUND ***" << TGen::endl;
+	logs.info["sound-"] << "*** SHUTTING DOWN SOUND ***" << TGen::endl;
 	
 	for (SoundMap::iterator iter = sounds.begin(); iter != sounds.end(); ++iter)
 		delete iter->second;
@@ -164,7 +164,7 @@ void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position,
 
 
 TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std::string & name) {
-	logs.info["snd"] << "request for sound \"" << name << "\"" << TGen::endl;
+	logs.info["sound"] << "request for sound \"" << name << "\"" << TGen::endl;
 
 	
 	TGen::Engine::Sound::Sound * ret = NULL;
@@ -177,7 +177,7 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std:
 			throw TGen::RuntimeException("Sound::Subsystem::getSound", "can't reuse stream sound");
 	}
 	else {
-		logs.info["snd"] << "   not loaded, loading..." << TGen::endl;		
+		logs.info["sound"] << "   not loaded, loading..." << TGen::endl;		
 
 		TGen::Engine::GenerateLine genline("gen:" + name);
 

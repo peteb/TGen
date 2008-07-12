@@ -29,7 +29,7 @@ TGen::Engine::Component * TGen::Engine::Inventory::Subsystem::createComponent(co
 		std::auto_ptr<TGen::Engine::Inventory::Inventory> newInventory(new TGen::Engine::Inventory::Inventory(name));
 		
 		for (int i = 0; i < properties.getNumNodes(); ++i) {
-			TGen::Engine::Inventory::Item newItem = createItem(properties.getNode(i));
+			TGen::Engine::Inventory::Item * newItem = createItem(properties.getNode(i));
 			newInventory->addItem(properties.getNode(i).getName(), newItem);
 		}
 		
@@ -75,11 +75,11 @@ TGen::Engine::Inventory::FireMode * TGen::Engine::Inventory::Subsystem::createFi
 	return newFireMode;
 }
 
-TGen::Engine::Inventory::Item TGen::Engine::Inventory::Subsystem::createItem(const TGen::PropertyTree & properties) {
-	TGen::Engine::Inventory::Item ret;
+TGen::Engine::Inventory::Item * TGen::Engine::Inventory::Subsystem::createItem(const TGen::PropertyTree & properties) {
+	TGen::Engine::Inventory::Item * ret = new TGen::Engine::Inventory::Item;
 	
-	ret.value = TGen::lexical_cast<int>(properties.getProperty("value", "0"));
-	ret.maxValue = TGen::lexical_cast<int>(properties.getProperty("max", "1"));
+	ret->value = TGen::lexical_cast<int>(properties.getProperty("value", "0"));
+	ret->maxValue = TGen::lexical_cast<int>(properties.getProperty("max", "1"));
 	
 	return ret;
 }

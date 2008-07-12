@@ -250,6 +250,8 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	newGeom->setLink(properties.getProperty("link", "physBody"));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	
+	newGeom->setLinkCollisionForce(properties.getProperty("onCollisionForce", ""));
+	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
 	
 	uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
 	
@@ -508,12 +510,17 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				*/
 				//std::cout << dir << " DIR" << std::endl;
 				
-				totalForce -= 10.0;
-				totalForce = std::max(totalForce, 0.0f);
+				//totalForce -= 10.0;
+				//totalForce = std::max(totalForce, 0.0f);
 				//totalForce *= dir;
 				
-				if (totalForce > 0.1)
-					std::cout << "HURT: " << totalForce << std::endl;
+				if (geom1->getCategory() == 2)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
+					geom1->onCollisionForce(totalForce);
+				if (geom2->getCategory() == 2)
+					geom2->onCollisionForce(totalForce);
+				
+				//if (totalForce > 0.1)
+					//std::cout << "HURT: " << totalForce << std::endl;
 			}
 			
 			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {

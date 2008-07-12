@@ -13,6 +13,8 @@
 #include <tgen_core.h>
 #include "scene/node.h"
 #include <tgen_renderer.h>
+#include "entitylist.h"
+#include "triggerable.h"
 
 using TGen::uint;
 
@@ -24,6 +26,8 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	, bodyLinked(NULL)
 	, categoryBits(0)
 	, collidesWith(0)
+	, linkCollisionForce(NULL)
+	, collisionForceThreshold(3.0)
 {
 
 }
@@ -118,8 +122,13 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 }
 
 
-void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities) {
-	
+void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+	if (!collisionForceName.empty()) {
+		linkCollisionForce = dynamic_cast<TGen::Engine::Triggerable *>(entities.getComponent(collisionForceName, entity, std::nothrow));
+		
+		if (!linkCollisionForce)
+			throw TGen::RuntimeException("Geom::linkGlobally", "failed to get triggerable " + collisionForceName);
+	}
 }
 
 
@@ -186,6 +195,24 @@ void TGen::Engine::Physics::Geom::sendToLink() {
 }
 
 
+void TGen::Engine::Physics::Geom::onCollisionForce(scalar force) {
+	if (linkCollisionForce) {
+		force -= collisionForceThreshold;
+		force = std::max(force, 0.0f);
+		
+		if (force > 0.00001) {
+			void * hey = &force;
+			linkCollisionForce->trigger(&hey, 1);
+		}
+	}
+}
+
+
 uint TGen::Engine::Physics::Geom::getCategory() const {
 	return categoryBits;
 }
+
+void TGen::Engine::Physics::Geom::setLinkCollisionForce(const std::string & name) {
+	collisionForceName = name;
+}
+

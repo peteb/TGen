@@ -21,6 +21,7 @@
 #include "controller/subsystem.h"
 #include "sound/subsystem.h"
 #include "inventory/subsystem.h"
+#include "script/subsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -62,6 +63,7 @@ namespace TGen {
 			TGen::Engine::LightList lightList;
 			TGen::Engine::EntityList entities;
 			
+			TGen::Engine::Script::Subsystem scriptSubsystem;
 			TGen::Engine::Scene::Subsystem sceneSubsystem;
 			TGen::Engine::Physics::Subsystem physicsSubsystem;
 			TGen::Engine::Controller::Subsystem controllerSubsystem;

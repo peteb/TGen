@@ -15,6 +15,7 @@ namespace TGen {
 		namespace Inventory {
 			class Item {
 			public:
+				void increaseValue(int value);
 				
 				int value, maxValue;
 			};

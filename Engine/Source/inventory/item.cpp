@@ -7,4 +7,10 @@
  *
  */
 
+#include "inventory/item.h"
+#include <algorithm>
 
+void TGen::Engine::Inventory::Item::increaseValue(int value) {
+	this->value += value;
+	this->value = std::min(this->value, maxValue);
+}

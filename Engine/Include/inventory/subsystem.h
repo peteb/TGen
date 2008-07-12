@@ -30,7 +30,7 @@ namespace TGen {
 			private:
 				TGen::Engine::Inventory::FireMode * createFireMode(const TGen::PropertyTree & properties);
 				
-				TGen::Engine::Inventory::Item createItem(const TGen::PropertyTree & properties);
+				TGen::Engine::Inventory::Item * createItem(const TGen::PropertyTree & properties);
 				
 				std::vector<TGen::Engine::Inventory::Weapon *> weapons;
 			}; 

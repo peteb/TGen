@@ -20,6 +20,7 @@ namespace TGen {
 	
 	namespace Engine {
 		class WorldObject;
+		class Triggerable;
 		
 		namespace Physics {
 			class Body;
@@ -44,13 +45,19 @@ namespace TGen {
 				virtual void postStep();
 				
 				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {return true; }
+				virtual void onCollisionForce(scalar force);
 				
 				virtual void linkLocally(TGen::Engine::Entity & entity);
-				virtual void linkGlobally(TGen::Engine::EntityList & entities);
+				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void setGeomId(dGeomID id);
 				void setCategory(uint category);
 				void setCollidesWith(uint collidesWith);
 				uint getCategory() const;
+				
+				void setLinkCollisionForce(const std::string & name);
+
+				scalar collisionForceThreshold;
+
 				
 			protected:
 				void setPosition(const TGen::Vector3 & position);				
@@ -69,6 +76,9 @@ namespace TGen {
 				bool affectsOthers;
 				float friction;
 				uint categoryBits, collidesWith;
+				
+				std::string collisionForceName;
+				TGen::Engine::Triggerable * linkCollisionForce;
 			};
 		} // !Physics
 	} // !Engine

@@ -52,6 +52,7 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 		newModel->vertexData.push_back(vertex);
 	}
 	
+	
 	uint numIndices = 0;
 	
 	for (int i = 0; i < polygons.size(); ++i) {
@@ -65,22 +66,19 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[1]);
 			newIndices.push_back(indices[2]);
-			
+
+
+			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[2]);
 			newIndices.push_back(indices[3]);
-			newIndices.push_back(indices[0]);
+
 		}
-		else if (indices.size() == 3) {
+		/*else if (indices.size() == 3) {
 			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[1]);
 			newIndices.push_back(indices[2]);			
 		}
 		else if (indices.size() == 5) {
-			/*std::cout << "VERT$: " << std::endl;
-			for (int i = 0; i < 5; ++i)
-				std::cout << std::string(vertices[indices[i]]) << std::endl;
-			*/
-			//exit(1);
 			
 			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[1]);
@@ -96,14 +94,37 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			
 			
 			
-		}
+		}*/
 		else {
 			//exit(1);
-			std::cerr << "EAR CLIP: " << indices.size() << std::endl;
+			//std::cerr << "EAR CLIP: " << indices.size() << std::endl;
 			//exit(1);
-			continue;
-			// TODO: använd delaunay för triangulering
 			
+		for (int i = 1; i < indices.size() - 1; ++i) {
+
+			newIndices.push_back(indices[0]);
+			newIndices.push_back(indices[i]);
+			newIndices.push_back(indices[i + 1]);			
+			
+		}
+
+		/*for (int i = indices.size() - 1; i > 0; --i) {
+			
+			newIndices.push_back(indices[0]);
+			newIndices.push_back(indices[i]);
+			newIndices.push_back(indices[i - 1]);			
+			
+		}*/
+		
+			// TODO: använd delaunay för triangulering - eller inte, behövs nog inte
+			
+		/*std::cout << "VERT$: " << std::endl;
+		 for (int i = 0; i < 5; ++i)
+		 std::cout << std::string(vertices[indices[i]]) << std::endl;
+		 */
+		//exit(1);
+
+		/*
 			TGen::Engine::EarClippingTriangulator triangulator;
 			
 			for (int i = 0; i < indices.size(); ++i)
@@ -113,7 +134,7 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			triangulator.triangulate(newIndices);
 			
 			for (int i = 0; i < newIndices.size(); ++i)
-				newIndices[i] = indices[newIndices[i]];
+				newIndices[i] = indices[newIndices[i]];*/
 		}
 		
 		std::cout << "TRI: " << newIndices.size() << std::endl;
