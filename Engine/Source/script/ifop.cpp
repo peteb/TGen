@@ -8,16 +8,36 @@
  */
 
 #include "script/ifop.h"
+#include "script/frameop.h"
 
-TGen::Engine::Script::IfOperation::IfOperation() {
+TGen::Engine::Script::IfOperation::IfOperation()
+	: elseBlock(NULL)
+{
 	
 }
 
-void TGen::Engine::Script::IfOperation::trigger(void ** argv, int argc) {
-	scalar paramValue = *reinterpret_cast<scalar *>(argv[parameter]);
+void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & context) {
+	if (!loop) {
+		bool passed = testExpression(context);
+		
+		if (passed)
+			TGen::Engine::Script::EventOperation::trigger(context);
+
+		if (elseBlock)
+			elseBlock->setExecute(!passed);
+	}
+	else {
+		while (testExpression(context))
+			TGen::Engine::Script::EventOperation::trigger(context);
+	}
+	
+}
+
+bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerContext & context) {
+	scalar paramValue = *context.getRegister<scalar *>(regId);
 	
 	bool passed = false;
-
+	
 	switch (type) {
 		case CompareEquals:
 			passed = (paramValue == value);
@@ -39,21 +59,12 @@ void TGen::Engine::Script::IfOperation::trigger(void ** argv, int argc) {
 			passed = (paramValue >= value);
 			break;
 	}
-		
-	uint32 savedStack[10];
-	for (int i = 0; i < argc; ++i)
-		savedStack[i] = *reinterpret_cast<uint32 *>(argv[i]);
 	
-	if (passed)
-		TGen::Engine::Script::EventOperation::trigger(argv, argc);
-	
-	for (int i = 0; i < argc; ++i)
-		*reinterpret_cast<uint32 *>(argv[i]) = savedStack[i];
+	return passed;
 }
 
-
-void TGen::Engine::Script::IfOperation::setParam(int parameter) {
-	this->parameter = parameter;
+void TGen::Engine::Script::IfOperation::setRegister(int regId) {
+	this->regId = regId;
 }
 
 void TGen::Engine::Script::IfOperation::setType(TGen::Engine::Script::CompareType type) {
@@ -64,3 +75,10 @@ void TGen::Engine::Script::IfOperation::setValue(scalar value) {
 	this->value = value;
 }
 
+void TGen::Engine::Script::IfOperation::setLoop(bool loop) {
+	this->loop = loop;
+}
+
+void TGen::Engine::Script::IfOperation::setElseBlock(TGen::Engine::Script::FrameOperation * elseBlock) {
+	this->elseBlock = elseBlock;
+}

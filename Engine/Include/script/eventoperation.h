@@ -23,7 +23,7 @@ namespace TGen {
 				virtual ~EventOperation();
 				
 				void addOperation(EventOperation * operation);
-				virtual void trigger(void ** argv, int argc);
+				virtual void trigger(TGen::Engine::TriggerContext & context);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 			private:

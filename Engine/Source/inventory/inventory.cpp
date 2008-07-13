@@ -62,3 +62,14 @@ void TGen::Engine::Inventory::Inventory::increaseValue(TGen::Engine::Inventory::
 	
 	std::cout << "PRE: " << preValue << " POST: " << postValue << std::endl;
 }
+
+void TGen::Engine::Inventory::Inventory::setValue(TGen::Engine::Inventory::Item * item, int value) {
+	if (!item)
+		return;
+	
+	int preValue = item->value;
+	item->setValue(value);
+	int postValue = item->value;
+	
+	std::cout << "PRE: " << preValue << " POST: " << postValue << std::endl;	
+}

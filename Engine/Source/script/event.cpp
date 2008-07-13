@@ -19,3 +19,4 @@ TGen::Engine::Script::Event::Event(const std::string & name)
 void TGen::Engine::Script::Event::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
 	TGen::Engine::Script::EventOperation::linkGlobally(entities, entity);
 }
+

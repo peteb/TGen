@@ -13,11 +13,15 @@
 #include "script/madop.h"
 #include "script/soundop.h"
 #include "script/ifop.h"
+#include "script/moveop.h"
+#include "script/callop.h"
+#include "script/frameop.h"
 
 using TGen::Engine::Script::Event;
 
 TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs)
 	: logs(logs)
+	, lastCreatedOp(NULL)
 {
 	
 }
@@ -55,33 +59,52 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::Subsystem::createOp
 	TGen::Engine::Script::EventOperation * ret = NULL;
 	const std::string & type = properties.getName();
 	
-	if (type == "addItemValue") {
+	if (type == "inci" || type == "stoi" || type == "iinci" || type == "istoi" || type == "lodi" || type == "ilodi") {
 		TGen::Engine::Script::ItemValueOperation * newOp = new TGen::Engine::Script::ItemValueOperation;
 	
 		newOp->setItem(properties.getProperty("item", ""));		
-		newOp->setParameter(TGen::lexical_cast<int>(properties.getProperty("param", "0")));
+		newOp->setRegister(getRegisterId(properties.getAttribute(0)));
+		newOp->setRelative(type == "inci" || type == "iinci");
+		newOp->setIntOp(type == "iinci" || type == "istoi" || type == "ilodi");
+		newOp->setLoad(type == "lodi");
 		
 		ret = newOp;
 	}
-	else if (type == "mad") {
+	else if (type == "mad" || type == "imad") {
 		TGen::Engine::Script::MadOperation * newOp = new TGen::Engine::Script::MadOperation;
 		
-		newOp->setParameter(TGen::lexical_cast<int>(properties.getProperty("param", "0")));
-		newOp->setFactor(TGen::lexical_cast<scalar>(properties.getProperty("mult", "1")));
-		newOp->setTerm(TGen::lexical_cast<scalar>(properties.getProperty("add", "0")));
+		bool intMath = (type == "imad");
+		int source = getRegisterId(properties.getAttribute(0));
+		
+		newOp->setSource(source);
+		
+		if (properties.getNumAttributes() > 1)
+			newOp->setDest(getRegisterId(properties.getAttribute(1)));
+		else
+			newOp->setDest(source);
+		
+		if (intMath) {
+			newOp->setIntTerm(TGen::lexical_cast<int>(properties.getProperty("add", "1")));
+		}
+		else {
+			newOp->setFactor(TGen::lexical_cast<scalar>(properties.getProperty("mul", "1")));
+			newOp->setTerm(TGen::lexical_cast<scalar>(properties.getProperty("add", "0")));
+		}
+		
+		newOp->setIntMath(intMath);
 		
 		ret = newOp;
 	}
 	else if (type == "playSound") {
 		TGen::Engine::Script::SoundOperation * newOp = new TGen::Engine::Script::SoundOperation;
 		newOp->setSource(properties.getProperty("source", ""));
-		newOp->setSound(properties.getProperty("sound", ""));
+		newOp->setSound(properties.getAttribute(0));
 		
 		ret = newOp;
 	}
-	else if (type == "if") {
+	else if (type == "if" || type == "while") {
 		TGen::Engine::Script::IfOperation * newOp = new TGen::Engine::Script::IfOperation;
-		newOp->setParam(TGen::lexical_cast<int>(properties.getAttribute(0)));
+		newOp->setRegister(getRegisterId(properties.getAttribute(0)));
 		newOp->setValue(TGen::lexical_cast<scalar>(properties.getAttribute(2)));
 		
 		TGen::Engine::Script::CompareType compareType;
@@ -99,11 +122,72 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::Subsystem::createOp
 			compareType = TGen::Engine::Script::CompareLessThanOrEqual;
 		
 		newOp->setType(compareType);
+		newOp->setLoop(type == "while");
+		
+		createOperations(*newOp, properties);
+		
+		ret = newOp;
+	}
+	else if (type == "else") {
+		TGen::Engine::Script::IfOperation * lastIf = dynamic_cast<TGen::Engine::Script::IfOperation *>(lastCreatedOp);
+		
+		if (!lastIf)
+			throw TGen::RuntimeException("Script::Subsystem::createOperation", "'else' should come directly after if!");
+		
+		TGen::Engine::Script::FrameOperation * newOp = new TGen::Engine::Script::FrameOperation;
+		newOp->setSaveContext(false);
+		newOp->setExecute(false);
+		ret = newOp;
+		
+		createOperations(*newOp, properties);
+		
+		lastIf->setElseBlock(newOp);
+	}
+	else if (type == "mov" || type == "swap" || type == "imov" || type == "iswap") {
+		TGen::Engine::Script::MoveOperation * newOp = new TGen::Engine::Script::MoveOperation;
+		
+		bool intOp = (type == "imov" || type == "iswap");
+		int sourceId = getRegisterId(properties.getAttribute(0));
+
+		if (sourceId != -1) {
+			newOp->setSource(sourceId);
+		}
+		else {
+			if (intOp)
+				newOp->setSourceImm(TGen::lexical_cast<int>(properties.getAttribute(0)));
+			else
+				newOp->setSourceImm(TGen::lexical_cast<scalar>(properties.getAttribute(0)));
+		}
+		
+		newOp->setDest(getRegisterId(properties.getAttribute(1)));
+		newOp->setSwap(type == "swap" || type == "iswap");
+					
+		ret = newOp;
+	}
+	else if (type == "call" || type == "callns") {
+		TGen::Engine::Script::CallOperation * newOp = new TGen::Engine::Script::CallOperation;
+		
+		newOp->setEvent(properties.getAttribute(0));
+		newOp->setShareContext(type == "call");
+		
+		ret = newOp;
+	}
+	else if (type == "frame") {
+		TGen::Engine::Script::FrameOperation * newOp = new TGen::Engine::Script::FrameOperation;
 		
 		createOperations(*newOp, properties);
 		
 		ret = newOp;
 	}
 	
+	lastCreatedOp = ret;
+	
 	return ret;
+}
+
+int TGen::Engine::Script::Subsystem::getRegisterId(const std::string & desc) {
+	if (desc[0] == 'r')
+		return TGen::lexical_cast<int>(desc.substr(1));
+	
+	return -1;
 }

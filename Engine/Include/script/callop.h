@@ -1,0 +1,39 @@
+/*
+ *  callop.h
+ *  TGen Engine
+ *
+ *  Created by Peter Backman on 7/13/08.
+ *  Copyright 2008 Peter Backman. All rights reserved.
+ *
+ */
+
+#ifndef _TGEN_ENGINE_SCRIPT_CALLOP_H
+#define _TGEN_ENGINE_SCRIPT_CALLOP_H
+
+#include "eventoperation.h"
+
+namespace TGen {
+	namespace Engine {
+		namespace Script {
+			class CallOperation : public TGen::Engine::Script::EventOperation {
+			public:
+				CallOperation();
+				
+				void trigger(TGen::Engine::TriggerContext & context);
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				
+				void setEvent(const std::string & eventName);
+				void setShareContext(bool shareContext);
+				
+			private:
+				std::string eventName;				
+				bool shareContext;
+				TGen::Engine::Triggerable * event;
+			};
+			
+		} // !Script
+	} // !Engine
+} // !TGen
+
+#endif // !_TGEN_ENGINE_SCRIPT_CALLOP_H
+

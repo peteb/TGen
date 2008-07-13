@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_TRIGGERABLE_H
 
 #include <tgen_core.h>
+#include "triggercontext.h"
 
 namespace TGen {
 	namespace Engine {
@@ -18,7 +19,11 @@ namespace TGen {
 		public:	
 			virtual ~Triggerable() {}
 			
-			virtual void trigger(void ** argv, int argc) abstract;
+			virtual void trigger(TGen::Engine::TriggerContext & context) abstract;
+			TGen::Engine::TriggerContext & getDefaultContext() {return context; }
+			
+		private:
+			TGen::Engine::TriggerContext context;
 		};
 		
 	} // !Engine

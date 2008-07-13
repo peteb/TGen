@@ -19,9 +19,9 @@ void TGen::Engine::Script::EventOperation::addOperation(EventOperation * operati
 	operations.push_back(operation);
 }
 
-void TGen::Engine::Script::EventOperation::trigger(void ** argv, int argc) {
+void TGen::Engine::Script::EventOperation::trigger(TGen::Engine::TriggerContext & context) {
 	for (int i = 0; i < operations.size(); ++i)
-		operations[i]->trigger(argv, argc);
+		operations[i]->trigger(context);
 }
 
 void TGen::Engine::Script::EventOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {

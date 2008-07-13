@@ -15,6 +15,8 @@
 namespace TGen {
 	namespace Engine {
 		namespace Script {
+			class FrameOperation;
+			
 			enum CompareType {
 				CompareEquals = 1,
 				CompareLessThan,
@@ -27,16 +29,23 @@ namespace TGen {
 			public:
 				IfOperation();
 				
-				void trigger(void ** argv, int argc);
+				void trigger(TGen::Engine::TriggerContext & context);
 				
-				void setParam(int parameter);
+				void setRegister(int regId);
 				void setType(CompareType type);
 				void setValue(scalar value);
+				void setLoop(bool loop);
+				void setElseBlock(TGen::Engine::Script::FrameOperation * elseBlock);
 				
 			private:
-				int parameter;
+				bool testExpression(TGen::Engine::TriggerContext & context);
+				
+				TGen::Engine::Script::FrameOperation * elseBlock;
+				
+				int regId;
 				CompareType type;
 				scalar value;
+				bool loop;
 			};
 			
 		} // !Script

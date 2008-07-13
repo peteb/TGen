@@ -21,7 +21,7 @@ TGen::Engine::Script::SoundOperation::SoundOperation()
 	
 }
 
-void TGen::Engine::Script::SoundOperation::trigger(void ** argv, int argc) {
+void TGen::Engine::Script::SoundOperation::trigger(TGen::Engine::TriggerContext & context) {
 	if (source && sound) {
 		source->addChannel(sound->spawnChannel(false));
 	}

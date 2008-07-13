@@ -17,15 +17,20 @@ namespace TGen {
 		namespace Script {
 			class MadOperation : public TGen::Engine::Script::EventOperation {
 			public:
-				void trigger(void ** argv, int argc);		
+				void trigger(TGen::Engine::TriggerContext & context);		
 				
 				void setFactor(scalar factor);
 				void setTerm(scalar term);
-				void setParameter(int parameter);
+				void setSource(int regId);
+				void setDest(int regId);
+				
+				void setIntTerm(int term);
+				void setIntMath(bool intMath);
 				
 			private:
 				scalar factor, term;
-				int parameter;
+				int destId, sourceId, intTerm;
+				bool intMath;
 			};
 			
 		} // !Script

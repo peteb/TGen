@@ -28,6 +28,7 @@ namespace TGen {
 				void addItemValue(const std::string & name, int value);
 				TGen::Engine::Inventory::Item * getItem(const std::string & name);
 				void increaseValue(TGen::Engine::Inventory::Item * item, int value);
+				void setValue(TGen::Engine::Inventory::Item * item, int value);
 				
 			private:
 				typedef std::map<std::string, TGen::Engine::Inventory::Item *> ItemMap;

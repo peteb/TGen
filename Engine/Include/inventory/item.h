@@ -16,6 +16,7 @@ namespace TGen {
 			class Item {
 			public:
 				void increaseValue(int value);
+				void setValue(int value);
 				
 				int value, maxValue;
 			};

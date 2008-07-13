@@ -30,6 +30,9 @@
 		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D03CFC360E296F87006D68A7 /* ifop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03CFC350E296F87006D68A7 /* ifop.cpp */; };
+		D03CFE770E2A52F4006D68A7 /* moveop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03CFE760E2A52F4006D68A7 /* moveop.cpp */; };
+		D03CFFAD0E2A61F1006D68A7 /* callop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03CFFAC0E2A61F1006D68A7 /* callop.cpp */; };
+		D03CFFF50E2A6623006D68A7 /* frameop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03CFFF40E2A6623006D68A7 /* frameop.cpp */; };
 		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
 		D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03F1C7B0D7F50FF001166CE /* PreferencesController.m */; };
 		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
@@ -311,6 +314,13 @@
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D03CFC340E296F7E006D68A7 /* ifop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ifop.h; path = ../../Include/script/ifop.h; sourceTree = SOURCE_ROOT; };
 		D03CFC350E296F87006D68A7 /* ifop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ifop.cpp; path = script/ifop.cpp; sourceTree = "<group>"; };
+		D03CFCC40E2A44C0006D68A7 /* triggercontext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = triggercontext.h; path = ../../Include/triggercontext.h; sourceTree = SOURCE_ROOT; };
+		D03CFE750E2A52EA006D68A7 /* moveop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = moveop.h; path = ../../Include/script/moveop.h; sourceTree = SOURCE_ROOT; };
+		D03CFE760E2A52F4006D68A7 /* moveop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = moveop.cpp; path = script/moveop.cpp; sourceTree = "<group>"; };
+		D03CFFAB0E2A61E8006D68A7 /* callop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = callop.h; path = ../../Include/script/callop.h; sourceTree = SOURCE_ROOT; };
+		D03CFFAC0E2A61F1006D68A7 /* callop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = callop.cpp; path = script/callop.cpp; sourceTree = "<group>"; };
+		D03CFFF30E2A661A006D68A7 /* frameop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = frameop.h; path = ../../Include/script/frameop.h; sourceTree = SOURCE_ROOT; };
+		D03CFFF40E2A6623006D68A7 /* frameop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = frameop.cpp; path = script/frameop.cpp; sourceTree = "<group>"; };
 		D03F1C5B0D7F4D22001166CE /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		D03F1C7A0D7F50FF001166CE /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = SOURCE_ROOT; };
 		D03F1C7B0D7F50FF001166CE /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = SOURCE_ROOT; };
@@ -882,6 +892,12 @@
 				D011E5D60E2952FD00A5C86D /* soundop.h */,
 				D03CFC350E296F87006D68A7 /* ifop.cpp */,
 				D03CFC340E296F7E006D68A7 /* ifop.h */,
+				D03CFE760E2A52F4006D68A7 /* moveop.cpp */,
+				D03CFE750E2A52EA006D68A7 /* moveop.h */,
+				D03CFFAC0E2A61F1006D68A7 /* callop.cpp */,
+				D03CFFAB0E2A61E8006D68A7 /* callop.h */,
+				D03CFFF40E2A6623006D68A7 /* frameop.cpp */,
+				D03CFFF30E2A661A006D68A7 /* frameop.h */,
 			);
 			name = operations;
 			sourceTree = "<group>";
@@ -1032,6 +1048,7 @@
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D07BDD1D0E28ECF40070CC83 /* triggerable.h */,
+				D03CFCC40E2A44C0006D68A7 /* triggercontext.h */,
 				D0843BD20D0759D200C31FE3 /* entity */,
 				D074307C0DFEA29C00F9F407 /* inventory */,
 				D0E457D00D90696300F4D548 /* scene */,
@@ -1441,6 +1458,9 @@
 				D07BDF1A0E28FD650070CC83 /* madop.cpp in Sources */,
 				D011E5D80E29530F00A5C86D /* soundop.cpp in Sources */,
 				D03CFC360E296F87006D68A7 /* ifop.cpp in Sources */,
+				D03CFE770E2A52F4006D68A7 /* moveop.cpp in Sources */,
+				D03CFFAD0E2A61F1006D68A7 /* callop.cpp in Sources */,
+				D03CFFF50E2A6623006D68A7 /* frameop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

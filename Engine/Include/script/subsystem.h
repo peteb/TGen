@@ -30,7 +30,9 @@ namespace TGen {
 			private: 
 				TGen::Engine::Script::EventOperation * createOperation(const TGen::PropertyTree & properties);
 				void createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
+				int getRegisterId(const std::string & desc);
 				
+				TGen::Engine::Script::EventOperation * lastCreatedOp;
 				TGen::Engine::StandardLogs & logs;
 			};
 			

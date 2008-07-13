@@ -24,7 +24,7 @@ namespace TGen {
 			public:
 				SoundOperation();
 				
-				void trigger(void ** argv, int argc);
+				void trigger(TGen::Engine::TriggerContext & context);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 				void setSource(const std::string & sourceName);

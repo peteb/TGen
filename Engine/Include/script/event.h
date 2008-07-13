@@ -10,9 +10,10 @@
 #ifndef _TGEN_ENGINE_SCRIPT_EVENT_H
 #define _TGEN_ENGINE_SCRIPT_EVENT_H
 
-#include "../component.h"
-#include "../triggerable.h"
+#include "component.h"
+#include "triggerable.h"
 #include "eventoperation.h"
+#include "triggercontext.h"
 
 namespace TGen {
 	namespace Engine {

@@ -24,17 +24,21 @@ namespace TGen {
 			public:
 				ItemValueOperation();
 				
-				void trigger(void ** argv, int argc);
+				void trigger(TGen::Engine::TriggerContext & context);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 				void setItem(const std::string & item);
-				void setParameter(int para);
+				void setRegister(int regId);
+				void setRelative(bool relative);
+				void setIntOp(bool intOp);
+				void setLoad(bool load);
 				
 			private:
 				std::string itemName;
 				TGen::Engine::Inventory::Item * item;
 				TGen::Engine::Inventory::Inventory * inventory;
-				int parameter;
+				int regId;
+				bool relative, intOp, load;
 			};
 			
 		} // !Script

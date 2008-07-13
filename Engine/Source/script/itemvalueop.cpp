@@ -34,17 +34,47 @@ void TGen::Engine::Script::ItemValueOperation::setItem(const std::string & item)
 	this->itemName = item;
 }
 
-void TGen::Engine::Script::ItemValueOperation::setParameter(int para) {
-	this->parameter = para;
+void TGen::Engine::Script::ItemValueOperation::setRegister(int regId) {
+	this->regId = regId;
 }
 
-void TGen::Engine::Script::ItemValueOperation::trigger(void ** argv, int argc) {
-	scalar value = *reinterpret_cast<scalar *>(argv[parameter]);
-	
+void TGen::Engine::Script::ItemValueOperation::trigger(TGen::Engine::TriggerContext & context) {
 	if (item) {
-		std::cout << "INCREASE WITH " << value << std::endl;
-	
-		inventory->increaseValue(item, value);
+		if (!load) {
+			if (!intOp) {
+				scalar value = *context.getRegister<scalar *>(regId);
+		
+				if (relative)
+					inventory->increaseValue(item, value);
+				else
+					inventory->setValue(item, value);
+			}
+			else {
+				int value = *context.getRegister<int *>(regId);
+			
+				if (relative)
+					inventory->increaseValue(item, value);
+				else
+					inventory->setValue(item, value);		
+			}
+		}
+		else {
+			if (!intOp)
+				*context.getRegister<scalar *>(regId) = item->value;
+			else
+				*context.getRegister<int *>(regId) = item->value;				
+		}
 	}
 }
 
+void TGen::Engine::Script::ItemValueOperation::setLoad(bool load) {
+	this->load = load;
+}
+
+void TGen::Engine::Script::ItemValueOperation::setIntOp(bool intOp) {
+	this->intOp = intOp;
+}
+
+void TGen::Engine::Script::ItemValueOperation::setRelative(bool relative) {
+	this->relative = relative;
+}
