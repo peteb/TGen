@@ -25,6 +25,7 @@ TGen::PropertyTreeTokenizer::PropertyTreeTokenizer() {
 	tokens["{"] = TGen::PropertyTokenBlockStart;
 	tokens["}"] = TGen::PropertyTokenBlockEnd;
 	tokens["\n"] = TGen::PropertyTokenEOL;
+	tokens[";"] = TGen::PropertyTokenNodeEnd;
 }
 
 
@@ -75,6 +76,14 @@ void TGen::PropertyTreeParser::parseBlock(TGen::PropertyTree & node) {
 			step();
 //			std::cout << "leaving block" << std::endl;
 			break;
+		}
+		else if (currentToken->first == PropertyTokenNodeEnd) {
+			TGen::PropertyTree newNode(line.at(0));
+			for (int i = 1; i < line.size(); ++i)
+				newNode.addAttribute(line[i]);
+			
+			line.clear();
+			node.addNode(newNode);			
 		}
 		else if (currentToken->first == TGen::PropertyTokenEOL) {
 			if (!line.empty()) {

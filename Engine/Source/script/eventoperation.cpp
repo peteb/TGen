@@ -8,6 +8,7 @@
  */
 
 #include "eventoperation.h"
+#include "entity.h"
 
 TGen::Engine::Script::EventOperation::~EventOperation() {
 	for (int i = 0; i < operations.size(); ++i)
@@ -25,6 +26,8 @@ void TGen::Engine::Script::EventOperation::trigger(TGen::Engine::TriggerContext 
 }
 
 void TGen::Engine::Script::EventOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+	context = &entity.getContext();
+
 	for (int i = 0; i < operations.size(); ++i)
 		operations[i]->linkGlobally(entities, entity);
 }

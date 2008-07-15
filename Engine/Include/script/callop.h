@@ -23,12 +23,15 @@ namespace TGen {
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 				void setEvent(const std::string & eventName);
+				void setEvent(int regId);
 				void setShareContext(bool shareContext);
+				void setOffset(int offset);
 				
 			private:
 				std::string eventName;				
 				bool shareContext;
 				TGen::Engine::Triggerable * event;
+				int registerId, offset;
 			};
 			
 		} // !Script

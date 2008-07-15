@@ -13,6 +13,7 @@
 #include "component.h"
 #include <ode/ode.h>
 #include <tgen_core.h>
+#include "triggerable.h"
 
 namespace TGen {
 	class Vector3;
@@ -25,10 +26,12 @@ namespace TGen {
 		namespace Physics {
 			class Body;
 			
-			class Geom : public TGen::Engine::Component {
+			class Geom : public TGen::Engine::Component, public TGen::Engine::Triggerable {
 			public:
 				Geom(const std::string & name);
 				virtual ~Geom();
+				
+				virtual void trigger(TGen::Engine::TriggerContext & context);
 				
 				float getFriction() const;
 				void setFriction(float friction);

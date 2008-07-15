@@ -20,9 +20,12 @@ namespace TGen {
 		namespace Script {
 			class Event : public TGen::Engine::Component, public TGen::Engine::Script::EventOperation {
 			public:
-				Event(const std::string & name);
+				Event(const std::string & name, int symbolId);
 				
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				
+			private:
+				int symbolId;
 			};
 			
 		} // !Script

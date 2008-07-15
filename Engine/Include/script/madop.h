@@ -21,15 +21,19 @@ namespace TGen {
 				
 				void setFactor(scalar factor);
 				void setTerm(scalar term);
+				void setTermRegister(int regId);
+				void setFactorRegister(int regId);
 				void setSource(int regId);
 				void setDest(int regId);
 				
 				void setIntTerm(int term);
+				void setIntFactor(int factor);
+
 				void setIntMath(bool intMath);
 				
 			private:
 				scalar factor, term;
-				int destId, sourceId, intTerm;
+				int destId, sourceId, intTerm, intFactor, termRegister, factorRegister;
 				bool intMath;
 			};
 			

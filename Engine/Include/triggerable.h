@@ -15,15 +15,15 @@
 
 namespace TGen {
 	namespace Engine {
+		class TriggerContext;
+		
 		class Triggerable {
 		public:	
+			Triggerable() : context(NULL) {}
 			virtual ~Triggerable() {}
 			
 			virtual void trigger(TGen::Engine::TriggerContext & context) abstract;
-			TGen::Engine::TriggerContext & getDefaultContext() {return context; }
-			
-		private:
-			TGen::Engine::TriggerContext context;
+			TGen::Engine::TriggerContext * context;
 		};
 		
 	} // !Engine

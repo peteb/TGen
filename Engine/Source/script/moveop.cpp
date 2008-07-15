@@ -10,29 +10,35 @@
 #include "script/moveop.h"
 
 void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext & context) {
+	int destRegId = destId;
+	
+	if (derefDest) {
+		destRegId = *context.getRegister<int *>(destRegId);
+	}
+	
 	if (intOp) {
 		if (imm) {
-			*context.getRegister<int *>(destId) = sourceImmInt;
+			*context.getRegister<int *>(destRegId) = sourceImmInt;
 		}
 		else {
 			if (useSwap) {
-				std::swap(*context.getRegister<int *>(destId), *context.getRegister<int *>(sourceId));
+				std::swap(*context.getRegister<int *>(destRegId), *context.getRegister<int *>(sourceId));
 			}
 			else {
-				*context.getRegister<int *>(destId) = *context.getRegister<int *>(sourceId);
+				*context.getRegister<int *>(destRegId) = *context.getRegister<int *>(sourceId);
 			}
 		}
 	}
 	else {
 		if (imm) {
-			*context.getRegister<scalar *>(destId) = sourceImm;
+			*context.getRegister<scalar *>(destRegId) = sourceImm;
 		}
 		else {
 			if (useSwap) {
-				std::swap(*context.getRegister<scalar *>(destId), *context.getRegister<scalar *>(sourceId));
+				std::swap(*context.getRegister<scalar *>(destRegId), *context.getRegister<scalar *>(sourceId));
 			}
 			else {
-				*context.getRegister<scalar *>(destId) = *context.getRegister<scalar *>(sourceId);
+				*context.getRegister<scalar *>(destRegId) = *context.getRegister<scalar *>(sourceId);
 			}
 		}		
 	}
@@ -61,5 +67,9 @@ void TGen::Engine::Script::MoveOperation::setSourceImm(int sourceImm) {
 
 void TGen::Engine::Script::MoveOperation::setSwap(bool useSwap) {
 	this->useSwap = useSwap;
+}
+
+void TGen::Engine::Script::MoveOperation::setDerefDest(bool derefDest) {
+	this->derefDest = derefDest;
 }
 

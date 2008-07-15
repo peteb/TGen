@@ -11,6 +11,7 @@
 #include "scene/node.h"
 #include "entity.h"
 #include <tgen_renderer.h>
+#include "script/subsystem.h"
 
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
@@ -22,8 +23,11 @@ TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWor
 	, fakeGrav(-4.0f)
 	, worldId(worldId)
 	, spaceId(spaceId)
+	, doUpdateFromScene(true)
 {
-
+	symbolSetUpdateFromScene = TGen::Engine::Script::Subsystem::symbols["setUpdateFromScene"];
+	symbolSetMaxAngularSpeed = TGen::Engine::Script::Subsystem::symbols["setMaxAngularSpeed"];
+	symbolSetKillTorque = TGen::Engine::Script::Subsystem::symbols["setKillTorque"];
 }
 
 
@@ -51,6 +55,32 @@ void TGen::Engine::Physics::Body::preStep() {
 
 void TGen::Engine::Physics::Body::postStep() {
 	updateScene();	
+}
+
+
+void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context) {
+	int symbolNum = *context.getRegister<int *>(0);
+	
+	if (symbolNum == symbolSetUpdateFromScene) {
+		int updateFromScene = *context.getRegister<int *>(2);
+		this->doUpdateFromScene = updateFromScene;
+	}
+	else if (symbolNum == symbolSetMaxAngularSpeed) {
+		scalar maxAngularSpeed = *context.getRegister<scalar *>(2);
+		
+		if (maxAngularSpeed < 0.0)
+			setMaxAngularSpeed(dInfinity);
+		else
+			setMaxAngularSpeed(maxAngularSpeed);
+	}
+	else if (symbolNum == symbolSetKillTorque) {
+		int killTorque = *context.getRegister<int *>(2);
+		
+		setKillTorque(killTorque);
+	}
+	else {
+		std::cout << "NO METHOD" << std::endl;
+	}
 }
 
 
@@ -88,8 +118,8 @@ dBodyID TGen::Engine::Physics::Body::getBodyId() const {
 }
 
 
-void TGen::Engine::Physics::Body::updateFromScene() {
-	if (linkedTo) {
+void TGen::Engine::Physics::Body::updateFromScene() {	
+	if (linkedTo && doUpdateFromScene) {
 		setPosition(linkedTo->getPosition());
 		setOrientation(linkedTo->getOrientation());
 	}	

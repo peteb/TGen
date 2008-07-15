@@ -201,9 +201,10 @@ void TGen::Engine::Physics::Geom::onCollisionForce(scalar force) {
 		force = std::max(force, 0.0f);
 		
 		if (force > 0.00001) {
-			TGen::Engine::TriggerContext & context = linkCollisionForce->getDefaultContext();
-			context.setRegister(0, force);
-			linkCollisionForce->trigger(context);
+			TGen::Engine::TriggerContext * context = linkCollisionForce->context;
+			assert(context);
+			context->setRegister(0, force);
+			linkCollisionForce->trigger(*context);
 		}
 	}
 }
@@ -217,3 +218,6 @@ void TGen::Engine::Physics::Geom::setLinkCollisionForce(const std::string & name
 	collisionForceName = name;
 }
 
+void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context) {
+
+}

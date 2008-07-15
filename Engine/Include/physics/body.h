@@ -12,6 +12,7 @@
 
 #include "component.h"
 #include "componentinterfaces.h"
+#include "triggerable.h"
 
 #include <tgen_math.h>
 #include <ode/ode.h>
@@ -32,7 +33,7 @@ namespace TGen {
 		namespace Physics {
 			class Subsystem;
 		
-			class Body : public TGen::Engine::Component, public TGen::Engine::WorldObject {
+			class Body : public TGen::Engine::Component, public TGen::Engine::WorldObject, public TGen::Engine::Triggerable {
 			public:
 				Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId);
 				~Body();
@@ -41,6 +42,8 @@ namespace TGen {
 				void postStep();
 				void linkLocally(TGen::Engine::Entity & entity);
 				dBodyID getBodyId() const;
+				
+				void trigger(TGen::Engine::TriggerContext & context);
 				
 				void setPosition(const TGen::Vector3 & position);
 				TGen::Vector3 getPosition() const;
@@ -90,8 +93,12 @@ namespace TGen {
 				TGen::Vector3 groundNormal;
 				TGen::Engine::WorldObject * linkedTo;
 				bool turnHeadwise, killTorque;
-				bool onFloor;
+				bool onFloor, doUpdateFromScene;
 				scalar slope, fakeGrav;
+				
+				
+				// symbols
+				int symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, symbolSetKillTorque;
 			};
 		} // !Physics
 	} // !Engine

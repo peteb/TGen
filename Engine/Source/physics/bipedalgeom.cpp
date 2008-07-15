@@ -13,13 +13,19 @@
 #include <iostream>
 #include <tgen_math.h>
 
+#include "script/subsystem.h"
+
 TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpaceID space, scalar capRadius, scalar length)
 	: TGen::Engine::Physics::Geom(name)
 	, capRadius(capRadius)
 	, length(length)
+	, sloppy(false)
 {
 	dGeomID newGeom = dCreateCCylinder(space, capRadius, length);
 	setGeomId(newGeom);
+	
+	makeSloppySymbol = TGen::Engine::Script::Subsystem::symbols["setSloppy"];
+	
 	//raylegs = dCreateRay(space, 1.0);
 
 	//dGeomRaySetLength(raylegs, 3.0);
@@ -29,13 +35,15 @@ TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpace
 
 void TGen::Engine::Physics::BipedalGeom::preStep() {
 	//TGen::Engine::Physics::Geom::preStep();
-	TGen::Engine::Physics::Geom::preStep();
+	if (!sloppy) {
+		TGen::Engine::Physics::Geom::preStep();
 	
 
-	setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
-											TGen::Vector3(0.0f, 0.0f, -1.0f),
-											TGen::Vector3(0.0f, 1.0f, 0.0f)));
-
+		setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
+												TGen::Vector3(0.0f, 0.0f, -1.0f),
+												TGen::Vector3(0.0f, 1.0f, 0.0f)));
+	}
+	
 	/*const dReal * linearVel = dBodyGetLinearVel(attachedTo->getBodyId());
 	TGen::Vector3 offset(linearVel[0], 0.0, linearVel[2]);
 	if (offset.getMagnitude() > 1.0)
@@ -46,7 +54,8 @@ void TGen::Engine::Physics::BipedalGeom::preStep() {
 }
 
 void TGen::Engine::Physics::BipedalGeom::postStep() {
-	TGen::Engine::Physics::Geom::postStep();
+	if (!sloppy)
+		TGen::Engine::Physics::Geom::postStep();
 	/*setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
 											TGen::Vector3(0.0f, 0.0f, -1.0f),
 											TGen::Vector3(0.0f, 1.0f, 0.0f)));
@@ -60,7 +69,8 @@ void TGen::Engine::Physics::BipedalGeom::postStep() {
 }
 
 void TGen::Engine::Physics::BipedalGeom::linkLocally(TGen::Engine::Entity & entity) {
-	TGen::Engine::Physics::Geom::linkLocally(entity);
+	if (!sloppy)
+		TGen::Engine::Physics::Geom::linkLocally(entity);
 	
 	//TGen::Engine::Physics::Body * attachTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
 	//dGeomSetBody(raylegs, attachTo->getBodyId());
@@ -82,3 +92,17 @@ bool TGen::Engine::Physics::BipedalGeom::onCollision(TGen::Engine::Physics::Geom
 	
 	return true;
 }
+
+void TGen::Engine::Physics::BipedalGeom::trigger(TGen::Engine::TriggerContext & context) {
+	int symbolNum = *context.getRegister<int *>(0);
+	
+	if (symbolNum == makeSloppySymbol) {
+		int isSloppy = *context.getRegister<int *>(2);
+		sloppy = isSloppy;
+	}
+	else {
+		TGen::Engine::Physics::Geom::trigger(context);
+	}
+	
+}
+

@@ -18,6 +18,7 @@ namespace TGen {
 		PropertyTokenBlockStart = 20,
 		PropertyTokenBlockEnd = 21,
 		PropertyTokenEOL = 22,
+		PropertyTokenNodeEnd = 23,
 	};
 	
 	class PropertyTreeParser {

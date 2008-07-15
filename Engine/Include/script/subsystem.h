@@ -18,6 +18,7 @@ namespace TGen {
 		
 		namespace Script {	
 			class EventOperation;
+			class MoveOperation;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
@@ -27,9 +28,13 @@ namespace TGen {
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				
+				static TGen::SymbolTable symbols;
+				
 			private: 
-				TGen::Engine::Script::EventOperation * createOperation(const TGen::PropertyTree & properties);
+				void createOperation(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
 				void createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
+				TGen::Engine::Script::MoveOperation * createMovOperation(const std::string & type, const std::string & source, const std::string & dest);
+				
 				int getRegisterId(const std::string & desc);
 				
 				TGen::Engine::Script::EventOperation * lastCreatedOp;

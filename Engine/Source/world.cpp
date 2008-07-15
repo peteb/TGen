@@ -50,6 +50,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("weapon", &inventorySubsystem);
 	
 	entityFactory.registerSubsystem("event", &scriptSubsystem);
+	entityFactory.registerSubsystem("-event", &scriptSubsystem);
 
 	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.

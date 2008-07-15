@@ -25,9 +25,15 @@ namespace TGen {
 				void linkLocally(TGen::Engine::Entity & entity);
 				bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
 				
+				void trigger(TGen::Engine::TriggerContext & context);
+				
 			private:
 				scalar capRadius, length;
 				dGeomID raylegs;
+				bool sloppy;
+				
+				// symbols
+				int makeSloppySymbol;
 			};
 		} // !Physics
 	} // !Engine

@@ -11,21 +11,37 @@
 
 void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & context) {
 	if (!intMath) {
-		if (sourceId == destId) {
+		scalar fixedFactor = factor;
+		scalar fixedTerm = term;
+
+		if (factorRegister != -1)
+			fixedFactor = *context.getRegister<scalar *>(factorRegister);
+		if (termRegister != -1)
+			fixedTerm = *context.getRegister<scalar *>(termRegister);
+		
+		if (sourceId == destId) {			
 			scalar * value = context.getRegister<scalar *>(sourceId);
-			*value = *value * factor + term;
+			*value = *value * fixedFactor + fixedTerm;
 		}
 		else {
-			context.setRegister(destId, *context.getRegister<scalar *>(sourceId) * factor + term);
+			context.setRegister(destId, *context.getRegister<scalar *>(sourceId) * fixedFactor + fixedTerm);
 		}
 	}
 	else {
+		int fixedFactor = intFactor;
+		int fixedTerm = intTerm;
+		
+		if (factorRegister != -1)
+			fixedFactor = *context.getRegister<int *>(factorRegister);
+		if (termRegister != -1)
+			fixedTerm = *context.getRegister<int *>(termRegister);
+		
 		if (sourceId == destId) {
 			int * value = context.getRegister<int *>(sourceId);
-			*value += intTerm;
+			*value = *value * fixedFactor + fixedTerm;
 		}
 		else {
-			context.setRegister(destId, *context.getRegister<int *>(sourceId) + intTerm);
+			context.setRegister(destId, *context.getRegister<int *>(sourceId) * fixedFactor + fixedTerm);
 		}
 	}
 	
@@ -52,6 +68,19 @@ void TGen::Engine::Script::MadOperation::setIntTerm(int term) {
 	this->intTerm = term;
 }
 
+void TGen::Engine::Script::MadOperation::setIntFactor(int factor) {
+	this->intFactor = factor;
+}
+
 void TGen::Engine::Script::MadOperation::setIntMath(bool intMath) {
 	this->intMath = intMath;
 }
+
+void TGen::Engine::Script::MadOperation::setTermRegister(int regId) {
+	this->termRegister = regId;
+}
+
+void TGen::Engine::Script::MadOperation::setFactorRegister(int regId) {
+	this->factorRegister = regId;
+}
+

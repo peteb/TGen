@@ -24,12 +24,13 @@ namespace TGen {
 				void setSourceImm(scalar sourceImm);
 				void setSourceImm(int sourceImm);
 				void setSwap(bool useSwap);
+				void setDerefDest(bool derefDest);
 				
 			private:
 				int sourceId, destId;
 				scalar sourceImm;
 				int sourceImmInt;
-				bool intOp, useSwap, imm;
+				bool intOp, useSwap, imm, derefDest;
 			};
 		} // !Script
 	} // !Engine
