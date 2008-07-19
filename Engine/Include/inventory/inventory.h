@@ -12,6 +12,7 @@
 
 #include "component.h"
 #include "item.h"
+#include "triggerable.h"
 
 namespace TGen {
 	namespace Engine {
@@ -23,6 +24,8 @@ namespace TGen {
 				Inventory(const std::string & name);
 				~Inventory();
 				
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
+				
 				void addItem(const std::string & name, TGen::Engine::Inventory::Item * item);
 				int getItemValue(const std::string & name);
 				void addItemValue(const std::string & name, int value);
@@ -32,8 +35,12 @@ namespace TGen {
 				
 			private:
 				typedef std::map<std::string, TGen::Engine::Inventory::Item *> ItemMap;
+				typedef std::map<int, TGen::Engine::Inventory::Item *> ItemSymbolMap;
 				
 				ItemMap items;
+				ItemSymbolMap itemSymbols;
+				
+				int setItemValueSymbol, getItemValueSymbol;
 			};
 		} // !Inventory
 	} // !Engine

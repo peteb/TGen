@@ -123,14 +123,25 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 	}
 	else if (type == "if" || type == "while") {
 		TGen::Engine::Script::IfOperation * newOp = new TGen::Engine::Script::IfOperation;
+		std::string compare;
+		
 		newOp->setRegister(getRegisterId(properties.getAttribute(0)));
-		newOp->setValue(TGen::lexical_cast<scalar>(properties.getAttribute(2)));
+		
+		if (properties.getNumAttributes() > 1) {
+			newOp->setValue(TGen::lexical_cast<scalar>(properties.getAttribute(2)));
+			compare = properties.getAttribute(1);
+		}
+		else {
+			newOp->setValue(0);
+			compare = "!=";
+		}
 		
 		TGen::Engine::Script::CompareType compareType;
-		const std::string & compare = properties.getAttribute(1);
-		
+
 		if (compare == "==")
 			compareType = TGen::Engine::Script::CompareEquals;
+		else if (compare == "!=")
+			compareType = TGen::Engine::Script::CompareNotEquals;
 		else if (compare == ">")
 			compareType = TGen::Engine::Script::CompareGreaterThan;
 		else if (compare == "<")
@@ -172,12 +183,15 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 			ret = createMovOperation(type, properties.getAttribute(0), properties.getAttribute(1));
 		}
 	}
-	else if (type == "call" || type == "callns" || (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "call" || properties.getAttribute(1) == "callns")) {
+	else if (type[0] == '[' || (properties.getNumAttributes() > 2 && properties.getAttribute(1)[0] == '[')) {
 		bool retValue = (properties.getNumAttributes() > 2 && properties.getAttribute(0) == "=");
 		int attributeOffset = 0;
 		
+		std::string object, method;
+		int paramStart = 0;
+		
 		if (retValue) {
-			attributeOffset = 2;
+			paramStart = 2;
 			
 			int regNum = getRegisterId(properties.getName());
 			if (regNum == -1)
@@ -185,14 +199,30 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 			
 			TGen::Engine::Script::EventOperation * retMov = createMovOperation("imov", TGen::lexical_cast<std::string>(regNum), "r1");
 			container.addOperation(retMov);
+			
+			object = properties.getAttribute(1);
+			method = properties.getAttribute(2);
+		}
+		else {
+			object = properties.getName();
+			method = properties.getAttribute(0);
 		}
 		
 		TGen::Engine::Script::CallOperation * newOp = new TGen::Engine::Script::CallOperation;
 		
-		
-		
+				
 		std::string objectPart, methodPart;
-		int pointPos = properties.getAttribute(attributeOffset).find(".");
+		
+		if ((object.find(":") != std::string::npos) || (object.find("]") != std::string::npos)) {
+			methodPart = object.substr(1, object.size() - 2);
+		}
+		else {
+			objectPart = object.substr(1);
+			methodPart = method.substr(0, method.size() - 1);
+						
+		}
+		
+		/*int pointPos = properties.getAttribute(attributeOffset).find(".");
 		
 		if (pointPos != std::string::npos) {
 			objectPart = properties.getAttribute(attributeOffset).substr(0, pointPos);
@@ -200,7 +230,9 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		}
 		else {
 			objectPart = properties.getAttribute(attributeOffset);
-		}
+		}*/
+		
+		std::cout << "OBJECT: " << objectPart << " METHOD: " << methodPart << std::endl;
 		
 		if (objectPart[0] == 'r') {
 			newOp->setEvent(getRegisterId(objectPart));
@@ -208,6 +240,14 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		else if (objectPart == "self") {
 			newOp->setEvent(TGen::Engine::RegisterSelf);
 		}
+		else if (objectPart == "?") {
+			newOp->setEvent(TGen::Engine::RegisterSelf);
+			newOp->setTriggerMode(TGen::Engine::TriggerFirst);
+		}
+		else if (objectPart == "*") {
+			newOp->setEvent(TGen::Engine::RegisterSelf);
+			newOp->setTriggerMode(TGen::Engine::TriggerAll);
+		}		
 		else {
 			newOp->setEvent(objectPart);
 		}
@@ -215,16 +255,20 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		if (!methodPart.empty())
 			newOp->setOffset(symbols[methodPart]);
 		
-		newOp->setShareContext(type == "call");
+		newOp->setShareContext(true); //type == "call");
 		
 		
-		if (properties.getNumAttributes() > 1 + attributeOffset) {	// we've got parameters
-			for (int i = 1 + attributeOffset; i < properties.getNumAttributes(); ++i) {
-				std::cout << properties.getAttribute(i) << std::endl;
-				std::string dest;
-				dest = "r" + TGen::lexical_cast<std::string>(i + 1 - attributeOffset);
+		if (properties.getNumAttributes() > 1 + paramStart) {	// we've got parameters
+			for (int i = 1 + paramStart; i < properties.getNumAttributes(); ++i) {
+				std::string attribute = properties.getAttribute(i);
 				
-				TGen::Engine::Script::EventOperation * paramMov = createMovOperation("mov", properties.getAttribute(i), dest);
+				if (attribute[attribute.size() - 1] == ']')
+					attribute = attribute.substr(0, attribute.size() -1 );
+				
+				std::string dest;
+				dest = "r" + TGen::lexical_cast<std::string>(i + 1 - paramStart);
+				
+				TGen::Engine::Script::EventOperation * paramMov = createMovOperation("mov", attribute, dest);
 				if (!paramMov)
 					throw TGen::RuntimeException("Script::Subsystem::createOperation", "failed to create mov for parameter");
 				
@@ -263,17 +307,22 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::Subsystem::createMov
 		newOp->setSource(sourceId);
 	}
 	else {
-		if (source[0] == '$') {
+/*		if (source[0] == '$') {
 			newOp->setSourceImm(symbols[source.substr(1)]);
-		}
-		else if (source == "self") {
+		}*/
+		if (source == "self") {
 			newOp->setSource(TGen::Engine::RegisterSelf);
 		}
 		else {
-			if (intOp)
-				newOp->setSourceImm(TGen::lexical_cast<int>(source));
-			else
-				newOp->setSourceImm(TGen::lexical_cast<scalar>(source));
+			try {
+				if (intOp)
+					newOp->setSourceImm(TGen::lexical_cast<int>(source));
+				else
+					newOp->setSourceImm(TGen::lexical_cast<scalar>(source));
+			}
+			catch (const std::bad_cast & e) {
+				newOp->setSourceImm(symbols[source]);
+			}
 		}
 	}
 	

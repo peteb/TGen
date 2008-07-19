@@ -9,7 +9,7 @@
 
 #include "script/moveop.h"
 
-void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	int destRegId = destId;
 	
 	if (derefDest) {

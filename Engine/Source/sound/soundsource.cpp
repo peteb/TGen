@@ -46,7 +46,7 @@ TGen::Engine::Sound::Channel * TGen::Engine::Sound::Source::spawnChannel(bool pa
 		throw TGen::RuntimeException("Sound::Source", "no sound linked for " + filename);
 	
 	TGen::Engine::Sound::Channel * ret = linkedSound->spawnChannel(paused);
-
+	
 	channels.push_back(ret);
 	
 	return ret;

@@ -23,6 +23,7 @@ namespace TGen {
 				Event(const std::string & name, int symbolId);
 				
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 			private:
 				int symbolId;

@@ -9,11 +9,16 @@
 
 #include <tgen_core.h>
 #include "inventory/inventory.h"
+#include "script/subsystem.h"
 
 TGen::Engine::Inventory::Inventory::Inventory(const std::string & name)
 	: TGen::Engine::Component(name)
+	, setItemValueSymbol(-1)
+	, getItemValueSymbol(-1)
 {
 
+	setItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["setItemValue"];
+	getItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["getItemValue"];
 }
 
 TGen::Engine::Inventory::Inventory::~Inventory() {
@@ -25,6 +30,7 @@ void TGen::Engine::Inventory::Inventory::addItem(const std::string & name, TGen:
 	if (items.find(name) != items.end())
 		throw TGen::RuntimeException("Inventory::addItem", "item '" + name + "' already defined");
 	
+	itemSymbols.insert(std::make_pair(TGen::Engine::Script::Subsystem::symbols[name], item));
 	items.insert(std::make_pair(name, item));
 }
 
@@ -73,3 +79,36 @@ void TGen::Engine::Inventory::Inventory::setValue(TGen::Engine::Inventory::Item 
 	
 	std::cout << "PRE: " << preValue << " POST: " << postValue << std::endl;	
 }
+
+void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
+	int symbolNum = context.getFunctionSymbol();
+	
+	// component.getOwner, if (owner == this || owner == null) delete;
+	// prototype med script skapar eventsen i den prototypen, men sätter owner till this. owner default är NULL
+	// initialize körs INTE på prototyp
+	/*
+		En LinkRef-klass borde finnas, templateas. LinkRef<PhysGeom> linkRef; linkRef.setTarget("string"); linkRef.setTarget(1);
+		
+	 */
+	
+	if (symbolNum == setItemValueSymbol) {
+		int itemSymbol = *context.getRegister<int *>(2);
+		int itemValue = *context.getRegister<scalar *>(3);
+		
+		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
+		if (iter != itemSymbols.end())
+			iter->second->setValue(itemValue);
+		else
+			context.setRegister<int>(0, -1);
+	}
+	else if (symbolNum == getItemValueSymbol) {
+		int itemSymbol = *context.getRegister<int *>(2);
+		
+		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
+		if (iter != itemSymbols.end())
+			context.setRegister<int>(context.getReturnRegister(), iter->second->value);
+		else
+			context.setRegister<int>(0, -1);
+	}
+}
+

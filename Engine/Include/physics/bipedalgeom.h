@@ -25,7 +25,7 @@ namespace TGen {
 				void linkLocally(TGen::Engine::Entity & entity);
 				bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
 				
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				
 			private:
 				scalar capRadius, length;

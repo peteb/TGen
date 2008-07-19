@@ -16,19 +16,19 @@ TGen::Engine::Script::IfOperation::IfOperation()
 	
 }
 
-void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	if (!loop) {
 		bool passed = testExpression(context);
 		
 		if (passed)
-			TGen::Engine::Script::EventOperation::trigger(context);
+			TGen::Engine::Script::EventOperation::trigger(context, mode);
 
 		if (elseBlock)
 			elseBlock->setExecute(!passed);
 	}
 	else {
 		while (testExpression(context))
-			TGen::Engine::Script::EventOperation::trigger(context);
+			TGen::Engine::Script::EventOperation::trigger(context, mode);
 	}
 	
 }
@@ -41,6 +41,10 @@ bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerCont
 	switch (type) {
 		case CompareEquals:
 			passed = (paramValue == value);
+			break;
+			
+		case CompareNotEquals:
+			passed = (paramValue != value);
 			break;
 			
 		case CompareLessThan:

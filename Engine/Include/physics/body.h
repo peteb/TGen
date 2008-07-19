@@ -33,7 +33,7 @@ namespace TGen {
 		namespace Physics {
 			class Subsystem;
 		
-			class Body : public TGen::Engine::Component, public TGen::Engine::WorldObject, public TGen::Engine::Triggerable {
+			class Body : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 			public:
 				Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId);
 				~Body();
@@ -43,7 +43,7 @@ namespace TGen {
 				void linkLocally(TGen::Engine::Entity & entity);
 				dBodyID getBodyId() const;
 				
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				
 				void setPosition(const TGen::Vector3 & position);
 				TGen::Vector3 getPosition() const;

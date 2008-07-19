@@ -76,6 +76,7 @@
 		D07BDF1A0E28FD650070CC83 /* madop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07BDF190E28FD650070CC83 /* madop.cpp */; };
 		D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */; };
 		D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */; };
+		D08140800E300F0F0024534F /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D081407F0E300F0F0024534F /* component.cpp */; };
 		D08212E00CF33144000EFA7E /* renderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08212DF0CF33144000EFA7E /* renderervars.cpp */; };
 		D083958E0CD927EA00C94467 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D083958D0CD927EA00C94467 /* renderer.cpp */; };
 		D0843B6F0D0759D200C31FE3 /* memmanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0843B6E0D0759D200C31FE3 /* memmanager.cpp */; };
@@ -397,6 +398,7 @@
 		D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapmodel.cpp; sourceTree = "<group>"; };
 		D080DA840D27EC9300EEFDFC /* mapsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapsurface.h; path = ../../Include/mapsurface.h; sourceTree = SOURCE_ROOT; };
 		D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapsurface.cpp; sourceTree = "<group>"; };
+		D081407F0E300F0F0024534F /* component.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = component.cpp; sourceTree = "<group>"; };
 		D08212DF0CF33144000EFA7E /* renderervars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderervars.cpp; path = renderer/deferred/renderervars.cpp; sourceTree = "<group>"; };
 		D08212E10CF33155000EFA7E /* renderervars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderervars.h; path = ../../Include/renderer/deferred/renderervars.h; sourceTree = SOURCE_ROOT; };
 		D083958B0CD927E100C94467 /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderer.h; path = ../../Include/renderer/deferred/renderer.h; sourceTree = SOURCE_ROOT; };
@@ -1044,6 +1046,7 @@
 			isa = PBXGroup;
 			children = (
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
+				D081407F0E300F0F0024534F /* component.cpp */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
@@ -1461,6 +1464,7 @@
 				D03CFE770E2A52F4006D68A7 /* moveop.cpp in Sources */,
 				D03CFFAD0E2A61F1006D68A7 /* callop.cpp in Sources */,
 				D03CFFF50E2A6623006D68A7 /* frameop.cpp in Sources */,
+				D08140800E300F0F0024534F /* component.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

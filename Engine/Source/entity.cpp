@@ -15,11 +15,13 @@
 TGen::Engine::Entity::Entity(const std::string & name)
 	: name(name)
 	, getComponentSymbol(-1)
+	, respondsToSymbol(-1)
 	, initializer(NULL)
 	, dispatcher(NULL)
 {
 	context.setRegister(TGen::Engine::RegisterSelf, this);
 	getComponentSymbol = TGen::Engine::Script::Subsystem::symbols["getComponent"];
+	respondsToSymbol = TGen::Engine::Script::Subsystem::symbols["respondsTo"];
 }
 
 
@@ -40,11 +42,11 @@ void TGen::Engine::Entity::linkGlobally(TGen::Engine::EntityList & entities) {
 		iter->second->linkGlobally(entities, *this);
 	
 	if (initializer)
-		initializer->trigger(context);
+		initializer->trigger(context, TGen::Engine::TriggerPrecise);
 }
 
 
-void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	int symbolId = context.getFunctionSymbol();
 	
 	if (symbolId == -1)
@@ -53,27 +55,45 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context) {
 	if (symbolId == getComponentSymbol) {
 		triggerGetComponent(context);
 	}
-	else {		
-		EventMap::iterator iter = events.find(symbolId);
-		if (iter == events.end()) {
-			if (dispatcher) {
-				dispatcher->trigger(context);
-				
-				if (context.getFunctionSymbol() != -1) {
-					iter = events.find(symbolId);
+	else if (symbolId == respondsToSymbol) {
+		triggerRespondsTo(context);
+	}
+	else {
+		if (mode == TGen::Engine::TriggerPrecise) {
+			EventMap::iterator iter = events.find(symbolId);
+			if (iter == events.end()) {
+				if (dispatcher) {
+					dispatcher->trigger(context, mode);
 					
-					if (iter == events.end())
-						throw TGen::RuntimeException("Entity::trigger", "Dispatch failure; unknown symbol.");	
-					else	
-						iter->second->trigger(context);
+					if (context.getFunctionSymbol() != -1) {
+						iter = events.find(symbolId);
+						
+						if (iter == events.end())
+							throw TGen::RuntimeException("Entity::trigger", "Dispatch failure; unknown symbol.");	
+						else	
+							iter->second->trigger(context, mode);
+					}
+				}
+				else {
+					throw TGen::RuntimeException("Entity::trigger", "Method not found.");	
 				}
 			}
-			else {
-				throw TGen::RuntimeException("Entity::trigger", "Method not found.");	
+			else {	
+				iter->second->trigger(context, mode);
 			}
 		}
-		else {	
-			iter->second->trigger(context);
+		else if (mode == TGen::Engine::TriggerFirst || mode == TGen::Engine::TriggerAll) {
+			for (int i = 0; i < components.size(); ++i) {
+				components[i]->trigger(context, mode);
+				
+				if (context.getFunctionSymbol() != -1) {
+					if (mode == TGen::Engine::TriggerFirst)
+						break;
+				}
+				else {
+					*context.getRegister<int *>(0) = symbolId;		// reset r0 to the correct symbol
+				}
+			}
 		}
 	}
 }
@@ -81,13 +101,25 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context) {
 
 void TGen::Engine::Entity::triggerGetComponent(TGen::Engine::TriggerContext & context) {
 	int componentSymbol = *context.getRegister<int *>(2);
+	int returnReg = context.getReturnRegister();
 	
 	ComponentSymbolMap::iterator iter = componentSymbols.find(componentSymbol);
-	if (iter == componentSymbols.end())
-		throw TGen::RuntimeException("Entity::triggerGetComponent", "component not found");
+	if (iter == componentSymbols.end()) {
+		context.setRegister<TGen::Engine::Triggerable *>(returnReg, NULL);		
+		return;
+	}
 	
-	int returnReg = context.getReturnRegister();
+	//	throw TGen::RuntimeException("Entity::triggerGetComponent", "component not found");
+	
 	context.setRegister<TGen::Engine::Triggerable *>(returnReg, dynamic_cast<TGen::Engine::Triggerable *>(iter->second));
+}
+
+void TGen::Engine::Entity::triggerRespondsTo(TGen::Engine::TriggerContext & context) {
+	int selector = *context.getRegister<int *>(2);
+	int returnReg = context.getReturnRegister();
+	
+	EventMap::iterator iter = events.find(selector);
+	context.setRegister<int>(returnReg, (iter == events.end()));
 }
 
 

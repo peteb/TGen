@@ -19,15 +19,17 @@ namespace TGen {
 			public:
 				CallOperation();
 				
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 				void setEvent(const std::string & eventName);
 				void setEvent(int regId);
 				void setShareContext(bool shareContext);
 				void setOffset(int offset);
+				void setTriggerMode(TGen::Engine::TriggerMode triggerMode);
 				
 			private:
+				TGen::Engine::TriggerMode triggerMode;
 				std::string eventName;				
 				bool shareContext;
 				TGen::Engine::Triggerable * event;

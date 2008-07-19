@@ -19,6 +19,7 @@ namespace TGen {
 			
 			enum CompareType {
 				CompareEquals = 1,
+				CompareNotEquals,
 				CompareLessThan,
 				CompareLessThanOrEqual,
 				CompareGreaterThan,
@@ -29,7 +30,7 @@ namespace TGen {
 			public:
 				IfOperation();
 				
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setRegister(int regId);
 				void setType(CompareType type);

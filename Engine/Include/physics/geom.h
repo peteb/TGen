@@ -26,12 +26,12 @@ namespace TGen {
 		namespace Physics {
 			class Body;
 			
-			class Geom : public TGen::Engine::Component, public TGen::Engine::Triggerable {
+			class Geom : public TGen::Engine::Component {
 			public:
 				Geom(const std::string & name);
 				virtual ~Geom();
 				
-				virtual void trigger(TGen::Engine::TriggerContext & context);
+				virtual void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				
 				float getFriction() const;
 				void setFriction(float friction);

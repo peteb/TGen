@@ -29,8 +29,7 @@ namespace TGen {
 			void linkLocally();
 			void linkGlobally(TGen::Engine::EntityList & entities);
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
-			void trigger(TGen::Engine::TriggerContext & context);
-			void triggerGetComponent(TGen::Engine::TriggerContext & context);
+			void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			
 			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
 			TGen::Engine::Component & getComponent(const std::string & name);
@@ -44,10 +43,13 @@ namespace TGen {
 			const std::string & getName() const;
 			
 		private:
+			void triggerGetComponent(TGen::Engine::TriggerContext & context);
+			void triggerRespondsTo(TGen::Engine::TriggerContext & context);
+			
 			typedef std::map<std::string, TGen::Engine::Component *> ComponentMap;
 			typedef std::map<int, TGen::Engine::Triggerable *> EventMap;
 			typedef std::map<int, TGen::Engine::Component *> ComponentSymbolMap;
-			
+
 			std::vector<TGen::Engine::Component *> components;
 
 			ComponentSymbolMap componentSymbols;
@@ -55,7 +57,7 @@ namespace TGen {
 			EventMap events;
 
 			std::string name;
-			int getComponentSymbol;
+			int getComponentSymbol, respondsToSymbol;
 			TGen::Engine::TriggerContext context;
 			TGen::Engine::Triggerable * initializer, * dispatcher;
 		}; 

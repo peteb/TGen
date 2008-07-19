@@ -15,6 +15,10 @@ void TGen::Engine::Inventory::Item::increaseValue(int value) {
 	this->value = std::min(this->value, maxValue);
 }
 
+#include <iostream>
+
 void TGen::Engine::Inventory::Item::setValue(int value) {
 	this->value = std::min(value, maxValue);
+	
+	std::cout << "changed to " << value << std::endl;
 }

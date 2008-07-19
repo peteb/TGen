@@ -9,7 +9,7 @@
 
 #include "madop.h"
 
-void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	if (!intMath) {
 		scalar fixedFactor = factor;
 		scalar fixedTerm = term;
@@ -45,7 +45,7 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 		}
 	}
 	
-	TGen::Engine::Script::EventOperation::trigger(context);
+	TGen::Engine::Script::EventOperation::trigger(context, mode);
 }
 
 void TGen::Engine::Script::MadOperation::setFactor(scalar factor) {

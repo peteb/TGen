@@ -38,7 +38,7 @@ void TGen::Engine::Script::ItemValueOperation::setRegister(int regId) {
 	this->regId = regId;
 }
 
-void TGen::Engine::Script::ItemValueOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::ItemValueOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	if (item) {
 		if (!load) {
 			if (!intOp) {

@@ -58,8 +58,8 @@ void TGen::Engine::Physics::Body::postStep() {
 }
 
 
-void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context) {
-	int symbolNum = *context.getRegister<int *>(0);
+void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
+	int symbolNum = context.getFunctionSymbol();
 	
 	if (symbolNum == symbolSetUpdateFromScene) {
 		int updateFromScene = *context.getRegister<int *>(2);
@@ -79,7 +79,7 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 		setKillTorque(killTorque);
 	}
 	else {
-		std::cout << "NO METHOD" << std::endl;
+		TGen::Engine::Component::trigger(context, mode);
 	}
 }
 

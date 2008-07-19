@@ -20,14 +20,12 @@ void TGen::Engine::Script::EventOperation::addOperation(EventOperation * operati
 	operations.push_back(operation);
 }
 
-void TGen::Engine::Script::EventOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::EventOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	for (int i = 0; i < operations.size(); ++i)
-		operations[i]->trigger(context);
+		operations[i]->trigger(context, mode);
 }
 
 void TGen::Engine::Script::EventOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	context = &entity.getContext();
-
 	for (int i = 0; i < operations.size(); ++i)
 		operations[i]->linkGlobally(entities, entity);
 }

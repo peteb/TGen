@@ -16,17 +16,17 @@ TGen::Engine::Script::FrameOperation::FrameOperation()
 	
 }
 
-void TGen::Engine::Script::FrameOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::FrameOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	if (!execute)
 		return;
 	
 	if (saveContext) {
 		TGen::Engine::TriggerContext savedContext(context);
-		TGen::Engine::Script::EventOperation::trigger(context);
+		TGen::Engine::Script::EventOperation::trigger(context, mode);
 		context = savedContext;
 	}
 	else {
-		TGen::Engine::Script::EventOperation::trigger(context);
+		TGen::Engine::Script::EventOperation::trigger(context, mode);
 	}
 }
 

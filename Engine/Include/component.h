@@ -11,22 +11,23 @@
 #define _TGEN_ENGINE_COMPONENT_H
 
 #include <string>
+#include "triggerable.h"
 
 namespace TGen {
 	namespace Engine {
 		class Entity;
 		class EntityList;
 		
-		class Component {
+		class Component : public TGen::Engine::Triggerable {
 		public:
-			Component(const std::string & name)
-				: name(name) {}
-			virtual ~Component() {}
+			Component(const std::string & name);
+			virtual ~Component();
 			
-			virtual void linkLocally(TGen::Engine::Entity & entity) {}
-			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {}
-
-			const std::string & getName() const {return name; }
+			virtual void linkLocally(TGen::Engine::Entity & entity);
+			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+			virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
+			
+			const std::string & getName() const;
 			
 		protected:
 			const std::string name;

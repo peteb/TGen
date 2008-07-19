@@ -16,24 +16,25 @@ TGen::Engine::Script::CallOperation::CallOperation()
 	: event(NULL)
 	, registerId(-1)
 	, offset(-1)
+	, triggerMode(TGen::Engine::TriggerPrecise)
 {
 }
 
-void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext & context) {
+void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Triggerable * callee = event;
 	
 	if (registerId != -1)
 		callee = *context.getRegister<TGen::Engine::Triggerable **>(registerId);
 	
 	if (callee) {
-		if (offset != -1)
+		//if (offset != -1)
 			context.setRegister<int>(0, offset);
 		
 		if (shareContext || !callee->context) {
-			callee->trigger(context);
+			callee->trigger(context, triggerMode);
 		}
 		else {
-			callee->trigger(*callee->context);
+			callee->trigger(*callee->context, triggerMode);
 		}
 	}
 }
@@ -63,3 +64,6 @@ void TGen::Engine::Script::CallOperation::setOffset(int offset) {
 	this->offset = offset;
 }
 
+void TGen::Engine::Script::CallOperation::setTriggerMode(TGen::Engine::TriggerMode triggerMode) {
+	this->triggerMode = triggerMode;
+}

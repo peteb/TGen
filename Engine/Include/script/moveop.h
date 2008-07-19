@@ -17,7 +17,7 @@ namespace TGen {
 		namespace Script {
 			class MoveOperation : public TGen::Engine::Script::EventOperation {
 			public:
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setSource(int regId);
 				void setDest(int regId);

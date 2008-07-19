@@ -18,12 +18,12 @@ namespace TGen {
 		class Entity;
 		
 		namespace Script {
-			class EventOperation : public TGen::Engine::Triggerable {
+			class EventOperation {
 			public:
 				virtual ~EventOperation();
 				
 				void addOperation(EventOperation * operation);
-				virtual void trigger(TGen::Engine::TriggerContext & context);
+				virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 			private:

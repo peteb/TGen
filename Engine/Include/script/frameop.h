@@ -19,7 +19,7 @@ namespace TGen {
 			public:
 				FrameOperation();
 				
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setSaveContext(bool saveContext);
 				void setExecute(bool execute);

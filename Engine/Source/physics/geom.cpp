@@ -203,8 +203,8 @@ void TGen::Engine::Physics::Geom::onCollisionForce(scalar force) {
 		if (force > 0.00001) {
 			TGen::Engine::TriggerContext * context = linkCollisionForce->context;
 			assert(context);
-			context->setRegister(0, force);
-			linkCollisionForce->trigger(*context);
+			context->setRegister(2, force);
+			linkCollisionForce->trigger(*context, TGen::Engine::TriggerPrecise);
 		}
 	}
 }
@@ -218,6 +218,6 @@ void TGen::Engine::Physics::Geom::setLinkCollisionForce(const std::string & name
 	collisionForceName = name;
 }
 
-void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context) {
-
+void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
+	TGen::Engine::Component::trigger(context, mode);
 }

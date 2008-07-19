@@ -25,3 +25,9 @@ void TGen::Engine::Script::Event::linkGlobally(TGen::Engine::EntityList & entiti
 	TGen::Engine::Script::EventOperation::linkGlobally(entities, entity);
 }
 
+void TGen::Engine::Script::Event::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
+	if (context.getFunctionSymbol() == symbolId || mode == TGen::Engine::TriggerPrecise)
+		TGen::Engine::Script::EventOperation::trigger(context, mode);
+	else
+		TGen::Engine::Component::trigger(context, mode);
+}

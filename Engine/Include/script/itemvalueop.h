@@ -24,7 +24,7 @@ namespace TGen {
 			public:
 				ItemValueOperation();
 				
-				void trigger(TGen::Engine::TriggerContext & context);
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 				void setItem(const std::string & item);

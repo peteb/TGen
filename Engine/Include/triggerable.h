@@ -17,12 +17,18 @@ namespace TGen {
 	namespace Engine {
 		class TriggerContext;
 		
+		enum TriggerMode {
+			TriggerPrecise = 1,	// only the defined receiver gets signal
+			TriggerFirst,			// receivers are looped, the first one not to return -1 in r0 breaks the loop
+			TriggerAll,				// all receivers are looped
+		};
+		
 		class Triggerable {
 		public:	
 			Triggerable() : context(NULL) {}
 			virtual ~Triggerable() {}
 			
-			virtual void trigger(TGen::Engine::TriggerContext & context) abstract;
+			virtual void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) abstract;
 			TGen::Engine::TriggerContext * context;
 		};
 		
