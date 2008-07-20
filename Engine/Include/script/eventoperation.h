@@ -20,14 +20,27 @@ namespace TGen {
 		namespace Script {
 			class EventOperation {
 			public:
+				EventOperation(EventOperation * parent);
 				virtual ~EventOperation();
 				
 				void addOperation(EventOperation * operation);
+				void addAlias(const std::string & alias, const std::string & value);
+				std::string getAlias(const std::string & alias) const;
+				void setNumParameters(int num);
+				int getNumParameters() const;
+				void setNumLocalVars(int localVars);
+				int getNumLocalVars() const;
+				
 				virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				
 			private:
 				std::vector<EventOperation *> operations;
+				EventOperation * parent;
+				
+				typedef std::map<std::string, std::string> AliasMap;
+				AliasMap aliases;
+				int numParameters, numLocalVars;
 			};
 			
 		} // !Script

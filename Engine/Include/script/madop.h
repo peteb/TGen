@@ -17,6 +17,8 @@ namespace TGen {
 		namespace Script {
 			class MadOperation : public TGen::Engine::Script::EventOperation {
 			public:
+				MadOperation(TGen::Engine::Script::EventOperation * parent);
+				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);		
 				
 				void setFactor(scalar factor);

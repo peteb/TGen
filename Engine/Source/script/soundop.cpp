@@ -17,6 +17,7 @@
 TGen::Engine::Script::SoundOperation::SoundOperation() 
 	: source(NULL)
 	, sound(NULL)
+	, TGen::Engine::Script::EventOperation(NULL)
 {
 	
 }

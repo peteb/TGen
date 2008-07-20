@@ -45,6 +45,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	entityFactory.registerSubsystem("soundLocal", &soundSubsystem);
 	entityFactory.registerSubsystem("soundGlobal", &soundSubsystem);
+	entityFactory.registerSubsystem("soundRes", &soundSubsystem);
 	
 	entityFactory.registerSubsystem("inventory", &inventorySubsystem);
 	entityFactory.registerSubsystem("weapon", &inventorySubsystem);

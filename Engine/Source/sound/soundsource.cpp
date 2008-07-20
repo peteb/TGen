@@ -16,6 +16,8 @@
 #include "componentinterfaces.h"
 #include "entity.h"
 
+#include "script/subsystem.h"
+
 using TGen::Engine::Sound::Channel;
 
 TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator) 
@@ -25,6 +27,7 @@ TGen::Engine::Sound::Source::Source(const std::string & name, const std::string 
 	, prototype(false)
 	, creator(creator)
 {
+	playSoundSymbol = TGen::Engine::Script::Subsystem::symbols["playSound"];
 }
 
 TGen::Engine::Sound::Source::~Source() {
@@ -76,6 +79,21 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 	}
 }
 
+
+void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
+	if (context.getFunctionSymbol() == playSoundSymbol) {
+		uint32 soundId = *context.getRegister<uint32 *>(2);
+		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
+		
+		if (!sound)
+			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
+		
+		addChannel(sound->spawnChannel(false));
+	}
+	
+}
+
+
 void TGen::Engine::Sound::Source::setAutoplay(bool autoplay) {
 	this->autoplay = autoplay;
 }
@@ -95,3 +113,4 @@ void TGen::Engine::Sound::Source::addChannel(TGen::Engine::Sound::Channel * chan
 TGen::Engine::Sound::Subsystem & TGen::Engine::Sound::Source::getCreator() const {
 	return creator;
 }
+

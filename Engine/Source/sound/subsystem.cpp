@@ -13,6 +13,7 @@
 #include "sound/localsource.h"
 #include "sound/sound.h"
 #include "sound/localrecipe.h"
+#include "sound/soundresource.h"
 
 #include "log.h"
 #include "generateline.h"
@@ -79,6 +80,11 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 		GlobalSource * newSource = new GlobalSource(name, filename, *this);
 		globalSources.push_back(newSource);
 		ret = newSource;
+	}
+	else if (properties.getName() == "soundRes") {
+		SoundResource * newResource = new SoundResource(name, *this);
+		newResource->setSoundName(properties.getProperty("resource", ""));
+		return newResource;
 	}
 	else {
 		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "invalid component type: " + properties.getName());		
@@ -184,6 +190,8 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std:
 		ret = createSound(genline);
 		sounds.insert(std::make_pair(name, ret));
 	}
+	
+	std::cout << "CREATED SOUND " << ret << std::endl;
 		
 	return ret;
 }

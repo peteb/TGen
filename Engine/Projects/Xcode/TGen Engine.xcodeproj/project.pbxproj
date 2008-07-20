@@ -64,6 +64,7 @@
 		D077FA670D26DC6C00217E07 /* map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FA660D26DC6C00217E07 /* map.cpp */; };
 		D077FAB20D26DF0F00217E07 /* maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FAB10D26DF0F00217E07 /* maploader.cpp */; };
 		D077FB620D26E58C00217E07 /* maptokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D077FB610D26E58C00217E07 /* maptokenizer.cpp */; };
+		D079403E0E32A0370074996E /* soundresource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D079403D0E32A0370074996E /* soundresource.cpp */; };
 		D07964CC0E13074400D87525 /* ccylindergeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07964CB0E13074400D87525 /* ccylindergeom.cpp */; };
 		D07981110D21725C00B16739 /* vertexcache.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07981100D21725C00B16739 /* vertexcache.cpp */; };
 		D07AFB600CFA331300DBCD9D /* light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07AFB5F0CFA331300DBCD9D /* light.cpp */; };
@@ -373,6 +374,10 @@
 		D077FAB10D26DF0F00217E07 /* maploader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maploader.cpp; sourceTree = "<group>"; };
 		D077FB4D0D26E4FB00217E07 /* maptokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = maptokenizer.h; path = ../../Include/maptokenizer.h; sourceTree = SOURCE_ROOT; };
 		D077FB610D26E58C00217E07 /* maptokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = maptokenizer.cpp; sourceTree = "<group>"; };
+		D0793A8D0E3222C50074996E /* componentlink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentlink.h; path = ../../Include/componentlink.h; sourceTree = SOURCE_ROOT; };
+		D0793FF70E329CB20074996E /* resourcecomponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcecomponent.h; path = ../../Include/resourcecomponent.h; sourceTree = SOURCE_ROOT; };
+		D079403A0E329FE70074996E /* soundresource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundresource.h; path = ../../Include/sound/soundresource.h; sourceTree = SOURCE_ROOT; };
+		D079403D0E32A0370074996E /* soundresource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = soundresource.cpp; path = sound/soundresource.cpp; sourceTree = "<group>"; };
 		D07964CA0E13073500D87525 /* ccylindergeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ccylindergeom.h; path = ../../Include/physics/ccylindergeom.h; sourceTree = SOURCE_ROOT; };
 		D07964CB0E13074400D87525 /* ccylindergeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ccylindergeom.cpp; path = physics/ccylindergeom.cpp; sourceTree = "<group>"; };
 		D079810F0D21724E00B16739 /* vertexcache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache.h; path = ../../Include/vertexcache.h; sourceTree = SOURCE_ROOT; };
@@ -972,6 +977,8 @@
 				D0A310FB0DF4A83D0007A749 /* sound.h */,
 				D09FC1FE0E0FE18800BF59F0 /* localrecipe.cpp */,
 				D09FC1FD0E0FE17C00BF59F0 /* localrecipe.h */,
+				D079403D0E32A0370074996E /* soundresource.cpp */,
+				D079403A0E329FE70074996E /* soundresource.h */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -1049,6 +1056,8 @@
 				D081407F0E300F0F0024534F /* component.cpp */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
+				D0793A8D0E3222C50074996E /* componentlink.h */,
+				D0793FF70E329CB20074996E /* resourcecomponent.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D07BDD1D0E28ECF40070CC83 /* triggerable.h */,
 				D03CFCC40E2A44C0006D68A7 /* triggercontext.h */,
@@ -1465,6 +1474,7 @@
 				D03CFFAD0E2A61F1006D68A7 /* callop.cpp in Sources */,
 				D03CFFF50E2A6623006D68A7 /* frameop.cpp in Sources */,
 				D08140800E300F0F0024534F /* component.cpp in Sources */,
+				D079403E0E32A0370074996E /* soundresource.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

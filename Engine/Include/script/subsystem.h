@@ -33,7 +33,7 @@ namespace TGen {
 			private: 
 				void createOperation(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
 				void createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
-				TGen::Engine::Script::MoveOperation * createMovOperation(const std::string & type, const std::string & source, const std::string & dest);
+				TGen::Engine::Script::MoveOperation * createMovOperation(const std::string & type, const std::string & source, const std::string & dest, TGen::Engine::Script::EventOperation & container);
 				
 				int getRegisterId(const std::string & desc);
 				

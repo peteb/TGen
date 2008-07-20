@@ -17,15 +17,16 @@ namespace TGen {
 		namespace Script {
 			class FrameOperation : public TGen::Engine::Script::EventOperation {
 			public:
-				FrameOperation();
+				FrameOperation(TGen::Engine::Script::EventOperation * parent);
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setSaveContext(bool saveContext);
 				void setExecute(bool execute);
+				void setSaveReturn(bool saveReturn);
 				
 			private:
-				bool saveContext, execute;
+				bool saveContext, execute, saveReturn;
 			};
 			
 		} // !Script

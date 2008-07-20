@@ -17,7 +17,7 @@ namespace TGen {
 		namespace Script {
 			class CallOperation : public TGen::Engine::Script::EventOperation {
 			public:
-				CallOperation();
+				CallOperation(TGen::Engine::Script::EventOperation * parent);
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);

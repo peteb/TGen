@@ -11,24 +11,32 @@
 #define _TGEN_ENGINE_MOVEOP_H
 
 #include "eventoperation.h"
+#include "componentlink.h"
 
 namespace TGen {
 	namespace Engine {
+		class ResourceComponent;
+		
 		namespace Script {
 			class MoveOperation : public TGen::Engine::Script::EventOperation {
 			public:
-				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
+				MoveOperation(TGen::Engine::Script::EventOperation * parent);
 				
+				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+
 				void setSource(int regId);
 				void setDest(int regId);
 				void setSourceImm(scalar sourceImm);
 				void setSourceImm(int sourceImm);
 				void setSwap(bool useSwap);
 				void setDerefDest(bool derefDest);
+				void setResourceName(const std::string & resName);
 				
 			private:
 				int sourceId, destId;
 				scalar sourceImm;
+				TGen::Engine::ComponentLink<TGen::Engine::ResourceComponent> sourceResource;
 				int sourceImmInt;
 				bool intOp, useSwap, imm, derefDest;
 			};

@@ -28,6 +28,7 @@ namespace TGen {
 				Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator);
 				virtual ~Source();
 				
+				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				void link(TGen::Engine::Sound::Subsystem & linker);
 				void unlink();
 				virtual void update(scalar dt);
@@ -52,6 +53,8 @@ namespace TGen {
 			private:
 				std::string filename;
 				bool autoplay, loop, threedee;
+				
+				int playSoundSymbol;
 			};
 			
 		} // !Sound		

@@ -10,16 +10,23 @@
 #include "script/ifop.h"
 #include "script/frameop.h"
 
-TGen::Engine::Script::IfOperation::IfOperation()
-	: elseBlock(NULL)
+TGen::Engine::Script::IfOperation::IfOperation(TGen::Engine::Script::EventOperation * parent)
+	: TGen::Engine::Script::EventOperation(parent)
+	, elseBlock(NULL)
+	, intOp(0)
 {
 	
 }
 
 void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	if (!loop) {
-		bool passed = testExpression(context);
+		bool passed = false;
 		
+		if (intOp)
+			passed = testExpressionInt(context);
+		else
+			passed = testExpression(context);
+				
 		if (passed)
 			TGen::Engine::Script::EventOperation::trigger(context, mode);
 
@@ -27,14 +34,54 @@ void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & c
 			elseBlock->setExecute(!passed);
 	}
 	else {
-		while (testExpression(context))
-			TGen::Engine::Script::EventOperation::trigger(context, mode);
+		if (intOp) {
+			while (testExpressionInt(context))
+				TGen::Engine::Script::EventOperation::trigger(context, mode);
+		}
+		else {
+			while (testExpression(context))
+				TGen::Engine::Script::EventOperation::trigger(context, mode);			
+		}
 	}
 	
 }
 
 bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerContext & context) {
 	scalar paramValue = *context.getRegister<scalar *>(regId);
+	
+	bool passed = false;
+	
+	switch (type) {
+		case CompareEquals:
+			passed = (paramValue == value);
+			break;
+			
+		case CompareNotEquals:
+			passed = (paramValue != value);
+			break;
+			
+		case CompareLessThan:
+			passed = (paramValue < value);
+			break;
+			
+		case CompareLessThanOrEqual:
+			passed = (paramValue <= value);
+			break;
+			
+		case CompareGreaterThan:
+			passed = (paramValue > value);
+			break;
+			
+		case CompareGreaterThanOrEqual:
+			passed = (paramValue >= value);
+			break;
+	}
+	
+	return passed;
+}
+
+bool TGen::Engine::Script::IfOperation::testExpressionInt(TGen::Engine::TriggerContext & context) {
+	int paramValue = *context.getRegister<int *>(regId);
 	
 	bool passed = false;
 	
@@ -85,4 +132,8 @@ void TGen::Engine::Script::IfOperation::setLoop(bool loop) {
 
 void TGen::Engine::Script::IfOperation::setElseBlock(TGen::Engine::Script::FrameOperation * elseBlock) {
 	this->elseBlock = elseBlock;
+}
+
+void TGen::Engine::Script::IfOperation::setIntOp(bool intOp) {
+	this->intOp = intOp;
 }

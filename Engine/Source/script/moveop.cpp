@@ -8,6 +8,12 @@
  */
 
 #include "script/moveop.h"
+#include "resourcecomponent.h"
+
+TGen::Engine::Script::MoveOperation::MoveOperation(TGen::Engine::Script::EventOperation * parent)
+	: TGen::Engine::Script::EventOperation(parent)
+{
+}
 
 void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	int destRegId = destId;
@@ -16,7 +22,10 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 		destRegId = *context.getRegister<int *>(destRegId);
 	}
 	
-	if (intOp) {
+	if (sourceResource) {
+		*context.getRegister<uint32 *>(destRegId) = reinterpret_cast<uint32>(sourceResource->getData());
+	}
+	else if (intOp) {
 		if (imm) {
 			*context.getRegister<int *>(destRegId) = sourceImmInt;
 		}
@@ -72,4 +81,13 @@ void TGen::Engine::Script::MoveOperation::setSwap(bool useSwap) {
 void TGen::Engine::Script::MoveOperation::setDerefDest(bool derefDest) {
 	this->derefDest = derefDest;
 }
+
+void TGen::Engine::Script::MoveOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+	sourceResource.link(entities, entity);
+}
+
+void TGen::Engine::Script::MoveOperation::setResourceName(const std::string & resName) {
+	sourceResource = resName;
+}
+
 

@@ -12,8 +12,9 @@
 #include "triggerable.h"
 #include "component.h"
 
-TGen::Engine::Script::CallOperation::CallOperation()
-	: event(NULL)
+TGen::Engine::Script::CallOperation::CallOperation(TGen::Engine::Script::EventOperation * parent)
+	: TGen::Engine::Script::EventOperation(parent)
+	, event(NULL)
 	, registerId(-1)
 	, offset(-1)
 	, triggerMode(TGen::Engine::TriggerPrecise)
@@ -67,3 +68,4 @@ void TGen::Engine::Script::CallOperation::setOffset(int offset) {
 void TGen::Engine::Script::CallOperation::setTriggerMode(TGen::Engine::TriggerMode triggerMode) {
 	this->triggerMode = triggerMode;
 }
+

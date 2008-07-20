@@ -14,6 +14,7 @@
 #include <ode/ode.h>
 #include <tgen_core.h>
 #include "triggerable.h"
+#include "componentlink.h"
 
 namespace TGen {
 	class Vector3;
@@ -48,7 +49,7 @@ namespace TGen {
 				virtual void postStep();
 				
 				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {return true; }
-				virtual void onCollisionForce(scalar force);
+				virtual void onCollisionForce(scalar force, bool groundCollision);
 				
 				virtual void linkLocally(TGen::Engine::Entity & entity);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
@@ -57,8 +58,8 @@ namespace TGen {
 				void setCollidesWith(uint collidesWith);
 				uint getCategory() const;
 				
-				void setLinkCollisionForce(const std::string & name);
-
+				void setEventCollisionForce(const std::string & eventName);
+				
 				scalar collisionForceThreshold;
 
 				
@@ -80,8 +81,8 @@ namespace TGen {
 				float friction;
 				uint categoryBits, collidesWith;
 				
-				std::string collisionForceName;
-				TGen::Engine::Triggerable * linkCollisionForce;
+				
+				TGen::Engine::ComponentLink<TGen::Engine::Triggerable> eventCollisionForce;
 			};
 		} // !Physics
 	} // !Engine

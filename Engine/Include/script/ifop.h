@@ -28,7 +28,7 @@ namespace TGen {
 			
 			class IfOperation : public TGen::Engine::Script::EventOperation {
 			public:
-				IfOperation();
+				IfOperation(TGen::Engine::Script::EventOperation * parent);
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
@@ -37,16 +37,18 @@ namespace TGen {
 				void setValue(scalar value);
 				void setLoop(bool loop);
 				void setElseBlock(TGen::Engine::Script::FrameOperation * elseBlock);
+				void setIntOp(bool intOp);
 				
 			private:
 				bool testExpression(TGen::Engine::TriggerContext & context);
+				bool testExpressionInt(TGen::Engine::TriggerContext & context);
 				
 				TGen::Engine::Script::FrameOperation * elseBlock;
 				
 				int regId;
 				CompareType type;
 				scalar value;
-				bool loop;
+				bool loop, intOp;
 			};
 			
 		} // !Script

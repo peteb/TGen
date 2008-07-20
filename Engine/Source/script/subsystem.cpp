@@ -35,15 +35,35 @@ TGen::Engine::Script::Subsystem::~Subsystem() {
 
 TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	int symbolId = -1;
-
-	if (name == "initialize")
+	bool hasParameterList = false;
+	
+	std::string fixedName = name;
+	
+	if (fixedName[fixedName.size() - 1] == ':') {
+		fixedName = fixedName.substr(0, fixedName.size() - 1);
+		hasParameterList = true;
+	}
+	
+	if (fixedName == "initialize")
 		symbolId = -2;
-	else if (name == "dispatch")
+	else if (fixedName == "dispatch")
 		symbolId = -3;
 	else if (properties.getName()[0] != '-')
-		symbolId = symbols[name];
+		symbolId = symbols[fixedName];
 	
-	Event * newEvent = new Event(name, symbolId);
+	Event * newEvent = new Event(fixedName, symbolId);
+	
+	int paraCount = 0;
+	
+	if (hasParameterList) {
+		for (int i = 1; i < properties.getNumAttributes(); ++i, ++paraCount) {
+			std::string registerName = "r" + TGen::lexical_cast<std::string>(i + 1);
+			
+			newEvent->addAlias(properties.getAttribute(i), registerName);
+		}
+	}
+	
+	newEvent->setNumParameters(paraCount);
 	createOperations(*newEvent, properties);
 	
 	return newEvent;
@@ -78,7 +98,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		ret = newOp;
 	}
 	else if (type == "mad" || type == "imad") {
-		TGen::Engine::Script::MadOperation * newOp = new TGen::Engine::Script::MadOperation;
+		TGen::Engine::Script::MadOperation * newOp = new TGen::Engine::Script::MadOperation(&container);
 		
 		bool intMath = (type == "imad");
 		int source = getRegisterId(properties.getAttribute(0));
@@ -122,10 +142,14 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		ret = newOp;
 	}
 	else if (type == "if" || type == "while") {
-		TGen::Engine::Script::IfOperation * newOp = new TGen::Engine::Script::IfOperation;
+		TGen::Engine::Script::IfOperation * newOp = new TGen::Engine::Script::IfOperation(&container);
 		std::string compare;
 		
-		newOp->setRegister(getRegisterId(properties.getAttribute(0)));
+		std::string value = container.getAlias(properties.getAttribute(0));
+		if (value.empty())
+			value = properties.getAttribute(0);
+		
+		newOp->setRegister(getRegisterId(value));
 		
 		if (properties.getNumAttributes() > 1) {
 			newOp->setValue(TGen::lexical_cast<scalar>(properties.getAttribute(2)));
@@ -133,6 +157,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		}
 		else {
 			newOp->setValue(0);
+			newOp->setIntOp(true);
 			compare = "!=";
 		}
 		
@@ -164,7 +189,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		if (!lastIf)
 			throw TGen::RuntimeException("Script::Subsystem::createOperation", "'else' should come directly after if!");
 		
-		TGen::Engine::Script::FrameOperation * newOp = new TGen::Engine::Script::FrameOperation;
+		TGen::Engine::Script::FrameOperation * newOp = new TGen::Engine::Script::FrameOperation(&container);
 		newOp->setSaveContext(false);
 		newOp->setExecute(false);
 		ret = newOp;
@@ -173,18 +198,34 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		
 		lastIf->setElseBlock(newOp);
 	}
-	else if (type == "mov" || type == "swap" || type == "imov" || type == "iswap" || type == "ret") {
-		if (type == "ret") {
-			TGen::Engine::Script::MoveOperation * newOp = createMovOperation("imov", properties.getAttribute(0), "r1");
+	else if (type == "mov" || type == "swap" || type == "imov" || type == "iswap" || type == "return" || type == "returni") {
+		if (type == "return" || type == "returni") {
+			TGen::Engine::Script::MoveOperation * newOp = createMovOperation((type == "return" ? "mov" : "imov"), properties.getAttribute(0), "r1", container);
 			newOp->setDerefDest(true);
 			ret = newOp;
 		}
 		else {
-			ret = createMovOperation(type, properties.getAttribute(0), properties.getAttribute(1));
+			ret = createMovOperation(type, properties.getAttribute(0), properties.getAttribute(1), container);
+		}
+	}
+	else if (type == "var") {
+		int registerNum = container.getNumParameters() + 2 + container.getNumLocalVars();
+		std::string registerName = "r" + TGen::lexical_cast<std::string>(registerNum);
+		
+		container.setNumLocalVars(container.getNumLocalVars() + 1);		// crappy getters/setters
+		container.addAlias(properties.getAttribute(0), registerName);
+		
+		// TODO: alla operationer ska lösa ut aliases
+		// TODO: en funktion som kollar om ett värde är en scalar eller en int. en int innehåller ingen punkt, det gör scalar
+		
+		if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "=") {
+			TGen::Engine::Script::MoveOperation * newOp = createMovOperation("mov", properties.getAttribute(2), registerName, container);
+			ret = newOp;
 		}
 	}
 	else if (type[0] == '[' || (properties.getNumAttributes() > 2 && properties.getAttribute(1)[0] == '[')) {
 		bool retValue = (properties.getNumAttributes() > 2 && properties.getAttribute(0) == "=");
+		bool saveContext = true;
 		int attributeOffset = 0;
 		
 		std::string object, method;
@@ -193,11 +234,15 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		if (retValue) {
 			paramStart = 2;
 			
-			int regNum = getRegisterId(properties.getName());
-			if (regNum == -1)
-				throw TGen::RuntimeException("Script::Subsystem::createOperation", "invalid register");
+			std::string regName = container.getAlias(properties.getName());
+			if (regName.empty())
+				regName = properties.getName();
 			
-			TGen::Engine::Script::EventOperation * retMov = createMovOperation("imov", TGen::lexical_cast<std::string>(regNum), "r1");
+			int regNum = getRegisterId(regName);
+			if (regNum == -1)
+				throw TGen::RuntimeException("Script::Subsystem::createOperation", "invalid register: " + properties.getName());
+			
+			TGen::Engine::Script::EventOperation * retMov = createMovOperation("mov", TGen::lexical_cast<std::string>(regNum), "r1", container);
 			container.addOperation(retMov);
 			
 			object = properties.getAttribute(1);
@@ -208,7 +253,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 			method = properties.getAttribute(0);
 		}
 		
-		TGen::Engine::Script::CallOperation * newOp = new TGen::Engine::Script::CallOperation;
+		TGen::Engine::Script::CallOperation * newOp = new TGen::Engine::Script::CallOperation(&container);
 		
 				
 		std::string objectPart, methodPart;
@@ -257,9 +302,17 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		
 		newOp->setShareContext(true); //type == "call");
 		
+		TGen::Engine::Script::EventOperation * parentObject = &container;
+		
+		if (saveContext) {
+			TGen::Engine::Script::FrameOperation * frame = new TGen::Engine::Script::FrameOperation(&container);
+			frame->setSaveReturn(true);
+			
+			parentObject = frame;
+		}
 		
 		if (properties.getNumAttributes() > 1 + paramStart) {	// we've got parameters
-			for (int i = 1 + paramStart; i < properties.getNumAttributes(); ++i) {
+			for (int i = properties.getNumAttributes() - 1; i >=  1 + paramStart; --i) {
 				std::string attribute = properties.getAttribute(i);
 				
 				if (attribute[attribute.size() - 1] == ']')
@@ -268,18 +321,26 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 				std::string dest;
 				dest = "r" + TGen::lexical_cast<std::string>(i + 1 - paramStart);
 				
-				TGen::Engine::Script::EventOperation * paramMov = createMovOperation("mov", attribute, dest);
-				if (!paramMov)
-					throw TGen::RuntimeException("Script::Subsystem::createOperation", "failed to create mov for parameter");
+				if (dest != attribute) {
+					TGen::Engine::Script::EventOperation * paramMov = createMovOperation("mov", attribute, dest, container);
+					if (!paramMov)
+						throw TGen::RuntimeException("Script::Subsystem::createOperation", "failed to create mov for parameter");
 				
-				container.addOperation(paramMov);
+					container.addOperation(paramMov);
+				}
 			}
 		}
 		
-		ret = newOp;
+		if (saveContext) {
+			parentObject->addOperation(newOp);
+			ret = parentObject;
+		}
+		else {
+			ret = newOp;
+		}
 	}
 	else if (type == "frame") {
-		TGen::Engine::Script::FrameOperation * newOp = new TGen::Engine::Script::FrameOperation;
+		TGen::Engine::Script::FrameOperation * newOp = new TGen::Engine::Script::FrameOperation(&container);
 		
 		createOperations(*newOp, properties);
 		
@@ -287,7 +348,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 	}
 	else {
 		if (properties.getAttribute(0) == "=") {
-			ret = createMovOperation("mov", properties.getAttribute(1), properties.getName());
+			ret = createMovOperation("mov", properties.getAttribute(1), properties.getName(), container);
 		}
 	}
 	
@@ -297,36 +358,59 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		container.addOperation(ret);
 }
 
-TGen::Engine::Script::MoveOperation * TGen::Engine::Script::Subsystem::createMovOperation(const std::string & type, const std::string & source, const std::string & dest) {
-	TGen::Engine::Script::MoveOperation * newOp = new TGen::Engine::Script::MoveOperation;
-	
+
+TGen::Engine::Script::MoveOperation * TGen::Engine::Script::Subsystem::createMovOperation(const std::string & type, const std::string & source, const std::string & dest, TGen::Engine::Script::EventOperation & container) {
+	TGen::Engine::Script::MoveOperation * newOp = new TGen::Engine::Script::MoveOperation(&container);
+
 	bool intOp = (type == "imov" || type == "iswap");
-	int sourceId = getRegisterId(source);
+
+	std::string fixedDest = dest;
+	std::string fixedSource = source;
+
+	
+	std::string aliasDest = container.getAlias(fixedDest);
+	if (!aliasDest.empty())
+		fixedDest = aliasDest;
+	
+	std::string aliasSource;
+	bool isResourceRef = false;
+	
+	if (fixedSource[0] != '@') {
+		aliasSource = container.getAlias(fixedSource);
+		if (!aliasSource.empty())
+			fixedSource = aliasSource;
+	}	
+	else {
+		fixedSource = fixedSource.substr(1);
+		isResourceRef = true;
+	}
+	
+	int sourceId = getRegisterId(fixedSource);
 	
 	if (sourceId != -1) {
 		newOp->setSource(sourceId);
 	}
 	else {
-/*		if (source[0] == '$') {
-			newOp->setSourceImm(symbols[source.substr(1)]);
-		}*/
-		if (source == "self") {
+		if (fixedSource == "self") {
 			newOp->setSource(TGen::Engine::RegisterSelf);
+		}
+		else if (isResourceRef) {
+			newOp->setResourceName(fixedSource);
 		}
 		else {
 			try {
 				if (intOp)
-					newOp->setSourceImm(TGen::lexical_cast<int>(source));
+					newOp->setSourceImm(TGen::lexical_cast<int>(fixedSource));
 				else
-					newOp->setSourceImm(TGen::lexical_cast<scalar>(source));
+					newOp->setSourceImm(TGen::lexical_cast<scalar>(fixedSource));
 			}
 			catch (const std::bad_cast & e) {
-				newOp->setSourceImm(symbols[source]);
+				newOp->setSourceImm(symbols[fixedSource]);
 			}
 		}
 	}
 	
-	newOp->setDest(getRegisterId(dest));
+	newOp->setDest(getRegisterId(fixedDest));
 	newOp->setSwap(type == "swap" || type == "iswap");
 	newOp->setDerefDest(type == "ret");
 	

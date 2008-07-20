@@ -9,6 +9,11 @@
 
 #include "madop.h"
 
+TGen::Engine::Script::MadOperation::MadOperation(TGen::Engine::Script::EventOperation * parent)
+	: TGen::Engine::Script::EventOperation(parent)
+{
+}
+
 void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	if (!intMath) {
 		scalar fixedFactor = factor;

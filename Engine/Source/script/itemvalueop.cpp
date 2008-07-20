@@ -14,6 +14,7 @@
 TGen::Engine::Script::ItemValueOperation::ItemValueOperation() 
 	: item(NULL)
 	, inventory(NULL)
+	, TGen::Engine::Script::EventOperation(NULL)
 {
 	
 }

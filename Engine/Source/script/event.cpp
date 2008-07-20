@@ -12,6 +12,7 @@
 
 TGen::Engine::Script::Event::Event(const std::string & name, int symbolId)
 	: TGen::Engine::Component(name)
+	, TGen::Engine::Script::EventOperation(NULL)
 	, symbolId(symbolId)
 {
 

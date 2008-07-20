@@ -88,7 +88,8 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 	// initialize körs INTE på prototyp
 	/*
 		En LinkRef-klass borde finnas, templateas. LinkRef<PhysGeom> linkRef; linkRef.setTarget("string"); linkRef.setTarget(1);
-		
+		Nja...... men ComponentLink! DET SKA FINNAS, templatead
+	 
 	 */
 	
 	if (symbolNum == setItemValueSymbol) {

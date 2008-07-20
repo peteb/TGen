@@ -36,7 +36,7 @@ dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 
 TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem) 
 	: logs(logs)
-	, updateInterval(1.0/100.0)
+	, updateInterval(1.0/100.0)	// 60 är rekommenderat enl sun
 	, worldId(0)
 	, filesystem(filesystem)
 	, lastUpdate(0.0f)
@@ -250,7 +250,8 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	newGeom->setLink(properties.getProperty("link", "physBody"));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	
-	newGeom->setLinkCollisionForce(properties.getProperty("onCollisionForce", ""));
+	newGeom->setEventCollisionForce(properties.getProperty("onCollisionForce", ""));
+	
 	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
 	
 	uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
@@ -432,6 +433,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			TGen::Degree slope(TGen::Radian(acos(dp)));
 				
 			bool onGround = false;
+			bool body1OnGround = false, body2OnGround = false;
 			
 			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				//std::cout << "geom1: " << std::hex << geom1->getCategory() << " geom2: " << geom2->getCategory() << " normal: " << std::string(contactNormal) << std::endl;
@@ -442,7 +444,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					if (fabs(dp) <= 1.2f && fabs(dp) >= 0.8) {
 						bodyObject1->setGroundNormal(contactNormal);
 						bodyObject1->setOnFloor(true);
-
+						body1OnGround = true;
 						//	std::cout << "body1: " << dp << std::endl;
 					}
 					else {
@@ -455,6 +457,8 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					if (fabs(dp) <= 1.2f && fabs(dp) >= 0.8) {
 						bodyObject2->setGroundNormal(-contactNormal);
 						bodyObject2->setOnFloor(true);
+						body2OnGround = true;
+
 						//std::cout << "body2: " << dp << std::endl;
 					}
 					else {
@@ -515,9 +519,9 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				//totalForce *= dir;
 				
 				if (geom1->getCategory() == 2)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
-					geom1->onCollisionForce(totalForce);
+					geom1->onCollisionForce(totalForce, body1OnGround);
 				if (geom2->getCategory() == 2)
-					geom2->onCollisionForce(totalForce);
+					geom2->onCollisionForce(totalForce, body2OnGround);
 				
 				//if (totalForce > 0.1)
 					//std::cout << "HURT: " << totalForce << std::endl;
