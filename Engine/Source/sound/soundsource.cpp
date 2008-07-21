@@ -90,6 +90,9 @@ void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context
 		
 		addChannel(sound->spawnChannel(false));
 	}
+	else {
+		TGen::Engine::Component::trigger(context, mode);
+	}
 	
 }
 

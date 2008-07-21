@@ -137,12 +137,12 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 				newIndices[i] = indices[newIndices[i]];*/
 		}
 		
-		std::cout << "TRI: " << newIndices.size() << std::endl;
+	//	std::cout << "TRI: " << newIndices.size() << std::endl;
 
 		for (int i = 0; i < newIndices.size(); i += 3) {
 			TGen::Engine::Physics::StridedTriangle tri;
 			
-			std::cout << newIndices[i] << " - " << newIndices[i + 1] << " - " << newIndices[i + 2] << std::endl;
+			//std::cout << newIndices[i] << " - " << newIndices[i + 1] << " - " << newIndices[i + 2] << std::endl;
 			
 			tri.indices[2] = newIndices[i + 0];
 			tri.indices[1] = newIndices[i + 1];

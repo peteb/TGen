@@ -10,12 +10,16 @@
 #include "inventory/item.h"
 #include <algorithm>
 
+#include <iostream>
+
+
 void TGen::Engine::Inventory::Item::increaseValue(int value) {
 	this->value += value;
 	this->value = std::min(this->value, maxValue);
+
+	std::cout << "INCREASED WITH " << value << " TO " << this->value << std::endl;
 }
 
-#include <iostream>
 
 void TGen::Engine::Inventory::Item::setValue(int value) {
 	this->value = std::min(value, maxValue);

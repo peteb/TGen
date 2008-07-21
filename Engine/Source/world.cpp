@@ -67,6 +67,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	sceneSubsystem.update(0.0f);
 	
 	soundSubsystem.link();
+	physicsSubsystem.link();
 }
 
 void TGen::Engine::World::loadEntities(const std::string & filename) {

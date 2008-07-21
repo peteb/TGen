@@ -322,7 +322,8 @@ TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(con
 
 
 void TGen::Engine::Physics::Subsystem::link() {
-	
+	for (int i = 0; i < 100; ++i)		// makes the physics "settle down"
+		dWorldStep(worldId, 0.001);
 }
 
 
@@ -349,7 +350,6 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 		dWorldStep(worldId, updateInterval); // tweak
-
 		dJointGroupEmpty(contactGroup);
 		
 		lastUpdate -= updateInterval;		
@@ -436,8 +436,6 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			bool body1OnGround = false, body2OnGround = false;
 			
 			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
-				//std::cout << "geom1: " << std::hex << geom1->getCategory() << " geom2: " << geom2->getCategory() << " normal: " << std::string(contactNormal) << std::endl;
-				
 				if (bodyObject1) {
 					scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
 					
@@ -506,6 +504,9 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				scalar dir = 1.0f;
 				
+				//if (abs(totalForce) > 1.0)
+				//	std::cout << "geom1: " << std::hex << geom1->getCategory() << " geom2: " << geom2->getCategory() << " normal: " << std::string(contactNormal) << std::endl;
+
 				/*if (geom1->getCategory() == 2)
 					dir *= TGen::Vector3::DotProduct(force1.getNormalized(), contactNormal);
 				
@@ -518,9 +519,12 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				//totalForce = std::max(totalForce, 0.0f);
 				//totalForce *= dir;
 				
-				if (geom1->getCategory() == 2)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
+				//if (totalForce > 2.0)
+				//	std::cout << "TOTAL FORCE: " << totalForce << std::endl;
+				
+				if (geom1->getCategory() == 2 && contactNormal.y >= -0.5)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
 					geom1->onCollisionForce(totalForce, body1OnGround);
-				if (geom2->getCategory() == 2)
+				if (geom2->getCategory() == 2 && contactNormal.y <= -0.5)
 					geom2->onCollisionForce(totalForce, body2OnGround);
 				
 				//if (totalForce > 0.1)

@@ -64,6 +64,8 @@ TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const
 	}
 	
 	newEvent->setNumParameters(paraCount);
+	newEvent->setMinCallInterval(TGen::lexical_cast<scalar>(properties.getProperty("callTime", "-1.0")));
+	
 	createOperations(*newEvent, properties);
 	
 	return newEvent;
@@ -101,7 +103,11 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		TGen::Engine::Script::MadOperation * newOp = new TGen::Engine::Script::MadOperation(&container);
 		
 		bool intMath = (type == "imad");
-		int source = getRegisterId(properties.getAttribute(0));
+		std::string fixedSource = container.getAlias(properties.getAttribute(0));
+		if (fixedSource.empty())
+			fixedSource = properties.getAttribute(0);
+		
+		int source = getRegisterId(fixedSource);
 		
 		newOp->setSource(source);
 		
@@ -144,16 +150,30 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 	else if (type == "if" || type == "while") {
 		TGen::Engine::Script::IfOperation * newOp = new TGen::Engine::Script::IfOperation(&container);
 		std::string compare;
+		std::string firstPara = properties.getAttribute(0);
+		std::string secondPara;
 		
-		std::string value = container.getAlias(properties.getAttribute(0));
+		bool parenthesis = (firstPara[0] == '(');
+		if (parenthesis)
+			firstPara = firstPara.substr(1);
+		
+		if (parenthesis && properties.getNumAttributes() == 1)
+			firstPara = firstPara.substr(0, firstPara.size() - 1);
+		
+		std::string value = container.getAlias(firstPara);
 		if (value.empty())
-			value = properties.getAttribute(0);
+			value = firstPara;
 		
 		newOp->setRegister(getRegisterId(value));
 		
 		if (properties.getNumAttributes() > 1) {
-			newOp->setValue(TGen::lexical_cast<scalar>(properties.getAttribute(2)));
 			compare = properties.getAttribute(1);
+			secondPara = properties.getAttribute(2);
+			
+			if (parenthesis)
+				secondPara = secondPara.substr(0, secondPara.size() - 1);
+			
+			newOp->setValue(TGen::lexical_cast<scalar>(secondPara));
 		}
 		else {
 			newOp->setValue(0);
@@ -226,7 +246,17 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 	else if (type[0] == '[' || (properties.getNumAttributes() > 2 && properties.getAttribute(1)[0] == '[')) {
 		bool retValue = (properties.getNumAttributes() > 2 && properties.getAttribute(0) == "=");
 		bool saveContext = true;
-		int attributeOffset = 0;
+		
+		TGen::Engine::Script::EventOperation * parentObject = &container;
+		
+		if (saveContext) {
+			TGen::Engine::Script::FrameOperation * frame = new TGen::Engine::Script::FrameOperation(&container);
+			frame->setSaveReturn(true);
+			
+			parentObject = frame;
+		}
+		
+
 		
 		std::string object, method;
 		int paramStart = 0;
@@ -242,8 +272,8 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 			if (regNum == -1)
 				throw TGen::RuntimeException("Script::Subsystem::createOperation", "invalid register: " + properties.getName());
 			
-			TGen::Engine::Script::EventOperation * retMov = createMovOperation("mov", TGen::lexical_cast<std::string>(regNum), "r1", container);
-			container.addOperation(retMov);
+			TGen::Engine::Script::EventOperation * retMov = createMovOperation("imov", TGen::lexical_cast<std::string>(regNum), "r1", container);
+			container.addOperation(retMov);	// should be in the container above frame
 			
 			object = properties.getAttribute(1);
 			method = properties.getAttribute(2);
@@ -253,7 +283,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 			method = properties.getAttribute(0);
 		}
 		
-		TGen::Engine::Script::CallOperation * newOp = new TGen::Engine::Script::CallOperation(&container);
+		TGen::Engine::Script::CallOperation * newOp = new TGen::Engine::Script::CallOperation(parentObject);
 		
 				
 		std::string objectPart, methodPart;
@@ -302,15 +332,6 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		
 		newOp->setShareContext(true); //type == "call");
 		
-		TGen::Engine::Script::EventOperation * parentObject = &container;
-		
-		if (saveContext) {
-			TGen::Engine::Script::FrameOperation * frame = new TGen::Engine::Script::FrameOperation(&container);
-			frame->setSaveReturn(true);
-			
-			parentObject = frame;
-		}
-		
 		if (properties.getNumAttributes() > 1 + paramStart) {	// we've got parameters
 			for (int i = properties.getNumAttributes() - 1; i >=  1 + paramStart; --i) {
 				std::string attribute = properties.getAttribute(i);
@@ -322,11 +343,11 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 				dest = "r" + TGen::lexical_cast<std::string>(i + 1 - paramStart);
 				
 				if (dest != attribute) {
-					TGen::Engine::Script::EventOperation * paramMov = createMovOperation("mov", attribute, dest, container);
+					TGen::Engine::Script::EventOperation * paramMov = createMovOperation("mov", attribute, dest, *parentObject);
 					if (!paramMov)
 						throw TGen::RuntimeException("Script::Subsystem::createOperation", "failed to create mov for parameter");
 				
-					container.addOperation(paramMov);
+					parentObject->addOperation(paramMov);
 				}
 			}
 		}

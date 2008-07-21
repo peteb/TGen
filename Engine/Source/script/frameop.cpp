@@ -25,12 +25,13 @@ void TGen::Engine::Script::FrameOperation::trigger(TGen::Engine::TriggerContext 
 	if (saveContext) {
 		if (saveReturn) {
 			int retRegister = context.getReturnRegister();
-			
+						
 			TGen::Engine::TriggerContext savedContext(context);
 			TGen::Engine::Script::EventOperation::trigger(context, mode);
 			
 			uint32 retVal = *context.getRegister<uint32 *>(retRegister);
 			context = savedContext;
+			
 			context.setRegister(retRegister, retVal);			
 		}
 		else {

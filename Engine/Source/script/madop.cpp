@@ -21,11 +21,14 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 
 		if (factorRegister != -1)
 			fixedFactor = *context.getRegister<scalar *>(factorRegister);
+		
 		if (termRegister != -1)
 			fixedTerm = *context.getRegister<scalar *>(termRegister);
 		
 		if (sourceId == destId) {			
 			scalar * value = context.getRegister<scalar *>(sourceId);
+			//std::cout << "MULTIPLY " << std::fixed << *value << " BY " << fixedFactor << " (REG: " << sourceId << ")" << std::endl;
+
 			*value = *value * fixedFactor + fixedTerm;
 		}
 		else {
@@ -38,11 +41,12 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 		
 		if (factorRegister != -1)
 			fixedFactor = *context.getRegister<int *>(factorRegister);
+		
 		if (termRegister != -1)
 			fixedTerm = *context.getRegister<int *>(termRegister);
 		
 		if (sourceId == destId) {
-			int * value = context.getRegister<int *>(sourceId);
+			int * value = context.getRegister<int *>(sourceId);		
 			*value = *value * fixedFactor + fixedTerm;
 		}
 		else {

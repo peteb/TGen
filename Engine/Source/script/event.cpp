@@ -14,6 +14,8 @@ TGen::Engine::Script::Event::Event(const std::string & name, int symbolId)
 	: TGen::Engine::Component(name)
 	, TGen::Engine::Script::EventOperation(NULL)
 	, symbolId(symbolId)
+	, minCallTime(-1.0)
+	, lastCall(-1.0)
 {
 
 }
@@ -27,8 +29,24 @@ void TGen::Engine::Script::Event::linkGlobally(TGen::Engine::EntityList & entiti
 }
 
 void TGen::Engine::Script::Event::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	if (context.getFunctionSymbol() == symbolId || mode == TGen::Engine::TriggerPrecise)
-		TGen::Engine::Script::EventOperation::trigger(context, mode);
-	else
-		TGen::Engine::Component::trigger(context, mode);
+	double now = TGen::Time::Now();
+
+	//std::cout << std::fixed << "NOW: " << now << " LAST: " << lastCall << " MIN: " << minCallTime << std::endl;
+	// scalar is not enough for the big stupid numbers generated, they are in unix time, epoch!!
+	
+	if (now - lastCall >= minCallTime) {		
+		lastCall = now;
+		
+		if (context.getFunctionSymbol() == symbolId || mode == TGen::Engine::TriggerPrecise)
+			TGen::Engine::Script::EventOperation::trigger(context, mode);
+		else
+			TGen::Engine::Component::trigger(context, mode);
+	}
+	else {
+		TGen::Engine::Component::trigger(context, mode);		
+	}
+}
+
+void TGen::Engine::Script::Event::setMinCallInterval(scalar interval) {
+	this->minCallTime = interval;
 }

@@ -24,9 +24,11 @@ namespace TGen {
 				
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
+				void setMinCallInterval(scalar interval);
 				
 			private:
 				int symbolId;
+				double minCallTime, lastCall;
 			};
 			
 		} // !Script

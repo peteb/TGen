@@ -40,7 +40,7 @@ namespace TGen {
 				ItemMap items;
 				ItemSymbolMap itemSymbols;
 				
-				int setItemValueSymbol, getItemValueSymbol;
+				int setItemValueSymbol, getItemValueSymbol, increaseItemValueSymbol;
 			};
 		} // !Inventory
 	} // !Engine

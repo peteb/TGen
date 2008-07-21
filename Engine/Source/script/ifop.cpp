@@ -26,7 +26,7 @@ void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & c
 			passed = testExpressionInt(context);
 		else
 			passed = testExpression(context);
-				
+		
 		if (passed)
 			TGen::Engine::Script::EventOperation::trigger(context, mode);
 

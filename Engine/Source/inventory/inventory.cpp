@@ -15,10 +15,12 @@ TGen::Engine::Inventory::Inventory::Inventory(const std::string & name)
 	: TGen::Engine::Component(name)
 	, setItemValueSymbol(-1)
 	, getItemValueSymbol(-1)
+	, increaseItemValueSymbol(-1)
 {
 
 	setItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["setItemValue"];
 	getItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["getItemValue"];
+	increaseItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["increaseItemValue"];
 }
 
 TGen::Engine::Inventory::Inventory::~Inventory() {
@@ -107,9 +109,19 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
-			context.setRegister<int>(context.getReturnRegister(), iter->second->value);
+			context.setRegister<scalar>(context.getReturnRegister(), scalar(iter->second->value));
 		else
 			context.setRegister<int>(0, -1);
+	}
+	else if (symbolNum == increaseItemValueSymbol) {
+		int itemSymbol = *context.getRegister<int *>(2);
+		int itemValue = *context.getRegister<scalar *>(3);
+
+		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
+		if (iter != itemSymbols.end())
+			iter->second->increaseValue(itemValue);
+		else
+			context.setRegister<int>(0, -1);		
 	}
 }
 
