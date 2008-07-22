@@ -19,6 +19,7 @@ namespace TGen {
 		namespace Script {	
 			class EventOperation;
 			class MoveOperation;
+			class IfOperation;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
@@ -34,6 +35,8 @@ namespace TGen {
 				void createOperation(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
 				void createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
 				TGen::Engine::Script::MoveOperation * createMovOperation(const std::string & type, const std::string & source, const std::string & dest, TGen::Engine::Script::EventOperation & container);
+				void createCallOperation(const std::string & head, const TGen::PropertyTree & properties, int attributeStart, TGen::Engine::Script::EventOperation & container);
+				TGen::Engine::Script::IfOperation * createIfOperation(const std::string & type, int attributeStart, const TGen::PropertyTree & properties, TGen::Engine::Script::EventOperation & container);
 				
 				int getRegisterId(const std::string & desc);
 				

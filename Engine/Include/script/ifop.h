@@ -10,7 +10,7 @@
 #ifndef _TGEN_ENGINE_SCRIPT_IFOP_H
 #define _TGEN_ENGINE_SCRIPT_IFOP_H
 
-#include "eventoperation.h"
+#include "script/frameop.h"
 
 namespace TGen {
 	namespace Engine {
@@ -26,7 +26,7 @@ namespace TGen {
 				CompareGreaterThanOrEqual,
 			};
 			
-			class IfOperation : public TGen::Engine::Script::EventOperation {
+			class IfOperation : public TGen::Engine::Script::FrameOperation {
 			public:
 				IfOperation(TGen::Engine::Script::EventOperation * parent);
 				

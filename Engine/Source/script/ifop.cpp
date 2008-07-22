@@ -11,11 +11,11 @@
 #include "script/frameop.h"
 
 TGen::Engine::Script::IfOperation::IfOperation(TGen::Engine::Script::EventOperation * parent)
-	: TGen::Engine::Script::EventOperation(parent)
+	: TGen::Engine::Script::FrameOperation(parent)
 	, elseBlock(NULL)
 	, intOp(0)
 {
-	
+	setSaveContext(false);
 }
 
 void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
@@ -28,7 +28,7 @@ void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & c
 			passed = testExpression(context);
 		
 		if (passed)
-			TGen::Engine::Script::EventOperation::trigger(context, mode);
+			TGen::Engine::Script::FrameOperation::trigger(context, mode);
 
 		if (elseBlock)
 			elseBlock->setExecute(!passed);
@@ -36,11 +36,11 @@ void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & c
 	else {
 		if (intOp) {
 			while (testExpressionInt(context))
-				TGen::Engine::Script::EventOperation::trigger(context, mode);
+				TGen::Engine::Script::FrameOperation::trigger(context, mode);
 		}
 		else {
 			while (testExpression(context))
-				TGen::Engine::Script::EventOperation::trigger(context, mode);			
+				TGen::Engine::Script::FrameOperation::trigger(context, mode);			
 		}
 	}
 	
