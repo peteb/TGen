@@ -35,6 +35,8 @@ namespace TGen {
 				void update(scalar delta);
 				void addGeom(TGen::Engine::Physics::Geom * geom);
 				void addBody(TGen::Engine::Physics::Body * body);
+				void setGravity(const TGen::Vector3 & gravity);
+				TGen::Vector3 getGravity() const;
 				
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
@@ -49,8 +51,6 @@ namespace TGen {
 				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties);
 				dMass getMass(const TGen::PropertyTree & properties);
 				uint getCategoryBits(const std::string & name);
-				
-				void setGravity(const TGen::Vector3 & gravity);
 				
 				std::vector<TGen::Engine::Physics::Body *> bodies;
 				std::vector<TGen::Engine::Physics::Geom *> geoms;

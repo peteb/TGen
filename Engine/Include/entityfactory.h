@@ -36,7 +36,7 @@ namespace TGen {
 			
 		private:
 			TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & entityName, const TGen::PropertyTree & properties) const;
-			TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties) const;
+			TGen::Engine::Component * createComponent(const std::string & entityName, const TGen::PropertyTree & properties, TGen::Engine::Entity * entity) const;
 			
 			TGen::PropertyTree extendTree(const TGen::PropertyTree & base, const TGen::PropertyTree & entity) const;
 			

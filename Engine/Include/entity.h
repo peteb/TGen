@@ -15,6 +15,7 @@
 #include <vector>
 #include "triggerable.h"
 #include "triggercontext.h"
+#include "symbols.h"
 
 namespace TGen {
 	namespace Engine {
@@ -30,6 +31,7 @@ namespace TGen {
 			void linkGlobally(TGen::Engine::EntityList & entities);
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
 			void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
+			void initialize();
 			
 			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
 			TGen::Engine::Component & getComponent(const std::string & name);
@@ -38,7 +40,7 @@ namespace TGen {
 			TGen::Engine::Component & getComponent(int index);
 
 			TGen::Engine::TriggerContext & getContext();
-			void registerEvent(int symbolId, TGen::Engine::Triggerable * event);
+			void registerEvent(TGen::Engine::Symbol symbolId, TGen::Engine::Triggerable * event);
 			
 			const std::string & getName() const;
 			
@@ -57,7 +59,7 @@ namespace TGen {
 			EventMap events;
 
 			std::string name;
-			int getComponentSymbol, respondsToSymbol;
+			static TGen::Engine::Symbol symbolGetComponent, symbolRespondsTo;
 			TGen::Engine::TriggerContext context;
 			TGen::Engine::Triggerable * initializer, * dispatcher;
 		}; 

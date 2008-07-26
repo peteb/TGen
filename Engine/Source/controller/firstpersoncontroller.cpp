@@ -346,5 +346,7 @@ TGen::Rotation TGen::Engine::Controller::FirstPerson::getOrientation() const {
 	return TGen::Rotation::Identity;
 }
 
-
+void TGen::Engine::Controller::FirstPerson::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
+	TGen::Engine::PlayerController::trigger(context, mode);
+}
 

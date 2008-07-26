@@ -40,9 +40,9 @@ namespace TGen {
 		class LogTarget;
 		
 		enum LogMessageType {
-			Info = 1,
-			Warning,
-			Error,			
+			LogInfo = 1,
+			LogWarning,
+			LogError,			
 		};
 		
 		class Endl {

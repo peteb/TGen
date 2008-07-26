@@ -12,6 +12,10 @@
 
 TGen::Engine::Script::MoveOperation::MoveOperation(TGen::Engine::Script::EventOperation * parent)
 	: TGen::Engine::Script::EventOperation(parent)
+	, destOffset(-1)
+	, sourceOffset(-1)
+	, destId(-1)
+	, sourceId(-1)
 {
 }
 
@@ -39,15 +43,29 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 		}
 	}
 	else {
+		scalar * dest = context.getRegister<scalar *>(destRegId);
+		scalar * source = context.getRegister<scalar *>(sourceId);
+		
+		if (destOffset != -1) {
+			scalar * array = *context.getRegister<scalar **>(destRegId);
+			dest = &array[destOffset];
+		}
+		
+		if (sourceOffset != -1) {
+			scalar * array = *context.getRegister<scalar **>(sourceId);
+			source = &array[sourceOffset];
+		}
+		
 		if (imm) {
-			*context.getRegister<scalar *>(destRegId) = sourceImm;
+			*dest = sourceImm;
 		}
 		else {
+			
 			if (useSwap) {
-				std::swap(*context.getRegister<scalar *>(destRegId), *context.getRegister<scalar *>(sourceId));
+				std::swap(*dest, *source);
 			}
 			else {
-				*context.getRegister<scalar *>(destRegId) = *context.getRegister<scalar *>(sourceId);
+				*dest = *source;
 			}
 		}		
 	}
@@ -83,11 +101,19 @@ void TGen::Engine::Script::MoveOperation::setDerefDest(bool derefDest) {
 }
 
 void TGen::Engine::Script::MoveOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	sourceResource.link(entities, entity);
+	sourceResource.link(entities, entity);		// TODO: skicka med EntityList i ComponentRecipe::linkGlobally, och sourceResource ska vara relativt addreserad! inte string!
 }
 
 void TGen::Engine::Script::MoveOperation::setResourceName(const std::string & resName) {
-	sourceResource = resName;
+	sourceResource.set(resName);
+}
+
+void TGen::Engine::Script::MoveOperation::setDestOffset(int destOffset) {
+	this->destOffset = destOffset;
+}
+
+void TGen::Engine::Script::MoveOperation::setSourceOffset(int sourceOffset) {
+	this->sourceOffset = sourceOffset;
 }
 
 

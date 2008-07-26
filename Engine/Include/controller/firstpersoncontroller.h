@@ -34,6 +34,7 @@ namespace TGen {
 				FirstPerson(const std::string & name, scalar deltaPlane, scalar jumpForce, scalar jumpTime);
 				~FirstPerson();
 				
+				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				void linkLocally(TGen::Engine::Entity & entity);
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void update(scalar dt);

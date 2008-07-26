@@ -71,9 +71,9 @@ int TGen::Engine::Log::write(char * data, uint size) {
 }
 
 TGen::Engine::StandardLogs::StandardLogs()
-	: info(TGen::Engine::Info)
-	, warning(TGen::Engine::Warning)
-	, error(TGen::Engine::Error)
+	: info(TGen::Engine::LogInfo)
+	, warning(TGen::Engine::LogWarning)
+	, error(TGen::Engine::LogError)
 	, logtargets(NULL)
 	, outputFile("tgen.log", std::fstream::out)
 {

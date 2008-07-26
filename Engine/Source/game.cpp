@@ -60,58 +60,31 @@ void TGen::Engine::GameState::tick() {
 	
 	// gör om det här, render kallas varje tick medans physics bara lite då och då, typ 40 fps
 	
-	/*TGen::Time now = TGen::Time::Now();
-	double sinceLastRender = double(now) - double(lastRender);	// TODO: undersök om scalar kanske räcker, sen operator - på Time. det här suger.
-	sinceErrorCheck += sinceLastRender;
-	
-	if (sinceLastRender >= vars.maxRefreshInterval) {
-		lastRender = now;
-		
-		//playerController.update(sinceLastRender);
-		
-		if (currentWorld) {
-			TGen::Vector3 playerPosition, playerVelocity, playerForward, playerUp;
-			TGen::Engine::PlayerController * controller = currentWorld->getPlayerController("player_start");
-			
-			
-			TGen::Matrix4x4 invertedCam = controller->getCamera("headcam")->getTransform().getInverse();
-			
-			playerPosition = controller->getPosition();
-			playerVelocity = controller->getVelocity();
-			playerForward = invertedCam.getZ();
-			playerUp = invertedCam.getY();
-			
-			currentWorld->updateListener(playerPosition, playerVelocity, playerForward, playerUp);
-			currentWorld->update(sinceLastRender);
-			
-			
-		}
-		
-		render(sinceLastRender);
-	//	std::cout << 1.0 / sinceLastRender << std::endl;
-		
-	}
-	else {
-		if (vars.conserveCPU && sinceLastRender < vars.maxRefreshInterval / 2.0)	// we don't want to cause irregular render updates
-			TGen::Sleep(TGen::Time(sinceLastRender));
-	}*/
-	
 	TGen::Time now = TGen::Time::Now();
 	double sinceLastRender = double(now) - double(lastRender);
 	//double sinceLastUpdate = double(now) - double(lastUpdate);
 	
 	if (currentWorld) {
 		TGen::Vector3 playerPosition, playerVelocity, playerForward, playerUp;
-		TGen::Engine::PlayerController * controller = currentWorld->getPlayerController("player_start");
 		
-		TGen::Matrix4x4 invertedCam = controller->getCamera("headcam")->getTransform().getInverse();
+		TGen::Engine::WorldObject * viewObject = currentWorld->getPlayerController();
+		if (!viewObject)
+			viewObject = currentWorld->getPlayerCamera();
 		
-		playerPosition = controller->getPosition();
-		playerVelocity = controller->getVelocity();
+		TGen::Matrix4x4 invertedCam = TGen::Matrix4x4(viewObject->getOrientation()).getInverse();	// TODO: improve! TGen::Rotation without mat4
+		
+		
+		
+		if (viewObject) {
+			playerPosition = viewObject->getPosition();
+			playerVelocity = viewObject->getVelocity();
+		}
+		
 		playerForward = invertedCam.getZ();
 		playerUp = invertedCam.getY();
 		
 		currentWorld->updateListener(playerPosition, playerVelocity, playerForward, playerUp);		
+		
 		currentWorld->update(sinceLastRender);	
 	}
 	
@@ -124,7 +97,7 @@ void TGen::Engine::GameState::tick() {
 
 void TGen::Engine::GameState::render(scalar dt) {
 	if (currentWorld)
-		worldRenderer.renderWorld(*currentWorld, currentWorld->getPlayerController("player_start")->getCamera("headcam"), dt);
+		worldRenderer.renderWorld(*currentWorld, dynamic_cast<TGen::Camera *>(currentWorld->getPlayerCamera()->getSceneNode()), dt);
 	
 	env.swapBuffers();
 	//std::cout << "statistics this frame: " << std::endl << std::string(app.renderer.getStatistics()) << std::endl;
@@ -155,7 +128,7 @@ void TGen::Engine::GameState::checkErrors() {
 
 void TGen::Engine::GameState::postWorldCreation(TGen::Engine::World & world) {
 	//player = world.createPlayer();
-	inputMapper.setPlayerController(world.getPlayerController("player_start"));
+	inputMapper.setPlayerController(world.getPlayerController());
 }
 
 void TGen::Engine::GameState::changeMap(const std::string & mapName) {

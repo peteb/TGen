@@ -13,6 +13,7 @@
 #include "component.h"
 #include "item.h"
 #include "triggerable.h"
+#include "symbols.h"
 
 namespace TGen {
 	namespace Engine {
@@ -40,7 +41,7 @@ namespace TGen {
 				ItemMap items;
 				ItemSymbolMap itemSymbols;
 				
-				int setItemValueSymbol, getItemValueSymbol, increaseItemValueSymbol;
+				static TGen::Engine::Symbol symbolSetItemValue, symbolGetItemValue, symbolIncreaseItemValue;
 			};
 		} // !Inventory
 	} // !Engine

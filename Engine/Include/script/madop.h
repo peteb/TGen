@@ -28,6 +28,9 @@ namespace TGen {
 				void setSource(int regId);
 				void setDest(int regId);
 				
+				void setSourceOffset(int offset);
+				void setDestOffset(int offset);
+				
 				void setIntTerm(int term);
 				void setIntFactor(int factor);
 
@@ -36,6 +39,8 @@ namespace TGen {
 			private:
 				scalar factor, term;
 				int destId, sourceId, intTerm, intFactor, termRegister, factorRegister;
+				int destOffset, sourceOffset;
+				
 				bool intMath;
 			};
 			

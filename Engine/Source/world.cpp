@@ -15,6 +15,7 @@
 #include "scene/node.h"
 #include "log.h"
 #include "playercontroller.h"
+#include "info/worldinfo.h"
 
 TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::ResourceManager & resources, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource, const std::string & mapname)
 	: filesystem(filesystem)
@@ -23,10 +24,10 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, physicsSubsystem(logs, filesystem)
 	, soundSubsystem(logs, filesystem)
 	, scriptSubsystem(logs)
-	, sceneRoot("root")
 	, mainCam(NULL)
 	, lightList(100)
 	, entityFactory(logs)
+	, worldInfo(NULL)
 {
 	logs.info["world+"] << "initializing world '" << mapname << "'..." << TGen::endl;
 	
@@ -45,7 +46,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	entityFactory.registerSubsystem("soundLocal", &soundSubsystem);
 	entityFactory.registerSubsystem("soundGlobal", &soundSubsystem);
-	entityFactory.registerSubsystem("soundRes", &soundSubsystem);
+	entityFactory.registerSubsystem("soundRef", &soundSubsystem);
 	
 	entityFactory.registerSubsystem("inventory", &inventorySubsystem);
 	entityFactory.registerSubsystem("weapon", &inventorySubsystem);
@@ -53,10 +54,13 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("event", &scriptSubsystem);
 	entityFactory.registerSubsystem("-event", &scriptSubsystem);
 
+	entityFactory.registerSubsystem("worldInfo", &infoSubsystem);
+	
 	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
+	infoSubsystem.setWorld(this);
 
 	loadEntities("/maps/defs");
 	loadEntities("/maps/" + mapname + "/entities");
@@ -146,11 +150,6 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 // men då ska den metoden helst ta en kamera som parameter
 
 void TGen::Engine::World::update(scalar dt) {
-	//sceneRoot.getChild("weapon")->setPosition(sceneRoot.getChild("weapon")->getLocalPosition() + TGen::Vector3(dt, 0.0f, 0.0f));
-	//TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationX(TGen::Radian(dt * 0.1));
-	
-	//sceneSubsystem.getSceneRoot().getChild("test5")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("test5")->getLocalOrientation()));
-	//sceneSubsystem.getSceneRoot().getChild("testmap")->setOrientation(rot * TGen::Vector3(sceneSubsystem.getSceneRoot().getChild("testmap")->getLocalOrientation()));
 	// TODO: add lights IN the scene node of the map
 	
 	inventorySubsystem.update(dt);
@@ -160,6 +159,29 @@ void TGen::Engine::World::update(scalar dt) {
 	soundSubsystem.update(dt);
 }
 
+/*
+	Hur får world sin egna entitet? World SKA hanteras som en vanlig entitet, men den här world (objektet vi är i nu) ska bara peka på den world. WorldEntity
+ 
+	Om någon entitet har en worldInfo så länkas World automatiskt med den, throwa om redan länkad
+	
+	För att ändra bana... [game changeMap: "hey.map"];
+ 
+	[world setPlayerView: playerController];
+	[world setAmbient: 2 3 1];
+		
+	world {
+		worldInfo {
+			ambientLight "0 0 0"
+			playerView "player_start:hellote"
+		}
+ 
+		event init {
+			[worldInfo setPlayerView: @stuff];
+		}
+	}
+ 
+ */
+
 void TGen::Engine::World::updateListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up) {
 	soundSubsystem.setListener(position, velocity, forward, up);	
 }
@@ -168,8 +190,25 @@ TGen::Color TGen::Engine::World::getAmbientLight() {
 	return TGen::Color(0.4, 0.4, 0.4, 1.0);
 }
 
-TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const std::string & name) {
-	return controllerSubsystem.getController(name);
+TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController() {
+	TGen::Engine::PlayerController * ret = NULL;
+	
+	if (worldInfo)
+		ret = worldInfo->getPlayerController();
+	
+	return ret; 
+}
+
+TGen::Engine::Scene::Node * TGen::Engine::World::getPlayerCamera() {
+	return getPlayerController()->getCamera("headcam");
+}
+
+
+void TGen::Engine::World::setWorldInfo(TGen::Engine::Info::WorldInfo * worldInfo) {
+	if (this->worldInfo)
+		throw TGen::RuntimeException("World::setWorldInfo", "worldInfo already set!");
+	
+	this->worldInfo = worldInfo;
 }
 
 
@@ -177,13 +216,6 @@ TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController(const 
 	TGen::Camera * camera = new TGen::Camera("maincam", TGen::Vector3(0.0f, 2.0f, 0.0f), TGen::Rotation::Identity);
 	sceneSubsystem.getSceneRoot().addChild(camera);
 	
-	// TODO: ange inte playerstuff i entities, men player ska vara en TGen::Engine::Entity!
-	//       dvs, populera entiteten med components i ctor eftersom man vill länka och stå i.
-	//       består av en eller flera scenenodes, en kamera, ljud möjligtvis, phsyGeom, physBody
-	//			healthComponent, ...
-	//       ska kunna finnas flera olika sorters players, ghost, physplayer osv. därför det är viktigt med getPlayerController
-	//       men mest logiskt vore om man fick controllern från game, det är ju den som bestämmer om man ska ha ghostcam eller
-	//       vara i gubben.
 	
 	// Game.getPlayerController!!!!!! sen frågar den world efter olika controllers beroende på vilken mode game är i.
 	//			typ world.getController("ghostplayer"), world.getController("physplayer").

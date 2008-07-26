@@ -14,6 +14,7 @@
 #include "component.h"
 #include "subsystem.h"
 #include "log.h"
+#include "objectreference.h"
 #include <tgen_core.h>
 
 TGen::Engine::EntityFactory::EntityFactory(TGen::Engine::StandardLogs & logs)
@@ -43,7 +44,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	}
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
-		TGen::Engine::Component * newComponent = createComponent(entity->getName(), props.getNode(i));
+		TGen::Engine::Component * newComponent = createComponent(entity->getName(), props.getNode(i), entity);
 		if (newComponent)
 			entity->addComponent(newComponent, newComponent->getName());
 		else
@@ -56,21 +57,33 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 }
 
 
-TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std::string & entityName, const TGen::PropertyTree & properties) const {
+TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std::string & entityName, const TGen::PropertyTree & properties, TGen::Engine::Entity * entity) const {
 	SubsystemMap::const_iterator iter = subsystems.find(properties.getName());
+
+	TGen::Engine::Component * ret = NULL;
 	
-	if (iter == subsystems.end()) {
-		logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getName() << "'" << TGen::endl;
+	std::string componentName = properties.getName();
+	if (properties.getNumAttributes() > 0)
+		componentName = properties.getAttribute(0);
+	
+	if (iter != subsystems.end()) {
+		ret = iter->second->createComponent(componentName, entityName, properties);		
+	}
+	else if (properties.getName() == "objectRef") {
+		TGen::Engine::ObjectReference * ref = new TGen::Engine::ObjectReference(componentName);
+		ref->setObjectName(properties.getAttribute(1));
+		
+		ret = ref;
 	}
 	else {
-		std::string componentName = properties.getName();
-		if (properties.getNumAttributes() > 0)
-			componentName = properties.getAttribute(0);
-				
-		return iter->second->createComponent(componentName, entityName, properties);
+		logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getName() << "'" << TGen::endl;
+
 	}	
 	
-	return NULL;
+	if (ret && ret->isStatic())
+		ret->setOwner(entity);		// owner = NULL if the component should be cloned
+	
+	return ret;
 }
 
 

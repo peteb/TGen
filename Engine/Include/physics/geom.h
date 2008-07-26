@@ -15,6 +15,7 @@
 #include <tgen_core.h>
 #include "triggerable.h"
 #include "componentlink.h"
+#include "physics/bodydelegate.h"
 
 namespace TGen {
 	class Vector3;
@@ -51,8 +52,8 @@ namespace TGen {
 				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {return true; }
 				virtual void onCollisionForce(scalar force, bool groundCollision);
 				
-				virtual void linkLocally(TGen::Engine::Entity & entity);
 				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+
 				void setGeomId(dGeomID id);
 				void setCategory(uint category);
 				void setCollidesWith(uint collidesWith);
@@ -60,7 +61,7 @@ namespace TGen {
 				
 				void setEventCollisionForce(const std::string & eventName);
 				
-				scalar collisionForceThreshold;
+				scalar collisionForceThreshold, collisionForceScale;
 
 				
 			protected:
@@ -68,21 +69,18 @@ namespace TGen {
 				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
 				
 				dGeomID geomId;
-				std::string linkName;
 				
 			private:	
 				void updateFromLink();
 				void sendToLink();
 				
-				TGen::Engine::WorldObject * linkedTo;
-				TGen::Engine::Physics::Body * bodyLinked;
-				
+
 				bool affectsOthers;
 				float friction;
 				uint categoryBits, collidesWith;
 				
-				
-				TGen::Engine::ComponentLink<TGen::Engine::Triggerable> eventCollisionForce;
+				TGen::Engine::Physics::BodyDelegate link;
+				TGen::Engine::UnaryDelegate<TGen::Engine::Triggerable> eventCollisionForce;
 			};
 		} // !Physics
 	} // !Engine

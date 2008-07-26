@@ -16,10 +16,9 @@
 #include "script/moveop.h"
 #include "script/callop.h"
 #include "script/frameop.h"
+#include "script/eventrecipe.h"
 
 using TGen::Engine::Script::Event;
-
-TGen::SymbolTable TGen::Engine::Script::Subsystem::symbols;
 
 TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs)
 	: logs(logs)
@@ -33,7 +32,7 @@ TGen::Engine::Script::Subsystem::~Subsystem() {
 }
 
 
-TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Script::Event * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	int symbolId = -1;
 	bool hasParameterList = false;
 	
@@ -44,12 +43,12 @@ TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const
 		hasParameterList = true;
 	}
 	
-	if (fixedName == "initialize")
+	if (fixedName == "initialize" || fixedName == "init")
 		symbolId = -2;
 	else if (fixedName == "dispatch")
 		symbolId = -3;
 	else if (properties.getName()[0] != '-')
-		symbolId = symbols[fixedName];
+		symbolId = TGen::Engine::getUniqueSymbol(fixedName);
 	
 	Event * newEvent = new Event(fixedName, symbolId);
 	
@@ -73,7 +72,9 @@ TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const
 
 TGen::Engine::ComponentRecipe * TGen::Engine::Script::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	
-	return NULL;
+	TGen::Engine::Script::Event * newComponent = createComponent(name, entityName, properties);
+	
+	return new TGen::Engine::Script::EventRecipe(name, newComponent);
 }
 
 void TGen::Engine::Script::Subsystem::createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties) {
@@ -103,18 +104,34 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		TGen::Engine::Script::MadOperation * newOp = new TGen::Engine::Script::MadOperation(&container);
 		
 		bool intMath = (type == "imad");
-		std::string fixedSource = container.getAlias(properties.getAttribute(0));
+	
+		std::string fixedSource = properties.getAttribute(0);
+		std::string sourceOffset = "-1";
+		
+		{
+			std::string::value_type pos = fixedSource.find("[");
+			
+			if (pos != std::string::npos) {
+				sourceOffset = fixedSource.substr(pos + 1, fixedSource.find("]") - pos - 1);
+				fixedSource = fixedSource.substr(0, pos);
+			}
+		}
+		
+		fixedSource = container.getAlias(fixedSource);
 		if (fixedSource.empty())
 			fixedSource = properties.getAttribute(0);
 		
 		int source = getRegisterId(fixedSource);
 		
 		newOp->setSource(source);
+		newOp->setSourceOffset(TGen::lexical_cast<int>(sourceOffset));
 		
 		if (properties.getNumAttributes() > 1)
 			newOp->setDest(getRegisterId(properties.getAttribute(1)));
-		else
+		else {
 			newOp->setDest(source);
+			newOp->setDestOffset(TGen::lexical_cast<int>(sourceOffset));
+		}
 		
 		int termRegister = getRegisterId(properties.getProperty("add", "1"));
 		int factorRegister = getRegisterId(properties.getProperty("mul", "0"));
@@ -329,7 +346,8 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 		attributeStart++;
 	}
 	
-	std::string fixedObject, fixedMethod;
+	std::string fixedObject, fixedMethod, fixedEntity;
+	
 	if ((object.find(":") != std::string::npos) || (object.find("]") != std::string::npos)) {
 		fixedMethod = object.substr(1, object.size() - 2);
 	}
@@ -338,7 +356,16 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 		fixedMethod = method.substr(0, method.size() - 1);
 	}
 	
+	if (fixedObject.find(".") != std::string::npos) {	// we're addressing another entity
+		std::string::value_type pos = fixedObject.find(".");
+		
+		fixedEntity = fixedObject.substr(0, pos);
+		fixedObject = fixedObject.substr(pos + 1);
+	}
+	
 	// create movs for parameters:
+	
+	int numParameters = 0;
 	
 	if (properties.getNumAttributes() >= attributeStart) {		// we've got parameters
 		for (int i = properties.getNumAttributes() - 1; i >= attributeStart; --i) {		// steps backwards, some register collisions are avoided
@@ -349,6 +376,7 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 			
 			std::string dest = "r" + TGen::lexical_cast<std::string>(i - attributeStart + 2);	// select register to put parameter in
 			parentObject->addOperation(createMovOperation("mov", attribute, dest, *parentObject));		// create move operation in parent object (frame object)
+			numParameters++;
 		}		
 	}
 	
@@ -357,7 +385,11 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 	
 	TGen::Engine::Script::CallOperation * newCall = new TGen::Engine::Script::CallOperation(parentObject);
 	newCall->setShareContext(true);
-
+	newCall->setNumParameters(numParameters);
+	
+	// set entity:
+	if (!fixedEntity.empty())
+		newCall->setEntity(fixedEntity);
 	
 	// set object to work on:
 	
@@ -381,7 +413,7 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 	
 	// set method:
 	if (!fixedMethod.empty())
-		newCall->setOffset(symbols[fixedMethod]);		// look up offset/symbol for method
+		newCall->setOffset(TGen::Engine::getUniqueSymbol(fixedMethod));		// look up offset/symbol for method
 
 	parentObject->addOperation(newCall);
 	
@@ -395,7 +427,29 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::Subsystem::createMov
 
 	std::string fixedDest = dest;
 	std::string fixedSource = source;
+	std::string destOffset = "-1";
+	std::string sourceOffset = "-1";
+	
+	{
+		std::string::value_type pos = fixedDest.find("[");
 
+		if (pos != std::string::npos) {
+			destOffset = fixedDest.substr(pos + 1, fixedDest.find("]") - pos - 1);
+			fixedDest = fixedDest.substr(0, pos);
+		}
+	}
+
+	{
+		std::string::value_type pos = fixedSource.find("[");
+		
+		if (pos != std::string::npos) {
+			sourceOffset = fixedSource.substr(pos + 1, fixedSource.find("]") - pos - 1);
+			fixedSource = fixedSource.substr(0, pos);
+		}
+	}
+	
+	newOp->setDestOffset(TGen::lexical_cast<int>(destOffset));
+	newOp->setSourceOffset(TGen::lexical_cast<int>(sourceOffset));
 	
 	std::string aliasDest = container.getAlias(fixedDest);
 	if (!aliasDest.empty())
@@ -434,7 +488,7 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::Subsystem::createMov
 					newOp->setSourceImm(TGen::lexical_cast<scalar>(fixedSource));
 			}
 			catch (const std::bad_cast & e) {
-				newOp->setSourceImm(symbols[fixedSource]);
+				newOp->setSourceImm(TGen::Engine::getUniqueSymbol(fixedSource));
 			}
 		}
 	}

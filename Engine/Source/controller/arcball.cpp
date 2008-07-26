@@ -40,7 +40,7 @@ void TGen::Engine::Controller::Arcball::linkLocally(TGen::Engine::Entity & entit
 
 
 void TGen::Engine::Controller::Arcball::update(scalar dt) {
-	if (!node)
+	if (!node || !camera)
 		return;
 	
 	if (isEventInitial(TGen::Engine::EventPrimaryFire)) {		// start
@@ -55,6 +55,8 @@ void TGen::Engine::Controller::Arcball::update(scalar dt) {
 		node->setOrientation(totalRot);
 	}
 
+	TGen::Camera * camera = dynamic_cast<TGen::Camera *>(this->camera->getSceneNode());
+	
 	if (camera) {
 		if (checkEvent(TGen::Engine::EventForward))
 			camera->setPosition(camera->getLocalPosition() + TGen::Vector3(0.0f, 0.0f, -1.0f) * dt);

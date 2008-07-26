@@ -14,9 +14,9 @@
 #include <tgen_math.h>
 #include "component.h"
 #include "componentinterfaces.h"
+#include "symbols.h"
 
 namespace TGen {
-	class Camera;
 	class SceneNode;
 	
 	namespace Engine {
@@ -26,6 +26,9 @@ namespace TGen {
 			EventRead =			0x4000,
 		};
 		
+		namespace Scene {
+			class Node;
+		}
 		
 		class PlayerController : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 		public:
@@ -35,13 +38,14 @@ namespace TGen {
 			virtual void linkLocally(TGen::Engine::Entity & entity);
 			virtual void update(scalar dt) abstract;
 			virtual bool useRelativeView() const {return true; }
+			virtual void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 			
 			void beginEvent(int id);
 			void endEvent(int id);
 			void addViewDelta(const TGen::Vector3 & view);
 
 			void addCamera(const std::string & name, const std::string & camera);
-			TGen::Camera * getCamera(const std::string & name) const;
+			TGen::Engine::Scene::Node * getCamera(const std::string & name) const;
 			
 			
 			// world object interface
@@ -56,14 +60,16 @@ namespace TGen {
 			bool isEventInitial(int id) const;
 			bool checkEvent(int id);
 			void setEventRead(int id);
+			void resetEvents();
 			
 			TGen::Vector3 checkViewDelta();
 			TGen::Vector3 checkViewAbs();
+			bool ignoreInput;
 			
 		private:
 			void linkCameras(TGen::Engine::Entity & entity);
 									
-			typedef std::map<std::string, TGen::Camera *> CameraMap;
+			typedef std::map<std::string, TGen::Engine::Scene::Node *> CameraMap;
 			typedef std::map<std::string, std::string> StringStringMap;
 			
 			StringStringMap camerasToLink;
@@ -72,6 +78,8 @@ namespace TGen {
 			uint32 activeEvents[20];
 			
 			TGen::Vector3 viewDelta, viewAbs;
+			
+			static TGen::Engine::Symbol symbolSetIgnoreInput;
 		};
 		
 	} // !Engine

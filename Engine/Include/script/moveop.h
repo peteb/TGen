@@ -32,12 +32,14 @@ namespace TGen {
 				void setSwap(bool useSwap);
 				void setDerefDest(bool derefDest);
 				void setResourceName(const std::string & resName);
+				void setDestOffset(int destOffset);
+				void setSourceOffset(int sourceOffset);
 				
 			private:
 				int sourceId, destId;
 				scalar sourceImm;
-				TGen::Engine::ComponentLink<TGen::Engine::ResourceComponent> sourceResource;
-				int sourceImmInt;
+				TGen::Engine::UnaryDelegate<TGen::Engine::ResourceComponent> sourceResource;
+				int sourceImmInt, destOffset, sourceOffset;
 				bool intOp, useSwap, imm, derefDest;
 			};
 		} // !Script

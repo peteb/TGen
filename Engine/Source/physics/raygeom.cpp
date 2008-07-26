@@ -46,7 +46,7 @@ bool TGen::Engine::Physics::RayGeom::onCollision(TGen::Engine::Physics::Geom * w
 	TGen::Vector3 collisionAt(contactInfo.geom.pos[0], contactInfo.geom.pos[1], contactInfo.geom.pos[2]);
 	TGen::Vector3 collisionDir(contactInfo.geom.normal[0], contactInfo.geom.normal[1], contactInfo.geom.normal[2]);
 	
-	body->addForceWorld(collisionAt, collisionDir * -2000.0); 
+	body->addForceWorld(collisionAt, collisionDir * 5000000.0); 
 		
 	std::cout << "HEYYYY HIT" << std::endl;
 	

@@ -20,17 +20,23 @@ namespace TGen {
 		
 		class Component : public TGen::Engine::Triggerable {
 		public:
-			Component(const std::string & name);
+			Component(const std::string & name, bool staticComponent = false);
 			virtual ~Component();
 			
 			virtual void linkLocally(TGen::Engine::Entity & entity);
 			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+			virtual void linkIndependently() {}
 			virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			
+			bool isStatic() const;
 			const std::string & getName() const;
+			void setOwner(TGen::Engine::Entity * owner);
+			TGen::Engine::Entity * getOwner() const;
 			
 		protected:
 			const std::string name;
+			const bool staticComponent;
+			TGen::Engine::Entity * owner;
 		};
 	} // !Engine
 } // !TGen

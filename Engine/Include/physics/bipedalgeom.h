@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_PHYSICS_BIPEDALGEOM_H
 
 #include "physics/geom.h"
+#include "symbols.h"
 #include <tgen_core.h>
 
 namespace TGen {
@@ -33,7 +34,7 @@ namespace TGen {
 				bool sloppy;
 				
 				// symbols
-				int makeSloppySymbol;
+				static TGen::Engine::Symbol symbolMakeSloppy;
 			};
 		} // !Physics
 	} // !Engine

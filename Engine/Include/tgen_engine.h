@@ -18,7 +18,7 @@ namespace TGen {
 	namespace Engine {
 		class VariableRegister;
 		
-		const unsigned int VersionMajor = 0, VersionMinor = 1, VersionRevision = 1;
+		const unsigned int VersionMajor = 0, VersionMinor = 3, VersionRevision = 1;
 		
 		std::string getVersionString(); 
 	} // !Engine

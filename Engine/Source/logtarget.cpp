@@ -21,11 +21,11 @@ void TGen::Engine::StreamOutput::output(LogMessageType type, const std::string &
 	
 	std::string name;
 	switch (type) {
-		case TGen::Engine::Warning:
+		case TGen::Engine::LogWarning:
 			name = "**WARNING**";
 			break;
 			
-		case TGen::Engine::Error:
+		case TGen::Engine::LogError:
 			name = "**ERROR**";
 			break;
 	}

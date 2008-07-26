@@ -12,6 +12,7 @@
 
 #include "../component.h"
 #include "fmod/fmod.hpp"
+#include "symbols.h"
 #include <tgen_core.h>
 
 namespace TGen {
@@ -54,7 +55,7 @@ namespace TGen {
 				std::string filename;
 				bool autoplay, loop, threedee;
 				
-				int playSoundSymbol;
+				static TGen::Engine::Symbol symbolPlaySound;
 			};
 			
 		} // !Sound		

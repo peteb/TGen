@@ -20,6 +20,7 @@
 #include "fmod/fmod_errors.h"
 #include "filesystem.h"
 #include "file.h"
+#include "staticcomponentrecipe.h"
 
 using TGen::Engine::Sound::GlobalSource;
 using TGen::Engine::Sound::LocalSource;
@@ -81,9 +82,9 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 		globalSources.push_back(newSource);
 		ret = newSource;
 	}
-	else if (properties.getName() == "soundRes") {
+	else if (properties.getName() == "soundRef") {
 		SoundResource * newResource = new SoundResource(name, *this);
-		newResource->setSoundName(properties.getProperty("resource", ""));
+		newResource->setSoundName(properties.getAttribute(1));
 		return newResource;
 	}
 	else {
@@ -100,8 +101,12 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 TGen::Engine::ComponentRecipe * TGen::Engine::Sound::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	std::cout << "RECIPE: " << name << std::endl;
 
-	if (properties.getName() != "soundLocal")
-		throw TGen::RuntimeException("Sound::Subsystem::createComponentRecipe", "can only create local sounds with recipes");
+	if (properties.getName() == "soundRef") {
+		return new TGen::Engine::StaticComponentRecipe(name, createComponent(name, entityName, properties));
+	}
+	else if (properties.getName() != "soundLocal") {
+		throw TGen::RuntimeException("Sound::Subsystem::createComponentRecipe", "can only create local sounds with recipes, failed at " + properties.getName());
+	}
 	
 	std::string filename = properties.getProperty("sound", "");
 	 

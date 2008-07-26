@@ -11,12 +11,16 @@
 #include "scene/node.h"
 #include "entity.h"
 #include <tgen_renderer.h>
-#include "script/subsystem.h"
+
+using TGen::scalar;
+
+TGen::Engine::Symbol TGen::Engine::Physics::Body::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene");
+TGen::Engine::Symbol TGen::Engine::Physics::Body::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed");
+TGen::Engine::Symbol TGen::Engine::Physics::Body::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque");
 
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
 	, bodyId(bodyId)
-	, linkedTo(NULL)
 	, turnHeadwise(false)
 	, killTorque(false)
 	, onFloor(false)
@@ -25,9 +29,6 @@ TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWor
 	, spaceId(spaceId)
 	, doUpdateFromScene(true)
 {
-	symbolSetUpdateFromScene = TGen::Engine::Script::Subsystem::symbols["setUpdateFromScene"];
-	symbolSetMaxAngularSpeed = TGen::Engine::Script::Subsystem::symbols["setMaxAngularSpeed"];
-	symbolSetKillTorque = TGen::Engine::Script::Subsystem::symbols["setKillTorque"];
 }
 
 
@@ -54,12 +55,18 @@ void TGen::Engine::Physics::Body::preStep() {
 
 
 void TGen::Engine::Physics::Body::postStep() {
-	updateScene();	
+	updateScene();
+	
+	TGen::Vector3 thisPos = getPosition();
+	TGen::Vector3 diff = thisPos - lastPosition;
+	lastPosition = thisPos;
+	linearVelocity = thisPos / 60.0;
+	
 }
 
 
 void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	int symbolNum = context.getFunctionSymbol();
+	TGen::Engine::Symbol symbolNum = context.getFunctionSymbol();
 	
 	if (symbolNum == symbolSetUpdateFromScene) {
 		int updateFromScene = *context.getRegister<int *>(2);
@@ -84,9 +91,8 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 }
 
 
-void TGen::Engine::Physics::Body::linkLocally(TGen::Engine::Entity & entity) {
-	linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(entity.getComponent(linkName, std::nothrow));
-	
+void TGen::Engine::Physics::Body::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+	delegate.link(entities, entity);
 	updateFromScene();
 }
 
@@ -119,24 +125,21 @@ dBodyID TGen::Engine::Physics::Body::getBodyId() const {
 
 
 void TGen::Engine::Physics::Body::updateFromScene() {	
-	if (linkedTo && doUpdateFromScene) {
-		setPosition(linkedTo->getPosition());
-		setOrientation(linkedTo->getOrientation());
+	if (delegate && doUpdateFromScene) {
+		setPosition(delegate->getPosition());
+		setOrientation(delegate->getOrientation());
 	}	
 }
 
 
 void TGen::Engine::Physics::Body::updateScene() {
-	if (linkedTo) {
-	//	TGen::Matrix4x4 transform =  linkedTo->getSpaceTransform().getInverse();
-		// TODO: WorldObject ska bara hantera allt i worldcoords!!
-		
-		linkedTo->setPosition(getPosition());
+	if (delegate) {
+		delegate->setPosition(getPosition());
 		
 		if (turnHeadwise)
-			linkedTo->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			
+			delegate->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			
 		else
-			linkedTo->setOrientation(getOrientation());
+			delegate->setOrientation(getOrientation());
 	}	
 }
 
@@ -190,13 +193,12 @@ void TGen::Engine::Physics::Body::setMaxAngularSpeed(scalar speed) {
 
 
 void TGen::Engine::Physics::Body::setLink(const std::string & linkName) {
-	this->linkName = linkName;
+	delegate.set(linkName);
 }
 
 
 void TGen::Engine::Physics::Body::setLink(TGen::Engine::WorldObject * linkedTo) {
-	this->linkedTo = linkedTo;
-	
+	delegate.set(linkedTo);
 	updateFromScene();
 }
 
@@ -212,13 +214,14 @@ void TGen::Engine::Physics::Body::addForce(const TGen::Vector3 & force) {
 
 
 void TGen::Engine::Physics::Body::addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force) {
-	dBodyAddRelForceAtPos(bodyId, force.x, force.y, force.z, absPos.x, absPos.y, absPos.z);
+	dBodyAddForceAtPos(bodyId, force.x, force.y, force.z, absPos.x, absPos.y, absPos.z);
 }
 
 
 TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
-	const dReal * force = dBodyGetLinearVel(bodyId);
-	return TGen::Vector3(force[0], force[1], force[2]);
+	//const dReal * force = dBodyGetLinearVel(bodyId);
+	//return TGen::Vector3(force[0], force[1], force[2]);
+	return linearVelocity;
 }
 
 
@@ -270,3 +273,14 @@ const TGen::Vector3 & TGen::Engine::Physics::Body::getGroundNormal() const {
 	return groundNormal;
 }
 
+scalar TGen::Engine::Physics::Body::getGroundDefinition() const {
+	return 0.4;
+}
+
+scalar TGen::Engine::Physics::Body::getMass() const {
+	dMass mass;
+	
+	dBodyGetMass(bodyId, &mass);
+	
+	return mass.mass;
+}

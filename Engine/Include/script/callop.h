@@ -24,16 +24,18 @@ namespace TGen {
 				
 				void setEvent(const std::string & eventName);
 				void setEvent(int regId);
+				void setEntity(const std::string & entityName);
 				void setShareContext(bool shareContext);
 				void setOffset(int offset);
 				void setTriggerMode(TGen::Engine::TriggerMode triggerMode);
+				void setNumParameters(int numParams);
 				
 			private:
 				TGen::Engine::TriggerMode triggerMode;
-				std::string eventName;				
+				std::string eventName, entityName;				
 				bool shareContext;
 				TGen::Engine::Triggerable * event;
-				int registerId, offset;
+				int registerId, offset, numParameters;
 			};
 			
 		} // !Script

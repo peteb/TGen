@@ -10,8 +10,8 @@
 #include "script/event.h"
 #include "entity.h"
 
-TGen::Engine::Script::Event::Event(const std::string & name, int symbolId)
-	: TGen::Engine::Component(name)
+TGen::Engine::Script::Event::Event(const std::string & name, TGen::Engine::Symbol symbolId)
+	: TGen::Engine::Component(name, true)	// static component
 	, TGen::Engine::Script::EventOperation(NULL)
 	, symbolId(symbolId)
 	, minCallTime(-1.0)
@@ -50,3 +50,8 @@ void TGen::Engine::Script::Event::trigger(TGen::Engine::TriggerContext & context
 void TGen::Engine::Script::Event::setMinCallInterval(scalar interval) {
 	this->minCallTime = interval;
 }
+
+TGen::Engine::Symbol TGen::Engine::Script::Event::getSymbol() const {
+	return symbolId;
+}
+

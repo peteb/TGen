@@ -21,6 +21,7 @@ namespace TGen {
 			TriggerContext() {
 				memset(registers, 0, 10 * sizeof(uint32));
 				selfPointer = 0;
+				numParameters = 0;
 			}
 			
 			template<typename T>
@@ -55,6 +56,7 @@ namespace TGen {
 			
 			uint32 registers[10];
 			uint32 selfPointer;
+			int numParameters;
 		};
 		
 	} // !Engine

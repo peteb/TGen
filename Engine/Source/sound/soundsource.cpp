@@ -16,9 +16,9 @@
 #include "componentinterfaces.h"
 #include "entity.h"
 
-#include "script/subsystem.h"
-
 using TGen::Engine::Sound::Channel;
+
+TGen::Engine::Symbol TGen::Engine::Sound::Source::symbolPlaySound = TGen::Engine::getUniqueSymbol("playSound");
 
 TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator) 
 	: TGen::Engine::Component(name)
@@ -27,7 +27,6 @@ TGen::Engine::Sound::Source::Source(const std::string & name, const std::string 
 	, prototype(false)
 	, creator(creator)
 {
-	playSoundSymbol = TGen::Engine::Script::Subsystem::symbols["playSound"];
 }
 
 TGen::Engine::Sound::Source::~Source() {
@@ -81,7 +80,7 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 
 
 void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	if (context.getFunctionSymbol() == playSoundSymbol) {
+	if (context.getFunctionSymbol() == symbolPlaySound) {
 		uint32 soundId = *context.getRegister<uint32 *>(2);
 		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
 		

@@ -34,7 +34,7 @@ namespace TGen {
 				TGen::Vector3 mapToSphere(const TGen::Vector3 & vec) const;
 				TGen::Vector3 start;
 				TGen::Rotation lastRot, thisRot;
-				TGen::Camera * camera;
+				TGen::Engine::Scene::Node * camera;
 				TGen::SceneNode * node;
 				std::string controlName;
 			};

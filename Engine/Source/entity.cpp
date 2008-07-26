@@ -9,25 +9,25 @@
 
 #include "entity.h"
 #include "component.h"
-#include "script/subsystem.h"
 #include <tgen_core.h>
+
+TGen::Engine::Symbol TGen::Engine::Entity::symbolGetComponent = TGen::Engine::getUniqueSymbol("getComponent");
+TGen::Engine::Symbol TGen::Engine::Entity::symbolRespondsTo = TGen::Engine::getUniqueSymbol("respondsTo");
 
 TGen::Engine::Entity::Entity(const std::string & name)
 	: name(name)
-	, getComponentSymbol(-1)
-	, respondsToSymbol(-1)
 	, initializer(NULL)
 	, dispatcher(NULL)
 {
 	context.setRegister(TGen::Engine::RegisterSelf, this);
-	getComponentSymbol = TGen::Engine::Script::Subsystem::symbols["getComponent"];
-	respondsToSymbol = TGen::Engine::Script::Subsystem::symbols["respondsTo"];
 }
 
 
 TGen::Engine::Entity::~Entity() {
-	for (int i = 0; i < components.size(); ++i)
-		delete components[i];
+	for (int i = 0; i < components.size(); ++i) {
+		if (components[i]->getOwner() == NULL || components[i]->getOwner() == this)
+			delete components[i];
+	}
 }
 
 
@@ -41,21 +41,25 @@ void TGen::Engine::Entity::linkGlobally(TGen::Engine::EntityList & entities) {
 	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter)
 		iter->second->linkGlobally(entities, *this);
 	
+	initialize();
+}
+
+void TGen::Engine::Entity::initialize() {
 	if (initializer)
-		initializer->trigger(context, TGen::Engine::TriggerPrecise);
+		initializer->trigger(context, TGen::Engine::TriggerPrecise);	
 }
 
 
 void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	int symbolId = context.getFunctionSymbol();
+	TGen::Engine::Symbol symbolId = context.getFunctionSymbol();
 	
 	if (symbolId == -1)
 		return;
 	
-	if (symbolId == getComponentSymbol) {
+	if (symbolId == symbolGetComponent) {
 		triggerGetComponent(context);
 	}
-	else if (symbolId == respondsToSymbol) {
+	else if (symbolId == symbolRespondsTo) {
 		triggerRespondsTo(context);
 	}
 	else {
@@ -123,7 +127,7 @@ void TGen::Engine::Entity::triggerRespondsTo(TGen::Engine::TriggerContext & cont
 }
 
 
-void TGen::Engine::Entity::registerEvent(int symbolId, TGen::Engine::Triggerable * event) {
+void TGen::Engine::Entity::registerEvent(TGen::Engine::Symbol symbolId, TGen::Engine::Triggerable * event) {
 	if (symbolId == -2)
 		initializer = event;
 	else if (symbolId == -3)
@@ -138,7 +142,7 @@ void TGen::Engine::Entity::addComponent(TGen::Engine::Component * component, con
 	componentLookup.insert(ComponentMap::value_type(name, component));
 	components.push_back(component);
 	
-	int symbolId = TGen::Engine::Script::Subsystem::symbols[name];
+	TGen::Engine::Symbol symbolId = TGen::Engine::getUniqueSymbol(name);
 	componentSymbols.insert(std::make_pair(symbolId, component));
 }
 	

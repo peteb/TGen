@@ -14,20 +14,22 @@
 #include "triggerable.h"
 #include "eventoperation.h"
 #include "triggercontext.h"
+#include "symbols.h"
 
 namespace TGen {
 	namespace Engine {
 		namespace Script {
 			class Event : public TGen::Engine::Component, public TGen::Engine::Script::EventOperation {
 			public:
-				Event(const std::string & name, int symbolId);
+				Event(const std::string & name, TGen::Engine::Symbol symbolId);
 				
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void setMinCallInterval(scalar interval);
+				TGen::Engine::Symbol getSymbol() const;
 				
 			private:
-				int symbolId;
+				TGen::Engine::Symbol symbolId;
 				double minCallTime, lastCall;
 			};
 			

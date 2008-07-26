@@ -22,6 +22,8 @@
 #include "sound/subsystem.h"
 #include "inventory/subsystem.h"
 #include "script/subsystem.h"
+#include "info/subsystem.h"
+#include "info/worldinfo.h"
 
 namespace TGen {
 	class Camera;
@@ -33,7 +35,7 @@ namespace TGen {
 		class ResourceManager;
 		class Player;
 		class PlayerController;
-		
+				
 		class World {
 		public:
 			World(TGen::Engine::Filesystem & filesystem, TGen::Engine::ResourceManager & resources, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource, const std::string & mapname);
@@ -43,12 +45,18 @@ namespace TGen {
 			TGen::RenderList & getRenderList();
 			TGen::Engine::LightList & getLightList();
 			TGen::Color getAmbientLight();
-			TGen::Engine::PlayerController * getPlayerController(const std::string & name);
 			
+			TGen::Engine::PlayerController * getPlayerController();
+			TGen::Engine::Scene::Node * getPlayerCamera();
+			
+			
+			void setWorldInfo(TGen::Engine::Info::WorldInfo * worldInfo);
 			void prepareLists(TGen::Camera * camera);
 			
 			void updateListener(const TGen::Vector3 & position, const TGen::Vector3 & velocity, const TGen::Vector3 & forward, const TGen::Vector3 & up);
 			void update(scalar dt);
+			
+			friend class TGen::Engine::Info::WorldInfo;
 			
 		private:
 			void loadEntities(const std::string & filename);
@@ -58,7 +66,7 @@ namespace TGen {
 			
 			TGen::Engine::EntityFactory entityFactory;
 			
-			TGen::SceneNode sceneRoot;
+			//TGen::SceneNode sceneRoot;
 			TGen::BasicRenderList renderList;
 			TGen::Engine::LightList lightList;
 			TGen::Engine::EntityList entities;
@@ -69,9 +77,10 @@ namespace TGen {
 			TGen::Engine::Controller::Subsystem controllerSubsystem;
 			TGen::Engine::Sound::Subsystem soundSubsystem;
 			TGen::Engine::Inventory::Subsystem inventorySubsystem;
-			
+			TGen::Engine::Info::Subsystem infoSubsystem;
 			
 			TGen::Camera * mainCam;
+			TGen::Engine::Info::WorldInfo * worldInfo;
 		};
 		
 	} // Engine

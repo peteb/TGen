@@ -9,18 +9,18 @@
 
 #include <tgen_core.h>
 #include "inventory/inventory.h"
-#include "script/subsystem.h"
+
+// TODO: rename inventory -> itempool
+
+TGen::Engine::Symbol TGen::Engine::Inventory::Inventory::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue");
+TGen::Engine::Symbol TGen::Engine::Inventory::Inventory::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue");
+TGen::Engine::Symbol TGen::Engine::Inventory::Inventory::symbolIncreaseItemValue = TGen::Engine::getUniqueSymbol("increaseItemValue");
+
 
 TGen::Engine::Inventory::Inventory::Inventory(const std::string & name)
 	: TGen::Engine::Component(name)
-	, setItemValueSymbol(-1)
-	, getItemValueSymbol(-1)
-	, increaseItemValueSymbol(-1)
 {
 
-	setItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["setItemValue"];
-	getItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["getItemValue"];
-	increaseItemValueSymbol = TGen::Engine::Script::Subsystem::symbols["increaseItemValue"];
 }
 
 TGen::Engine::Inventory::Inventory::~Inventory() {
@@ -32,7 +32,7 @@ void TGen::Engine::Inventory::Inventory::addItem(const std::string & name, TGen:
 	if (items.find(name) != items.end())
 		throw TGen::RuntimeException("Inventory::addItem", "item '" + name + "' already defined");
 	
-	itemSymbols.insert(std::make_pair(TGen::Engine::Script::Subsystem::symbols[name], item));
+	itemSymbols.insert(std::make_pair(TGen::Engine::getUniqueSymbol(name), item));
 	items.insert(std::make_pair(name, item));
 }
 
@@ -83,7 +83,7 @@ void TGen::Engine::Inventory::Inventory::setValue(TGen::Engine::Inventory::Item 
 }
 
 void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	int symbolNum = context.getFunctionSymbol();
+	TGen::Engine::Symbol symbolNum = context.getFunctionSymbol();
 	
 	// component.getOwner, if (owner == this || owner == null) delete;
 	// prototype med script skapar eventsen i den prototypen, men sätter owner till this. owner default är NULL
@@ -94,8 +94,8 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 	 
 	 */
 	
-	if (symbolNum == setItemValueSymbol) {
-		int itemSymbol = *context.getRegister<int *>(2);
+	if (symbolNum == symbolSetItemValue) {
+		TGen::Engine::Symbol itemSymbol = *context.getRegister<TGen::Engine::Symbol *>(2);
 		int itemValue = *context.getRegister<scalar *>(3);
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
@@ -104,8 +104,8 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 		else
 			context.setRegister<int>(0, -1);
 	}
-	else if (symbolNum == getItemValueSymbol) {
-		int itemSymbol = *context.getRegister<int *>(2);
+	else if (symbolNum == symbolGetItemValue) {
+		TGen::Engine::Symbol itemSymbol = *context.getRegister<TGen::Engine::Symbol *>(2);
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
@@ -113,8 +113,8 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 		else
 			context.setRegister<int>(0, -1);
 	}
-	else if (symbolNum == increaseItemValueSymbol) {
-		int itemSymbol = *context.getRegister<int *>(2);
+	else if (symbolNum == symbolIncreaseItemValue) {
+		TGen::Engine::Symbol itemSymbol = *context.getRegister<TGen::Engine::Symbol *>(2);
 		int itemValue = *context.getRegister<scalar *>(3);
 
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);

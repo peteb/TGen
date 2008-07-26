@@ -18,6 +18,7 @@ TGen::Engine::Sound::SoundResource::SoundResource(const std::string & name, TGen
 }
 
 void * TGen::Engine::Sound::SoundResource::getData() const {
+	std::cerr << "GET SOUND FOR " << resourceName << std::endl;
 	return reinterpret_cast<void *>(linkedSound);
 }
 
@@ -26,5 +27,9 @@ void TGen::Engine::Sound::SoundResource::setSoundName(const std::string & name) 
 }
 
 void TGen::Engine::Sound::SoundResource::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+	linkIndependently();
+}
+
+void TGen::Engine::Sound::SoundResource::linkIndependently() {
 	linkedSound = subsystem.getSound(resourceName);
 }

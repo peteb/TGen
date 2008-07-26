@@ -253,6 +253,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 	newGeom->setEventCollisionForce(properties.getProperty("onCollisionForce", ""));
 	
 	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
+	newGeom->collisionForceScale = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceScale", "1.0"));
 	
 	uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
 	
@@ -322,7 +323,7 @@ TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(con
 
 
 void TGen::Engine::Physics::Subsystem::link() {
-	for (int i = 0; i < 100; ++i)		// makes the physics "settle down"
+	for (int i = 0; i < 1000; ++i)		// makes the physics settle down
 		dWorldStep(worldId, 0.001);
 }
 
@@ -372,6 +373,13 @@ void TGen::Engine::Physics::Subsystem::setGravity(const TGen::Vector3 & gravity)
 	dWorldSetGravity(worldId, gravity.x, gravity.y, gravity.z);
 }
 
+
+TGen::Vector3 TGen::Engine::Physics::Subsystem::getGravity() const {
+	dReal gravity[3];
+	dWorldGetGravity(worldId, gravity);
+	
+	return TGen::Vector3(gravity[0], gravity[1], gravity[2]);
+}
 
 void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
 	if (dGeomIsSpace(o1) || dGeomIsSpace(o2)) {
@@ -438,8 +446,9 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				if (bodyObject1) {
 					scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
+					scalar groundDef = bodyObject1->getGroundDefinition();
 					
-					if (fabs(dp) <= 1.2f && fabs(dp) >= 0.8) {
+					if (fabs(dp) <= 1.0f + groundDef && fabs(dp) >= 1.0f - groundDef) {
 						bodyObject1->setGroundNormal(contactNormal);
 						bodyObject1->setOnFloor(true);
 						body1OnGround = true;
@@ -451,8 +460,9 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				}
 				if (bodyObject2) {
 					scalar dp = TGen::Vector3::DotProduct(-contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
+					scalar groundDef = bodyObject2->getGroundDefinition();
 					
-					if (fabs(dp) <= 1.2f && fabs(dp) >= 0.8) {
+					if (fabs(dp) <= 1.0f + groundDef && fabs(dp) >= 1.0f - groundDef) {
 						bodyObject2->setGroundNormal(-contactNormal);
 						bodyObject2->setOnFloor(true);
 						body2OnGround = true;
@@ -492,10 +502,10 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			TGen::Vector3 force1, force2;
 			
 			if (bodyObject1)
-				force1 = bodyObject1->getLinearVelocity();
+				force1 = bodyObject1->getLinearVelocity() * bodyObject1->getMass();
 			
 			if (bodyObject2)
-				force2 = bodyObject2->getLinearVelocity();
+				force2 = bodyObject2->getLinearVelocity() * bodyObject2->getMass();
 			
 			scalar totalForce = fabs(TGen::Vector3::DotProduct(force1 - force2, contactNormal));
 
@@ -504,6 +514,15 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				scalar dir = 1.0f;
 				
+				if (totalForce >= 150.0) {
+					std::cout << "CAT1: " << (geom1->getCategory() == 2) << " FORCE1: " << std::string(force1) << " F2: " << std::string(force2) << std::endl;
+				
+					std::cout << "M1: " << bodyObject1->getMass() << " M2: " << bodyObject2->getMass() << std::endl;
+					std::cout << "S1: " << std::fixed <<  std::string(bodyObject1->getLinearVelocity()) << " S2: " << std::string(bodyObject2->getLinearVelocity()) << std::endl;
+					
+					TGen::Vector3 diff = bodyObject2->getLinearVelocity() * bodyObject2->getMass() - bodyObject1->getLinearVelocity() * bodyObject1->getMass();
+					std::cout << "DIFF: " << std::string(diff) << " MAG: " << diff.getMagnitude() << std::endl;
+				}
 				//if (abs(totalForce) > 1.0)
 				//	std::cout << "geom1: " << std::hex << geom1->getCategory() << " geom2: " << geom2->getCategory() << " normal: " << std::string(contactNormal) << std::endl;
 

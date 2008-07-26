@@ -12,7 +12,9 @@
 
 #include "component.h"
 #include "componentinterfaces.h"
+#include "componentlink.h"
 #include "triggerable.h"
+#include "symbols.h"
 
 #include <tgen_math.h>
 #include <ode/ode.h>
@@ -40,7 +42,9 @@ namespace TGen {
 				
 				void preStep();
 				void postStep();
-				void linkLocally(TGen::Engine::Entity & entity);
+
+				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				
 				dBodyID getBodyId() const;
 				
 				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
@@ -81,24 +85,26 @@ namespace TGen {
 				void setSlope(scalar slope);
 				float getSlope() const;
 				
+				scalar getGroundDefinition() const;
+				scalar getMass() const;
+				
 			private:
 				void updateFromScene();
 				void updateScene();
 				
-				std::string linkName;
 				dBodyID bodyId;
 				dWorldID worldId;
 				dSpaceID spaceId;
 				
-				TGen::Vector3 groundNormal;
-				TGen::Engine::WorldObject * linkedTo;
+				TGen::Vector3 groundNormal, linearVelocity, lastPosition;
+				TGen::Engine::UnaryDelegate<TGen::Engine::WorldObject> delegate;
 				bool turnHeadwise, killTorque;
 				bool onFloor, doUpdateFromScene;
 				scalar slope, fakeGrav;
 				
 				
 				// symbols
-				int symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, symbolSetKillTorque;
+				static TGen::Engine::Symbol symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, symbolSetKillTorque;
 			};
 		} // !Physics
 	} // !Engine

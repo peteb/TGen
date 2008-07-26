@@ -10,8 +10,10 @@
 #include "component.h"
 #include "entity.h"
 
-TGen::Engine::Component::Component(const std::string & name) 
+TGen::Engine::Component::Component(const std::string & name, bool staticComponent) 
 	: name(name)
+	, owner(NULL)
+	, staticComponent(staticComponent)
 {
 	
 }
@@ -35,3 +37,16 @@ const std::string & TGen::Engine::Component::getName() const {
 void TGen::Engine::Component::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	*context.getRegister<int *>(0) = -1;	// r0 is to be marked -1 if the method couldn't be called
 }
+
+void TGen::Engine::Component::setOwner(TGen::Engine::Entity * owner) {
+	this->owner = owner;
+}
+
+TGen::Engine::Entity * TGen::Engine::Component::getOwner() const {
+	return owner;
+}
+
+bool TGen::Engine::Component::isStatic() const {
+	return staticComponent;
+}
+

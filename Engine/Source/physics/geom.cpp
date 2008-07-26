@@ -9,11 +9,14 @@
 
 #include "physics/geom.h"
 #include "physics/body.h"
-#include "entity.h"
-#include <tgen_core.h>
 #include "scene/node.h"
-#include <tgen_renderer.h>
+
+#include "entity.h"
 #include "entitylist.h"
+
+#include <tgen_core.h>
+#include <tgen_renderer.h>
+
 #include "triggerable.h"
 
 using TGen::uint;
@@ -22,11 +25,10 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	: TGen::Engine::Component(name)
 	, geomId(0)
 	, affectsOthers(true)
-	, linkedTo(NULL)
-	, bodyLinked(NULL)
 	, categoryBits(0)
 	, collidesWith(0)
 	, collisionForceThreshold(3.0)
+	, collisionForceScale(1.0)
 {
 
 }
@@ -48,12 +50,12 @@ void TGen::Engine::Physics::Geom::setFriction(float friction) {
 
 
 void TGen::Engine::Physics::Geom::setLink(const std::string & linkName) {
-	this->linkName = linkName;
+	link.set(linkName);
 }
 
 
 void TGen::Engine::Physics::Geom::setLink(TGen::Engine::WorldObject * linkedTo) {
-	this->linkedTo = linkedTo;
+	link.set(linkedTo);
 }
 
 
@@ -79,38 +81,8 @@ void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 }
 
 
-void TGen::Engine::Physics::Geom::linkLocally(TGen::Engine::Entity & entity) {
-	if (geomId == 0)
-		return;
-
-	if (dGeomGetClass(geomId) != dPlaneClass) {
-		TGen::Engine::Component * component = NULL;
-		
-		try {
-			component = &entity.getComponent(linkName);
-		}
-		catch (...) {	// fall back on "sceneNode"
-			component = &entity.getComponent("sceneNode");
-		}
-		
-		TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(component);
-	
-		if (body) {	// we don't need a link if we've got a body
-			dGeomSetBody(geomId, body->getBodyId());
-			linkedTo = NULL;
-			bodyLinked = body;
-		}
-		else {
-			linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(component);
-			bodyLinked = NULL;
-			updateFromLink();			
-		}
-	}
-}
-
-
 TGen::Engine::Physics::Body * TGen::Engine::Physics::Geom::getBody() {
-	return bodyLinked;
+	return link.getBodyObject();
 }
 
 
@@ -123,6 +95,18 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 
 void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
 	eventCollisionForce.link(entities, entity);
+
+	if (geomId == 0)
+		return;
+	
+	if (dGeomGetClass(geomId) != dPlaneClass) {		// planes are non-movable
+		link.link(entities, entity);
+		
+		if (link.getBodyObject())
+			dGeomSetBody(geomId, link.getBodyObject()->getBodyId());
+		
+		updateFromLink();
+	}	
 }
 
 
@@ -177,9 +161,9 @@ void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orienta
 
 
 void TGen::Engine::Physics::Geom::updateFromLink() {
-	if (linkedTo) {
-		setPosition(linkedTo->getPosition());
-		setOrientation(linkedTo->getOrientation());
+	if (link.getWorldObject()) {
+		setPosition(link.getPosition());
+		setOrientation(link.getOrientation());
 	}	
 }
 
@@ -191,13 +175,17 @@ void TGen::Engine::Physics::Geom::sendToLink() {
 
 void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundCollision) {
 	if (eventCollisionForce) {
-		force -= collisionForceThreshold;
-		force = std::max(force, 0.0f);
+		//force -= collisionForceThreshold;
+		//force = std::max(force, 0.0f);
 		
-		if (force > 0.00001) {
+		if (force - collisionForceThreshold > 0.00001) {
 			TGen::Engine::TriggerContext * context = eventCollisionForce->context;
 			assert(context);
-			context->setRegister(2, force);
+			std::cout << "FORCE: " << force * collisionForceScale - collisionForceThreshold << std::endl;
+			
+			scalar fixedForce = force * collisionForceScale - collisionForceThreshold;
+			
+			context->setRegister(2, fixedForce);
 			context->setRegister<int>(3, groundCollision);
 			
 			eventCollisionForce->trigger(*context, TGen::Engine::TriggerPrecise);
@@ -215,6 +203,6 @@ void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context
 }
 
 void TGen::Engine::Physics::Geom::setEventCollisionForce(const std::string & eventName) {
-	eventCollisionForce = eventName;
+	eventCollisionForce.set(eventName);
 }
 

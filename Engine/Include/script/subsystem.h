@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_SCRIPT_SUBSYSTEM_H
 
 #include "../subsystem.h"
+#include "script/event.h"
 
 namespace TGen {
 	namespace Engine {
@@ -26,11 +27,9 @@ namespace TGen {
 				Subsystem(TGen::Engine::StandardLogs & logs);
 				~Subsystem();
 				
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Script::Event * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				
-				static TGen::SymbolTable symbols;
-				
+								
 			private: 
 				void createOperation(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);
 				void createOperations(TGen::Engine::Script::EventOperation & container, const TGen::PropertyTree & properties);

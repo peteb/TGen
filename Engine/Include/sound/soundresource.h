@@ -25,6 +25,7 @@ namespace TGen {
 				void * getData() const;
 				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 				void setSoundName(const std::string & name);
+				void linkIndependently();
 				
 			private:
 				TGen::Engine::Sound::Subsystem & subsystem;

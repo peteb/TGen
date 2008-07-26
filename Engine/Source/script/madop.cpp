@@ -11,6 +11,8 @@
 
 TGen::Engine::Script::MadOperation::MadOperation(TGen::Engine::Script::EventOperation * parent)
 	: TGen::Engine::Script::EventOperation(parent)
+	, destOffset(-1)
+	, sourceOffset(-1)
 {
 }
 
@@ -26,10 +28,23 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 			fixedTerm = *context.getRegister<scalar *>(termRegister);
 		
 		if (sourceId == destId) {			
-			scalar * value = context.getRegister<scalar *>(sourceId);
+			scalar * dest = context.getRegister<scalar *>(sourceId);
+			scalar * source = context.getRegister<scalar *>(sourceId);
+			
+			if (destOffset != -1) {
+				scalar * array = *context.getRegister<scalar **>(destId);
+				dest = &array[destOffset];
+			}
+
+			if (sourceOffset != -1) {
+				scalar * array = *context.getRegister<scalar **>(sourceId);
+				source = &array[sourceOffset];
+			}
+			
+			// TODO: context.getScalarWithOffset, context.getIntWithOffset..
 			//std::cout << "MULTIPLY " << std::fixed << *value << " BY " << fixedFactor << " (REG: " << sourceId << ")" << std::endl;
 
-			*value = *value * fixedFactor + fixedTerm;
+			*dest = *source * fixedFactor + fixedTerm;
 		}
 		else {
 			context.setRegister(destId, *context.getRegister<scalar *>(sourceId) * fixedFactor + fixedTerm);
@@ -92,4 +107,14 @@ void TGen::Engine::Script::MadOperation::setTermRegister(int regId) {
 void TGen::Engine::Script::MadOperation::setFactorRegister(int regId) {
 	this->factorRegister = regId;
 }
+
+void TGen::Engine::Script::MadOperation::setSourceOffset(int offset) {
+	this->sourceOffset = offset;
+}
+
+void TGen::Engine::Script::MadOperation::setDestOffset(int offset) {
+	this->destOffset = offset;
+}
+
+
 
