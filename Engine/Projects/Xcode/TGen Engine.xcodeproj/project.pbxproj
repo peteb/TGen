@@ -51,6 +51,7 @@
 		D062301E0D807636003A31A0 /* Graphics.png in Resources */ = {isa = PBXBuildFile; fileRef = D062301D0D807636003A31A0 /* Graphics.png */; };
 		D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = D062304D0D807DBA003A31A0 /* Statistics.xib */; };
 		D0637CEF0DB556F700FD1DC4 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */; };
+		D06F8F820E3C94D00011A495 /* componentlinker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D06F8F810E3C94D00011A495 /* componentlinker.cpp */; };
 		D07147A80D68592A00842110 /* metacreator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07147A70D68592A00842110 /* metacreator.cpp */; };
 		D072BC780E01645200999FC2 /* noderecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D072BC770E01645200999FC2 /* noderecipe.cpp */; };
 		D072BCF50E0166F000999FC2 /* entityrecipe.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D072BCF40E0166F000999FC2 /* entityrecipe.cpp */; };
@@ -352,6 +353,8 @@
 		D062304D0D807DBA003A31A0 /* Statistics.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Statistics.xib; sourceTree = "<group>"; };
 		D0637CED0DB556EB00FD1DC4 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/controller/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D0637CEE0DB556F700FD1DC4 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = controller/subsystem.cpp; sourceTree = "<group>"; };
+		D06F8F800E3C94BA0011A495 /* componentlinker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentlinker.h; path = ../../Include/componentlinker.h; sourceTree = SOURCE_ROOT; };
+		D06F8F810E3C94D00011A495 /* componentlinker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = componentlinker.cpp; sourceTree = "<group>"; };
 		D07147A60D68592100842110 /* metacreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metacreator.h; path = ../../Include/metacreator.h; sourceTree = SOURCE_ROOT; };
 		D07147A70D68592A00842110 /* metacreator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = metacreator.cpp; sourceTree = "<group>"; };
 		D072BC6F0E01636A00999FC2 /* componentrecipe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentrecipe.h; path = ../../Include/componentrecipe.h; sourceTree = SOURCE_ROOT; };
@@ -1091,6 +1094,8 @@
 				D081407F0E300F0F0024534F /* component.cpp */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
+				D06F8F810E3C94D00011A495 /* componentlinker.cpp */,
+				D06F8F800E3C94BA0011A495 /* componentlinker.h */,
 				D0793A8D0E3222C50074996E /* componentlink.h */,
 				D0793FF70E329CB20074996E /* resourcecomponent.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
@@ -1517,6 +1522,7 @@
 				D00E4EA90E391D770084BA23 /* subsystem.cpp in Sources */,
 				D00E559E0E3A6D250084BA23 /* objectreference.cpp in Sources */,
 				D00E56930E3A755F0084BA23 /* eventrecipe.cpp in Sources */,
+				D06F8F820E3C94D00011A495 /* componentlinker.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

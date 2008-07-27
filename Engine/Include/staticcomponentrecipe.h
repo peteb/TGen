@@ -16,7 +16,7 @@ namespace TGen {
 	namespace Engine {
 		class Component;
 		
-		// TODO: is anything using this?????
+		// TODO: is anything using this????? yep!
 		
 		class StaticComponentRecipe : public TGen::Engine::ComponentRecipe {
 		public:

@@ -22,12 +22,9 @@ TGen::Engine::Component::~Component() {
 	
 }
 
-void TGen::Engine::Component::linkLocally(TGen::Engine::Entity & entity) {
-	context = &entity.getContext();
-}
-
-void TGen::Engine::Component::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	
+void TGen::Engine::Component::link(const TGen::Engine::ComponentLinker & linker) {
+	if (linker.getEntity())
+		context = &linker.getEntity()->getContext();	
 }
 
 const std::string & TGen::Engine::Component::getName() const {

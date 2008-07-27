@@ -42,6 +42,9 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 			callee->trigger(*callee->context, triggerMode);
 		}
 	}
+	else {
+		throw TGen::RuntimeException("Script::CallOperation::trigger", "failed to send message, receiver unknown");
+	}
 }
 
 void TGen::Engine::Script::CallOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {

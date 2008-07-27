@@ -17,15 +17,17 @@ namespace TGen {
 	namespace Engine {
 		class Entity;
 		class EntityList;
+		class ComponentLinker;
 		
 		class Component : public TGen::Engine::Triggerable {
 		public:
 			Component(const std::string & name, bool staticComponent = false);
 			virtual ~Component();
 			
-			virtual void linkLocally(TGen::Engine::Entity & entity);
-			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
-			virtual void linkIndependently() {}
+			//virtual void linkLocally(TGen::Engine::Entity & entity);
+			//virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+
+			virtual void link(const TGen::Engine::ComponentLinker & linker);
 			virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			
 			bool isStatic() const;
