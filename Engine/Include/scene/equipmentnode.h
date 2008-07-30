@@ -17,6 +17,7 @@ namespace TGen {
 	namespace Engine {
 		class EntityList;
 		class Entity;
+		class ComponentLinker;
 		
 		namespace Scene {
 			class EquipmentData;
@@ -26,7 +27,7 @@ namespace TGen {
 				EquipmentNode(const std::string & name);
 				~EquipmentNode();
 				
-				void linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				void setInitialChild(const std::string & initialChild);
 				void traverse(const TGen::SceneNode::Walker & walker);
 				void setEquipmentData(const std::string & name, TGen::Engine::Scene::EquipmentData * data);

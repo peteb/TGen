@@ -21,8 +21,8 @@ namespace TGen {
 			class LocalSource : public TGen::Engine::Sound::Source {
 			public:
 				LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith, TGen::Engine::Sound::Subsystem & creator);
-				
-				void linkLocally(TGen::Engine::Entity & entity);
+								
+				void link(const TGen::Engine::ComponentLinker & linker);
 				void update(scalar dt);
 				void setMinMaxDistance(scalar min, scalar max);
 				void setLink(TGen::Engine::WorldObject * link);

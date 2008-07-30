@@ -19,6 +19,7 @@ namespace TGen {
 		class WorldObject;
 		class EntityList;
 		class Entity;
+		class ComponentLinker;
 		
 		namespace Inventory {
 			class Inventory;
@@ -30,7 +31,7 @@ namespace TGen {
 				void beginFire();
 				void endFire();
 				void update(scalar dt);
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				
 				void setOrigin(const std::string & originName);
 				void setProjectile(const std::string & projectileName);

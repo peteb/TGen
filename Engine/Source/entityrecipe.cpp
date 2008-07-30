@@ -11,6 +11,7 @@
 #include "componentrecipe.h"
 #include "entity.h"
 #include "component.h"
+#include "componentlinker.h"
 
 TGen::Engine::EntityRecipe::EntityRecipe(const std::string & name) 
 	: name(name)
@@ -30,9 +31,11 @@ void TGen::Engine::EntityRecipe::addComponentRecipe(TGen::Engine::ComponentRecip
 }
 
 
-void TGen::Engine::EntityRecipe::linkGlobally(TGen::Engine::EntityList & entities) {
-	for (RecipeList::iterator iter = componentRecipes.begin(); iter != componentRecipes.end(); ++iter)
-		(*iter)->linkGlobally(entities, *this);
+void TGen::Engine::EntityRecipe::link(const TGen::Engine::ComponentLinker & linker) {
+	for (RecipeList::iterator iter = componentRecipes.begin(); iter != componentRecipes.end(); ++iter) {
+		std::cout << "LINKING COMPRECP: " << (*iter)->getName() << std::endl;
+		(*iter)->link(linker, *this);
+	}
 	
 	worldInterfaceIndex = getComponentIndex(worldInterfaceName);
 }

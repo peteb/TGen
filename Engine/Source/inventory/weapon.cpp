@@ -58,10 +58,10 @@ void TGen::Engine::Inventory::Weapon::update(scalar dt) {
 	}
 }
 
-void TGen::Engine::Inventory::Weapon::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+void TGen::Engine::Inventory::Weapon::link(const TGen::Engine::ComponentLinker & linker) {
 	for (int i = 0; i < fireModes.size(); ++i) {
 		if (fireModes[i])
-			fireModes[i]->linkGlobally(entities, entity);
+			fireModes[i]->link(linker);
 	}
 }
 

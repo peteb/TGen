@@ -65,7 +65,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	loadEntities("/maps/defs");
 	loadEntities("/maps/" + mapname + "/entities");
 	
-	entities.linkGlobally();
+	entities.link();
 	
 	sceneSubsystem.link();
 	sceneSubsystem.update(0.0f);

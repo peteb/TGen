@@ -10,6 +10,7 @@
 #include "entitylist.h"
 #include "entity.h"
 #include "entityrecipe.h"
+#include "componentlinker.h"
 #include <tgen_core.h>
 
 TGen::Engine::EntityList::~EntityList() {
@@ -21,12 +22,12 @@ TGen::Engine::EntityList::~EntityList() {
 }
 
 
-void TGen::Engine::EntityList::linkGlobally() {
+void TGen::Engine::EntityList::link() {	
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter)
-		iter->second->linkGlobally(*this);
+		iter->second->link(TGen::Engine::ComponentLinker(this, iter->second));
 	
 	for (PrototypeMap::iterator iter = prototypes.begin(); iter != prototypes.end(); ++iter)
-		iter->second->linkGlobally(*this);
+		iter->second->link(TGen::Engine::ComponentLinker(this, NULL));
 }
 
 

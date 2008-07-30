@@ -23,6 +23,8 @@ namespace TGen {
 				~EventRecipe();
 				
 				void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype);
+				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				
 			private:

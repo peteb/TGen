@@ -30,7 +30,7 @@ namespace TGen {
 				virtual ~Source();
 				
 				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
-				void link(TGen::Engine::Sound::Subsystem & linker);
+				void linkSubsystem(TGen::Engine::Sound::Subsystem & subsystem);
 				void unlink();
 				virtual void update(scalar dt);
 				
@@ -55,7 +55,7 @@ namespace TGen {
 				std::string filename;
 				bool autoplay, loop, threedee;
 				
-				static TGen::Engine::Symbol symbolPlaySound;
+				static TGen::Engine::Symbol symbolPlaySound, symbolPlaySoundWithVolume;
 			};
 			
 		} // !Sound		

@@ -43,7 +43,7 @@ namespace TGen {
 				void preStep();
 				void postStep();
 
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				
 				dBodyID getBodyId() const;
 				

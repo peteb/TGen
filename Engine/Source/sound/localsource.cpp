@@ -12,6 +12,7 @@
 
 #include "entity.h"
 #include "componentinterfaces.h"
+#include "componentlinker.h"
 
 TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith, TGen::Engine::Sound::Subsystem & creator)
 	: TGen::Engine::Sound::Source(name, filename, creator)
@@ -23,15 +24,15 @@ TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const st
 	
 }
 
-void TGen::Engine::Sound::LocalSource::linkLocally(TGen::Engine::Entity & entity) {
-	linkedTo = &dynamic_cast<TGen::Engine::WorldObject &>(entity.getComponent(linkWith));
+void TGen::Engine::Sound::LocalSource::link(const TGen::Engine::ComponentLinker & linker) {
+	linkedTo = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(linkWith));
 }
 
 void TGen::Engine::Sound::LocalSource::update(scalar dt) {
 	if (prototype)
 		return;
 
-	if (linkedTo) {		
+	if (linkedTo) {	
 		for (int i = 0; i < channels.size(); ++i)
 			channels[i]->set3DAttributes(linkedTo->getPosition(), linkedTo->getVelocity());				
 	}

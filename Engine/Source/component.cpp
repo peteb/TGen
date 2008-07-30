@@ -9,6 +9,7 @@
 
 #include "component.h"
 #include "entity.h"
+#include "componentlinker.h"
 
 TGen::Engine::Component::Component(const std::string & name, bool staticComponent) 
 	: name(name)

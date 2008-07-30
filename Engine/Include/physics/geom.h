@@ -52,7 +52,7 @@ namespace TGen {
 				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {return true; }
 				virtual void onCollisionForce(scalar force, bool groundCollision);
 				
-				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				virtual void link(const TGen::Engine::ComponentLinker & linker);
 
 				void setGeomId(dGeomID id);
 				void setCategory(uint category);
@@ -79,7 +79,7 @@ namespace TGen {
 				float friction;
 				uint categoryBits, collidesWith;
 				
-				TGen::Engine::Physics::BodyDelegate link;
+				TGen::Engine::Physics::BodyDelegate bodyDelegate;
 				TGen::Engine::UnaryDelegate<TGen::Engine::Triggerable> eventCollisionForce;
 			};
 		} // !Physics

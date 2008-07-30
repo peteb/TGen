@@ -15,6 +15,7 @@
 namespace TGen {
 	namespace Engine {
 		class Component;
+		class ComponentLinker;
 		
 		// TODO: is anything using this????? yep!
 		
@@ -34,9 +35,9 @@ namespace TGen {
 				constructed.setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
 			}
 			
-			void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & prototype) {
+			void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
 				if (component)
-					component->linkIndependently();
+					component->link(linker);
 			}
 			
 			TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {

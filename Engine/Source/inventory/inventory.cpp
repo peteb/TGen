@@ -12,9 +12,11 @@
 
 // TODO: rename inventory -> itempool
 
-TGen::Engine::Symbol TGen::Engine::Inventory::Inventory::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue");
-TGen::Engine::Symbol TGen::Engine::Inventory::Inventory::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue");
-TGen::Engine::Symbol TGen::Engine::Inventory::Inventory::symbolIncreaseItemValue = TGen::Engine::getUniqueSymbol("increaseItemValue");
+#define INVENTORY TGen::Engine::Inventory::Inventory
+
+TGen::Engine::Symbol INVENTORY::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue");
+TGen::Engine::Symbol INVENTORY::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue");
+TGen::Engine::Symbol INVENTORY::symbolIncreaseItemValue = TGen::Engine::getUniqueSymbol("increaseItem:with:");
 
 
 TGen::Engine::Inventory::Inventory::Inventory(const std::string & name)

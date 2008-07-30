@@ -28,7 +28,7 @@ namespace TGen {
 				void setLink2(const std::string & link2Name);
 
 				void setAnchor(const TGen::Vector3 & anchor);
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				
 			private:
 				void setSimAnchor(const TGen::Vector3 & anchor);

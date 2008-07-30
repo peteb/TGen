@@ -247,11 +247,11 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 
 void TGen::Engine::Sound::Subsystem::link() {
 	for (int i = 0; i < localSources.size(); ++i) {
-		localSources[i]->link(*this);
+		localSources[i]->linkSubsystem(*this);
 	}
 	
 	for (int i = 0; i < globalSources.size(); ++i) {
-		globalSources[i]->link(*this);		
+		globalSources[i]->linkSubsystem(*this);		
 	}
 }
 

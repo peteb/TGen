@@ -15,6 +15,8 @@
 		D0015A180C5E2C42001086D3 /* quaternion4.h in Headers */ = {isa = PBXBuildFile; fileRef = D0015A170C5E2C42001086D3 /* quaternion4.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0A9D2350C4E760D00D7DFDB /* AABB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A9D2340C4E760D00D7DFDB /* AABB.cpp */; };
 		D0A9D2370C4E761E00D7DFDB /* AABB.h in Headers */ = {isa = PBXBuildFile; fileRef = D0A9D2360C4E761E00D7DFDB /* AABB.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0B1D5D70E3E85C20027C8B9 /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */; };
+		D0B1D5E00E3E86120027C8B9 /* testcase_vecmat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B1D5DF0E3E86120027C8B9 /* testcase_vecmat.cpp */; };
 		D0D89CBB0C4FA14A00ACB21A /* plane3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */; };
 		D0D89CBE0C4FA15800ACB21A /* plane3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0D89CBD0C4FA15800ACB21A /* plane3.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0EB0C8C0C9576DF00258B80 /* quad3.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EB0C8B0C9576DF00258B80 /* quad3.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -98,6 +100,10 @@
 		D0015A170C5E2C42001086D3 /* quaternion4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = quaternion4.h; path = Include/quaternion4.h; sourceTree = "<group>"; };
 		D0A9D2340C4E760D00D7DFDB /* AABB.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AABB.cpp; path = Source/AABB.cpp; sourceTree = "<group>"; };
 		D0A9D2360C4E761E00D7DFDB /* AABB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AABB.h; path = Include/AABB.h; sourceTree = "<group>"; };
+		D0B1D5D10E3E85BC0027C8B9 /* Tests.cptest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Tests.cptest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D0B1D5D20E3E85BC0027C8B9 /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
+		D0B1D5DE0E3E86120027C8B9 /* testcase_vecmat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = testcase_vecmat.h; sourceTree = "<group>"; };
+		D0B1D5DF0E3E86120027C8B9 /* testcase_vecmat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testcase_vecmat.cpp; sourceTree = "<group>"; };
 		D0D89CBA0C4FA14A00ACB21A /* plane3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = plane3.cpp; path = Source/plane3.cpp; sourceTree = "<group>"; };
 		D0D89CBD0C4FA15800ACB21A /* plane3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = plane3.h; path = Include/plane3.h; sourceTree = "<group>"; };
 		D0EB0C8B0C9576DF00258B80 /* quad3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = quad3.h; path = Include/quad3.h; sourceTree = "<group>"; };
@@ -137,6 +143,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		D0B1D5CE0E3E85BC0027C8B9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0B1D5D70E3E85C20027C8B9 /* libtgen_math.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0EE96ED0C35E4FC00CB2978 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -151,14 +165,16 @@
 			isa = PBXGroup;
 			children = (
 				D00FF7230C3939D100668773 /* TGen Dependencies */,
-				08FB7795FE84155DC02AAC07 /* Math */,
+				08FB7795FE84155DC02AAC07 /* Source */,
+				D0B1D5D90E3E85D50027C8B9 /* Tests */,
 				C6859E8C029090F304C91782 /* Documentation */,
 				1AB674ADFE9D54B511CA2CBB /* Products */,
+				D0B1D5D20E3E85BC0027C8B9 /* Tests-Info.plist */,
 			);
 			name = "TGen Math";
 			sourceTree = "<group>";
 		};
-		08FB7795FE84155DC02AAC07 /* Math */ = {
+		08FB7795FE84155DC02AAC07 /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				D0EE96670C35E2A000CB2978 /* Test */,
@@ -174,7 +190,7 @@
 				D00DC4340C3949B2002E6CCC /* Vectors */,
 				D0EE96CD0C35E4BB00CB2978 /* Geometry */,
 			);
-			name = Math;
+			name = Source;
 			path = ../..;
 			sourceTree = "<group>";
 		};
@@ -183,6 +199,7 @@
 			children = (
 				8DD76F6C0486A84900D96B5E /* TGen Math */,
 				D0EE96EF0C35E4FC00CB2978 /* libtgen_math.a */,
+				D0B1D5D10E3E85BC0027C8B9 /* Tests.cptest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +251,15 @@
 				D07C9D890CECA6D200C5E096 /* TGen Core Test */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		D0B1D5D90E3E85D50027C8B9 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				D0B1D5DF0E3E86120027C8B9 /* testcase_vecmat.cpp */,
+				D0B1D5DE0E3E86120027C8B9 /* testcase_vecmat.h */,
+			);
+			name = Tests;
 			sourceTree = "<group>";
 		};
 		D0EE96670C35E2A000CB2978 /* Test */ = {
@@ -314,6 +340,24 @@
 			productReference = 8DD76F6C0486A84900D96B5E /* TGen Math */;
 			productType = "com.apple.product-type.tool";
 		};
+		D0B1D5D00E3E85BC0027C8B9 /* Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D0B1D5D60E3E85BC0027C8B9 /* Build configuration list for PBXNativeTarget "Tests" */;
+			buildPhases = (
+				D0B1D5CC0E3E85BC0027C8B9 /* Resources */,
+				D0B1D5CD0E3E85BC0027C8B9 /* Sources */,
+				D0B1D5CE0E3E85BC0027C8B9 /* Frameworks */,
+				D0B1D5CF0E3E85BC0027C8B9 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Tests;
+			productName = Tests;
+			productReference = D0B1D5D10E3E85BC0027C8B9 /* Tests.cptest */;
+			productType = "com.apple.product-type.bundle";
+		};
 		D0EE96EE0C35E4FC00CB2978 /* tgen_math */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0EE97230C35E59400CB2978 /* Build configuration list for PBXNativeTarget "tgen_math" */;
@@ -355,6 +399,7 @@
 			targets = (
 				8DD76F620486A84900D96B5E /* TGen Math */,
 				D0EE96EE0C35E4FC00CB2978 /* tgen_math */,
+				D0B1D5D00E3E85BC0027C8B9 /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -376,12 +421,46 @@
 		};
 /* End PBXReferenceProxy section */
 
+/* Begin PBXResourcesBuildPhase section */
+		D0B1D5CC0E3E85BC0027C8B9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D0B1D5CF0E3E85BC0027C8B9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8DD76F640486A84900D96B5E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D0B1D5CD0E3E85BC0027C8B9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D0B1D5E00E3E86120027C8B9 /* testcase_vecmat.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,20 +546,23 @@
 		1DEB923608733DC60010E9CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_ENABLE_CPP_EXCEPTIONS = NO;
-				GCC_ENABLE_CPP_RTTI = NO;
-				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
+				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_ENABLE_CPP_EXCEPTIONS = YES;
+				GCC_ENABLE_CPP_RTTI = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				USER_HEADER_SEARCH_PATHS = ../../../Core/Include/;
 			};
 			name = Debug;
 		};
 		1DEB923708733DC60010E9CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				GCC_DYNAMIC_NO_PIC = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_CPP_EXCEPTIONS = NO;
 				GCC_ENABLE_CPP_RTTI = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = NO;
@@ -490,8 +572,62 @@
 				GCC_UNROLL_LOOPS = NO;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				PREBINDING = NO;
 				SDKROOT = "$(DEVELOPER_SDK_DIR)/MacOSX10.5.sdk";
+				USER_HEADER_SEARCH_PATHS = ../../../Core/Include/;
+			};
+			name = Release;
+		};
+		D0B1D5D30E3E85BC0027C8B9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+					"-framework",
+					CPlusTest,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = cptest;
+			};
+			name = Debug;
+		};
+		D0B1D5D40E3E85BC0027C8B9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_FIX_AND_CONTINUE = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "$(SYSTEM_LIBRARY_DIR)/Frameworks/Carbon.framework/Headers/Carbon.h";
+				INFOPLIST_FILE = "Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				OTHER_LDFLAGS = (
+					"-framework",
+					Carbon,
+					"-framework",
+					CPlusTest,
+				);
+				PREBINDING = NO;
+				PRODUCT_NAME = Tests;
+				WRAPPER_EXTENSION = cptest;
+				ZERO_LINK = NO;
 			};
 			name = Release;
 		};
@@ -505,6 +641,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
+				HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				INSTALL_PATH = /usr/local/lib;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_math;
@@ -527,6 +664,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = s;
+				HEADER_SEARCH_PATHS = ../../../Core/Include/;
 				INSTALL_PATH = /lib/;
 				PREBINDING = NO;
 				PRODUCT_NAME = tgen_math;
@@ -553,6 +691,15 @@
 			buildConfigurations = (
 				1DEB923608733DC60010E9CD /* Debug */,
 				1DEB923708733DC60010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D0B1D5D60E3E85BC0027C8B9 /* Build configuration list for PBXNativeTarget "Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D0B1D5D30E3E85BC0027C8B9 /* Debug */,
+				D0B1D5D40E3E85BC0027C8B9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

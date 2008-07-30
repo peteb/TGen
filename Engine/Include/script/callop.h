@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_SCRIPT_CALLOP_H
 
 #include "eventoperation.h"
+#include "componentlink.h"
 
 namespace TGen {
 	namespace Engine {
@@ -20,7 +21,8 @@ namespace TGen {
 				CallOperation(TGen::Engine::Script::EventOperation * parent);
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
+				void linkRecipe(const TGen::Engine::EntityRecipe & recipe);
 				
 				void setEvent(const std::string & eventName);
 				void setEvent(int regId);
@@ -36,6 +38,10 @@ namespace TGen {
 				bool shareContext;
 				TGen::Engine::Triggerable * event;
 				int registerId, offset, numParameters;
+				int componentId;
+				
+				TGen::Engine::UnaryDelegate<TGen::Engine::Component> comp;
+				
 			};
 			
 		} // !Script

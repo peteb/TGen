@@ -12,6 +12,7 @@
 #include "inventory/inventory.h"
 #include "inventory/weapon.h"
 #include "entity.h"
+#include "componentlinker.h"
 
 TGen::Engine::Scene::EquipmentData::EquipmentData(const std::string & name)
 	: name(name)
@@ -46,10 +47,10 @@ TGen::Engine::Inventory::Weapon * TGen::Engine::Scene::EquipmentData::getWeapon(
 	return weapon;
 }
 
-void TGen::Engine::Scene::EquipmentData::linkGlobally(TGen::Engine::Scene::EquipmentNode * node, TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
+void TGen::Engine::Scene::EquipmentData::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Scene::EquipmentNode * node) {
 	this->node = node->getChild(name);
-	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(entity.getComponent("inventory", std::nothrow));
-	weapon = dynamic_cast<TGen::Engine::Inventory::Weapon *>(entity.getComponent(weaponName, std::nothrow));
+	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(linker.getComponent("inventory"));
+	weapon = dynamic_cast<TGen::Engine::Inventory::Weapon *>(linker.getComponent(weaponName));
 }
 
 bool TGen::Engine::Scene::EquipmentData::inInventory() {

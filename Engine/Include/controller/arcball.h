@@ -22,7 +22,7 @@ namespace TGen {
 				Arcball(const std::string & name);
 				~Arcball();
 				
-				void linkLocally(TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				void update(scalar dt);
 				bool useRelativeView() const;
 				

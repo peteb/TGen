@@ -17,7 +17,7 @@ namespace TGen {
 	namespace Engine {
 		class ResourceComponent : public TGen::Engine::Component {
 		public:
-			ResourceComponent(const std::string & name) : TGen::Engine::Component(name) {}
+			ResourceComponent(const std::string & name) : TGen::Engine::Component(name, true) {}
 			
 			virtual ~ResourceComponent() {}
 

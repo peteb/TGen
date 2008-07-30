@@ -18,7 +18,7 @@ TGen::Engine::ComponentLinker::ComponentLinker(TGen::Engine::EntityList * entity
 	
 }
 
-TGen::Engine::Component * TGen::Engine::ComponentLinker::getGlobalComponent(const std::string & name) const {
+TGen::Engine::Component * TGen::Engine::ComponentLinker::getComponent(const std::string & name) const {
 	TGen::Engine::Component * ret = NULL;
 	
 	if (entityList) {	
@@ -31,7 +31,7 @@ TGen::Engine::Component * TGen::Engine::ComponentLinker::getGlobalComponent(cons
 	return ret;
 }
 
-TGen::Engine::Component * TGen::Engine::ComponentLinker::getEntityComponent(int index) const {
+TGen::Engine::Component * TGen::Engine::ComponentLinker::getComponent(int index) const {
 	TGen::Engine::Component * ret = NULL;
 	
 	if (entity)
@@ -46,5 +46,13 @@ TGen::Engine::EntityList * TGen::Engine::ComponentLinker::getEntityList() const 
 
 TGen::Engine::Entity * TGen::Engine::ComponentLinker::getEntity() const {
 	return entity;
+}
+
+void TGen::Engine::ComponentLinker::setEntityList(TGen::Engine::EntityList * entityList) {
+	this->entityList = entityList;
+}
+
+void TGen::Engine::ComponentLinker::setEntity(TGen::Engine::Entity * entity) {
+	this->entity = entity;
 }
 

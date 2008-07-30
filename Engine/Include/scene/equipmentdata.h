@@ -18,6 +18,7 @@ namespace TGen {
 	namespace Engine {
 		class EntityList;
 		class Entity;
+		class ComponentLinker;
 		
 		namespace Inventory {
 			class Inventory;
@@ -36,7 +37,7 @@ namespace TGen {
 				void setIndex(int index);
 				int getIndex() const;
 				
-				void linkGlobally(TGen::Engine::Scene::EquipmentNode * node, TGen::Engine::EntityList & list, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Scene::EquipmentNode * node);
 				bool inInventory();
 				
 				TGen::SceneNode * getNode();

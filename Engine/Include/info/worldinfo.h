@@ -26,7 +26,7 @@ namespace TGen {
 			public:
 				WorldInfo(const std::string & name, TGen::Engine::World * world);
 				
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setPlayerController(const std::string & name);

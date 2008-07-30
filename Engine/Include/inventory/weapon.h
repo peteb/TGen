@@ -25,7 +25,7 @@ namespace TGen {
 				Weapon(const std::string & name);
 				virtual ~Weapon();
 				
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				//void setAmmoSpawn(const std::string & ammoSpawn);
 				
 				void update(scalar dt);

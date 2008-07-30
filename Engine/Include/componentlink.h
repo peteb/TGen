@@ -12,6 +12,8 @@
 
 #include "entitylist.h"
 #include "entity.h"
+#include "componentlinker.h"
+#include "entityrecipe.h"
 
 namespace TGen {
 	namespace Engine {
@@ -45,15 +47,24 @@ namespace TGen {
 				componentName = name;
 			}
 			
+			void linkComponentIndex(const TGen::Engine::EntityRecipe & recipe) {
+				componentIndex = recipe.getComponentIndex(componentName);
+				std::cout << "CIND: found index for " << componentName << ": " << componentIndex << std::endl;
+			}
 			
 		protected:
-			TGen::Engine::Component * getComponent(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+			TGen::Engine::Component * getComponent(const TGen::Engine::ComponentLinker & linker) {
 				TGen::Engine::Component * component = NULL;
 				
 				if (componentIndex != -1)
-					component = entity.getComponent(componentIndex, std::nothrow);
+					component = linker.getComponent(componentIndex);
 				else if (!componentName.empty())
-					component = entities.getComponent(componentName, entity, std::nothrow);
+					component = linker.getComponent(componentName);
+				
+				if (!component)
+					std::cerr << "warning: failed to find component " << componentName << " or index " << componentIndex << std::endl;
+				else
+					std::cerr << "component found: " << componentName << std::endl;
 				
 				return component;
 			}
@@ -99,8 +110,8 @@ namespace TGen {
 				TGen::Engine::ComponentLink::set(name);
 			}
 			
-			void link(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-				linkedComponent = dynamic_cast<T *>(getComponent(entities, entity));
+			void link(const TGen::Engine::ComponentLinker & linker) {
+				linkedComponent = dynamic_cast<T *>(getComponent(linker));
 			}
 			
 		private:

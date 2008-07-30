@@ -9,6 +9,7 @@
 
 #include "entity.h"
 #include "component.h"
+#include "componentlinker.h"
 #include <tgen_core.h>
 
 TGen::Engine::Symbol TGen::Engine::Entity::symbolGetComponent = TGen::Engine::getUniqueSymbol("getComponent");
@@ -31,15 +32,12 @@ TGen::Engine::Entity::~Entity() {
 }
 
 
-void TGen::Engine::Entity::linkLocally() {
+void TGen::Engine::Entity::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::ComponentLinker newLinker(linker);
+	newLinker.setEntity(this);
+	
 	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter)
-		iter->second->linkLocally(*this);
-}
-
-
-void TGen::Engine::Entity::linkGlobally(TGen::Engine::EntityList & entities) {
-	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter)
-		iter->second->linkGlobally(entities, *this);
+		iter->second->link(newLinker);
 	
 	initialize();
 }

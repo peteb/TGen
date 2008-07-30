@@ -35,8 +35,7 @@ namespace TGen {
 				~FirstPerson();
 				
 				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
-				void linkLocally(TGen::Engine::Entity & entity);
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				void update(scalar dt);
 
 				void setDeltaPlane(scalar speed);
@@ -54,6 +53,8 @@ namespace TGen {
 				TGen::Rotation getOrientation() const;		
 				
 			private:
+				void linkGlobally(const TGen::Engine::ComponentLinker & linker);
+				
 				TGen::Engine::Scene::Node * node;		// IMPL
 				TGen::SceneNode * viewNode;
 				TGen::Engine::Physics::Body * controlBody;

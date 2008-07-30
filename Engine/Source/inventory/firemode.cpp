@@ -14,6 +14,7 @@
 #include "entityrecipe.h"
 #include "componentinterfaces.h"
 #include "component.h"
+#include "componentlinker.h"
 
 TGen::Engine::Inventory::FireMode::FireMode()
 	: doFire(false)
@@ -43,10 +44,12 @@ void TGen::Engine::Inventory::FireMode::update(scalar dt) {
 	}	
 }
 
-void TGen::Engine::Inventory::FireMode::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	projectile = entities.getPrototype(projectileName, std::nothrow);
-	spawnOrigin = &dynamic_cast<TGen::Engine::WorldObject &>(entities.getComponent(originName, entity));
-	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(entity.getComponent("inventory", std::nothrow));
+void TGen::Engine::Inventory::FireMode::link(const TGen::Engine::ComponentLinker & linker) {
+	if (linker.getEntityList())
+		projectile = linker.getEntityList()->getPrototype(projectileName, std::nothrow);
+	
+	spawnOrigin = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(originName));
+	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(linker.getComponent("inventory"));
 }
 
 void TGen::Engine::Inventory::FireMode::fire() {

@@ -30,7 +30,7 @@ namespace TGen {
 
 				void setLink(const std::string & linkName);
 				void setAutoParent(const std::string & autoParent);
-				void linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				
 				
 				// world object interface

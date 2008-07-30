@@ -43,25 +43,49 @@ TGen::Engine::Script::Event * TGen::Engine::Script::Subsystem::createComponent(c
 		hasParameterList = true;
 	}
 	
+	
+	int paraCount = 0;
+	std::string mangledName = fixedName;
+	std::vector<std::pair<std::string, std::string> > aliases;
+	
+	if (hasParameterList) {
+		mangledName += ":";
+		
+		for (int i = 1; i < properties.getNumAttributes(); ++i, ++paraCount) {
+			std::string attribute = properties.getAttribute(i);
+			
+			std::string parameterName = properties.getAttribute(i);
+			std::string aliasName = properties.getAttribute(i);
+			
+			std::string::value_type pos = attribute.find(":");
+			if (pos != std::string::npos) {
+				parameterName = attribute.substr(0, pos);
+				aliasName = attribute.substr(pos + 1);
+			}
+			
+			std::string registerName = "r" + TGen::lexical_cast<std::string>(i + 1);
+			
+			aliases.push_back(std::make_pair(aliasName, registerName));
+			
+			if (i > 1 && !mangledName.empty())	
+				mangledName += parameterName + ":";
+		}
+	}
+	
+	std::cout << "EVENTFUNC: " << mangledName << std::endl;
+	
 	if (fixedName == "initialize" || fixedName == "init")
 		symbolId = -2;
 	else if (fixedName == "dispatch")
 		symbolId = -3;
 	else if (properties.getName()[0] != '-')
-		symbolId = TGen::Engine::getUniqueSymbol(fixedName);
+		symbolId = TGen::Engine::getUniqueSymbol(mangledName);
 	
-	Event * newEvent = new Event(fixedName, symbolId);
-	
-	int paraCount = 0;
-	
-	if (hasParameterList) {
-		for (int i = 1; i < properties.getNumAttributes(); ++i, ++paraCount) {
-			std::string registerName = "r" + TGen::lexical_cast<std::string>(i + 1);
-			
-			newEvent->addAlias(properties.getAttribute(i), registerName);
-		}
-	}
-	
+	Event * newEvent = new Event(fixedName, symbolId);	
+
+	for (int i = 0; i < aliases.size(); ++i)
+		newEvent->addAlias(aliases[i].first, aliases[i].second);
+
 	newEvent->setNumParameters(paraCount);
 	newEvent->setMinCallInterval(TGen::lexical_cast<scalar>(properties.getProperty("callTime", "-1.0")));
 	
@@ -338,7 +362,7 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 	
 	// dig out the object and method, put into fixedObject/fixedMethod
 	
-	std::string object, method;
+	std::string object, method, mangledMethodName;
 	object = head;
 	
 	if (properties.getNumAttributes() > attributeStart && object[object.size() - 1] != ':') {		// fails if there's no object
@@ -349,11 +373,11 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 	std::string fixedObject, fixedMethod, fixedEntity;
 	
 	if ((object.find(":") != std::string::npos) || (object.find("]") != std::string::npos)) {
-		fixedMethod = object.substr(1, object.size() - 2);
+		fixedMethod = object.substr(1, object.size() - 1);
 	}
 	else {
 		fixedObject = object.substr(1);
-		fixedMethod = method.substr(0, method.size() - 1);
+		fixedMethod = method.substr(0);
 	}
 	
 	if (fixedObject.find(".") != std::string::npos) {	// we're addressing another entity
@@ -362,25 +386,50 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 		fixedEntity = fixedObject.substr(0, pos);
 		fixedObject = fixedObject.substr(pos + 1);
 	}
+
+	if (fixedMethod[fixedMethod.size() - 1] == ']')
+		fixedMethod = fixedMethod.substr(0, fixedMethod.size() - 1);
+
 	
+	mangledMethodName = fixedMethod;
 	// create movs for parameters:
 	
 	int numParameters = 0;
 	
-	if (properties.getNumAttributes() >= attributeStart) {		// we've got parameters
-		for (int i = properties.getNumAttributes() - 1; i >= attributeStart; --i) {		// steps backwards, some register collisions are avoided
-			std::string attribute = properties.getAttribute(i);
+	std::vector<std::pair<std::string, std::string> > parameters;
+	
+	if (properties.getNumAttributes() > attributeStart) {		// we've got parameters
+		parameters.push_back(std::make_pair("", properties.getAttribute(attributeStart)));
+		
+		
+		for (int i = attributeStart + 1; i < properties.getNumAttributes(); i += 2) {
+			std::string paramName = properties.getAttribute(i);
+			std::string paramValue = properties.getAttribute(i + 1);
+						
+			parameters.push_back(std::make_pair(paramName, paramValue));
 			
-			if (attribute[attribute.size() - 1] == ']')		// the last parameter ends with a ]
-				attribute = attribute.substr(0, attribute.size() - 1);
-			
-			std::string dest = "r" + TGen::lexical_cast<std::string>(i - attributeStart + 2);	// select register to put parameter in
-			parentObject->addOperation(createMovOperation("mov", attribute, dest, *parentObject));		// create move operation in parent object (frame object)
-			numParameters++;
-		}		
+			mangledMethodName += paramName;
+		}
 	}
 	
-
+	/*std::cout << "PARAMETERS:" << std::endl;
+	for (int i = 0; i < parameters.size(); ++i)
+		std::cout << parameters[i].first << " = " << parameters[i].second << std::endl;
+	*/
+	
+	for (int i = parameters.size() - 1; i >= 0; --i) {
+		std::string paramValue = parameters[i].second;
+		
+		if (paramValue[paramValue.size() - 1] == ']')
+			paramValue = paramValue.substr(0, paramValue.size() - 1);
+		
+		
+		std::string dest = "r" + TGen::lexical_cast<std::string>(i + 2);	// select register to put parameter in
+		
+		parentObject->addOperation(createMovOperation("mov", paramValue, dest, *parentObject));		// create move operation in parent object (frame object)
+		numParameters++;		
+	}
+	
 	// create main body of call:
 	
 	TGen::Engine::Script::CallOperation * newCall = new TGen::Engine::Script::CallOperation(parentObject);
@@ -411,12 +460,13 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 		newCall->setEvent(fixedObject);
 	}
 	
+	std::cout << "MANGLED NAME: " << mangledMethodName << std::endl;
+	
 	// set method:
 	if (!fixedMethod.empty())
-		newCall->setOffset(TGen::Engine::getUniqueSymbol(fixedMethod));		// look up offset/symbol for method
+		newCall->setOffset(TGen::Engine::getUniqueSymbol(mangledMethodName));		// look up offset/symbol for method
 
-	parentObject->addOperation(newCall);
-	
+	parentObject->addOperation(newCall);	
 }
 
 
@@ -429,6 +479,11 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::Subsystem::createMov
 	std::string fixedSource = source;
 	std::string destOffset = "-1";
 	std::string sourceOffset = "-1";
+	
+	if (source == "false")
+		fixedSource = "0";
+	else if (source == "true")
+		fixedSource = "1";
 	
 	{
 		std::string::value_type pos = fixedDest.find("[");

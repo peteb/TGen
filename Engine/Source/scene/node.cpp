@@ -12,6 +12,8 @@
 
 #include "entitylist.h"
 #include "entity.h"
+#include "componentlinker.h"
+
 #include <tgen_renderer.h>
 
 TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * sceneNode) 
@@ -82,26 +84,27 @@ void TGen::Engine::Scene::Node::setAutoParent(const std::string & autoParent) {
 	this->autoParent = autoParent;
 }
 
-void TGen::Engine::Scene::Node::linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
+void TGen::Engine::Scene::Node::link(const TGen::Engine::ComponentLinker & linker) {
 	if (!linkName.empty()) {
-		TGen::Engine::Scene::Node * parent = &dynamic_cast<TGen::Engine::Scene::Node &>(list.getComponent(linkName, entity));
+		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(linkName));
 		
-		sceneNode->moveTo(parent->getSceneNode(), false);
+		if (parent)
+			sceneNode->moveTo(parent->getSceneNode(), false);
 		
 		changed = true;
 	}
 	
 	if (!autoParent.empty()) {
-		TGen::Engine::Scene::Node & parent = dynamic_cast<TGen::Engine::Scene::Node &>(list.getComponent(autoParent, entity));
+		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(autoParent));
 		
-		sceneNode->setAutoTP(parent.getSceneNode());		
+		sceneNode->setAutoTP(parent->getSceneNode());		
 		changed = true;
 	}
 	
 	TGen::Engine::Scene::EquipmentNode * equipmentNode = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode);
 	
 	if (equipmentNode) {	// much easier than to subclass this class just for eq node
-		equipmentNode->linkGlobally(list, entity);
+		equipmentNode->link(linker);
 	}
 }
 

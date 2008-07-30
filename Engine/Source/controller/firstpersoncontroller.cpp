@@ -45,37 +45,44 @@ TGen::Engine::Controller::FirstPerson::~FirstPerson() {
 }
 
 
-void TGen::Engine::Controller::FirstPerson::linkLocally(TGen::Engine::Entity & entity) {
-	TGen::Engine::PlayerController::linkLocally(entity);
+void TGen::Engine::Controller::FirstPerson::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::PlayerController::link(linker);
 	
 	if (!usePhysics) {
-		node = &dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(controlName));
+		node = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(controlName));
 	}
 	else {
-		controlBody = &dynamic_cast<TGen::Engine::Physics::Body &>(entity.getComponent(controlName));
+		controlBody = dynamic_cast<TGen::Engine::Physics::Body *>(linker.getComponent(controlName));
 	}
 	
-	TGen::Engine::Scene::Node & viewNode = dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(viewName));
-	this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode.getSceneNode());
+	TGen::Engine::Scene::Node * viewNode = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(viewName));
+	
+	if (viewNode)
+		this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode->getSceneNode());
+	
+	if (!linker.getEntityList() || !linker.getEntity())
+		exit(66);
+	
+	linkGlobally(linker);
 }
 
-void TGen::Engine::Controller::FirstPerson::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	TGen::Engine::PlayerController::linkGlobally(entities, entity);
+void TGen::Engine::Controller::FirstPerson::linkGlobally(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::PlayerController::link(linker);
 	
-	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(equipmentName, entity, std::nothrow));
+	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(equipmentName));
 	if (sceneNode)
 		equipment = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode->getSceneNode());
 	
 	if (!weaponName.empty()) {
-		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(entities.getComponent(weaponName, entity, std::nothrow));
+		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(linker.getComponent(weaponName));
 		
 		if (!weapon) {
-			TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(entities.getComponent(weaponName, entity, std::nothrow));
+			TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(weaponName));
 			if (sceneNode)
 				weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(sceneNode->getSceneNode());
 			
 			if (!weapon)
-				throw TGen::RuntimeException("FirstPerson::linkGlobally", "failed to get weapon '" + weaponName + "'");
+				throw TGen::RuntimeException("FirstPerson::link", "failed to get weapon '" + weaponName + "'");
 		}
 	}
 }

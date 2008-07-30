@@ -21,9 +21,9 @@ namespace TGen {
 			public:
 				BodyDelegate() : bodyObject(NULL), worldObject(NULL) {}
 				
-				void link(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-					bodyObject = dynamic_cast<TGen::Engine::Physics::Body *>(getComponent(entities, entity));
-					worldObject = dynamic_cast<TGen::Engine::WorldObject *>(getComponent(entities, entity));
+				void link(const TGen::Engine::ComponentLinker & linker) {
+					bodyObject = dynamic_cast<TGen::Engine::Physics::Body *>(getComponent(linker));
+					worldObject = dynamic_cast<TGen::Engine::WorldObject *>(getComponent(linker));
 					
 					if (bodyObject)
 						worldObject = NULL;

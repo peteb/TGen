@@ -35,7 +35,7 @@ namespace TGen {
 			PlayerController(const std::string & name);
 			virtual ~PlayerController();
 			
-			virtual void linkLocally(TGen::Engine::Entity & entity);
+			virtual void link(const TGen::Engine::ComponentLinker & linker);
 			virtual void update(scalar dt) abstract;
 			virtual bool useRelativeView() const {return true; }
 			virtual void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);

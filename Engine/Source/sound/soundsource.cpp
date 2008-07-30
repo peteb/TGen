@@ -18,7 +18,10 @@
 
 using TGen::Engine::Sound::Channel;
 
-TGen::Engine::Symbol TGen::Engine::Sound::Source::symbolPlaySound = TGen::Engine::getUniqueSymbol("playSound");
+#define SOURCE TGen::Engine::Sound::Source
+
+TGen::Engine::Symbol SOURCE::symbolPlaySound = TGen::Engine::getUniqueSymbol("playSound:");
+TGen::Engine::Symbol SOURCE::symbolPlaySoundWithVolume = TGen::Engine::getUniqueSymbol("playSound:withVolume:");
 
 TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator) 
 	: TGen::Engine::Component(name)
@@ -34,9 +37,9 @@ TGen::Engine::Sound::Source::~Source() {
 		delete channels[i];
 }
 
-void TGen::Engine::Sound::Source::link(TGen::Engine::Sound::Subsystem & linker) {
+void TGen::Engine::Sound::Source::linkSubsystem(TGen::Engine::Sound::Subsystem & subsystem) {
 	if (!filename.empty())
-		linkedSound = linker.getSound(filename);
+		linkedSound = subsystem.getSound(filename);
 }
 
 void TGen::Engine::Sound::Source::unlink() {
@@ -80,14 +83,31 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 
 
 void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	if (context.getFunctionSymbol() == symbolPlaySound) {
+	TGen::Engine::Symbol methodSymbol = context.getFunctionSymbol();
+	
+	std::cout << "Source::trigger: " << methodSymbol << std::endl;
+	
+	if (methodSymbol == symbolPlaySound) {
 		uint32 soundId = *context.getRegister<uint32 *>(2);
 		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
 		
 		if (!sound)
 			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
 		
-		addChannel(sound->spawnChannel(false));
+		TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
+		//newChannel->set3D(true);		// det som är felet!
+		//newChannel->set3DMinMaxDistance(minDistance, maxDistance);
+
+		addChannel(newChannel);
+	}
+	else if (methodSymbol == symbolPlaySoundWithVolume) {
+		uint32 soundId = *context.getRegister<uint32 *>(2);
+		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
+		
+		if (!sound)
+			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
+		
+		addChannel(sound->spawnChannel(false));		
 	}
 	else {
 		TGen::Engine::Component::trigger(context, mode);

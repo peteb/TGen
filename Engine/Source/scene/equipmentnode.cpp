@@ -25,9 +25,9 @@ TGen::Engine::Scene::EquipmentNode::~EquipmentNode() {
 	}
 }
 
-void TGen::Engine::Scene::EquipmentNode::linkGlobally(TGen::Engine::EntityList & list, TGen::Engine::Entity & entity) {
+void TGen::Engine::Scene::EquipmentNode::link(const TGen::Engine::ComponentLinker & linker) {
 	for (EquipmentMap::iterator iter = equipmentData.begin(); iter != equipmentData.end(); ++iter)
-		iter->second->linkGlobally(this, list, entity);
+		iter->second->link(linker, this);
 	
 	EquipmentMap::iterator iter = equipmentData.find(initialChild);
 	if (iter != equipmentData.end())

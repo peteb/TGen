@@ -50,12 +50,12 @@ void TGen::Engine::Physics::Geom::setFriction(float friction) {
 
 
 void TGen::Engine::Physics::Geom::setLink(const std::string & linkName) {
-	link.set(linkName);
+	bodyDelegate.set(linkName);
 }
 
 
 void TGen::Engine::Physics::Geom::setLink(TGen::Engine::WorldObject * linkedTo) {
-	link.set(linkedTo);
+	bodyDelegate.set(linkedTo);
 }
 
 
@@ -82,7 +82,7 @@ void TGen::Engine::Physics::Geom::setGeomId(dGeomID id) {
 
 
 TGen::Engine::Physics::Body * TGen::Engine::Physics::Geom::getBody() {
-	return link.getBodyObject();
+	return bodyDelegate.getBodyObject();
 }
 
 
@@ -93,17 +93,17 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 }
 
 
-void TGen::Engine::Physics::Geom::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	eventCollisionForce.link(entities, entity);
+void TGen::Engine::Physics::Geom::link(const TGen::Engine::ComponentLinker & linker) {
+	eventCollisionForce.link(linker);
 
 	if (geomId == 0)
 		return;
 	
 	if (dGeomGetClass(geomId) != dPlaneClass) {		// planes are non-movable
-		link.link(entities, entity);
+		bodyDelegate.link(linker);
 		
-		if (link.getBodyObject())
-			dGeomSetBody(geomId, link.getBodyObject()->getBodyId());
+		if (bodyDelegate.getBodyObject())
+			dGeomSetBody(geomId, bodyDelegate.getBodyObject()->getBodyId());
 		
 		updateFromLink();
 	}	
@@ -161,9 +161,9 @@ void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orienta
 
 
 void TGen::Engine::Physics::Geom::updateFromLink() {
-	if (link.getWorldObject()) {
-		setPosition(link.getPosition());
-		setOrientation(link.getOrientation());
+	if (bodyDelegate.getWorldObject()) {
+		setPosition(bodyDelegate.getPosition());
+		setOrientation(bodyDelegate.getOrientation());
 	}	
 }
 
@@ -180,7 +180,8 @@ void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundColl
 		
 		if (force - collisionForceThreshold > 0.00001) {
 			TGen::Engine::TriggerContext * context = eventCollisionForce->context;
-			assert(context);
+			TGenAssert(context);
+			
 			std::cout << "FORCE: " << force * collisionForceScale - collisionForceThreshold << std::endl;
 			
 			scalar fixedForce = force * collisionForceScale - collisionForceThreshold;

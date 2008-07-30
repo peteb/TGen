@@ -23,7 +23,7 @@ namespace TGen {
 				
 				void preStep();
 				void postStep();
-				void linkLocally(TGen::Engine::Entity & entity);
+				void link(const TGen::Engine::ComponentLinker & linker);
 				bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
 				
 				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);

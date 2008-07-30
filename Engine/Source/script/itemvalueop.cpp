@@ -10,6 +10,7 @@
 #include "itemvalueop.h"
 #include "inventory/inventory.h"
 #include "entity.h"
+#include "componentlinker.h"
 
 TGen::Engine::Script::ItemValueOperation::ItemValueOperation() 
 	: item(NULL)
@@ -20,12 +21,12 @@ TGen::Engine::Script::ItemValueOperation::ItemValueOperation()
 }
 
 
-void TGen::Engine::Script::ItemValueOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	TGen::Engine::Script::EventOperation::linkGlobally(entities, entity);
+void TGen::Engine::Script::ItemValueOperation::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::Script::EventOperation::link(linker);
 	
-	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(&entity.getComponent("inventory"));
+	inventory = dynamic_cast<TGen::Engine::Inventory::Inventory *>(linker.getComponent("inventory"));
 	if (!inventory)
-		throw TGen::RuntimeException("Script::ItemValueOperation::linkGlobally", "no inventory in entity!");
+		throw TGen::RuntimeException("Script::ItemValueOperation::link", "no inventory in entity!");
 
 	item = inventory->getItem(itemName);
 }

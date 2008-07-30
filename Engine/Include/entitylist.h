@@ -18,12 +18,13 @@ namespace TGen {
 		class Entity;
 		class Component;
 		class EntityRecipe;
+		class ComponentLinker;
 		
 		class EntityList {
 		public:
 			~EntityList();
 			
-			void linkGlobally();
+			void link();
 			void addEntity(TGen::Engine::Entity * entity);
 			void addPrototype(TGen::Engine::EntityRecipe * recipe);
 			

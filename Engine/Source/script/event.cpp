@@ -9,6 +9,7 @@
 
 #include "script/event.h"
 #include "entity.h"
+#include "componentlinker.h"
 
 TGen::Engine::Script::Event::Event(const std::string & name, TGen::Engine::Symbol symbolId)
 	: TGen::Engine::Component(name, true)	// static component
@@ -21,11 +22,17 @@ TGen::Engine::Script::Event::Event(const std::string & name, TGen::Engine::Symbo
 }
 
 
-void TGen::Engine::Script::Event::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	if (symbolId != -1)
-		entity.registerEvent(symbolId, this);
+void TGen::Engine::Script::Event::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::Component::link(linker);
+	
+	if (symbolId != -1 && linker.getEntity())
+		linker.getEntity()->registerEvent(symbolId, this);
 
-	TGen::Engine::Script::EventOperation::linkGlobally(entities, entity);
+	TGen::Engine::Script::EventOperation::link(linker);
+}
+
+void TGen::Engine::Script::Event::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
+	TGen::Engine::Script::EventOperation::linkRecipe(recipe);
 }
 
 void TGen::Engine::Script::Event::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {

@@ -67,9 +67,9 @@ void TGen::Engine::Physics::BipedalGeom::postStep() {
 
 }
 
-void TGen::Engine::Physics::BipedalGeom::linkLocally(TGen::Engine::Entity & entity) {
+void TGen::Engine::Physics::BipedalGeom::link(const TGen::Engine::ComponentLinker & linker) {
 	if (!sloppy)
-		TGen::Engine::Physics::Geom::linkLocally(entity);
+		TGen::Engine::Physics::Geom::link(linker);
 	
 	//TGen::Engine::Physics::Body * attachTo = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(bodyComponent));
 	//dGeomSetBody(raylegs, attachTo->getBodyId());

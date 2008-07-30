@@ -23,8 +23,9 @@ namespace TGen {
 				MoveOperation(TGen::Engine::Script::EventOperation * parent);
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
-				void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
-
+				void link(const TGen::Engine::ComponentLinker & linker);
+				void linkRecipe(const TGen::Engine::EntityRecipe & recipe);
+				
 				void setSource(int regId);
 				void setDest(int regId);
 				void setSourceImm(scalar sourceImm);

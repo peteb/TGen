@@ -14,9 +14,11 @@
 
 using TGen::scalar;
 
-TGen::Engine::Symbol TGen::Engine::Physics::Body::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene");
-TGen::Engine::Symbol TGen::Engine::Physics::Body::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed");
-TGen::Engine::Symbol TGen::Engine::Physics::Body::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque");
+#define BODY TGen::Engine::Physics::Body
+
+TGen::Engine::Symbol BODY::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene");
+TGen::Engine::Symbol BODY::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed");
+TGen::Engine::Symbol BODY::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque");
 
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
@@ -91,8 +93,8 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 }
 
 
-void TGen::Engine::Physics::Body::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	delegate.link(entities, entity);
+void TGen::Engine::Physics::Body::link(const TGen::Engine::ComponentLinker & linker) {
+	delegate.link(linker);
 	updateFromScene();
 }
 

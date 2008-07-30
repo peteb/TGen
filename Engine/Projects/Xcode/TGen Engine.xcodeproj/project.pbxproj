@@ -241,6 +241,13 @@
 			remoteGlobalIDString = D0F3713A0C6D02CE00C11F87;
 			remoteInfo = tgen_renderer;
 		};
+		D0B1D7C00E3F557B0027C8B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0B1D5D10E3E85BC0027C8B9;
+			remoteInfo = Tests;
+		};
 		D0E9D58B0CE355D90050B530 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */;
@@ -798,6 +805,7 @@
 			children = (
 				D04C81D80CCA46E400794CEA /* TGen Math */,
 				D04C81DA0CCA46E400794CEA /* libtgen_math.a */,
+				D0B1D7C10E3F557B0027C8B9 /* Tests.cptest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1094,9 +1102,9 @@
 				D081407F0E300F0F0024534F /* component.cpp */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
+				D0793A8D0E3222C50074996E /* componentlink.h */,
 				D06F8F810E3C94D00011A495 /* componentlinker.cpp */,
 				D06F8F800E3C94BA0011A495 /* componentlinker.h */,
-				D0793A8D0E3222C50074996E /* componentlink.h */,
 				D0793FF70E329CB20074996E /* resourcecomponent.h */,
 				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D07BDD1D0E28ECF40070CC83 /* triggerable.h */,
@@ -1345,6 +1353,13 @@
 			fileType = archive.ar;
 			path = libtgen_renderer.a;
 			remoteRef = D04C82060CCA470100794CEA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0B1D7C10E3F557B0027C8B9 /* Tests.cptest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.cptest;
+			remoteRef = D0B1D7C00E3F557B0027C8B9 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		D0E9D58C0CE355D90050B530 /* TGen Core Test */ = {

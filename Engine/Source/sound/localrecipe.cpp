@@ -43,7 +43,7 @@ void TGen::Engine::Sound::LocalRecipe::fastLinkConstructed(TGen::Engine::Compone
 
 
 // called when the prototype has been constructed
-void TGen::Engine::Sound::LocalRecipe::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & prototype) {
+void TGen::Engine::Sound::LocalRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
 	componentLinkNum = prototype.getComponentIndex(linkWithName);
 	
 	std::cout << "COMPONENT LINK NUM: " << componentLinkNum << std::endl;

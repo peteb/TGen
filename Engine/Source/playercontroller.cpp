@@ -10,6 +10,7 @@
 #include "playercontroller.h"
 #include "scene/node.h"
 #include "entity.h"
+#include "componentlinker.h"
 #include <tgen_renderer.h>
 
 TGen::Engine::Symbol TGen::Engine::PlayerController::symbolSetIgnoreInput = TGen::Engine::getUniqueSymbol("setIgnoreInput");
@@ -104,8 +105,9 @@ void TGen::Engine::PlayerController::linkCameras(TGen::Engine::Entity & entity) 
 	}
 }
 
-void TGen::Engine::PlayerController::linkLocally(TGen::Engine::Entity & entity) {
-	linkCameras(entity);
+void TGen::Engine::PlayerController::link(const TGen::Engine::ComponentLinker & linker) {
+	if (linker.getEntity())
+		linkCameras(*linker.getEntity());
 }
 
 void TGen::Engine::PlayerController::addViewDelta(const TGen::Vector3 & view) {

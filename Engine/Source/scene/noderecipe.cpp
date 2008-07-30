@@ -12,6 +12,8 @@
 #include "entitylist.h"
 #include "entity.h"
 #include "scene/subsystem.h"
+#include "componentlinker.h"
+
 #include <tgen_renderer.h>
 
 TGen::Engine::Scene::NodeRecipe::NodeRecipe(const std::string & name, TGen::SceneNode * prototypeNode, TGen::Engine::Scene::Subsystem & subsystem) 
@@ -61,7 +63,7 @@ TGen::SceneNode * TGen::Engine::Scene::NodeRecipe::getPrototypeNode() {
 }
 
 
-void TGen::Engine::Scene::NodeRecipe::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & entity) {
+void TGen::Engine::Scene::NodeRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & entity) {
 	// called when the global entitylist is linked, entities created at runtime are not linked
 	// TODO: fix: autoParent
 	
@@ -69,9 +71,10 @@ void TGen::Engine::Scene::NodeRecipe::linkGlobally(TGen::Engine::EntityList & en
 		TGen::Engine::Scene::NodeRecipe * parent = dynamic_cast<TGen::Engine::Scene::NodeRecipe *>(entity.getComponentRecipe(linkName, std::nothrow));
 		
 		if (!parent) {
-			TGen::Engine::Scene::Node & parent = dynamic_cast<TGen::Engine::Scene::Node &>(entities.getComponent(linkName));
+			TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(linkName));
 
-			prototypeNode->moveTo(parent.getSceneNode(), false);
+			if (parent)
+				prototypeNode->moveTo(parent->getSceneNode(), false);
 		}
 		else {
 			refersSelfEntity = true;

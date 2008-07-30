@@ -51,7 +51,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 			throw TGen::RuntimeException("EntityFactory::createEntity", "failed to create component");
 	}
 	
-	entity->linkLocally();
+	//entity->link(TGen::Engine::ComponentLinker(NULL, NULL));
 	
 	return entity;
 }

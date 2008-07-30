@@ -10,7 +10,7 @@
 #ifndef _TGEN_ANGLE_H
 #define _TGEN_ANGLE_H
 
-//#include <tgen_core.h>
+#include <tgen_core.h>
 #include <cmath>
 #include "types.h"
 

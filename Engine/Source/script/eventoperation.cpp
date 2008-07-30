@@ -33,9 +33,14 @@ void TGen::Engine::Script::EventOperation::trigger(TGen::Engine::TriggerContext 
 		operations[i]->trigger(context, mode);
 }
 
-void TGen::Engine::Script::EventOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+void TGen::Engine::Script::EventOperation::link(const TGen::Engine::ComponentLinker & linker) {
 	for (int i = 0; i < operations.size(); ++i)
-		operations[i]->linkGlobally(entities, entity);
+		operations[i]->link(linker);
+}
+
+void TGen::Engine::Script::EventOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
+	for (int i = 0; i < operations.size(); ++i)
+		operations[i]->linkRecipe(recipe);
 }
 
 void TGen::Engine::Script::EventOperation::addAlias(const std::string & alias, const std::string & value) {

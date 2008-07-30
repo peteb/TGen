@@ -21,12 +21,15 @@ TGen::Engine::Script::MoveOperation::MoveOperation(TGen::Engine::Script::EventOp
 
 void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	int destRegId = destId;
+	std::cerr << "EXEC MOVE" << std::endl;
 	
 	if (derefDest) {
+		std::cerr << "DEREF DEST" << std::endl;
 		destRegId = *context.getRegister<int *>(destRegId);
 	}
 	
 	if (sourceResource) {
+		std::cerr << "SOURCE RESOURCE" << std::endl;
 		*context.getRegister<uint32 *>(destRegId) = reinterpret_cast<uint32>(sourceResource->getData());
 	}
 	else if (intOp) {
@@ -100,8 +103,12 @@ void TGen::Engine::Script::MoveOperation::setDerefDest(bool derefDest) {
 	this->derefDest = derefDest;
 }
 
-void TGen::Engine::Script::MoveOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	sourceResource.link(entities, entity);		// TODO: skicka med EntityList i ComponentRecipe::linkGlobally, och sourceResource ska vara relativt addreserad! inte string!
+void TGen::Engine::Script::MoveOperation::link(const TGen::Engine::ComponentLinker & linker) {
+	sourceResource.link(linker);		// TODO: skicka med EntityList i ComponentRecipe::linkGlobally, och sourceResource ska vara relativt addreserad! inte string!
+}
+
+void TGen::Engine::Script::MoveOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
+	sourceResource.linkComponentIndex(recipe);
 }
 
 void TGen::Engine::Script::MoveOperation::setResourceName(const std::string & resName) {

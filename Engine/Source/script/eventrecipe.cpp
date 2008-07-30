@@ -10,6 +10,7 @@
 #include "script/eventrecipe.h"
 #include "script/event.h"
 #include "entity.h"
+#include "componentlinker.h"
 
 TGen::Engine::Script::EventRecipe::EventRecipe(const std::string & name, TGen::Engine::Script::Event * event)
 	: TGen::Engine::ComponentRecipe(name)
@@ -25,6 +26,11 @@ void TGen::Engine::Script::EventRecipe::fastLinkConstructed(TGen::Engine::Compon
 	constructed.setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
 
 	entity.registerEvent(event->getSymbol(), event);
+	event->link(TGen::Engine::ComponentLinker(NULL, &entity));
+}
+
+void TGen::Engine::Script::EventRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
+	event->linkRecipe(prototype);
 }
 
 TGen::Engine::Component * TGen::Engine::Script::EventRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {

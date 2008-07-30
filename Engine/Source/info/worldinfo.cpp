@@ -11,8 +11,10 @@
 #include "playercontroller.h"
 #include "world.h"
 
-TGen::Engine::Symbol TGen::Engine::Info::WorldInfo::symbolSetGravity = TGen::Engine::getUniqueSymbol("setGravity");
-TGen::Engine::Symbol TGen::Engine::Info::WorldInfo::symbolGetGravity = TGen::Engine::getUniqueSymbol("getGravity");
+#define WORLDINFO TGen::Engine::Info::WorldInfo
+
+TGen::Engine::Symbol WORLDINFO::symbolSetGravity = TGen::Engine::getUniqueSymbol("setGravity:");
+TGen::Engine::Symbol WORLDINFO::symbolGetGravity = TGen::Engine::getUniqueSymbol("getGravity");
 
 TGen::Engine::Info::WorldInfo::WorldInfo(const std::string & name, TGen::Engine::World * world)
 	: TGen::Engine::Component(name)
@@ -20,8 +22,8 @@ TGen::Engine::Info::WorldInfo::WorldInfo(const std::string & name, TGen::Engine:
 {
 }
 
-void TGen::Engine::Info::WorldInfo::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
-	playerController.link(entities, entity);
+void TGen::Engine::Info::WorldInfo::link(const TGen::Engine::ComponentLinker & linker) {
+	playerController.link(linker);
 }
 
 void TGen::Engine::Info::WorldInfo::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {

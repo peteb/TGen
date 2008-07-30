@@ -21,14 +21,14 @@ namespace TGen {
 	namespace Engine {
 		class Component;
 		class EntityList;
+		class ComponentLinker;
 		
 		class Entity : public TGen::Engine::Triggerable {
 		public:
 			Entity(const std::string & name);
 			~Entity();
 			
-			void linkLocally();
-			void linkGlobally(TGen::Engine::EntityList & entities);
+			void link(const TGen::Engine::ComponentLinker & linker);
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
 			void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			void initialize();

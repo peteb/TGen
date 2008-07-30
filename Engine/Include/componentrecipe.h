@@ -18,6 +18,7 @@ namespace TGen {
 		class EntityList;
 		class EntityRecipe;
 		class Entity;
+		class ComponentLinker;
 		
 		class ComponentRecipe {
 		public:
@@ -28,7 +29,7 @@ namespace TGen {
 			
 			virtual ~ComponentRecipe() {}
 			
-			virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & prototype) {}
+			virtual void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {}
 			virtual void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {}
 
 			virtual TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) abstract;

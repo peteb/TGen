@@ -16,6 +16,8 @@ namespace TGen {
 	namespace Engine {
 		class EntityList;
 		class Entity;
+		class ComponentLinker;
+		class EntityRecipe;
 		
 		namespace Script {
 			class EventOperation {
@@ -32,7 +34,8 @@ namespace TGen {
 				int getNumLocalVars() const;
 				
 				virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
-				virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+				virtual void link(const TGen::Engine::ComponentLinker & linker);
+				virtual void linkRecipe(const TGen::Engine::EntityRecipe & recipe);
 				
 			private:
 				std::vector<EventOperation *> operations;

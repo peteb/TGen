@@ -35,7 +35,7 @@ TGen::Engine::Component * TGen::Engine::Physics::BodyRecipe::createComponent(con
 	return newBody;
 }
 
-void TGen::Engine::Physics::BodyRecipe::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::EntityRecipe & prototype) {
+void TGen::Engine::Physics::BodyRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
 	linkComponentNum = prototype.getComponentIndex(linkName);
 }
 

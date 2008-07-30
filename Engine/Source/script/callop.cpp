@@ -12,6 +12,7 @@
 #include "triggerable.h"
 #include "component.h"
 #include "entity.h"
+#include "componentlinker.h"
 
 TGen::Engine::Script::CallOperation::CallOperation(TGen::Engine::Script::EventOperation * parent)
 	: TGen::Engine::Script::EventOperation(parent)
@@ -20,14 +21,26 @@ TGen::Engine::Script::CallOperation::CallOperation(TGen::Engine::Script::EventOp
 	, offset(-1)
 	, triggerMode(TGen::Engine::TriggerPrecise)
 	, numParameters(0)
+	, componentId(1)
 {
 }
 
 void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Triggerable * callee = event;
 	
-	if (!event && registerId != -1)
+	if (!event && registerId != -1) {
 		callee = *context.getRegister<TGen::Engine::Triggerable **>(registerId);
+	}
+	else if (componentId != -1 && !event) {
+		TGen::Engine::Entity * self = *context.getRegister<TGen::Engine::Entity **>(TGen::Engine::RegisterSelf);
+		std::cerr << "SELF IS " << self->getName() << std::endl;
+		
+		TGen::Engine::Component * component = self->getComponent(componentId, std::nothrow);
+		std::cout << "COMPONENT " << componentId << " IS " << component->getName() << std::endl;
+		
+		callee = component;
+		//exit(1);
+	}
 	
 	if (callee) {
 		//if (offset != -1)
@@ -43,33 +56,43 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 		}
 	}
 	else {
-		throw TGen::RuntimeException("Script::CallOperation::trigger", "failed to send message, receiver unknown");
+		throw TGen::RuntimeException("Script::CallOperation::trigger", "failed to send message, receiver unknown. Event: ") << event << " register: " << registerId;
+		
 	}
 }
 
-void TGen::Engine::Script::CallOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+void TGen::Engine::Script::CallOperation::link(const TGen::Engine::ComponentLinker & linker) {
 	if (!entityName.empty()) {
 		std::string fixedComponentName = entityName;
 		
-		if (eventName.empty())
-			event = dynamic_cast<TGen::Engine::Triggerable *>(entities.getEntity(entityName, std::nothrow));
+		if (eventName.empty() && linker.getEntityList())
+			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getEntityList()->getEntity(entityName, std::nothrow));
 		else
-			event = dynamic_cast<TGen::Engine::Triggerable *>(entities.getComponent(entityName + ":" + eventName, entity, std::nothrow));
+			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(entityName + ":" + eventName));
 		
 		if (!event)
-			throw TGen::RuntimeException("CallOperation::linkGlobally", "failed to get triggerable");
-
+			throw TGen::RuntimeException("CallOperation::link", "failed to get triggerable");
 	}
 	else if (!eventName.empty() && registerId == -1) {
-		event = dynamic_cast<TGen::Engine::Triggerable *>(entities.getComponent(eventName, entity, std::nothrow));
+		event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(eventName));
 
-		if (!event)
-			throw TGen::RuntimeException("CallOperation::linkGlobally", "failed to get triggerable");
+		if (!event) {
+			//comp.linkComponentIndex(linker);
+			
+			//std::cout << linker.getEntity() << " " << linker.getEntityList() << std::endl;
+			
+			//throw TGen::RuntimeException("CallOperation::link", "failed to get triggerable: " + eventName);
+		}
 	}	
+}
+
+void TGen::Engine::Script::CallOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
+	comp.linkComponentIndex(recipe);
 }
 
 void TGen::Engine::Script::CallOperation::setEvent(const std::string & eventName) {
 	this->eventName = eventName;
+	comp.set(eventName);
 }
 
 void TGen::Engine::Script::CallOperation::setNumParameters(int numParams) {

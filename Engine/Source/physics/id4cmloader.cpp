@@ -62,7 +62,7 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 		getContour(indices, polygons[i]);
 		
 
-		if (indices.size() == 4) {
+		/*if (indices.size() == 4) {
 			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[1]);
 			newIndices.push_back(indices[2]);
@@ -73,7 +73,7 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			newIndices.push_back(indices[3]);
 
 		}
-		/*else if (indices.size() == 3) {
+		else if (indices.size() == 3) {
 			newIndices.push_back(indices[0]);
 			newIndices.push_back(indices[1]);
 			newIndices.push_back(indices[2]);			
@@ -94,8 +94,8 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			
 			
 			
-		}*/
-		else {
+		}
+		else {*/
 			//exit(1);
 			//std::cerr << "EAR CLIP: " << indices.size() << std::endl;
 			//exit(1);
@@ -135,7 +135,7 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 			
 			for (int i = 0; i < newIndices.size(); ++i)
 				newIndices[i] = indices[newIndices[i]];*/
-		}
+		//}
 		
 	//	std::cout << "TRI: " << newIndices.size() << std::endl;
 

@@ -157,6 +157,8 @@ bool TGen::Vector3::operator > (const TGen::Vector3 & vector) const {
 TGen::Vector3 TGen::Vector3::Parse(const std::string & text) {
 	if (text.find("identity") != std::string::npos || text.find("ident") != std::string::npos)
 		return TGen::Vector3::Identity;
+	else if (text.find("zero") != std::string::npos)
+		return TGen::Vector3::Zero;
 	
 	TGen::Vector3 ret;
 	std::stringstream ss;

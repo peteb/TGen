@@ -21,7 +21,7 @@ namespace TGen {
 			ObjectReference(const std::string & name);
 			
 			void * getData() const;
-			void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
+			void link(const TGen::Engine::ComponentLinker & linker);
 			void setObjectName(const std::string & name);
 			
 		private:

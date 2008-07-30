@@ -12,6 +12,7 @@
 #include "scene/node.h"
 #include "entity.h"
 #include "gameinputmapper.h"
+#include "componentlinker.h"
 
 TGen::Engine::Controller::Arcball::Arcball(const std::string & name) 
 	: TGen::Engine::PlayerController(name)
@@ -29,12 +30,14 @@ TGen::Engine::Controller::Arcball::~Arcball() {
 }
 
 
-void TGen::Engine::Controller::Arcball::linkLocally(TGen::Engine::Entity & entity) {
-	TGen::Engine::PlayerController::linkLocally(entity);
+void TGen::Engine::Controller::Arcball::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::PlayerController::link(linker);
 
-	TGen::Engine::Scene::Node & sceneNode = dynamic_cast<TGen::Engine::Scene::Node &>(entity.getComponent(controlName));
+	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(controlName));
 	
-	node = sceneNode.getSceneNode();
+	if (sceneNode)
+		node = sceneNode->getSceneNode();
+	
 	camera = getCamera("headcam");
 }
 

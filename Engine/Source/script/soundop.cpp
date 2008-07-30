@@ -13,6 +13,7 @@
 #include "entitylist.h"
 #include "entity.h"
 #include "sound/subsystem.h"
+#include "componentlinker.h"
 
 TGen::Engine::Script::SoundOperation::SoundOperation() 
 	: source(NULL)
@@ -28,11 +29,11 @@ void TGen::Engine::Script::SoundOperation::trigger(TGen::Engine::TriggerContext 
 	}
 }
 
-void TGen::Engine::Script::SoundOperation::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+void TGen::Engine::Script::SoundOperation::link(const TGen::Engine::ComponentLinker & linker) {
 	if (!sourceName.empty()) {
-		source = dynamic_cast<TGen::Engine::Sound::Source *>(entities.getComponent(sourceName, entity, std::nothrow));
+		source = dynamic_cast<TGen::Engine::Sound::Source *>(linker.getComponent(sourceName));
 		if (!source)
-			throw TGen::RuntimeException("Script::SoundOperation::linkGlobally", "failed to get source " + sourceName);
+			throw TGen::RuntimeException("Script::SoundOperation::link", "failed to get source " + sourceName);
 	
 		sound = source->getCreator().getSound(soundName);
 	}

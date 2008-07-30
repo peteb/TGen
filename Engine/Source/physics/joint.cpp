@@ -27,15 +27,15 @@ TGen::Engine::Physics::Joint::~Joint() {
 }
 
 
-void TGen::Engine::Physics::Joint::linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity) {
+void TGen::Engine::Physics::Joint::link(const TGen::Engine::ComponentLinker & linker) {
 	body1 = NULL;
 	body2 = NULL;
 	
 	if (!link1Name.empty())
-		body1 = &dynamic_cast<TGen::Engine::Physics::Body &>(entities.getComponent(link1Name, entity));
+		body1 = dynamic_cast<TGen::Engine::Physics::Body *>(linker.getComponent(link1Name));
 	
 	if (!link2Name.empty())
-		body2 = &dynamic_cast<TGen::Engine::Physics::Body &>(entities.getComponent(link2Name, entity));
+		body2 = dynamic_cast<TGen::Engine::Physics::Body *>(linker.getComponent(link2Name));
 	
 	dBodyID bodyId1 = 0, bodyId2 = 0;
 	
