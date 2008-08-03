@@ -35,8 +35,8 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 		TGen::Engine::Entity * self = *context.getRegister<TGen::Engine::Entity **>(TGen::Engine::RegisterSelf);
 		std::cerr << "SELF IS " << self->getName() << std::endl;
 		
-		TGen::Engine::Component * component = self->getComponent(componentId, std::nothrow);
-		std::cout << "COMPONENT " << componentId << " IS " << component->getName() << std::endl;
+		TGen::Engine::Component * component = comp.get(); //self->getComponent(componentId, std::nothrow);
+		//std::cout << "COMPONENT " << componentId << " IS " << component->getName() << std::endl;
 		
 		callee = component;
 		//exit(1);
@@ -66,12 +66,17 @@ void TGen::Engine::Script::CallOperation::link(const TGen::Engine::ComponentLink
 		std::string fixedComponentName = entityName;
 		
 		if (eventName.empty() && linker.getEntityList())
-			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getEntityList()->getEntity(entityName, std::nothrow));
+			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getEntity(entityName));
 		else
 			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(entityName + ":" + eventName));
 		
-		if (!event)
-			throw TGen::RuntimeException("CallOperation::link", "failed to get triggerable");
+		if (linker.getEntity(entityName))
+			std::cout << "NENT: " << linker.getEntity(entityName)->getName() << std::endl;
+		
+		if (!event) {
+			//asm("int $3");
+			//throw TGen::RuntimeException("CallOperation::link", "failed to get entity '" + entityName + "', event: '" + eventName + "', entity list: ") << linker.getEntityList();
+		}
 	}
 	else if (!eventName.empty() && registerId == -1) {
 		event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(eventName));
@@ -84,6 +89,10 @@ void TGen::Engine::Script::CallOperation::link(const TGen::Engine::ComponentLink
 			//throw TGen::RuntimeException("CallOperation::link", "failed to get triggerable: " + eventName);
 		}
 	}	
+		
+	
+	// UnaryDelegate för entity
+	comp.link(linker);
 }
 
 void TGen::Engine::Script::CallOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {

@@ -30,7 +30,7 @@ namespace TGen {
 			virtual ~ComponentRecipe() {}
 			
 			virtual void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {}
-			virtual void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {}
+			virtual void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {}
 
 			virtual TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) abstract;
 			

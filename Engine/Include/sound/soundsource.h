@@ -50,12 +50,12 @@ namespace TGen {
 				ChannelList channels;
 				bool prototype;
 				TGen::Engine::Sound::Subsystem & creator;
+
+				static TGen::Engine::Symbol symbolPlaySound, symbolPlaySoundWithVolume;
 				
 			private:
 				std::string filename;
 				bool autoplay, loop, threedee;
-				
-				static TGen::Engine::Symbol symbolPlaySound, symbolPlaySoundWithVolume;
 			};
 			
 		} // !Sound		

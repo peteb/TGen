@@ -24,7 +24,7 @@ namespace TGen {
 				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & entity);
-				void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity);
+				void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed);
 				
 				void setLinkWith(const std::string & link);
 				void setSoundPrototype(TGen::Engine::Sound::Source * source);

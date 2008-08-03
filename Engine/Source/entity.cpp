@@ -51,6 +51,8 @@ void TGen::Engine::Entity::initialize() {
 void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Symbol symbolId = context.getFunctionSymbol();
 	
+	std::cout << "Entity " << getName() << " got message " << symbolId << std::endl;
+	
 	if (symbolId == -1)
 		return;
 	
@@ -77,7 +79,7 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen:
 					}
 				}
 				else {
-					throw TGen::RuntimeException("Entity::trigger", "Method not found.");	
+					throw TGen::RuntimeException("Entity::trigger", "Message symbol not defined.");	
 				}
 			}
 			else {	

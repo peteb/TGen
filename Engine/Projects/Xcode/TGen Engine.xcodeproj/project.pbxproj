@@ -776,6 +776,22 @@
 			name = data;
 			sourceTree = "<group>";
 		};
+		D02E4E630E4490020070FBFC /* component */ = {
+			isa = PBXGroup;
+			children = (
+				D081407F0E300F0F0024534F /* component.cpp */,
+				D0843C430D075C9C00C31FE3 /* component.h */,
+				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
+				D06F8F810E3C94D00011A495 /* componentlinker.cpp */,
+				D06F8F800E3C94BA0011A495 /* componentlinker.h */,
+				D0793A8D0E3222C50074996E /* componentlink.h */,
+				D0793FF70E329CB20074996E /* resourcecomponent.h */,
+				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
+				D00E564B0E3A730A0084BA23 /* staticcomponentrecipe.h */,
+			);
+			name = component;
+			sourceTree = "<group>";
+		};
 		D048B94C0CE743F700607EBA /* meshes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1099,19 +1115,11 @@
 				D00343A60CEE14C10066E8A8 /* world.cpp */,
 				D00343B50CEE14FE0066E8A8 /* world.h */,
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
-				D081407F0E300F0F0024534F /* component.cpp */,
-				D0843C430D075C9C00C31FE3 /* component.h */,
-				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
-				D0793A8D0E3222C50074996E /* componentlink.h */,
-				D06F8F810E3C94D00011A495 /* componentlinker.cpp */,
-				D06F8F800E3C94BA0011A495 /* componentlinker.h */,
-				D0793FF70E329CB20074996E /* resourcecomponent.h */,
-				D08F41630DEB67F90051EDD6 /* componentinterfaces.h */,
 				D07BDD1D0E28ECF40070CC83 /* triggerable.h */,
 				D03CFCC40E2A44C0006D68A7 /* triggercontext.h */,
 				D08105CB0E390D7100663380 /* symbols.cpp */,
 				D08105C80E390D3F00663380 /* symbols.h */,
-				D00E564B0E3A730A0084BA23 /* staticcomponentrecipe.h */,
+				D02E4E630E4490020070FBFC /* component */,
 				D0843BD20D0759D200C31FE3 /* entity */,
 				D08106870E391C4F00663380 /* info */,
 				D074307C0DFEA29C00F9F407 /* inventory */,

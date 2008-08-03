@@ -61,8 +61,11 @@ namespace TGen {
 				else if (!componentName.empty())
 					component = linker.getComponent(componentName);
 				
-				if (!component)
-					std::cerr << "warning: failed to find component " << componentName << " or index " << componentIndex << std::endl;
+				if (!component) {
+					std::cerr << "warning: failed to find component " << componentName << " or index " << componentIndex << " (list: " << linker.getEntityList() << ")" << std::endl;
+					if (componentName == "player_start:inventory")
+						asm("int $3");
+				}
 				else
 					std::cerr << "component found: " << componentName << std::endl;
 				

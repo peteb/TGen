@@ -24,6 +24,7 @@ namespace TGen {
 			
 			TGen::Engine::Component * getComponent(const std::string & name) const;
 			TGen::Engine::Component * getComponent(int index) const;
+			TGen::Engine::Entity * getEntity(const std::string & name) const;
 			
 			TGen::Engine::EntityList * getEntityList() const;
 			TGen::Engine::Entity * getEntity() const;

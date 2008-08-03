@@ -14,7 +14,7 @@
 
 #define INVENTORY TGen::Engine::Inventory::Inventory
 
-TGen::Engine::Symbol INVENTORY::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue");
+TGen::Engine::Symbol INVENTORY::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue:");
 TGen::Engine::Symbol INVENTORY::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue");
 TGen::Engine::Symbol INVENTORY::symbolIncreaseItemValue = TGen::Engine::getUniqueSymbol("increaseItem:with:");
 
@@ -97,8 +97,8 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 	 */
 	
 	if (symbolNum == symbolSetItemValue) {
-		TGen::Engine::Symbol itemSymbol = *context.getRegister<TGen::Engine::Symbol *>(2);
-		int itemValue = *context.getRegister<scalar *>(3);
+		TGen::Engine::Symbol itemSymbol = *context.getParameter<TGen::Engine::Symbol *>(0);
+		int itemValue = *context.getParameter<scalar *>(1);
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
@@ -107,7 +107,7 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 			context.setRegister<int>(0, -1);
 	}
 	else if (symbolNum == symbolGetItemValue) {
-		TGen::Engine::Symbol itemSymbol = *context.getRegister<TGen::Engine::Symbol *>(2);
+		TGen::Engine::Symbol itemSymbol = *context.getParameter<TGen::Engine::Symbol *>(0);
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
@@ -116,8 +116,8 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 			context.setRegister<int>(0, -1);
 	}
 	else if (symbolNum == symbolIncreaseItemValue) {
-		TGen::Engine::Symbol itemSymbol = *context.getRegister<TGen::Engine::Symbol *>(2);
-		int itemValue = *context.getRegister<scalar *>(3);
+		TGen::Engine::Symbol itemSymbol = *context.getParameter<TGen::Engine::Symbol *>(0);
+		int itemValue = *context.getParameter<scalar *>(1);
 
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())

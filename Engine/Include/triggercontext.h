@@ -13,7 +13,9 @@
 namespace TGen {
 	namespace Engine {
 		enum SpecialRegisters {
+			RegisterParameters = 3,
 			RegisterSelf = 100,
+			RegisterObject = 2,
 		};
 		
 		class TriggerContext {
@@ -46,6 +48,11 @@ namespace TGen {
 				return reinterpret_cast<T>(&registers[id]);
 			}
 			
+			template<typename T>
+			T getParameter(int id) {
+				return reinterpret_cast<T>(&registers[id + TGen::Engine::RegisterParameters]);
+			}
+			
 			int getFunctionSymbol() {
 				return int(registers[0]);
 			}
@@ -53,7 +60,7 @@ namespace TGen {
 			int getReturnRegister() {
 				return int(registers[1]);
 			}
-			
+						
 			uint32 registers[10];
 			uint32 selfPointer;
 			int numParameters;

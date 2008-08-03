@@ -50,7 +50,7 @@ TGen::Engine::Entity * TGen::Engine::EntityRecipe::createEntity() const {
 	}
 	
 	for (int i = 0; i < componentRecipes.size(); ++i) {
-		componentRecipes[i]->fastLinkConstructed((*newEntity).getComponent(i), *newEntity);
+		componentRecipes[i]->fastLinkConstructed(TGen::Engine::ComponentLinker(NULL, newEntity.get()), (*newEntity).getComponent(i));
 	}
 	
 	newEntity->initialize();

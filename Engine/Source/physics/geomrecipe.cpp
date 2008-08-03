@@ -75,17 +75,17 @@ void TGen::Engine::Physics::GeomRecipe::link(const TGen::Engine::ComponentLinker
 
 // TODO: link ska heta samma överallt i stort sett, linkName heter membern, void setLink(string), setLink(object)
 
-void TGen::Engine::Physics::GeomRecipe::fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
+void TGen::Engine::Physics::GeomRecipe::fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
 	TGen::Engine::Physics::Geom & geom = dynamic_cast<TGen::Engine::Physics::Geom &>(constructed);
-	TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(entity.getComponent(componentLinkNum, std::nothrow));
+	TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(linker.getComponent(componentLinkNum));
 	
 	if (body) {
 		geom.setBody(body);
 	}
 	else {
-		TGen::Engine::WorldObject & object = dynamic_cast<TGen::Engine::WorldObject &>(entity.getComponent(componentLinkNum));
+		TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(componentLinkNum));
 		
-		geom.setLink(&object);
+		geom.setLink(object);
 	}
 }
 

@@ -41,7 +41,25 @@ namespace TGen {
 				int componentId;
 				
 				TGen::Engine::UnaryDelegate<TGen::Engine::Component> comp;
+				//TGen::Engine::UnaryDelegate<TGen::Engine::ResourceComponent> entityResource;	// jag gjorde precis den här, kanske inte funkar såhär
+																													
 				
+				/*
+					En klass som använder en ComponentLink eller en EntityLink, och som kan kalla på getData (om ComponentLink eller EntityLink har ett ResourceComponent-interface
+					
+				 
+					* Det är bara components som ska ha getData
+					* Dock ska den komponenten kunna peka till en entitet
+					
+				 
+					TYST!!!!!! 
+					Såhär, call kan ju skicka meddelanden till entity direkt redan, det som måste fixas bara är att den kan göra det
+					från recipes också. borde vara en smal sak! en hyffsat smal sak, borde ju bara vara att länka som vanligt... 
+					fast den behöver ju entitylist, och det kanske den inte får när man länkar som recipe? iaf, det borde den få
+				 
+				 Varför ärver ResourceComponent från Component förresten... måste inte separeras men det vore mest logiskt
+				 */
+			
 			};
 			
 		} // !Script

@@ -85,23 +85,18 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
 	TGen::Engine::Symbol methodSymbol = context.getFunctionSymbol();
 	
-	std::cout << "Source::trigger: " << methodSymbol << std::endl;
-	
 	if (methodSymbol == symbolPlaySound) {
-		uint32 soundId = *context.getRegister<uint32 *>(2);
+		uint32 soundId = *context.getParameter<uint32 *>(0);
 		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
 		
 		if (!sound)
 			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
 		
 		TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
-		//newChannel->set3D(true);		// det som är felet!
-		//newChannel->set3DMinMaxDistance(minDistance, maxDistance);
-
 		addChannel(newChannel);
 	}
 	else if (methodSymbol == symbolPlaySoundWithVolume) {
-		uint32 soundId = *context.getRegister<uint32 *>(2);
+		uint32 soundId = *context.getParameter<uint32 *>(0);
 		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
 		
 		if (!sound)

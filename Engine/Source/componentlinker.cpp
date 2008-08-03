@@ -40,6 +40,13 @@ TGen::Engine::Component * TGen::Engine::ComponentLinker::getComponent(int index)
 	return ret;
 }
 
+TGen::Engine::Entity * TGen::Engine::ComponentLinker::getEntity(const std::string & name) const {
+	if (entityList)
+		return entityList->getEntity(name, std::nothrow);
+	
+	return NULL;
+}
+
 TGen::Engine::EntityList * TGen::Engine::ComponentLinker::getEntityList() const {
 	return entityList;
 }

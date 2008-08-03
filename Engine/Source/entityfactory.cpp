@@ -88,20 +88,27 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 
 
 TGen::Engine::ComponentRecipe * TGen::Engine::EntityFactory::createComponentRecipe(const std::string & entityName, const TGen::PropertyTree & properties) const {
+	TGen::Engine::ComponentRecipe * ret = NULL;
 	SubsystemMap::const_iterator iter = subsystems.find(properties.getName());
 	
-	if (iter == subsystems.end()) {
-		logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getName() << "'" << TGen::endl;
+	std::string componentName = properties.getName();
+	if (properties.getNumAttributes() > 0)
+		componentName = properties.getAttribute(0);	
+	
+	if (properties.getName() == "objectRef") {
+		TGen::Engine::ObjectReference * ref = new TGen::Engine::ObjectReference(componentName);
+		ref->setObjectName(properties.getAttribute(1));
+
+		ret = ref;
 	}
-	else {
-		std::string componentName = properties.getName();
-		if (properties.getNumAttributes() > 0)
-			componentName = properties.getAttribute(0);
-		
-		return iter->second->createComponentRecipe(componentName, entityName, properties);
+	else if (iter == subsystems.end()) {
+		logs.warning["entfa"] << "no registered subsystem for component type '" << properties.getName() << "'" << TGen::endl;
+	}	
+	else {		
+		ret = iter->second->createComponentRecipe(componentName, entityName, properties);
 	}	
 	
-	return NULL;	
+	return ret;	
 }
 
 

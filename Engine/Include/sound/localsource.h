@@ -26,6 +26,7 @@ namespace TGen {
 				void update(scalar dt);
 				void setMinMaxDistance(scalar min, scalar max);
 				void setLink(TGen::Engine::WorldObject * link);
+				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				
 				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
 				

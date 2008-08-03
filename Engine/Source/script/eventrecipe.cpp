@@ -30,9 +30,13 @@ void TGen::Engine::Script::EventRecipe::fastLinkConstructed(TGen::Engine::Compon
 }
 
 void TGen::Engine::Script::EventRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
+	event->link(linker);
 	event->linkRecipe(prototype);
 }
 
 TGen::Engine::Component * TGen::Engine::Script::EventRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
 	return event;
 }
+
+// TODO: gör en generisk klass för det här, dock kommer inte event kunna använda den generiska, eller jo det borde gå genom arv
+

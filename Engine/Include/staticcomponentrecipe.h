@@ -31,7 +31,7 @@ namespace TGen {
 				delete component;
 			}
 			
-			void fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
+			void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
 				constructed.setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
 			}
 			

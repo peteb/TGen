@@ -13,6 +13,7 @@
 #include "entity.h"
 #include "componentinterfaces.h"
 #include "sound/subsystem.h"
+#include "componentlinker.h"
 
 TGen::Engine::Sound::LocalRecipe::LocalRecipe(const std::string & name, TGen::Engine::Sound::Subsystem & soundSubsystem)
 	: TGen::Engine::ComponentRecipe(name)
@@ -35,10 +36,10 @@ TGen::Engine::Component * TGen::Engine::Sound::LocalRecipe::createComponent(cons
 
 
 // called when the entity has been constructed from the prototype
-void TGen::Engine::Sound::LocalRecipe::fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
-	TGen::Engine::WorldObject & object = dynamic_cast<TGen::Engine::WorldObject &>(entity.getComponent(componentLinkNum));
+void TGen::Engine::Sound::LocalRecipe::fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
+	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(componentLinkNum));
 	
-	dynamic_cast<TGen::Engine::Sound::LocalSource &>(constructed).setLink(&object);
+	dynamic_cast<TGen::Engine::Sound::LocalSource &>(constructed).setLink(object);
 }
 
 

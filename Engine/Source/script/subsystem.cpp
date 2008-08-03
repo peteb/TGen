@@ -226,7 +226,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		}
 	}
 	else if (type == "var") {
-		int registerNum = container.getNumParameters() + 2 + container.getNumLocalVars();
+		int registerNum = container.getNumParameters() + TGen::Engine::RegisterParameters + container.getNumLocalVars();
 		std::string registerName = "r" + TGen::lexical_cast<std::string>(registerNum);
 		
 		container.setNumLocalVars(container.getNumLocalVars() + 1);		// crappy getters/setters
@@ -271,8 +271,6 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 
 			
 				createCallOperation(properties.getAttribute(1), properties, 2, container);
-				
-			//	exit(222);
 			}
 			else {
 				ret = createMovOperation("mov", properties.getAttribute(1), properties.getName(), container);
@@ -380,7 +378,7 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 		fixedMethod = method.substr(0);
 	}
 	
-	if (fixedObject.find(".") != std::string::npos) {	// we're addressing another entity
+	if (fixedObject.find(".") != std::string::npos) {	// we're addressing another entity, like "entity.?"
 		std::string::value_type pos = fixedObject.find(".");
 		
 		fixedEntity = fixedObject.substr(0, pos);
@@ -392,6 +390,15 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 
 	
 	mangledMethodName = fixedMethod;
+	
+	// create mov for object: (into register 2)
+	
+	if (fixedObject[0] == '@') {
+		parentObject->addOperation(createMovOperation("mov", fixedObject, "r2", *parentObject));
+		fixedObject = "r2";
+	}
+
+	
 	// create movs for parameters:
 	
 	int numParameters = 0;
@@ -424,7 +431,7 @@ void TGen::Engine::Script::Subsystem::createCallOperation(const std::string & he
 			paramValue = paramValue.substr(0, paramValue.size() - 1);
 		
 		
-		std::string dest = "r" + TGen::lexical_cast<std::string>(i + 2);	// select register to put parameter in
+		std::string dest = "r" + TGen::lexical_cast<std::string>(i + TGen::Engine::RegisterParameters);	// select register to put parameter in
 		
 		parentObject->addOperation(createMovOperation("mov", paramValue, dest, *parentObject));		// create move operation in parent object (frame object)
 		numParameters++;		
