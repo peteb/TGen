@@ -11,7 +11,7 @@
 #include "resourcecomponent.h"
 
 TGen::Engine::Script::MoveOperation::MoveOperation(TGen::Engine::Script::EventOperation * parent)
-	: TGen::Engine::Script::EventOperation(parent)
+	: TGen::Engine::Script::EventOperation("MOV", parent)
 	, destOffset(-1)
 	, sourceOffset(-1)
 	, destId(-1)
@@ -107,8 +107,8 @@ void TGen::Engine::Script::MoveOperation::link(const TGen::Engine::ComponentLink
 	sourceResource.link(linker);		// TODO: skicka med EntityList i ComponentRecipe::linkGlobally, och sourceResource ska vara relativt addreserad! inte string!
 }
 
-void TGen::Engine::Script::MoveOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
-	sourceResource.linkComponentIndex(recipe);
+void TGen::Engine::Script::MoveOperation::prelink(const TGen::Engine::ComponentLinker & linker) {
+	sourceResource.prelink(linker);
 }
 
 void TGen::Engine::Script::MoveOperation::setResourceName(const std::string & resName) {

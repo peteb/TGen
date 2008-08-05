@@ -24,7 +24,7 @@ namespace TGen {
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void link(const TGen::Engine::ComponentLinker & linker);
-				void linkRecipe(const TGen::Engine::EntityRecipe & recipe);
+				void prelink(const TGen::Engine::ComponentLinker & linker);
 				
 				void setSource(int regId);
 				void setDest(int regId);

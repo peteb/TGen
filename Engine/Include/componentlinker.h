@@ -17,10 +17,11 @@ namespace TGen {
 		class EntityList;
 		class Entity;
 		class Component;
+		class EntityRecipe;
 		
 		class ComponentLinker {
 		public:			
-			ComponentLinker(TGen::Engine::EntityList * entityList, TGen::Engine::Entity * entity);
+			ComponentLinker(TGen::Engine::EntityList * entityList, TGen::Engine::Entity * entity, TGen::Engine::Component * component, TGen::Engine::EntityRecipe * entityRecipe);
 			
 			TGen::Engine::Component * getComponent(const std::string & name) const;
 			TGen::Engine::Component * getComponent(int index) const;
@@ -28,12 +29,18 @@ namespace TGen {
 			
 			TGen::Engine::EntityList * getEntityList() const;
 			TGen::Engine::Entity * getEntity() const;
+			TGen::Engine::Component * getComponent() const;
+			TGen::Engine::EntityRecipe * getEntityRecipe() const;
+			
 			void setEntityList(TGen::Engine::EntityList * entityList);
 			void setEntity(TGen::Engine::Entity * entity);
+			void setEntityRecipe(TGen::Engine::EntityRecipe * entityRecipe);
 			
 		private:
 			TGen::Engine::EntityList * entityList;
 			TGen::Engine::Entity * entity;
+			TGen::Engine::Component * component;
+			TGen::Engine::EntityRecipe * entityRecipe;
 		};
 		
 	} // !Engine

@@ -22,7 +22,7 @@ namespace TGen {
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void link(const TGen::Engine::ComponentLinker & linker);
-				void linkRecipe(const TGen::Engine::EntityRecipe & recipe);
+				void prelink(const TGen::Engine::ComponentLinker & linker);
 				
 				void setEvent(const std::string & eventName);
 				void setEvent(int regId);
@@ -41,6 +41,7 @@ namespace TGen {
 				int componentId;
 				
 				TGen::Engine::UnaryDelegate<TGen::Engine::Component> comp;
+				
 				//TGen::Engine::UnaryDelegate<TGen::Engine::ResourceComponent> entityResource;	// jag gjorde precis den här, kanske inte funkar såhär
 																													
 				

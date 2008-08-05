@@ -24,7 +24,8 @@ namespace TGen {
 				Event(const std::string & name, TGen::Engine::Symbol symbolId);
 				
 				void link(const TGen::Engine::ComponentLinker & linker);
-				void linkRecipe(const TGen::Engine::EntityRecipe & recipe);
+				void prelink(const TGen::Engine::ComponentLinker & linker);
+				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void setMinCallInterval(scalar interval);
 				TGen::Engine::Symbol getSymbol() const;

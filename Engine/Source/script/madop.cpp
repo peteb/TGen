@@ -10,7 +10,7 @@
 #include "madop.h"
 
 TGen::Engine::Script::MadOperation::MadOperation(TGen::Engine::Script::EventOperation * parent)
-	: TGen::Engine::Script::EventOperation(parent)
+	: TGen::Engine::Script::EventOperation("MAD", parent)
 	, destOffset(-1)
 	, sourceOffset(-1)
 {

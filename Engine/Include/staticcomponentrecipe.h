@@ -11,11 +11,11 @@
 #define _TGEN_ENGINE_STATICCOMPONENTRECIPE_H
 
 #include "componentrecipe.h"
+#include "componentlinker.h"
 
 namespace TGen {
 	namespace Engine {
 		class Component;
-		class ComponentLinker;
 		
 		// TODO: is anything using this????? yep!
 		
@@ -31,13 +31,14 @@ namespace TGen {
 				delete component;
 			}
 			
-			void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
-				constructed.setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
+			void link(const TGen::Engine::ComponentLinker & linker) {		// called when the object is created, instantiated
+				if (linker.getComponent())
+					linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
 			}
 			
-			void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
+			void prelink(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {		// called when the prototype is created
 				if (component)
-					component->link(linker);
+					component->link(linker);		// components do their heavy stuff in link, recipes in prelink
 			}
 			
 			TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {

@@ -35,14 +35,14 @@ TGen::Engine::Component * TGen::Engine::Physics::BodyRecipe::createComponent(con
 	return newBody;
 }
 
-void TGen::Engine::Physics::BodyRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
-	linkComponentNum = prototype.getComponentIndex(linkName);
-}
-
-void TGen::Engine::Physics::BodyRecipe::fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
+void TGen::Engine::Physics::BodyRecipe::link(const TGen::Engine::ComponentLinker & linker) {
 	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(linkComponentNum));
 	
-	dynamic_cast<TGen::Engine::Physics::Body &>(constructed).setLink(object);
+	dynamic_cast<TGen::Engine::Physics::Body *>(linker.getComponent())->setLink(object);
+}
+
+void TGen::Engine::Physics::BodyRecipe::prelink(const TGen::Engine::ComponentLinker & linker) {
+	linkComponentNum = linker.getEntityRecipe()->getComponentIndex(linkName);
 }
 
 void TGen::Engine::Physics::BodyRecipe::setLink(const std::string & name) {
@@ -66,13 +66,14 @@ void TGen::Engine::Physics::BodyRecipe::setLink(const std::string & name) {
  
 		Recipes:
 			* Component
+			* Entity
  
 	Prelink:
 		Recipes:
 			* EntityList
-			* Entity
 			* ComponentRecipe
 			
+	*** KOlla vad som inte funkar nu... har glömt bort, fixa det, sen fixa länkning enligt ovan
  
 	Adaptern stoppas in som en recipe i EntityList
 	Static får bara referera static!!!!!! om en static redan blivit länkad så länka inte igen

@@ -29,8 +29,8 @@ namespace TGen {
 			public:
 				GeomRecipe(GeomRecipeType type, const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem);
 				
-				void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed);
-				void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & entity);
+				void prelink(const TGen::Engine::ComponentLinker & linker);
+				void link(const TGen::Engine::ComponentLinker & linker);
 
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				

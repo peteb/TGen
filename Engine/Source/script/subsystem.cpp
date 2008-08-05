@@ -9,14 +9,13 @@
 
 #include "script/subsystem.h"
 #include "script/event.h"
-#include "script/itemvalueop.h"
 #include "script/madop.h"
-#include "script/soundop.h"
 #include "script/ifop.h"
 #include "script/moveop.h"
 #include "script/callop.h"
 #include "script/frameop.h"
 #include "script/eventrecipe.h"
+#include "script/debugop.h"
 
 using TGen::Engine::Script::Event;
 
@@ -95,7 +94,6 @@ TGen::Engine::Script::Event * TGen::Engine::Script::Subsystem::createComponent(c
 }
 
 TGen::Engine::ComponentRecipe * TGen::Engine::Script::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	
 	TGen::Engine::Script::Event * newComponent = createComponent(name, entityName, properties);
 	
 	return new TGen::Engine::Script::EventRecipe(name, newComponent);
@@ -113,18 +111,7 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 	TGen::Engine::Script::EventOperation * ret = NULL;
 	const std::string & type = properties.getName();
 	
-	if (type == "inci" || type == "stoi" || type == "iinci" || type == "istoi" || type == "lodi" || type == "ilodi") {
-		TGen::Engine::Script::ItemValueOperation * newOp = new TGen::Engine::Script::ItemValueOperation;
-	
-		newOp->setItem(properties.getProperty("item", ""));		
-		newOp->setRegister(getRegisterId(properties.getAttribute(0)));
-		newOp->setRelative(type == "inci" || type == "iinci");
-		newOp->setIntOp(type == "iinci" || type == "istoi" || type == "ilodi");
-		newOp->setLoad(type == "lodi");
-		
-		ret = newOp;
-	}
-	else if (type == "mad" || type == "imad") {
+	if (type == "mad" || type == "imad") {
 		TGen::Engine::Script::MadOperation * newOp = new TGen::Engine::Script::MadOperation(&container);
 		
 		bool intMath = (type == "imad");
@@ -181,10 +168,13 @@ void TGen::Engine::Script::Subsystem::createOperation(TGen::Engine::Script::Even
 		
 		ret = newOp;
 	}
-	else if (type == "playSound") {
-		TGen::Engine::Script::SoundOperation * newOp = new TGen::Engine::Script::SoundOperation;
-		newOp->setSource(properties.getProperty("source", ""));
-		newOp->setSound(properties.getAttribute(0));
+	else if (type == "debug") {
+		TGen::Engine::Script::DebugOperation * newOp = new TGen::Engine::Script::DebugOperation(&container);
+		
+		if (properties.getNumAttributes() > 0) {
+			if (properties.getAttribute(0) == "level")
+				newOp->setDebugLevel(true);
+		}
 		
 		ret = newOp;
 	}

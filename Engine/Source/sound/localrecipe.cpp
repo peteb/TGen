@@ -35,19 +35,19 @@ TGen::Engine::Component * TGen::Engine::Sound::LocalRecipe::createComponent(cons
 }
 
 
-// called when the entity has been constructed from the prototype
-void TGen::Engine::Sound::LocalRecipe::fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
-	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(componentLinkNum));
+// called when the prototype has been constructed
+void TGen::Engine::Sound::LocalRecipe::prelink(const TGen::Engine::ComponentLinker & linker) {
+	componentLinkNum = linker.getEntityRecipe()->getComponentIndex(linkWithName);
 	
-	dynamic_cast<TGen::Engine::Sound::LocalSource &>(constructed).setLink(object);
+	std::cout << "COMPONENT LINK NUM: " << componentLinkNum << std::endl;	
 }
 
 
-// called when the prototype has been constructed
-void TGen::Engine::Sound::LocalRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
-	componentLinkNum = prototype.getComponentIndex(linkWithName);
+// called when the entity has been constructed from the prototype
+void TGen::Engine::Sound::LocalRecipe::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(componentLinkNum));
 	
-	std::cout << "COMPONENT LINK NUM: " << componentLinkNum << std::endl;
+	dynamic_cast<TGen::Engine::Sound::LocalSource *>(linker.getComponent())->setLink(object);
 }
 
 void TGen::Engine::Sound::LocalRecipe::setLinkWith(const std::string & link) {

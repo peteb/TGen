@@ -22,16 +22,19 @@ TGen::Engine::Script::EventRecipe::~EventRecipe() {
 	delete event;
 }
 
-void TGen::Engine::Script::EventRecipe::fastLinkConstructed(TGen::Engine::Component & constructed, TGen::Engine::Entity & entity) {
-	constructed.setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
-
-	entity.registerEvent(event->getSymbol(), event);
-	event->link(TGen::Engine::ComponentLinker(NULL, &entity));
+void TGen::Engine::Script::EventRecipe::prelink(const TGen::Engine::ComponentLinker & linker) {
+	if (linker.getEntity())
+		linker.getEntity()->registerEvent(event->getSymbol(), event);
+	
+	event->prelink(linker);
 }
 
-void TGen::Engine::Script::EventRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
+void TGen::Engine::Script::EventRecipe::link(const TGen::Engine::ComponentLinker & linker) {
+	if (linker.getComponent())
+		linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
+
 	event->link(linker);
-	event->linkRecipe(prototype);
+//	event->prelink(prototype);
 }
 
 TGen::Engine::Component * TGen::Engine::Script::EventRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
@@ -39,4 +42,7 @@ TGen::Engine::Component * TGen::Engine::Script::EventRecipe::createComponent(con
 }
 
 // TODO: gör en generisk klass för det här, dock kommer inte event kunna använda den generiska, eller jo det borde gå genom arv
+
+// den hittar inte target entity! länkas kanske fel! warning: failed to find component  or index -1 (list: 0)
+
 

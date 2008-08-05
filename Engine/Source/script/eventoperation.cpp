@@ -10,8 +10,9 @@
 #include "eventoperation.h"
 #include "entity.h"
 
-TGen::Engine::Script::EventOperation::EventOperation(EventOperation * parent) 
+TGen::Engine::Script::EventOperation::EventOperation(const std::string & name, EventOperation * parent) 
 	: parent(parent)
+	, name(name)
 	, numParameters(0)
 	, numLocalVars(0)
 {
@@ -38,9 +39,9 @@ void TGen::Engine::Script::EventOperation::link(const TGen::Engine::ComponentLin
 		operations[i]->link(linker);
 }
 
-void TGen::Engine::Script::EventOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
+void TGen::Engine::Script::EventOperation::prelink(const TGen::Engine::ComponentLinker & linker) {
 	for (int i = 0; i < operations.size(); ++i)
-		operations[i]->linkRecipe(recipe);
+		operations[i]->prelink(linker);
 }
 
 void TGen::Engine::Script::EventOperation::addAlias(const std::string & alias, const std::string & value) {
@@ -73,5 +74,21 @@ void TGen::Engine::Script::EventOperation::setNumLocalVars(int localVars) {
 
 int TGen::Engine::Script::EventOperation::getNumLocalVars() const {
 	return numLocalVars;
+}
+
+TGen::Engine::Script::EventOperation * TGen::Engine::Script::EventOperation::getParent() const {
+	return parent;
+}
+
+std::string TGen::Engine::Script::EventOperation::getName() const {
+	return name;
+}
+
+int TGen::Engine::Script::EventOperation::getNumOperations() const {
+	return operations.size();
+}
+
+TGen::Engine::Script::EventOperation * TGen::Engine::Script::EventOperation::getOperation(int id) const {
+	return operations[id];
 }
 

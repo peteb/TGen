@@ -45,6 +45,8 @@ void TGen::Engine::Entity::link(const TGen::Engine::ComponentLinker & linker) {
 void TGen::Engine::Entity::initialize() {
 	if (initializer)
 		initializer->trigger(context, TGen::Engine::TriggerPrecise);	
+	else
+		std::cout << "WARNING: entity has no initializer" << std::endl;
 }
 
 

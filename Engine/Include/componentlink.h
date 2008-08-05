@@ -47,9 +47,14 @@ namespace TGen {
 				componentName = name;
 			}
 			
-			void linkComponentIndex(const TGen::Engine::EntityRecipe & recipe) {
-				componentIndex = recipe.getComponentIndex(componentName);
-				std::cout << "CIND: found index for " << componentName << ": " << componentIndex << std::endl;
+			void prelink(const TGen::Engine::ComponentLinker & linker) {
+				if (linker.getEntityRecipe()) {
+					componentIndex = linker.getEntityRecipe()->getComponentIndex(componentName);
+					std::cout << "CIND: found index for " << componentName << ": " << componentIndex << std::endl;
+				}
+				else {
+					std::cerr << "WARNING: no entity recipe for prelink on ComponentLink" << std::endl;
+				}
 			}
 			
 		protected:

@@ -11,9 +11,11 @@
 #include "entity.h"
 #include "entitylist.h"
 
-TGen::Engine::ComponentLinker::ComponentLinker(TGen::Engine::EntityList * entityList, TGen::Engine::Entity * entity)
+TGen::Engine::ComponentLinker::ComponentLinker(TGen::Engine::EntityList * entityList, TGen::Engine::Entity * entity, TGen::Engine::Component * component, TGen::Engine::EntityRecipe * entityRecipe)
 	: entityList(entityList)
 	, entity(entity)
+	, component(component)
+	, entityRecipe(entityRecipe)
 {
 	
 }
@@ -55,6 +57,10 @@ TGen::Engine::Entity * TGen::Engine::ComponentLinker::getEntity() const {
 	return entity;
 }
 
+TGen::Engine::Component * TGen::Engine::ComponentLinker::getComponent() const {
+	return component;
+}
+
 void TGen::Engine::ComponentLinker::setEntityList(TGen::Engine::EntityList * entityList) {
 	this->entityList = entityList;
 }
@@ -63,3 +69,10 @@ void TGen::Engine::ComponentLinker::setEntity(TGen::Engine::Entity * entity) {
 	this->entity = entity;
 }
 
+TGen::Engine::EntityRecipe * TGen::Engine::ComponentLinker::getEntityRecipe() const {
+	return entityRecipe;
+}
+
+void TGen::Engine::ComponentLinker::setEntityRecipe(TGen::Engine::EntityRecipe * entityRecipe) {
+	this->entityRecipe = entityRecipe;
+}

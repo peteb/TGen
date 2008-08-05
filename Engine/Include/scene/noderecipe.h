@@ -23,7 +23,7 @@ namespace TGen {
 				NodeRecipe(const std::string & name, TGen::SceneNode * prototypeNode, TGen::Engine::Scene::Subsystem & subsystem);
 				~NodeRecipe();
 				
-				void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & entity);
+				void prelink(const TGen::Engine::ComponentLinker & linker);
 				void setLink(const std::string & linkName);
 
 				TGen::Engine::Scene::Node * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);

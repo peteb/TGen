@@ -69,24 +69,25 @@ TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(con
 	return ret;
 }
 
-void TGen::Engine::Physics::GeomRecipe::link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {
-	componentLinkNum = prototype.getComponentIndex(linkName);
-}
-
-// TODO: link ska heta samma överallt i stort sett, linkName heter membern, void setLink(string), setLink(object)
-
-void TGen::Engine::Physics::GeomRecipe::fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed) {
-	TGen::Engine::Physics::Geom & geom = dynamic_cast<TGen::Engine::Physics::Geom &>(constructed);
+void TGen::Engine::Physics::GeomRecipe::link(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::Physics::Geom * geom = dynamic_cast<TGen::Engine::Physics::Geom *>(linker.getComponent());		// created component
 	TGen::Engine::Physics::Body * body = dynamic_cast<TGen::Engine::Physics::Body *>(linker.getComponent(componentLinkNum));
 	
 	if (body) {
-		geom.setBody(body);
+		geom->setBody(body);
 	}
 	else {
 		TGen::Engine::WorldObject * object = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(componentLinkNum));
 		
-		geom.setLink(object);
-	}
+		geom->setLink(object);
+	}	
+}
+
+// TODO: link ska heta samma överallt i stort sett, linkName heter membern, void setLink(string), setLink(object)
+
+void TGen::Engine::Physics::GeomRecipe::prelink(const TGen::Engine::ComponentLinker & linker) {
+	if (linker.getEntityRecipe())
+		componentLinkNum = linker.getEntityRecipe()->getComponentIndex(linkName);
 }
 
 void TGen::Engine::Physics::GeomRecipe::setScalarValue1(scalar value) {

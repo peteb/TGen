@@ -31,10 +31,14 @@ void TGen::Engine::EntityRecipe::addComponentRecipe(TGen::Engine::ComponentRecip
 }
 
 
-void TGen::Engine::EntityRecipe::link(const TGen::Engine::ComponentLinker & linker) {
+void TGen::Engine::EntityRecipe::prelink(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::ComponentLinker newLinker(linker);
+	newLinker.setEntityRecipe(this);
+
 	for (RecipeList::iterator iter = componentRecipes.begin(); iter != componentRecipes.end(); ++iter) {
 		std::cout << "LINKING COMPRECP: " << (*iter)->getName() << std::endl;
-		(*iter)->link(linker, *this);
+		
+		(*iter)->prelink(newLinker);
 	}
 	
 	worldInterfaceIndex = getComponentIndex(worldInterfaceName);
@@ -50,10 +54,10 @@ TGen::Engine::Entity * TGen::Engine::EntityRecipe::createEntity() const {
 	}
 	
 	for (int i = 0; i < componentRecipes.size(); ++i) {
-		componentRecipes[i]->fastLinkConstructed(TGen::Engine::ComponentLinker(NULL, newEntity.get()), (*newEntity).getComponent(i));
+		componentRecipes[i]->link(TGen::Engine::ComponentLinker(NULL, newEntity.get(), (*newEntity).getComponent(i, std::nothrow), const_cast<TGen::Engine::EntityRecipe *>(this)));
 	}
 	
-	newEntity->initialize();
+	//newEntity->initialize();
 
 	return newEntity.release();
 }

@@ -13,7 +13,7 @@
 
 TGen::Engine::Script::Event::Event(const std::string & name, TGen::Engine::Symbol symbolId)
 	: TGen::Engine::Component(name, true)	// static component
-	, TGen::Engine::Script::EventOperation(NULL)
+	, TGen::Engine::Script::EventOperation("EVENT:" + name, NULL)
 	, symbolId(symbolId)
 	, minCallTime(-1.0)
 	, lastCall(-1.0)
@@ -31,8 +31,8 @@ void TGen::Engine::Script::Event::link(const TGen::Engine::ComponentLinker & lin
 	TGen::Engine::Script::EventOperation::link(linker);
 }
 
-void TGen::Engine::Script::Event::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
-	TGen::Engine::Script::EventOperation::linkRecipe(recipe);
+void TGen::Engine::Script::Event::prelink(const TGen::Engine::ComponentLinker & linker) {
+	TGen::Engine::Script::EventOperation::prelink(linker);
 }
 
 void TGen::Engine::Script::Event::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {

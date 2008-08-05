@@ -23,8 +23,8 @@ namespace TGen {
 				LocalRecipe(const std::string & name, TGen::Engine::Sound::Subsystem & soundSubsystem);
 				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
-				void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & entity);
-				void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed);
+				void link(const TGen::Engine::ComponentLinker & linker);
+				void prelink(const TGen::Engine::ComponentLinker & linker);
 				
 				void setLinkWith(const std::string & link);
 				void setSoundPrototype(TGen::Engine::Sound::Source * source);

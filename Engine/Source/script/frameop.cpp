@@ -10,7 +10,16 @@
 #include "script/frameop.h"
 
 TGen::Engine::Script::FrameOperation::FrameOperation(TGen::Engine::Script::EventOperation * parent) 
-	: TGen::Engine::Script::EventOperation(parent)
+	: TGen::Engine::Script::EventOperation("FRAME", parent)
+	, saveContext(true)
+	, execute(true)
+	, saveReturn(false)
+{
+	
+}
+
+TGen::Engine::Script::FrameOperation::FrameOperation(const std::string & name, TGen::Engine::Script::EventOperation * parent) 
+	: TGen::Engine::Script::EventOperation("FRAME:" + name, parent)
 	, saveContext(true)
 	, execute(true)
 	, saveReturn(false)

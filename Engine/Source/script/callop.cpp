@@ -15,7 +15,7 @@
 #include "componentlinker.h"
 
 TGen::Engine::Script::CallOperation::CallOperation(TGen::Engine::Script::EventOperation * parent)
-	: TGen::Engine::Script::EventOperation(parent)
+	: TGen::Engine::Script::EventOperation("CALL", parent)
 	, event(NULL)
 	, registerId(-1)
 	, offset(-1)
@@ -28,18 +28,20 @@ TGen::Engine::Script::CallOperation::CallOperation(TGen::Engine::Script::EventOp
 void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Triggerable * callee = event;
 	
-	if (!event && registerId != -1) {
-		callee = *context.getRegister<TGen::Engine::Triggerable **>(registerId);
-	}
-	else if (componentId != -1 && !event) {
-		TGen::Engine::Entity * self = *context.getRegister<TGen::Engine::Entity **>(TGen::Engine::RegisterSelf);
-		std::cerr << "SELF IS " << self->getName() << std::endl;
+	if (!event) {
+		if (registerId != -1) {		// pointer to event is in register registerId
+			callee = *context.getRegister<TGen::Engine::Triggerable **>(registerId);
+		}
+		else if (componentId != -1) {
+			TGen::Engine::Entity * self = *context.getRegister<TGen::Engine::Entity **>(TGen::Engine::RegisterSelf);
+			std::cerr << "SELF IS " << self->getName() << std::endl;
 		
-		TGen::Engine::Component * component = comp.get(); //self->getComponent(componentId, std::nothrow);
+			TGen::Engine::Component * component = comp.get(); //self->getComponent(componentId, std::nothrow);
 		//std::cout << "COMPONENT " << componentId << " IS " << component->getName() << std::endl;
 		
-		callee = component;
+			callee = component;
 		//exit(1);
+		}
 	}
 	
 	if (callee) {
@@ -62,44 +64,32 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 }
 
 void TGen::Engine::Script::CallOperation::link(const TGen::Engine::ComponentLinker & linker) {
-	if (!entityName.empty()) {
-		std::string fixedComponentName = entityName;
+	if (!event) {
+		if (!entityName.empty()) {
+			std::string fixedComponentName = entityName;
 		
-		if (eventName.empty() && linker.getEntityList())
-			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getEntity(entityName));
-		else
-			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(entityName + ":" + eventName));
-		
-		if (linker.getEntity(entityName))
-			std::cout << "NENT: " << linker.getEntity(entityName)->getName() << std::endl;
-		
-		if (!event) {
-			//asm("int $3");
-			//throw TGen::RuntimeException("CallOperation::link", "failed to get entity '" + entityName + "', event: '" + eventName + "', entity list: ") << linker.getEntityList();
+			if (eventName.empty() && linker.getEntityList())
+				event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getEntity(entityName));
+			else
+				event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(entityName + ":" + eventName));
 		}
-	}
-	else if (!eventName.empty() && registerId == -1) {
-		event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(eventName));
-
-		if (!event) {
-			//comp.linkComponentIndex(linker);
-			
-			//std::cout << linker.getEntity() << " " << linker.getEntityList() << std::endl;
-			
-			//throw TGen::RuntimeException("CallOperation::link", "failed to get triggerable: " + eventName);
-		}
-	}	
-		
+		else if (!eventName.empty() && registerId == -1) {
+			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(eventName));
+		}	
 	
-	// UnaryDelegate för entity
-	comp.link(linker);
+		comp.link(linker);
+	}
 }
 
-void TGen::Engine::Script::CallOperation::linkRecipe(const TGen::Engine::EntityRecipe & recipe) {
-	comp.linkComponentIndex(recipe);
+void TGen::Engine::Script::CallOperation::prelink(const TGen::Engine::ComponentLinker & linker) {
+	std::cout << "PRELL: " << entityName << std::endl;
+	event = linker.getEntity(entityName);
+	
+	if (!event)
+		comp.prelink(linker);
 }
 
-void TGen::Engine::Script::CallOperation::setEvent(const std::string & eventName) {
+void TGen::Engine::Script::CallOperation::setEvent(const std::string & eventName) {	
 	this->eventName = eventName;
 	comp.set(eventName);
 }
@@ -126,5 +116,6 @@ void TGen::Engine::Script::CallOperation::setTriggerMode(TGen::Engine::TriggerMo
 
 void TGen::Engine::Script::CallOperation::setEntity(const std::string & entityName) {
 	this->entityName = entityName;
+	//comp.set(entityName);
 }
 

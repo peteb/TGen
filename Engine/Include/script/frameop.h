@@ -19,6 +19,11 @@ namespace TGen {
 			public:
 				FrameOperation(TGen::Engine::Script::EventOperation * parent);
 				
+			protected:
+				FrameOperation(const std::string & name, TGen::Engine::Script::EventOperation * parent);
+				
+			public:
+				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setSaveContext(bool saveContext);

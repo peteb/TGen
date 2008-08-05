@@ -26,9 +26,10 @@ namespace TGen {
 
 			void link(const TGen::Engine::ComponentLinker & linker);
 
-			// ComponentRecipe:
-			void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype);
-			void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed);			
+			//void link(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype);
+			//void fastLinkConstructed(const TGen::Engine::ComponentLinker & linker, TGen::Engine::Component & constructed);			
+			void prelink(const TGen::Engine::ComponentLinker & linker);
+			
 			TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 			
 		private:

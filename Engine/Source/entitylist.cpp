@@ -23,11 +23,16 @@ TGen::Engine::EntityList::~EntityList() {
 
 
 void TGen::Engine::EntityList::link() {	
+	std::cout << "Linking components..." << std::endl;
+	
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter)
-		iter->second->link(TGen::Engine::ComponentLinker(this, iter->second));
+		iter->second->link(TGen::Engine::ComponentLinker(this, iter->second, NULL, NULL));
+	
+	
+	std::cout << "Prelinking recipes..." << std::endl;
 	
 	for (PrototypeMap::iterator iter = prototypes.begin(); iter != prototypes.end(); ++iter)
-		iter->second->link(TGen::Engine::ComponentLinker(this, NULL));
+		iter->second->prelink(TGen::Engine::ComponentLinker(this, NULL, NULL, iter->second));
 }
 
 

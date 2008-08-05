@@ -11,7 +11,7 @@
 #include "script/frameop.h"
 
 TGen::Engine::Script::IfOperation::IfOperation(TGen::Engine::Script::EventOperation * parent)
-	: TGen::Engine::Script::FrameOperation(parent)
+	: TGen::Engine::Script::FrameOperation("IF", parent)
 	, elseBlock(NULL)
 	, intOp(0)
 {
