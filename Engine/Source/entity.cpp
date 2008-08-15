@@ -26,7 +26,7 @@ TGen::Engine::Entity::Entity(const std::string & name)
 
 TGen::Engine::Entity::~Entity() {
 	for (int i = 0; i < components.size(); ++i) {
-		if (components[i]->getOwner() == NULL || components[i]->getOwner() == this)
+		if (components[i]->isStatic() == false)
 			delete components[i];
 	}
 }
@@ -36,8 +36,13 @@ void TGen::Engine::Entity::link(const TGen::Engine::ComponentLinker & linker) {
 	TGen::Engine::ComponentLinker newLinker(linker);
 	newLinker.setEntity(this);
 	
-	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter)
-		iter->second->link(newLinker);
+	for (ComponentMap::iterator iter = componentLookup.begin(); iter != componentLookup.end(); ++iter) {
+		try {
+			iter->second->link(newLinker);
+		} catch (const TGen::RuntimeException & err) {
+			throw TGen::RuntimeException("Entity::link", "Failed to link component '" + getName() + ":" + iter->second->getName() + "':\n" + err.getWhere() + ": " + err.getDescription());
+		}
+	}
 	
 	initialize();
 }

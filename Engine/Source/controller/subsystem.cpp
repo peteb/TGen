@@ -47,7 +47,7 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 		newController->setView(properties.getProperty("view", "sceneNode"));
 		newController->setControl(properties.getProperty("control", "sceneNode"));
 		
-		newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
+		//newController->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 		newController->setWeaponLink(properties.getProperty("weapon", ""));
 		newController->setEquipment(properties.getProperty("equipment", ""));
 		
@@ -57,13 +57,16 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 		TGen::Engine::Controller::Arcball * newArcball = new TGen::Engine::Controller::Arcball(name);
 		
 		newArcball->setControl(properties.getProperty("control", "sceneNode"));
-		newArcball->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
+		//newArcball->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 		
 		ret = newArcball;
 	}
 	else {
 		throw TGen::RuntimeException("Controller::Subsystem::createComponent", "invalid controller type: '" + type + "'");
 	}
+	
+	ret->setCamera(properties.getProperty("camera", ""));
+	
 	
 	controllers.insert(std::make_pair(entityName, ret));
 	

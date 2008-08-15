@@ -37,8 +37,6 @@ void TGen::Engine::Controller::Arcball::link(const TGen::Engine::ComponentLinker
 	
 	if (sceneNode)
 		node = sceneNode->getSceneNode();
-	
-	camera = getCamera("headcam");
 }
 
 
@@ -58,7 +56,7 @@ void TGen::Engine::Controller::Arcball::update(scalar dt) {
 		node->setOrientation(totalRot);
 	}
 
-	TGen::Camera * camera = dynamic_cast<TGen::Camera *>(this->camera->getSceneNode());
+	TGen::Camera * camera = dynamic_cast<TGen::Camera *>(getActiveCamera()->getSceneNode());
 	
 	if (camera) {
 		if (checkEvent(TGen::Engine::EventForward))

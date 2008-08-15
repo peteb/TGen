@@ -82,32 +82,8 @@ TGen::Vector3 TGen::Engine::PlayerController::checkViewDelta() {
 	return ret;
 }
 
-TGen::Engine::Scene::Node * TGen::Engine::PlayerController::getCamera(const std::string & name) const {
-	CameraMap::const_iterator iter = cameras.find(name);
-	if (iter == cameras.end())
-		throw TGen::RuntimeException("PlayerController::getCamera", "camera '" + name + "' not found");
-	
-	return iter->second;
-}
-
-
-void TGen::Engine::PlayerController::addCamera(const std::string & name, const std::string & camera) {
-	camerasToLink.insert(StringStringMap::value_type(name, camera));
-}
-
-
-void TGen::Engine::PlayerController::linkCameras(TGen::Engine::Entity & entity) {
-	cameras.clear();
-	
-	for (StringStringMap::iterator iter = camerasToLink.begin(); iter != camerasToLink.end(); ++iter) {
-		TGen::Engine::Scene::Node * camNode = dynamic_cast<TGen::Engine::Scene::Node *>(&entity.getComponent(iter->second));
-		cameras.insert(CameraMap::value_type(iter->first, camNode));
-	}
-}
-
 void TGen::Engine::PlayerController::link(const TGen::Engine::ComponentLinker & linker) {
-	if (linker.getEntity())
-		linkCameras(*linker.getEntity());
+	camera.link(linker);
 }
 
 void TGen::Engine::PlayerController::addViewDelta(const TGen::Vector3 & view) {
@@ -151,4 +127,12 @@ void TGen::Engine::PlayerController::trigger(TGen::Engine::TriggerContext & cont
 void TGen::Engine::PlayerController::resetEvents() {
 	for (int i = 0; i < 20; ++i) 
 		activeEvents[i] = 0;
+}
+
+TGen::Engine::Scene::Node * TGen::Engine::PlayerController::getActiveCamera() const {
+	return camera.get();
+}
+
+void TGen::Engine::PlayerController::setCamera(const std::string & name) {
+	camera.set(name);
 }

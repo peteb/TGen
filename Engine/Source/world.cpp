@@ -62,7 +62,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 
 	infoSubsystem.setWorld(this);
 
-	loadEntities("/maps/defs");
+	loadDefinitions("/definitions/");	
 	loadEntities("/maps/" + mapname + "/entities");
 	
 	entities.link();
@@ -73,6 +73,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	soundSubsystem.link();
 	physicsSubsystem.link();
 }
+
 
 void TGen::Engine::World::loadEntities(const std::string & filename) {
 	TGen::Engine::File * entitiesFile = filesystem.openRead(filename);
@@ -100,6 +101,23 @@ void TGen::Engine::World::loadEntities(const std::string & filename) {
 			entities.addEntity(entity);
 		}
 	}	
+}
+
+
+void TGen::Engine::World::loadDefinitions(const std::string & path) {
+	std::vector<std::string> files;
+	files.reserve(50);
+	
+	filesystem.enumerateFiles(path, files, true);
+	
+	for (int i = 0; i < files.size(); ++i) {
+		try {
+			loadEntities(files[i]);
+		}
+		catch (const TGen::RuntimeException & error) {
+			logs.warning["init"] << "world: failed to load definition files: " << error << TGen::endl;
+		}
+	}
 }
 
 // TODO: depthcheck på light volume
@@ -200,7 +218,9 @@ TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController() {
 }
 
 TGen::Engine::Scene::Node * TGen::Engine::World::getPlayerCamera() {
-	return getPlayerController()->getCamera("headcam");
+	TGenAssert(getPlayerController());
+	
+	return getPlayerController()->getActiveCamera();
 }
 
 

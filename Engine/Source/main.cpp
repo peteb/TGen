@@ -140,11 +140,11 @@ void createVariables(TGen::Engine::VariableRegister & variables) {
 	variables += TGen::Engine::Variable("env_width", "512", "512", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
 	variables += TGen::Engine::Variable("env_height", "512", "512", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
 	variables += TGen::Engine::Variable("env_fullscreen", "false", "false", TGen::Engine::VariableConfigWriteOnly | TGen::Engine::VariableDump);
-	variables += TGen::Engine::Variable("filesystem_game", "testmod", "testmod", TGen::Engine::VariableConfigWriteOnly);
+	variables += TGen::Engine::Variable("filesystem_game", "cleanmod", "testmod", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("game_name", "TGen Engine", "TGen Engine", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
-	variables += TGen::Engine::Variable("map", "phystest1", "phystest1", 0);
+	variables += TGen::Engine::Variable("map", "", "", 0);
 	variables += TGen::Engine::Variable("r_renderer", "deferred", "deferred", 0);
 	variables += TGen::Engine::Variable("r_syncVtrace", "false", "false", 0);
 	

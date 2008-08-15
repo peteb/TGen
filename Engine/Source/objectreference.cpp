@@ -28,8 +28,8 @@ void TGen::Engine::ObjectReference::prelink(const TGen::Engine::ComponentLinker 
 void TGen::Engine::ObjectReference::link(const TGen::Engine::ComponentLinker & linker) {
 	reference.link(linker);
 
-	if (linker.getComponent())
-		linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));
+//	if (linker.getComponent())
+	//	linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));
 }
 
 

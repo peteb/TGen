@@ -80,8 +80,8 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 
 	}	
 	
-	if (ret && ret->isStatic())
-		ret->setOwner(entity);		// owner = NULL if the component should be cloned
+	//if (ret && ret->isStatic())
+	//	ret->setOwner(entity);		// owner = NULL if the component should be cloned
 	
 	return ret;
 }

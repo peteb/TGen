@@ -32,11 +32,11 @@ namespace TGen {
 			}
 			
 			void link(const TGen::Engine::ComponentLinker & linker) {		// called when the object is created, instantiated
-				if (linker.getComponent())
-					linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
+				//if (linker.getComponent())
+					//linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
 			}
 			
-			void prelink(const TGen::Engine::ComponentLinker & linker, TGen::Engine::EntityRecipe & prototype) {		// called when the prototype is created
+			void prelink(const TGen::Engine::ComponentLinker & linker) {		// called when the prototype is created
 				if (component)
 					component->link(linker);		// components do their heavy stuff in link, recipes in prelink
 			}

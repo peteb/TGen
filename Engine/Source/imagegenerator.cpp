@@ -97,6 +97,9 @@ void TGen::Engine::ImageGenerator::genChecker(const TGen::Engine::GenerateLine &
 	int tileHeight = size.height / TGen::lexical_cast<int>(line.getParameter("tiles"));
 	int tileWidth = size.width / TGen::lexical_cast<int>(line.getParameter("tiles"));
 	
+	if (tileHeight < 1 || tileWidth < 1)
+		throw TGen::RuntimeException("ImageGenerator::genChecker", "failed to generate checker, values don't add up. Please specify better size!");
+	
 	bool fill = false;
 	
 	for (int x = 0; x < size.width; ++x) {

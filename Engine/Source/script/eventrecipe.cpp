@@ -30,8 +30,8 @@ void TGen::Engine::Script::EventRecipe::prelink(const TGen::Engine::ComponentLin
 }
 
 void TGen::Engine::Script::EventRecipe::link(const TGen::Engine::ComponentLinker & linker) {
-	if (linker.getComponent())
-		linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
+	//if (linker.getComponent())
+	//	linker.getComponent()->setOwner(reinterpret_cast<TGen::Engine::Entity *>(0xBEEF));	// TODO: might not be a good idea to use pointers
 
 	event->link(linker);
 //	event->prelink(prototype);

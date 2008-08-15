@@ -74,13 +74,13 @@ void TGen::Engine::SDLMouse::enterMode(TGen::Engine::InputDeviceMode mode) {
 	if (mode == TGen::Engine::RelativeMode) {
 		SDL_WM_GrabInput(SDL_GRAB_ON);
 
-		std::cout << "ENTERED RELATIVE MODE" << std::endl;
+		std::cout << "[sdl]: mouse entered relative mode" << std::endl;
 		this->mode = mode;
 	}
 	else if (mode == TGen::Engine::AbsoluteMode || mode == TGen::Engine::DefaultMode) {
 		SDL_WM_GrabInput(SDL_GRAB_OFF);
 		
-		std::cout << "ENTERED ABSOLUTE MODE" << std::endl;
+		std::cout << "[sdl]: mouse entered absolute mode" << std::endl;
 		this->mode = mode;
 	}
 	

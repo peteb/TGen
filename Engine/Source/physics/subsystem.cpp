@@ -323,8 +323,14 @@ TGen::Engine::Physics::Joint * TGen::Engine::Physics::Subsystem::createJoint(con
 
 
 void TGen::Engine::Physics::Subsystem::link() {
-	for (int i = 0; i < 1000; ++i)		// makes the physics settle down
-		dWorldStep(worldId, 0.001);
+	for (int i = 0; i < bodies.size(); ++i)
+		bodies[i]->preStep();
+	
+	for (int i = 0; i < geoms.size(); ++i)
+		geoms[i]->preStep();
+	
+	for (int i = 0; i < 1000; ++i)		// should make the physics settle down
+		dWorldStep(worldId, 0.0001);
 }
 
 

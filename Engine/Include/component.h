@@ -32,8 +32,8 @@ namespace TGen {
 			
 			bool isStatic() const;
 			const std::string & getName() const;
-			void setOwner(TGen::Engine::Entity * owner);
-			TGen::Engine::Entity * getOwner() const;
+			//void setOwner(TGen::Engine::Entity * owner);
+			//TGen::Engine::Entity * getOwner() const;
 			
 		protected:
 			const std::string name;

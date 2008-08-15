@@ -15,6 +15,7 @@
 #include "component.h"
 #include "componentinterfaces.h"
 #include "symbols.h"
+#include "componentlink.h"
 
 namespace TGen {
 	class SceneNode;
@@ -44,9 +45,10 @@ namespace TGen {
 			void endEvent(int id);
 			void addViewDelta(const TGen::Vector3 & view);
 
-			void addCamera(const std::string & name, const std::string & camera);
-			TGen::Engine::Scene::Node * getCamera(const std::string & name) const;
-			
+			//void addCamera(const std::string & name, const std::string & camera);
+			//TGen::Engine::Scene::Node * getCamera(const std::string & name) const;
+			void setCamera(const std::string & name);
+			TGen::Engine::Scene::Node * getActiveCamera() const;
 			
 			// world object interface
 			virtual TGen::Vector3 getVelocity() const;
@@ -67,17 +69,12 @@ namespace TGen {
 			bool ignoreInput;
 			
 		private:
-			void linkCameras(TGen::Engine::Entity & entity);
-									
-			typedef std::map<std::string, TGen::Engine::Scene::Node *> CameraMap;
-			typedef std::map<std::string, std::string> StringStringMap;
 			
-			StringStringMap camerasToLink;
-			CameraMap cameras;
-		
 			uint32 activeEvents[20];
 			
 			TGen::Vector3 viewDelta, viewAbs;
+			
+			TGen::Engine::UnaryDelegate<TGen::Engine::Scene::Node> camera;
 			
 			static TGen::Engine::Symbol symbolSetIgnoreInput;
 		};

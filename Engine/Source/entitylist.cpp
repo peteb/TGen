@@ -28,7 +28,6 @@ void TGen::Engine::EntityList::link() {
 	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter)
 		iter->second->link(TGen::Engine::ComponentLinker(this, iter->second, NULL, NULL));
 	
-	
 	std::cout << "Prelinking recipes..." << std::endl;
 	
 	for (PrototypeMap::iterator iter = prototypes.begin(); iter != prototypes.end(); ++iter)

@@ -60,18 +60,15 @@ void TGen::Engine::Controller::FirstPerson::link(const TGen::Engine::ComponentLi
 	if (viewNode)
 		this->viewNode = dynamic_cast<TGen::SceneNode *>(viewNode->getSceneNode());
 	
-	if (!linker.getEntityList() || !linker.getEntity())
-		exit(66);
-	
 	linkGlobally(linker);
 }
 
 void TGen::Engine::Controller::FirstPerson::linkGlobally(const TGen::Engine::ComponentLinker & linker) {
-	TGen::Engine::PlayerController::link(linker);
-	
-	TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(equipmentName));
-	if (sceneNode)
-		equipment = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode->getSceneNode());
+	if (!equipmentName.empty()) {
+		TGen::Engine::Scene::Node * sceneNode = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(equipmentName));
+		if (sceneNode)
+			equipment = dynamic_cast<TGen::Engine::Scene::EquipmentNode *>(sceneNode->getSceneNode());
+	}
 	
 	if (!weaponName.empty()) {
 		weapon = dynamic_cast<TGen::Engine::WeaponInterface *>(linker.getComponent(weaponName));
@@ -192,7 +189,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	
 	//if (moveEvent) {
 		moveDelta.normalize();
-	
+		
 		if (viewNode) {
 			TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(orientX)); //viewNode->getLocalOrientation();
 			
@@ -221,13 +218,14 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			//if (jump)
 			//	moveDelta.y = deltaJump;
 		}
-		
+	
 		//moveDelta *= dt;
 	
 		if (node && !usePhysics) {
 			node->getSceneNode()->setPosition(node->getSceneNode()->getLocalPosition() + moveDelta * dt * deltaPlane);
 		}
 		else if (controlBody) {
+
 			//std::cout << controlBody->getLinearVelocity().getMagnitude() << std::endl;
 			//if (controlBody->isOnFloor())
 			//	std::cout << "on floor!" << std::endl;
@@ -262,7 +260,9 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			moveDelta += TGen::Vector3(0.0f, slope, 0.0f);
 			moveDelta *= (1.0 + slope) * dt;
 			
+			
 			if (controlBody->isOnFloor()) {
+
 				controlBody->addForce(moveDelta * deltaPlane);
 				controlBody->setLinearDamping(0.12);
 			}
@@ -287,7 +287,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			
 		}
 		else {
-			throw TGen::RuntimeException("Controller::FirstPerson::update", "no phys body");
+			throw TGen::RuntimeException("Controller::FirstPerson::update", "no phys body, support should be fixed later");
 		}
 //	}
 	

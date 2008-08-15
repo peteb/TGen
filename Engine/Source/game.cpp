@@ -71,7 +71,9 @@ void TGen::Engine::GameState::tick() {
 		if (!viewObject)
 			viewObject = currentWorld->getPlayerCamera();
 		
-		TGen::Matrix4x4 invertedCam = TGen::Matrix4x4(viewObject->getOrientation()).getInverse();	// TODO: improve! TGen::Rotation without mat4
+		TGenAssert(viewObject);
+		
+ 		TGen::Matrix4x4 invertedCam = TGen::Matrix4x4(viewObject->getOrientation()).getInverse();	// TODO: improve! TGen::Rotation without mat4
 		
 		
 		
