@@ -23,7 +23,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, sceneSubsystem(resources, filesystem, logs, dataSource)
 	, physicsSubsystem(logs, filesystem)
 	, soundSubsystem(logs, filesystem)
-	, scriptSubsystem(logs, mapname)
+	, scriptSubsystem(logs, filesystem, mapname)
 	, mainCam(NULL)
 	, lightList(100)
 	, entityFactory(logs)

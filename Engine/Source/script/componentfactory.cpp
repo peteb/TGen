@@ -16,10 +16,11 @@
 #include "script/frameop.h"
 #include "script/eventrecipe.h"
 #include "script/debugop.h"
+#include "script/luacallop.h"
 
-
-TGen::Engine::Script::ComponentFactory::ComponentFactory()
+TGen::Engine::Script::ComponentFactory::ComponentFactory(TGen::Engine::Script::Subsystem & subsystem)
 	: lastCreatedOp(NULL)
+	, subsystem(subsystem)
 {
 }
 
@@ -173,6 +174,9 @@ void TGen::Engine::Script::ComponentFactory::createOperation(TGen::Engine::Scrip
 		}
 		
 		ret = newOp;
+	}
+	else if (type == "luaCall") {
+		ret = createLuaCallOperation(type, properties, container);
 	}
 	else if (type == "if" || type == "while") {
 		TGen::Engine::Script::IfOperation * newIf = createIfOperation(type, 0, properties, container);
@@ -551,6 +555,17 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::ComponentFactory::cr
 	newOp->setDerefDest(type == "ret");
 	
 	return newOp;	
+}
+
+
+TGen::Engine::Script::LuaCallOperation * TGen::Engine::Script::ComponentFactory::createLuaCallOperation(const std::string & type, 
+																																		const TGen::PropertyTree & properties, 
+																																		TGen::Engine::Script::EventOperation & container) 
+{
+	TGen::Engine::Script::LuaCallOperation * newCall = new TGen::Engine::Script::LuaCallOperation(&container, subsystem);
+	newCall->setFunctionName(properties.getAttribute(0));
+	
+	return newCall;
 }
 
 

@@ -47,6 +47,7 @@
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
 		D052CAE20E59C4D2000AF567 /* componentfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D052CAE10E59C4D2000AF567 /* componentfactory.cpp */; };
 		D052CF0F0E59CD90000AF567 /* liblua5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D052CF0E0E59CD90000AF567 /* liblua5.1.a */; };
+		D052CFFC0E59E26B000AF567 /* luacallop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D052CFFB0E59E26B000AF567 /* luacallop.cpp */; };
 		D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */; };
 		D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E400D80694F003A31A0 /* DBPrefsWindowController.m */; };
 		D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */ = {isa = PBXBuildFile; fileRef = D0622ECE0D806C45003A31A0 /* Displays.icns */; };
@@ -355,6 +356,8 @@
 		D052CAE00E59C4C4000AF567 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/script/componentfactory.h; sourceTree = SOURCE_ROOT; };
 		D052CAE10E59C4D2000AF567 /* componentfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentfactory.cpp; path = script/componentfactory.cpp; sourceTree = "<group>"; };
 		D052CF0E0E59CD90000AF567 /* liblua5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua5.1.a; path = external/liblua5.1.a; sourceTree = "<group>"; };
+		D052CFFA0E59E25F000AF567 /* luacallop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = luacallop.h; path = ../../Include/script/luacallop.h; sourceTree = SOURCE_ROOT; };
+		D052CFFB0E59E26B000AF567 /* luacallop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = luacallop.cpp; path = script/luacallop.cpp; sourceTree = "<group>"; };
 		D0622E3D0D80694F003A31A0 /* AppPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = AppPrefsWindowController.h; sourceTree = "<group>"; };
 		D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.objc; path = AppPrefsWindowController.m; sourceTree = "<group>"; };
 		D0622E3F0D80694F003A31A0 /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
@@ -987,6 +990,8 @@
 				D03CFFF30E2A661A006D68A7 /* frameop.h */,
 				D04974000E487B6100603A5C /* debugop.cpp */,
 				D04973FF0E487B4D00603A5C /* debugop.h */,
+				D052CFFB0E59E26B000AF567 /* luacallop.cpp */,
+				D052CFFA0E59E25F000AF567 /* luacallop.h */,
 			);
 			name = operations;
 			sourceTree = "<group>";
@@ -1582,6 +1587,7 @@
 				D06F8F820E3C94D00011A495 /* componentlinker.cpp in Sources */,
 				D04974010E487B6100603A5C /* debugop.cpp in Sources */,
 				D052CAE20E59C4D2000AF567 /* componentfactory.cpp in Sources */,
+				D052CFFC0E59E26B000AF567 /* luacallop.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
