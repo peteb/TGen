@@ -294,9 +294,9 @@
 		D00343B50CEE14FE0066E8A8 /* world.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = world.h; path = ../../Include/world.h; sourceTree = SOURCE_ROOT; };
 		D00347120CEE25680066E8A8 /* devilimage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = devilimage.cpp; sourceTree = "<group>"; };
 		D00347140CEE25780066E8A8 /* devilimage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = devilimage.h; path = ../../Include/devilimage.h; sourceTree = SOURCE_ROOT; };
-		D00347560CEE26740066E8A8 /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libIL.a; sourceTree = "<group>"; };
-		D00347570CEE26740066E8A8 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libjpeg.a; sourceTree = "<group>"; };
-		D00347580CEE26740066E8A8 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng12.a; sourceTree = "<group>"; };
+		D00347560CEE26740066E8A8 /* libIL.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libIL.a; path = external/libIL.a; sourceTree = "<group>"; };
+		D00347570CEE26740066E8A8 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = external/libjpeg.a; sourceTree = "<group>"; };
+		D00347580CEE26740066E8A8 /* libpng12.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng12.a; path = external/libpng12.a; sourceTree = "<group>"; };
 		D003482D0CEE29510066E8A8 /* imageloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imageloader.cpp; sourceTree = "<group>"; };
 		D003482F0CEE29610066E8A8 /* imageloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = imageloader.h; path = ../../Include/imageloader.h; sourceTree = SOURCE_ROOT; };
 		D00449C90D9AA2D200EEBC00 /* modelgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelgenerator.h; path = ../../Include/modelgenerator.h; sourceTree = SOURCE_ROOT; };
@@ -464,7 +464,7 @@
 		D08DC7D90DDF55120072AF9C /* id4cmpolygon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id4cmpolygon.cpp; path = physics/id4cmpolygon.cpp; sourceTree = "<group>"; };
 		D08F3CF50DEB3AD50051EDD6 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/sound/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D08F3CF80DEB3AFB0051EDD6 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = sound/subsystem.cpp; sourceTree = "<group>"; };
-		D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libfmodex.dylib; sourceTree = "<group>"; };
+		D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmodex.dylib; path = external/libfmodex.dylib; sourceTree = "<group>"; };
 		D08F3FC80DEB5CDE0051EDD6 /* soundsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = soundsource.h; path = ../../Include/sound/soundsource.h; sourceTree = SOURCE_ROOT; };
 		D08F3FC90DEB5CE90051EDD6 /* soundsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = soundsource.cpp; path = sound/soundsource.cpp; sourceTree = "<group>"; };
 		D08F41630DEB67F90051EDD6 /* componentinterfaces.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentinterfaces.h; path = ../../Include/componentinterfaces.h; sourceTree = SOURCE_ROOT; };
@@ -485,7 +485,7 @@
 		D09628EC0D784E89008DABC3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/physics/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D09629760D785296008DABC3 /* body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = body.h; path = ../../Include/physics/body.h; sourceTree = SOURCE_ROOT; };
 		D09629770D78529F008DABC3 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = body.cpp; path = physics/body.cpp; sourceTree = "<group>"; };
-		D0962AFB0D7866BE008DABC3 /* libode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libode.a; path = /usr/local/lib/libode.a; sourceTree = "<absolute>"; };
+		D0962AFB0D7866BE008DABC3 /* libode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libode.a; path = external/libode.a; sourceTree = "<group>"; };
 		D09890180D24414D006A290D /* vertexcache2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache2.h; path = ../../Include/vertexcache2.h; sourceTree = SOURCE_ROOT; };
 		D09890190D244181006A290D /* vertexcache2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcache2.cpp; sourceTree = "<group>"; };
 		D09890440D24435E006A290D /* poolcollection2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poolcollection2.h; path = ../../Include/poolcollection2.h; sourceTree = SOURCE_ROOT; };
@@ -530,7 +530,7 @@
 		D0E096160D883485005D5345 /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geom.h; path = ../../Include/physics/geom.h; sourceTree = SOURCE_ROOT; };
 		D0E096190D8834C3005D5345 /* geom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geom.cpp; path = physics/geom.cpp; sourceTree = "<group>"; };
 		D0E4570E0D905A5A00F4D548 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = physics/subsystem.cpp; sourceTree = "<group>"; };
-		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libphysfs.a; sourceTree = "<group>"; };
+		D0E9D5A50CE356DE0050B530 /* libphysfs.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libphysfs.a; path = external/libphysfs.a; sourceTree = "<group>"; };
 		D0EF60E30C8222350085C17B /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		D0EF60F70C8222670085C17B /* SDLMain.h */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.h; name = SDLMain.h; path = ../Projects/Xcode/SDLMain.h; sourceTree = "<group>"; };
 		D0EF60F80C8222670085C17B /* SDLMain.m */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.c.objc; name = SDLMain.m; path = ../Projects/Xcode/SDLMain.m; sourceTree = "<group>"; };
@@ -683,8 +683,8 @@
 				D00347560CEE26740066E8A8 /* libIL.a */,
 				D00347570CEE26740066E8A8 /* libjpeg.a */,
 				D00347580CEE26740066E8A8 /* libpng12.a */,
-				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
 				D0E9D5A50CE356DE0050B530 /* libphysfs.a */,
+				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
 				D0F83A670CBA6DC200FF4467 /* OpenGL.framework */,
 				D0EF61330C8222A40085C17B /* Cocoa.framework */,
 				D0EF60FC0C8222810085C17B /* SDL.framework */,
@@ -1653,6 +1653,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LIBRARY_SEARCH_PATHS = external;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				SDKROOT = macosx10.5;
 				ZERO_LINK = YES;
@@ -1668,6 +1669,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
+				LIBRARY_SEARCH_PATHS = external;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				SDKROOT = macosx10.5;
 				SEPARATE_STRIP = YES;
