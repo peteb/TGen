@@ -49,7 +49,8 @@ namespace TGen {
 				virtual void preStep();
 				virtual void postStep();
 				
-				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {return true; }
+				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
+				virtual void postCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
 				virtual void onCollisionForce(scalar force, bool groundCollision);
 				
 				virtual void link(const TGen::Engine::ComponentLinker & linker);
@@ -60,12 +61,13 @@ namespace TGen {
 				uint getCategory() const;
 				
 				void setEventCollisionForce(const std::string & eventName);
+				void setEventCollision(const std::string & eventName);
 				
 				scalar collisionForceThreshold, collisionForceScale;
 
+				void setPosition(const TGen::Vector3 & position);				
 				
 			protected:
-				void setPosition(const TGen::Vector3 & position);				
 				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
 				
 				dGeomID geomId;
@@ -80,7 +82,11 @@ namespace TGen {
 				uint categoryBits, collidesWith;
 				
 				TGen::Engine::Physics::BodyDelegate bodyDelegate;
-				TGen::Engine::UnaryDelegate<TGen::Engine::Triggerable> eventCollisionForce;
+				TGen::Engine::EventDelegate eventCollisionForce;		// TODO: event for all collisions
+				TGen::Engine::EventDelegate eventCollision; 
+				
+				// symbols
+				static TGen::Engine::Symbol symbolGetLink;
 			};
 		} // !Physics
 	} // !Engine

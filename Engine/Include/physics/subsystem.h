@@ -45,12 +45,14 @@ namespace TGen {
 				
 			private:
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
+				static std::vector<dContact> collisionEvents;
 
 				TGen::Engine::Physics::Body * createBody(const std::string & name, const TGen::PropertyTree & properties);
 				TGen::Engine::Physics::Joint * createJoint(const std::string & name, const TGen::PropertyTree & properties);
 				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties);
 				dMass getMass(const TGen::PropertyTree & properties);
 				uint getCategoryBits(const std::string & name);
+				void triggerCollisionEvents();
 				
 				std::vector<TGen::Engine::Physics::Body *> bodies;
 				std::vector<TGen::Engine::Physics::Geom *> geoms;

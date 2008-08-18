@@ -20,6 +20,16 @@ void TGen::Engine::Script::DebugOperation::trigger(TGen::Engine::TriggerContext 
 	std::cout << "-- DEBUG BREAK --------------------------------------" << std::endl;
 	//asm("int $3");
 	
+	std::cout << "context:" << std::endl;
+	std::cout << "   num parameters: " << context.numParameters << std::endl;
+	std::cout << "   self: " << std::hex << std::setw(8) << context.selfPointer << std::endl;
+	std::cout << "   registers: " << std::endl;
+	
+	for (int i = 0; i < TGen::Engine::MaxRegisters; ++i) {
+		std::cout << "   " << i << ": 0x" << std::hex << std::setw(8) << std::setfill('0') << *context.getRegister<int *>(i) << std::endl;
+	}
+	
+	
 	std::cout << "trace:" << std::endl;
 
 	TGen::Engine::Script::EventOperation * event = this;

@@ -14,8 +14,11 @@
 
 #include "fmod/fmod_errors.h"
 
+TGen::Engine::Symbol TGen::Engine::Sound::Channel::symbolsSetUpdateVelocity = TGen::Engine::getUniqueSymbol("setUpdateVelocity:");
+
 TGen::Engine::Sound::Channel::Channel(FMOD::Channel * channel)
 	: channel(channel)
+	, updateVelocity(true)
 {
 
 }
@@ -57,7 +60,13 @@ void TGen::Engine::Sound::Channel::set3DAttributes(const TGen::Vector3 & positio
 	FMOD_VECTOR pos, vel;
 	
 	TGen::Engine::Sound::TVecToFVec(position, pos);
-	TGen::Engine::Sound::TVecToFVec(velocity, vel);
+	
+	if (updateVelocity) {
+		TGen::Engine::Sound::TVecToFVec(velocity, vel);
+	}
+	else {
+		vel.x = vel.y = vel.z = 0.0f;
+	}
 	
 	channel->set3DAttributes(&pos, &vel);
 }
@@ -83,3 +92,18 @@ bool TGen::Engine::Sound::Channel::isPaused() {
 	
 	return ret;
 }
+
+void TGen::Engine::Sound::Channel::setUpdateVelocity(bool updateVelocity) {
+	this->updateVelocity = updateVelocity;
+}
+
+void TGen::Engine::Sound::Channel::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
+	TGen::Engine::Symbol function = context.getFunctionSymbol();
+	
+	if (function == symbolsSetUpdateVelocity) {
+		bool updateVelocity = *context.getParameter<bool *>(0);
+		
+		setUpdateVelocity(updateVelocity);
+	}
+}
+

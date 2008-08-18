@@ -19,7 +19,12 @@
 
 #include "triggerable.h"
 
+
 using TGen::uint;
+
+#define GEOM TGen::Engine::Physics::Geom
+
+TGen::Engine::Symbol GEOM::symbolGetLink = TGen::Engine::getUniqueSymbol("getLink");
 
 TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	: TGen::Engine::Component(name)
@@ -95,7 +100,8 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 
 void TGen::Engine::Physics::Geom::link(const TGen::Engine::ComponentLinker & linker) {
 	eventCollisionForce.link(linker);
-
+	eventCollision.link(linker);
+	
 	if (geomId == 0)
 		return;
 	
@@ -107,6 +113,8 @@ void TGen::Engine::Physics::Geom::link(const TGen::Engine::ComponentLinker & lin
 		
 		updateFromLink();
 	}	
+	
+	TGen::Engine::Component::link(linker);
 }
 
 
@@ -195,15 +203,52 @@ void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundColl
 }
 
 
+bool TGen::Engine::Physics::Geom::onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {
+	
+	return true;
+}
+
+void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo) {	
+	if (eventCollision) {
+		TGen::Engine::TriggerContext * context = eventCollision->context;
+		TGenAssert(context);
+		
+		context->setParameter(0, with);
+		context->numParameters = 1;
+		
+		eventCollision->trigger(*context, TGen::Engine::TriggerPrecise);
+	}
+	
+}
+
 uint TGen::Engine::Physics::Geom::getCategory() const {
 	return categoryBits;
 }
 
+
 void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::Component::trigger(context, mode);
+	TGen::Engine::Symbol function = context.getFunctionSymbol();
+	
+	if (function == symbolGetLink) {
+		std::cout << "GET LINK" << std::endl;
+		
+		if (bodyDelegate.getBodyObject())
+			*context.getRegister<TGen::Engine::Physics::Body **>(context.getReturnRegister()) = bodyDelegate.getBodyObject();
+		else
+			*context.getRegister<TGen::Engine::WorldObject **>(context.getReturnRegister()) = bodyDelegate.getWorldObject();			
+	}
+	else {
+		TGen::Engine::Component::trigger(context, mode);
+	}
 }
+
 
 void TGen::Engine::Physics::Geom::setEventCollisionForce(const std::string & eventName) {
 	eventCollisionForce.set(eventName);
+}
+
+
+void TGen::Engine::Physics::Geom::setEventCollision(const std::string & eventName) {
+	eventCollision.set(eventName);
 }
 

@@ -48,6 +48,7 @@ void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & c
 
 bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerContext & context) {
 	scalar paramValue = *context.getRegister<scalar *>(regId);
+	std::cout << "TEST VALUE: " << paramValue << std::endl;
 	
 	bool passed = false;
 	
@@ -79,6 +80,15 @@ bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerCont
 	
 	return passed;
 }
+
+// TODO: "use" button, but how should it work? maybe like this: when touching a geom, some control from the player is passed
+//          to that geom, or to an event predefined by that geom
+//				no! beginTouch, endTouch. 
+//		nononono, tab creates a ray in front of the player, just like shooting. but it triggers a "use" event instead of onCollision
+//		the ray will be removed the next frame
+//		kan ju vara en funktion i controller som sköts av script, onUseKeyPressed, så får man spawna en ray själv
+// först: fixa så man kan ange entities för en bana i olika filer, rekursera map/entities. 
+// sen finns definitions/entites/    definitions/scripts/   de mappas inte in i vanliga trädet under vanliga /map/blabla/ utan de utförs bara..
 
 bool TGen::Engine::Script::IfOperation::testExpressionInt(TGen::Engine::TriggerContext & context) {
 	int paramValue = *context.getRegister<int *>(regId);

@@ -51,7 +51,7 @@ namespace TGen {
 				bool prototype;
 				TGen::Engine::Sound::Subsystem & creator;
 
-				static TGen::Engine::Symbol symbolPlaySound, symbolPlaySoundWithVolume;
+				static TGen::Engine::Symbol symbolPlaySound;
 				
 			private:
 				std::string filename;

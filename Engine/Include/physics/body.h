@@ -71,6 +71,8 @@ namespace TGen {
 				void addForce(const TGen::Vector3 & force);
 				void addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force);
 				
+				void resetForces();
+				
 				TGen::Vector3 getLinearVelocity() const;
 				TGen::Vector3 getForce() const;
 				
@@ -104,7 +106,8 @@ namespace TGen {
 				
 				
 				// symbols
-				static TGen::Engine::Symbol symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, symbolSetKillTorque;
+				static TGen::Engine::Symbol symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, 
+					symbolSetKillTorque, symbolTransportTo, symbolResetForces;
 			};
 		} // !Physics
 	} // !Engine

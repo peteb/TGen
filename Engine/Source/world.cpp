@@ -23,7 +23,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, sceneSubsystem(resources, filesystem, logs, dataSource)
 	, physicsSubsystem(logs, filesystem)
 	, soundSubsystem(logs, filesystem)
-	, scriptSubsystem(logs)
+	, scriptSubsystem(logs, mapname)
 	, mainCam(NULL)
 	, lightList(100)
 	, entityFactory(logs)
@@ -63,7 +63,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	infoSubsystem.setWorld(this);
 
 	loadDefinitions("/definitions/");	
-	loadEntities("/maps/" + mapname + "/entities");
+	loadDefinitions("/maps/" + mapname + "/entities/");
 	
 	entities.link();
 	

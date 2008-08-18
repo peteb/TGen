@@ -122,6 +122,10 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 	if (checkEvent(EventPreviousWeapon) && equipment)
 		equipment->changeEquipmentRelative(1);
 	
+	static float sinceJumpPressed = 4.0f;		// TODO: fix this
+	
+	sinceJumpPressed += dt;
+	
 	if (isEventInitial(EventJump)) {
 		setEventRead(EventJump);
 		
@@ -131,11 +135,19 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 		//moveEvent = true;
 	//	jump = true;
 //		initialJump = true;
-
+			sinceJumpPressed = 100.0;
 			controlBody->addForce(TGen::Vector3(0.0f, jumpForce * 0.01, 0.0f));
+		}
+		else {
+			sinceJumpPressed = 0.0;
 		}
 		//moveDelta += TGen::Vector3(0.0f, 1.0f, 0.0f);
 	}
+	else if (sinceJumpPressed < 0.1 && controlBody && controlBody->isOnFloor()) {
+		controlBody->addForce(TGen::Vector3(0.0f, jumpForce * 0.01, 0.0f));
+		sinceJumpPressed = 100.0;
+	}
+	
 	/*else if (checkEvent(EventJump)) {
 		
 		moveEvent = true;
@@ -262,7 +274,6 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			
 			
 			if (controlBody->isOnFloor()) {
-
 				controlBody->addForce(moveDelta * deltaPlane);
 				controlBody->setLinearDamping(0.12);
 			}
@@ -351,6 +362,10 @@ TGen::Rotation TGen::Engine::Controller::FirstPerson::getOrientation() const {
 		return node->getOrientation();
 	
 	return TGen::Rotation::Identity;
+}
+
+void TGen::Engine::Controller::FirstPerson::setOrientation(const TGen::Rotation & orientation) {
+	std::cout << "FP SET ORIENTATION" << std::endl;
 }
 
 void TGen::Engine::Controller::FirstPerson::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {

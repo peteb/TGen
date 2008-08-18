@@ -128,7 +128,7 @@ namespace TGen {
 		
 		
 
-		
+		typedef TGen::Engine::UnaryDelegate<TGen::Engine::Triggerable> EventDelegate;
 	} // !Engine
 } // !TGen
 

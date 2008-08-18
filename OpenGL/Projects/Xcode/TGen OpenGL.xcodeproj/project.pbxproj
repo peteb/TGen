@@ -115,6 +115,13 @@
 			remoteGlobalIDString = D0E8B7BA0CE26BBA009EC7F4;
 			remoteInfo = "TGen Core Test";
 		};
+		D0ED211A0E5709C4007606FC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D00FF9240C39414700668773 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0B1D5D10E3E85BC0027C8B9 /* Tests.cptest */;
+			remoteInfo = Tests;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -345,6 +352,7 @@
 			children = (
 				D04C81290CCA45F000794CEA /* TGen Math */,
 				D04C812B0CCA45F000794CEA /* libtgen_math.a */,
+				D0ED211B0E5709C4007606FC /* Tests.cptest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -518,6 +526,13 @@
 			fileType = "compiled.mach-o.executable";
 			path = "TGen Core Test";
 			remoteRef = D0E8B8010CE26F3D009EC7F4 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		D0ED211B0E5709C4007606FC /* Tests.cptest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.cptest;
+			remoteRef = D0ED211A0E5709C4007606FC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */

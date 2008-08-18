@@ -21,7 +21,6 @@ using TGen::Engine::Sound::Channel;
 #define SOURCE TGen::Engine::Sound::Source
 
 TGen::Engine::Symbol SOURCE::symbolPlaySound = TGen::Engine::getUniqueSymbol("playSound:");
-TGen::Engine::Symbol SOURCE::symbolPlaySoundWithVolume = TGen::Engine::getUniqueSymbol("playSound:withVolume:");
 
 TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator) 
 	: TGen::Engine::Component(name)
@@ -94,15 +93,6 @@ void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context
 		
 		TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
 		addChannel(newChannel);
-	}
-	else if (methodSymbol == symbolPlaySoundWithVolume) {
-		uint32 soundId = *context.getParameter<uint32 *>(0);
-		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
-		
-		if (!sound)
-			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
-		
-		addChannel(sound->spawnChannel(false));		
 	}
 	else {
 		TGen::Engine::Component::trigger(context, mode);

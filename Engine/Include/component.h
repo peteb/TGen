@@ -12,6 +12,7 @@
 
 #include <string>
 #include "triggerable.h"
+#include "symbols.h"
 
 namespace TGen {
 	namespace Engine {
@@ -32,13 +33,16 @@ namespace TGen {
 			
 			bool isStatic() const;
 			const std::string & getName() const;
-			//void setOwner(TGen::Engine::Entity * owner);
+			void setOwner(TGen::Engine::Entity * owner);
 			//TGen::Engine::Entity * getOwner() const;
 			
 		protected:
 			const std::string name;
 			const bool staticComponent;
 			TGen::Engine::Entity * owner;
+			
+		private:
+			static TGen::Engine::Symbol symbolGetEntity;
 		};
 	} // !Engine
 } // !TGen

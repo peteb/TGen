@@ -15,7 +15,7 @@
 #define INVENTORY TGen::Engine::Inventory::Inventory
 
 TGen::Engine::Symbol INVENTORY::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue:");
-TGen::Engine::Symbol INVENTORY::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue");
+TGen::Engine::Symbol INVENTORY::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue:");
 TGen::Engine::Symbol INVENTORY::symbolIncreaseItemValue = TGen::Engine::getUniqueSymbol("increaseItem:with:");
 
 

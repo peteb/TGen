@@ -11,6 +11,8 @@
 #include "entity.h"
 #include "componentlinker.h"
 
+TGen::Engine::Symbol TGen::Engine::Component::symbolGetEntity = TGen::Engine::getUniqueSymbol("getEntity");
+
 TGen::Engine::Component::Component(const std::string & name, bool staticComponent) 
 	: name(name)
 	, owner(NULL)
@@ -24,8 +26,10 @@ TGen::Engine::Component::~Component() {
 }
 
 void TGen::Engine::Component::link(const TGen::Engine::ComponentLinker & linker) {
-	if (linker.getEntity())
+	if (linker.getEntity()) {
 		context = &linker.getEntity()->getContext();	
+		owner = linker.getEntity();
+	}
 }
 
 const std::string & TGen::Engine::Component::getName() const {
@@ -33,14 +37,22 @@ const std::string & TGen::Engine::Component::getName() const {
 }
 
 void TGen::Engine::Component::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	*context.getRegister<int *>(0) = -1;	// r0 is to be marked -1 if the method couldn't be called
+	TGen::Engine::Symbol function = context.getFunctionSymbol();
+	
+	if (function == symbolGetEntity) {
+		std::cout << "PUT ENTITY " << owner << " IN REG " << context.getReturnRegister() << std::endl;
+		*context.getRegister<TGen::Engine::Entity **>(context.getReturnRegister()) = owner;
+	}
+	else {
+		*context.getRegister<int *>(0) = -1;	// r0 is to be marked -1 if the method couldn't be called
+	}
 }
 
-/*void TGen::Engine::Component::setOwner(TGen::Engine::Entity * owner) {
+void TGen::Engine::Component::setOwner(TGen::Engine::Entity * owner) {
 	this->owner = owner;
 }
 
-TGen::Engine::Entity * TGen::Engine::Component::getOwner() const {
+/*TGen::Engine::Entity * TGen::Engine::Component::getOwner() const {
 	return owner;
 }*/
 

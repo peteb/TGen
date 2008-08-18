@@ -16,12 +16,14 @@ namespace TGen {
 			RegisterParameters = 3,
 			RegisterSelf = 100,
 			RegisterObject = 2,
+			ReservedParameters = 4,
+			MaxRegisters = 15,
 		};
 		
 		class TriggerContext {
 		public:
 			TriggerContext() {
-				memset(registers, 0, 10 * sizeof(uint32));
+				memset(registers, 0, MaxRegisters * sizeof(uint32));
 				selfPointer = 0;
 				numParameters = 0;
 			}
@@ -53,6 +55,11 @@ namespace TGen {
 				return reinterpret_cast<T>(&registers[id + TGen::Engine::RegisterParameters]);
 			}
 			
+			template<typename T>
+			void setParameter(int id, T value) {
+				setRegister(id + TGen::Engine::RegisterParameters, value);
+			}
+			
 			int getFunctionSymbol() {
 				return int(registers[0]);
 			}
@@ -61,7 +68,7 @@ namespace TGen {
 				return int(registers[1]);
 			}
 						
-			uint32 registers[10];
+			uint32 registers[MaxRegisters];
 			uint32 selfPointer;
 			int numParameters;
 		};

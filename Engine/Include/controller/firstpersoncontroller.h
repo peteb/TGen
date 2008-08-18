@@ -51,6 +51,7 @@ namespace TGen {
 				TGen::Vector3 getVelocity() const;
 				TGen::Vector3 getPosition() const;
 				TGen::Rotation getOrientation() const;		
+				void setOrientation(const TGen::Rotation & orientation);
 				
 			private:
 				void linkGlobally(const TGen::Engine::ComponentLinker & linker);

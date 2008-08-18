@@ -16,9 +16,11 @@ using TGen::scalar;
 
 #define BODY TGen::Engine::Physics::Body
 
-TGen::Engine::Symbol BODY::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene");
-TGen::Engine::Symbol BODY::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed");
-TGen::Engine::Symbol BODY::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque");
+TGen::Engine::Symbol BODY::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene:");
+TGen::Engine::Symbol BODY::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed:");
+TGen::Engine::Symbol BODY::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque:");
+TGen::Engine::Symbol BODY::symbolTransportTo = TGen::Engine::getUniqueSymbol("transportTo:");
+TGen::Engine::Symbol BODY::symbolResetForces = TGen::Engine::getUniqueSymbol("resetForces");
 
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
@@ -86,6 +88,17 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 		int killTorque = *context.getRegister<int *>(2);
 		
 		setKillTorque(killTorque);
+	}
+	else if (symbolNum == symbolTransportTo) {
+		TGen::Engine::Component * transportTo = *context.getParameter<TGen::Engine::Component **>(0);
+		TGen::Engine::WorldObject * worldObject = dynamic_cast<TGen::Engine::WorldObject *>(transportTo);
+		
+		setPosition(worldObject->getPosition());
+		//setOrientation(worldObject->getOrientation());
+		
+	}
+	else if (symbolNum == symbolResetForces) {
+		resetForces();
 	}
 	else {
 		TGen::Engine::Component::trigger(context, mode);
@@ -286,3 +299,11 @@ scalar TGen::Engine::Physics::Body::getMass() const {
 	
 	return mass.mass;
 }
+
+void TGen::Engine::Physics::Body::resetForces() {
+	dBodySetForce(bodyId, 0.0f, 0.0f, 0.0f);
+	dBodySetTorque(bodyId, 0.0f, 0.0f, 0.0f);
+	dBodySetLinearVel(bodyId, 0.0f, 0.0f, 0.0f);
+	dBodySetAngularVel(bodyId, 0.0f, 0.0f, 0.0f);
+}
+

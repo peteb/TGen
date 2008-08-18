@@ -126,10 +126,14 @@ TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyT
 			
 			if (baseBranch.getNumAttributes() > 0)
 				baseName = baseBranch.getAttribute(0);
+			else
+				baseName = baseBranch.getName();
 			
 			if (entityBranch.getNumAttributes() > 0)
 				entityName = entityBranch.getAttribute(0);
-
+			else
+				entityName = entityBranch.getName();		// TODO: don't know if this will cause problems
+			
 			if (baseName != entityName) {
 				ret.addNode(entity.getNode(i));
 			}

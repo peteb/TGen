@@ -33,6 +33,7 @@ using TGen::uint;
 
 //dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
+std::vector<dContact> TGen::Engine::Physics::Subsystem::collisionEvents;
 
 TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem) 
 	: logs(logs)
@@ -247,13 +248,15 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::Subsystem::createGeom(const
 		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
 	
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
-	newGeom->setLink(properties.getProperty("link", "physBody"));
+	newGeom->setLink(properties.getProperty("link", ""));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
+	newGeom->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
 	newGeom->setEventCollisionForce(properties.getProperty("onCollisionForce", ""));
-	
 	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
 	newGeom->collisionForceScale = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceScale", "1.0"));
+	
+	newGeom->setEventCollision(properties.getProperty("onCollision", ""));
 	
 	uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
 	
@@ -356,9 +359,15 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		}
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
+		
+		// trigger script events etc for collisions, some things like moving physical representations can't be done
+		// in SpaceCollide
+		triggerCollisionEvents();		
+		collisionEvents.clear();
+
 		dWorldStep(worldId, updateInterval); // tweak
 		dJointGroupEmpty(contactGroup);
-		
+
 		lastUpdate -= updateInterval;		
 	}
 
@@ -555,12 +564,13 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				//if (totalForce > 0.1)
 					//std::cout << "HURT: " << totalForce << std::endl;
 			}
-			
-			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
 
+			collisionEvents.push_back(contacts[i]);
+
+			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
+				// TODO: add collision for later processing
 				dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
 				dJointAttach(contactJoint, body1, body2);
-
 			}
 		}
 	}
@@ -573,5 +583,17 @@ dWorldID TGen::Engine::Physics::Subsystem::getWorldId() {
 	return worldId;
 }
 
+void TGen::Engine::Physics::Subsystem::triggerCollisionEvents() {
+	for (int i = 0; i < collisionEvents.size(); ++i) {
+		const dContact & contact = collisionEvents[i];
+		
+		TGen::Engine::Physics::Geom * geom1 = static_cast<TGen::Engine::Physics::Geom *>(dGeomGetData(contact.geom.g1));
+		TGen::Engine::Physics::Geom * geom2 = static_cast<TGen::Engine::Physics::Geom *>(dGeomGetData(contact.geom.g2));		
+		
+		geom1->postCollision(geom2, contact.geom.g2, contact);
+		geom2->postCollision(geom1, contact.geom.g1, contact);
+
+	}
+}
 
 
