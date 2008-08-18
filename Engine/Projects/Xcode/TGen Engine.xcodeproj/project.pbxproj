@@ -46,6 +46,7 @@
 		D04C83B30CCA4B0900794CEA /* libtgen_opengl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81CC0CCA46DA00794CEA /* libtgen_opengl.a */; };
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
 		D052CAE20E59C4D2000AF567 /* componentfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D052CAE10E59C4D2000AF567 /* componentfactory.cpp */; };
+		D052CF0F0E59CD90000AF567 /* liblua5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D052CF0E0E59CD90000AF567 /* liblua5.1.a */; };
 		D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */; };
 		D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E400D80694F003A31A0 /* DBPrefsWindowController.m */; };
 		D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */ = {isa = PBXBuildFile; fileRef = D0622ECE0D806C45003A31A0 /* Displays.icns */; };
@@ -353,6 +354,7 @@
 		D04974000E487B6100603A5C /* debugop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = debugop.cpp; path = script/debugop.cpp; sourceTree = "<group>"; };
 		D052CAE00E59C4C4000AF567 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/script/componentfactory.h; sourceTree = SOURCE_ROOT; };
 		D052CAE10E59C4D2000AF567 /* componentfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentfactory.cpp; path = script/componentfactory.cpp; sourceTree = "<group>"; };
+		D052CF0E0E59CD90000AF567 /* liblua5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua5.1.a; path = external/liblua5.1.a; sourceTree = "<group>"; };
 		D0622E3D0D80694F003A31A0 /* AppPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = AppPrefsWindowController.h; sourceTree = "<group>"; };
 		D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.objc; path = AppPrefsWindowController.m; sourceTree = "<group>"; };
 		D0622E3F0D80694F003A31A0 /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
@@ -606,6 +608,7 @@
 				D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */,
 				D0962AFC0D7866BE008DABC3 /* libode.a in Frameworks */,
 				D08F3DA70DEB41CB0051EDD6 /* libfmodex.dylib in Frameworks */,
+				D052CF0F0E59CD90000AF567 /* liblua5.1.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -626,7 +629,7 @@
 				20286C2AFDCF999611CA2CEA /* Source */,
 				20286C2CFDCF999611CA2CEA /* Resources */,
 				5048396909E3304600765E4B /* Configuration Files */,
-				20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */,
+				20286C32FDCF999611CA2CEA /* Frameworks and Libraries */,
 				195DF8CFFE9D517E11CA2CBB /* Products */,
 			);
 			name = "TGen Engine";
@@ -670,29 +673,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		20286C32FDCF999611CA2CEA /* External Frameworks and Libraries */ = {
+		20286C32FDCF999611CA2CEA /* Frameworks and Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */,
-				D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */,
-				D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */,
-				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
-				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
-				D0962AFB0D7866BE008DABC3 /* libode.a */,
-				D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */,
-				D00347560CEE26740066E8A8 /* libIL.a */,
-				D00347570CEE26740066E8A8 /* libjpeg.a */,
-				D00347580CEE26740066E8A8 /* libpng12.a */,
-				D0E9D5A50CE356DE0050B530 /* libphysfs.a */,
-				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
-				D0F83A670CBA6DC200FF4467 /* OpenGL.framework */,
-				D0EF61330C8222A40085C17B /* Cocoa.framework */,
-				D0EF60FC0C8222810085C17B /* SDL.framework */,
-				20286C33FDCF999611CA2CEA /* Carbon.framework */,
-				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
-				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
+				D052CEF30E59CD47000AF567 /* tgen */,
+				D052CEF10E59CD21000AF567 /* system */,
+				D052CBD10E59CD15000AF567 /* external */,
 			);
-			name = "External Frameworks and Libraries";
+			name = "Frameworks and Libraries";
 			sourceTree = "<group>";
 		};
 		5048396909E3304600765E4B /* Configuration Files */ = {
@@ -859,6 +847,46 @@
 				D0F835DA0CBA5CB900FF4467 /* state.h */,
 			);
 			name = shit;
+			sourceTree = "<group>";
+		};
+		D052CBD10E59CD15000AF567 /* external */ = {
+			isa = PBXGroup;
+			children = (
+				D052CF0E0E59CD90000AF567 /* liblua5.1.a */,
+				D0962AFB0D7866BE008DABC3 /* libode.a */,
+				D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */,
+				D00347560CEE26740066E8A8 /* libIL.a */,
+				D00347570CEE26740066E8A8 /* libjpeg.a */,
+				D00347580CEE26740066E8A8 /* libpng12.a */,
+				D0E9D5A50CE356DE0050B530 /* libphysfs.a */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		D052CEF10E59CD21000AF567 /* system */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF656B0C82F6A40085C17B /* IOKit.framework */,
+				D0F83A670CBA6DC200FF4467 /* OpenGL.framework */,
+				D0EF61330C8222A40085C17B /* Cocoa.framework */,
+				D0EF60FC0C8222810085C17B /* SDL.framework */,
+				20286C33FDCF999611CA2CEA /* Carbon.framework */,
+				4A9504CAFFE6A41611CA0CBA /* CoreServices.framework */,
+				4A9504C8FFE6A3BC11CA0CBA /* ApplicationServices.framework */,
+			);
+			name = system;
+			sourceTree = "<group>";
+		};
+		D052CEF30E59CD47000AF567 /* tgen */ = {
+			isa = PBXGroup;
+			children = (
+				D0EF616E0C82D9F20085C17B /* TGen OpenGL.xcodeproj */,
+				D0EF61710C82D9F20085C17B /* TGen Math.xcodeproj */,
+				D0EF61740C82D9F20085C17B /* TGen Core.xcodeproj */,
+				D0EF61770C82D9F20085C17B /* TGen Graphics.xcodeproj */,
+				D0EF619F0C82DA090085C17B /* TGen Renderer.xcodeproj */,
+			);
+			name = tgen;
 			sourceTree = "<group>";
 		};
 		D0637CE90DB5557500FD1DC4 /* controller */ = {
@@ -1605,6 +1633,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_2)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/external\"",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_2 = "\"$(SRCROOT)\"";
@@ -1634,6 +1663,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1)",
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_2)",
 					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/external\"",
 				);
 				LIBRARY_SEARCH_PATHS_QUOTED_1 = "\"$(SRCROOT)\"";
 				LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_1 = "\"$(SRCROOT)\"";
