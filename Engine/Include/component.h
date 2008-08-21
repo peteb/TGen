@@ -31,6 +31,8 @@ namespace TGen {
 			virtual void link(const TGen::Engine::ComponentLinker & linker);
 			virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			
+			virtual void setEnabled(bool enabled) {}
+			
 			bool isStatic() const;
 			const std::string & getName() const;
 			void setOwner(TGen::Engine::Entity * owner);
@@ -42,7 +44,7 @@ namespace TGen {
 			TGen::Engine::Entity * owner;
 			
 		private:
-			static TGen::Engine::Symbol symbolGetEntity;
+			static TGen::Engine::Symbol symbolGetEntity, symbolEnable, symbolDisable;
 		};
 	} // !Engine
 } // !TGen

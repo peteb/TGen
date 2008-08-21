@@ -24,8 +24,13 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 	std::cerr << "EXEC MOVE" << std::endl;
 	
 	if (derefDest) {
-		std::cerr << "DEREF DEST" << std::endl;
 		destRegId = *context.getRegister<int *>(destRegId);
+		std::cerr << "DEREF DEST TO: " << std::dec << destRegId << " FROM: " << destId << std::endl;
+		std::cerr << "CONTEXT: " << &context << std::endl;
+	}
+	
+	if (destId == 1) {
+		std::cout << "WARNING; COPYING TO r1 ";
 	}
 	
 	if (sourceResource) {
@@ -33,10 +38,16 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 		*context.getRegister<uint32 *>(destRegId) = reinterpret_cast<uint32>(sourceResource->getData());
 	}
 	else if (intOp) {
+		std::cout << "INTOP ";
+		
 		if (imm) {
+			std::cout << "IMM " << sourceImmInt;
+			
 			*context.getRegister<int *>(destRegId) = sourceImmInt;
 		}
 		else {
+			std::cout << "FROM " << sourceId ;
+			
 			if (useSwap) {
 				std::swap(*context.getRegister<int *>(destRegId), *context.getRegister<int *>(sourceId));
 			}
@@ -62,8 +73,7 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 		if (imm) {
 			*dest = sourceImm;
 		}
-		else {
-			
+		else {			
 			if (useSwap) {
 				std::swap(*dest, *source);
 			}
@@ -72,6 +82,9 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 			}
 		}		
 	}
+	
+	std::cout << std::endl;
+
 }
 
 void TGen::Engine::Script::MoveOperation::setSource(int regId) {

@@ -22,6 +22,7 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 	, parent(NULL)
 	, orientation(TGen::Rotation::Identity)
 	, autoParent(NULL)
+	, doRender(true)
 {
 		
 }
@@ -35,6 +36,7 @@ TGen::SceneNode::SceneNode(const std::string & name, const TGen::Vector3 & posit
 	, changedSinceLastCheck(false)
 	, parent(NULL)
 	, autoParent(NULL)
+	, doRender(true)
 {
 	
 }
@@ -50,9 +52,10 @@ TGen::SceneNode::SceneNode(const SceneNode & node)
 	, autoParent(node.autoParent)
 	//, models(node.models)
 	, faces(node.faces)
+	, doRender(true)
 	//, children(node.children)		// TODO: I hope this works, the children shouldn't be shared! It doesn't work.
 {
-	for (ModelInstanceList::const_iterator iter = node.models.begin(); iter != node.models.end(); ++iter) {
+	for (ModelInstanceList::const_iterator iter = node.models.begin(); iter != node.models.end(); ++iter) {	// fixed here though
 		models.push_back(TGen::DerefRes(*iter)->clone());
 	}
 }
@@ -135,6 +138,10 @@ void TGen::SceneNode::moveTo(TGen::SceneNode * newParent, bool translate) {
 		setPosition(globalTransform * getLocalPosition());
 		setOrientation(globalTransform * getLocalOrientation());
 	}
+}
+
+void TGen::SceneNode::setRender(bool doRender) {
+	this->doRender = doRender;
 }
 
 int TGen::SceneNode::getNumChildren() const {
@@ -366,6 +373,9 @@ bool TGen::SceneNode::checkChanged() {
 }
 
 void TGen::SceneNode::traverse(const TGen::SceneNode::Walker & walker) {
+	//if (!doRender /*&& walker.getFlags() & WalkerFollowVisibility*/)
+	//	return;
+	
 	if (walker.pre(*this)) {
 		for (int i = 0; i < children.size(); ++i) {
 			children[i]->traverse(walker);
@@ -383,6 +393,9 @@ bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & ca
 		//list.addFace(&faces[i]);
 	//}
 	
+	if (!doRender)
+		return false;
+	
 	for (int i = 0; i < models.size(); ++i) {
 		TGen::NewModelInstance * model = models[i];
 
@@ -394,6 +407,10 @@ bool TGen::SceneNode::fillFaces(TGen::RenderList & list, const TGen::Camera & ca
 }
 
 bool TGen::SceneNode::fillMeta(TGen::RenderList & list, const TGen::Camera & camera) const {
+	if (!doRender)
+		return false;
+	
+	
 	for (int i = 0; i < models.size(); ++i)
 		list.addMeta(TGen::DerefRes(models[i]), this);
 	

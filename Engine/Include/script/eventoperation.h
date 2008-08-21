@@ -25,6 +25,7 @@ namespace TGen {
 				EventOperation(const std::string & name, EventOperation * parent);
 				virtual ~EventOperation();
 				
+				void insertOperation(int pos, EventOperation * operation);
 				void addOperation(EventOperation * operation);
 				void addAlias(const std::string & alias, const std::string & value);
 				std::string getAlias(const std::string & alias) const;

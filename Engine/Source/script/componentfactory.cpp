@@ -227,9 +227,13 @@ void TGen::Engine::Script::ComponentFactory::createOperation(TGen::Engine::Scrip
 		
 		if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "=") {
 			if (properties.getAttribute(2)[0] == '[') {	// beginning of a call
-				container.addOperation(createMovOperation("imov", TGen::lexical_cast<std::string>(registerNum), "r1", container));
+				std::cout << "RETURN TO " << properties.getAttribute(0) << " WHICH IS " << registerNum << std::endl;
 				
-				createCallOperation(properties.getAttribute(2), properties, 3, container);
+				
+				TGen::Engine::Script::EventOperation * callOperation = createCallOperation(properties.getAttribute(2), properties, 3, container);
+
+				callOperation->insertOperation(0, createMovOperation("imov", TGen::lexical_cast<std::string>(registerNum), "r1", *callOperation));
+
 			}
 			else {
 				ret = createMovOperation("mov", properties.getAttribute(2), registerName, container);
@@ -248,6 +252,9 @@ void TGen::Engine::Script::ComponentFactory::createOperation(TGen::Engine::Scrip
 	else {
 		if (properties.getAttribute(0) == "=") {
 			if (properties.getAttribute(1)[0] == '[') {	// beginning of a call
+				TGen::Engine::Script::EventOperation * callOperation = createCallOperation(properties.getAttribute(1), properties, 2, container);
+
+				
 				std::string regName = container.getAlias(properties.getName());
 				if (regName.empty())
 					regName = properties.getName();
@@ -257,10 +264,9 @@ void TGen::Engine::Script::ComponentFactory::createOperation(TGen::Engine::Scrip
 					throw TGen::RuntimeException("Script::Subsystem::createOperation", "invalid register: " + properties.getName());
 				
 				TGen::Engine::Script::EventOperation * retMov = createMovOperation("imov", TGen::lexical_cast<std::string>(regNum), "r1", container);
-				container.addOperation(retMov);	// should be in the container above frame
+				callOperation->insertOperation(0, retMov);
 				
 				
-				createCallOperation(properties.getAttribute(1), properties, 2, container);
 			}
 			else {
 				ret = createMovOperation("mov", properties.getAttribute(1), properties.getName(), container);
@@ -335,7 +341,7 @@ TGen::Engine::Script::IfOperation * TGen::Engine::Script::ComponentFactory::crea
 }
 
 
-void TGen::Engine::Script::ComponentFactory::createCallOperation(const std::string & head, const TGen::PropertyTree & properties, int attributeStart, TGen::Engine::Script::EventOperation & container) {
+TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::createCallOperation(const std::string & head, const TGen::PropertyTree & properties, int attributeStart, TGen::Engine::Script::EventOperation & container) {
 	bool saveContext = true;
 	
 	TGen::Engine::Script::EventOperation * parentObject = &container;
@@ -469,6 +475,8 @@ void TGen::Engine::Script::ComponentFactory::createCallOperation(const std::stri
 		newCall->setOffset(TGen::Engine::getUniqueSymbol(mangledMethodName));		// look up offset/symbol for method
 	
 	parentObject->addOperation(newCall);	
+	
+	return parentObject;
 }
 
 
@@ -564,6 +572,17 @@ TGen::Engine::Script::LuaCallOperation * TGen::Engine::Script::ComponentFactory:
 {
 	TGen::Engine::Script::LuaCallOperation * newCall = new TGen::Engine::Script::LuaCallOperation(&container, subsystem);
 	newCall->setFunctionName(properties.getAttribute(0));
+	
+	for (int i = 0; i < properties.getNumNodes(); ++i) {
+		const TGen::PropertyTree & node = properties.getNode(i);
+		
+		if (node.getName() == "return") {
+			newCall->addReturnToRegister(getRegisterId(container.getAlias(node.getAttribute(0))));
+		}
+		else if (node.getName() == "param") {
+			newCall->addParameterRegister(getRegisterId(container.getAlias(node.getAttribute(0))));
+		}
+	}
 	
 	return newCall;
 }

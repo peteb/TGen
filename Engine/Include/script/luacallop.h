@@ -25,11 +25,15 @@ namespace TGen {
 				
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);	
 				void setFunctionName(const std::string & functionName);
+				void addReturnToRegister(int registerId);
+				void addParameterRegister(int registerId);
 				
 			private:
 				std::string functionName;
 				lua_State * luaContext;
 				TGen::Engine::Script::Subsystem & subsystem;
+				int returnToRegister;
+				std::vector<int> parameters;
 			};
 			
 		} // !Script

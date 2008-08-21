@@ -76,6 +76,7 @@ namespace TGen {
 		TGen::Rotation getWorldOrientation() const;
 		
 		void setAutoTP(TGen::SceneNode * autoTP);
+		void setRender(bool doRender);
 		
 		bool hasChanged() const;
 		bool checkChanged();
@@ -120,6 +121,7 @@ namespace TGen {
 		void detached();
 		
 		TGen::SceneNode * autoParent;
+		bool doRender;
 		
 	protected:
 		typedef std::vector<SceneNode *> SceneNodeList;

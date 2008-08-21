@@ -132,6 +132,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		D03871DF0E5CCEB80066F4DF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D0B1D5D10E3E85BC0027C8B9 /* Tests.cptest */;
+			remoteInfo = Tests;
+		};
 		D0450BF60CCA4CB400832ABC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F51B7C0C71C77B005DB68D /* TGen OpenGL.xcodeproj */;
@@ -502,6 +509,7 @@
 			children = (
 				D04C816C0CCA468E00794CEA /* TGen Math */,
 				D04C816E0CCA468E00794CEA /* libtgen_math.a */,
+				D03871E00E5CCEB80066F4DF /* Tests.cptest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -745,7 +753,7 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Renderer */ = {
+		8DD76F620486A84900D96B5E /* TGen Graphics */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Renderer" */;
 			buildPhases = (
@@ -817,13 +825,20 @@
 			);
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Renderer */,
+				8DD76F620486A84900D96B5E /* TGen Graphics */,
 				D0F371390C6D02CE00C11F87 /* tgen_renderer */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		D03871E00E5CCEB80066F4DF /* Tests.cptest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.cptest;
+			remoteRef = D03871DF0E5CCEB80066F4DF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		D04C815E0CCA468400794CEA /* TGen OpenGL */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";

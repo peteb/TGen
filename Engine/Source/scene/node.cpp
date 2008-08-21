@@ -108,3 +108,9 @@ void TGen::Engine::Scene::Node::link(const TGen::Engine::ComponentLinker & linke
 	}
 }
 
+void TGen::Engine::Scene::Node::setEnabled(bool enabled) {
+	std::cout << "NODE ENABLED SET TO: " << TGen::lexical_cast<std::string>(enabled) << std::endl;
+	if (sceneNode)
+		sceneNode->setRender(enabled);
+}
+

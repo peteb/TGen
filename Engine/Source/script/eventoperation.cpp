@@ -29,6 +29,10 @@ void TGen::Engine::Script::EventOperation::addOperation(EventOperation * operati
 	operations.push_back(operation);
 }
 
+void TGen::Engine::Script::EventOperation::insertOperation(int pos, EventOperation * operation) {
+	operations.insert(operations.begin() + pos, operation);
+}
+
 void TGen::Engine::Script::EventOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	for (int i = 0; i < operations.size(); ++i)
 		operations[i]->trigger(context, mode);

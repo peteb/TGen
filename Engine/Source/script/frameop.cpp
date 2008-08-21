@@ -31,15 +31,19 @@ void TGen::Engine::Script::FrameOperation::trigger(TGen::Engine::TriggerContext 
 	if (!execute)
 		return;
 	
+	std::cout << ">> FRAME" << std::endl;
+	
 	if (saveContext) {
-		if (saveReturn) {
-			int retRegister = context.getReturnRegister();
-						
+		if (saveReturn) {						
 			TGen::Engine::TriggerContext savedContext(context);
 			TGen::Engine::Script::EventOperation::trigger(context, mode);
 			
+			int retRegister = context.getReturnRegister();
+			
 			uint32 retVal = *context.getRegister<uint32 *>(retRegister);
 			context = savedContext;
+			
+			std::cout << "RETURNED " << retVal << std::endl;
 			
 			context.setRegister(retRegister, retVal);			
 		}
@@ -52,6 +56,8 @@ void TGen::Engine::Script::FrameOperation::trigger(TGen::Engine::TriggerContext 
 	else {
 		TGen::Engine::Script::EventOperation::trigger(context, mode);
 	}
+	
+	std::cout << "<< FRAME" << std::endl;
 }
 
 void TGen::Engine::Script::FrameOperation::setSaveContext(bool saveContext) {
