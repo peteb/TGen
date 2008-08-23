@@ -50,7 +50,7 @@ TGen::Engine::Script::Event * TGen::Engine::Script::ComponentFactory::createComp
 	if (hasParameterList) {
 		mangledName += ":";
 		
-		for (int i = 1; i < properties.getNumAttributes(); ++i, ++paraCount) {
+		for (int i = 0; i < properties.getNumAttributes(); ++i, ++paraCount) {
 			std::string attribute = properties.getAttribute(i);
 			
 			std::string parameterName = properties.getAttribute(i);

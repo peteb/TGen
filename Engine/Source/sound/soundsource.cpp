@@ -85,7 +85,7 @@ void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context
 	TGen::Engine::Symbol methodSymbol = context.getFunctionSymbol();
 	
 	if (methodSymbol == symbolPlaySound) {
-		uint32 soundId = *context.getParameter<uint32 *>(0);
+		uint32 soundId = context.getParameter<uint32>(0);
 		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
 		
 		if (!sound)

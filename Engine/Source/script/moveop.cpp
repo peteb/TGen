@@ -24,7 +24,7 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 	std::cerr << "EXEC MOVE" << std::endl;
 	
 	if (derefDest) {
-		destRegId = *context.getRegister<int *>(destRegId);
+		destRegId = context.getRegister<int>(destRegId);
 		std::cerr << "DEREF DEST TO: " << std::dec << destRegId << " FROM: " << destId << std::endl;
 		std::cerr << "CONTEXT: " << &context << std::endl;
 	}
@@ -33,9 +33,11 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 		std::cout << "WARNING; COPYING TO r1 ";
 	}
 	
+	std::cout << "DEST REG: " << destRegId << std::endl;
+	
 	if (sourceResource) {
 		std::cerr << "SOURCE RESOURCE" << std::endl;
-		*context.getRegister<uint32 *>(destRegId) = reinterpret_cast<uint32>(sourceResource->getData());
+		context.setRegister<uint32>(destRegId, reinterpret_cast<uint32>(sourceResource->getData()));
 	}
 	else if (intOp) {
 		std::cout << "INTOP ";
@@ -43,43 +45,50 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 		if (imm) {
 			std::cout << "IMM " << sourceImmInt;
 			
-			*context.getRegister<int *>(destRegId) = sourceImmInt;
+			context.setRegister<int>(destRegId, sourceImmInt);
 		}
 		else {
 			std::cout << "FROM " << sourceId ;
 			
 			if (useSwap) {
-				std::swap(*context.getRegister<int *>(destRegId), *context.getRegister<int *>(sourceId));
+				//std::swap(*context.getRegister<int *>(destRegId), *context.getRegister<int *>(sourceId));
+				int val1 = context.getRegister<int>(destRegId);
+				context.setRegister<int>(destRegId, context.getRegister<int>(sourceId));							 
+				context.setRegister<int>(sourceId, val1);
 			}
 			else {
-				*context.getRegister<int *>(destRegId) = *context.getRegister<int *>(sourceId);
+				context.setRegister<int>(destRegId, context.getRegister<int>(sourceId));
 			}
 		}
 	}
 	else {
-		scalar * dest = context.getRegister<scalar *>(destRegId);
-		scalar * source = context.getRegister<scalar *>(sourceId);
+		std::cout << "SCALAROP " << std::endl;
+		scalar * dest = context.getRegisterReference<scalar>(destRegId);
+		scalar * source = context.getRegisterReference<scalar>(sourceId);
 		
 		if (destOffset != -1) {
-			scalar * array = *context.getRegister<scalar **>(destRegId);
+			scalar * array = context.getRegisterPtr<scalar *>(destRegId);
 			dest = &array[destOffset];
 		}
 		
 		if (sourceOffset != -1) {
-			scalar * array = *context.getRegister<scalar **>(sourceId);
+			scalar * array = context.getRegisterPtr<scalar *>(sourceId);
 			source = &array[sourceOffset];
 		}
 		
 		if (imm) {
-			*dest = sourceImm;
+			std::cout << "IMM: " << sourceImm << std::endl;
+			//*dest = sourceImm;
+			context.setRegister<scalar>(destRegId, sourceImm);
 		}
 		else {			
-			if (useSwap) {
+			/*if (useSwap) {
 				std::swap(*dest, *source);
 			}
-			else {
-				*dest = *source;
-			}
+			else {*/
+				context.setRegister<scalar>(destRegId, context.getRegister<scalar>(sourceId));
+				//*dest = *source;
+			//}
 		}		
 	}
 	

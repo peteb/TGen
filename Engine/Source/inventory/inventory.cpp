@@ -96,9 +96,12 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 	 
 	 */
 	
+	
 	if (symbolNum == symbolSetItemValue) {
-		TGen::Engine::Symbol itemSymbol = *context.getParameter<TGen::Engine::Symbol *>(0);
-		int itemValue = *context.getParameter<scalar *>(1);
+		TGen::Engine::Symbol itemSymbol = context.getParameter<TGen::Engine::Symbol>(0);
+		int itemValue = 0;
+		
+		itemValue = context.getParameter<int>(1);
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
@@ -107,18 +110,23 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 			context.setRegister<int>(0, -1);
 	}
 	else if (symbolNum == symbolGetItemValue) {
-		TGen::Engine::Symbol itemSymbol = *context.getParameter<TGen::Engine::Symbol *>(0);
+		TGen::Engine::Symbol itemSymbol = context.getParameter<TGen::Engine::Symbol>(0);
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
-		if (iter != itemSymbols.end())
-			context.setRegister<scalar>(context.getReturnRegister(), scalar(iter->second->value));
-		else
+		if (iter != itemSymbols.end()) {
+			std::cout << "RETURNING ITEM VALUE " << iter->second->value << std::endl;
+			context.setRegister<int>(context.getReturnRegister(), int(iter->second->value));				
+		}
+		else {
 			context.setRegister<int>(0, -1);
+		}
 	}
 	else if (symbolNum == symbolIncreaseItemValue) {
-		TGen::Engine::Symbol itemSymbol = *context.getParameter<TGen::Engine::Symbol *>(0);
-		int itemValue = *context.getParameter<scalar *>(1);
+		TGen::Engine::Symbol itemSymbol = context.getParameter<TGen::Engine::Symbol>(0);
+		int itemValue = context.getParameter<int>(1);
 
+		std::cout << "                INCREASE ITEM " << itemSymbol << " WITH " << itemValue << std::endl;
+		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
 			iter->second->increaseValue(itemValue);

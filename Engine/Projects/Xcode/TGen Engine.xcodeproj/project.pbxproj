@@ -335,6 +335,7 @@
 		D020D4540DC3E3C500D0EDA4 /* arcball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arcball.cpp; path = controller/arcball.cpp; sourceTree = "<group>"; };
 		D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = worldrenderer.h; path = ../../Include/renderer/worldrenderer.h; sourceTree = SOURCE_ROOT; };
 		D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = worldrenderer.cpp; path = renderer/worldrenderer.cpp; sourceTree = "<group>"; };
+		D03875A90E5F663E0066F4DF /* registertypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = registertypes.h; path = ../../Include/registertypes.h; sourceTree = SOURCE_ROOT; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
 		D03988BA0CE740B90070438B /* meshgenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgenerator.h; path = ../../Include/meshgenerator.h; sourceTree = SOURCE_ROOT; };
 		D03CFC340E296F7E006D68A7 /* ifop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ifop.h; path = ../../Include/script/ifop.h; sourceTree = SOURCE_ROOT; };
@@ -1158,6 +1159,7 @@
 				D0843C210D075BFB00C31FE3 /* subsystem.h */,
 				D07BDD1D0E28ECF40070CC83 /* triggerable.h */,
 				D03CFCC40E2A44C0006D68A7 /* triggercontext.h */,
+				D03875A90E5F663E0066F4DF /* registertypes.h */,
 				D08105CB0E390D7100663380 /* symbols.cpp */,
 				D08105C80E390D3F00663380 /* symbols.h */,
 				D02E4E630E4490020070FBFC /* component */,
@@ -1689,6 +1691,7 @@
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_THREADSAFE_STATICS = YES;
 				LIBRARY_SEARCH_PATHS = external;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				SDKROOT = macosx10.5;
@@ -1705,6 +1708,7 @@
 				GCC_ENABLE_CPP_EXCEPTIONS = YES;
 				GCC_ENABLE_CPP_RTTI = YES;
 				GCC_LINK_WITH_DYNAMIC_LIBRARIES = YES;
+				GCC_THREADSAFE_STATICS = YES;
 				LIBRARY_SEARCH_PATHS = external;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				SDKROOT = macosx10.5;

@@ -72,6 +72,7 @@ namespace TGen {
 				void addForceWorld(const TGen::Vector3 & absPos, const TGen::Vector3 & force);
 				
 				void resetForces();
+				void setEnabled(bool enabled);
 				
 				TGen::Vector3 getLinearVelocity() const;
 				TGen::Vector3 getForce() const;

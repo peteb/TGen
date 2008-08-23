@@ -86,7 +86,7 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen:
 					}
 				}
 				else {
-					throw TGen::RuntimeException("Entity::trigger", "Message symbol not defined.");	
+					throw TGen::RuntimeException("Entity::trigger", "Message symbol not defined: \"") << TGen::Engine::getSymbolName(symbolId) << "\"";	
 				}
 			}
 			else {	
@@ -102,7 +102,7 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen:
 						break;
 				}
 				else {
-					*context.getRegister<int *>(0) = symbolId;		// reset r0 to the correct symbol
+					context.setRegister<int>(0, symbolId);		// reset r0 to the correct symbol
 				}
 			}
 		}
@@ -111,7 +111,7 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen:
 
 
 void TGen::Engine::Entity::triggerGetComponent(TGen::Engine::TriggerContext & context) {
-	int componentSymbol = *context.getRegister<int *>(2);
+	int componentSymbol = context.getRegister<int>(2);
 	int returnReg = context.getReturnRegister();
 	
 	ComponentSymbolMap::iterator iter = componentSymbols.find(componentSymbol);
@@ -126,7 +126,7 @@ void TGen::Engine::Entity::triggerGetComponent(TGen::Engine::TriggerContext & co
 }
 
 void TGen::Engine::Entity::triggerRespondsTo(TGen::Engine::TriggerContext & context) {
-	int selector = *context.getRegister<int *>(2);
+	int selector = context.getParameter<int>(0);
 	int returnReg = context.getReturnRegister();
 	
 	EventMap::iterator iter = events.find(selector);

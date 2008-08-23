@@ -101,7 +101,7 @@ void TGen::Engine::Sound::Channel::trigger(TGen::Engine::TriggerContext & contex
 	TGen::Engine::Symbol function = context.getFunctionSymbol();
 	
 	if (function == symbolsSetUpdateVelocity) {
-		bool updateVelocity = *context.getParameter<bool *>(0);
+		bool updateVelocity = context.getParameter<bool>(0);
 		
 		setUpdateVelocity(updateVelocity);
 	}

@@ -233,9 +233,9 @@ void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context
 		std::cout << "GET LINK" << std::endl;
 		
 		if (bodyDelegate.getBodyObject())
-			*context.getRegister<TGen::Engine::Physics::Body **>(context.getReturnRegister()) = bodyDelegate.getBodyObject();
+			context.setRegister<TGen::Engine::Physics::Body *>(context.getReturnRegister(), bodyDelegate.getBodyObject());
 		else
-			*context.getRegister<TGen::Engine::WorldObject **>(context.getReturnRegister()) = bodyDelegate.getWorldObject();			
+			context.setRegister<TGen::Engine::WorldObject *>(context.getReturnRegister(), bodyDelegate.getWorldObject());			
 	}
 	else {
 		TGen::Engine::Component::trigger(context, mode);
@@ -251,4 +251,13 @@ void TGen::Engine::Physics::Geom::setEventCollisionForce(const std::string & eve
 void TGen::Engine::Physics::Geom::setEventCollision(const std::string & eventName) {
 	eventCollision.set(eventName);
 }
+
+
+void TGen::Engine::Physics::Geom::setEnabled(bool enabled) {
+	if (enabled)
+		dGeomEnable(geomId);
+	else
+		dGeomDisable(geomId);
+}
+
 

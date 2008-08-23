@@ -93,10 +93,10 @@ bool TGen::Engine::Physics::BipedalGeom::onCollision(TGen::Engine::Physics::Geom
 }
 
 void TGen::Engine::Physics::BipedalGeom::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::Symbol symbolNum = *context.getRegister<TGen::Engine::Symbol *>(0);
+	TGen::Engine::Symbol symbolNum = context.getRegister<TGen::Engine::Symbol>(0);
 	
 	if (symbolNum == symbolMakeSloppy) {
-		int isSloppy = *context.getRegister<int *>(2);
+		int isSloppy = context.getParameter<int>(2);
 		sloppy = isSloppy;
 	}
 	else {

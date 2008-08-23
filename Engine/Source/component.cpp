@@ -43,7 +43,7 @@ void TGen::Engine::Component::trigger(TGen::Engine::TriggerContext & context, TG
 	
 	if (function == symbolGetEntity) {
 		std::cout << "PUT ENTITY " << owner << " IN REG " << context.getReturnRegister() << std::endl;
-		*context.getRegister<TGen::Engine::Entity **>(context.getReturnRegister()) = owner;
+		context.setRegister<TGen::Engine::Entity *>(context.getReturnRegister(), owner);
 	}
 	else if (function == symbolEnable) {
 		setEnabled(true);
@@ -52,7 +52,7 @@ void TGen::Engine::Component::trigger(TGen::Engine::TriggerContext & context, TG
 		setEnabled(false);
 	}
 	else {
-		*context.getRegister<int *>(0) = -1;	// r0 is to be marked -1 if the method couldn't be called
+		context.setRegister<int>(0, -1);	// r0 is to be marked -1 if the method couldn't be called
 	}
 }
 

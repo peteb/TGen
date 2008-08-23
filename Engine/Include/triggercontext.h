@@ -10,6 +10,8 @@
 #ifndef _TGEN_ENGINE_TRIGGERCONTEXT_H
 #define _TGEN_ENGINE_TRIGGERCONTEXT_H
 
+#include "registertypes.h"
+
 namespace TGen {
 	namespace Engine {
 		enum SpecialRegisters {
@@ -20,10 +22,13 @@ namespace TGen {
 			MaxRegisters = 15,
 		};
 		
+
 		class TriggerContext {
 		public:
 			TriggerContext() {
 				memset(registers, 0, MaxRegisters * sizeof(uint32));
+				memset(registerTypes, 0, MaxRegisters * sizeof(char));
+
 				selfPointer = 0;
 				numParameters = 0;
 			}
@@ -37,22 +42,51 @@ namespace TGen {
 						
 					default:
 						*reinterpret_cast<T *>(&registers[id]) = value;
+						registerTypes[id] = TGen::Engine::RegisterType<T>().type;
+				
 				}
+				
 			}
-			
+						
 			template<typename T>
 			T getRegister(int id) {
 				switch (id) {
 					case RegisterSelf:
-						return reinterpret_cast<T>(&selfPointer);
+						return (T)selfPointer;
 				}
 				
-				return reinterpret_cast<T>(&registers[id]);
+				//return (T)registers[id];
+				//TGenAssert(registerTypes[id]);
+				
+				return RegisterConvert<T>(registers[id], registerTypes[id]);
+			}
+			
+			template<typename T>
+			T getRegisterPtr(int id) {
+				return (T)registers[id];
+			}
+			
+			template<typename T>
+			T * getRegisterReference(int id) {
+				/*RegisterDatatype type = RegisterType<T>().type;
+				
+				if (type != registerTypes[id]) {
+					registers[id] = RegisterConvert<T>(registers[id], registerTypes[id]);
+					registerTypes[id] = type;
+				}*/
+				
+				return reinterpret_cast<T *>(&registers[id]);
 			}
 			
 			template<typename T>
 			T getParameter(int id) {
-				return reinterpret_cast<T>(&registers[id + TGen::Engine::RegisterParameters]);
+				std::cout << "GET PARAMETER " << id << " WHICH IS " << id + TGen::Engine::RegisterParameters << std::endl;
+				return getRegister<T>(id + TGen::Engine::RegisterParameters);
+			}
+			
+			template<typename T>
+			T getParameterPtr(int id) {
+				return getRegisterPtr<T>(id + TGen::Engine::RegisterParameters);				
 			}
 			
 			template<typename T>
@@ -67,8 +101,10 @@ namespace TGen {
 			int getReturnRegister() {
 				return int(registers[1]);
 			}
+			
 						
 			uint32 registers[MaxRegisters];
+			char registerTypes[MaxRegisters];
 			uint32 selfPointer;
 			int numParameters;
 		};

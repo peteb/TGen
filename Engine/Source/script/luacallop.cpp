@@ -27,7 +27,7 @@ void TGen::Engine::Script::LuaCallOperation::trigger(TGen::Engine::TriggerContex
 	lua_getglobal(luaContext, functionName.c_str());
 	
 	for (int i = 0; i < parameters.size(); ++i) {
-		float value = *context.getRegister<float *>(parameters[i]);
+		float value = context.getRegister<float>(parameters[i]);
 		lua_pushnumber(luaContext, value);
 	
 		std::cout << "PUSHED " << value << std::endl;
@@ -40,7 +40,7 @@ void TGen::Engine::Script::LuaCallOperation::trigger(TGen::Engine::TriggerContex
 		errorCode = lua_pcall(luaContext, parameters.size(), 1, 0);
 		float ret = lua_tonumber(luaContext, -1);
 		
-		*context.getRegister<float *>(returnToRegister) = ret;
+		context.setRegister<float>(returnToRegister, ret);
 	}
 	else {
 		errorCode = lua_pcall(luaContext, parameters.size(), 0, 0);

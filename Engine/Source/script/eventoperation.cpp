@@ -96,3 +96,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::EventOperation::get
 	return operations[id];
 }
 
+const TGen::Engine::Script::EventOperation::AliasMap TGen::Engine::Script::EventOperation::getAliases() const {
+	return aliases;
+}
+

@@ -22,22 +22,22 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 		scalar fixedTerm = term;
 
 		if (factorRegister != -1)
-			fixedFactor = *context.getRegister<scalar *>(factorRegister);
+			fixedFactor = context.getRegister<scalar>(factorRegister);
 		
 		if (termRegister != -1)
-			fixedTerm = *context.getRegister<scalar *>(termRegister);
+			fixedTerm = context.getRegister<scalar>(termRegister);
 		
 		if (sourceId == destId) {			
-			scalar * dest = context.getRegister<scalar *>(sourceId);
-			scalar * source = context.getRegister<scalar *>(sourceId);
+			scalar * dest = context.getRegisterReference<scalar>(sourceId);
+			scalar * source = context.getRegisterReference<scalar>(sourceId);
 			
 			if (destOffset != -1) {
-				scalar * array = *context.getRegister<scalar **>(destId);
+				scalar * array = context.getRegisterPtr<scalar *>(destId);
 				dest = &array[destOffset];
 			}
 
 			if (sourceOffset != -1) {
-				scalar * array = *context.getRegister<scalar **>(sourceId);
+				scalar * array = context.getRegisterPtr<scalar *>(sourceId);
 				source = &array[sourceOffset];
 			}
 			
@@ -47,7 +47,7 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 			*dest = *source * fixedFactor + fixedTerm;
 		}
 		else {
-			context.setRegister(destId, *context.getRegister<scalar *>(sourceId) * fixedFactor + fixedTerm);
+			context.setRegister(destId, context.getRegister<scalar>(sourceId) * fixedFactor + fixedTerm);
 		}
 	}
 	else {
@@ -55,17 +55,17 @@ void TGen::Engine::Script::MadOperation::trigger(TGen::Engine::TriggerContext & 
 		int fixedTerm = intTerm;
 		
 		if (factorRegister != -1)
-			fixedFactor = *context.getRegister<int *>(factorRegister);
+			fixedFactor = context.getRegister<int>(factorRegister);
 		
 		if (termRegister != -1)
-			fixedTerm = *context.getRegister<int *>(termRegister);
+			fixedTerm = context.getRegister<int>(termRegister);
 		
 		if (sourceId == destId) {
-			int * value = context.getRegister<int *>(sourceId);		
+			int * value = context.getRegisterReference<int>(sourceId);		
 			*value = *value * fixedFactor + fixedTerm;
 		}
 		else {
-			context.setRegister(destId, *context.getRegister<int *>(sourceId) * fixedFactor + fixedTerm);
+			context.setRegister(destId, context.getRegister<int>(sourceId) * fixedFactor + fixedTerm);
 		}
 	}
 	

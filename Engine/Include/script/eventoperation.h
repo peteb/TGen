@@ -42,12 +42,15 @@ namespace TGen {
 				virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				virtual void link(const TGen::Engine::ComponentLinker & linker);
 				virtual void prelink(const TGen::Engine::ComponentLinker & linker);
+
+				typedef std::map<std::string, std::string> AliasMap;
+
+				const AliasMap getAliases() const;
 				
 			private:
 				std::vector<EventOperation *> operations;
 				EventOperation * parent;
 				
-				typedef std::map<std::string, std::string> AliasMap;
 				AliasMap aliases;
 				int numParameters, numLocalVars;
 				std::string name;

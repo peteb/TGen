@@ -78,8 +78,17 @@ TGen::Engine::Inventory::FireMode * TGen::Engine::Inventory::Subsystem::createFi
 TGen::Engine::Inventory::Item * TGen::Engine::Inventory::Subsystem::createItem(const TGen::PropertyTree & properties) {
 	TGen::Engine::Inventory::Item * ret = new TGen::Engine::Inventory::Item;
 	
-	ret->value = TGen::lexical_cast<int>(properties.getProperty("value", "0"));
-	ret->maxValue = TGen::lexical_cast<int>(properties.getProperty("max", "1"));
+	try {
+		ret->value = TGen::lexical_cast<int>(properties.getProperty("value", "0"));
+	}
+	catch (const TGen::bad_lexical_cast & e) {
+		ret->value = TGen::Engine::getUniqueSymbol(properties.getProperty("value", ""));
+	}
+	
+	if (!properties.getProperty("max", "").empty())
+		ret->maxValue = TGen::lexical_cast<int>(properties.getProperty("max", "1"));
+	else
+		ret->maxValue = ret->value;
 	
 	return ret;
 }

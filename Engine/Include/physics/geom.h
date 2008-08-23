@@ -59,6 +59,7 @@ namespace TGen {
 				void setCategory(uint category);
 				void setCollidesWith(uint collidesWith);
 				uint getCategory() const;
+				void setEnabled(bool enabled);
 				
 				void setEventCollisionForce(const std::string & eventName);
 				void setEventCollision(const std::string & eventName);

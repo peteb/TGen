@@ -10,10 +10,16 @@
 #include "symbols.h"
 #include "symboltable.h"
 
-
 TGen::Engine::Symbol TGen::Engine::getUniqueSymbol(const std::string & name) {
-	static TGen::SymbolTable symbols;
-
-	return symbols[name];
+	return getSymbolTable()[name];
 }
 
+std::string TGen::Engine::getSymbolName(TGen::Engine::Symbol symbol) {
+	return getSymbolTable().getSymbolName(symbol);
+}
+
+TGen::SymbolTable & TGen::Engine::getSymbolTable() {
+	static TGen::SymbolTable symbols;
+
+	return symbols;
+}

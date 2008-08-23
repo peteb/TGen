@@ -397,6 +397,8 @@ TGen::Vector3 TGen::Engine::Physics::Subsystem::getGravity() const {
 }
 
 void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
+	// the most scariest function in the whole engine
+	
 	if (dGeomIsSpace(o1) || dGeomIsSpace(o2)) {
 		dSpaceCollide2(o1, o2, data, &nearCallback);
 		
@@ -450,6 +452,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			body1 = 0;
 		
 		for (int i = 0; i < numContacts; ++i) {
+
 			TGen::Vector3 contactNormal(contacts[i].geom.normal[0], contacts[i].geom.normal[1], contacts[i].geom.normal[2]);
 			scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, -1.0f, 0.0f));
 			
@@ -458,6 +461,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			bool onGround = false;
 			bool body1OnGround = false, body2OnGround = false;
 			
+			if (geom1->getAffectsOthers() && geom2->getAffectsOthers()) {
 			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				if (bodyObject1) {
 					scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
@@ -489,6 +493,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					}
 				}
 			}
+		}
 			
 			//if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
 
@@ -566,9 +571,8 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			}
 
 			collisionEvents.push_back(contacts[i]);
-
+	
 			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
-				// TODO: add collision for later processing
 				dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
 				dJointAttach(contactJoint, body1, body2);
 			}

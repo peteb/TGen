@@ -106,6 +106,17 @@ namespace TGen {
 	T * DerefRes(T * x) {
 		return **x;
 	}	
+	
+	template<typename T, typename A>
+	T union_cast(A param) {
+		union {
+			T var1;
+			A var2;
+		};
+		
+		var2 = param;
+		return var1;
+	}
 } // !Tgen
 
 #endif // !_TGEN_CAST_H

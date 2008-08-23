@@ -13,11 +13,15 @@
 #include <string>
 
 namespace TGen {
+	class SymbolTable;
+	
 	namespace Engine {
 		typedef int Symbol;
 		
 		Symbol getUniqueSymbol(const std::string & name);
-		
+		std::string getSymbolName(Symbol symbol);
+
+		TGen::SymbolTable & getSymbolTable();
 	} // !Engine
 } // !TGen
 

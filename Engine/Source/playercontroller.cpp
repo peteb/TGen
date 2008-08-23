@@ -112,7 +112,7 @@ void TGen::Engine::PlayerController::trigger(TGen::Engine::TriggerContext & cont
 	
 	if (sym == symbolSetIgnoreInput) {		
 		bool lastValue = ignoreInput;
-		ignoreInput = *context.getRegister<int *>(2);
+		ignoreInput = context.getRegister<int>(2);
 		
 		if (ignoreInput && ignoreInput != lastValue) {
 			resetEvents();

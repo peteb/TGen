@@ -19,6 +19,7 @@ namespace TGen {
 		SymbolTable();
 		
 		int operator [](const std::string & name);
+		std::string getSymbolName(int symbol) const;
 		
 	private:
 		typedef std::map<std::string, int> SymbolMap;

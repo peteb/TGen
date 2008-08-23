@@ -34,14 +34,14 @@ void TGen::Engine::Info::WorldInfo::trigger(TGen::Engine::TriggerContext & conte
 	
 	if (symbolNum == symbolSetGravity) {
 		if (context.numParameters == 3) {
-			TGen::Vector3 vector(*context.getParameter<scalar *>(0), *context.getParameter<scalar *>(1), *context.getParameter<scalar *>(2));
+			TGen::Vector3 vector(context.getParameter<scalar>(0), context.getParameter<scalar>(1), context.getParameter<scalar>(2));
 			std::cout << "GRAVMOO: " << std::string(vector) << std::endl;
 			//exit(10);
 		
 			world->physicsSubsystem.setGravity(vector);
 		}
 		else if (context.numParameters == 1) {
-			scalar * vector = *context.getParameter<scalar **>(0);
+			scalar * vector = context.getParameterPtr<scalar *>(0);
 			
 			TGen::Vector3 gravity(vector[0], vector[1], vector[2]);
 			
@@ -61,7 +61,7 @@ void TGen::Engine::Info::WorldInfo::trigger(TGen::Engine::TriggerContext & conte
 		gravityVector[1] = gravity.y;
 		gravityVector[2] = gravity.z;
 		
-		*context.getRegister<scalar **>(context.getReturnRegister()) = gravityVector;
+		context.setRegister<scalar *>(context.getReturnRegister(), gravityVector);
 	}
 	else {
 		TGen::Engine::Component::trigger(context, mode);

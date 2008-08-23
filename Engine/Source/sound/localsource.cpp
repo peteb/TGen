@@ -48,7 +48,7 @@ void TGen::Engine::Sound::LocalSource::trigger(TGen::Engine::TriggerContext & co
 	if (methodSymbol == symbolPlaySound) {
 		std::cout << "PLAY SOUND" << std::endl;
 		
-		uint32 soundId = *context.getParameter<uint32 *>(0);
+		uint32 soundId = context.getParameter<uint32>(0);
 		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
 		
 		if (!sound)
@@ -60,7 +60,7 @@ void TGen::Engine::Sound::LocalSource::trigger(TGen::Engine::TriggerContext & co
 		
 		addChannel(newChannel);
 		
-		*context.getRegister<TGen::Engine::Triggerable **>(context.getReturnRegister()) = newChannel;
+		context.setRegister<TGen::Engine::Triggerable *>(context.getReturnRegister(), newChannel);
 	}
 	else {
 		TGen::Engine::Sound::Source::trigger(context, mode);

@@ -73,11 +73,11 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 	TGen::Engine::Symbol symbolNum = context.getFunctionSymbol();
 	
 	if (symbolNum == symbolSetUpdateFromScene) {
-		int updateFromScene = *context.getRegister<int *>(2);
+		int updateFromScene = context.getRegister<int>(2);
 		this->doUpdateFromScene = updateFromScene;
 	}
 	else if (symbolNum == symbolSetMaxAngularSpeed) {
-		scalar maxAngularSpeed = *context.getRegister<scalar *>(2);
+		scalar maxAngularSpeed = context.getRegister<scalar>(2);
 		
 		if (maxAngularSpeed < 0.0)
 			setMaxAngularSpeed(dInfinity);
@@ -85,12 +85,12 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 			setMaxAngularSpeed(maxAngularSpeed);
 	}
 	else if (symbolNum == symbolSetKillTorque) {
-		int killTorque = *context.getRegister<int *>(2);
+		int killTorque = context.getRegister<int>(2);
 		
 		setKillTorque(killTorque);
 	}
 	else if (symbolNum == symbolTransportTo) {
-		TGen::Engine::Component * transportTo = *context.getParameter<TGen::Engine::Component **>(0);
+		TGen::Engine::Component * transportTo = context.getParameterPtr<TGen::Engine::Component *>(0);
 		TGen::Engine::WorldObject * worldObject = dynamic_cast<TGen::Engine::WorldObject *>(transportTo);
 		
 		setPosition(worldObject->getPosition());
@@ -280,17 +280,21 @@ TGen::Vector3 TGen::Engine::Physics::Body::getVelocity() const {
 	return getLinearVelocity();
 }
 
+
 void TGen::Engine::Physics::Body::setGroundNormal(const TGen::Vector3 & groundNormal) {
 	this->groundNormal = groundNormal;
 }
+
 
 const TGen::Vector3 & TGen::Engine::Physics::Body::getGroundNormal() const {
 	return groundNormal;
 }
 
+
 scalar TGen::Engine::Physics::Body::getGroundDefinition() const {
 	return 0.4;
 }
+
 
 scalar TGen::Engine::Physics::Body::getMass() const {
 	dMass mass;
@@ -300,10 +304,19 @@ scalar TGen::Engine::Physics::Body::getMass() const {
 	return mass.mass;
 }
 
+
 void TGen::Engine::Physics::Body::resetForces() {
 	dBodySetForce(bodyId, 0.0f, 0.0f, 0.0f);
 	dBodySetTorque(bodyId, 0.0f, 0.0f, 0.0f);
 	dBodySetLinearVel(bodyId, 0.0f, 0.0f, 0.0f);
 	dBodySetAngularVel(bodyId, 0.0f, 0.0f, 0.0f);
+}
+
+
+void TGen::Engine::Physics::Body::setEnabled(bool enabled) {
+	if (enabled)
+		dBodyEnable(bodyId);
+	else
+		dBodyDisable(bodyId);
 }
 

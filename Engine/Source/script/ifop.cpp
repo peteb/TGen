@@ -47,7 +47,7 @@ void TGen::Engine::Script::IfOperation::trigger(TGen::Engine::TriggerContext & c
 }
 
 bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerContext & context) {
-	scalar paramValue = *context.getRegister<scalar *>(regId);
+	scalar paramValue = context.getRegister<scalar>(regId);
 	std::cout << "TEST VALUE: " << paramValue << std::endl;
 	
 	bool passed = false;
@@ -91,7 +91,7 @@ bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerCont
 // sen finns definitions/entites/    definitions/scripts/   de mappas inte in i vanliga trädet under vanliga /map/blabla/ utan de utförs bara..
 
 bool TGen::Engine::Script::IfOperation::testExpressionInt(TGen::Engine::TriggerContext & context) {
-	int paramValue = *context.getRegister<int *>(regId);
+	int paramValue = context.getRegister<int>(regId);
 	
 	bool passed = false;
 	

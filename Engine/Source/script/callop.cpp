@@ -30,10 +30,10 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 	
 	if (!event) {
 		if (registerId != -1) {		// pointer to event is in register registerId
-			callee = *context.getRegister<TGen::Engine::Triggerable **>(registerId);
+			callee = context.getRegisterPtr<TGen::Engine::Triggerable *>(registerId);
 		}
 		else if (componentId != -1) {
-			TGen::Engine::Entity * self = *context.getRegister<TGen::Engine::Entity **>(TGen::Engine::RegisterSelf);
+			TGen::Engine::Entity * self = context.getRegisterPtr<TGen::Engine::Entity *>(TGen::Engine::RegisterSelf);
 			std::cerr << "SELF IS " << self->getName() << std::endl;
 		
 			TGen::Engine::Component * component = comp.get(); //self->getComponent(componentId, std::nothrow);

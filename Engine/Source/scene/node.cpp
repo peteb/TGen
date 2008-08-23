@@ -84,6 +84,8 @@ void TGen::Engine::Scene::Node::setAutoParent(const std::string & autoParent) {
 	this->autoParent = autoParent;
 }
 
+// TODO: autoTP ska gå mot ett interface som kan positionera sceneNodes, inte direkt mot en sceneNode typ
+
 void TGen::Engine::Scene::Node::link(const TGen::Engine::ComponentLinker & linker) {
 	if (!linkName.empty()) {
 		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(linkName));

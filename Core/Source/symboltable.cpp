@@ -24,3 +24,11 @@ int TGen::SymbolTable::operator [](const std::string & name) {
 	return iter->second;
 }
 
+std::string TGen::SymbolTable::getSymbolName(int symbol) const {
+	for (SymbolMap::const_iterator iter = symbols.begin(); iter != symbols.end(); ++iter) {
+		if (iter->second == symbol)
+			return iter->first;
+	}
+	
+	return "";
+}
