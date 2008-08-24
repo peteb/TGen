@@ -169,7 +169,7 @@ void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orienta
 
 
 void TGen::Engine::Physics::Geom::updateFromLink() {
-	if (bodyDelegate.getWorldObject()) {
+	if (bodyDelegate.getWorldObject() && !bodyDelegate.getBodyObject()) {
 		setPosition(bodyDelegate.getPosition());
 		setOrientation(bodyDelegate.getOrientation());
 	}	

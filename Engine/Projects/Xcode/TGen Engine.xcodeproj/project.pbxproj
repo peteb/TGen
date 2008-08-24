@@ -82,6 +82,7 @@
 		D07BDCE60E28EB1C0070CC83 /* event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07BDCE50E28EB1C0070CC83 /* event.cpp */; };
 		D07BDE170E28F7E80070CC83 /* eventoperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07BDE160E28F7E80070CC83 /* eventoperation.cpp */; };
 		D07BDF1A0E28FD650070CC83 /* madop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07BDF190E28FD650070CC83 /* madop.cpp */; };
+		D07E33CC0E61A01100B3E7A2 /* componentfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E33CB0E61A01100B3E7A2 /* componentfactory.cpp */; };
 		D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */; };
 		D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */; };
 		D08105CC0E390D7100663380 /* symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08105CB0E390D7100663380 /* symbols.cpp */; };
@@ -430,6 +431,8 @@
 		D07BDE160E28F7E80070CC83 /* eventoperation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = eventoperation.cpp; path = script/eventoperation.cpp; sourceTree = "<group>"; };
 		D07BDF180E28FD5A0070CC83 /* madop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = madop.h; path = ../../Include/script/madop.h; sourceTree = SOURCE_ROOT; };
 		D07BDF190E28FD650070CC83 /* madop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = madop.cpp; path = script/madop.cpp; sourceTree = "<group>"; };
+		D07E33CA0E61A00300B3E7A2 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/physics/componentfactory.h; sourceTree = SOURCE_ROOT; };
+		D07E33CB0E61A01100B3E7A2 /* componentfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentfactory.cpp; path = physics/componentfactory.cpp; sourceTree = "<group>"; };
 		D080DA3E0D27E8AE00EEFDFC /* mapmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapmodel.h; path = ../../Include/mapmodel.h; sourceTree = SOURCE_ROOT; };
 		D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapmodel.cpp; sourceTree = "<group>"; };
 		D080DA840D27EC9300EEFDFC /* mapsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapsurface.h; path = ../../Include/mapsurface.h; sourceTree = SOURCE_ROOT; };
@@ -1104,6 +1107,8 @@
 			children = (
 				D0E4570E0D905A5A00F4D548 /* subsystem.cpp */,
 				D09628EC0D784E89008DABC3 /* subsystem.h */,
+				D07E33CB0E61A01100B3E7A2 /* componentfactory.cpp */,
+				D07E33CA0E61A00300B3E7A2 /* componentfactory.h */,
 				D09629770D78529F008DABC3 /* body.cpp */,
 				D09629760D785296008DABC3 /* body.h */,
 				D0E096190D8834C3005D5345 /* geom.cpp */,
@@ -1590,6 +1595,7 @@
 				D04974010E487B6100603A5C /* debugop.cpp in Sources */,
 				D052CAE20E59C4D2000AF567 /* componentfactory.cpp in Sources */,
 				D052CFFC0E59E26B000AF567 /* luacallop.cpp in Sources */,
+				D07E33CC0E61A01100B3E7A2 /* componentfactory.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

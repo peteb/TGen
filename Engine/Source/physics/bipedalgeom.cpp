@@ -24,7 +24,7 @@ TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpace
 	dGeomID newGeom = dCreateCCylinder(space, capRadius, length);
 	setGeomId(newGeom);
 	
-	
+	// dCreateBox(space, capRadius * 2.0f, capRadius * 2.0f, length + capRadius * 2.0f); 
 	//raylegs = dCreateRay(space, 1.0);
 
 	//dGeomRaySetLength(raylegs, 3.0);
@@ -35,12 +35,14 @@ TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpace
 void TGen::Engine::Physics::BipedalGeom::preStep() {
 	//TGen::Engine::Physics::Geom::preStep();
 	if (!sloppy) {
-		TGen::Engine::Physics::Geom::preStep();
 	
+		TGen::Engine::Physics::Geom::preStep();
 
 		setOrientation(TGen::Rotation(TGen::Vector3(1.0f, 0.0f, 0.0f),
 												TGen::Vector3(0.0f, 0.0f, -1.0f),
 												TGen::Vector3(0.0f, 1.0f, 0.0f)));
+
+
 	}
 	
 	/*const dReal * linearVel = dBodyGetLinearVel(attachedTo->getBodyId());

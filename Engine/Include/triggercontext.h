@@ -80,7 +80,6 @@ namespace TGen {
 			
 			template<typename T>
 			T getParameter(int id) {
-				std::cout << "GET PARAMETER " << id << " WHICH IS " << id + TGen::Engine::RegisterParameters << std::endl;
 				return getRegister<T>(id + TGen::Engine::RegisterParameters);
 			}
 			

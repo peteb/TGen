@@ -12,6 +12,7 @@
 
 #include "../subsystem.h"
 #include "ode/ode.h"
+#include "physics/componentfactory.h"
 
 namespace TGen {
 	class Vector3;
@@ -38,20 +39,19 @@ namespace TGen {
 				void setGravity(const TGen::Vector3 & gravity);
 				TGen::Vector3 getGravity() const;
 				
+				
 				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				
+					
 				dWorldID getWorldId();
+				dSpaceID getSpaceId();
 				
 			private:
+				TGen::Engine::Physics::ComponentFactory componentFactory;
+				
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
 				static std::vector<dContact> collisionEvents;
 
-				TGen::Engine::Physics::Body * createBody(const std::string & name, const TGen::PropertyTree & properties);
-				TGen::Engine::Physics::Joint * createJoint(const std::string & name, const TGen::PropertyTree & properties);
-				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties);
-				dMass getMass(const TGen::PropertyTree & properties);
-				uint getCategoryBits(const std::string & name);
 				void triggerCollisionEvents();
 				
 				std::vector<TGen::Engine::Physics::Body *> bodies;
