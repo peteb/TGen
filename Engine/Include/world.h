@@ -24,6 +24,7 @@
 #include "script/subsystem.h"
 #include "info/subsystem.h"
 #include "info/worldinfo.h"
+#include "utilities/subsystem.h"
 
 namespace TGen {
 	class Camera;
@@ -79,6 +80,7 @@ namespace TGen {
 			TGen::Engine::Sound::Subsystem soundSubsystem;
 			TGen::Engine::Inventory::Subsystem inventorySubsystem;
 			TGen::Engine::Info::Subsystem infoSubsystem;
+			TGen::Engine::Utilities::Subsystem utilsSubsystem;
 			
 			TGen::Camera * mainCam;
 			TGen::Engine::Info::WorldInfo * worldInfo;

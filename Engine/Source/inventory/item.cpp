@@ -13,11 +13,18 @@
 #include <iostream>
 
 
-void TGen::Engine::Inventory::Item::increaseValue(int value) {
+int TGen::Engine::Inventory::Item::increaseValue(int value) {
+	int ret = value;
+	
+	if (this->value + value > maxValue)
+		ret -= this->value + value - maxValue;
+	
 	this->value += value;
 	this->value = std::min(this->value, maxValue);
 
 	std::cout << "INCREASED WITH " << value << " TO " << this->value << std::endl;
+	
+	return ret;
 }
 
 

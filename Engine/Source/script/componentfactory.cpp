@@ -359,6 +359,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 	std::string object, method, mangledMethodName;
 	object = head;
 	
+	
 	if (properties.getNumAttributes() > attributeStart && object[object.size() - 1] != ':') {		// fails if there's no object
 		method = properties.getAttribute(attributeStart);
 		attributeStart++;
@@ -373,7 +374,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 		fixedObject = object.substr(1);
 		fixedMethod = method.substr(0);
 	}
-	
+
 	if (fixedObject.find(".") != std::string::npos) {	// we're addressing another entity, like "entity.?"
 		std::string::value_type pos = fixedObject.find(".");
 		
@@ -391,7 +392,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 		fixedObject = aliased;
 	
 	mangledMethodName = fixedMethod;
-	
+
 	// create mov for object: (into register 2)
 	
 	if (fixedObject[0] == '@') {
@@ -403,7 +404,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 	// create movs for parameters:
 	
 	int numParameters = 0;
-	
+
 	std::vector<std::pair<std::string, std::string> > parameters;
 	
 	if (properties.getNumAttributes() > attributeStart) {		// we've got parameters
@@ -419,7 +420,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 			mangledMethodName += paramName;
 		}
 	}
-	
+
 	/*std::cout << "PARAMETERS:" << std::endl;
 	 for (int i = 0; i < parameters.size(); ++i)
 	 std::cout << parameters[i].first << " = " << parameters[i].second << std::endl;
@@ -439,7 +440,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 	}
 	
 	// create main body of call:
-	
+
 	TGen::Engine::Script::CallOperation * newCall = new TGen::Engine::Script::CallOperation(parentObject);
 	newCall->setShareContext(true);
 	newCall->setNumParameters(numParameters);
@@ -447,11 +448,16 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 	// set entity:
 	if (!fixedEntity.empty())
 		newCall->setEntity(fixedEntity);
-	
+
 	// set object to work on:
 	
 	if (fixedObject[0] == 'r') {
-		newCall->setEvent(getRegisterId(fixedObject));
+		try {
+			newCall->setEvent(getRegisterId(fixedObject));
+		}
+		catch (const TGen::bad_lexical_cast & err) {		// component names that start with an 'r' will cause this
+			newCall->setEvent(fixedObject);
+		}
 	}
 	else if (fixedObject == "self") {
 		newCall->setEvent(TGen::Engine::RegisterSelf);
@@ -469,7 +475,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 	}
 	
 	std::cout << "MANGLED NAME: " << mangledMethodName << std::endl;
-	
+
 	// set method:
 	if (!fixedMethod.empty())
 		newCall->setOffset(TGen::Engine::getUniqueSymbol(mangledMethodName));		// look up offset/symbol for method
@@ -482,7 +488,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 
 TGen::Engine::Script::MoveOperation * TGen::Engine::Script::ComponentFactory::createMovOperation(const std::string & type, const std::string & source, const std::string & dest, TGen::Engine::Script::EventOperation & container) {
 	TGen::Engine::Script::MoveOperation * newOp = new TGen::Engine::Script::MoveOperation(&container);
-	
+
 	bool intOp = (type == "imov" || type == "iswap");
 	
 	std::string fixedDest = dest;
@@ -512,7 +518,7 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::ComponentFactory::cr
 			fixedSource = fixedSource.substr(0, pos);
 		}
 	}
-	
+
 	newOp->setDestOffset(TGen::lexical_cast<int>(destOffset));
 	newOp->setSourceOffset(TGen::lexical_cast<int>(sourceOffset));
 	
@@ -522,7 +528,7 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::ComponentFactory::cr
 	
 	std::string aliasSource;
 	bool isResourceRef = false;
-	
+
 	if (fixedSource[0] != '@') {
 		aliasSource = container.getAlias(fixedSource);
 		if (!aliasSource.empty())
@@ -532,8 +538,13 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::ComponentFactory::cr
 		fixedSource = fixedSource.substr(1);
 		isResourceRef = true;
 	}
+
+	int sourceId = -1;
 	
-	int sourceId = getRegisterId(fixedSource);
+	try {
+		sourceId = getRegisterId(fixedSource);
+	}
+	catch (...) {}
 	
 	if (sourceId != -1) {
 		newOp->setSource(sourceId);

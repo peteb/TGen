@@ -119,29 +119,23 @@ TGen::PropertyTree TGen::Engine::EntityFactory::extendTree(const TGen::PropertyT
 	for (int i = 0; i < entity.getNumNodes(); ++i) {
 		try {
 			const TGen::PropertyTree & entityBranch = entity.getNode(i);
-			TGen::PropertyTree & baseBranch = ret.getNode(entityBranch.getName());			
 			const TGen::PropertyTree::PropertyMap & entityProperties = entity.getNode(i).getProperties();
 			
-			std::string baseName, entityName;
-			
-			if (baseBranch.getNumAttributes() > 0)
-				baseName = baseBranch.getAttribute(0);
-			else
-				baseName = baseBranch.getName();
-			
+			TGen::PropertyTree::AttributeList attributes;
 			if (entityBranch.getNumAttributes() > 0)
-				entityName = entityBranch.getAttribute(0);
-			else
-				entityName = entityBranch.getName();		// TODO: don't know if this will cause problems
+				attributes.push_back(entityBranch.getAttribute(0));			
 			
-			if (baseName != entityName) {
+			TGen::PropertyTree & baseBranch = ret.getNode(entityBranch.getName(), attributes);			
+
+
+			/*if (baseName != entityName) {
 				ret.addNode(entity.getNode(i));
 			}
 			else {	// the components have the same name
-				for (TGen::PropertyTree::PropertyMap::const_iterator iter = entityProperties.begin(); iter != entityProperties.end(); ++iter) {
+			*/	for (TGen::PropertyTree::PropertyMap::const_iterator iter = entityProperties.begin(); iter != entityProperties.end(); ++iter) {
 					baseBranch.addProperty(TGen::PropertyTree::Property(*iter));
 				}
-			}
+			//}
 		}
 		catch (...) {
 			// branch not found in base

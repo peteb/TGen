@@ -83,6 +83,8 @@
 		D07BDE170E28F7E80070CC83 /* eventoperation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07BDE160E28F7E80070CC83 /* eventoperation.cpp */; };
 		D07BDF1A0E28FD650070CC83 /* madop.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07BDF190E28FD650070CC83 /* madop.cpp */; };
 		D07E33CC0E61A01100B3E7A2 /* componentfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E33CB0E61A01100B3E7A2 /* componentfactory.cpp */; };
+		D07E352F0E61C5EB00B3E7A2 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E352E0E61C5EB00B3E7A2 /* subsystem.cpp */; };
+		D07E355A0E61C7BC00B3E7A2 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E35590E61C7BC00B3E7A2 /* timer.cpp */; };
 		D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */; };
 		D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */; };
 		D08105CC0E390D7100663380 /* symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08105CB0E390D7100663380 /* symbols.cpp */; };
@@ -433,6 +435,10 @@
 		D07BDF190E28FD650070CC83 /* madop.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = madop.cpp; path = script/madop.cpp; sourceTree = "<group>"; };
 		D07E33CA0E61A00300B3E7A2 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/physics/componentfactory.h; sourceTree = SOURCE_ROOT; };
 		D07E33CB0E61A01100B3E7A2 /* componentfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentfactory.cpp; path = physics/componentfactory.cpp; sourceTree = "<group>"; };
+		D07E352D0E61C5DF00B3E7A2 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/Utilities/subsystem.h; sourceTree = SOURCE_ROOT; };
+		D07E352E0E61C5EB00B3E7A2 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = Utilities/subsystem.cpp; sourceTree = "<group>"; };
+		D07E35580E61C7B000B3E7A2 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer.h; path = ../../Include/Utilities/timer.h; sourceTree = SOURCE_ROOT; };
+		D07E35590E61C7BC00B3E7A2 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timer.cpp; path = Utilities/timer.cpp; sourceTree = "<group>"; };
 		D080DA3E0D27E8AE00EEFDFC /* mapmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapmodel.h; path = ../../Include/mapmodel.h; sourceTree = SOURCE_ROOT; };
 		D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapmodel.cpp; sourceTree = "<group>"; };
 		D080DA840D27EC9300EEFDFC /* mapsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapsurface.h; path = ../../Include/mapsurface.h; sourceTree = SOURCE_ROOT; };
@@ -1000,6 +1006,17 @@
 			name = operations;
 			sourceTree = "<group>";
 		};
+		D07E352C0E61C5C800B3E7A2 /* utilities */ = {
+			isa = PBXGroup;
+			children = (
+				D07E352E0E61C5EB00B3E7A2 /* subsystem.cpp */,
+				D07E352D0E61C5DF00B3E7A2 /* subsystem.h */,
+				D07E35590E61C7BC00B3E7A2 /* timer.cpp */,
+				D07E35580E61C7B000B3E7A2 /* timer.h */,
+			);
+			name = utilities;
+			sourceTree = "<group>";
+		};
 		D08106870E391C4F00663380 /* info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1173,6 +1190,7 @@
 				D074307C0DFEA29C00F9F407 /* inventory */,
 				D0E457D00D90696300F4D548 /* scene */,
 				D08F3CEF0DEB3AA80051EDD6 /* sound */,
+				D07E352C0E61C5C800B3E7A2 /* utilities */,
 				D0637CE90DB5557500FD1DC4 /* controller */,
 				D07BDC790E28E7150070CC83 /* script */,
 				D093321E0D79FFC30046DC37 /* physics */,
@@ -1596,6 +1614,8 @@
 				D052CAE20E59C4D2000AF567 /* componentfactory.cpp in Sources */,
 				D052CFFC0E59E26B000AF567 /* luacallop.cpp in Sources */,
 				D07E33CC0E61A01100B3E7A2 /* componentfactory.cpp in Sources */,
+				D07E352F0E61C5EB00B3E7A2 /* subsystem.cpp in Sources */,
+				D07E355A0E61C7BC00B3E7A2 /* timer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

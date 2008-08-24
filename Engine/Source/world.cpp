@@ -56,6 +56,8 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 
 	entityFactory.registerSubsystem("worldInfo", &infoSubsystem);
 	
+	entityFactory.registerSubsystem("timer", &utilsSubsystem);
+	
 	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
@@ -170,6 +172,7 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 void TGen::Engine::World::update(scalar dt) {
 	// TODO: add lights IN the scene node of the map
 	
+	utilsSubsystem.update(dt);
 	inventorySubsystem.update(dt);
 	controllerSubsystem.update(dt);				// perform controlling
 	physicsSubsystem.update(dt);					

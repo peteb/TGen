@@ -127,11 +127,15 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 
 		std::cout << "                INCREASE ITEM " << itemSymbol << " WITH " << itemValue << std::endl;
 		
+		int ret = 0;
+		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
 		if (iter != itemSymbols.end())
-			iter->second->increaseValue(itemValue);
+			ret = iter->second->increaseValue(itemValue);
 		else
-			context.setRegister<int>(0, -1);		
+			context.setRegister<int>(0, -1);
+		
+		context.setRegister<int>(context.getReturnRegister(), ret);
 	}
 }
 

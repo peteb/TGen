@@ -44,6 +44,8 @@ const TGen::PropertyTree::ConstProperty & TGen::PropertyTree::getProperty(const 
 	throw TGen::RuntimeException("PropertyTree::getProperty", "property '" + name + "' not found");
 }
 
+
+
 const TGen::PropertyTree & TGen::PropertyTree::getNode(const std::string & name) const {
 	for (int i = 0; i < nodes.size(); ++i) {
 		if (nodes[i].getName() == name)
@@ -52,6 +54,33 @@ const TGen::PropertyTree & TGen::PropertyTree::getNode(const std::string & name)
 	
 	throw TGen::RuntimeException("PropertyTree::getNode", "node '" + name + "' not found");
 }
+
+
+TGen::PropertyTree & TGen::PropertyTree::getNode(const std::string & name, const AttributeList & attributes) {
+	// same as above but all attributes in "attributes" MUST match
+	
+	for (int i = 0; i < nodes.size(); ++i) {
+		if (nodes[i].getName() == name) {
+			if (nodes[i].getNumAttributes() == attributes.size()) {
+				bool attributesMatch = true;
+				
+				for (int a = 0; a < attributes.size(); ++a) {
+					if (nodes[i].getAttribute(a) != attributes[a]) {
+						attributesMatch = false;
+						break;
+					}
+				}
+				
+				if (attributesMatch)
+					return nodes[i];
+			}			
+		}		
+	}
+
+	throw TGen::RuntimeException("PropertyTree::getNode", "node '" + name + "' with ") << attributes.size() << " attributes not found";
+}
+
+		  
 
 TGen::PropertyTree & TGen::PropertyTree::getNode(const std::string & name) {
 	for (int i = 0; i < nodes.size(); ++i) {
