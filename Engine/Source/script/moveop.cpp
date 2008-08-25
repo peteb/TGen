@@ -36,8 +36,11 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 	std::cout << "DEST REG: " << destRegId << std::endl;
 	
 	if (sourceResource) {
-		std::cerr << "SOURCE RESOURCE" << std::endl;
-		context.setRegister<uint32>(destRegId, reinterpret_cast<uint32>(sourceResource->getData()));
+		uint32 res = TGen::union_cast<uint32>(sourceResource->getData());
+		std::cerr << "SOURCE RESOURCE " << std::hex << res << std::endl;
+		context.setRegister<uint32>(destRegId, res);
+		
+		std::cerr << "GOT:: " << std::hex << context.getRegister<uint32>(destRegId) << std::endl;
 	}
 	else if (intOp) {
 		std::cout << "INTOP ";
@@ -86,7 +89,7 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 				std::swap(*dest, *source);
 			}
 			else {*/
-				context.setRegister<scalar>(destRegId, context.getRegister<scalar>(sourceId));
+				context.setRegister<uint32>(destRegId, context.getRegister<uint32>(sourceId));
 				//*dest = *source;
 			//}
 		}		

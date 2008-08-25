@@ -12,8 +12,8 @@
 #include "componentlinker.h"
 #include <tgen_core.h>
 
-TGen::Engine::Symbol TGen::Engine::Entity::symbolGetComponent = TGen::Engine::getUniqueSymbol("getComponent");
-TGen::Engine::Symbol TGen::Engine::Entity::symbolRespondsTo = TGen::Engine::getUniqueSymbol("respondsTo");
+TGen::Engine::Symbol TGen::Engine::Entity::symbolGetComponent = TGen::Engine::getUniqueSymbol("getComponent:");
+TGen::Engine::Symbol TGen::Engine::Entity::symbolRespondsTo = TGen::Engine::getUniqueSymbol("respondsTo:");
 
 TGen::Engine::Entity::Entity(const std::string & name)
 	: name(name)

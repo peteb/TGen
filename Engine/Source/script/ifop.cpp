@@ -92,6 +92,7 @@ bool TGen::Engine::Script::IfOperation::testExpression(TGen::Engine::TriggerCont
 
 bool TGen::Engine::Script::IfOperation::testExpressionInt(TGen::Engine::TriggerContext & context) {
 	int paramValue = context.getRegister<int>(regId);
+	std::cout << "TEST VALUE " << paramValue << " AGAINST " << value << std::endl;
 	
 	bool passed = false;
 	

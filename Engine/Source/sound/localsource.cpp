@@ -41,15 +41,16 @@ void TGen::Engine::Sound::LocalSource::update(scalar dt) {
 	TGen::Engine::Sound::Source::update(dt);
 }
 
+#include "script/debugop.h"
 
 void TGen::Engine::Sound::LocalSource::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
 	TGen::Engine::Symbol methodSymbol = context.getFunctionSymbol();
 	
 	if (methodSymbol == symbolPlaySound) {
-		std::cout << "PLAY SOUND" << std::endl;
+		int soundId = context.getParameter<int>(0);
+		TGen::Engine::Sound::Sound * sound = TGen::union_cast<TGen::Engine::Sound::Sound *>(soundId);
 		
-		uint32 soundId = context.getParameter<uint32>(0);
-		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
+		std::cout << "SOUND: " << std::hex << soundId << " " << sound << std::hex <<" " << context.getParameter<int>(0) << std::endl;
 		
 		if (!sound)
 			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");

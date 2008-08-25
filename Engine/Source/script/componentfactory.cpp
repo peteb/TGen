@@ -496,7 +496,7 @@ TGen::Engine::Script::MoveOperation * TGen::Engine::Script::ComponentFactory::cr
 	std::string destOffset = "-1";
 	std::string sourceOffset = "-1";
 	
-	if (source == "false")
+	if (source == "false" || source == "nil")
 		fixedSource = "0";
 	else if (source == "true")
 		fixedSource = "1";
