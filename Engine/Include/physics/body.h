@@ -11,7 +11,7 @@
 #define _TGEN_ENGINE_PHYSICS_BODY_H
 
 #include "component.h"
-#include "componentinterfaces.h"
+#include "worldobject.h"
 #include "componentlink.h"
 #include "triggerable.h"
 #include "symbols.h"

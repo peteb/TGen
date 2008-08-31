@@ -63,7 +63,7 @@ TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(con
 	ret->setFriction(friction);
 	ret->setCategory(categoryBits);
 	ret->setCollidesWith(collidesWith);
-	
+
 	subsystem.addGeom(ret);
 
 	return ret;

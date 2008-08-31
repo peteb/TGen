@@ -170,6 +170,8 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBod
 	}
 	
 	//dBodySetLinearDamping(newBodyId, 0.07);
+	if (!TGen::lexical_cast<bool>(properties.getProperty("autoDisable", "true")))
+		dBodySetAutoDisableFlag(newBodyId, false);
 	
 	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId, worldId, spaceId);
 	

@@ -34,20 +34,27 @@ TGen::SceneNode * TGen::Engine::Scene::Node::getSceneNode() {
 }
 
 TGen::Vector3 TGen::Engine::Scene::Node::getPosition() const {
+	TGenAssert(sceneNode);
+
 	return sceneNode->getWorldPosition();
 }
 
 TGen::Rotation TGen::Engine::Scene::Node::getOrientation() const {
+	TGenAssert(sceneNode);
+	
 	return sceneNode->getWorldOrientation();
 }
 
 TGen::Vector3 TGen::Engine::Scene::Node::getVelocity() const {
+	TGenAssert(sceneNode);
+	
 	return velocity;
 }
 
 
 void TGen::Engine::Scene::Node::setPosition(const TGen::Vector3 & pos) {
 	sceneNode->setPosition(getParentInverseTransform() * pos);
+	bo = getParentInverseTransform() * pos;
 }
 
 void TGen::Engine::Scene::Node::setOrientation(const TGen::Rotation & orientation) {

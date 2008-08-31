@@ -11,7 +11,7 @@
 #define _TGEN_ENGINE_UTILITIES_TIMER_H
 
 #include "component.h"
-#include "componentlink.h"
+#include "timer_script.h"
 
 namespace TGen {
 	namespace Engine {
@@ -23,20 +23,22 @@ namespace TGen {
 				void link(const TGen::Engine::ComponentLinker & linker);
 				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void update(scalar dt);
-				void reset();
-				
-				void setEnabled(bool enabled);
+
 				void setEventTick(const std::string & eventName);
+
+				void reset();
+				void setEnabled(bool enabled);
 				void setInterval(scalar interval);
+				scalar getInterval() const;
+				scalar getElapsedTime() const;
 				
 			private:
 				void tick();
 				
-				TGen::Engine::EventDelegate eventTick;
+				TGen::Engine::Utilities::TimerScript scriptInterface;
+				
 				scalar interval, totalTime, accumTime;
 				bool enabled;
-				
-				static TGen::Engine::Symbol symbolReset;
 			};
 		} // !Utilities
 	} // !Engine

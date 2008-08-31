@@ -12,7 +12,7 @@
 #include "entitylist.h"
 #include "entity.h"
 #include "entityrecipe.h"
-#include "componentinterfaces.h"
+#include "worldobject.h"
 #include "component.h"
 #include "componentlinker.h"
 

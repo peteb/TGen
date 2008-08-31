@@ -22,6 +22,7 @@ namespace TGen {
 		class Component;
 		class EntityList;
 		class ComponentLinker;
+		class WorldObject;
 		
 		class Entity : public TGen::Engine::Triggerable {
 		public:
@@ -32,6 +33,7 @@ namespace TGen {
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
 			void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			void initialize();
+			void setWorldInterface(TGen::Engine::WorldObject * worldInterface);
 			
 			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
 			TGen::Engine::Component & getComponent(const std::string & name);
@@ -53,15 +55,16 @@ namespace TGen {
 			typedef std::map<int, TGen::Engine::Component *> ComponentSymbolMap;
 
 			std::vector<TGen::Engine::Component *> components;
-
+			
 			ComponentSymbolMap componentSymbols;
 			ComponentMap componentLookup;			
 			EventMap events;
 
 			std::string name;
-			static TGen::Engine::Symbol symbolGetComponent, symbolRespondsTo;
+			static TGen::Engine::Symbol symbolGetComponent, symbolRespondsTo, symbolInit, symbolGetWorldInterface;
 			TGen::Engine::TriggerContext context;
 			TGen::Engine::Triggerable * initializer, * dispatcher;
+			TGen::Engine::WorldObject * worldInterface;
 		}; 
 		
 		

@@ -9,6 +9,8 @@
 
 #include "utilities/subsystem.h"
 #include "utilities/timer.h"
+#include "utilities/objectreference.h"
+#include "utilities/prototypereference.h"
 
 TGen::Engine::Utilities::Subsystem::Subsystem() {
 	
@@ -32,6 +34,17 @@ TGen::Engine::Component * TGen::Engine::Utilities::Subsystem::createComponent(co
 		timers.push_back(newTimer);
 		
 		ret = newTimer;
+	}
+	else if (type == "objectRef") {
+		TGen::Engine::Utilities::ObjectReference * ref = new TGen::Engine::Utilities::ObjectReference(name);
+		ref->setObjectName(properties.getAttribute(1));
+
+		ret = ref;
+	}
+	else if (type == "prototypeRef") {
+		TGen::Engine::Utilities::PrototypeReference * newRef = new TGen::Engine::Utilities::PrototypeReference(name);
+		newRef->setPrototypeName(properties.getAttribute(1));
+		ret = newRef;
 	}
 	else {
 		throw TGen::RuntimeException("Utilities::Subsystem::createComponent", "invalid type: " + type);

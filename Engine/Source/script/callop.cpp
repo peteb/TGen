@@ -58,8 +58,8 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 		}
 	}
 	else {
-		throw TGen::RuntimeException("Script::CallOperation::trigger", "failed to send message, receiver unknown. Event: ") << event << " register: " << registerId;
-		
+		//throw TGen::RuntimeException("Script::CallOperation::trigger", "failed to send message, receiver unknown. Event: ") << event << " register: " << registerId;
+		std::cout << "message to nil ignored" << std::endl;		// TODO: warning logs!
 	}
 }
 
@@ -74,10 +74,16 @@ void TGen::Engine::Script::CallOperation::link(const TGen::Engine::ComponentLink
 				event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(entityName + ":" + eventName));
 		}
 		else if (!eventName.empty() && registerId == -1) {
-			event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(eventName));
+			try {
+				event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getComponent(eventName));
+			}
+			catch (...) {	// treat eventName as an entity
+				event = dynamic_cast<TGen::Engine::Triggerable *>(linker.getEntity(eventName));
+				triggerMode = TGen::Engine::TriggerFirst;
+			}
 		}	
 	
-		comp.link(linker);
+		//comp.link(linker);
 	}
 }
 

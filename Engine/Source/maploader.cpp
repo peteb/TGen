@@ -28,7 +28,7 @@ TGen::Engine::Map * TGen::Engine::MapLoader::createMap(const std::string & name,
 	logs.info["map"] << "loading map " << filename << "..." << TGen::endl;
 	
 	std::auto_ptr<TGen::Engine::File> file(filesystem.openRead(filename));
-	
+
 	TGen::Engine::MapTokenizer tokenizer;
 	tokenizer.tokenizeString(file->readAll(), tokens, false);
 	currentToken = tokens.getFirstToken();
@@ -36,6 +36,7 @@ TGen::Engine::Map * TGen::Engine::MapLoader::createMap(const std::string & name,
 	
 	TGen::Vector3 origin = TGen::Vector3::Zero;
 	transformer.transform(origin);
+	
 	
 	std::auto_ptr<TGen::Engine::Map> newMap(new TGen::Engine::Map(name, origin));
 	

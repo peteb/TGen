@@ -95,6 +95,8 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 	if (dGeomGetClass(geomId) != dPlaneClass) {
 		dGeomSetBody(geomId, body->getBodyId());
 	}
+	
+	bodyDelegate.set(body);
 }
 
 
@@ -230,12 +232,14 @@ void TGen::Engine::Physics::Geom::trigger(TGen::Engine::TriggerContext & context
 	TGen::Engine::Symbol function = context.getFunctionSymbol();
 	
 	if (function == symbolGetLink) {
-		std::cout << "GET LINK" << std::endl;
+		std::cout << "GET LINK for " << getName() << std::endl;
+		std::cout << "BODY: " << bodyDelegate.getBodyObject() << std::endl;
+		std::cout << "WO: " << bodyDelegate.getWorldObject() << std::endl;
 		
 		if (bodyDelegate.getBodyObject())
-			context.setRegister<TGen::Engine::Physics::Body *>(context.getReturnRegister(), bodyDelegate.getBodyObject());
+			context.setReturn<TGen::Engine::Physics::Body *>(bodyDelegate.getBodyObject());
 		else
-			context.setRegister<TGen::Engine::WorldObject *>(context.getReturnRegister(), bodyDelegate.getWorldObject());			
+			context.setReturn<TGen::Engine::WorldObject *>(bodyDelegate.getWorldObject());			
 	}
 	else {
 		TGen::Engine::Component::trigger(context, mode);

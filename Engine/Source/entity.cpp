@@ -14,11 +14,15 @@
 
 TGen::Engine::Symbol TGen::Engine::Entity::symbolGetComponent = TGen::Engine::getUniqueSymbol("getComponent:");
 TGen::Engine::Symbol TGen::Engine::Entity::symbolRespondsTo = TGen::Engine::getUniqueSymbol("respondsTo:");
+TGen::Engine::Symbol TGen::Engine::Entity::symbolInit = TGen::Engine::getUniqueSymbol("init");
+TGen::Engine::Symbol TGen::Engine::Entity::symbolGetWorldInterface = TGen::Engine::getUniqueSymbol("getWorldInterface");
+
 
 TGen::Engine::Entity::Entity(const std::string & name)
 	: name(name)
 	, initializer(NULL)
 	, dispatcher(NULL)
+	, worldInterface(NULL)
 {
 	context.setRegister(TGen::Engine::RegisterSelf, this);
 }
@@ -55,6 +59,11 @@ void TGen::Engine::Entity::initialize() {
 }
 
 
+void TGen::Engine::Entity::setWorldInterface(TGen::Engine::WorldObject * worldInterface) {
+	this->worldInterface = worldInterface;
+}
+
+
 void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Symbol symbolId = context.getFunctionSymbol();
 	
@@ -66,8 +75,14 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen:
 	if (symbolId == symbolGetComponent) {
 		triggerGetComponent(context);
 	}
+	else if (symbolId == symbolInit) {
+		initialize();
+	}
 	else if (symbolId == symbolRespondsTo) {
 		triggerRespondsTo(context);
+	}
+	else if (symbolId == symbolGetWorldInterface) {
+		context.setReturn(worldInterface);
 	}
 	else {
 		if (mode == TGen::Engine::TriggerPrecise) {

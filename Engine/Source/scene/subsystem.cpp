@@ -253,11 +253,11 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	//transformers.addTransformer(new TGen::VertexOffsetter(origin));
 	transformers.addTransformer(transFactory.createTransformers(line));
 	
+	
 	TGen::Engine::Map * map = loader.createMap(name, modelName, transformers);
+
 	map->instantiate(dataSource);
 	map->linkMaterial(resources);
-	
-	//exit(1);
 	
 	return map;
 }

@@ -11,7 +11,7 @@
 #include "entityrecipe.h"
 #include "localsource.h"
 #include "entity.h"
-#include "componentinterfaces.h"
+#include "worldobject.h"
 #include "sound/subsystem.h"
 #include "componentlinker.h"
 

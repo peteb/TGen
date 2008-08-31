@@ -94,8 +94,11 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 		TGen::Engine::WorldObject * worldObject = dynamic_cast<TGen::Engine::WorldObject *>(transportTo);
 		
 		setPosition(worldObject->getPosition());
-		//setOrientation(worldObject->getOrientation());
+		std::cout << "BODY TRANSPORT TO " << std::string(worldObject->getPosition()) << std::endl;
+
+		updateScene();
 		
+		//setOrientation(worldObject->getOrientation());
 	}
 	else if (symbolNum == symbolResetForces) {
 		resetForces();
@@ -155,7 +158,7 @@ void TGen::Engine::Physics::Body::updateScene() {
 			delegate->setOrientation(getOrientation() * TGen::Rotation::RotationX(TGen::Radian(TGen::HALF_PI)));			
 		else
 			delegate->setOrientation(getOrientation());
-	}	
+	}
 }
 
 

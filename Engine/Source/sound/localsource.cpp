@@ -12,7 +12,7 @@
 #include "sound/sound.h"
 
 #include "entity.h"
-#include "componentinterfaces.h"
+#include "worldobject.h"
 #include "componentlinker.h"
 
 TGen::Engine::Sound::LocalSource::LocalSource(const std::string & name, const std::string & filename, const std::string & linkWith, TGen::Engine::Sound::Subsystem & creator)
@@ -40,8 +40,6 @@ void TGen::Engine::Sound::LocalSource::update(scalar dt) {
 	
 	TGen::Engine::Sound::Source::update(dt);
 }
-
-#include "script/debugop.h"
 
 void TGen::Engine::Sound::LocalSource::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
 	TGen::Engine::Symbol methodSymbol = context.getFunctionSymbol();

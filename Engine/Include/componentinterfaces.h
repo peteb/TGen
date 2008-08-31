@@ -10,23 +10,8 @@
 #ifndef _TGEN_ENGINE_COMPONENTINTERFACES_H
 #define _TGEN_ENGINE_COMPONENTINTERFACES_H
 
-#include <tgen_math.h>
-
 namespace TGen {
-	namespace Engine {
-		class WorldObject {
-		public:
-			virtual ~WorldObject() {}
-			
-			virtual TGen::Vector3 getPosition() const abstract;
-			virtual TGen::Rotation getOrientation() const abstract;			
-			virtual TGen::Vector3 getVelocity() const abstract;
-			
-			virtual void setPosition(const TGen::Vector3 & pos) abstract;
-			virtual void setOrientation(const TGen::Rotation & orientation) abstract;			
-			
-		};
-		
+	namespace Engine {		
 		class WeaponInterface {
 		public:
 			virtual ~WeaponInterface() {}

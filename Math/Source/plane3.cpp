@@ -68,6 +68,7 @@ TGen::Vector3 TGen::Plane3::rayIntersection(const TGen::Vector3 & pos, const TGe
 }
 
 TGen::Vector3 TGen::Plane3::planeIntersection(const TGen::Plane3 & plane) const {
+	// this is obviously wrong, where is the distance?
 	return TGen::Vector3::CrossProduct(normal, plane.normal);	
 }
 

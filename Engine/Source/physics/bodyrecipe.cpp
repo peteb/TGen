@@ -22,13 +22,23 @@ TGen::Engine::Physics::BodyRecipe::BodyRecipe(const std::string & name, dSpaceID
 {
 }
 
-TGen::Engine::Component * TGen::Engine::Physics::BodyRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {
+TGen::Engine::Component * TGen::Engine::Physics::BodyRecipe::createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing) {	
 	dBodyID newBodyId = dBodyCreate(subsystem.getWorldId());
-	dBodySetMass(newBodyId, &mass);
-	
+
 	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId, subsystem.getWorldId(), space);
 	
 	dBodySetData(newBodyId, reinterpret_cast<void *>(newBody));
+	dBodySetMass(newBodyId, &mass);
+
+	newBody->setPosition(TGen::Vector3::Zero);
+	newBody->setTurnHeadwise(false);
+	newBody->setMaxAngularSpeed(-1.0);
+	newBody->setKillTorque(false);
+	newBody->setLinearDamping(0.0);
+	newBody->setFakeGravity(-2.0);
+		
+	//dBodySetGravityMode(newBodyId, false);
+
 	
 	subsystem.addBody(newBody);
 	

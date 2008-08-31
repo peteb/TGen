@@ -21,7 +21,7 @@ namespace TGen {
 		
 		template<typename T> class RegisterType {public: RegisterType() : type(TypeInt) {} RegisterDatatype type; };
 		
-		template<> class RegisterType<scalar> {public: RegisterType() : type(TypeScalar) {} RegisterDatatype type; };
+		template<> class RegisterType<TGen::scalar> {public: RegisterType() : type(TypeScalar) {} RegisterDatatype type; };
 		
 
 		// undersök varför fysiken fungerar annorlunda på olika höjd på lådor, kan åka längre in

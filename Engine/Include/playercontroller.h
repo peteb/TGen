@@ -13,7 +13,7 @@
 #include <tgen_core.h>
 #include <tgen_math.h>
 #include "component.h"
-#include "componentinterfaces.h"
+#include "worldobject.h"
 #include "symbols.h"
 #include "componentlink.h"
 

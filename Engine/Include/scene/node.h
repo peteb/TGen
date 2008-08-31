@@ -11,7 +11,7 @@
 #define _TGEN_ENGINE_SCENE_NODE_H
 
 #include "component.h"
-#include "componentinterfaces.h"
+#include "worldobject.h"
 
 namespace TGen {
 	class SceneNode;
@@ -44,6 +44,8 @@ namespace TGen {
 				
 			private:
 				const TGen::Matrix4x4 & getParentInverseTransform();
+				
+				TGen::Vector3 bo;
 				
 				TGen::SceneNode * sceneNode;
 				TGen::Vector3 velocity, lastPos;

@@ -57,6 +57,8 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("worldInfo", &infoSubsystem);
 	
 	entityFactory.registerSubsystem("timer", &utilsSubsystem);
+	entityFactory.registerSubsystem("objectRef", &utilsSubsystem);
+	entityFactory.registerSubsystem("prototypeRef", &utilsSubsystem);
 	
 	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
@@ -78,11 +80,10 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 
 
 void TGen::Engine::World::loadEntities(const std::string & filename) {
-	TGen::Engine::File * entitiesFile = filesystem.openRead(filename);
+	std::auto_ptr<TGen::Engine::File> entitiesFile(filesystem.openRead(filename));
 	
 	TGen::PropertyTreeParser propParser;
 	TGen::PropertyTree props = propParser.parse(entitiesFile->readAll().c_str());
-	delete entitiesFile;
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
 		TGen::PropertyTree & node = props.getNode(i);
@@ -113,12 +114,12 @@ void TGen::Engine::World::loadDefinitions(const std::string & path) {
 	filesystem.enumerateFiles(path, files, true);
 	
 	for (int i = 0; i < files.size(); ++i) {
-		try {
+		//try {
 			loadEntities(files[i]);
-		}
-		catch (const TGen::RuntimeException & error) {
-			logs.warning["init"] << "world: failed to load definition files: " << error << TGen::endl;
-		}
+		//}
+		//catch (const TGen::RuntimeException & error) {
+			//logs.warning["init"] << "world: failed to load definition files: " << error << TGen::endl;
+		//}
 	}
 }
 
@@ -172,11 +173,15 @@ void TGen::Engine::World::prepareLists(TGen::Camera * camera) {
 void TGen::Engine::World::update(scalar dt) {
 	// TODO: add lights IN the scene node of the map
 	
+
 	utilsSubsystem.update(dt);
+
 	inventorySubsystem.update(dt);
 	controllerSubsystem.update(dt);				// perform controlling
-	physicsSubsystem.update(dt);					
+
 	sceneSubsystem.update(dt);	
+	
+	physicsSubsystem.update(dt);					
 	soundSubsystem.update(dt);
 }
 

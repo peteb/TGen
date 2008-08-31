@@ -47,6 +47,15 @@ namespace TGen {
 				}
 				
 			}
+			
+			template<typename T>
+			void setReturn(T value) {
+				setRegister<T>(getReturnRegister(), value);
+			}
+			
+			void invalidateCall() {
+				setRegister<int>(0, -1);	
+			}
 						
 			template<typename T>
 			T getRegister(int id) {

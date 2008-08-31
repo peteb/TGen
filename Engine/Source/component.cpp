@@ -52,7 +52,7 @@ void TGen::Engine::Component::trigger(TGen::Engine::TriggerContext & context, TG
 		setEnabled(false);
 	}
 	else {
-		context.setRegister<int>(0, -1);	// r0 is to be marked -1 if the method couldn't be called
+		context.invalidateCall();
 	}
 }
 

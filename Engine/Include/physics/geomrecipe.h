@@ -31,7 +31,7 @@ namespace TGen {
 				
 				void prelink(const TGen::Engine::ComponentLinker & linker);
 				void link(const TGen::Engine::ComponentLinker & linker);
-
+				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				
 				void setScalarValue1(scalar value);

@@ -12,6 +12,9 @@
 #include "entity.h"
 #include "component.h"
 #include "componentlinker.h"
+#include "worldobject.h"
+
+TGen::Engine::Symbol TGen::Engine::EntityRecipe::symbolCreateEntity = TGen::Engine::getUniqueSymbol("createEntity");
 
 TGen::Engine::EntityRecipe::EntityRecipe(const std::string & name) 
 	: name(name)
@@ -56,6 +59,13 @@ TGen::Engine::Entity * TGen::Engine::EntityRecipe::createEntity() const {
 	for (int i = 0; i < componentRecipes.size(); ++i) {
 		componentRecipes[i]->link(TGen::Engine::ComponentLinker(NULL, newEntity.get(), (*newEntity).getComponent(i, std::nothrow), const_cast<TGen::Engine::EntityRecipe *>(this)));
 	}
+	
+	TGen::Engine::WorldObject * worldInterface = NULL;
+	
+	if (getWorldInterfaceIndex() > -1)
+		worldInterface = dynamic_cast<TGen::Engine::WorldObject *>(newEntity->getComponent(getWorldInterfaceIndex(), std::nothrow));
+	
+	newEntity->setWorldInterface(worldInterface);
 	
 	//newEntity->initialize();
 
@@ -111,4 +121,17 @@ int TGen::Engine::EntityRecipe::getComponentIndex(const std::string & name) cons
 	
 	return -1;
 }
+
+
+void TGen::Engine::EntityRecipe::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
+	TGen::Engine::Symbol function = context.getFunctionSymbol();
+	
+	if (function == symbolCreateEntity) {
+		context.setReturn(createEntity());
+	}
+	else {
+		context.invalidateCall();	
+	}
+}
+
 

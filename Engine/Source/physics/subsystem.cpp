@@ -33,6 +33,9 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, T
 	mainSpace = dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
 	dWorldSetLinearDamping(worldId, 0.07);
+	
+	dWorldSetAutoDisableFlag(worldId, true);
+
 	setGravity(TGen::Vector3(0.0f, -30.0f, 0.0f));
 }
 
