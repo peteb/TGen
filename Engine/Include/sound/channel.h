@@ -33,6 +33,7 @@ namespace TGen {
 				void setPaused(bool paused);
 				bool isPlaying();
 				bool isPaused();
+				void setVolume(float volume);
 				
 				void set3DAttributes(const TGen::Vector3 & position, const TGen::Vector3 & velocity);
 				void set3DMinMaxDistance(scalar minDistance, scalar maxDistance);

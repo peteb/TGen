@@ -12,7 +12,7 @@
 #include "metacreator.h"
 
 TGen::Engine::CubeModel::CubeModel(const std::string & name, const std::string & materialName, const std::string & materialNamePostfix, const TGen::Vector3 & min, const TGen::Vector3 & max, TGen::VertexDataSource & dataSource) 
-	: TGen::NewModel(name, materialName, materialNamePostfix)
+	: TGen::NewModel(name, "bullet", materialNamePostfix)
 	, min(min)
 	, max(max)
 	, dataSource(dataSource)
@@ -61,7 +61,7 @@ void TGen::Engine::CubeModel::fillFaces(TGen::RenderList & list,  TGen::Material
 
 void TGen::Engine::CubeModel::linkMaterial(TGen::MaterialSource & source) {
 	TGen::NewModelInstance::linkMaterial(source);
-	
+		
 	for (int i = 0; i < meshes.size(); ++i)
 		meshes[i]->linkMaterial(source);	
 }

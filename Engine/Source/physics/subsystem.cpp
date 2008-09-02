@@ -107,7 +107,6 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	if (lastUpdate < updateInterval)
 		return;
 
-
 	for (int i = 0; i < bodies.size(); ++i)
 		bodies[i]->preStep();
 	

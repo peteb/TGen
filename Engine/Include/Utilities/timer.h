@@ -29,6 +29,7 @@ namespace TGen {
 				void reset();
 				void setEnabled(bool enabled);
 				void setInterval(scalar interval);
+				void setOffsetTime(scalar time);
 				scalar getInterval() const;
 				scalar getElapsedTime() const;
 				
@@ -37,7 +38,7 @@ namespace TGen {
 				
 				TGen::Engine::Utilities::TimerScript scriptInterface;
 				
-				scalar interval, totalTime, accumTime;
+				scalar interval, totalTime, accumTime, offsetTime;
 				bool enabled;
 			};
 		} // !Utilities

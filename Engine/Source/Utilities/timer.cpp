@@ -62,11 +62,15 @@ void TGen::Engine::Utilities::Timer::update(scalar dt) {
 	totalTime += dt;
 	accumTime += dt;
 	
-	if (accumTime >= interval) {
+	if (accumTime - offsetTime >= interval) {
 		tick();	
 		
 		accumTime -= interval;
 	}
+}
+
+void TGen::Engine::Utilities::Timer::setOffsetTime(scalar time) {
+	offsetTime = time;
 }
 
 void TGen::Engine::Utilities::Timer::tick() {

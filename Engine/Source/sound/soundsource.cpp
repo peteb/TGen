@@ -28,6 +28,7 @@ TGen::Engine::Sound::Source::Source(const std::string & name, const std::string 
 	, autoplay(false)
 	, prototype(false)
 	, creator(creator)
+	, volume(1.0)
 {
 }
 
@@ -92,6 +93,7 @@ void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context
 			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
 		
 		TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
+		newChannel->setVolume(volume);
 		addChannel(newChannel);
 	}
 	else {
@@ -120,4 +122,9 @@ void TGen::Engine::Sound::Source::addChannel(TGen::Engine::Sound::Channel * chan
 TGen::Engine::Sound::Subsystem & TGen::Engine::Sound::Source::getCreator() const {
 	return creator;
 }
+
+void TGen::Engine::Sound::Source::setVolume(float volume) {
+	this->volume = volume;
+}
+
 

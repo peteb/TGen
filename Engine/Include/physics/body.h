@@ -19,11 +19,6 @@
 #include <tgen_math.h>
 #include <ode/ode.h>
 
-// TGen::Engine::Physics::Subsystem    #include "physics/subsystem.h"
-// TGen::Engine::Physics::BodyComponent
-// TGen::Engine::Physics::PlaneGeom
-// TGen::Engine::Physics::BoxGeom    #include "physics/boxgeom.h"
-
 namespace TGen {
 	namespace Engine {
 		class Entity;
@@ -108,7 +103,7 @@ namespace TGen {
 				
 				// symbols
 				static TGen::Engine::Symbol symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, 
-					symbolSetKillTorque, symbolTransportTo, symbolResetForces;
+					symbolSetKillTorque, symbolTransportTo, symbolResetForces, symbolAddForce;
 			};
 		} // !Physics
 	} // !Engine

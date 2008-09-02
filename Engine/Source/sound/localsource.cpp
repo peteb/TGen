@@ -56,6 +56,7 @@ void TGen::Engine::Sound::LocalSource::trigger(TGen::Engine::TriggerContext & co
 		TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
 		newChannel->set3D(true);		// det som är felet!		blir override i localsource... KOLLA SEN HUR CALL OCH MOVE kan förbättras så de bara använder ComponentLink!
 		newChannel->set3DMinMaxDistance(minDistance, maxDistance);
+		newChannel->setVolume(volume);
 		
 		addChannel(newChannel);
 		

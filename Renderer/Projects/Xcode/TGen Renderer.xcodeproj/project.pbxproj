@@ -136,7 +136,7 @@
 			isa = PBXContainerItemProxy;
 			containerPortal = D0F371AB0C6D057000C11F87 /* TGen Math.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = D0B1D5D10E3E85BC0027C8B9 /* Tests.cptest */;
+			remoteGlobalIDString = D0B1D5D10E3E85BC0027C8B9;
 			remoteInfo = Tests;
 		};
 		D0450BF60CCA4CB400832ABC /* PBXContainerItemProxy */ = {

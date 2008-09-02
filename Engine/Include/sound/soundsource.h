@@ -38,6 +38,7 @@ namespace TGen {
 				void setLoop(bool loop);
 				void setPrototype(bool prototype);
 				void addChannel(TGen::Engine::Sound::Channel * channel);
+				void setVolume(float volume);
 				
 				TGen::Engine::Sound::Subsystem & getCreator() const;
 				
@@ -50,7 +51,9 @@ namespace TGen {
 				ChannelList channels;
 				bool prototype;
 				TGen::Engine::Sound::Subsystem & creator;
-
+				
+				float volume;
+				
 				static TGen::Engine::Symbol symbolPlaySound;
 				
 			private:

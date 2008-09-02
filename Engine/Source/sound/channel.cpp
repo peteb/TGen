@@ -75,6 +75,10 @@ void TGen::Engine::Sound::Channel::set3DMinMaxDistance(scalar minDistance, scala
 	channel->set3DMinMaxDistance(minDistance, maxDistance);
 }
 
+void TGen::Engine::Sound::Channel::setVolume(float volume) {
+	channel->setVolume(volume);
+}
+
 bool TGen::Engine::Sound::Channel::isPlaying() {
 	bool ret = false;
 	

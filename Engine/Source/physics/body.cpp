@@ -21,6 +21,8 @@ TGen::Engine::Symbol BODY::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSym
 TGen::Engine::Symbol BODY::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque:");
 TGen::Engine::Symbol BODY::symbolTransportTo = TGen::Engine::getUniqueSymbol("transportTo:");
 TGen::Engine::Symbol BODY::symbolResetForces = TGen::Engine::getUniqueSymbol("resetForces");
+TGen::Engine::Symbol BODY::symbolAddForce = TGen::Engine::getUniqueSymbol("addForceX:Y:Z:");
+
 
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
@@ -99,6 +101,10 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 		updateScene();
 		
 		//setOrientation(worldObject->getOrientation());
+	}
+	else if (symbolNum == symbolAddForce) {
+		TGen::Vector3 force(context.getParameter<scalar>(0), context.getParameter<scalar>(1), context.getParameter<scalar>(2));
+		addForce(force);
 	}
 	else if (symbolNum == symbolResetForces) {
 		resetForces();

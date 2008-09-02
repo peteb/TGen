@@ -73,6 +73,7 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 		LocalSource * newSource = new LocalSource(name, filename, properties.getProperty("link", "sceneNode"), *this);
 		newSource->setMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
 											  TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
+		newSource->setVolume(TGen::lexical_cast<scalar>(properties.getProperty("volume", "1.0")));
 		
 		localSources.push_back(newSource);
 		ret = newSource;
