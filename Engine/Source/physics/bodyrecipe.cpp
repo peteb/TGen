@@ -32,11 +32,13 @@ TGen::Engine::Component * TGen::Engine::Physics::BodyRecipe::createComponent(con
 
 	newBody->setPosition(TGen::Vector3::Zero);
 	newBody->setTurnHeadwise(false);
-	newBody->setMaxAngularSpeed(-1.0);
-	newBody->setKillTorque(false);
-	newBody->setLinearDamping(0.0);
-	newBody->setFakeGravity(-2.0);
-		
+	newBody->setMaxAngularSpeed(maxAngularSpeed);
+	newBody->setKillTorque(killTorque);
+	newBody->setLinearDamping(linearDamping);
+	newBody->setFakeGravity(fakeGravity);
+	newBody->setApplyGravity(applyGravity);
+	newBody->setAutoDisable(autoDisable);
+	
 	//dBodySetGravityMode(newBodyId, false);
 
 	
@@ -56,8 +58,33 @@ void TGen::Engine::Physics::BodyRecipe::prelink(const TGen::Engine::ComponentLin
 }
 
 void TGen::Engine::Physics::BodyRecipe::setLink(const std::string & name) {
-	linkName = name;
+	this->linkName = name;
 }
+
+void TGen::Engine::Physics::BodyRecipe::setMaxAngularSpeed(scalar speed) {
+	this->maxAngularSpeed = speed;
+}
+
+void TGen::Engine::Physics::BodyRecipe::setKillTorque(bool killTorque) {
+	this->killTorque = killTorque;
+}
+
+void TGen::Engine::Physics::BodyRecipe::setLinearDamping(scalar damping) {
+	this->linearDamping = damping;
+}
+
+void TGen::Engine::Physics::BodyRecipe::setFakeGravity(scalar fakeGrav) {
+	this->fakeGravity = fakeGrav;
+}
+
+void TGen::Engine::Physics::BodyRecipe::setApplyGravity(bool applyGravity) {
+	this->applyGravity = applyGravity;
+}
+
+void TGen::Engine::Physics::BodyRecipe::setAutoDisable(bool autoDisable) {
+	this->autoDisable = autoDisable;
+}
+
 /*
 	TODO:
 	istället för det här så ska det fungera såhär:

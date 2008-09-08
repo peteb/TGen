@@ -20,7 +20,7 @@
 #define __puref __attribute__((const)
 #endif
 
-#define TGenAssert(exp) if (!exp) {std::cerr << "*** Assertion \"" << #exp << "\" in file " << __FILE__ << ":" << __LINE__ << " failed" << std::endl; asm("int $3"); asm("nop"); }
+#define TGenAssert(exp) if (!(exp)) {std::cerr << "*** Assertion \"" << #exp << "\" in file " << __FILE__ << ":" << __LINE__ << " failed" << std::endl; asm("int $3"); asm("nop"); }
 
 
 

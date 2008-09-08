@@ -27,10 +27,20 @@ namespace TGen {
 				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
 				void setLink(const std::string & name);
+
+				void setMaxAngularSpeed(scalar speed);
+				void setKillTorque(bool killTorque);
+				void setLinearDamping(scalar damping);
+				void setFakeGravity(scalar fakeGrav);
+				void setApplyGravity(bool applyGravity);
+				void setAutoDisable(bool autoDisable);
 				
 			private:
 				TGen::Engine::Physics::Subsystem & subsystem;
 				dSpaceID space;
+				
+				scalar maxAngularSpeed, linearDamping, fakeGravity;
+				bool killTorque, applyGravity, autoDisable;
 				
 				std::string linkName;
 				int linkComponentNum;

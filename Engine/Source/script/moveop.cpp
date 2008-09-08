@@ -67,7 +67,10 @@ void TGen::Engine::Script::MoveOperation::trigger(TGen::Engine::TriggerContext &
 	else {
 		std::cout << "SCALAROP " << std::endl;
 		scalar * dest = context.getRegisterReference<scalar>(destRegId);
-		scalar * source = context.getRegisterReference<scalar>(sourceId);
+		scalar * source = NULL;
+		
+		if (sourceId != -1)
+			source = context.getRegisterReference<scalar>(sourceId);
 		
 		if (destOffset != -1) {
 			scalar * array = context.getRegisterPtr<scalar *>(destRegId);

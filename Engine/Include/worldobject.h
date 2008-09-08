@@ -31,7 +31,7 @@ namespace TGen {
 			void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			
 		private:
-			static TGen::Engine::Symbol symbolTransportTo;
+			static TGen::Engine::Symbol symbolTranslateTo;
 		};
 		
 	} // !Engine

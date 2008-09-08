@@ -19,7 +19,7 @@ using TGen::scalar;
 TGen::Engine::Symbol BODY::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene:");
 TGen::Engine::Symbol BODY::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed:");
 TGen::Engine::Symbol BODY::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque:");
-TGen::Engine::Symbol BODY::symbolTransportTo = TGen::Engine::getUniqueSymbol("transportTo:");
+TGen::Engine::Symbol BODY::symbolTranslateTo = TGen::Engine::getUniqueSymbol("translateTo:");
 TGen::Engine::Symbol BODY::symbolResetForces = TGen::Engine::getUniqueSymbol("resetForces");
 TGen::Engine::Symbol BODY::symbolAddForce = TGen::Engine::getUniqueSymbol("addForceX:Y:Z:");
 
@@ -91,7 +91,7 @@ void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context
 		
 		setKillTorque(killTorque);
 	}
-	else if (symbolNum == symbolTransportTo) {
+	else if (symbolNum == symbolTranslateTo) {
 		TGen::Engine::Component * transportTo = context.getParameterPtr<TGen::Engine::Component *>(0);
 		TGen::Engine::WorldObject * worldObject = dynamic_cast<TGen::Engine::WorldObject *>(transportTo);
 		
@@ -313,6 +313,13 @@ scalar TGen::Engine::Physics::Body::getMass() const {
 	return mass.mass;
 }
 
+void TGen::Engine::Physics::Body::setApplyGravity(bool applyGravity) {
+	dBodySetGravityMode(bodyId, applyGravity);	
+}
+
+void TGen::Engine::Physics::Body::setAutoDisable(bool autoDisable) {
+	dBodySetAutoDisableFlag(bodyId, autoDisable);
+}
 
 void TGen::Engine::Physics::Body::resetForces() {
 	dBodySetForce(bodyId, 0.0f, 0.0f, 0.0f);

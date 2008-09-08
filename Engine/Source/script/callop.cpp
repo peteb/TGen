@@ -28,6 +28,7 @@ TGen::Engine::Script::CallOperation::CallOperation(TGen::Engine::Script::EventOp
 void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Triggerable * callee = event;
 	
+	
 	if (!event) {
 		if (registerId != -1) {		// pointer to event is in register registerId
 			callee = context.getRegisterPtr<TGen::Engine::Triggerable *>(registerId);
@@ -35,19 +36,23 @@ void TGen::Engine::Script::CallOperation::trigger(TGen::Engine::TriggerContext &
 		else if (componentId != -1) {
 			TGen::Engine::Entity * self = context.getRegisterPtr<TGen::Engine::Entity *>(TGen::Engine::RegisterSelf);
 			std::cerr << "SELF IS " << self->getName() << std::endl;
-		
+			
 			TGen::Engine::Component * component = comp.get(); //self->getComponent(componentId, std::nothrow);
-		//std::cout << "COMPONENT " << componentId << " IS " << component->getName() << std::endl;
-		
+			//std::cout << "COMPONENT " << componentId << " IS " << component->getName() << std::endl;
+			
 			callee = component;
-		//exit(1);
+			//exit(1);
 		}
+		
 	}
 	
 	if (callee) {
+		std::cerr << "*** CALLING " << getSymbolName(offset) << std::endl;
+		
 		//if (offset != -1)
 			context.setRegister<int>(0, offset);
 		
+		context.selfPointer = TGen::union_cast<uint32>(callee);
 		context.numParameters = numParameters;
 		
 		if (shareContext || !callee->context) {

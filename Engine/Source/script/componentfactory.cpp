@@ -408,7 +408,7 @@ TGen::Engine::Script::EventOperation * TGen::Engine::Script::ComponentFactory::c
 	std::vector<std::pair<std::string, std::string> > parameters;
 	
 	if (properties.getNumAttributes() > attributeStart) {		// we've got parameters
-		parameters.push_back(std::make_pair("", properties.getAttribute(attributeStart)));
+		parameters.push_back(std::make_pair("-", properties.getAttribute(attributeStart)));
 		
 		
 		for (int i = attributeStart + 1; i < properties.getNumAttributes(); i += 2) {

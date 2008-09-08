@@ -10,12 +10,12 @@
 #include "worldobject.h"
 #include "component.h"
 
-TGen::Engine::Symbol TGen::Engine::WorldObject::symbolTransportTo = TGen::Engine::getUniqueSymbol("transportTo:");
+TGen::Engine::Symbol TGen::Engine::WorldObject::symbolTranslateTo = TGen::Engine::getUniqueSymbol("translateTo:");
 
 void TGen::Engine::WorldObject::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
 	TGen::Engine::Symbol function = context.getFunctionSymbol();
 	
-	if (function == symbolTransportTo) {
+	if (function == symbolTranslateTo) {
 		TGen::Engine::Component * transportTo = context.getParameterPtr<TGen::Engine::Component *>(0);
 		TGen::Engine::WorldObject * worldObject = dynamic_cast<TGen::Engine::WorldObject *>(transportTo);
 		

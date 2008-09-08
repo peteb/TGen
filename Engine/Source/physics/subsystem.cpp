@@ -56,6 +56,10 @@ TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(cons
 		addBody(newBody);
 		
 		ret = newBody;	
+		
+		
+		//TGen::Engine::ComponentRecipe * recipe = componentFactory.createComponentRecipe(name, entityName, properties);
+		
 	}
 	else if (type == "physGeom") {
 		Geom * newGeom = componentFactory.createGeom(name, properties, mainSpace);
@@ -223,7 +227,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			bool body1OnGround = false, body2OnGround = false;
 			
 			if (geom1->getAffectsOthers() && geom2->getAffectsOthers()) {
-			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
+			//if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				if (bodyObject1) {
 					scalar dp = TGen::Vector3::DotProduct(contactNormal, TGen::Vector3(0.0f, 1.0f, 0.0f));
 					scalar groundDef = bodyObject1->getGroundDefinition();
@@ -254,7 +258,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					}
 				}
 			}
-		}
+		//}
 			
 			//if (slope.angle >= -80.0f && slope.angle <= 80.0f) {
 
@@ -292,7 +296,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 
 			// each force should be multiplied by mass
 			
-			if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
+			//if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				scalar dir = 1.0f;
 				
 				if (totalForce >= 150.0) {
@@ -329,7 +333,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				
 				//if (totalForce > 0.1)
 					//std::cout << "HURT: " << totalForce << std::endl;
-			}
+			//}
 
 			collisionEvents.push_back(contacts[i]);
 	

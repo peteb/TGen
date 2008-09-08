@@ -84,7 +84,15 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Physics::ComponentFactory::createC
 	else if (properties.getName() == "physBody") {
 		TGen::Engine::Physics::BodyRecipe * newRecipe = new TGen::Engine::Physics::BodyRecipe(name, mainSpace, getMass(properties), subsystem);
 		
-		newRecipe->setLink(properties.getProperty("link", "sceneNode"));
+		newRecipe->setLink(properties.getProperty("link", ""));
+		newRecipe->setMaxAngularSpeed(TGen::lexical_cast<scalar>(properties.getProperty("maxAngularSpeed", "-1.0")));
+		newRecipe->setKillTorque(TGen::lexical_cast<bool>(properties.getProperty("killTorque", "false")));
+		newRecipe->setLinearDamping(TGen::lexical_cast<scalar>(properties.getProperty("linearDamping", "0.0")));
+		newRecipe->setFakeGravity(TGen::lexical_cast<scalar>(properties.getProperty("fakeGrav", "-2.0")));
+		newRecipe->setAutoDisable(TGen::lexical_cast<bool>(properties.getProperty("autoDisable", "true")));
+		newRecipe->setApplyGravity(TGen::lexical_cast<bool>(properties.getProperty("gravity", "true")));
+		
+		
 		ret = newRecipe;
 	}
 	else {
@@ -155,10 +163,8 @@ uint TGen::Engine::Physics::ComponentFactory::getCategoryBits(const std::string 
 
 TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBody(const std::string & name, const TGen::PropertyTree & properties, dWorldID worldId, dSpaceID spaceId) {
 	TGen::Vector3 position = TGen::Vector3::Parse(properties.getProperty("position", "0 0 0"));
-	bool applyGravity = TGen::lexical_cast<bool>(properties.getProperty("gravity", "true"));
 	
 	dBodyID newBodyId = dBodyCreate(worldId);
-	dBodySetGravityMode(newBodyId, applyGravity);
 	
 	try {
 		dMass mass = getMass(properties);
@@ -170,12 +176,13 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBod
 	}
 	
 	//dBodySetLinearDamping(newBodyId, 0.07);
-	if (!TGen::lexical_cast<bool>(properties.getProperty("autoDisable", "true")))
-		dBodySetAutoDisableFlag(newBodyId, false);
 	
 	TGen::Engine::Physics::Body * newBody = new TGen::Engine::Physics::Body(name, newBodyId, worldId, spaceId);
 	
 	dBodySetData(newBodyId, reinterpret_cast<void *>(newBody));
+
+	newBody->setAutoDisable(TGen::lexical_cast<bool>(properties.getProperty("autoDisable", "true")));
+	newBody->setApplyGravity(TGen::lexical_cast<bool>(properties.getProperty("gravity", "true")));
 	newBody->setPosition(position);
 	newBody->setTurnHeadwise(TGen::lexical_cast<bool>(properties.getProperty("turnHead", "false")));
 	newBody->setMaxAngularSpeed(TGen::lexical_cast<scalar>(properties.getProperty("maxAngularSpeed", "-1.0")));

@@ -101,6 +101,12 @@ void TGen::Engine::Entity::trigger(TGen::Engine::TriggerContext & context, TGen:
 					}
 				}
 				else {
+					std::cout << "NUM EVENTS: " << events.size() << std::endl;
+					
+					for (EventMap::iterator iter = events.begin(); iter != events.end(); ++iter) {
+						std::cout << getSymbolName(iter->first) << std::endl;
+					}
+					
 					throw TGen::RuntimeException("Entity::trigger", "Message symbol not defined: \"") << TGen::Engine::getSymbolName(symbolId) << "\"";	
 				}
 			}

@@ -60,6 +60,9 @@ namespace TGen {
 				void setKillTorque(bool killTorque);
 				void setLinearDamping(scalar damping);
 				void setFakeGravity(scalar fakeGrav);
+				void setApplyGravity(bool applyGravity);
+				void setAutoDisable(bool autoDisable);
+				
 				void setGroundNormal(const TGen::Vector3 & groundNormal);
 				const TGen::Vector3 & getGroundNormal() const;
 				
@@ -103,7 +106,7 @@ namespace TGen {
 				
 				// symbols
 				static TGen::Engine::Symbol symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, 
-					symbolSetKillTorque, symbolTransportTo, symbolResetForces, symbolAddForce;
+					symbolSetKillTorque, symbolTranslateTo, symbolResetForces, symbolAddForce;
 			};
 		} // !Physics
 	} // !Engine

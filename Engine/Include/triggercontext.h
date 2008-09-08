@@ -41,6 +41,8 @@ namespace TGen {
 						break;
 						
 					default:
+						TGenAssert(id >= 0 && id < MaxRegisters);
+						
 						*reinterpret_cast<T *>(&registers[id]) = value;
 						registerTypes[id] = TGen::Engine::RegisterType<T>().type;
 				
@@ -66,13 +68,19 @@ namespace TGen {
 				
 				//return (T)registers[id];
 				//TGenAssert(registerTypes[id]);
+				TGenAssert(id >= 0 && id <= MaxRegisters);
 				
 				return RegisterConvert<T>(registers[id], registerTypes[id]);
 			}
 			
 			template<typename T>
-			T getRegisterPtr(int id) {
-				return (T)registers[id];
+			T getRegisterPtr(int reg) {
+				if (reg == RegisterSelf)
+					return (T)selfPointer;
+				
+				TGenAssert(reg >= 0 && reg <= MaxRegisters);
+				
+				return (T)registers[reg];
 			}
 			
 			template<typename T>
@@ -83,6 +91,7 @@ namespace TGen {
 					registers[id] = RegisterConvert<T>(registers[id], registerTypes[id]);
 					registerTypes[id] = type;
 				}*/
+				TGenAssert(id >= 0 && id <= MaxRegisters);
 				
 				return reinterpret_cast<T *>(&registers[id]);
 			}
