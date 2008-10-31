@@ -63,6 +63,8 @@ namespace TGen {
 			
 			TGen::Time lastRender, lastUpdate;
 			scalar sinceErrorCheck;
+			
+			pthread_t loaderThread;
 		};
 		
 	} // !Engine

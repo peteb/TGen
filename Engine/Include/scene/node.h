@@ -12,6 +12,7 @@
 
 #include "component.h"
 #include "worldobject.h"
+#include "componentlink.h"
 
 namespace TGen {
 	class SceneNode;
@@ -29,6 +30,8 @@ namespace TGen {
 				void update(scalar dt);
 
 				void setLink(const std::string & linkName);
+				void setAttachComponent(const std::string & componentName);
+				void setAttachJoint(const std::string & jointName);
 				void setAutoParent(const std::string & autoParent);
 				void link(const TGen::Engine::ComponentLinker & linker);
 				void setEnabled(bool enabled);
@@ -45,13 +48,15 @@ namespace TGen {
 			private:
 				const TGen::Matrix4x4 & getParentInverseTransform();
 				
+				TGen::Engine::UnaryDelegate<TGen::Engine::Scene::Node> attachComponent;
+				
 				TGen::Vector3 bo;
 				
 				TGen::SceneNode * sceneNode;
 				TGen::Vector3 velocity, lastPos;
 				TGen::Matrix4x4 parentInverseTransform;
 				bool changed;
-				std::string linkName, autoParent;
+				std::string linkName, autoParent, attachJoint;
 			};
 		
 		} // !Scene

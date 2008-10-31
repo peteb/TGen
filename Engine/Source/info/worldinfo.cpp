@@ -73,5 +73,8 @@ void TGen::Engine::Info::WorldInfo::setPlayerController(const std::string & name
 }
 
 TGen::Engine::PlayerController * TGen::Engine::Info::WorldInfo::getPlayerController() {
+	if (!playerController)
+		return NULL;
+	
 	return &*playerController;
 }

@@ -141,7 +141,18 @@ bool TGen::Engine::Filesystem::exists(const std::string & path) {
 	return PHYSFS_exists(path.c_str());
 }
 
-
+std::string TGen::Engine::Filesystem::getRealPath(const std::string & dir) {
+	const char * path = PHYSFS_getRealDir(dir.c_str());
+	if (!path)
+		return "";
+	
+	std::string ret = std::string(path) + dir;
+	
+	if (ret.substr(0, base.size()) == base)
+		return ret.substr(base.size());
+	
+	return ret;
+}
 
 /*void TGen::Engine::Filesystem::outputPath(const std::string & path) {
 	char **rc = PHYSFS_enumerateFiles(path.c_str());

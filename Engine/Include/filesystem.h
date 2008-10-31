@@ -29,6 +29,7 @@ namespace TGen {
 			bool exists(const std::string & path);
 			//void outputPath(const std::string & path);
 			void enumerateFiles(const std::string & path, std::vector<std::string> & output, bool recurse = false);
+			std::string getRealPath(const std::string & dir);
 			
 		private:
 			TGen::Engine::StandardLogs & logs;

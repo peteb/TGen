@@ -51,3 +51,8 @@ void TGen::Engine::DeviceCollection::enterMode(TGen::Engine::InputDeviceMode mod
 		devices[i]->enterMode(mode);
 	}
 }
+
+void TGen::Engine::DeviceCollection::reset() {
+	for (int i = 0; i < devices.size(); ++i)
+		devices[i]->reset();
+}

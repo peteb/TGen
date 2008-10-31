@@ -103,8 +103,14 @@ void TGen::MD3::File::printInfo(std::ostream & stream) const {
 		TGen::MD3::Tag * tag = &header->tags[i];
 		
 		stream << " * name: " << tag->name << "\n";
+		stream << "   origin: (" << tag->origin.x << ", " << tag->origin.y << ", " << tag->origin.z << "\n";
 		stream << "\n";
 	}
+	/*
+	 U8 name[MAX_QPATH];
+	 VEC3 origin;
+	 VEC3 axis[3];
+	 */
 	
 	stream << "surfaces: " << header->num_surfaces << "\n";
 	
@@ -231,9 +237,9 @@ TGen::MD3::StaticModel * TGen::MD3::File::createStaticModel(TGen::VertexDataSour
 		transformer.transform(axisY);
 		transformer.transform(axisZ);
 		
-		TGen::Matrix3x3 orientation(axisX, axisY, axisZ);
+		TGen::Rotation orientation(axisX, axisY, axisZ);
 		
-		joint.orientation = TGen::Quaternion4(orientation);
+		joint.orientation = orientation;
 		
 		newModel->addJoint(reinterpret_cast<char *>(tag->name), joint);
 	}

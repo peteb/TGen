@@ -63,6 +63,11 @@ void TGen::Engine::Scene::Node::setOrientation(const TGen::Rotation & orientatio
 
 
 void TGen::Engine::Scene::Node::update(scalar dt) {
+	if (attachComponent) {
+		//std::cout << "hey " << attachJoint << std::endl;
+		
+	}
+	
 	velocity = (sceneNode->getWorldPosition() - lastPos) / dt;
 	lastPos = sceneNode->getWorldPosition();
 	
@@ -97,8 +102,16 @@ void TGen::Engine::Scene::Node::link(const TGen::Engine::ComponentLinker & linke
 	if (!linkName.empty()) {
 		TGen::Engine::Scene::Node * parent = dynamic_cast<TGen::Engine::Scene::Node *>(linker.getComponent(linkName));
 		
-		if (parent)
-			sceneNode->moveTo(parent->getSceneNode(), false);
+		if (parent) {
+			if (!attachJoint.empty())
+				sceneNode->moveTo(parent->getSceneNode()->getChild(attachJoint), false);
+			else
+				sceneNode->moveTo(parent->getSceneNode(), false);
+
+			
+			
+		}
+		
 		
 		changed = true;
 	}
@@ -115,6 +128,8 @@ void TGen::Engine::Scene::Node::link(const TGen::Engine::ComponentLinker & linke
 	if (equipmentNode) {	// much easier than to subclass this class just for eq node
 		equipmentNode->link(linker);
 	}
+	
+	attachComponent.link(linker);
 }
 
 void TGen::Engine::Scene::Node::setEnabled(bool enabled) {
@@ -122,4 +137,13 @@ void TGen::Engine::Scene::Node::setEnabled(bool enabled) {
 	if (sceneNode)
 		sceneNode->setRender(enabled);
 }
+
+void TGen::Engine::Scene::Node::setAttachComponent(const std::string & componentName) {
+	attachComponent.set(componentName);
+}
+
+void TGen::Engine::Scene::Node::setAttachJoint(const std::string & jointName) {
+	this->attachJoint = jointName;
+}
+
 

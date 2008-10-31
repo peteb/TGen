@@ -31,7 +31,7 @@ TGen::Engine::Component * TGen::Engine::Info::Subsystem::createComponent(const s
 TGen::Engine::Info::WorldInfo * TGen::Engine::Info::Subsystem::createWorldInfo(const std::string & name, const TGen::PropertyTree & properties) {
 	TGen::Engine::Info::WorldInfo * newInfo = new TGen::Engine::Info::WorldInfo(name, world);
 	
-	newInfo->setPlayerController(properties.getProperty("playerController", "player_starts"));
+	newInfo->setPlayerController(properties.getProperty("playerController", ""));
 	
 	if (!world)
 		throw TGen::RuntimeException("Info::Subsystem::createWorldInfo", "no world linked!");

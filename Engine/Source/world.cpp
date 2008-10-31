@@ -17,6 +17,9 @@
 #include "playercontroller.h"
 #include "info/worldinfo.h"
 
+#include <OpenGL/OpenGL.h>
+#include <SDL/SDL.h>
+
 TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::ResourceManager & resources, TGen::Engine::StandardLogs & logs, TGen::VertexDataSource & dataSource, const std::string & mapname)
 	: filesystem(filesystem)
 	, logs(logs)
@@ -30,6 +33,8 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, worldInfo(NULL)
 {
 	logs.info["world+"] << "initializing world '" << mapname << "'..." << TGen::endl;
+	
+	logs.info["world+"] << "   registering subsystems..." << TGen::endl;
 	
 	entityFactory.registerSubsystem("sceneNode", &sceneSubsystem);
 	entityFactory.registerSubsystem("sceneCamera", &sceneSubsystem);
@@ -64,18 +69,44 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
+	
+	
+	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+	SDL_GL_SwapBuffers();
+	
+	
+	
 	infoSubsystem.setWorld(this);
 
+	logs.info["world+"] << "   preparing filesystem..." << TGen::endl;
+	filesystem.addSearchPath(filesystem.getRealPath("/maps/" + mapname), true);
+	
+	logs.info["world+"] << "   loading definitions..." << TGen::endl;
 	loadDefinitions("/definitions/");	
+	
+	logs.info["world+"] << "   loading entities..." << TGen::endl;
 	loadDefinitions("/maps/" + mapname + "/entities/");
 	
+	
+	if (entities.numEntities() == 0)
+		throw TGen::RuntimeException("World::World", "No entities defined; invalid filesystem for \"" + mapname + "\".");
+	
+	
+	logs.info["world+"] << "   linking entities" << TGen::endl;
 	entities.link();
 	
+	logs.info["world+"] << "   linking and updating scene..." << TGen::endl;
 	sceneSubsystem.link();
 	sceneSubsystem.update(0.0f);
 	
+	logs.info["world+"] << "   linking sound subsystem..." << TGen::endl;
 	soundSubsystem.link();
+	
+	logs.info["world+"] << "   linking physics subsystem..." << TGen::endl;
 	physicsSubsystem.link();
+	
+	logs.info["world+"] << "   world created" << TGen::endl;
 }
 
 
@@ -226,7 +257,9 @@ TGen::Engine::PlayerController * TGen::Engine::World::getPlayerController() {
 }
 
 TGen::Engine::Scene::Node * TGen::Engine::World::getPlayerCamera() {
-	TGenAssert(getPlayerController());
+	//TGenAssert(getPlayerController());
+	if (!getPlayerController())
+		return NULL;
 	
 	return getPlayerController()->getActiveCamera();
 }

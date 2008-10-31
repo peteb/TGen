@@ -671,7 +671,7 @@
 				D09628EB0D784E60008DABC3 /* subsystems */,
 				D0F8393B0CBA679200FF4467 /* game */,
 				D08395710CD9266900C94467 /* renderer */,
-				D052CB370E59C769000AF567 /* shit */,
+				D052CB370E59C769000AF567 /* crap */,
 				D0EF62210C82DCC40085C17B /* tgen_engine.cpp */,
 				D0EF620F0C82DC3F0085C17B /* tgen_engine.h */,
 			);
@@ -861,7 +861,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D052CB370E59C769000AF567 /* shit */ = {
+		D052CB370E59C769000AF567 /* crap */ = {
 			isa = PBXGroup;
 			children = (
 				D0EF61500C82D8E20085C17B /* app.cpp */,
@@ -869,7 +869,7 @@
 				D0F836860CBA5E5900FF4467 /* state.cpp */,
 				D0F835DA0CBA5CB900FF4467 /* state.h */,
 			);
-			name = shit;
+			name = crap;
 			sourceTree = "<group>";
 		};
 		D052CBD10E59CD15000AF567 /* external */ = {

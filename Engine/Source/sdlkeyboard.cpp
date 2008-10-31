@@ -109,4 +109,5 @@ void TGen::Engine::SDLKeyboard::enterMode(TGen::Engine::InputDeviceMode mode) {
 
 void TGen::Engine::SDLKeyboard::reset() {
 	textBuffer = "";
+	buttonBuffer.clear();
 }

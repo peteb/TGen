@@ -15,7 +15,7 @@
 namespace TGen {
 	struct ModelJoint {
 		TGen::Vector3 origin;
-		TGen::Quaternion4 orientation;		
+		TGen::Rotation orientation;		
 	};	
 	
 } // !TGen

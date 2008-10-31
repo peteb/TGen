@@ -71,7 +71,6 @@ namespace TGen {
 			//TGen::SceneNode sceneRoot;
 			TGen::BasicRenderList renderList;
 			TGen::Engine::LightList lightList;
-			TGen::Engine::EntityList entities;
 			
 			TGen::Engine::Script::Subsystem scriptSubsystem;
 			TGen::Engine::Scene::Subsystem sceneSubsystem;
@@ -81,7 +80,9 @@ namespace TGen {
 			TGen::Engine::Inventory::Subsystem inventorySubsystem;
 			TGen::Engine::Info::Subsystem infoSubsystem;
 			TGen::Engine::Utilities::Subsystem utilsSubsystem;
-			
+
+			TGen::Engine::EntityList entities;
+
 			TGen::Camera * mainCam;
 			TGen::Engine::Info::WorldInfo * worldInfo;
 		};

@@ -36,7 +36,18 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 	
 	if (!throttledNewMap.empty()) {
 		std::cout << "a throttled map!" << std::endl;
-		currentWorld = new TGen::Engine::World(filesystem, resources, logs, worldRenderer.getRenderer(), throttledNewMap);
+		
+		
+		// heavy, show some graphics.
+		// just start with a simple fading green screen or something, multithreaded
+		// then interleave with GUI somehow.
+		currentWorld = new TGen::Engine::World(filesystem, resources, logs, worldRenderer.getRenderer(), throttledNewMap);		// throttledNewMap
+		
+		// logs = shared, mutex?   renderer = shared, mutex?
+		
+		
+		// TODO: change map in script! stringRef. [world changeLevel: @stringRef]
+		
 		throttledNewMap = "";
 		postWorldCreation(*currentWorld);
 	}
@@ -64,7 +75,7 @@ void TGen::Engine::GameState::tick() {
 	double sinceLastRender = double(now) - double(lastRender);
 	//double sinceLastUpdate = double(now) - double(lastUpdate);
 	
-	if (currentWorld) {
+	if (currentWorld && currentWorld->getPlayerController()) {
 		TGen::Vector3 playerPosition, playerVelocity, playerForward, playerUp;
 		
 		TGen::Engine::WorldObject * viewObject = currentWorld->getPlayerController();
@@ -86,7 +97,6 @@ void TGen::Engine::GameState::tick() {
 		playerUp = invertedCam.getY();
 		
 		currentWorld->updateListener(playerPosition, playerVelocity, playerForward, playerUp);		
-		
 		currentWorld->update(sinceLastRender);	
 	}
 	
@@ -98,7 +108,20 @@ void TGen::Engine::GameState::tick() {
 // en megabuffer som man vet kommer uppdateras totalt borde discardas först
 
 void TGen::Engine::GameState::render(scalar dt) {
-	if (currentWorld)
+	static scalar sumTime = 0.0f;
+	sumTime += dt;
+	
+	if (sumTime > 15.0f && sumTime < 20.0f) {
+		sumTime = 100.0f;
+		try {
+			changeMap("subwaymap");
+		}
+		catch (...) {
+			logs.error["game"] << "failed to change map" << TGen::endl;
+		}
+	}
+	
+	if (currentWorld && currentWorld->getPlayerCamera()) 
 		worldRenderer.renderWorld(*currentWorld, dynamic_cast<TGen::Camera *>(currentWorld->getPlayerCamera()->getSceneNode()), dt);
 	
 	env.swapBuffers();
@@ -130,6 +153,9 @@ void TGen::Engine::GameState::checkErrors() {
 
 void TGen::Engine::GameState::postWorldCreation(TGen::Engine::World & world) {
 	//player = world.createPlayer();
+	inputDevices.reset();
+
+	
 	inputMapper.setPlayerController(world.getPlayerController());
 }
 
@@ -137,8 +163,15 @@ void TGen::Engine::GameState::changeMap(const std::string & mapName) {
 	if (constructed) {
 		logs.info["game"] << "changing map to '" << mapName << "'..." << TGen::endl;
 
+		// do the multithreading here... it shouldn't be done elsewhere
+		// a currentWorld pointer, and a nextWorld pointer. and a nextConstructed bool. (with mutex)
+		// when nextConstructed, set currentWorld to nextWorld and remove lastWorld
+		inputDevices.reset();
+
+		TGen::Engine::World * newWorld = new TGen::Engine::World(filesystem, resources, logs, dataSource, mapName);
+	
 		delete currentWorld;
-		currentWorld = new TGen::Engine::World(filesystem, resources, logs, dataSource, mapName);
+		currentWorld = newWorld;
 		
 		postWorldCreation(*currentWorld);
 	}

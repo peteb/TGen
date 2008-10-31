@@ -27,6 +27,7 @@ namespace TGen {
 			void dispatchEvents(TGen::Engine::InputEventResponder & responder);
 			void printDevices(TGen::Engine::TextOutputer & out);
 			void enterMode(TGen::Engine::InputDeviceMode mode);
+			void reset();
 			
 		private:
 			typedef std::vector<TGen::Engine::InputDevice *> DeviceList;

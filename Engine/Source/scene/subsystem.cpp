@@ -86,7 +86,10 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	
 	newComponent->setLink(linkParent);
 	newComponent->setAutoParent(autoTP);
+	newComponent->setAttachComponent(properties.getProperty("attachComponent", ""));
+	newComponent->setAttachJoint(properties.getProperty("attachJoint", ""));
 	
+	// TODO: NEJ!!!!!!! kör jointComponent, jointAttach... går inte att göra det där andra med animation, eller jo, går väl.. men blir komplicerat. kan dock fixa senare
 	
 	return newComponent;
 }

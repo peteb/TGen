@@ -16,6 +16,8 @@
 
 using TGen::uint;
 
+int TGen::Engine::Physics::Subsystem::numSubsystems = 0;
+
 //dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
 std::vector<dContact> TGen::Engine::Physics::Subsystem::collisionEvents;
@@ -35,15 +37,22 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, T
 	dWorldSetLinearDamping(worldId, 0.07);
 	
 	dWorldSetAutoDisableFlag(worldId, true);
-
+	
 	setGravity(TGen::Vector3(0.0f, -30.0f, 0.0f));
+	
+	numSubsystems++;
 }
 
 
 TGen::Engine::Physics::Subsystem::~Subsystem() {
 	logs.info["phys-"] << "*** SHUTTING DOWN PHYSICS ***" << TGen::endl;
+
+	dSpaceDestroy(mainSpace);
+	dWorldDestroy(worldId);
 	
-	dCloseODE();
+	if (numSubsystems-- <= 0)
+		dCloseODE();
+	
 }
 
 

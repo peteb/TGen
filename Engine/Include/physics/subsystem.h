@@ -51,7 +51,8 @@ namespace TGen {
 				
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
 				static std::vector<dContact> collisionEvents;
-
+				static int numSubsystems;
+				
 				void triggerCollisionEvents();
 				
 				std::vector<TGen::Engine::Physics::Body *> bodies;

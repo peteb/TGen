@@ -176,6 +176,10 @@ TGen::Engine::Component & TGen::Engine::EntityList::getComponent(const std::stri
 	return getEntity(entityName).getComponent(componentName);
 }
 
+int TGen::Engine::EntityList::numEntities() const {
+	return entities.size();
+}
+
 /* RenderStateCats 
 	1. shaders, z-states, blending, textures of different format & size ...
 	2. constants, color, transforms

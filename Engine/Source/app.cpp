@@ -35,27 +35,6 @@ TGen::Engine::App::App(TGen::Engine::VariableRegister & variables, TGen::Engine:
 {
 	logs.info["app+"] << "initializing..." << TGen::endl;
 	
-	
-	// när man skapar en modell ska man skicka med en omfräsare som kan parsas från gensträngen
-	/*
-	 ops: scale, swap
-	 
-	 VertexManipulator
-		vec3 manipulate(vec3 in);
-	 
-	 createModel(VertexManipulator);
-	 
-	 VertexManipulatorList : VertexManipulator
-	 VertexScaler : VertexManipulator
-	 VertexSwapper : VertexManipulator
-	 VertexTransformer : VertexManipulator
-	 
-	 VertexScaler(vec3(1.0f, 2.0f, 1.0f));
-	 VertexSwapper(VertexSwapper::X, VertexSwapper::Y);
-	 
-	 
-	 */
-	
 	TGen::Engine::WorldRendererFactory rendererFactory(logs);
 	
 	// TODO: man ser ju hur många referenser varje grej har... borde kunna lösas upp en hel del
@@ -88,3 +67,5 @@ void TGen::Engine::App::tick() {
 	globalResources.updateMaterials(TGen::Time::Now() - startedAt);
 }
 
+// TODO: en overwriteWith-metod för resurser, så man kan kopiera alla referenser direkt när allt är färdigladdat. 
+//			annars kan det bli dumt med multithreading och inladdning av nya material osv
