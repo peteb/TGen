@@ -119,13 +119,16 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 				renderer.setFaceWinding(face->getRenderProperties()->frontFaceDef);
 			
 			TGen::Material * globalMaterial = face->getMaterial();
+			
+			// if (overrideMaterial) globalMaterial = overrideMaterial;					// <<-----
+			
 			globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh());
 		}
 	}
 	
 	return;
 	
-	// OPT: allt det här är förmodligen väldigt segt....
+	// OPT: allt det hâ€°r â€°r fË†rmodligen vâ€°ldigt segt....
 	for (int i = 0; i < list.size(); ++i) {
 	/*	scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
 		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);

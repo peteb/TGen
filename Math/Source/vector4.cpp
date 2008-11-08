@@ -10,6 +10,7 @@
 #include "vector4.h"
 #include "vector3.h"
 #include "vector2.h"
+#include <sstream>
 
 TGen::Vector4 TGen::Vector4::Identity(1.0, 1.0, 1.0, 1.0);
 
@@ -57,4 +58,11 @@ TGen::Vector4 & TGen::Vector4::operator /= (scalar div) {
 	return *this;
 }
 
+
+TGen::Vector4::operator std::string() const {
+	std::stringstream ss;
+	ss << "(" << x << ", " << y << ", " << z << ", " << w << ")";
+	
+	return ss.str();	
+}
 

@@ -19,7 +19,7 @@ TGen::NewModel * TGen::Engine::ModelGenerator::createModel(const TGen::Engine::G
 	
 	TGen::NewModel * newModel = NULL;
 	
-	if (genName == "cube") {
+	if (genName == "cube" || genName == "box") {
 		scalar width = TGen::lexical_cast<scalar>(line.getParameter("width", "1.0"));
 		scalar height = TGen::lexical_cast<scalar>(line.getParameter("height", "1.0"));
 		scalar depth = TGen::lexical_cast<scalar>(line.getParameter("depth", "1.0"));

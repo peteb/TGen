@@ -303,12 +303,15 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 			
 			scalar totalForce = fabs(TGen::Vector3::DotProduct(force1 - force2, contactNormal));
 
+			
+			//std::cout << geom1->getCategory() << " (" << std::string(force1) << ") " << geom2->getCategory() << " (" << std::string(force2) << ")" << std::endl;
+			
 			// each force should be multiplied by mass
 			
 			//if (geom1->getCategory() == 2 || geom2->getCategory() == 2) {
 				scalar dir = 1.0f;
 				
-				if (totalForce >= 150.0) {
+				/*if (totalForce >= 10.0) {
 					std::cout << "CAT1: " << (geom1->getCategory() == 2) << " FORCE1: " << std::string(force1) << " F2: " << std::string(force2) << std::endl;
 				
 					std::cout << "M1: " << bodyObject1->getMass() << " M2: " << bodyObject2->getMass() << std::endl;
@@ -316,7 +319,7 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 					
 					TGen::Vector3 diff = bodyObject2->getLinearVelocity() * bodyObject2->getMass() - bodyObject1->getLinearVelocity() * bodyObject1->getMass();
 					std::cout << "DIFF: " << std::string(diff) << " MAG: " << diff.getMagnitude() << std::endl;
-				}
+				}*/
 				//if (abs(totalForce) > 1.0)
 				//	std::cout << "geom1: " << std::hex << geom1->getCategory() << " geom2: " << geom2->getCategory() << " normal: " << std::string(contactNormal) << std::endl;
 
@@ -335,9 +338,9 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				//if (totalForce > 2.0)
 				//	std::cout << "TOTAL FORCE: " << totalForce << std::endl;
 				
-				if (geom1->getCategory() == 2 && contactNormal.y >= -0.5)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
+				if (contactNormal.y >= -0.5)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
 					geom1->onCollisionForce(totalForce, body1OnGround);
-				if (geom2->getCategory() == 2 && contactNormal.y <= -0.5)
+				if (contactNormal.y <= -0.5)
 					geom2->onCollisionForce(totalForce, body2OnGround);
 				
 				//if (totalForce > 0.1)

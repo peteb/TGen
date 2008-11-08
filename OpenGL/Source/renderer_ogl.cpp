@@ -75,6 +75,7 @@ TGen::OpenGL::Renderer::Renderer()
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, 1);
 }
 
 TGen::OpenGL::Renderer::~Renderer() {

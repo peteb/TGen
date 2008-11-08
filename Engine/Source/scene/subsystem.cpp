@@ -76,7 +76,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 		throw TGen::RuntimeException("SceneSubsystem::createComponent", "subsystem can't handle component type '" + properties.getName() + "'");
 	
 	std::string autoTP = properties.getProperty("autoParent", "");	
-	std::string linkParent = properties.getProperty("relative", properties.getProperty("link", ""));
+	std::string linkParent = properties.getProperty("relative", properties.getProperty("link", properties.getProperty("parent", "")));
 	
 	sceneRoot.addChild(sceneNode);
 	

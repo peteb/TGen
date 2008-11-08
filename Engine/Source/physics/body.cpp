@@ -243,9 +243,9 @@ void TGen::Engine::Physics::Body::addForceWorld(const TGen::Vector3 & absPos, co
 
 
 TGen::Vector3 TGen::Engine::Physics::Body::getLinearVelocity() const {
-	//const dReal * force = dBodyGetLinearVel(bodyId);
-	//return TGen::Vector3(force[0], force[1], force[2]);
-	return linearVelocity;
+	const dReal * force = dBodyGetLinearVel(bodyId);
+	return TGen::Vector3(force[0], force[1], force[2]);
+	//return linearVelocity;
 }
 
 

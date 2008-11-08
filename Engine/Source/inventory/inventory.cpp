@@ -126,7 +126,7 @@ void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & 
 		int itemValue = context.getParameter<int>(1);
 
 		std::cout << "                INCREASE ITEM " << itemSymbol << " WITH " << itemValue << std::endl;
-		
+
 		int ret = 0;
 		
 		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);

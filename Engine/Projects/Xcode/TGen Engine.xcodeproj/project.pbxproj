@@ -102,6 +102,7 @@
 		D0891C850DFC5AEA0074401E /* convert.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0891C840DFC5AEA0074401E /* convert.cpp */; };
 		D08C7BF40D10919B008622BC /* imagegenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7BF30D10919B008622BC /* imagegenerator.cpp */; };
 		D08C7C250D1095CA008622BC /* generateline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08C7C240D1095CA008622BC /* generateline.cpp */; };
+		D08D37D90EC3C2C800F23C18 /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08D37D80EC3C2C800F23C18 /* renderer.cpp */; };
 		D08DC5CA0DDF3D9E0072AF9C /* id4cmgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC5C90DDF3D9E0072AF9C /* id4cmgeom.cpp */; };
 		D08DC5FC0DDF3F520072AF9C /* id4cmloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC5FB0DDF3F520072AF9C /* id4cmloader.cpp */; };
 		D08DC6250DDF42AA0072AF9C /* id4cmtokenizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DC6240DDF42AA0072AF9C /* id4cmtokenizer.cpp */; };
@@ -478,6 +479,8 @@
 		D08C7BF30D10919B008622BC /* imagegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagegenerator.cpp; sourceTree = "<group>"; };
 		D08C7C230D109514008622BC /* generateline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generateline.h; path = ../../Include/generateline.h; sourceTree = SOURCE_ROOT; };
 		D08C7C240D1095CA008622BC /* generateline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generateline.cpp; sourceTree = "<group>"; };
+		D08D37D80EC3C2C800F23C18 /* renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderer.cpp; path = renderer/newrenderer/renderer.cpp; sourceTree = "<group>"; };
+		D08D37DA0EC3C2E700F23C18 /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderer.h; path = ../../Include/renderer/newrenderer/renderer.h; sourceTree = SOURCE_ROOT; };
 		D08DC5C80DDF3D870072AF9C /* id4cmgeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id4cmgeom.h; path = ../../Include/physics/id4cmgeom.h; sourceTree = SOURCE_ROOT; };
 		D08DC5C90DDF3D9E0072AF9C /* id4cmgeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id4cmgeom.cpp; path = physics/id4cmgeom.cpp; sourceTree = "<group>"; };
 		D08DC5FA0DDF3F420072AF9C /* id4cmloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id4cmloader.h; path = ../../Include/physics/id4cmloader.h; sourceTree = SOURCE_ROOT; };
@@ -1047,6 +1050,7 @@
 		D08395710CD9266900C94467 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
+				D08D37D70EC3C2AA00F23C18 /* newrenderer */,
 				D0E458330D906FBD00F4D548 /* deferred */,
 				D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */,
 				D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */,
@@ -1091,6 +1095,15 @@
 				D0843BD60D0759D200C31FE3 /* entityfactory.h */,
 			);
 			name = entity;
+			sourceTree = "<group>";
+		};
+		D08D37D70EC3C2AA00F23C18 /* newrenderer */ = {
+			isa = PBXGroup;
+			children = (
+				D08D37D80EC3C2C800F23C18 /* renderer.cpp */,
+				D08D37DA0EC3C2E700F23C18 /* renderer.h */,
+			);
+			name = newrenderer;
 			sourceTree = "<group>";
 		};
 		D08F3CEF0DEB3AA80051EDD6 /* sound */ = {
@@ -1634,6 +1647,7 @@
 				D07DE4810E68ABBA00C6B35C /* objectreference.cpp in Sources */,
 				D07DE4F30E68ADE200C6B35C /* prototypereference.cpp in Sources */,
 				D07DE7C10E69955D00C6B35C /* worldobject.cpp in Sources */,
+				D08D37D90EC3C2C800F23C18 /* renderer.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

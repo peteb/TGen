@@ -111,7 +111,7 @@ void TGen::Engine::GameState::render(scalar dt) {
 	static scalar sumTime = 0.0f;
 	sumTime += dt;
 	
-	if (sumTime > 15.0f && sumTime < 20.0f) {
+	/*if (sumTime > 15.0f && sumTime < 20.0f) {
 		sumTime = 100.0f;
 		try {
 			changeMap("subwaymap");
@@ -119,7 +119,7 @@ void TGen::Engine::GameState::render(scalar dt) {
 		catch (...) {
 			logs.error["game"] << "failed to change map" << TGen::endl;
 		}
-	}
+	}*/
 	
 	if (currentWorld && currentWorld->getPlayerCamera()) 
 		worldRenderer.renderWorld(*currentWorld, dynamic_cast<TGen::Camera *>(currentWorld->getPlayerCamera()->getSceneNode()), dt);

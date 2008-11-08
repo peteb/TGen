@@ -184,20 +184,24 @@ void TGen::Engine::Physics::Geom::sendToLink() {
 
 
 void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundCollision) {
+
 	if (eventCollisionForce) {
+		
 		//force -= collisionForceThreshold;
 		//force = std::max(force, 0.0f);
 		
 		if (force - collisionForceThreshold > 0.00001) {
+			std::cout << force << std::endl;
+
 			TGen::Engine::TriggerContext * context = eventCollisionForce->context;
 			TGenAssert(context);
 			
 			std::cout << "FORCE: " << force * collisionForceScale - collisionForceThreshold << std::endl;
 			
-			scalar fixedForce = force * collisionForceScale - collisionForceThreshold;
+			scalar fixedForce = fabs(force * collisionForceScale - collisionForceThreshold);
 			
-			context->setRegister(2, fixedForce);
-			context->setRegister<int>(3, groundCollision);
+			context->setParameter(0, fixedForce);
+			context->setParameter<int>(1, groundCollision);
 			
 			eventCollisionForce->trigger(*context, TGen::Engine::TriggerPrecise);
 		}

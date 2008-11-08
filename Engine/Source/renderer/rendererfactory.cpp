@@ -9,6 +9,7 @@
 
 #include "renderer/rendererfactory.h"
 #include "renderer/deferred/renderer.h"
+#include "renderer/newrenderer/renderer.h"
 #include <tgen_core.h>
 #include "log.h"
 
@@ -24,6 +25,8 @@ TGen::Engine::WorldRenderer * TGen::Engine::WorldRendererFactory::createRenderer
 	
 	if (name == "deferred")
 		return new TGen::Engine::DeferredRenderer(renderer, logs, variables, resources);
+	else if (name == "new")
+		return new TGen::Engine::NewRenderer(renderer);
 	
 	throw TGen::RuntimeException("WorldRendererFactory::createRenderer", "invalid renderer name: '" + name + "'");
 }

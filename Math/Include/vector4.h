@@ -26,6 +26,8 @@ namespace TGen {
 		
 		TGen::Vector4 & operator /= (scalar div);
 		
+		operator std::string() const;
+
 		static Vector4 Identity;
 		
 		scalar x, y, z, w;		
