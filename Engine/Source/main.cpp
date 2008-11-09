@@ -145,7 +145,7 @@ void createVariables(TGen::Engine::VariableRegister & variables) {
 	variables += TGen::Engine::Variable("game_author", "Peter Backman", "Peter Backman", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("version", TGen::Engine::getVersionString(), TGen::Engine::getVersionString(), TGen::Engine::VariableReadOnly);
 	variables += TGen::Engine::Variable("map", "", "", 0);
-	variables += TGen::Engine::Variable("r_renderer", "forwad", "forward", TGen::Engine::VariableConfigWriteOnly);
+	variables += TGen::Engine::Variable("r_renderer", "forward", "forward", TGen::Engine::VariableConfigWriteOnly);
 	variables += TGen::Engine::Variable("r_syncVtrace", "false", "false", 0);
 	
 	//variables += TGen::Engine::Variable("r_postprocessor", "default", "default", 0);	

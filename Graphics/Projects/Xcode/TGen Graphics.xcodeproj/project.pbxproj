@@ -222,6 +222,7 @@
 		D08DCBDB0C3BC1CB00C0AB3F /* renderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderable.h; path = Include/renderable.h; sourceTree = "<group>"; };
 		D08DCC3B0C3BC33000C0AB3F /* technique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = technique.h; path = Include/technique.h; sourceTree = "<group>"; };
 		D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = technique.cpp; path = Source/technique.cpp; sourceTree = "<group>"; };
+		D09C13040EC6D73A00355FE9 /* lightmaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightmaterial.h; path = Include/lightmaterial.h; sourceTree = "<group>"; };
 		D0BDFCC50CF0B8D900A3A3C7 /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = Include/light.h; sourceTree = "<group>"; };
 		D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light.cpp; path = Source/light.cpp; sourceTree = "<group>"; };
 		D0CEF2640C3BDABE007D4B18 /* materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialparser.h; path = Include/materialparser.h; sourceTree = "<group>"; };
@@ -407,6 +408,7 @@
 				D07A2CEA0C667EBA009CABCA /* textureunit.h */,
 				D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */,
 				D0BDFCC50CF0B8D900A3A3C7 /* light.h */,
+				D09C13040EC6D73A00355FE9 /* lightmaterial.h */,
 				D07980030D21666C00B16739 /* vertexsource.cpp */,
 				D0797FF90D215DEF00B16739 /* vertexsource.h */,
 				D07279A60D22CF80004FCFCB /* renderstatistics.cpp */,

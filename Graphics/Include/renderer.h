@@ -33,6 +33,7 @@ namespace TGen {
 	class RenderContext;
 	class Plane3;
 	class Light;
+	class LightMaterial;
 	
 	class Renderer : public TGen::VertexDataSource {
 	protected:
@@ -74,6 +75,7 @@ namespace TGen {
 
 		virtual void setLight(int num, const TGen::Light & light) abstract;
 		virtual void setAmbientLight(const TGen::Color & ambient) abstract;
+		virtual void setLightMaterial(const TGen::LightMaterial & material) abstract;
 		
 		virtual void clearBuffers(ushort buffers) abstract;
 		

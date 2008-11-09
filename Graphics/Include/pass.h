@@ -89,6 +89,7 @@ namespace TGen {
 		typedef std::vector<TGen::TextureCoordTransformer *> TransformerList;
 		TransformerList transformers;
 		TGen::TextureUnit * texunit;
+
 		int textureType;
 	};
 	
@@ -112,6 +113,9 @@ namespace TGen {
 		void setDisableDepth();
 		void setDisableBlend();
 		void setColorFromVertex();
+		void setLightDiffuse(const TGen::Color & diffuse);
+		void setLightSpecular(const TGen::Color & specular);
+		void setLightShininess(scalar shininess);
 		
 		void update(scalar dt);
 		

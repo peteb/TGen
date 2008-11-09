@@ -7,18 +7,18 @@
  *
  */
 
-#include "renderer/newrenderer/renderer.h"
+#include "renderer/forward/renderer.h"
 #include "world.h"
 #include <tgen_renderer.h>
 #include <tgen_graphics.h>
 #include "light.h"
 
-TGen::Engine::NewRenderer::NewRenderer(TGen::Renderer & renderer)
+TGen::Engine::ForwardRenderer::ForwardRenderer(TGen::Renderer & renderer)
 	: TGen::Engine::WorldRenderer(renderer)
 {
 }
 
-TGen::Engine::NewRenderer::~NewRenderer() {
+TGen::Engine::ForwardRenderer::~ForwardRenderer() {
 	
 }
 
@@ -30,9 +30,7 @@ TGen::Engine::NewRenderer::~NewRenderer() {
  
  */
 
-#include <OpenGL/OpenGL.h>
-
-void TGen::Engine::NewRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
+void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
 	world.prepareLists(camera);
 	TGen::RenderList & renderList = world.getRenderList();
 	TGen::Engine::LightList & lights = world.getLightList();
@@ -55,6 +53,8 @@ void TGen::Engine::NewRenderer::renderWorld(TGen::Engine::World & world, TGen::C
 		renderer.setTransform(TGen::TransformWorldView, camera->getTransform() * light->getTransform());
 		renderer.setLight(i, light->getLightProperties());
 	}
+	
+	// disable lights when there are none... connects with the TODO "handle N lights"
 	
 	/*glPolygonMode(GL_FRONT, GL_LINES);
 	glPolygonMode(GL_BACK, GL_FILL);

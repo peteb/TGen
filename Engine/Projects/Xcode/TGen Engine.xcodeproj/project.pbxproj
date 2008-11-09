@@ -134,7 +134,6 @@
 		D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B4212B0DF730C2004AB272 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D0B4208E0DF730C2004AB272 /* base */; };
-		D0B4212C0DF730C2004AB272 /* testmod in Resources */ = {isa = PBXBuildFile; fileRef = D0B420AB0DF730C2004AB272 /* testmod */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
@@ -479,8 +478,8 @@
 		D08C7BF30D10919B008622BC /* imagegenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imagegenerator.cpp; sourceTree = "<group>"; };
 		D08C7C230D109514008622BC /* generateline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = generateline.h; path = ../../Include/generateline.h; sourceTree = SOURCE_ROOT; };
 		D08C7C240D1095CA008622BC /* generateline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = generateline.cpp; sourceTree = "<group>"; };
-		D08D37D80EC3C2C800F23C18 /* renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderer.cpp; path = renderer/newrenderer/renderer.cpp; sourceTree = "<group>"; };
-		D08D37DA0EC3C2E700F23C18 /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderer.h; path = ../../Include/renderer/newrenderer/renderer.h; sourceTree = SOURCE_ROOT; };
+		D08D37D80EC3C2C800F23C18 /* renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderer.cpp; path = renderer/forward/renderer.cpp; sourceTree = "<group>"; };
+		D08D37DA0EC3C2E700F23C18 /* renderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderer.h; path = ../../Include/renderer/forward/renderer.h; sourceTree = SOURCE_ROOT; };
 		D08DC5C80DDF3D870072AF9C /* id4cmgeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id4cmgeom.h; path = ../../Include/physics/id4cmgeom.h; sourceTree = SOURCE_ROOT; };
 		D08DC5C90DDF3D9E0072AF9C /* id4cmgeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id4cmgeom.cpp; path = physics/id4cmgeom.cpp; sourceTree = "<group>"; };
 		D08DC5FA0DDF3F420072AF9C /* id4cmloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id4cmloader.h; path = ../../Include/physics/id4cmloader.h; sourceTree = SOURCE_ROOT; };
@@ -541,7 +540,6 @@
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B4208E0DF730C2004AB272 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
-		D0B420AB0DF730C2004AB272 /* testmod */ = {isa = PBXFileReference; lastKnownFileType = folder; name = testmod; path = ../../Resources/testmod; sourceTree = SOURCE_ROOT; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
 		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/renderer/lightlist.h; sourceTree = "<group>"; };
@@ -686,7 +684,6 @@
 			isa = PBXGroup;
 			children = (
 				D0B4208E0DF730C2004AB272 /* base */,
-				D0B420AB0DF730C2004AB272 /* testmod */,
 				D062301D0D807636003A31A0 /* Graphics.png */,
 				D0622ECE0D806C45003A31A0 /* Displays.icns */,
 				8D0C4E960486CD37000505A6 /* Info.plist */,
@@ -1050,7 +1047,7 @@
 		D08395710CD9266900C94467 /* renderer */ = {
 			isa = PBXGroup;
 			children = (
-				D08D37D70EC3C2AA00F23C18 /* newrenderer */,
+				D08D37D70EC3C2AA00F23C18 /* forward */,
 				D0E458330D906FBD00F4D548 /* deferred */,
 				D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */,
 				D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */,
@@ -1097,13 +1094,13 @@
 			name = entity;
 			sourceTree = "<group>";
 		};
-		D08D37D70EC3C2AA00F23C18 /* newrenderer */ = {
+		D08D37D70EC3C2AA00F23C18 /* forward */ = {
 			isa = PBXGroup;
 			children = (
 				D08D37D80EC3C2C800F23C18 /* renderer.cpp */,
 				D08D37DA0EC3C2E700F23C18 /* renderer.h */,
 			);
-			name = newrenderer;
+			name = forward;
 			sourceTree = "<group>";
 		};
 		D08F3CEF0DEB3AA80051EDD6 /* sound */ = {
@@ -1484,7 +1481,6 @@
 				D062301E0D807636003A31A0 /* Graphics.png in Resources */,
 				D062304E0D807DBA003A31A0 /* Statistics.xib in Resources */,
 				D0B4212B0DF730C2004AB272 /* base in Resources */,
-				D0B4212C0DF730C2004AB272 /* testmod in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

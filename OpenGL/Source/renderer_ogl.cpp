@@ -1205,6 +1205,7 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 		STAT_ADD(TGen::StatGeneralStateCacheHit);		
 	}*/
 	
+	setLightMaterial(context.lightMaterial);
 	// TODO: behöver kunna kolla om en bool blivit initierad eller inte
 }
 
@@ -1286,6 +1287,15 @@ void TGen::OpenGL::Renderer::setLight(int num, const TGen::Light & light) {
 	glLightfv(GL_LIGHT0 + num, GL_LINEAR_ATTENUATION, &linearAttenuation);
 	glLightfv(GL_LIGHT0 + num, GL_QUADRATIC_ATTENUATION, &quadraticAttenuation);
 	glLightfv(GL_LIGHT0 + num, GL_CONSTANT_ATTENUATION, &constantAttenuation);
+}
+
+void TGen::OpenGL::Renderer::setLightMaterial(const TGen::LightMaterial & material) {
+	GLfloat diffuse[4] = {material.diffuse.r, material.diffuse.g, material.diffuse.b, material.diffuse.a};
+	GLfloat specular[4] = {material.specular.r, material.specular.g, material.specular.b, material.specular.a};
+	
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+	glMaterialf(GL_FRONT, GL_SHININESS, material.shininess);
 }
 
 void TGen::OpenGL::Renderer::setAmbientLight(const TGen::Color & ambient) {

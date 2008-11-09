@@ -14,6 +14,7 @@
 #include "renderer_types.h"
 #include <vector>
 #include "tgen_math.h"
+#include "lightmaterial.h"
 
 namespace TGen {
 	class ShaderProgram;
@@ -37,6 +38,7 @@ namespace TGen {
 		
 		typedef std::vector<TGen::TextureUnit *> TextureList;
 		TextureList textureUnits;
+		LightMaterial lightMaterial;
 	};
 	
 } // !TGen

@@ -33,6 +33,7 @@
 #include "canvas.h"
 #include "color.h"
 #include "light.h"
+#include "lightmaterial.h"
 
 #include "batch.h"
 #include "material.h"

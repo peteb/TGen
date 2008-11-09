@@ -54,6 +54,7 @@ namespace TGen {
 			void setShaderProgram(TGen::ShaderProgram * program);
 			void setLight(int num, const TGen::Light & light);
 			void setAmbientLight(const TGen::Color & ambient);
+			void setLightMaterial(const TGen::LightMaterial & material);
 			
 			void setClipPlane(int id, const TGen::Plane3 & plane);
 			void disableClipPlane(int id);

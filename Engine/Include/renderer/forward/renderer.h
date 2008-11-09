@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_NEWRENDERER_RENDERER_H
-#define _TGEN_ENGINE_NEWRENDERER_RENDERER_H
+#ifndef _TGEN_ENGINE_FORWARDRENDERER_RENDERER_H
+#define _TGEN_ENGINE_FORWARDRENDERER_RENDERER_H
 
 #include "renderer/worldrenderer.h"
 
@@ -18,10 +18,10 @@ namespace TGen {
 	namespace Engine {
 		class World;
 		
-		class NewRenderer : public TGen::Engine::WorldRenderer {
+		class ForwardRenderer : public TGen::Engine::WorldRenderer {
 		public:
-			NewRenderer(TGen::Renderer & renderer);
-			~NewRenderer();
+			ForwardRenderer(TGen::Renderer & renderer);
+			~ForwardRenderer();
 			
 			void renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt);
 		};
@@ -29,5 +29,5 @@ namespace TGen {
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_NEWRENDERER_RENDERER_H
+#endif // !_TGEN_ENGINE_FORWARDRENDERER_RENDERER_H
 

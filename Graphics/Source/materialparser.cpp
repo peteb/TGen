@@ -386,6 +386,18 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 					pass->setAlpha(a);
 				}
 			}
+			else if (currentToken->second == "lightDiffuse") {
+				stepToken();
+				pass->setLightDiffuse(parseColor());
+			}
+			else if (currentToken->second == "lightSpecular") {
+				stepToken();
+				pass->setLightSpecular(parseColor());
+			}
+			else if (currentToken->second == "lightShininess") {
+				stepToken();
+				pass->setLightShininess(TGen::lexical_cast<scalar>(getNumericToken("pass.lightShininess: expecting numeric value")));
+			}
 			else if (currentToken->second == "bind") {
 				std::string varName, varId;
 				stepToken();
@@ -705,4 +717,14 @@ TGen::WaveGenerator * TGen::MaterialParser::parseWaveGenerator() {
 		throw TGen::RuntimeException("MaterialParser::ParseWaveGenerator", "invalid wave type: '" + currentToken->second + "'!");
 	
 	return ret;
+}
+
+TGen::Color TGen::MaterialParser::parseColor() {
+	scalar r = TGen::lexical_cast<scalar>(getNumericToken("parseColor: expecting numeric R value "));
+	stepToken();
+	scalar g = TGen::lexical_cast<scalar>(getNumericToken("parseColor: expecting numeric G value "));
+	stepToken();
+	scalar b = TGen::lexical_cast<scalar>(getNumericToken("parseColor: expecting numeric B value "));
+	
+	return TGen::Color(r, g, b);
 }

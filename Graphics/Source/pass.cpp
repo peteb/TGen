@@ -62,6 +62,19 @@ void TGen::Pass::setColorFromVertex() {
 	renderContext.colorFromVertex = true;
 }
 
+void TGen::Pass::setLightDiffuse(const TGen::Color & diffuse) {
+	renderContext.lightMaterial.diffuse = diffuse;
+}
+
+void TGen::Pass::setLightSpecular(const TGen::Color & specular) {
+	renderContext.lightMaterial.specular = specular;
+}
+
+void TGen::Pass::setLightShininess(scalar shininess) {
+	renderContext.lightMaterial.shininess = shininess;
+}
+
+
 void TGen::Pass::setAlpha(const std::string & a) {
 	delete alphaGen;
 	alphaGen = NULL;

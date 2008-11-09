@@ -12,6 +12,7 @@
 
 #include <list>
 #include "tgen_core.h"
+#include "color.h"
 
 //#define _MATPARSER_VERBOSE
 
@@ -51,6 +52,7 @@ namespace TGen {
 		void parseTexunitBlock(TGen::PassTextureUnit * unit, TGen::Material * material);
 		TGen::WaveGenerator * parseWaveGenerator();
 		
+		TGen::Color parseColor();
 	
 		TGen::Material * getMaterial(const std::string & name);
 		std::string getStringToken(const std::string & name, bool ignorelf = false, bool quote = true);
