@@ -43,14 +43,17 @@ void TGen::Engine::NewRenderer::renderWorld(TGen::Engine::World & world, TGen::C
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderer.setAmbientLight(world.getAmbientLight());
 
-	std::cout << "render faces: " << std::dec <<  renderList.getNumFaces() << " user info: " << renderList.getNumUserInfo() << std::endl;
+	//std::cout << "render faces: " << std::dec <<  renderList.getNumFaces() << " user info: " << renderList.getNumUserInfo() << std::endl;
 	
 	for (int i = 0; i < lights.getNumLights(); ++i) {
 		TGen::Engine::Light * light = lights.getLight(i);
 		
-		light->getLightProperties().position = light->getWorldPosition() * TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f); //light->getWorldPosition();
 		
-		std::cout << "light " << i << " " << std::string(light->getWorldPosition()) << std::endl;
+		//std::cout << "light " << i << " " << std::string(light->getWorldPosition()) << std::endl;
+		
+		renderer.setTransform(TGen::TransformWorldView, camera->getTransform() * light->getTransform());
+		renderer.setLight(i, light->getLightProperties());
 	}
 	
 	/*glPolygonMode(GL_FRONT, GL_LINES);
@@ -71,9 +74,6 @@ void TGen::Engine::NewRenderer::renderWorld(TGen::Engine::World & world, TGen::C
 	 
 	 */
 	
-	renderList.render(renderer, *camera, "default");
-	renderList.render(renderer, *camera, "default");
-	renderList.render(renderer, *camera, "default");
 	renderList.render(renderer, *camera, "default");
 
 }

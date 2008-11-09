@@ -21,10 +21,11 @@ namespace TGen {
 		class Filesystem;
 		class StandardLogs;
 		class Renderer;
+		class VariableRegister;
 		
 		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource, public TGen::MeshSource, public TGen::ModelInstantiator {
 		public:
-			ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer);
+			ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer, TGen::Engine::VariableRegister & variables);
 			~ResourceManager();
 			
 			TGen::ShaderProgram * getShaderProgram(const std::string & name);
@@ -54,6 +55,7 @@ namespace TGen {
 			TGen::Engine::ImageLoader imageLoader;
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;
+			TGen::Engine::VariableRegister & variables;
 			TGen::Renderer & renderer;
 		};
 	}

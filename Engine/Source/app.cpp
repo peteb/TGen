@@ -31,7 +31,7 @@ TGen::Engine::App::App(TGen::Engine::VariableRegister & variables, TGen::Engine:
 	, renderer(renderer)
 	, inputDevices(inputDevices)
 	, logs(logs)
-	, globalResources(logs, filesystem, renderer)
+	, globalResources(logs, filesystem, renderer, variables)
 {
 	logs.info["app+"] << "initializing..." << TGen::endl;
 	

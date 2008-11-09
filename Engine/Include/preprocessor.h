@@ -19,12 +19,14 @@ namespace TGen {
 		public:
 			TextPreprocessor();
 			
-			std::string process(const std::string & contents, const std::string & parameters);
+			std::string process(const std::string & contents, const std::string & parameters, bool parseIfs = false, bool hashDefs = true);
 			
 		private:
 			typedef std::vector<std::pair<std::string, std::string> > ParameterList;
 
-			void parseParameters(const std::string & parameters, ParameterList & out);
+			void parseParameters(const std::string & parameters, ParameterList & out, bool hashDefs);
+			std::string fixLoops(const std::string & input) const;
+			std::string fixIfs(const std::string & input) const;
 			
 			bool defineNoValueParam;
 		};

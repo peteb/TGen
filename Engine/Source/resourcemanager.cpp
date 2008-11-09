@@ -17,12 +17,14 @@
 #include "preprocessor.h"
 #include "generateline.h"
 #include "modelfactory.h"
+#include "variableregister.h"
 
-TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer) 
+TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer, TGen::Engine::VariableRegister & variables) 
 	: logs(logs)
 	, filesystem(filesystem)
 	, renderer(renderer)
 	, vertexCache(renderer, logs)
+	, variables(variables)
 {
 	logs.info["res+"] << "initializing resource manager..." << TGen::endl;
 	
@@ -363,7 +365,9 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	delete file;
 	
 	TGen::Engine::TextPreprocessor processor;
-	std::string fixedContents = processor.process(contents, "");
+	
+	std::string fixedContents = processor.process(contents, "RENDERER=" + variables["r_renderer"].getValue(), true, false);		
+	// let the preprocessor have its way with the contents. parse if-branches
 	
 	std::list<TGen::Material *> materialsLoaded;
 	TGen::MaterialParser parser;
