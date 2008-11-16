@@ -46,6 +46,7 @@
 #include "techniquelist.h"
 #include "passlist.h"
 #include "shadervarupdater.h"
+#include "materialoverride.h"
 
 #include "font.h"
 #include "fonttext.h"

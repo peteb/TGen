@@ -39,6 +39,10 @@ namespace TGen {
 			void setClearDepth(scalar depth);
 			void setViewport(const TGen::Rectangle & viewport);
 			void setFaceWinding(TGen::FaceWinding winding);
+			void setDepthFunc(TGen::CompareFunc compare);
+			void setBlendFunc(TGen::BlendFunc srcFunc, TGen::BlendFunc dstFunc);
+			void setDepthWrite(bool write);
+			void setColorWrite(bool write);
 			
 			#ifdef _GFX_KEEP_DEPRECATED
 			void setVertexBuffer(TGen::VertexBuffer * buffer, TGen::VertexStructure * override = NULL);
@@ -52,6 +56,7 @@ namespace TGen {
 			void setTexture(int unit, TGen::Texture * texture);
 			void setRenderTarget(TGen::FrameBuffer * buffer);
 			void setShaderProgram(TGen::ShaderProgram * program);
+			TGen::ShaderProgram * getShaderProgram();
 			void setLight(int num, const TGen::Light & light);
 			void setAmbientLight(const TGen::Color & ambient);
 			void setLightMaterial(const TGen::LightMaterial & material);
@@ -62,6 +67,7 @@ namespace TGen {
 			void setRenderContext(const TGen::RenderContext & context, TGen::Texture ** textureTypes);
 			void setColor(const TGen::Color & color);
 			void setTransform(TransformMode mode, const Matrix4x4 & transformation);
+			void setTextureTransform(int unit, const Matrix4x4 & transform);
 			TGen::Matrix4x4 getTransform(TransformMode mode) const;
 			void multiplyTransform(TransformMode mode, const Matrix4x4 & transform);
 			
@@ -105,7 +111,7 @@ namespace TGen {
 			TGen::OpenGL::Shader * createShader(const char * code, int type);
 
 			void setTextureCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
-			void setDepthFunc(TGen::CompareFunc compare);
+			
 			
 			void applyVertexStructure(const TGen::VertexStructure & vertstruct);
 			

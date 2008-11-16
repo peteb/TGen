@@ -26,7 +26,7 @@ TGen::Engine::WorldRenderer * TGen::Engine::WorldRendererFactory::createRenderer
 	if (name == "deferred")
 		return new TGen::Engine::DeferredRenderer(renderer, logs, variables, resources);
 	else if (name == "forward")
-		return new TGen::Engine::ForwardRenderer(renderer);
+		return new TGen::Engine::ForwardRenderer(renderer, resources);
 	
 	throw TGen::RuntimeException("WorldRendererFactory::createRenderer", "invalid renderer name: '" + name + "'");
 }

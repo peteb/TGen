@@ -207,6 +207,14 @@ void TGen::OpenGL::Renderer::setTransform(TGen::TransformMode mode, const TGen::
 	glLoadMatrixf((GLfloat *)transformation.elements);	
 }
 
+void TGen::OpenGL::Renderer::setTextureTransform(int unit, const Matrix4x4 & transform) {
+	glMatrixMode(GL_TEXTURE_MATRIX);
+	glActiveTexture(GL_TEXTURE0 + unit);
+	glLoadMatrixf((GLfloat *)transform.elements);
+	
+	activeTextureUnit = GL_TEXTURE0 + unit;
+}
+
 TGen::Matrix4x4 TGen::OpenGL::Renderer::getTransform(TGen::TransformMode mode) const {
 	uint fixedTransform = 0;
 	
@@ -862,6 +870,10 @@ void TGen::OpenGL::Renderer::setShaderProgram(TGen::ShaderProgram * program) {
 	}
 }
 
+TGen::ShaderProgram * TGen::OpenGL::Renderer::getShaderProgram() {
+	return lastShader;
+}
+
 // TODO: kolla så alla texturer som attachas på fb har samma storlek
 
 void TGen::OpenGL::Renderer::applyVertexStructure(const TGen::VertexStructure & vertstruct) {
@@ -1089,8 +1101,8 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 	if (context.blendSrc != lastContext.blendSrc || context.blendDst != lastContext.blendDst) {
 		STAT_ADD(TGen::StatGeneralStateCacheMiss);
 
-		glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendSrc), TGen::OpenGL::TgenBlendFuncToOpenGL(context.blendDst));
-	
+		setBlendFunc(context.blendSrc, context.blendDst);
+		
 		lastContext.blendSrc = context.blendSrc;
 		lastContext.blendDst = context.blendDst;
 	}
@@ -1240,6 +1252,30 @@ void TGen::OpenGL::Renderer::setTextureCoordGen(TGen::TextureCoordGen genU, TGen
 
 void TGen::OpenGL::Renderer::setDepthFunc(TGen::CompareFunc compare) {
 	glDepthFunc(TGen::OpenGL::TgenCompareFuncToOpenGL(compare));
+}
+
+void TGen::OpenGL::Renderer::setBlendFunc(TGen::BlendFunc srcFunc, TGen::BlendFunc dstFunc) {
+	glBlendFunc(TGen::OpenGL::TgenBlendFuncToOpenGL(srcFunc), TGen::OpenGL::TgenBlendFuncToOpenGL(dstFunc));
+	
+	lastContext.blendSrc = srcFunc;
+	lastContext.blendDst = dstFunc;
+
+}
+
+void TGen::OpenGL::Renderer::setDepthWrite(bool write) {
+	if (write)
+		glDepthMask(GL_TRUE);
+	else
+		glDepthMask(GL_FALSE);
+	
+	lastContext.depthWrite = write;
+}
+
+void TGen::OpenGL::Renderer::setColorWrite(bool write) {
+	if (write)
+		glColorMask(true, true, true, true);
+	else
+		glColorMask(false, false, false, false);
 }
 
 void TGen::OpenGL::Renderer::setFaceWinding(TGen::FaceWinding winding) {

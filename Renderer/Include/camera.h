@@ -16,8 +16,10 @@
 #define _TGEN_RENDERER_CAMERA_H
 
 #include "scenenode.h"
+#include "lodinfo.h"
 
 namespace TGen {
+
 	class Camera : public TGen::SceneNode {
 	public:
 		Camera(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & rotation);
@@ -29,16 +31,15 @@ namespace TGen {
 		void setFov(const TGen::Degree & angle);
 		void setClip(scalar near, scalar far);
 		void setLod(scalar near, scalar far);
-		scalar getLodNear() const;
-		scalar getLodFar() const;
-		scalar getClipNear() const;
-		scalar getClipFar() const;
+
+		const TGen::LodInfo & getLod() const;
 		
 		const TGen::Matrix4x4 & getProjection() const;
 
 	protected:
 		TGen::Degree fov;
-		scalar aspectRatio, clipNear, clipFar, lodNear, lodFar;
+		scalar aspectRatio;
+		TGen::LodInfo lodInfo;
 		bool projectionChanged;
 		TGen::Matrix4x4 projectionMatrix;		
 	};	

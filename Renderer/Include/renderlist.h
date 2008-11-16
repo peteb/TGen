@@ -35,10 +35,14 @@ namespace TGen {
 	class Renderer;
 	class VertexStream;
 	class SceneNode;
+	class MaterialOverride;
+	class Material;
+
+	class LodInfo;
 	
 	class RenderList : public TGen::MetaWriter {
 	public:
-		RenderList() {}
+		RenderList() : override(NULL), materialOverride(NULL) {}
 		virtual ~RenderList() {}
 		
 		struct UserInfo {
@@ -52,8 +56,13 @@ namespace TGen {
 			int value;
 		};
 		
+		void setMaterialOverride(TGen::MaterialOverride * override, int param);
+		void setMaterial(TGen::Material * material);
+		
 		//virtual void writeMeta(uint metaType, const TGen::Matrix4x4 & modelview, TGen::VertexStream & stream) {}
-		virtual void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization) abstract;
+		virtual void render(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const std::string & specialization) abstract;
+		virtual void renderWithinRadius(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const TGen::Vector3 & pos, scalar radius) abstract;
+		
 		virtual void addMeta(TGen::MetaWriter * metaWriter, const TGen::SceneNode * node) abstract;
 		virtual void addFace(const TGen::NewFace & face) abstract;
 		virtual void addUser(void * user, int id) abstract;
@@ -63,24 +72,29 @@ namespace TGen {
 		virtual void sort(const TGen::Camera & camera, const std::string & specialization) abstract;
 		virtual void clear() abstract;
 		virtual bool needSorting() abstract;
+		
+	protected:
+		TGen::MaterialOverride * override;
+		int overrideParam;
+		TGen::Material * materialOverride;
 	};
 } // !TGen
 
 /*
 RenderListCache:
- En samling vb's och ib's i en viss storlek, alignad pÃ¥ batch size. Varje batch har ett inlÃ¤gg i en lista,
+ En samling vb's och ib's i en viss storlek, alignad på batch size. Varje batch har ett inlägg i en lista,
  vbnummer, ibnummer, startib, countib, primitive.
- Det hÃ¤r Ã¤r absolut snabbaste sÃ¤ttet man kan rendrera pÃ¥.
- FÃ¶r att kompilera en RenderListCache sÃ¥ sorterar RenderListen faces efter material och fÃ¶rsÃ¶ker gÃ¶ra batches sÃ¥ stora som mÃ¶jligt.
- Om batchen blir fÃ¶r stor (antalet indices i ib eller vertices i vb) sÃ¥ delas batchen i tvÃ¥.
+ Det här är absolut snabbaste sättet man kan rendrera på.
+ För att kompilera en RenderListCache så sorterar RenderListen faces efter material och försöker göra batches så stora som möjligt.
+ Om batchen blir för stor (antalet indices i ib eller vertices i vb) så delas batchen i två.
 
- Geometries bes att rendrera till batchen, och dÃ¥ kopierar den dit sina vertices och indices bara.
+ Geometries bes att rendrera till batchen, och då kopierar den dit sina vertices och indices bara.
  
- RenderListCache kommer inte snabba upp nÃ¥got typ... level data Ã¤r redan sÃ¥ optimalt det kan vara .. nÃ¤stan, sektorer Ã¤r ju batchbrytare.
+ RenderListCache kommer inte snabba upp något typ... level data är redan så optimalt det kan vara .. nästan, sektorer är ju batchbrytare.
  
- RenderListCache mÃ¥ste ha alla vertices i world space. Annars Ã¤r det ingen vits alls.
+ RenderListCache måste ha alla vertices i world space. Annars är det ingen vits alls.
  
- Experimentera med det hÃ¤r sen nÃ¤r det finns testdata, ie, en nÃ¥gorlunda vÃ¤rld med modeller som rÃ¶r sig.
+ Experimentera med det här sen när det finns testdata, ie, en någorlunda värld med modeller som rör sig.
 
  */
 

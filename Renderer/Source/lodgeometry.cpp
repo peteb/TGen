@@ -20,7 +20,7 @@ TGen::LodGeometry::~LodGeometry() {
 }
 
 void TGen::LodGeometry::update(const TGen::Camera & camera, scalar distance, scalar time) {
-	int lod = steps - int(((distance - camera.getLodNear()) / camera.getLodFar()) * steps);
+	int lod = steps - int(((distance - camera.getLod().lodNear) / camera.getLod().lodFar) * steps);
 	TGen::Clamp(lod, 0, steps - 1);
 	
 	if (lod != lastLod) {

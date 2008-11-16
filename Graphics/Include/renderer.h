@@ -53,7 +53,13 @@ namespace TGen {
 		virtual void setClearDepth(scalar depth) abstract;
 		virtual void setViewport(const Rectangle & viewport);
 		virtual void setTransform(TransformMode mode, const Matrix4x4 & transformation);
+		virtual void setTextureTransform(int unit, const Matrix4x4 & transform) abstract;
 		virtual void multiplyTransform(TransformMode mode, const Matrix4x4 & transform);
+		
+		virtual void setDepthFunc(TGen::CompareFunc compare) abstract;
+		virtual void setBlendFunc(TGen::BlendFunc srcFunc, TGen::BlendFunc dstFunc) abstract;
+		virtual void setDepthWrite(bool write) abstract;
+		virtual void setColorWrite(bool write) abstract;
 		
 		#ifdef _GFX_KEEP_DEPRECATED
 		virtual void setVertexBuffer(VertexBuffer * buffer, VertexStructure * override = NULL) abstract;
@@ -66,6 +72,7 @@ namespace TGen {
 		virtual void setTexture(int unit, Texture * texture) abstract;
 		virtual void setRenderTarget(FrameBuffer * buffer) abstract;
 		virtual void setShaderProgram(ShaderProgram * program) abstract;
+		virtual ShaderProgram * getShaderProgram() abstract;
 		
 		virtual void disableClipPlane(int id) abstract;
 		virtual void setClipPlane(int id, const TGen::Plane3 & plane) abstract;

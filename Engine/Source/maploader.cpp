@@ -191,7 +191,26 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock(const TGen
 	
 	while (currentToken != endIter) {
 		if (currentToken->first == ProcTokenArrayStart) {
-			surface->addVertex(parseVertex(transformer));
+			
+			TGen::Engine::MapSurface::VertexDecl::Type newVertex = parseVertex(transformer);
+			TGen::Vector3 vertexPos = TGen::Vector3(newVertex.MapSurface::Vertex::Type::x, newVertex.MapSurface::Vertex::Type::y, newVertex.MapSurface::Vertex::Type::z);
+
+			surface->addVertex(newVertex);
+			
+			if (vertsAdded == 0) {
+				surface->min = surface->max = surface->origin = vertexPos;
+			}
+			else {
+				surface->min.x = std::min(surface->min.x, vertexPos.x);
+				surface->min.y = std::min(surface->min.y, vertexPos.y);
+				surface->min.z = std::min(surface->min.z, vertexPos.z);
+				
+				surface->max.x = std::max(surface->max.x, vertexPos.x);
+				surface->max.y = std::max(surface->max.y, vertexPos.y);
+				surface->max.z = std::max(surface->max.z, vertexPos.z);
+				
+			}
+			
 			vertsAdded++;
 		}
 		else if (currentToken->first == TGen::TokenValueNumeric) {
@@ -201,6 +220,8 @@ TGen::Engine::MapSurface * TGen::Engine::MapLoader::parseSurfaceBlock(const TGen
 		else if (currentToken->first == ProcTokenBlockEnd) {
 			surface->calculateTangents();
 			surface->swapWinding();
+			
+			surface->origin = TGen::Interpolate(surface->min, surface->max, 0.5);
 			
 			if (vertsAdded != TGen::lexical_cast<int>(numVerts))
 				throw TGen::RuntimeException("MapLoader::parseSurfaceBlock", "vertex count missmatch");

@@ -70,3 +70,13 @@ int TGen::Engine::Light::getType() const {
 bool TGen::Engine::Light::isPointInsideBox(const TGen::Vector3 & point) const {
 	return true;
 }
+
+void TGen::Engine::Light::setBoundingBox(const TGen::Vector3 & box) {
+	bounding = box;
+}
+
+TGen::Vector3 TGen::Engine::Light::getBoundingBox() const {
+	return bounding;
+}
+
+

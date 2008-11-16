@@ -238,7 +238,8 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderer.setAmbientLight(world.getAmbientLight());
 
-	renderList.render(renderer, *mainCamera, "default");
+	renderer.setTransform(TGen::TransformProjection, mainCamera->getProjection());
+	renderList.render(renderer, mainCamera->getTransform(), mainCamera->getLod(), "default");
 
 	renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
 	metaNormalMaterial->render(renderer, metaLines, "default", 9, NULL, NULL);

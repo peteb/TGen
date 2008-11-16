@@ -28,6 +28,7 @@
 		D01C40870D5674DB0028A06F /* md3animmeshsingle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01C40860D5674DB0028A06F /* md3animmeshsingle.cpp */; };
 		D0219FE60D5613D40039323A /* modelinstantiatepool.h in Headers */ = {isa = PBXBuildFile; fileRef = D0219FE50D5613D40039323A /* modelinstantiatepool.h */; };
 		D0219FE80D5613E70039323A /* modelinstantiatepool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */; };
+		D023E5990ECCE32600FA34B9 /* lodinfo.h in Headers */ = {isa = PBXBuildFile; fileRef = D023E5980ECCE32600FA34B9 /* lodinfo.h */; };
 		D036C1DF0D5681DB00916AC6 /* doom.tga in CopyFiles */ = {isa = PBXBuildFile; fileRef = D036C1DE0D5681D400916AC6 /* doom.tga */; };
 		D04C81500CCA466000794CEA /* railgun.md3 in CopyFiles */ = {isa = PBXBuildFile; fileRef = D04C814F0CCA466000794CEA /* railgun.md3 */; };
 		D04C83470CCA4A6B00794CEA /* libtgen_graphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C818A0CCA46A700794CEA /* libtgen_graphics.a */; };
@@ -273,6 +274,7 @@
 		D01C40860D5674DB0028A06F /* md3animmeshsingle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = md3animmeshsingle.cpp; path = Source/md3animmeshsingle.cpp; sourceTree = "<group>"; };
 		D0219FE50D5613D40039323A /* modelinstantiatepool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelinstantiatepool.h; path = Include/modelinstantiatepool.h; sourceTree = "<group>"; };
 		D0219FE70D5613E70039323A /* modelinstantiatepool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = modelinstantiatepool.cpp; path = Source/modelinstantiatepool.cpp; sourceTree = "<group>"; };
+		D023E5980ECCE32600FA34B9 /* lodinfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lodinfo.h; path = Include/lodinfo.h; sourceTree = "<group>"; };
 		D036C1DE0D5681D400916AC6 /* doom.tga */ = {isa = PBXFileReference; lastKnownFileType = file; path = doom.tga; sourceTree = "<group>"; };
 		D04C814F0CCA466000794CEA /* railgun.md3 */ = {isa = PBXFileReference; lastKnownFileType = file; path = railgun.md3; sourceTree = "<group>"; };
 		D05008160DA66C1F0018EC08 /* scenenoderenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenenoderenderable.h; path = Include/scenenoderenderable.h; sourceTree = "<group>"; };
@@ -658,6 +660,7 @@
 				D0F50F950C70A925005DB68D /* fpscamera.cpp */,
 				D0F50F970C70A92E005DB68D /* fpscamera.h */,
 				D0F511A40C70F3B1005DB68D /* Walkers */,
+				D023E5980ECCE32600FA34B9 /* lodinfo.h */,
 			);
 			name = "Scene Graph";
 			sourceTree = "<group>";
@@ -747,6 +750,7 @@
 				D07B896B0DD0E962001A38EC /* vertexoffsetter.h in Headers */,
 				D09687470E06B20600231EC0 /* vertexmattransformer.h in Headers */,
 				D09BF42F0E1FD78800AE0941 /* modelrenderproperties.h in Headers */,
+				D023E5990ECCE32600FA34B9 /* lodinfo.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

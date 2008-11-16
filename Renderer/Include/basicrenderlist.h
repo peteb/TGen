@@ -31,7 +31,8 @@ namespace TGen {
 		
 		void addMeta(TGen::MetaWriter * metaWriter, const TGen::SceneNode * node);
 		void writeMeta(uint metaType, const TGen::Matrix4x4 & transform, TGen::VertexStream & stream);
-		void render(TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
+		void render(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const std::string & specialization);
+		void renderWithinRadius(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const TGen::Vector3 & pos, scalar radius);
 		void addFace(const TGen::NewFace & face);
 		void addUser(void * user, int id);
 		void sort(const TGen::Camera & camera, const std::string & specialization);
@@ -71,7 +72,7 @@ namespace TGen {
 		typedef std::vector<NewFace> FaceList;
 		typedef std::vector<UserInfo> UserInfoList;
 		
-		void renderList(SortedFaceList & list, TGen::Renderer & renderer, const TGen::Camera & camera, const std::string & specialization);
+		void renderList(SortedFaceList & list, TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const std::string & specialization);
 		void calculateCameraDistance(SortedFaceList & list, const TGen::Camera & camera);
 		
 		UserInfoList userInfo;

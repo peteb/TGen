@@ -15,10 +15,6 @@ TGen::Camera::Camera(const std::string & name, const TGen::Vector3 & position, c
 	: TGen::SceneNode(name, position, orientation)
 	, fov(80.0f)
 	, aspectRatio(1.0f)	
-	, clipNear(0.1f)
-	, clipFar(100.0f)
-	, lodNear(0.1f)
-	, lodFar(100.0f)
 	, projectionMatrix(TGen::Matrix4x4::Identity)
 	, projectionChanged(true)
 {
@@ -31,7 +27,7 @@ TGen::Camera::~Camera() {
 
 void TGen::Camera::update(scalar dt) {
 	if (projectionChanged) {
-		projectionMatrix = TGen::Matrix4x4::PerspectiveProjection(fov, aspectRatio, clipNear, clipFar);
+		projectionMatrix = TGen::Matrix4x4::PerspectiveProjection(fov, aspectRatio, lodInfo.clipNear, lodInfo.clipFar);
 		projectionChanged = false;
 	}
 		
@@ -68,33 +64,22 @@ void TGen::Camera::setFov(const TGen::Degree & angle) {
 }
 
 void TGen::Camera::setClip(scalar near, scalar far) {
-	clipNear = near;
-	clipFar = far;
+	lodInfo.clipNear = near;
+	lodInfo.clipFar = far;
 	projectionChanged = true;
 }
 
 void TGen::Camera::setLod(scalar near, scalar far) {
-	lodNear = near;
-	lodFar = far;
+	lodInfo.lodNear = near;
+	lodInfo.lodFar = far;
+
 	projectionChanged = true;
-}
-
-scalar TGen::Camera::getLodNear() const {
-	return lodNear;
-}
-
-scalar TGen::Camera::getLodFar() const {
-	return lodFar;
-}
-
-scalar TGen::Camera::getClipNear() const {
-	return clipNear;
-}
-
-scalar TGen::Camera::getClipFar() const {
-	return clipFar;
 }
 
 const TGen::Matrix4x4 & TGen::Camera::getProjection() const {
 	return projectionMatrix;
+}
+
+const TGen::LodInfo & TGen::Camera::getLod() const {
+	return lodInfo;
 }

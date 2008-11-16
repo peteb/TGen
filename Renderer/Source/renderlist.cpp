@@ -8,3 +8,12 @@
  */
 
 #include "renderlist.h"
+
+void TGen::RenderList::setMaterialOverride(TGen::MaterialOverride * override, int param) {
+	this->override = override;
+	this->overrideParam = param;
+}
+
+void TGen::RenderList::setMaterial(TGen::Material * material) {
+	this->materialOverride = material;
+}

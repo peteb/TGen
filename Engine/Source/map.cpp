@@ -40,7 +40,7 @@ bool TGen::Engine::Map::fillFaces(TGen::RenderList & list, const TGen::Camera & 
 	TGen::Matrix4x4 invertedCam = camera.getTransform();
 	invertedCam.invert();
 
-	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() - invertedCam.getZ() * (camera.getClipNear() + 0.1);
+	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() - invertedCam.getZ() * (camera.getLod().clipNear + 0.1);
 
 	//std::cout << std::string(pos) << std::endl;
 	
@@ -94,7 +94,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 	TGen::Matrix4x4 invertedCam = camera.getTransform();
 	invertedCam.invert();
 	
-	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() + invertedCam.getZ() * (camera.getClipNear() + 0.1);
+	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() + invertedCam.getZ() * (camera.getLod().clipNear + 0.1);
 	
 	// TODO: fysiken kan vara vanliga boxes i början
 	

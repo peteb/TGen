@@ -181,6 +181,8 @@ int TGen::Engine::ResourceManager::getTextureType(const std::string & name) {
 		return 1;
 	else if (name == "$normalmap" || name == "$bloom")
 		return 2;
+	else if (name == "$shadowmap")
+		return 5;
 	else if (name == "$miscmap")
 		return 3;
 	else if (name == "$depthmap")

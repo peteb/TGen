@@ -30,18 +30,19 @@ namespace TGen {
 		std::string getMaterialName() const;
 		virtual void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {}
 	
-		TGen::Vector3 getMax() const;
-		TGen::Vector3 getMin() const;
-		TGen::Vector3 getOrigin() const;
+		virtual TGen::Vector3 getMax() const;
+		virtual TGen::Vector3 getMin() const;
+		virtual TGen::Vector3 getOrigin() const;
 		TGen::Material * getMaterial() const;
-		
+
+		TGen::Vector3 min, max, origin;
+
 	protected:
 		std::string materialNamePostfix;		
 		
 	private:
 		TGen::Material * material;
 		std::string materialName;
-		TGen::Vector3 min, max, origin;
 	}; 
 	
 	

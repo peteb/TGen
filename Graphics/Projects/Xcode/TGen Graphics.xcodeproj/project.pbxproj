@@ -223,6 +223,7 @@
 		D08DCC3B0C3BC33000C0AB3F /* technique.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = technique.h; path = Include/technique.h; sourceTree = "<group>"; };
 		D08DCC4F0C3BC37D00C0AB3F /* technique.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = technique.cpp; path = Source/technique.cpp; sourceTree = "<group>"; };
 		D09C13040EC6D73A00355FE9 /* lightmaterial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightmaterial.h; path = Include/lightmaterial.h; sourceTree = "<group>"; };
+		D09C150E0EC7980800355FE9 /* materialoverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialoverride.h; path = Include/materialoverride.h; sourceTree = "<group>"; };
 		D0BDFCC50CF0B8D900A3A3C7 /* light.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = light.h; path = Include/light.h; sourceTree = "<group>"; };
 		D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = light.cpp; path = Source/light.cpp; sourceTree = "<group>"; };
 		D0CEF2640C3BDABE007D4B18 /* materialparser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialparser.h; path = Include/materialparser.h; sourceTree = "<group>"; };
@@ -373,6 +374,7 @@
 				D07A2EF20C668749009CABCA /* passlist.cpp */,
 				D07A2EF40C668753009CABCA /* passlist.h */,
 				D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */,
+				D09C150E0EC7980800355FE9 /* materialoverride.h */,
 			);
 			name = Material;
 			sourceTree = "<group>";
@@ -463,7 +465,7 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8DD76F620486A84900D96B5E /* TGen Graphics */ = {
+		8DD76F620486A84900D96B5E /* TGen Math */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB923108733DC60010E9CD /* Build configuration list for PBXNativeTarget "TGen Graphics" */;
 			buildPhases = (
@@ -527,7 +529,7 @@
 			);
 			projectRoot = ../..;
 			targets = (
-				8DD76F620486A84900D96B5E /* TGen Graphics */,
+				8DD76F620486A84900D96B5E /* TGen Math */,
 				D00FF6CB0C39391D00668773 /* tgen_graphics */,
 			);
 		};

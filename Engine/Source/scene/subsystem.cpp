@@ -165,9 +165,15 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
 	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
 	
-	light->getLightProperties().constantAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("constantAttenuation", "0"));
-	light->getLightProperties().linearAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("linearAttenuation", "0"));
-	light->getLightProperties().quadraticAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("quadraticAttenuation", "0"));
+	scalar constantAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("constantAttenuation", "0"));
+	scalar linearAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("linearAttenuation", "0"));
+	scalar quadraticAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("quadraticAttenuation", "0"));
+	
+	light->getLightProperties().constantAttenuation = constantAttenuation;
+	light->getLightProperties().linearAttenuation = linearAttenuation;
+	light->getLightProperties().quadraticAttenuation = quadraticAttenuation;
+	
+	light->setBoundingBox(TGen::Vector3(constantAttenuation, linearAttenuation, quadraticAttenuation));
 	
 	std::string modelName = properties.getProperty("model", "");
 	

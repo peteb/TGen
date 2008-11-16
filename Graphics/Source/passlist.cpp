@@ -12,6 +12,7 @@
 #include "renderable.h"
 #include "pass.h"
 #include "material.h"
+#include "materialoverride.h"
 
 TGen::PassList::PassList()
 	: sortLevel(TGen::MaterialSortOpaque)
@@ -28,7 +29,7 @@ void TGen::PassList::addPass(TGen::Pass * pass) {
 	passes.push_back(pass);
 }
 
-void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater) {
+void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater, TGen::MaterialOverride * override) {
 	if (passes.empty())
 		return;
 	
@@ -41,10 +42,13 @@ void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	start = TGen::Time::Now();
 	for (int i = 0; i < passes.size(); ++i) {
 		renderer.setRenderContext(passes[i]->getRenderContext(), textureTypes);
-
+		
 		if (varupdater)
 			passes[i]->updateVariables(varupdater);
-				
+		
+		if (override)
+			override->overrideMaterial(renderer, 1);
+		
 		renderable.render(renderer);
 	}
 

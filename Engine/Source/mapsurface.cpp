@@ -48,17 +48,6 @@ void TGen::Engine::MapSurface::render(TGen::Renderer & renderer) const {
 	renderer.drawIndexedPrimitive(TGen::PrimitiveTriangles, 0, indices.size());
 }
 
-TGen::Vector3 TGen::Engine::MapSurface::getMax() const {
-	return TGen::Vector3::Identity * 1000.0;
-}
-
-TGen::Vector3 TGen::Engine::MapSurface::getMin() const {
-	return -TGen::Vector3::Identity * 1000.0;	
-}
-
-TGen::Vector3 TGen::Engine::MapSurface::getOrigin() const {
-	return TGen::Vector3(0.0, 0.0, 0.0);
-}
 
 TGen::NewMeshInstance * TGen::Engine::MapSurface::instantiate(TGen::VertexDataSource & source) {
 	if (vb || ib)

@@ -37,10 +37,7 @@ namespace TGen {
 			TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source);
 			void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name);
 			
-			TGen::Vector3 getMax() const;
-			TGen::Vector3 getMin() const;
-			TGen::Vector3 getOrigin() const;
-			
+
 			void addVertex(const VertexDecl::Type & vertex);
 			void addIndex(const IndexDecl::Type & index);
 			void calculateTangents();
