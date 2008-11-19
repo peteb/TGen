@@ -33,7 +33,8 @@ namespace TGen {
 		void update(scalar time);
 		void setSortLevel(int level);
 		int getSortLevel() const;
-	
+		Pass * getPass(int pass) const;
+		
 	private:
 		typedef std::vector<Pass *> PassVector;
 		PassVector passes;
