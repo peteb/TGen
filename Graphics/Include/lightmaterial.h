@@ -13,7 +13,7 @@
 namespace TGen {
 	class LightMaterial {
 	public:
-		LightMaterial() : shininess(0.0f), diffuse(TGen::Color::White), specular(TGen::Color::Black) {}
+		LightMaterial() : shininess(20.0f), diffuse(TGen::Color::White), specular(TGen::Color(0.5f, 0.5f, 0.5f)) {}
 		
 		TGen::Color diffuse, specular;
 		scalar shininess;

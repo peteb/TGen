@@ -22,6 +22,17 @@ namespace TGen {
 			LightSpotlight = 2,
 		};
 		
+		enum LightDir {
+			DirPosX = 0x0001,
+			DirNegX = 0x0002,
+			DirPosY = 0x0010,
+			DirNegY = 0x0020,
+			DirPosZ = 0x0100,
+			DirNegZ = 0x0200,
+			
+			DirAll = 0xFFFF,
+		};
+		
 		class Light : public TGen::SceneNode {
 		public:
 			Light(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation = TGen::Rotation::Identity);
@@ -40,8 +51,13 @@ namespace TGen {
 			bool isPointInsideBox(const TGen::Vector3 & point) const;
 			void setBoundingBox(const TGen::Vector3 & box);
 			TGen::Vector3 getBoundingBox() const;
-			
+			uint getDirections() const;
+			void setDirections(uint directions);
+
+			static uint ParseDirections(const std::string & desc);
+
 		private:
+			
 			std::string materialName;
 			TGen::Material * material;
 			
@@ -51,6 +67,8 @@ namespace TGen {
 			bool lightBoundingBoxCull;
 			TGen::AABB boundingBox;
 			mutable TGen::Light light;
+			
+			uint directions;
 		};
 		
 		// map har flera SceneLights. (children) om en SceneLight frågas efter addUser så lägger den till sig själv som user

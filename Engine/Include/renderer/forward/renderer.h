@@ -41,8 +41,8 @@ namespace TGen {
 			
 		private:
 			TGen::FrameBuffer * shadowMapTarget;
-			TGen::Texture * shadowMap, * crapMap;
-			TGen::Material * depthPassMaterial;
+			TGen::Texture * shadowMap, * crapMap, * lightMap;
+			TGen::Material * depthPassMaterial, * currentLightMaterial;
 			TGen::Matrix4x4 shadowMatrix;
 			RenderPass currentPass;
 		};

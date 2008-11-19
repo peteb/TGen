@@ -71,20 +71,20 @@ TGen::Matrix4x4::Matrix4x4(const TGen::Matrix3x3 & matrix) {
 
 TGen::Matrix4x4::Matrix4x4(scalar e11, scalar e12, scalar e13, scalar e14, scalar e21, scalar e22, scalar e23, scalar e24, scalar e31, scalar e32, scalar e33, scalar e34, scalar e41, scalar e42, scalar e43, scalar e44) {
 	elements[0][0] = e11;
-	elements[0][1] = e12;
-	elements[0][2] = e13;
-	elements[0][3] = e14;
-	elements[1][0] = e21;
+	elements[1][0] = e12;
+	elements[2][0] = e13;
+	elements[3][0] = e14;
+	elements[0][1] = e21;
 	elements[1][1] = e22;
-	elements[1][2] = e23;
-	elements[1][3] = e24;
-	elements[2][0] = e31;
-	elements[2][1] = e32;
+	elements[2][1] = e23;
+	elements[3][1] = e24;
+	elements[0][2] = e31;
+	elements[1][2] = e32;
 	elements[2][2] = e33;
-	elements[2][3] = e34;
-	elements[3][0] = e41;
-	elements[3][1] = e42;
-	elements[3][2] = e43;
+	elements[3][2] = e34;
+	elements[0][3] = e41;
+	elements[1][3] = e42;
+	elements[2][3] = e43;
 	elements[3][3] = e44;
 }
 
@@ -321,6 +321,15 @@ TGen::Matrix4x4 TGen::Matrix4x4::RotationZ(const TGen::Angle & angle) {
 	ret.elements[1][1] = TGen::Cos(angle);
 	ret.elements[2][2] = 1.0;	
 	ret.elements[3][3] = 1.0;
+	
+	return ret;
+}
+
+TGen::Matrix4x4 TGen::Matrix4x4::Bias(const TGen::Vector3 & bias) {
+	Matrix4x4 ret(bias.x, 0.0f, 0.0f, bias.x,
+					  0.0f, bias.y, 0.0f, bias.y,
+					  0.0f, 0.0f, bias.z, bias.z,
+					  0.0f, 0.0f, 0.0f, 1.0f);
 	
 	return ret;
 }

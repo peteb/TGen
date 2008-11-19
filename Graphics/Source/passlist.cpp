@@ -77,3 +77,7 @@ int TGen::PassList::getSortLevel() const {
 	return sortLevel;
 }
 
+TGen::Pass * TGen::PassList::getPass(int pass) const {
+	return passes.at(pass);
+}
+

@@ -10,11 +10,14 @@
 #include "light.h"
 #include "renderer/lightlist.h"
 
+using TGen::uint;
+
 TGen::Engine::Light::Light(const std::string & name, const TGen::Vector3 & position, const TGen::Rotation & orientation)
 	: TGen::SceneNode(name, position, orientation)
 	, material(NULL)
 	, type(-1)
 	, lightBoundingBoxCull(false)
+	, directions(DirAll)
 {
 }
 
@@ -57,6 +60,14 @@ void TGen::Engine::Light::linkMaterial(TGen::MaterialSource & linker) {
 		
 		if (type == LightPositional)
 			lightBoundingBoxCull = TGen::lexical_cast<bool>(material->getParameter("light_bb_cull").at(0));
+		
+		bool shadowCaster = TGen::lexical_cast<bool>(material->getParameter("light_shadow").at(0));
+		//std::string lightTexture = material->getParameter("light_texture").at(0);
+		std::string lightDirs = material->getParameter("light_dirs").at(0);
+		
+		
+		directions = ParseDirections(lightDirs);
+		
 	}
 	catch (const std::exception & e) {
 		std::cout << "LIGHT TYPE ERROR FOR " << materialName << ": " << e.what() << std::endl;
@@ -79,4 +90,34 @@ TGen::Vector3 TGen::Engine::Light::getBoundingBox() const {
 	return bounding;
 }
 
+uint TGen::Engine::Light::getDirections() const {
+	return directions;
+}
+
+void TGen::Engine::Light::setDirections(uint directions) {
+	this->directions = directions;
+}
+
+uint TGen::Engine::Light::ParseDirections(const std::string & desc) {
+	uint ret = 0;
+	
+	if (desc.empty())
+		return DirAll;
+	
+	if (desc.find("X") != std::string::npos)
+		ret |= DirPosX;
+	if (desc.find("x") != std::string::npos)
+		ret |= DirNegX;
+	if (desc.find("Y") != std::string::npos)
+		ret |= DirPosY;
+	if (desc.find("y") != std::string::npos)
+		ret |= DirNegY;
+	if (desc.find("Z") != std::string::npos)
+		ret |= DirPosZ;
+	if (desc.find("z") != std::string::npos)
+		ret |= DirNegZ;
+	
+	
+	return ret;
+}
 

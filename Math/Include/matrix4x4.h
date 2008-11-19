@@ -70,7 +70,8 @@ namespace TGen {
 		static TGen::Matrix4x4 RotationX(const TGen::Angle & angle);
 		static TGen::Matrix4x4 RotationY(const TGen::Angle & angle);
 		static TGen::Matrix4x4 RotationZ(const TGen::Angle & angle);
-
+		static TGen::Matrix4x4 Bias(const TGen::Vector3 & bias);
+		
 		static TGen::Matrix4x4 LookAt(const TGen::Vector3 & position, const TGen::Vector3 & eye, const TGen::Vector3 & up);
 		static TGen::Matrix4x4 LookInDirection(const TGen::Vector3 & direction, const TGen::Vector3 & up);
 		

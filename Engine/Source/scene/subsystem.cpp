@@ -162,8 +162,6 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->setOrientation(rotation);
 	
 	light->setMaterialName(properties.getProperty("material", ""));
-	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
-	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
 	
 	scalar constantAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("constantAttenuation", "0"));
 	scalar linearAttenuation = TGen::lexical_cast<scalar>(properties.getProperty("linearAttenuation", "0"));
@@ -172,6 +170,11 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->getLightProperties().constantAttenuation = constantAttenuation;
 	light->getLightProperties().linearAttenuation = linearAttenuation;
 	light->getLightProperties().quadraticAttenuation = quadraticAttenuation;
+	
+	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
+	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
+
+	light->setDirections(TGen::Engine::Light::ParseDirections(properties.getProperty("directions", "")));
 	
 	light->setBoundingBox(TGen::Vector3(constantAttenuation, linearAttenuation, quadraticAttenuation));
 	
