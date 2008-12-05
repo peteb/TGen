@@ -88,13 +88,15 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	
 	for (int i = 0; i < lights.getNumLights(); ++i) {
 		TGen::Rectangle view = renderer.getViewport();
+		TGen::Matrix4x4 lightProjection = camera->getProjection();
 		
 		currentPass = ShadowPass;
 			
 		renderer.setRenderTarget(shadowMapTarget);
 		renderer.clearBuffers(TGen::DepthBuffer);
 		renderer.setViewport(shadowMap->size);
-		
+		renderer.setTransform(TGen::TransformProjection, lightProjection);
+
 		TGen::Matrix4x4 viewMat = lights.getLight(i)->getTransform(); 
 		viewMat.setZ(-viewMat.getZ());
 		viewMat.invert();
@@ -130,6 +132,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		
 		// TODO: olika sorting modes, kolla upp dem. se om man kan sätta det för sky
 		
+		renderer.setTransform(TGen::TransformProjection, camera->getProjection());
 		renderer.setTransform(TGen::TransformWorldView, camera->getTransform() * light->getTransform());
 		renderer.setLight(0, light->getLightProperties());
 
@@ -154,7 +157,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 	
 	glDisable(GL_CULL_FACE);
 	
-	glPolygonMode(GL_BACK, GL_POINT);
+	glPolygonMode(GL_BACK, GL_LINE);
 	glPolygonMode(GL_FRONT, GL_FILL);
 	
 	if (currentPass == DepthPass) {
@@ -202,6 +205,10 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LESS );
 
+		glActiveTexture(GL_TEXTURE4);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		
 		/*
 		glTexParameteri( GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE_ARB, GL_INTENSITY );
 		glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
