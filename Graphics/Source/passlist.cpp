@@ -39,9 +39,11 @@ void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	renderable.preRender(renderer);
 	//std::cout << "prepare: " << std::fixed << TGen::Time::Now() - start << std::endl;
 	
+	// TODO: move textureTypes, varupdater to renderer
+	
 	start = TGen::Time::Now();
 	for (int i = 0; i < passes.size(); ++i) {
-		renderer.setRenderContext(passes[i]->getRenderContext(), textureTypes);
+		renderer.setRenderContext(passes[i]->getRenderContext(renderer.getShaderMode()), textureTypes);
 		
 		if (varupdater)
 			passes[i]->updateVariables(varupdater);

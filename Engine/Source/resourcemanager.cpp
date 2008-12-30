@@ -75,6 +75,15 @@ TGen::Engine::ResourceManager::~ResourceManager() {
 	
 }
 
+// varje pass har en vector med shaders
+// när man skapar ett material så skickar man med en vector med strängar som berättar vilka defs som ska läggas på
+// typ:         LIGHT_POS,SHADOW_MAP
+//					LIGHT_SPOT,GRAH,BAH,SHADOW_MAP
+// sen kör man material->setCurrentShader(0), vilket är LIGHT_POS,SHADOW_MAP
+//
+// ska finnas något som klurar ut utifrån description field, typ LIGHT_POS|SHADOW_MAP|GLOW, och ger ett visst id för det
+// och kunna skapa textsträng för det
+
 TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std::string & name) {
 	ShaderMap::iterator iter = shaders.find(name);
 	if (iter != shaders.end())
@@ -82,7 +91,7 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 
 	std::string fixedName;
 	bool generate = false;
-		
+	
 	if (name.substr(0, 4) == "gen:") {
 		int colPos = name.rfind(":");
 		fixedName = "/shaders/" + name.substr(4, colPos - 4) + ".shader";
@@ -96,10 +105,13 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	
 	logs.info["res"] << "loading shader '" << fixedName << "'..." << TGen::endl;
 	
-	TGen::Engine::File * file = filesystem.openRead(fixedName);
-	std::string contents = file->readAll();
-	delete file;
-
+	std::string contents;
+	
+	{
+		TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(fixedName);
+		contents = file->readAll();
+	}
+	
 	// gen:directionalLighting:MAX_LIGHTS=1,STUFF=blabla
 	
 	
@@ -141,32 +153,26 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		TGen::Engine::GenerateLine line(name);
 		
 		TGen::Engine::ImageGenerator generator;
-		TGen::Image * newImage = generator.generateImage(line);
+		TGen::auto_ptr<TGen::Image> newImage = generator.generateImage(line);
 		
-		newTexture = renderer.createTexture(*newImage, TGen::RGBA);		// TODO: specify format in genline?
+		newTexture = renderer.createTexture(DerefHandle(newImage), TGen::RGBA);		// TODO: specify format in genline?
 	}
 	else {
-		ILuint imageName;
+		/*ILuint imageName;
 		ilGenImages(1, &imageName);
-		ilBindImage(imageName);
+		ilBindImage(imageName);*/		// what is this? I commented it out now. looks stoopid.
 	
-		std::string fixedName;
-		
-		if (name.substr(0, 9) != "textures/")
-			fixedName = "textures/" + name;
-		else
-			fixedName = name;
-		
+		std::string fixedName = TGen::prependPath(name, "textures/");
+		std::string ext = TGen::toUpper(TGen::getExtension(fixedName));
+				
 		logs.info["res"] << "request for '" + fixedName + "'..." << TGen::endl;
 	
-		std::string ext = TGen::toUpper(fixedName.substr(fixedName.rfind(".") + 1));
+		TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(fixedName);
+		TGen::auto_ptr<TGen::Image> image = imageLoader.load(DerefHandle(file), ext);
 
-		TGen::Engine::File * file = filesystem.openRead(fixedName);
-		TGen::Image * image = imageLoader.load(file, ext);
-		delete file;
+		// TESTA derefres här
 		
-		newTexture = renderer.createTexture(*image, TGen::RGBA);	// TODO: variable switch between RGBA and format of image image->getFormat()
-		delete image;
+		newTexture = renderer.createTexture(DerefHandle(image), TGen::RGBA);	// TODO: variable switch between RGBA and format of image image->getFormat()
 	}
 	
 	textures[name] = newTexture;
@@ -211,7 +217,7 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 	}
 	else {
 		// TODO: checka filformat för parser
-		TGen::Engine::File * file = filesystem.openRead(name);
+		TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(name);
 		
 		/*if (name.substr(name.size() - strlen(".md5mesh")) == ".md5mesh") {
 			TGen::MD5::Parser modelParser;
@@ -221,15 +227,12 @@ TGen::Mesh * TGen::Engine::ResourceManager::getMesh(const std::string & name) {
 		}
 		else {*/
 			TGen::MD3::Parser modelParser;
-			TGen::MD3::File * md3File = modelParser.parse(*file);
+			TGen::auto_ptr<TGen::MD3::File> md3File = modelParser.parse(DerefHandle(file));
 		
 		//md3File->printInfo(std::cout);
 		
 			//newMesh = md3File->createMesh(vertexCache, 0.001);	// TODO: 0.001 är scale factor, en global scale factor och sen kunna sätta per objekt?
-			delete md3File;		
 		//}
-
-		delete file;
 	}
 	
 	//meshes[name] = newMesh;
@@ -251,8 +254,7 @@ TGen::NewModelInstance * TGen::Engine::ResourceManager::instantiateModel(const s
 		newModel = factory.createModel(line, vertexCache);
 	}
 	
-	if (!newModel)
-		throw TGen::RuntimeException("ResourceManager", "newModel equals NULL");
+	TGenAssert(newModel);
 	
 	return newModel->instantiate(vertexCache);
 	
@@ -361,32 +363,52 @@ TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & 
 void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) {
 	logs.info["res"] << "loading materials from '" << filename << "'..." << TGen::endl;
 	
+	// read file contents
 	std::string contents;
-	TGen::Engine::File * file = filesystem.openRead(filename);
+	
+	TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(filename);
 	contents = file->readAll();
-	delete file;
 	
-	TGen::Engine::TextPreprocessor processor;
 	
+	// preprocess content
+	TGen::Engine::TextPreprocessor processor; 
 	std::string fixedContents = processor.process(contents, "RENDERER=" + variables["r_renderer"].getValue(), true, false);		
-	// let the preprocessor have its way with the contents. parse if-branches
+
 	
-	std::list<TGen::Material *> materialsLoaded;
+	// setup parser
 	TGen::MaterialParser parser;
+	
+	
+	// add shader permutations for all shader requests except fixed function. ff is undefined, btw
+	parser.addShaderPermutation("LIGHT_OMNI,SHADOWMAP_SINGLE", 0);
+	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE", 1);
+
+	// TODO: mount complete filesystem on map load, mount /map/blabla/*/ as root also
+	//			create function that checks whether a string starts with a string, if it doesn't, return new string with it prepended
+	//           useful for resource manager when loading resources so not to duplicate directory, for example, /shaders/shaders/
+	
+	
+	std::list<TGen::Material *> materialsLoaded;		// TODO: vector
+	
 	parser.parse(fixedContents.c_str(), materialsLoaded);
 	
 	logs.info["res"] << "loaded " << materialsLoaded.size() << " materials:\n";
+	
+	
+	// delete materials that have already been loaded into the resource manager, also print them out
 	int i = 0;
 	
 	for (std::list<TGen::Material *>::iterator iter = materialsLoaded.begin(); iter != materialsLoaded.end(); ++iter) {
 		MaterialMap::iterator iter2 = materials.find((*iter)->getName());
 		if (iter2 != materials.end())
-			delete iter2->second;
+			delete iter2->second;					// the material is already loaded and is deleted
+		
+		(*iter)->setMaximumTechnique(9);			// set default technique setting, TODO: read from setting register
 		
 		materials[(*iter)->getName()] = *iter;
 		logs.info["res"] << (*iter)->getName() << "  ";
 		
-		if (i++ > 4) {
+		if (i++ > 4) {		// break output line after four material names...
 			logs.info["res"] << "\n";
 			i = 0;
 		}
@@ -395,7 +417,7 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	logs.info["res"] << TGen::endl;
 }
 
-void TGen::Engine::ResourceManager::updateMaterials(scalar time) {	// TODO: borde kanske inte göras här...
+void TGen::Engine::ResourceManager::updateMaterials(scalar time) {	// TODO: this isn't really the place for this...
 	MaterialMap::iterator iter = materials.begin();
 	for (; iter != materials.end(); ++iter) {
 		iter->second->update(time);

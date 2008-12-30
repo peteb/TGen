@@ -99,7 +99,7 @@ namespace TGen {
 		Pass();
 		~Pass();
 		
-		const TGen::RenderContext & getRenderContext() const;
+		const TGen::RenderContext & getRenderContext(int shaderMode);
 		
 		void setColor(const std::string & r, const std::string & g, const std::string & b);
 		void setAlpha(const std::string & a);

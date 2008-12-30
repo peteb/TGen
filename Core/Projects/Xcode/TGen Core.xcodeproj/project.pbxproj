@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D079E6330CE8B00100FA3FDB /* streams.h in Headers */ = {isa = PBXBuildFile; fileRef = D079E6320CE8B00100FA3FDB /* streams.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0AE44DC0EFCF1CB007C5AA1 /* langutil.h in Headers */ = {isa = PBXBuildFile; fileRef = D0AE44DB0EFCF1CB007C5AA1 /* langutil.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B78A0CE26A20009EC7F4 /* tgen_core.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0EE97D70C35E85800CB2978 /* tgen_core.cpp */; };
 		D0E8B78B0CE26A20009EC7F4 /* tgen_core.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE958C0C35DF7700CB2978 /* tgen_core.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D0E8B78C0CE26A20009EC7F4 /* platform.h in Headers */ = {isa = PBXBuildFile; fileRef = D0EE95810C35DF3100CB2978 /* platform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +66,7 @@
 		D083932D0CD91CEC00C94467 /* timeinterval.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timeinterval.cpp; path = Source/timeinterval.cpp; sourceTree = "<group>"; };
 		D08DD29D0C3BD71D00C0AB3F /* tokenizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = tokenizer.cpp; path = Source/tokenizer.cpp; sourceTree = "<group>"; };
 		D08DD29F0C3BD72600C0AB3F /* tokenizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = tokenizer.h; path = Include/tokenizer.h; sourceTree = "<group>"; };
+		D0AE44DB0EFCF1CB007C5AA1 /* langutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = langutil.h; path = Include/langutil.h; sourceTree = "<group>"; };
 		D0E8B7830CE269BD009EC7F4 /* libtgen_core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libtgen_core.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0E8B7BA0CE26BBA009EC7F4 /* TGen Core Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TGen Core Test"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0EE95780C35DF0F00CB2978 /* error.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = error.cpp; path = Source/error.cpp; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				D01B6EAF0C8A1D0000D8943C /* propertytreeparser.cpp */,
 				D01B6EB10C8A1D0A00D8943C /* propertytreeparser.h */,
 				D079E6320CE8B00100FA3FDB /* streams.h */,
+				D0AE44DB0EFCF1CB007C5AA1 /* langutil.h */,
 			);
 			name = Core;
 			path = ../..;
@@ -192,6 +195,7 @@
 				D0E8B7A00CE26A20009EC7F4 /* propertytree.h in Headers */,
 				D0E8B7A20CE26A20009EC7F4 /* propertytreeparser.h in Headers */,
 				D079E6330CE8B00100FA3FDB /* streams.h in Headers */,
+				D0AE44DC0EFCF1CB007C5AA1 /* langutil.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

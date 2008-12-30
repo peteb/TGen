@@ -14,6 +14,7 @@ TGen::Renderer::Renderer()
 	: clearColor(TGen::Color::Black) 
 	, projectionMatrix(TGen::Matrix4x4::Identity)
 	, worldMatrix(TGen::Matrix4x4::Identity)
+	, shaderMode(0)
 {
 
 }
@@ -82,3 +83,12 @@ TGen::Matrix4x4 TGen::Renderer::getTransform(TGen::TransformMode mode) const {
 void TGen::Renderer::multiplyTransform(TGen::TransformMode mode, const TGen::Matrix4x4 & transform) {
 	
 }
+
+void TGen::Renderer::setShaderMode(int mode) {
+	shaderMode = mode;
+}
+
+int TGen::Renderer::getShaderMode() const {
+	return shaderMode;
+}
+

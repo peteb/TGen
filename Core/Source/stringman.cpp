@@ -59,3 +59,15 @@ std::string TGen::getSize(uint64 bytes) {
 	
 	return ss.str();
 }
+
+std::string TGen::getExtension(const std::string & path) {
+	return path.substr(path.rfind(".") + 1);
+}
+
+std::string TGen::prependString(const std::string & str, const std::string & prefix) {
+	return (str.substr(0, prefix.size()) == prefix ? str : prefix + str);
+}
+
+std::string TGen::prependPath(const std::string & path, const std::string & prefix) {
+	return (path[0] == '/' ? path : prependString((path[0] == '/' ? path.substr(1) : path), prefix));
+}

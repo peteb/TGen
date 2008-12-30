@@ -96,13 +96,13 @@ void TGen::OpenGL::Renderer::readCaps() {
 	glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT, reinterpret_cast<GLint *>(&caps.maxGeometryVerticesOutput));
 	
 #ifdef _PLATFORM_OSX
+	glClear(GL_COLOR_BUFFER_BIT);
 	CGLError err;
 	CGLContextObj ctx = CGLGetCurrentContext();
 	
-	err = CGLDisable(ctx, kCGLCEMPEngine);
+	err = CGLDisable(ctx, kCGLCEMPEngine);		// TODO: disable/enable mt ogl engine
 	
-	if (err == kCGLNoError)
-		caps.multithreadable = true;
+	caps.multithreadable = (err == kCGLNoError);
 #else
 	caps.multithreadable = false;
 #endif
@@ -208,7 +208,7 @@ void TGen::OpenGL::Renderer::setTransform(TGen::TransformMode mode, const TGen::
 }
 
 void TGen::OpenGL::Renderer::setTextureTransform(int unit, const Matrix4x4 & transform) {
-	glMatrixMode(GL_TEXTURE_MATRIX);
+	glMatrixMode(GL_TEXTURE);
 	glActiveTexture(GL_TEXTURE0 + unit);
 	glLoadMatrixf((GLfloat *)transform.elements);
 	

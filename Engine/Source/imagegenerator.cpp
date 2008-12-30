@@ -24,7 +24,7 @@ TGen::Image * TGen::Engine::ImageGenerator::generateImage(const TGen::Engine::Ge
 		size = TGen::Rectangle(newSize, newSize);
 	}
 	
-	std::auto_ptr<TGen::Canvas> canvas(new TGen::Canvas(size));
+	TGen::auto_ptr<TGen::Canvas> canvas = new TGen::Canvas(size);
 	
 	if (line.getName() == "plain" || line.getName() == "fill" || line.getName() == "solid")
 		genPlain(line, canvas.get());

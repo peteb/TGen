@@ -129,7 +129,8 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	int updates = 0;
 	
 	while (lastUpdate >= updateInterval) {				
-		if (updates++ > 10) {
+		if (updates++ > 20) {
+			std::cout << "Physics hit step ceiling" << std::endl;
 			lastUpdate = 0.0;
 			break;
 		}

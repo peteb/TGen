@@ -225,13 +225,14 @@ void TGen::BasicRenderList::renderWithinRadius(TGen::Renderer & renderer, const 
 		TGen::NewMeshInstance * mesh = face->getMesh();
 		
 		scalar objectRadius = (mesh->min - mesh->max).getMagnitude();
-		TGen::Vector3 objectOrigin = baseMat * node->getTransform() * mesh->origin;
+		TGen::Matrix4x4 transform = baseMat * node->getTransform();
+		TGen::Vector3 objectOrigin = transform * mesh->origin;
 		
 		if (abs((objectOrigin - pos).getMagnitude()) <= objectRadius + radius)
 			passedRadius = true;
 		
 		if (passedRadius) {
-			renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
+			renderer.setTransform(TGen::TransformWorldView, transform);
 
 			if (face->getRenderProperties())
 				renderer.setFaceWinding(face->getRenderProperties()->frontFaceDef);

@@ -20,7 +20,7 @@
 TGen::SymbolTable TGen::Material::specializations;
 
 TGen::Material::Material(const std::string & name) 
-	: minimumTechnique(0)
+	: minimumTechnique(9)
 	, sortLevel(TGen::MaterialSortOpaque)    // 0-19 = front to back 20 - 39 = back to front    
 	, name(name) 
 	, linked(false)
@@ -96,6 +96,16 @@ TGen::Technique * TGen::Material::getSpecialization(const std::string & name) {
 	if (!technique) throw TGen::RuntimeException("Material::getSpecialization", "no techniques");
 	
 	return technique;
+}
+
+TGen::TechniqueList * TGen::Material::getTechniqueList(const std::string & name) {
+	int spec = specializations[name];
+	
+	TechniqueListMap::iterator iter = this->techniques.find(spec);
+	if (iter != this->techniques.end())
+		return iter->second;
+	
+	return NULL;
 }
 
 const TGen::Material::SpecializationList & TGen::Material::getSpecializations() const {

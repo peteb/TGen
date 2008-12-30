@@ -15,6 +15,7 @@
 #include "devicecollection.h"
 #include "log.h"
 #include "playercontroller.h"
+#include "resourcemanager.h"
 
 TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices, TGen::Engine::Environment & env, TGen::Engine::Filesystem & filesystem, TGen::Engine::VariableRegister & variables, TGen::Engine::StandardLogs & logs, TGen::Engine::WorldRenderer & worldRenderer, TGen::Engine::ResourceManager & resources, TGen::VertexDataSource & dataSource)
 	: logs(logs)
@@ -41,7 +42,7 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 		// heavy, show some graphics.
 		// just start with a simple fading green screen or something, multithreaded
 		// then interleave with GUI somehow.
-		currentWorld = new TGen::Engine::World(filesystem, resources, logs, worldRenderer.getRenderer(), throttledNewMap);		// throttledNewMap
+		currentWorld = new TGen::Engine::World(filesystem, resources, logs, resources.vertexCache, throttledNewMap);		// throttledNewMap
 		
 		// logs = shared, mutex?   renderer = shared, mutex?
 		

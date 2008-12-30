@@ -106,6 +106,9 @@ namespace TGen {
 	T * DerefRes(T * x) {
 		return **x;
 	}	
+
+#define DerefHandle(x) (**(x))
+	
 	
 	template<typename T, typename A>
 	T union_cast(A param) {

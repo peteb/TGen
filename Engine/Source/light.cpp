@@ -25,10 +25,6 @@ void TGen::Engine::Light::setMaterialName(const std::string & material) {
 	materialName = material;
 }
 
-TGen::Light & TGen::Engine::Light::getLightProperties() {
-	return light;
-}
-
 bool TGen::Engine::Light::fillUser(TGen::RenderList & list, const TGen::Camera & camera) const {
 	//light.position = orientation * TGen::Vector3(0.0f, 0.0f, 1.0f);	// we're using the position field for direction
 	// TODO: globalOrientation perhaps

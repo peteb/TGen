@@ -64,7 +64,7 @@ std::string TGen::Engine::TextPreprocessor::process(const std::string & contents
 	if (parseIfs) {
 		ret = fixIfs(ret);
 		
-		std::cout << ret << std::endl;
+		//std::cout << ret << std::endl;
 	}
 	
 	ret = fixLoops(ret);

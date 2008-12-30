@@ -84,11 +84,16 @@ void TGen::MaterialParser::parseGlobalBlock() {
 			
 			
 			TGen::Material * newMaterial = getMaterial(materialName);
-			TGen::TechniqueList * newTechniqueList = new TGen::TechniqueList(specialization);
+			TGen::TechniqueList * newTechniqueList = newMaterial->getTechniqueList(specialization);
+			
+			if (!newTechniqueList) {
+				newTechniqueList = new TGen::TechniqueList(specialization);
+				newMaterial->setSpecialization(specialization, newTechniqueList);
+			}
+			
 			TGen::Technique * newTechnique = new TGen::Technique;
 			
 			newTechniqueList->setTechnique(newTechnique, techniqueNumber);
-			newMaterial->setSpecialization(specialization, newTechniqueList);
 			
 			//currentMaterial = newMaterial;
 			currentSpecialization = newTechniqueList;
@@ -331,7 +336,7 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				stepToken();
 				textureName = getStringToken("map: expecting string value for texture name");
 				
-				//std::cout << "sampler: " << textureSampler << " TEXNAME: " << textureName << std::endl;
+				std::cout << "sampler: " << textureSampler << " TEXNAME: " << textureName << std::endl;
 				
 				do {
 					stepToken();

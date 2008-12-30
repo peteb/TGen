@@ -44,7 +44,8 @@ namespace TGen {
 			int getType() const;
 			
 			void setMaterialName(const std::string & material);
-			TGen::Light & getLightProperties();
+			inline TGen::Light & getLightProperties() {return light; }
+			
 			TGen::Material * getMaterial();
 			bool fillUser(TGen::RenderList & list, const TGen::Camera & camera) const;
 			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;

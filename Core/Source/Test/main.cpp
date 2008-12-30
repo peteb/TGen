@@ -2,6 +2,20 @@
 #include <iomanip>
 #include "tgen_core.h"
 
+class MyClass {
+public:
+	MyClass(int num) : num(num) {std::cout << "ctor " << num << std::endl; }
+	~MyClass() {std::cout << "dtor " << num << std::endl; }
+	
+	int num;
+};
+
+TGen::auto_ptr<MyClass> hey() {
+	return TGen::auto_ptr<MyClass>(new MyClass(123));
+}
+
+
+
 int main(int argc, char ** const argv) {
 	std::cout << "TGen Core (debug binary: " << std::boolalpha << TGen::isCoreDebug() << ")" << std::endl;
 	
@@ -66,6 +80,27 @@ int main(int argc, char ** const argv) {
 	char code[] = "game {env {width 2048}\nstuff {name peter}}";
 	TGen::PropertyTreeParser parser;
 	std::cout << "10. 2048 = " << parser.parse(code).getProperty("game/env/width").second << std::endl;
+	
+	// 11.
+	std::cout << "11. " << TGen::prependPath("/textures/coolman.png", "/textures/") << std::endl;
+	std::cout << "    " << TGen::prependPath("coolman.png", "/textures/") << std::endl;
+	std::cout << "    " << TGen::prependPath("/coolman.png", "/textures/") << std::endl;
+	
+	
+	// 12.
+	std::cout << "12." << std::endl;
+	{
+		TGen::auto_ptr<MyClass> pekare = new MyClass(1);
+		TGen::auto_ptr<MyClass> pekare2 = pekare;
+		pekare2 = new MyClass(2);
+		pekare2 = pekare2;
+		TGen::auto_ptr<MyClass> blah(pekare);
+		std::cerr << "bo" << std::endl;
+
+	}
+	
+	std::cout << "13." << std::endl;
+	TGen::auto_ptr<MyClass> blah = hey();
 	
 	#ifdef _PLATFORM_WINDOWS
 	int hej;

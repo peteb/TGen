@@ -40,7 +40,7 @@ TGen::Pass::~Pass() {
 
 
 
-const TGen::RenderContext & TGen::Pass::getRenderContext() const {
+const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	return renderContext;
 }
 

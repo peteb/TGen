@@ -12,7 +12,7 @@
 #include <tgen_renderer.h>
 
 TGen::VertexTransformList * TGen::Engine::TransformerFactory::createTransformers(const TGen::Engine::GenerateLine & line) const {
-	std::auto_ptr<TGen::VertexTransformList> transformers(new TGen::VertexTransformList);
+	TGen::auto_ptr<TGen::VertexTransformList> transformers = new TGen::VertexTransformList;
 	
 	for (TGen::Engine::GenerateLine::ParameterMap::const_iterator iter = line.getParameters().begin(); iter != line.getParameters().end(); ++iter) {
 		if (iter->first == "scale") {

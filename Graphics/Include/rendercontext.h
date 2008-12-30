@@ -31,6 +31,7 @@ namespace TGen {
 		bool depthWrite, disableDepth, disableBlend;
 		TGen::Color frontColor;
 		TGen::ShaderProgram * shader;
+		LightMaterial lightMaterial;
 		TGen::CompareFunc depthFunc;
 		TGen::PolygonFaceMode front, back;
 		TGen::BlendFunc blendSrc, blendDst;
@@ -38,7 +39,6 @@ namespace TGen {
 		
 		typedef std::vector<TGen::TextureUnit *> TextureList;
 		TextureList textureUnits;
-		LightMaterial lightMaterial;
 	};
 	
 } // !TGen

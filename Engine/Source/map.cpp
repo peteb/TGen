@@ -97,6 +97,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 	TGen::Vector3 pos = getTransform().getInverse() * invertedCam.getOrigin() + invertedCam.getZ() * (camera.getLod().clipNear + 0.1);
 	
 	// TODO: fysiken kan vara vanliga boxes i början
+	TGen::Matrix4x4 premul = projection * camera.getTransform() * getTransform();
 	
 	for (int i = 0; i < leaf->getNumPortals(); ++i) {
 		TGen::Engine::MapPortal * portal = leaf->getPortal(i);
@@ -110,7 +111,7 @@ void TGen::Engine::Map::fillModels(TGen::Engine::MapModel * leaf, TGen::RenderLi
 		
 		for (int i = 0; i < portal->getNumPoints(); ++i) {
 			TGen::Vector4 point = portal->getPoint(i) ;
-			TGen::Vector4 devcoord = projection * camera.getTransform() * getTransform() * point;
+			TGen::Vector4 devcoord = premul * point;
 			
 			devcoord /= devcoord.w;
 

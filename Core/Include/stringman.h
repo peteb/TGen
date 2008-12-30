@@ -19,8 +19,12 @@ namespace TGen {
 	
 	std::string getFolder(const std::string & path);
 	std::string getFile(const std::string & path);
+	std::string getExtension(const std::string & path);
 	
 	std::string getSize(uint64 bytes);
+	
+	std::string prependString(const std::string & str, const std::string & prefix);
+	std::string prependPath(const std::string & path, const std::string & prefix);
 	
 } // !TGen
 

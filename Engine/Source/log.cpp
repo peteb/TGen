@@ -85,7 +85,7 @@ TGen::Engine::StandardLogs::StandardLogs()
 	warning.addTarget(logtargets);
 	error.addTarget(logtargets);	
 	
-	warning.output("init", "Failed to create log file");
+	//warning.output("init", "Failed to create log file");
 }
 
 TGen::Engine::StandardLogs::~StandardLogs() {

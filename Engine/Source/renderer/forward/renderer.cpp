@@ -38,32 +38,24 @@ TGen::Engine::ForwardRenderer::~ForwardRenderer() {
 }
 
 void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
-	//std::cout << "DT: " << dt * 1000.0 << std::endl;
-	
+
 	world.prepareLists(camera);
 	TGen::RenderList & renderList = world.getRenderList();
 	TGen::Engine::LightList & lights = world.getLightList();
 	
 	renderList.sort(*camera, "default");
 	
-	static float sumDt = 0.0;
-	sumDt += dt;
-	
-	
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
-
 	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
 
 
 	renderList.setMaterialOverride(this, 1);
 	renderList.setMaterial(depthPassMaterial);
 
-
 	
 	currentPass = DepthPass;
 	
 
-//	if (!(int(sumDt) % 3)) {
 	renderer.setClearColor(TGen::Color::Black);
 	renderer.setAmbientLight(world.getAmbientLight());
 	
@@ -75,13 +67,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	// här kan man rendrera portalerna också för att få occlusion info
 	// TODO: hur synkat är det med fysiken? man borde göra grafiken, sen fysiken, fast spelar nog ingen stor roll
 	
-	
-	
-	
-	
-	
-	
-	
+	// TODO: separera in i flera funktioner
 	
 	renderList.setMaterialOverride(this, 1);
 	renderList.setMaterial(NULL);
@@ -121,10 +107,10 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		
 		float radius = 0.0f;
 		
-		for (float a = 0.0f; ; a += 0.1f) {
+		for (float a = 0.0f; ; a += 0.1f) {		// TODO: flytta det här till en egen funktion, ha max length också. undvik oändlig loop!
 			if (1.0f / (light->getLightProperties().constantAttenuation +
 								light->getLightProperties().linearAttenuation * a +
-							light->getLightProperties().quadraticAttenuation * a * a) < 0.1) {
+							light->getLightProperties().quadraticAttenuation * a * a) < 0.1f) {
 				radius = a;
 				break;
 			}
@@ -137,10 +123,6 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		renderer.setLight(0, light->getLightProperties());
 
 		currentLightMaterial = light->getMaterial();
-		
-		// TODO: renderList.only render everything within radius from point
-		
-		//renderList.render(renderer, *camera, "default");
 		
 		renderList.renderWithinRadius(renderer, camera->getTransform(), camera->getLod(), camera->getTransform() * light->getTransform() * TGen::Vector3(0.0f, 0.0f, 0.0f), radius);
 	}
@@ -191,7 +173,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 			TGen::Technique * tech = currentLightMaterial->getSpecialization("default");
 			TGen::PassList * passes = tech->getPassList(9);
 			TGen::Pass * pass = passes->getPass(0);
-			const TGen::RenderContext & context = pass->getRenderContext();
+			const TGen::RenderContext & context = pass->getRenderContext(0);
 		 
 			TGen::TextureUnit * texunit = context.textureUnits.at(0);
 			renderer.setTexture(4, texunit->texture);

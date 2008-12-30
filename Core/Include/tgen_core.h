@@ -24,6 +24,7 @@
 #include "propertytree.h"
 #include "propertytreeparser.h"
 #include "streams.h"
+#include "langutil.h"
 
 namespace TGen {
 	bool isCoreDebug();
