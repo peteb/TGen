@@ -87,7 +87,6 @@ void TGen::BasicRenderList::render(TGen::Renderer & renderer, const TGen::Matrix
 }
 
 void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & list, TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const std::string & specialization) {
-	
 	//std::cout << std::string(baseMat) << std::endl;
 	
 	TGen::SceneNode const * lastNode = NULL;
@@ -175,7 +174,6 @@ void TGen::BasicRenderList::renderWithinRadius(TGen::Renderer & renderer, const 
 				faceRendered[face->getMesh()] = true;
 				
 				TGen::MaterialRenderMetadata metadata("default", 9, NULL, 0, face->getMesh(), override);
-				
 				selectedMaterial->render(renderer, *face->getMesh(), metadata);
 				
 				numRendered++;
@@ -183,8 +181,6 @@ void TGen::BasicRenderList::renderWithinRadius(TGen::Renderer & renderer, const 
 		}
 		
 	}
-	
-	//std::cout << "Rendered within radius: " << std::dec <<  numRendered << std::endl;
 }
 
 void TGen::BasicRenderList::calculateCameraDistance(SortedFaceList & list, const TGen::Camera & camera) {

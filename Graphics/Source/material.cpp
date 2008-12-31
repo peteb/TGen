@@ -82,11 +82,12 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const MaterialRenderMetadata & metadata) {
 	TGen::Technique * technique = getSpecialization(metadata.mode);
 	TGen::PassList * passes = technique->getPassList(metadata.lod);
-	
+
 	if (!passes) 
 		throw TGen::RuntimeException("Material::Render", "no passes");
 	
 	passes->render(renderer, renderable, metadata);
+	
 	timesRendered++;	
 }
 

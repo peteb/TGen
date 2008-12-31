@@ -46,6 +46,22 @@ namespace TGen {
 		T * get() const {TGenAssert(ptr.get()); return ptr.get(); }
 		T * release() {return ptr.release(); }
 	};
+	
+	class ScopeDebugger {
+	public:
+		ScopeDebugger(const std::string & message)
+			: message(message)
+		{
+			std::cerr << "+" << message << std::endl;
+		}
+		
+		~ScopeDebugger() {
+			std::cerr << "-" << message << std::endl;
+		}
+		
+	private:
+		std::string message;
+	};
 }
 
 #endif // !_TGEN_LANGUTIL_H

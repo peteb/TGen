@@ -95,12 +95,12 @@ void TGen::OpenGL::Renderer::readCaps() {
 	glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS_EXT, reinterpret_cast<GLint *>(&caps.maxFrameBufferColorAttachments));
 	glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT, reinterpret_cast<GLint *>(&caps.maxGeometryVerticesOutput));
 	
-#ifdef _PLATFORM_OSX
+#if 0 //defined(_PLATFORM_OSX)
 	glClear(GL_COLOR_BUFFER_BIT);
 	CGLError err;
 	CGLContextObj ctx = CGLGetCurrentContext();
 	
-	err = CGLDisable(ctx, kCGLCEMPEngine);		// TODO: disable/enable mt ogl engine
+	err = CGLEnable(ctx, kCGLCEMPEngine);		// TODO: disable/enable mt ogl engine
 	
 	caps.multithreadable = (err == kCGLNoError);
 #else

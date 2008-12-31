@@ -48,7 +48,7 @@ namespace TGen {
 		friend class PassList;
 		
 	private:
-		const std::string & mode;
+		std::string mode;
 		int lod, shaderMode;
 		TGen::Texture ** textureTypes;
 		TGen::ShaderVariableUpdater * varupdater; 
