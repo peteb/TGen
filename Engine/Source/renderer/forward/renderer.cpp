@@ -24,7 +24,7 @@ TGen::Engine::ForwardRenderer::ForwardRenderer(TGen::Renderer & renderer, TGen::
 	TGen::Rectangle size = TGen::Rectangle(512, 512);
 	shadowMap = renderer.createTexture(size, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);	
 	crapMap = renderer.createTexture(size, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
-	lightMap = resources.getTexture("textures/flashlight5.tga");
+	//lightMap = resources.getTexture("textures/flashlight5.tga");
 	
 	shadowMapTarget = renderer.createFrameBuffer();
 	shadowMapTarget->attachColor(crapMap);
@@ -104,6 +104,9 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		TGen::Engine::Light * light = lights.getLight(i);
 		
 		light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f); //light->getWorldPosition();
+		light->getLightProperties().spotDirection = TGen::Vector3(0.0f, 0.0f, 1.0f);
+		light->getLightProperties().spotExponent = 1.0f;
+		light->getLightProperties().spotCutoff = 35.0f;
 		
 		float radius = 0.0f;
 		
