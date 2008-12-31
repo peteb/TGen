@@ -38,6 +38,23 @@ namespace TGen {
 		virtual TGen::Texture * getTexture(const std::string & name) abstract;
 		virtual int getTextureType(const std::string & name) abstract;
 	};
+
+	
+	class MaterialRenderMetadata {
+	public:
+		MaterialRenderMetadata(const std::string & mode, int lod, TGen::Texture ** textureTypes, int shaderMode, TGen::ShaderVariableUpdater * varupdater = NULL, TGen::MaterialOverride * override = NULL);
+		
+		friend class Material;
+		friend class PassList;
+		
+	private:
+		const std::string & mode;
+		int lod, shaderMode;
+		TGen::Texture ** textureTypes;
+		TGen::ShaderVariableUpdater * varupdater; 
+		TGen::MaterialOverride * override;
+	};
+	
 	
 	class Material {
 	public:
@@ -47,7 +64,9 @@ namespace TGen {
 		std::string getName() const;
 		void link(MaterialLinkCallback & callback);
 		bool isLinked() const;
-		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater = NULL, TGen::MaterialOverride * override = NULL);
+
+		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const MaterialRenderMetadata & metadata);
+		
 		void update(scalar time);
 		void setMaximumTechnique(int minreqs);
 		void setParameter(const std::string & name, const std::vector<std::string> & values);
@@ -65,12 +84,9 @@ namespace TGen {
 		const SpecializationList & getSpecializations() const;
 		
 	private:
-		//typedef std::map<std::string, int> SpecializationMap;
 		typedef std::map<std::string, std::vector<std::string> > ParameterMap;
 		
-		//int getSpecializationID(const std::string & name);
-		
-		//static SpecializationMap specializations;  // map specialization name to id		
+
 		static TGen::SymbolTable specializations;
 		ParameterMap parameters;
 		TechniqueListMap techniques;

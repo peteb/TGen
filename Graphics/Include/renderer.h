@@ -107,12 +107,7 @@ namespace TGen {
 		
 		virtual bool throwErrors() abstract;
 		
-		void setShaderMode(int mode);
-		int getShaderMode() const;
-		
 	protected:
-		int shaderMode;
-		
 		TGen::RenderStatistics stats;
 		TGen::RendererCaps caps;
 		TGen::Rectangle viewport;

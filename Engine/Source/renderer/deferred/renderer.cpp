@@ -242,7 +242,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 	renderList.render(renderer, mainCamera->getTransform(), mainCamera->getLod(), "default");
 
 	renderer.setTransform(TGen::TransformWorldView, mainCamera->getTransform());
-	metaNormalMaterial->render(renderer, metaLines, "default", 9, NULL, NULL);
+	metaNormalMaterial->render(renderer, metaLines, TGen::MaterialRenderMetadata("default", 9, NULL, 0, NULL));
 	
 
 	// TODO: var ska det här vara egentligen....
@@ -300,7 +300,7 @@ void TGen::Engine::DeferredRenderer::renderWorld(TGen::Engine::World & world, TG
 						renderFillQuad(iter->first, TGen::lexical_cast<std::string>(a + 1 + i) + "lights");	// TODO: optimize						
 					else {
 					//	glIsTexture(1);
-						(*lights)[a + i]->getMaterial()->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a + i]), TGen::lexical_cast<std::string>(a + 1 + i) + "lights", 9, textures, this);
+						(*lights)[a + i]->getMaterial()->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a + i]), TGen::MaterialRenderMetadata(TGen::lexical_cast<std::string>(a + 1 + i) + "lights", 9, textures, 0, this));
 					}
 						
 						//lightPositionalMaterial->render(renderer, TGen::SceneNodeRenderable(*(*lights)[a]), TGen::lexical_cast<std::string>(a + 1) + "lights", 9, NULL, NULL);
@@ -439,7 +439,7 @@ void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material) {
 
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
-	material->render(renderer, *screenFillMesh, "default", 9, textures, this);
+	material->render(renderer, *screenFillMesh, TGen::MaterialRenderMetadata("default", 9, textures, 0, this));
 }
 
 void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material, const std::string & specialization) {
@@ -448,31 +448,31 @@ void TGen::Engine::DeferredRenderer::renderFillQuad(TGen::Material * material, c
 
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
-	material->render(renderer, *screenFillMesh, specialization, 9, textures, this);	
+	material->render(renderer, *screenFillMesh, TGen::MaterialRenderMetadata(specialization, 9, textures, 0, this));	
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, colorMap, normalMap, miscMap, depthMap};
 	
-	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
+	material->render(renderer, *screenFillMesh, TGen::MaterialRenderMetadata("default", 9, textures, 0, this));	
 }
 
 void TGen::Engine::DeferredRenderer::renderPost2FillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, postMap2, normalMap, miscMap, depthMap};
 	
-	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
+	material->render(renderer, *screenFillMesh, TGen::MaterialRenderMetadata("default", 9, textures, 0, this));	
 }
 
 void TGen::Engine::DeferredRenderer::renderPost3FillQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, postMap3, normalMap, miscMap, depthMap};
 	
-	material->render(renderer, *screenFillMesh, "default", 9, textures, this);	
+	material->render(renderer, *screenFillMesh, TGen::MaterialRenderMetadata("default", 9, textures, 0, this));	
 }
 
 void TGen::Engine::DeferredRenderer::renderPostFinalQuad(TGen::Material * material) {
 	TGen::Texture * textures[] = {NULL, colorMap, postMap2, miscMap, depthMap};
 	
-	material->render(renderer, *screenFillMesh, "default", 9, textures, this);		
+	material->render(renderer, *screenFillMesh, TGen::MaterialRenderMetadata("default", 9, textures, 0, this));		
 }
 
 void TGen::Engine::DeferredRenderer::updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) {

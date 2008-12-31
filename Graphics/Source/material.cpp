@@ -68,7 +68,7 @@ void TGen::Material::setSpecialization(const std::string & name, TGen::Technique
 	this->techniques[specializations[name]] = techniques;
 }
 
-void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater, TGen::MaterialOverride * override) {
+/*void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const std::string & mode, int lod, TGen::Texture ** textureTypes, TGen::ShaderVariableUpdater * varupdater, TGen::MaterialOverride * override) {
 	TGen::Technique * technique = getSpecialization(mode);
 	
 	TGen::PassList * passes = technique->getPassList(lod);
@@ -76,6 +76,18 @@ void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	
 	passes->render(renderer, renderable, textureTypes, varupdater, override);
 	timesRendered++;
+}*/
+
+
+void TGen::Material::render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const MaterialRenderMetadata & metadata) {
+	TGen::Technique * technique = getSpecialization(metadata.mode);
+	TGen::PassList * passes = technique->getPassList(metadata.lod);
+	
+	if (!passes) 
+		throw TGen::RuntimeException("Material::Render", "no passes");
+	
+	passes->render(renderer, renderable, metadata);
+	timesRendered++;	
 }
 
 TGen::Technique * TGen::Material::getSpecialization(const std::string & name) {
@@ -156,5 +168,21 @@ int TGen::Material::getSortLevel() const {
 
 
 */
+
+
+
+
+TGen::MaterialRenderMetadata::MaterialRenderMetadata(const std::string & mode, int lod, TGen::Texture ** textureTypes, int shaderMode, TGen::ShaderVariableUpdater * varupdater, TGen::MaterialOverride * override)
+	: mode(mode)
+	, lod(lod)
+	, textureTypes(textureTypes)
+	, shaderMode(shaderMode)
+	, varupdater(varupdater)
+	, override(override)
+{
+	
+}
+
+
 
 

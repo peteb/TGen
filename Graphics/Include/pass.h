@@ -93,6 +93,19 @@ namespace TGen {
 		int textureType;
 	};
 	
+	class ShaderMode {
+	public:
+		ShaderMode(const std::string & name)
+			: name(name)
+			, shader(NULL)
+		{
+		}
+
+		void link(TGen::MaterialLinkCallback & callback);
+		
+		std::string name;
+		TGen::ShaderProgram * shader;
+	};
 	
 	class Pass {
 	public:	
@@ -121,7 +134,7 @@ namespace TGen {
 		
 		void updateVariables(TGen::ShaderVariableUpdater * varupdater);
 		void addShaderVariable(const std::string & varname, const std::string & linkdid);
-		void setShader(const std::string & name);
+		void setShader(const std::string & name, int mode);
 		void addTextureUnit(PassTextureUnit * textureUnit);
 		int getNumTextureUnits() const;
 		void link(TGen::MaterialLinkCallback & callback);
@@ -131,7 +144,9 @@ namespace TGen {
 			
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
 		typedef std::vector<TGen::PassShaderVariable *> ShaderVarList;
+		typedef std::map<int, ShaderMode> ShaderModeMap;
 		
+		ShaderModeMap shaderModes;
 		ShaderVarList shaderVariables;
 		TextureList textureUnits;
 		

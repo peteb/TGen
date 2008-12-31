@@ -41,6 +41,11 @@ TGen::Pass::~Pass() {
 
 
 const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
+	ShaderModeMap::iterator iter = shaderModes.find(shaderMode);
+	TGenAssert(iter != shaderModes.end());
+	//TGenAssert(iter->second.shader);
+	
+	renderContext.shader = iter->second.shader;
 	return renderContext;
 }
 
@@ -87,8 +92,9 @@ void TGen::Pass::setAlpha(const std::string & a) {
 	renderContext.frontColor.a = aNum;
 }
 
-void TGen::Pass::setShader(const std::string & name) {
-	shaderName = name;
+void TGen::Pass::setShader(const std::string & name, int mode) {
+	//shaderName = name;	
+	shaderModes.insert(std::make_pair(mode, ShaderMode(name)));
 }
 
 void TGen::Pass::setColorGenerator(TGen::ColorGenerator * gen) {
@@ -111,10 +117,10 @@ int TGen::Pass::getNumTextureUnits() const {
 
 void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 	//std::cout << "linking shader " << shaderName << std::endl;
-	if (shaderName == "fixed")
-		renderContext.shader = NULL;
-	else
-		renderContext.shader = callback.getShaderProgram(shaderName);
+	
+	for (ShaderModeMap::iterator iter = shaderModes.begin(); iter != shaderModes.end(); ++iter)
+		iter->second.link(callback);
+
 	
 	renderContext.textureUnits.clear();
 	
@@ -152,7 +158,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		
 		renderContext.addTextureUnit(newUnit);		
 		
-		if (renderContext.shader) {
+		/*if (renderContext.shader) {
 			if (!(*iter)->samplerName.empty()) {
 				DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
 				renderContext.shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
@@ -164,6 +170,26 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 					shaderVariables[i]->linkedVar = renderContext.shader->createVariable(shaderVariables[i]->name);
 				}				
 			}
+		}*/
+		
+		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
+			TGen::ShaderProgram * shader = iter2->second.shader;
+			
+			if (shader) {
+			if (!(*iter)->samplerName.empty()) {
+				DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
+				shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+			}
+			
+			for (int i = 0; i < shaderVariables.size(); ++i) {
+				if (!shaderVariables[i]->linkedVar) {
+					DEBUG_PRINT("[material]: binding '" << shaderVariables[i]->name << "' to '" << shaderVariables[i]->linkId << "'");
+					shaderVariables[i]->linkedVar = shader->createVariable(shaderVariables[i]->name);
+				}				
+			}
+			}
+			
+		
 		}
 	}
 }
@@ -532,6 +558,14 @@ void TGen::Pass::addShaderVariable(const std::string & varname, const std::strin
 	passVar->linkId = linkId;
 	
 	shaderVariables.push_back(passVar);
+}
+
+void TGen::ShaderMode::link(TGen::MaterialLinkCallback & callback) {
+	if (name == "fixed")
+		shader = NULL;
+	else
+		shader = callback.getShaderProgram(name);
+	
 }
 
 

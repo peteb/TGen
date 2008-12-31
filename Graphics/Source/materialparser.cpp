@@ -262,8 +262,25 @@ void TGen::MaterialParser::parseLodBlock(TGen::PassList * lod, TGen::Material * 
 			std::cout << "creating new '" << shaderName << "' pass" << std::endl;
 			#endif
 			
+			
 			TGen::Pass * newPass = new TGen::Pass;
-			newPass->setShader(shaderName);
+			
+			
+			newPass->setShader(shaderName, 0);
+
+			if (shaderName != "fixed") {
+				for (ShaderPermutationList::const_iterator iter = shaderPermutations.begin(); iter != shaderPermutations.end(); ++iter) {
+					std::string fixedShader = shaderName;
+					
+					if (fixedShader.find(":") != std::string::npos)
+						fixedShader += "," + iter->first;
+					else
+						fixedShader += ":" + iter->first;
+						
+					newPass->setShader(fixedShader, iter->second);
+				}
+			}
+			
 			lod->addPass(newPass);
 			
 			stepToken();
@@ -733,3 +750,12 @@ TGen::Color TGen::MaterialParser::parseColor() {
 	
 	return TGen::Color(r, g, b);
 }
+
+
+
+
+void TGen::MaterialParser::addShaderPermutation(const std::string & params, int id) {
+	shaderPermutations.push_back(ShaderPermutation(params, id));
+}
+
+

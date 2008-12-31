@@ -42,7 +42,8 @@ namespace TGen {
 		~MaterialParser();
 		
 		void parse(const char * code, std::list<TGen::Material *> & materials);
-	
+		void addShaderPermutation(const std::string & params, int id);
+		
 	private:
 		void parseGlobalBlock();
 		void parseParamsBlock(TGen::Material * material);
@@ -50,8 +51,8 @@ namespace TGen {
 		void parseLodBlock(TGen::PassList * lod, TGen::Material * material);
 		void parsePassBlock(TGen::Pass * pass, TGen::PassList * lod, TGen::Material * material);
 		void parseTexunitBlock(TGen::PassTextureUnit * unit, TGen::Material * material);
-		TGen::WaveGenerator * parseWaveGenerator();
 		
+		TGen::WaveGenerator * parseWaveGenerator();		
 		TGen::Color parseColor();
 	
 		TGen::Material * getMaterial(const std::string & name);
@@ -60,11 +61,13 @@ namespace TGen {
 		void stepToken();
 		
 		typedef std::map<std::string, TGen::Material *> MaterialMap;
-		MaterialMap materials;
+		typedef std::pair<std::string, int> ShaderPermutation;
+		typedef std::vector<ShaderPermutation> ShaderPermutationList;
 		
-	//	TGen::Material * currentMaterial;
+		MaterialMap materials;
+		ShaderPermutationList shaderPermutations;
+		
 		TGen::Technique * currentTechnique;
-		//TGen::PassList * currentLod;
 		TGen::TechniqueList * currentSpecialization;
 		TGen::TokenStream::TokenList::iterator currentToken, endIter;
 		TGen::TokenStream tokens;

@@ -119,91 +119,20 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			if (face->getRenderProperties())
 				renderer.setFaceWinding(face->getRenderProperties()->frontFaceDef);
 			
-			TGen::Material * globalMaterial = face->getMaterial();
+			TGen::Material * selectedMaterial = face->getMaterial();
 			
 			if (materialOverride)
-				globalMaterial = materialOverride;
+				selectedMaterial = materialOverride;
 			
 			if (!faceRendered[face->getMesh()]) {
 				faceRendered[face->getMesh()] = true;
-				globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh(), override);
+				
+				TGen::MaterialRenderMetadata metadata(specialization, lod, NULL, 0, face->getMesh(), override);
+				
+				selectedMaterial->render(renderer, *face->getMesh(), metadata);
 			}
 		}
 	}
-	
-	return;
-	
-	// OPT: allt det h‰r ‰r fˆrmodligen v‰ldigt segt....
-	for (int i = 0; i < list.size(); ++i) {
-	/*	scalar geomRadius = TGen::Sphere(list[i].face->getGeometry()->getMin(), list[i].face->getGeometry()->getMax()).radius;
-		TGen::Plane3 cameraPlane(TGen::Vector3(camera.getWorldOrientation().x, camera.getWorldOrientation().y, camera.getWorldOrientation().z), 0.0f);
-		
-		TGen::Vector3 pos1, pos2;
-		pos1 = list[i].face->getWorldOrigin() - camera.getWorldPosition() - TGen::Vector3(geomRadius, geomRadius, geomRadius);
-		pos2 = list[i].face->getWorldOrigin() - camera.getWorldPosition() + TGen::Vector3(geomRadius, geomRadius, geomRadius);
-		
-		scalar dist1 = cameraPlane.getPointSide(pos1);
-		scalar dist2 = cameraPlane.getPointSide(pos2);
-		*/
-	//	std::cout << "******* " << dist1 << "  " << dist2 << std::endl;
-		
-		//if (list[i].distanceToCamera < clipFar + geomRadius && (dist1 <= 0.0f || dist2 <= 0.0f)) {
-			const TGen::NewFace * face = &list[i].face;
-			TGen::SceneNode const * node = face->getSceneNode();
-		
-			if (node && lastNode != node) {	// only set a new transformation if it's another node
-				renderer.setTransform(TGen::TransformWorldView, baseMat * node->getTransform());
-				//std::cout << "SET TRANSFORM: " << std::endl << std::string(renderer.getTransform(TGen::TransformWorldView)) << std::endl;
-				
-				lastNode = node;
-			}
-			
-			//std::cout << "POS IN CAM::::::: " << std::string(baseMat * node->getTransform() * face->getGeometry()->getOrigin()) << std::endl;
-			
-			int lod = 9 - int(((list[i].distanceToCamera - lodNear) / lodFar) * 10.0 - 1.0);
-			TGen::Clamp(lod, 0, 9);
-			
-			//std::cout << "DIST: " << list[i].distanceToCamera << " LOD: " << lod << std::endl;
-			//const TGen::Geometry::SubfaceList * subfaces = face->getGeometry()->getLeaves();			
-
-		std::cerr << "LOD: " << lod << std::endl;
-		
-			if (lod > 0) {
-				TGen::Material * globalMaterial = face->getMaterial();
-				globalMaterial->render(renderer, *face->getMesh(), specialization, lod, NULL, face->getMesh(), override);
-			}
-			
-			/*if (!subfaces) {	// render the face
-				if (globalMaterial)
-					globalMaterial->render(renderer, *face->getGeometry(), specialization, lod, NULL, face->getGeometry());	// TODO: opt specialization, symbol look-up before loop
-				else
-					std::cout << "no mat single face" << std::endl;
-			}
-			else {	// render the leaves
-				//face->getGeometry()->preRender(renderer);
-				
-				for (int i = 0; i < subfaces->size(); ++i) {
-					// material = subfaces[i]->getMaterial
-					TGen::Material * material = NULL;
-					
-					if (globalMaterial)
-						material = globalMaterial;
-					else
-						std::cout << "no mat multiface" << std::endl;
-					
-					//if ((*subfaces)[i]->getMaterial())
-					//	material = (*subfaces)[i]->getMaterial();
-					
-					if (material)
-					//	material->render(renderer, *(*subfaces)[i], specialization, lod, NULL, face->getGeometry());
-					
-				}				*/
-			}
-	/*	}
-		else {
-			std::cout << "face discarded, too far away or behind camera" << std::endl;
-		}
-	}*/
 }
 
 void TGen::BasicRenderList::renderWithinRadius(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const TGen::Vector3 & pos, scalar radius) {
@@ -237,14 +166,17 @@ void TGen::BasicRenderList::renderWithinRadius(TGen::Renderer & renderer, const 
 			if (face->getRenderProperties())
 				renderer.setFaceWinding(face->getRenderProperties()->frontFaceDef);
 				
-			TGen::Material * globalMaterial = face->getMaterial();
+			TGen::Material * selectedMaterial = face->getMaterial();
 				
 			if (materialOverride)
-				globalMaterial = materialOverride;
+				selectedMaterial = materialOverride;
 				
 			if (!faceRendered[face->getMesh()]) {
 				faceRendered[face->getMesh()] = true;
-				globalMaterial->render(renderer, *face->getMesh(), "default", 9, NULL, face->getMesh(), override);
+				
+				TGen::MaterialRenderMetadata metadata("default", 9, NULL, 0, face->getMesh(), override);
+				
+				selectedMaterial->render(renderer, *face->getMesh(), metadata);
 				
 				numRendered++;
 			}

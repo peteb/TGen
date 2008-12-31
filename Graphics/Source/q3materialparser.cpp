@@ -75,7 +75,7 @@ void TGen::Q3MaterialParser::parseMaterialBlock(TGen::Material * material, TGen:
 			stepToken();
 			
 			TGen::Pass * newPass = new TGen::Pass;
-			newPass->setShader("fixed");
+			newPass->setShader("fixed", 0);
 			newPass->setDepthFunc("lequal");
 			passes->addPass(newPass);
 			
