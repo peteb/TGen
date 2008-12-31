@@ -32,6 +32,7 @@ TGen::Engine::Info::WorldInfo * TGen::Engine::Info::Subsystem::createWorldInfo(c
 	TGen::Engine::Info::WorldInfo * newInfo = new TGen::Engine::Info::WorldInfo(name, world);
 	
 	newInfo->setPlayerController(properties.getProperty("playerController", ""));
+	newInfo->setAmbientLight(TGen::Color::Parse(properties.getProperty("ambientLight", "0 0 0")));
 	
 	if (!world)
 		throw TGen::RuntimeException("Info::Subsystem::createWorldInfo", "no world linked!");

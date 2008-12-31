@@ -244,6 +244,9 @@ void TGen::Engine::World::updateListener(const TGen::Vector3 & position, const T
 }
 
 TGen::Color TGen::Engine::World::getAmbientLight() {
+	if (worldInfo)
+		return worldInfo->getAmbientLight();
+	
 	return TGen::Color(0.4, 0.4, 0.4, 1.0);
 }
 

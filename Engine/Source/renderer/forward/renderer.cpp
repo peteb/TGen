@@ -21,7 +21,7 @@ TGen::Engine::ForwardRenderer::ForwardRenderer(TGen::Renderer & renderer, TGen::
 	, currentLightMaterial(NULL)
 {
 	depthPassMaterial = resources.getMaterial("forward/depth");
-	TGen::Rectangle size = TGen::Rectangle(2048, 2048);
+	TGen::Rectangle size = TGen::Rectangle(512, 512);
 	shadowMap = renderer.createTexture(size, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);	
 	crapMap = renderer.createTexture(size, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	lightMap = resources.getTexture("textures/flashlight5.tga");

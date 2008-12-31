@@ -266,8 +266,8 @@ void TGen::MaterialParser::parseLodBlock(TGen::PassList * lod, TGen::Material * 
 			TGen::Pass * newPass = new TGen::Pass;
 			
 			
-			newPass->setShader(shaderName, 0);
-
+			bool zeroSet = false;
+			
 			if (shaderName != "fixed") {
 				for (ShaderPermutationList::const_iterator iter = shaderPermutations.begin(); iter != shaderPermutations.end(); ++iter) {
 					std::string fixedShader = shaderName;
@@ -278,8 +278,15 @@ void TGen::MaterialParser::parseLodBlock(TGen::PassList * lod, TGen::Material * 
 						fixedShader += ":" + iter->first;
 						
 					newPass->setShader(fixedShader, iter->second);
+					
+					if (iter->second == 0)
+						zeroSet = true;
 				}
 			}
+
+			if (!zeroSet)
+				newPass->setShader(shaderName, 0);
+
 			
 			lod->addPass(newPass);
 			

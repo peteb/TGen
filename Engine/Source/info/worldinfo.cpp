@@ -78,3 +78,12 @@ TGen::Engine::PlayerController * TGen::Engine::Info::WorldInfo::getPlayerControl
 	
 	return &*playerController;
 }
+
+void TGen::Engine::Info::WorldInfo::setAmbientLight(const TGen::Color & light) {
+	this->ambientLight = light;
+}
+
+TGen::Color TGen::Engine::Info::WorldInfo::getAmbientLight() const {
+	return ambientLight;
+}
+

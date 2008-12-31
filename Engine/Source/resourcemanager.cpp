@@ -380,8 +380,9 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	
 	
 	// add shader permutations for all shader requests except fixed function. ff is undefined, btw
-	parser.addShaderPermutation("LIGHT_OMNI,SHADOWMAP_SINGLE", 2);
-	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE", 3);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_OMNI,SHADOWMAP_SINGLE,LIGHT_FILTER", 0);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_OMNI,SHADOWMAP_SINGLE,LIGHT_FILTER", 2);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 3);
 
 	// TODO: mount complete filesystem on map load, mount /map/blabla/*/ as root also
 	//			create function that checks whether a string starts with a string, if it doesn't, return new string with it prepended

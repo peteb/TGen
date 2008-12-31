@@ -13,6 +13,7 @@
 #include "component.h"
 #include "componentlink.h"
 #include "symbols.h"
+#include "color.h"
 
 namespace TGen {
 	namespace Engine {
@@ -32,11 +33,15 @@ namespace TGen {
 				void setPlayerController(const std::string & name);
 				TGen::Engine::PlayerController * getPlayerController();
 				
+				void setAmbientLight(const TGen::Color & light);
+				TGen::Color getAmbientLight() const;
+				
 			private:
 				TGen::Engine::UnaryDelegate<TGen::Engine::PlayerController> playerController;
 				
 				static TGen::Engine::Symbol symbolSetGravity, symbolGetGravity;
 				TGen::Engine::World * world;
+				TGen::Color ambientLight;
 			};
 			
 		} // !Info
