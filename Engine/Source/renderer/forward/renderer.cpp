@@ -37,6 +37,7 @@ TGen::Engine::ForwardRenderer::~ForwardRenderer() {
 	delete crapMap;
 }
 
+
 void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
 
 	world.prepareLists(camera);
@@ -49,35 +50,32 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
 
 
-	renderList.setMaterialOverride(this, 1);
-	renderList.setMaterial(depthPassMaterial);
 
 	
-	currentPass = DepthPass;
+	{	// DEPTH PASS
+		currentPass = DepthPass;
+		
+		renderList.setMaterialOverride(this, 1);
+		renderList.setMaterial(depthPassMaterial);
+
+		renderer.setClearColor(TGen::Color::Black);
+		renderer.setAmbientLight(world.getAmbientLight());		
+		
+		renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");
+	}
+	
 	
 
-	renderer.setClearColor(TGen::Color::Black);
-	renderer.setAmbientLight(world.getAmbientLight());
-	
-	// DEPTH PASS FIRST
-	
-	
-	renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");
-	
-	// här kan man rendrera portalerna också för att få occlusion info
-	// TODO: hur synkat är det med fysiken? man borde göra grafiken, sen fysiken, fast spelar nog ingen stor roll
-	
-	// TODO: separera in i flera funktioner
-	
-	renderList.setMaterialOverride(this, 1);
-	renderList.setMaterial(NULL);
-	
 	for (int i = 0; i < lights.getNumLights(); ++i) {
 		TGen::Rectangle view = renderer.getViewport();
-		TGen::Matrix4x4 lightProjection = camera->getProjection();
+		TGen::Matrix4x4 lightProjection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(50.0f), 1.0f, 0.1f, 20.0f); //camera->getProjection();
+		TGen::Matrix4x4 prevProjection = renderer.getTransform(TGen::TransformProjection);
 		
 		currentPass = ShadowPass;
 			
+		renderList.setMaterialOverride(this, 1);
+		renderList.setMaterial(depthPassMaterial);
+
 		renderer.setRenderTarget(shadowMapTarget);
 		renderer.clearBuffers(TGen::DepthBuffer);
 		renderer.setViewport(shadowMap->size);
@@ -90,14 +88,19 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		renderList.render(renderer, viewMat, camera->getLod(), "default");
 			
 		shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) 
-			* camera->getProjection() 
+			* lightProjection 
 			* viewMat 
 			* camera->getTransform().getInverse();
 
 		
 		
+		
+		renderer.setTransform(TGen::TransformProjection, prevProjection);
 		renderer.setRenderTarget(NULL);
 		renderer.setViewport(view);
+
+		renderList.setMaterialOverride(this, 1);
+		renderList.setMaterial(NULL);
 
 		currentPass = LightPass;
 
@@ -118,6 +121,8 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 				break;
 			}
 		}
+		
+		std::cout << radius << std::endl;
 		
 		// TODO: olika sorting modes, kolla upp dem. se om man kan sätta det för sky
 		

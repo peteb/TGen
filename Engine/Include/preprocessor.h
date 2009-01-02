@@ -12,14 +12,24 @@
 
 #include <string>
 #include <vector>
+#include <tgen_core.h>
 
 namespace TGen {
 	namespace Engine {
+		class IncludeCallback {
+		public:
+			virtual ~IncludeCallback() {}
+			
+			virtual std::string getIncludeContent(const std::string & identifier) abstract;
+		};
+		
 		class TextPreprocessor {
 		public:
 			TextPreprocessor();
 			
 			std::string process(const std::string & contents, const std::string & parameters, bool parseIfs = false, bool hashDefs = true);
+			
+			std::string processIncludes(const std::string & contents, IncludeCallback & callback);
 			
 		private:
 			typedef std::vector<std::pair<std::string, std::string> > ParameterList;

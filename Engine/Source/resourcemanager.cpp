@@ -126,6 +126,7 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 			
 			TGen::Engine::TextPreprocessor processor;
 			contents = processor.process(contents, genString);
+			contents = processor.processIncludes(contents, *this);
 			
 			//std::cout << contents << std::endl;
 		}
@@ -141,6 +142,14 @@ TGen::ShaderProgram * TGen::Engine::ResourceManager::getShaderProgram(const std:
 	
 	return ret;
 }
+
+std::string TGen::Engine::ResourceManager::getIncludeContent(const std::string & identifier) {
+	std::string fixedPath = TGen::prependPath(identifier, "/shaders/") + ".shader";
+	TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(fixedPath);
+	
+	return file->readAll();
+}
+
 
 TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & name) {
 	TextureMap::iterator iter = textures.find(name);

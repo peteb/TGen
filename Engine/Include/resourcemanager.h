@@ -15,6 +15,7 @@
 #include <string>
 #include "imageloader.h"
 #include "vertexcache.h"
+#include "preprocessor.h"
 
 namespace TGen {
 	namespace Engine {
@@ -23,7 +24,7 @@ namespace TGen {
 		class Renderer;
 		class VariableRegister;
 		
-		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource, public TGen::MeshSource, public TGen::ModelInstantiator {
+		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource, public TGen::MeshSource, public TGen::ModelInstantiator, public TGen::Engine::IncludeCallback {
 		public:
 			ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer, TGen::Engine::VariableRegister & variables);
 			~ResourceManager();
@@ -36,6 +37,8 @@ namespace TGen {
 			int getTextureType(const std::string & name);
 			void loadMaterials(const std::string & filename);
 			void updateMaterials(scalar time);
+			
+			std::string getIncludeContent(const std::string & identifier);
 			
 			TGen::Engine::VertexCache vertexCache;
 			

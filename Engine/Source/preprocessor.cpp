@@ -12,6 +12,8 @@
 #include <vector>
 #include <tgen_core.h>
 
+using TGen::uint;
+
 TGen::Engine::TextPreprocessor::TextPreprocessor()
 	: defineNoValueParam(true)
 {
@@ -75,6 +77,33 @@ std::string TGen::Engine::TextPreprocessor::process(const std::string & contents
 	return ret;
 }
 
+std::string TGen::Engine::TextPreprocessor::processIncludes(const std::string & contents, TGen::Engine::IncludeCallback & callback) {
+	std::string out;
+	
+	uint pos = contents.find("#include");
+	uint lastPos = 0;
+	
+	while (pos < contents.size() && pos != std::string::npos) {
+		out += contents.substr(lastPos, pos - lastPos);
+		
+		int nextPos = contents.find("#include", pos + 1);
+		int spacePos = contents.find("<", pos);
+		int spaceEnd = contents.find(">", spacePos);
+		
+		lastPos = spaceEnd + 2;
+		
+		std::string ident = contents.substr(spacePos + 1, spaceEnd - spacePos - 1);
+		
+		out += callback.getIncludeContent(ident);
+		
+		pos = nextPos;
+	}
+	
+	out += contents.substr(lastPos);
+	
+	return out;	
+}
+									 
 std::string TGen::Engine::TextPreprocessor::fixIfs(const std::string & input) const {
 	std::string out;
 	
