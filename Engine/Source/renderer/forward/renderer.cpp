@@ -198,9 +198,12 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 		*/
 		try {
-			renderer.getShaderProgram()->getUniform("shadowMap") = 5;
-			renderer.getShaderProgram()->getUniform("lightMap") = 4;
-
+			//static int hey = 0;
+			
+			//if (hey++ < 10) {
+				renderer.getShaderProgram()->getUniform("shadowMap") = 5;
+				renderer.getShaderProgram()->getUniform("lightMap") = 4;
+			//}
 		}
 		catch (...) {
 			

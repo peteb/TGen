@@ -23,6 +23,7 @@ namespace TGen {
 	class PassShaderVariable;
 	class ShaderVariableUpdater;
 	class ShaderUpdater;
+	class ShaderVariable;
 	
 	class TextureCoordTransformer {
 	public:
@@ -80,7 +81,7 @@ namespace TGen {
 		void setSampler(const std::string & sampler);
 		void setWrap(const std::string & wrapU, const std::string & wrapV);
 		void addTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
-		void update(scalar time);
+		void update(scalar time, bool update = true);
 		
 		std::string textureName, samplerName;
 		int unit;
@@ -91,6 +92,10 @@ namespace TGen {
 		TransformerList transformers;
 		TGen::TextureUnit * texunit;
 
+		typedef std::vector<TGen::ShaderVariable *> ShaderVariableList;
+		
+		ShaderVariableList binders;
+		
 		int textureType;
 	};
 	

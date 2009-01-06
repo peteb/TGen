@@ -45,7 +45,7 @@ void TGen::PassList::render(TGen::Renderer & renderer, const TGen::Renderable & 
 	for (int i = 0; i < passes.size(); ++i) {
 		renderer.setRenderContext(passes[i]->getRenderContext(metadata.shaderMode), metadata.textureTypes);
 		
-		if (metadata.varupdater)
+		//if (metadata.varupdater)
 			passes[i]->updateVariables(metadata.varupdater);
 		
 		

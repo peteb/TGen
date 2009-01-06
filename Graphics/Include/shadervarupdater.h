@@ -44,7 +44,7 @@ namespace TGen {
 		ShaderVarFloat4,
 	};
 	
-	// testa spara en lÃ¤nk till varje variabel i varje shader, dvs, 3 stycken samtidigt. (fÃ¶r varje texunit som transformerar texcoords)
+	// testa spara en länk till varje variabel i varje shader, dvs, 3 stycken samtidigt. (för varje texunit som transformerar texcoords). or just clone the shadervar :P
 	class ShaderUpdater {
 	public:
 		ShaderUpdater(const std::string & varName, ShaderVarType type, float value) 
@@ -62,9 +62,9 @@ namespace TGen {
 			return new ShaderUpdater(*this);
 		}
 		
-		virtual void update() {
+		void update() {
 			if (linkedVar) {
-				(*linkedVar) = value;
+				(*linkedVar) = int(value);
 			}
 		}
 		

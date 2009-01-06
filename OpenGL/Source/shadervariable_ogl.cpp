@@ -111,7 +111,7 @@ TGen::ShaderVariable & TGen::OpenGL::ShaderVariable::operator = (const TGen::Mat
 	glUseProgram(program);
 	
 	if (type == TGen::OpenGL::Uniform)
-		glUniformMatrix3fv(location, 1, false, reinterpret_cast<const GLfloat *>(&matrix.elements));		// TODO: if sizeof(scalar) != sizeof(GLfloat) we have a huge problem
+		glUniformMatrix4fv(location, 1, false, reinterpret_cast<const GLfloat *>(&matrix.elements));		// TODO: if sizeof(scalar) != sizeof(GLfloat) we have a huge problem
 	else
 		throw TGen::RuntimeException("OpenGL::ShaderVariable", "can't set attribute to matrix");
 	

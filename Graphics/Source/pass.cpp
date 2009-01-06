@@ -44,6 +44,9 @@ const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	ShaderModeMap::iterator iter = shaderModes.find(shaderMode);
 	TGenAssert(iter != shaderModes.end());
 	//TGenAssert(iter->second.shader);
+	for (int i = 0; i < textureUnits.size(); ++i) {
+		textureUnits[i]->update(0.0f, false);
+	}
 	
 	renderContext.shader = iter->second.shader;
 	return renderContext;
@@ -152,6 +155,23 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		}
 		
 		
+		// TODO: don't add transform shadervariables here, just link them
+		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
+			try {
+				std::cerr << (*iter)->samplerName << std::endl;
+				
+				TGen::ShaderProgram * shader = iter2->second.shader;
+				
+				if (shader) {
+					TGen::ShaderVariable * var = shader->createVariable((*iter)->samplerName + "Transform");
+					(*iter)->binders.push_back(var);
+				}
+			}
+			catch (...) {
+				std::cout << "Warning, failed to create transform binder for " << (*iter)->samplerName + "Transform" << std::endl;
+			}
+		}
+		
 		newUnit->genU = (*iter)->genU;
 		newUnit->genV = (*iter)->genV;
 		(*iter)->texunit = newUnit;
@@ -190,8 +210,8 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 				}
 			}
 			
-			// En "map" skapar en shadervarupdater fÃ¶r varje shadermode som sÃ¤tter korrekt sampler. (en vanlig set int)
-			// texunit behÃ¶ver ocksÃ¥ gÃ¶ra det....
+			// En "map" skapar en shadervarupdater för varje shadermode som sätter korrekt sampler. (en vanlig set int)
+			// texunit behöver också göra det....
 		
 			// TODO: shaderupdaters, one for every shader variable. ie, one for every var and shader mode.
 		}
@@ -199,27 +219,29 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 }
 
 void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
-	for (int i = 0; i < shaderVariables.size(); ++i) {
-		varupdater->updateShaderVariable(*shaderVariables[i]->linkedVar, shaderVariables[i]->linkId);
+	if (varupdater) {
+		for (int i = 0; i < shaderVariables.size(); ++i) {
+			varupdater->updateShaderVariable(*shaderVariables[i]->linkedVar, shaderVariables[i]->linkId);
+		}
 	}
-	
 	
 	// update shader variables::: 
 	
 
 	TextureList::iterator iter = textureUnits.begin();
 	for (; iter != textureUnits.end(); ++iter) {
-
+		//(*iter)->update();	
+		
 		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
 			iter2->second.update();
-			TGen::ShaderProgram * shader = iter2->second.shader;
+			/*TGen::ShaderProgram * shader = iter2->second.shader;
 			
 			if (shader) {
 				if (!(*iter)->samplerName.empty()) {
 					//DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
 					shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
 				}
-			}
+			}*/
 			
 			
 		}
@@ -400,6 +422,8 @@ void TGen::Pass::update(scalar time) {
 		renderContext.frontColor.a = alphaGen->getValue(time);
 	}
 	
+	
+	// TODO: två updated, en som uppdaterar transformeringen och en som uppdaterar shadervars
 	for (int i = 0; i < textureUnits.size(); ++i) {
 		textureUnits[i]->update(time);
 	}
@@ -409,11 +433,18 @@ void TGen::PassTextureUnit::addTexCoordTransformer(TGen::TextureCoordTransformer
 	transformers.push_back(transformer);
 }
 
-void TGen::PassTextureUnit::update(scalar time) {
-	if (!texunit)
+void TGen::PassTextureUnit::update(scalar time, bool update) {
+	if (!texunit) {
+		for (int i = 0; i < binders.size(); ++i) {
+			*binders[i] = TGen::Matrix4x4::Identity;
+		}
+		
 		return;
+	}
 	
+	// only gets updated with 0.0f......
 	
+	if (update) {
 	texunit->transform = TGen::Matrix4x4::Identity;
 	texunit->transformed = false;
 	
@@ -432,7 +463,12 @@ void TGen::PassTextureUnit::update(scalar time) {
 	}
 	
 	if (lastCentered)
-		texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));		
+		texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));	
+	}
+	
+	for (int i = 0; i < binders.size(); ++i) {
+		*binders[i] = texunit->transform;
+	}
 }
 
 void TGen::PassTextureUnit::setTextureName(const std::string & name) {
