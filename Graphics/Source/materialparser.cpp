@@ -14,6 +14,7 @@
 #include "pass.h"
 #include "generator.h"
 #include "passlist.h"
+#include "shadervarupdater.h"
 #include <iostream>
 
 TGen::MaterialParser::MaterialParser() {}
@@ -437,6 +438,34 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				pass->addShaderVariable(varName, varId);
 				stepToken();
 			}
+			else if (currentToken->second == "param") {
+				std::string varName, varType, varValue;
+				stepToken();
+				varName = getStringToken("pass.param: expecting string value for variable name");
+				stepToken();
+				varType = getStringToken("pass.param: expecting string value for variable type");
+				stepToken();
+				//varValue = getStringToken("pass.param: expecting string value for variable value");
+				
+				// TODO: VarTypeParser
+				TGen::ShaderVarType type;
+				if (varType == "int")
+					type = TGen::ShaderVarInt;
+				else if (varType == "float")
+					type = TGen::ShaderVarFloat;
+				else if (varType == "float2")
+					type = TGen::ShaderVarFloat2;
+				else if (varType == "float3")
+					type = TGen::ShaderVarFloat3;
+				else if (varType == "float4")
+					type = TGen::ShaderVarFloat4;
+				
+				
+				TGen::ShaderUpdater * newUpdater = new TGen::ShaderUpdater(varName, type, TGen::lexical_cast<float>(getNumericToken("blaba")));
+				pass->addShaderUpdater(newUpdater);
+				
+				stepToken();
+			}
 			else if (currentToken->second == "noDepthWrite") {
 				pass->setNoDepthWrite();
 			}
@@ -623,6 +652,7 @@ void TGen::MaterialParser::parseTexunitBlock(TGen::PassTextureUnit * unit, TGen:
 				
 				unit->setSampler(samplerName);
 			}
+			
 			else {
 				throw TGen::RuntimeException("MaterialParser::ParseTexunitBlock", "not expecting '" + currentToken->second + "'!");
 			}

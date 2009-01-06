@@ -1096,6 +1096,11 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			glMatrixMode(GL_TEXTURE);
 			glLoadIdentity();
 		}
+		
+		if (context.shader) {
+			//std::cout << (*iter)->name << std::endl;
+			//exit(1);
+		}
 	}
 		
 	if (context.blendSrc != lastContext.blendSrc || context.blendDst != lastContext.blendDst) {

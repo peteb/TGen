@@ -22,6 +22,7 @@ namespace TGen {
 	class ScalarGenerator;
 	class PassShaderVariable;
 	class ShaderVariableUpdater;
+	class ShaderUpdater;
 	
 	class TextureCoordTransformer {
 	public:
@@ -102,7 +103,13 @@ namespace TGen {
 		}
 
 		void link(TGen::MaterialLinkCallback & callback);
+		void update();
+		void addShaderUpdater(TGen::ShaderUpdater * updater);
 		
+		typedef std::vector<TGen::ShaderUpdater *> ShaderUpdaterList;
+
+		
+		ShaderUpdaterList shaderUpdaters;
 		std::string name;
 		TGen::ShaderProgram * shader;
 	};
@@ -134,6 +141,8 @@ namespace TGen {
 		
 		void updateVariables(TGen::ShaderVariableUpdater * varupdater);
 		void addShaderVariable(const std::string & varname, const std::string & linkdid);
+		void addShaderUpdater(TGen::ShaderUpdater * updater);
+		
 		void setShader(const std::string & name, int mode);
 		void addTextureUnit(PassTextureUnit * textureUnit);
 		int getNumTextureUnits() const;
@@ -145,6 +154,7 @@ namespace TGen {
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
 		typedef std::vector<TGen::PassShaderVariable *> ShaderVarList;
 		typedef std::map<int, ShaderMode> ShaderModeMap;
+		
 		
 		ShaderModeMap shaderModes;
 		ShaderVarList shaderVariables;

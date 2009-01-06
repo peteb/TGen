@@ -38,82 +38,52 @@ TGen::Engine::ForwardRenderer::~ForwardRenderer() {
 }
 
 
-void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
+#include <OpenGL/OpenGL.h>
 
+void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGen::Camera * camera, scalar dt) {
 	world.prepareLists(camera);
 	TGen::RenderList & renderList = world.getRenderList();
 	TGen::Engine::LightList & lights = world.getLightList();
 	
 	renderList.sort(*camera, "default");
 	
+	renderer.setClearColor(TGen::Color::Black);
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
+	renderer.setAmbientLight(world.getAmbientLight());		
 
 
-
+	renderDepth(renderList, camera);
 	
-	{	// DEPTH PASS
-		currentPass = DepthPass;
-		
-		renderList.setMaterialOverride(this, 1);
-		renderList.setMaterial(depthPassMaterial);
 
-		renderer.setClearColor(TGen::Color::Black);
-		renderer.setAmbientLight(world.getAmbientLight());		
-		
-		renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");
-	}
-	
 	
 
 	for (int i = 0; i < lights.getNumLights(); ++i) {
-		TGen::Rectangle view = renderer.getViewport();
-		TGen::Matrix4x4 lightProjection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(50.0f), 1.0f, 0.1f, 20.0f); //camera->getProjection();
-		TGen::Matrix4x4 prevProjection = renderer.getTransform(TGen::TransformProjection);
+		TGen::Engine::Light * light = lights.getLight(i);
 		
-		currentPass = ShadowPass;
-			
-		renderList.setMaterialOverride(this, 1);
-		renderList.setMaterial(depthPassMaterial);
-
-		renderer.setRenderTarget(shadowMapTarget);
-		renderer.clearBuffers(TGen::DepthBuffer);
-		renderer.setViewport(shadowMap->size);
-		renderer.setTransform(TGen::TransformProjection, lightProjection);
-
-		TGen::Matrix4x4 viewMat = lights.getLight(i)->getTransform(); 
-		viewMat.setZ(-viewMat.getZ());
-		viewMat.invert();
-			
-		renderList.render(renderer, viewMat, camera->getLod(), "default");
-			
-		shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) 
-			* lightProjection 
-			* viewMat 
-			* camera->getTransform().getInverse();
-
+		renderShadowmap(renderList, light);
 		
+		shadowMatrix *= camera->getTransform().getInverse();
+				
+		// STATIC AND DYNAMIC shadows, lampor ska kunna markera att skuggorna inte behövs räknas om alls
 		
-		
-		renderer.setTransform(TGen::TransformProjection, prevProjection);
-		renderer.setRenderTarget(NULL);
-		renderer.setViewport(view);
 
 		renderList.setMaterialOverride(this, 1);
 		renderList.setMaterial(NULL);
 
 		currentPass = LightPass;
 
-		TGen::Engine::Light * light = lights.getLight(i);
+			renderer.setTexture(5, shadowMap);
+			renderer.setTextureTransform(5, shadowMatrix);
 		
-		light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f); //light->getWorldPosition();
+		light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 		light->getLightProperties().spotDirection = TGen::Vector3(0.0f, 0.0f, 1.0f);
 		light->getLightProperties().spotExponent = 1.0f;
 		light->getLightProperties().spotCutoff = 35.0f;
 		
 		float radius = 0.0f;
 		
-		for (float a = 0.0f; ; a += 0.1f) {		// TODO: flytta det här till en egen funktion, ha max length också. undvik oändlig loop!
+		for (float a = 0.0f; ; a += 1.0f) {		// TODO: flytta det här till en egen funktion, ha max length också. undvik oändlig loop!
 			if (1.0f / (light->getLightProperties().constantAttenuation +
 								light->getLightProperties().linearAttenuation * a +
 							light->getLightProperties().quadraticAttenuation * a * a) < 0.1f) {
@@ -122,7 +92,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 			}
 		}
 		
-		std::cout << radius << std::endl;
+		//std::cout << radius << std::endl;
 		
 		// TODO: olika sorting modes, kolla upp dem. se om man kan sätta det för sky
 		
@@ -137,19 +107,50 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	//}
 }
 
-#include <OpenGL/OpenGL.h>
+void TGen::Engine::ForwardRenderer::renderDepth(TGen::RenderList & renderList, TGen::Camera * camera) {
+	currentPass = DepthPass;
+	
+	renderList.setMaterialOverride(this, 1);
+	renderList.setMaterial(depthPassMaterial);
+		
+	renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");	
+}
+
+void TGen::Engine::ForwardRenderer::renderShadowmap(TGen::RenderList & renderList, TGen::Engine::Light * light) {
+	TGen::Matrix4x4 lightProjection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(50.0f), 1.0f, 0.1f, 20.0f);
+	TGen::Matrix4x4 prevProjection = renderer.getTransform(TGen::TransformProjection);
+	TGen::Rectangle prevView = renderer.getViewport();
+	
+	currentPass = ShadowPass;
+	
+	renderList.setMaterialOverride(this, 1);
+	renderList.setMaterial(depthPassMaterial);
+	
+	renderer.setRenderTarget(shadowMapTarget);
+	renderer.setViewport(shadowMap->size);
+	renderer.setTransform(TGen::TransformProjection, lightProjection);
+	renderer.clearBuffers(TGen::DepthBuffer);
+	
+	TGen::Matrix4x4 viewMat = light->getTransform(); 
+	viewMat.setZ(-viewMat.getZ());
+	viewMat.invert();
+	
+	TGen::LodInfo lod;	
+	renderList.render(renderer, viewMat, lod, "default");
+	
+	shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) 
+		* lightProjection 
+		* viewMat;
+	
+	renderer.setTransform(TGen::TransformProjection, prevProjection);
+	renderer.setRenderTarget(NULL);
+	renderer.setViewport(prevView);
+}
+
 
 void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, int param) const {	
-	glDisable(GL_POLYGON_OFFSET_FILL);
-	glPolygonOffset(0.0, 0.0);
-	//glCullFace(GL_BACK);
-	static int lastCull = GL_BACK;
-	
-	glDisable(GL_CULL_FACE);
-	
-	glPolygonMode(GL_BACK, GL_LINE);
-	glPolygonMode(GL_FRONT, GL_FILL);
-	
+
+
 	if (currentPass == DepthPass) {
 		renderer.setColorWrite(false);
 		renderer.setDepthFunc(TGen::CompareLessOrEqual);
@@ -158,22 +159,15 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		renderer.setColorWrite(false);
 		renderer.setDepthFunc(TGen::CompareLessOrEqual);
 
-		glPolygonOffset(0.015, 0.0);
-		glEnable(GL_POLYGON_OFFSET_FILL);
-		glGetIntegerv(GL_CULL_FACE_MODE, &lastCull);
-		
-		glEnable(GL_CULL_FACE);
-		glCullFace(GL_BACK);
-		glPolygonMode(GL_BACK, GL_POINT);
-		glPolygonMode(GL_FRONT, GL_FILL);
+		//glEnable(GL_CULL_FACE);
+		//glCullFace(GL_BACK);
 		
 	}
 	else if (currentPass == LightPass) {
 		renderer.setColorWrite(true);
 		renderer.setDepthFunc(TGen::CompareEqual);
 		renderer.setBlendFunc(TGen::BlendOne, TGen::BlendOne);
-		renderer.setTexture(5, shadowMap);
-		renderer.setTextureTransform(5, shadowMatrix);
+		
 		
 	//renderer.setTexture(6, lightMap);
 		
@@ -214,8 +208,8 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		
 	}
 
-	if (currentPass != ShadowPass)
-		glCullFace(lastCull);
+//	if (currentPass != ShadowPass)
+	//	glCullFace(lastCull);
 
 }
 

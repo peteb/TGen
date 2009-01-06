@@ -176,20 +176,24 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 			TGen::ShaderProgram * shader = iter2->second.shader;
 			
 			if (shader) {
-			if (!(*iter)->samplerName.empty()) {
-				DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
-				shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+			/*	if (!(*iter)->samplerName.empty()) {
+					//DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
+					shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+				}*/
+			
+				
+				for (int i = 0; i < shaderVariables.size(); ++i) {
+					if (!shaderVariables[i]->linkedVar) {
+						//DEBUG_PRINT("[material]: binding '" << shaderVariables[i]->name << "' to '" << shaderVariables[i]->linkId << "'");
+						shaderVariables[i]->linkedVar = shader->createVariable(shaderVariables[i]->name);
+					}				
+				}
 			}
 			
-			for (int i = 0; i < shaderVariables.size(); ++i) {
-				if (!shaderVariables[i]->linkedVar) {
-					DEBUG_PRINT("[material]: binding '" << shaderVariables[i]->name << "' to '" << shaderVariables[i]->linkId << "'");
-					shaderVariables[i]->linkedVar = shader->createVariable(shaderVariables[i]->name);
-				}				
-			}
-			}
-			
+			// En "map" skapar en shadervarupdater för varje shadermode som sätter korrekt sampler. (en vanlig set int)
+			// texunit behöver också göra det....
 		
+			// TODO: shaderupdaters, one for every shader variable. ie, one for every var and shader mode.
 		}
 	}
 }
@@ -197,6 +201,28 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
 	for (int i = 0; i < shaderVariables.size(); ++i) {
 		varupdater->updateShaderVariable(*shaderVariables[i]->linkedVar, shaderVariables[i]->linkId);
+	}
+	
+	
+	// update shader variables::: 
+	
+
+	TextureList::iterator iter = textureUnits.begin();
+	for (; iter != textureUnits.end(); ++iter) {
+
+		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
+			iter2->second.update();
+			TGen::ShaderProgram * shader = iter2->second.shader;
+			
+			if (shader) {
+				if (!(*iter)->samplerName.empty()) {
+					//DEBUG_PRINT("[material]: setting '" << (*iter)->samplerName << "' to " << (*iter)->unit);
+					shader->getUniform((*iter)->samplerName).setInt((*iter)->unit);
+				}
+			}
+			
+			
+		}
 	}
 }
 
@@ -566,6 +592,35 @@ void TGen::ShaderMode::link(TGen::MaterialLinkCallback & callback) {
 	else
 		shader = callback.getShaderProgram(name);
 	
+	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end();) {
+		try {
+			(*iter)->link(shader);
+			++iter;
+		}
+		catch (const TGen::RuntimeException & error) {
+			std::cout << "Error while linking shader updaters: \"" + std::string(error.what()) + "\", removed variable" << std::endl;
+			
+			delete *iter;
+			iter = shaderUpdaters.erase(iter);
+		}
+	}
+}
+
+void TGen::ShaderMode::update() {
+	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end(); ++iter)
+		(*iter)->update();	
+}
+
+void TGen::ShaderMode::addShaderUpdater(TGen::ShaderUpdater * updater) {
+	shaderUpdaters.push_back(updater);
+}
+
+void TGen::Pass::addShaderUpdater(TGen::ShaderUpdater * updater) {
+	for (ShaderModeMap::iterator iter = shaderModes.begin(); iter != shaderModes.end(); ++iter) {
+		iter->second.addShaderUpdater(updater->clone());
+	}
+	
+	delete updater;
 }
 
 

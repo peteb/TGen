@@ -19,6 +19,7 @@ namespace TGen {
 	class Material;
 	class FrameBuffer;
 	class Texture;
+	class RenderList;
 	
 	namespace Engine {
 		class World;
@@ -40,6 +41,9 @@ namespace TGen {
 			void overrideMaterial(TGen::Renderer & renderer, int param) const;
 			
 		private:
+			void renderDepth(TGen::RenderList & renderList, TGen::Camera * camera);
+			void renderShadowmap(TGen::RenderList & renderList, TGen::Engine::Light * light);
+			
 			TGen::FrameBuffer * shadowMapTarget;
 			TGen::Texture * shadowMap, * crapMap, * lightMap;
 			TGen::Material * depthPassMaterial, * currentLightMaterial;
