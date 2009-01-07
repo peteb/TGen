@@ -37,12 +37,12 @@ namespace TGen {
 		
 		const TGen::RenderContext & getRenderContext(int shaderMode);
 		
-		void setColor(const std::string & r, const std::string & g, const std::string & b);
-		void setAlpha(const std::string & a);
-		void setDepthFunc(const std::string & func);
-		void setFrontMode(const std::string & mode);
-		void setBackMode(const std::string & mode);
-		void setBlendFunc(const std::string & source, const std::string & dest);
+		void setColor(const TGen::Color & color);
+		void setAlpha(scalar a);
+		void setDepthFunc(TGen::CompareFunc func);
+		void setFrontMode(TGen::PolygonFaceMode mode);
+		void setBackMode(TGen::PolygonFaceMode mode);
+		void setBlendFunc(TGen::BlendFunc src, TGen::BlendFunc dest);
 		void setColorGenerator(TGen::ColorGenerator * gen);
 		void setAlphaGenerator(TGen::ScalarGenerator * gen);
 		void setNoDepthWrite();

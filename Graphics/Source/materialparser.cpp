@@ -17,6 +17,7 @@
 #include "shadervarupdater.h"
 #include "texturetransformer.h"
 #include "passtextureunit.h"
+#include "typesconverter.h"
 #include <iostream>
 
 TGen::MaterialParser::MaterialParser() {}
@@ -393,14 +394,8 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 					stepToken();
 					pass->setColorFromVertex();
 				}
-				else {
-					r = getNumericToken("pass.color: expecting numeric R value ");
-					stepToken();
-					g = getNumericToken("pass.color: expecting numeric G value ");
-					stepToken();
-					b = getNumericToken("pass.color: expecting numeric B value ");
-				
-					pass->setColor(r, g, b);
+				else {				
+					pass->setColor(parseColor());
 				}
 			}
 			else if (currentToken->second == "alpha") {
@@ -415,7 +410,7 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				else {
 					a = getNumericToken("pass.alpha: expecting numeric A value ");
 					
-					pass->setAlpha(a);
+					pass->setAlpha(TGen::lexical_cast<scalar>(a));
 				}
 			}
 			else if (currentToken->second == "lightDiffuse") {
@@ -483,7 +478,7 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				stepToken();
 				polyMode = getStringToken("pass.front: expecting string value for mode");
 				
-				pass->setFrontMode(polyMode);
+				pass->setFrontMode(TGen::StringToPolygonFaceMode(polyMode));
 			}
 			else if (currentToken->second == "back") {
 				std::string polyMode;
@@ -491,12 +486,12 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				stepToken();
 				polyMode = getStringToken("pass.back: expecting string value for mode");
 				
-				pass->setBackMode(polyMode);
+				pass->setBackMode(TGen::StringToPolygonFaceMode(polyMode));
 			}
 			else if (currentToken->second == "depthPass") {
 				stepToken();
 				
-				pass->setDepthFunc(getStringToken("pass.depthPass: expecting string value for compare func"));
+				pass->setDepthFunc(TGen::StringToCompareFunc(getStringToken("pass.depthPass: expecting string value for compare func")));
 			}
 			else if (currentToken->second == "blendFunc") {
 				stepToken();
@@ -508,7 +503,26 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				if (currentToken->first == TGen::TokenValueString || currentToken->first == TGen::TokenQuote)
 					dest = currentToken->second;
 				
-				pass->setBlendFunc(source, dest);
+				TGen::BlendFunc fixedSource, fixedDest;
+				
+				if (source == "additive" || source == "add") {
+					fixedSource = TGen::BlendOne;
+					fixedDest = TGen::BlendOne;
+				}
+				else if (source == "interpolate" || source == "default" || source == "blend") {
+					fixedSource = TGen::BlendSourceAlpha;
+					fixedDest = TGen::BlendOneMinusSourceAlpha;
+				}
+				else if (source == "filter") {
+					fixedSource = TGen::BlendDestColor;
+					fixedDest = TGen::BlendZero;
+				}
+				else {
+					fixedSource = TGen::StringToBlendFunc(source);
+					fixedDest = TGen::StringToBlendFunc(dest);
+				}
+				
+				pass->setBlendFunc(fixedSource, fixedDest);
 			}
 			else {
 				throw TGen::RuntimeException("MaterialParser::ParsePassBlock", "not expecting '" + currentToken->second + "'!");							

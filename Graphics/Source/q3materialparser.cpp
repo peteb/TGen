@@ -16,6 +16,7 @@
 #include "passlist.h"
 #include "texturetransformer.h"
 #include "passtextureunit.h"
+#include "typesconverter.h"
 
 TGen::Q3MaterialParser::Q3MaterialParser() {}
 TGen::Q3MaterialParser::~Q3MaterialParser() {}
@@ -78,7 +79,7 @@ void TGen::Q3MaterialParser::parseMaterialBlock(TGen::Material * material, TGen:
 			
 			TGen::Pass * newPass = new TGen::Pass;
 			newPass->setShader("fixed", 0);
-			newPass->setDepthFunc("lequal");
+			newPass->setDepthFunc(TGen::CompareLessOrEqual);
 			passes->addPass(newPass);
 			
 			TGen::PassTextureUnit * newUnit = new TGen::PassTextureUnit(0, "");
@@ -130,7 +131,7 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				dest = currentToken->second;
 			
 			lod->setSortLevel(TGen::MaterialSortTransparent); 
-			pass->setBlendFunc(source, dest);			
+			pass->setBlendFunc(TGen::StringToBlendFunc(source), TGen::StringToBlendFunc(dest));			
 		}
 		else if (tokenInLower == "tcgen") {
 			stepToken();
@@ -224,7 +225,7 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 			}
 			else {
 				if (currentToken->second == "identity") {
-					pass->setColor("1", "1", "1");
+					pass->setColor(TGen::Color::Identity);
 				}
 				else if (currentToken->second == "vertex") {
 					pass->setColorFromVertex();
@@ -237,7 +238,7 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 					g = getNumericToken("pass.rgbgen: expecting numeric G value ");
 					stepToken();
 					b = getNumericToken("pass.rgbgen: expecting numeric B value ");
-					pass->setColor(r, g, b);
+					pass->setColor(TGen::Color(TGen::lexical_cast<scalar>(r), TGen::lexical_cast<scalar>(g), TGen::lexical_cast<scalar>(b)));
 				}
 			}
 		}

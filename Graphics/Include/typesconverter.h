@@ -14,6 +14,8 @@
 
 namespace TGen {
 	TGen::BlendFunc StringToBlendFunc(const std::string & blend);
+	TGen::CompareFunc StringToCompareFunc(const std::string & func);
+	TGen::PolygonFaceMode StringToPolygonFaceMode(const std::string & mode);
 	
 } // !TGen
 

@@ -62,18 +62,11 @@ const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	return renderContext;
 }
 
-void TGen::Pass::setColor(const std::string & r, const std::string & g, const std::string & b) {
+void TGen::Pass::setColor(const TGen::Color & color) {
 	delete colorGen;
 	colorGen = NULL;
 	
-	std::stringstream ss;
-	scalar rNum, gNum, bNum;
-	ss << r << " " << g << " " << b;
-	ss >> rNum >> gNum >> bNum;
-	
-	renderContext.frontColor.r = rNum;
-	renderContext.frontColor.g = gNum;
-	renderContext.frontColor.b = bNum;
+	renderContext.frontColor = color;
 }
 
 void TGen::Pass::setColorFromVertex() {
@@ -93,16 +86,11 @@ void TGen::Pass::setLightShininess(scalar shininess) {
 }
 
 
-void TGen::Pass::setAlpha(const std::string & a) {
+void TGen::Pass::setAlpha(scalar a) {
 	delete alphaGen;
 	alphaGen = NULL;
 	
-	std::stringstream ss;
-	scalar aNum;
-	ss << a;
-	ss >> aNum;
-	
-	renderContext.frontColor.a = aNum;
+	renderContext.frontColor.a = a;
 }
 
 void TGen::Pass::setShader(const std::string & name, int mode) {
@@ -258,51 +246,16 @@ void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
 }
 
 
-void TGen::Pass::setDepthFunc(const std::string & func) {
-	if (func == "never")
-		renderContext.depthFunc = TGen::CompareNever;
-	else if (func == "less")
-		renderContext.depthFunc = TGen::CompareLess;
-	else if (func == "equal")
-		renderContext.depthFunc = TGen::CompareEqual;
-	else if (func == "lequal")
-		renderContext.depthFunc = TGen::CompareLessOrEqual;
-	else if (func == "greater")
-		renderContext.depthFunc = TGen::CompareGreater;
-	else if (func == "nequal")
-		renderContext.depthFunc = TGen::CompareNotEqual;
-	else if (func == "gequal")
-		renderContext.depthFunc = TGen::CompareGreaterOrEqual;
-	else if (func == "always")
-		renderContext.depthFunc = TGen::CompareAlways;
-	else
-		throw TGen::RuntimeException("Pass::setDepthFunc", "invalid compare function: '" + func + "'!");
+void TGen::Pass::setDepthFunc(TGen::CompareFunc func) {
+	renderContext.depthFunc = func;	
 }
 
-void TGen::Pass::setFrontMode(const std::string & mode) {
-	if (mode == "cull")
-		renderContext.front = TGen::PolygonFaceCull;
-	else if (mode == "lines" || mode == "line")
-		renderContext.front = TGen::PolygonFaceLines;
-	else if (mode == "point" || mode == "points")
-		renderContext.front = TGen::PolygonFacePoints;
-	else if (mode == "fill")
-		renderContext.front = TGen::PolygonFaceFill;
-	else
-		throw TGen::RuntimeException("Pass::setFrontMode", "invalid front mode: '" + mode + "'!");
+void TGen::Pass::setFrontMode(TGen::PolygonFaceMode mode) {
+	renderContext.front = mode;
 }
 
-void TGen::Pass::setBackMode(const std::string & mode) {
-	if (mode == "cull")
-		renderContext.back = TGen::PolygonFaceCull;
-	else if (mode == "lines" || mode == "line")
-		renderContext.back = TGen::PolygonFaceLines;
-	else if (mode == "point" || mode == "points")
-		renderContext.back = TGen::PolygonFacePoints;
-	else if (mode == "fill")
-		renderContext.back = TGen::PolygonFaceFill;
-	else
-		throw TGen::RuntimeException("Pass::setBackMode", "invalid back mode: '" + mode + "'!");	
+void TGen::Pass::setBackMode(TGen::PolygonFaceMode mode) {
+	renderContext.back = mode;	
 }
 
 void TGen::Pass::setNoDepthWrite() {
@@ -317,23 +270,9 @@ void TGen::Pass::setDisableBlend() {
 	renderContext.disableBlend = true;
 }
 
-void TGen::Pass::setBlendFunc(const std::string & source, const std::string & dest) {
-	if (source == "additive" || source == "add") {
-		renderContext.blendSrc = TGen::BlendOne;
-		renderContext.blendDst = TGen::BlendOne;
-	}
-	else if (source == "interpolate" || source == "default" || source == "blend") {
-		renderContext.blendSrc = TGen::BlendSourceAlpha;
-		renderContext.blendDst = TGen::BlendOneMinusSourceAlpha;
-	}
-	else if (source == "filter") {
-		renderContext.blendSrc = TGen::BlendDestColor;
-		renderContext.blendDst = TGen::BlendZero;
-	}
-	else {
-		renderContext.blendSrc = StringToBlendFunc(source);
-		renderContext.blendDst = StringToBlendFunc(dest);		
-	}
+void TGen::Pass::setBlendFunc(TGen::BlendFunc src, TGen::BlendFunc dest) {
+	renderContext.blendSrc = src;
+	renderContext.blendDst = dest;		
 }
 
 void TGen::Pass::update(scalar time) {
