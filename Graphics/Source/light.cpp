@@ -9,6 +9,8 @@
 
 #include "light.h"
 
+using TGen::scalar;
+
 TGen::Light::Light()
 	: constantAttenuation(0.0)
 	, linearAttenuation(0.0)
@@ -18,3 +20,15 @@ TGen::Light::Light()
 {
 }
 
+scalar TGen::Light::calculateAttenuationDistance(scalar threshold, scalar maxdist) {
+	scalar ret = 0.0f;
+	
+	for (scalar a = 0.0f; ; a += 1.0f) {	
+		if ((1.0f / (constantAttenuation + linearAttenuation * a + quadraticAttenuation * a * a) < threshold) || a > maxdist) {
+			ret = a;
+			break;
+		}
+	}
+	
+	return ret;
+}

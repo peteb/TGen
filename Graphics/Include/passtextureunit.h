@@ -28,24 +28,33 @@ namespace TGen {
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
 		void setWrap(const std::string & wrapU, const std::string & wrapV);
+		void setLinkedUnit(TGen::TextureUnit * texunit);
+		
 		void addTextureTransformer(TGen::TextureTransformer * transformer);
+		void addTransformBinder(TGen::ShaderVariable * var);
+		
 		void update(scalar time);
 		void updateShaderVariables();
+		const std::string & getTextureName() const;
+		const std::string & getSamplerName() const;
 		
-		std::string textureName, samplerName;
-		int unit;
+		int getUnit() const;
+
 		TGen::TextureCoordGen genU, genV;
 		TGen::TextureWrap wrapU, wrapV;
+
+	private:
+		std::string textureName, samplerName;
 		
 		typedef std::vector<TGen::TextureTransformer *> TransformerList;
+		typedef std::vector<TGen::ShaderVariable *> ShaderVariableList;
+
 		TransformerList transformers;
+		ShaderVariableList binders;
+
 		TGen::TextureUnit * texunit;
 		
-		typedef std::vector<TGen::ShaderVariable *> ShaderVariableList;
-		
-		ShaderVariableList binders;
-		
-		int textureType;
+		int textureType, unit;
 	};	
 	
 } // !TGen

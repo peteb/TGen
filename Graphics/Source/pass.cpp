@@ -57,7 +57,7 @@ const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	for (int i = 0; i < textureUnits.size(); ++i)
 		textureUnits[i]->updateShaderVariables();
 	
-	renderContext.shader = iter->second->shader;
+	renderContext.shader = iter->second->getShader();
 
 	return renderContext;
 }
@@ -145,20 +145,20 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		int texType = 0;
 		bool nullTexture = false;
 		
-		if ((*iter)->textureName == "none" || (*iter)->textureName == "NULL") {
-			newUnit = new TGen::TextureUnit((*iter)->unit, NULL);
+		if ((*iter)->getTextureName() == "none" || (*iter)->getTextureName() == "NULL") {
+			newUnit = new TGen::TextureUnit((*iter)->getUnit(), NULL);
 			texType = 0;
 			nullTexture = true;
 		}
 		else {
-			texType = callback.getTextureType((*iter)->textureName);
+			texType = callback.getTextureType((*iter)->getTextureName());
 		}
 		
 		if (texType > 0) {
-			newUnit = new TGen::TextureUnit((*iter)->unit, texType);
+			newUnit = new TGen::TextureUnit((*iter)->getUnit(), texType);
 		}
 		else if (!nullTexture) {
-			newUnit = new TGen::TextureUnit((*iter)->unit, callback.getTexture((*iter)->textureName));
+			newUnit = new TGen::TextureUnit((*iter)->getUnit(), callback.getTexture((*iter)->getTextureName()));
 			
 			if (newUnit->texture)
 				newUnit->texture->setWrapMode((*iter)->wrapU, (*iter)->wrapV);
@@ -168,23 +168,23 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		// TODO: don't add transform shadervariables here, just link them
 		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
 			try {
-				std::cerr << (*iter)->samplerName << std::endl;
+				std::cerr << (*iter)->getSamplerName() << std::endl;
 				
-				TGen::ShaderProgram * shader = iter2->second->shader;
+				TGen::ShaderProgram * shader = iter2->second->getShader();
 				
 				if (shader) {
-					TGen::ShaderVariable * var = shader->createVariable((*iter)->samplerName + "Transform");
-					(*iter)->binders.push_back(var);
+					TGen::ShaderVariable * var = shader->createVariable((*iter)->getSamplerName() + "Transform");
+					(*iter)->addTransformBinder(var);
 				}
 			}
 			catch (...) {
-				std::cout << "Warning, failed to create transform binder for " << (*iter)->samplerName + "Transform" << std::endl;
+				std::cout << "Warning, failed to create transform binder for " << (*iter)->getSamplerName() + "Transform" << std::endl;
 			}
 		}
 		
 		newUnit->genU = (*iter)->genU;
 		newUnit->genV = (*iter)->genV;
-		(*iter)->texunit = newUnit;
+		(*iter)->setLinkedUnit(newUnit);
 		
 		renderContext.addTextureUnit(newUnit);		
 		
@@ -203,7 +203,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		}*/
 		
 		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
-			TGen::ShaderProgram * shader = iter2->second->shader;
+			TGen::ShaderProgram * shader = iter2->second->getShader();
 			
 			if (shader) {
 			/*	if (!(*iter)->samplerName.empty()) {

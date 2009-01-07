@@ -10,10 +10,12 @@
 #ifndef _TGEN_LIGHTMATERIAL_H
 #define _TGEN_LIGHTMATERIAL_H
 
+#include "color.h"
+
 namespace TGen {
 	class LightMaterial {
 	public:
-		LightMaterial() : shininess(20.0f), diffuse(TGen::Color::White), specular(TGen::Color(0.5f, 0.5f, 0.5f)) {}
+		LightMaterial();
 		
 		TGen::Color diffuse, specular;
 		scalar shininess;

@@ -19,6 +19,7 @@ namespace TGen {
 	public:
 		Light();
 		
+		scalar calculateAttenuationDistance(scalar threshold, scalar maxdist);
 		
 		scalar constantAttenuation, linearAttenuation, quadraticAttenuation, spotCutoff, spotExponent;
 		TGen::Vector3 spotDirection;

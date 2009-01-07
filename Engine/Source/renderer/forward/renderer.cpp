@@ -81,16 +81,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		light->getLightProperties().spotExponent = 1.0f;
 		light->getLightProperties().spotCutoff = 35.0f;
 		
-		float radius = 0.0f;
-		
-		for (float a = 0.0f; ; a += 1.0f) {		// TODO: flytta det här till en egen funktion, ha max length också. undvik oändlig loop!
-			if (1.0f / (light->getLightProperties().constantAttenuation +
-								light->getLightProperties().linearAttenuation * a +
-							light->getLightProperties().quadraticAttenuation * a * a) < 0.1f) {
-				radius = a;
-				break;
-			}
-		}
+		float radius = light->getLightProperties().calculateAttenuationDistance(1.0f, 1000.0f);
 		
 		//std::cout << radius << std::endl;
 		

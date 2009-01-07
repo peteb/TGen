@@ -69,6 +69,7 @@
 		D080D4210F15037300B558B1 /* vertexdata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D4200F15037300B558B1 /* vertexdata.cpp */; };
 		D080D47D0F15057900B558B1 /* materialrendermetadata.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D47C0F15057900B558B1 /* materialrendermetadata.cpp */; };
 		D080D47F0F15058C00B558B1 /* materialrendermetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = D080D47E0F15058C00B558B1 /* materialrendermetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D080D5740F15128C00B558B1 /* lightmaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D5730F15128C00B558B1 /* lightmaterial.cpp */; };
 		D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */ = {isa = PBXBuildFile; fileRef = D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
@@ -237,6 +238,7 @@
 		D080D4200F15037300B558B1 /* vertexdata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = vertexdata.cpp; path = Source/vertexdata.cpp; sourceTree = "<group>"; };
 		D080D47C0F15057900B558B1 /* materialrendermetadata.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = materialrendermetadata.cpp; path = Source/materialrendermetadata.cpp; sourceTree = "<group>"; };
 		D080D47E0F15058C00B558B1 /* materialrendermetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materialrendermetadata.h; path = Include/materialrendermetadata.h; sourceTree = "<group>"; };
+		D080D5730F15128C00B558B1 /* lightmaterial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lightmaterial.cpp; path = Source/lightmaterial.cpp; sourceTree = "<group>"; };
 		D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shadervarupdater.h; path = Include/shadervarupdater.h; sourceTree = "<group>"; };
 		D08DCB610C3BBF9700C0AB3F /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = Source/material.cpp; sourceTree = "<group>"; };
 		D08DCB630C3BBFA000C0AB3F /* pass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pass.cpp; path = Source/pass.cpp; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				D07A2CEA0C667EBA009CABCA /* textureunit.h */,
 				D0BDFCC90CF0B8F000A3A3C7 /* light.cpp */,
 				D0BDFCC50CF0B8D900A3A3C7 /* light.h */,
+				D080D5730F15128C00B558B1 /* lightmaterial.cpp */,
 				D09C13040EC6D73A00355FE9 /* lightmaterial.h */,
 				D07279A60D22CF80004FCFCB /* renderstatistics.cpp */,
 				D072798C0D22CCC6004FCFCB /* renderstatistics.h */,
@@ -675,6 +678,7 @@
 				D080D39C0F15011800B558B1 /* typesconverter.cpp in Sources */,
 				D080D4210F15037300B558B1 /* vertexdata.cpp in Sources */,
 				D080D47D0F15057900B558B1 /* materialrendermetadata.cpp in Sources */,
+				D080D5740F15128C00B558B1 /* lightmaterial.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

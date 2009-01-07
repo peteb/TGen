@@ -46,3 +46,7 @@ void TGen::ShaderMode::update() {
 void TGen::ShaderMode::addShaderUpdater(TGen::ShaderUpdater * updater) {
 	shaderUpdaters.push_back(updater);
 }
+
+TGen::ShaderProgram * TGen::ShaderMode::getShader() const {
+	return shader;
+}

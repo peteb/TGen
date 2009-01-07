@@ -109,7 +109,27 @@ void TGen::PassTextureUnit::updateShaderVariables() {
 	}
 }
 
+void TGen::PassTextureUnit::addTransformBinder(TGen::ShaderVariable * var) {
+	binders.push_back(var);
+}
+
 void TGen::PassTextureUnit::setTextureName(const std::string & name) {
 	textureName = name;
+}
+
+const std::string & TGen::PassTextureUnit::getTextureName() const {
+	return textureName;
+}
+
+const std::string & TGen::PassTextureUnit::getSamplerName() const {
+	return samplerName;
+}
+
+void TGen::PassTextureUnit::setLinkedUnit(TGen::TextureUnit * texunit) {
+	this->texunit = texunit;
+}
+
+int TGen::PassTextureUnit::getUnit() const {
+	return unit;
 }
 

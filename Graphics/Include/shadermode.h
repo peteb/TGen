@@ -25,10 +25,11 @@ namespace TGen {
 		void link(TGen::MaterialLinkCallback & callback);
 		void update();
 		void addShaderUpdater(TGen::ShaderUpdater * updater);
+		TGen::ShaderProgram * getShader() const;
 		
+	private:
 		typedef std::vector<TGen::ShaderUpdater *> ShaderUpdaterList;
-		
-		
+				
 		ShaderUpdaterList shaderUpdaters;
 		std::string name;
 		TGen::ShaderProgram * shader;
