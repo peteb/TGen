@@ -40,7 +40,7 @@ TGen::BlendFunc TGen::StringToBlendFunc(const std::string & blend) {
 	return ret;
 }
 
-TGen::CompareFunc StringToCompareFunc(const std::string & func) {
+TGen::CompareFunc TGen::StringToCompareFunc(const std::string & func) {
 	TGen::CompareFunc ret;
 	std::string fixedFunc = TGen::toLower(func);
 	
@@ -66,7 +66,7 @@ TGen::CompareFunc StringToCompareFunc(const std::string & func) {
 	return ret;	
 }
 
-TGen::PolygonFaceMode StringToPolygonFaceMode(const std::string & mode) {
+TGen::PolygonFaceMode TGen::StringToPolygonFaceMode(const std::string & mode) {
 	TGen::PolygonFaceMode ret;
 	std::string fixedMode = TGen::toLower(mode);
 	
