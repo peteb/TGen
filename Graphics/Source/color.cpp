@@ -165,17 +165,19 @@ void TGen::Color::getValueFormatted(TGen::FormatType format, float value, void *
 }
 
 TGen::Color TGen::Color::Parse(const std::string & text) {
-	if (text.find("red") != std::string::npos)
+	std::string fixedString = TGen::toLower(text);
+	
+	if (fixedString.find("red") != std::string::npos)
 		return TGen::Color::Red;
-	else if (text.find("green") != std::string::npos)
+	else if (fixedString.find("green") != std::string::npos)
 		return TGen::Color::Green;
-	else if (text.find("blue") != std::string::npos)
+	else if (fixedString.find("blue") != std::string::npos)
 		return TGen::Color::Blue;
-	else if (text.find("black") != std::string::npos)
+	else if (fixedString.find("black") != std::string::npos)
 		return TGen::Color::Black;
-	else if (text.find("white") != std::string::npos)
+	else if (fixedString.find("white") != std::string::npos)
 		return TGen::Color::White;
-	else if (text.find("identity") != std::string::npos)
+	else if (fixedString.find("identity") != std::string::npos)
 		return TGen::Color::Identity;
 	
 	std::stringstream ss;

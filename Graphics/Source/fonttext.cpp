@@ -9,6 +9,7 @@
 
 #include "fonttext.h"
 #include "renderer.h"
+#include "vertexdata.h"
 
 TGen::FontText::FontText(const std::string & text, TGen::Font * font, const TGen::Color & color, bool dynamic)
 	: text(text)

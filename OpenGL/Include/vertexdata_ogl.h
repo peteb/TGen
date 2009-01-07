@@ -11,6 +11,7 @@
 #define _TGEN_OPENGL_VERTEXDATA_H
 
 #include "vertexsource.h"
+#include "vertexdata.h"
 #include "vertexstructure.h"
 #include "prefix_ogl.h"
 

@@ -16,6 +16,7 @@
 #include "error.h"
 #include "renderable.h"
 #include <iostream>
+#include "vertexdata.h"
 
 namespace TGen {
 	class VertexStream {

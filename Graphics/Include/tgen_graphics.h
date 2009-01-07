@@ -18,6 +18,7 @@
 #include "renderer_caps.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
+#include "vertexdata.h"
 #include "texture.h"
 #include "vertexstructure.h"
 #include "vertexsource.h"
@@ -50,6 +51,12 @@
 
 #include "font.h"
 #include "fonttext.h"
+
+#include "texturetransformer.h"
+#include "passtextureunit.h"
+#include "shadermode.h"
+#include "materiallinkcallback.h"
+#include "typesconverter.h"
 
 namespace TGen {
 	bool isGraphicsDebug();

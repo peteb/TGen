@@ -12,7 +12,7 @@
 
 #include <vector>
 #include "rendercontext.h"
-#include "renderer_types.h"
+
 
 namespace TGen {
 	class Renderable;
@@ -52,21 +52,19 @@ namespace TGen {
 		void setLightDiffuse(const TGen::Color & diffuse);
 		void setLightSpecular(const TGen::Color & specular);
 		void setLightShininess(scalar shininess);
-		
+
+		void link(TGen::MaterialLinkCallback & callback);
 		void update(scalar dt);
-		
 		void updateVariables(TGen::ShaderVariableUpdater * varupdater);
+	
 		void addShaderVariable(const std::string & varname, const std::string & linkdid);
 		void addShaderUpdater(TGen::ShaderUpdater * updater);
+		void addTextureUnit(PassTextureUnit * textureUnit);
 		
 		void setShader(const std::string & name, int mode);
-		void addTextureUnit(PassTextureUnit * textureUnit);
 		int getNumTextureUnits() const;
-		void link(TGen::MaterialLinkCallback & callback);
 		
-	private:
-		static TGen::BlendFunc StringToBlendFunc(const std::string & blend);
-			
+	private:			
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
 		typedef std::vector<TGen::PassShaderVariable *> ShaderVarList;
 		typedef std::map<int, ShaderMode *> ShaderModeMap;
