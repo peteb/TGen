@@ -424,6 +424,7 @@ void TGen::Pass::update(scalar time) {
 	
 	
 	// TODO: två updated, en som uppdaterar transformeringen och en som uppdaterar shadervars
+	//        sen städa upp i alla klasserna som har publika members! och vissa klasser måste ut i flera filer
 	for (int i = 0; i < textureUnits.size(); ++i) {
 		textureUnits[i]->update(time);
 	}
