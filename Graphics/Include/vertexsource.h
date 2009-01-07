@@ -28,8 +28,6 @@ namespace TGen {
 		virtual void removeVertexData(VertexData * data) abstract;
 		
 	};
-	
-	
 }
 
 #endif // !_TGEN_VERTEXSOURCE_H

@@ -24,7 +24,7 @@ void TGen::ShaderMode::link(TGen::MaterialLinkCallback & callback) {
 	else
 		shader = callback.getShaderProgram(name);
 	
-	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end();) {
+	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end(); ) {
 		try {
 			(*iter)->link(shader);
 			++iter;

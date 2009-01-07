@@ -15,6 +15,7 @@
 #include "renderer.h"
 #include "techniquelist.h"
 #include "passlist.h"
+#include "materialrendermetadata.h"
 
 //TGen::Material::SpecializationMap TGen::Material::specializations;
 TGen::SymbolTable TGen::Material::specializations;
@@ -173,16 +174,6 @@ int TGen::Material::getSortLevel() const {
 
 
 
-TGen::MaterialRenderMetadata::MaterialRenderMetadata(const std::string & mode, int lod, TGen::Texture ** textureTypes, int shaderMode, TGen::ShaderVariableUpdater * varupdater, TGen::MaterialOverride * override)
-	: mode(mode)
-	, lod(lod)
-	, textureTypes(textureTypes)
-	, shaderMode(shaderMode)
-	, varupdater(varupdater)
-	, override(override)
-{
-	
-}
 
 
 

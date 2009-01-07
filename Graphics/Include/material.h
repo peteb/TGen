@@ -30,22 +30,8 @@ namespace TGen {
 		MaterialSortTransparent = 30,
 	};
 	
-	class MaterialRenderMetadata {
-	public:
-		MaterialRenderMetadata(const std::string & mode, int lod, TGen::Texture ** textureTypes, int shaderMode, TGen::ShaderVariableUpdater * varupdater = NULL, TGen::MaterialOverride * override = NULL);
-		
-		friend class Material;
-		friend class PassList;
-		
-	private:
-		std::string mode;
-		int lod, shaderMode;
-		TGen::Texture ** textureTypes;
-		TGen::ShaderVariableUpdater * varupdater; 
-		TGen::MaterialOverride * override;
-	};
-	
 	class MaterialLinkCallback;
+	class MaterialRenderMetadata;
 	
 	class Material {
 	public:

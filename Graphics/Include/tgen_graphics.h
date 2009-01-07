@@ -57,6 +57,7 @@
 #include "shadermode.h"
 #include "materiallinkcallback.h"
 #include "typesconverter.h"
+#include "materialrendermetadata.h"
 
 namespace TGen {
 	bool isGraphicsDebug();

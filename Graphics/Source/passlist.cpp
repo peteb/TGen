@@ -13,6 +13,7 @@
 #include "pass.h"
 #include "material.h"
 #include "materialoverride.h"
+#include "materialrendermetadata.h"
 
 TGen::PassList::PassList()
 	: sortLevel(TGen::MaterialSortOpaque)
