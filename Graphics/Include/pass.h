@@ -81,7 +81,8 @@ namespace TGen {
 		void setSampler(const std::string & sampler);
 		void setWrap(const std::string & wrapU, const std::string & wrapV);
 		void addTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
-		void update(scalar time, bool update = true);
+		void update(scalar time);
+		void updateShaderVariables();
 		
 		std::string textureName, samplerName;
 		int unit;

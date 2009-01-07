@@ -44,11 +44,11 @@ const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	ShaderModeMap::iterator iter = shaderModes.find(shaderMode);
 	TGenAssert(iter != shaderModes.end());
 	//TGenAssert(iter->second.shader);
-	for (int i = 0; i < textureUnits.size(); ++i) {
-		textureUnits[i]->update(0.0f, false);
-	}
+	for (int i = 0; i < textureUnits.size(); ++i)
+		textureUnits[i]->updateShaderVariables();
 	
 	renderContext.shader = iter->second.shader;
+
 	return renderContext;
 }
 
@@ -210,8 +210,8 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 				}
 			}
 			
-			// En "map" skapar en shadervarupdater för varje shadermode som sätter korrekt sampler. (en vanlig set int)
-			// texunit behöver också göra det....
+			// En "map" skapar en shadervarupdater fÃ¶r varje shadermode som sÃ¤tter korrekt sampler. (en vanlig set int)
+			// texunit behÃ¶ver ocksÃ¥ gÃ¶ra det....
 		
 			// TODO: shaderupdaters, one for every shader variable. ie, one for every var and shader mode.
 		}
@@ -423,8 +423,8 @@ void TGen::Pass::update(scalar time) {
 	}
 	
 	
-	// TODO: två updated, en som uppdaterar transformeringen och en som uppdaterar shadervars
-	//        sen städa upp i alla klasserna som har publika members! och vissa klasser måste ut i flera filer
+	// TODO: tvÃ¥ updated, en som uppdaterar transformeringen och en som uppdaterar shadervars
+	//        sen stÃ¤da upp i alla klasserna som har publika members! och vissa klasser mÃ¥ste ut i flera filer
 	for (int i = 0; i < textureUnits.size(); ++i) {
 		textureUnits[i]->update(time);
 	}
@@ -434,18 +434,10 @@ void TGen::PassTextureUnit::addTexCoordTransformer(TGen::TextureCoordTransformer
 	transformers.push_back(transformer);
 }
 
-void TGen::PassTextureUnit::update(scalar time, bool update) {
-	if (!texunit) {
-		for (int i = 0; i < binders.size(); ++i) {
-			*binders[i] = TGen::Matrix4x4::Identity;
-		}
-		
+void TGen::PassTextureUnit::update(scalar time) {
+	if (!texunit)
 		return;
-	}
 	
-	// only gets updated with 0.0f......
-	
-	if (update) {
 	texunit->transform = TGen::Matrix4x4::Identity;
 	texunit->transformed = false;
 	
@@ -465,10 +457,16 @@ void TGen::PassTextureUnit::update(scalar time, bool update) {
 	
 	if (lastCentered)
 		texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));	
+}
+
+void TGen::PassTextureUnit::updateShaderVariables() {
+	if (!texunit) {
+		for (int i = 0; i < binders.size(); ++i)
+			*binders[i] = TGen::Matrix4x4::Identity;
 	}
-	
-	for (int i = 0; i < binders.size(); ++i) {
-		*binders[i] = texunit->transform;
+	else {
+		for (int i = 0; i < binders.size(); ++i)
+			*binders[i] = texunit->transform;
 	}
 }
 
