@@ -15,6 +15,7 @@
 #include "generator.h"
 #include "passlist.h"
 #include "shadervarupdater.h"
+#include "texturetransformer.h"
 #include <iostream>
 
 TGen::MaterialParser::MaterialParser() {}
@@ -569,11 +570,10 @@ void TGen::MaterialParser::parseTexunitBlock(TGen::PassTextureUnit * unit, TGen:
 					ss >> v;
 				}
 				
-				TGen::TextureCoordTranslate * translator = new TGen::TextureCoordTranslate(genU, genV, scroll);
-				translator->u = u;
-				translator->v = v;
+				TGen::TextureTranslate * translator = new TGen::TextureTranslate(genU, genV, scroll);
+				translator->setCoord(u, v);
 				
-				unit->addTexCoordTransformer(translator);
+				unit->addTextureTransformer(translator);
 			}
 			else if (currentToken->second == "scale" || currentToken->second == "stretch") {
 				std::string u, v;
@@ -615,11 +615,10 @@ void TGen::MaterialParser::parseTexunitBlock(TGen::PassTextureUnit * unit, TGen:
 				}
 				
 				
-				TGen::TextureCoordScale * scaler = new TGen::TextureCoordScale(genU, genV, centered);
-				scaler->u = uNum;
-				scaler->v = vNum;
+				TGen::TextureScale * scaler = new TGen::TextureScale(genU, genV, centered);
+				scaler->setScale(uNum, vNum);
 				
-				unit->addTexCoordTransformer(scaler);
+				unit->addTextureTransformer(scaler);
 			}
 			else if (currentToken->second == "rotate" || currentToken->second == "spin") {
 				float u = 0.0f;
@@ -639,10 +638,10 @@ void TGen::MaterialParser::parseTexunitBlock(TGen::PassTextureUnit * unit, TGen:
 					ss >> u;
 				}
 				
-				TGen::TextureCoordRotate * rotator = new TGen::TextureCoordRotate(genRot, centered);
-				rotator->speed = u;
+				TGen::TextureRotate * rotator = new TGen::TextureRotate(genRot, centered);
+				rotator->setSpeed(u);
 				
-				unit->addTexCoordTransformer(rotator);				
+				unit->addTextureTransformer(rotator);				
 			}
 			else if (currentToken->second == "sampler") {
 				std::string samplerName;

@@ -18,58 +18,14 @@ namespace TGen {
 	class Renderable;
 	class Renderer;
 	class MaterialLinkCallback;
-	class ColorGenerator;
-	class ScalarGenerator;
 	class PassShaderVariable;
 	class ShaderVariableUpdater;
 	class ShaderUpdater;
 	class ShaderVariable;
+	class TextureTransformer;
+	class ColorGenerator;
+	class ScalarGenerator;
 	
-	class TextureCoordTransformer {
-	public:
-		TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered);
-		virtual ~TextureCoordTransformer();
-		
-		virtual void applyTransform(TGen::Matrix4x4 & matrix, scalar time) abstract;
-
-		bool centered;
-
-	protected:
-		scalar startedAt;
-		TGen::ScalarGenerator * genU, * genV;
-	};
-	
-	
-	class TextureCoordTranslate : public TGen::TextureCoordTransformer {
-	public:
-		TextureCoordTranslate(float u, float v, bool scroll = false);
-		TextureCoordTranslate(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool scroll = false);
-		
-		void applyTransform(TGen::Matrix4x4 & matrix, scalar time);
-
-		float u, v;
-		bool scroll;
-	};
-
-	class TextureCoordScale : public TGen::TextureCoordTransformer {
-	public:
-		TextureCoordScale(float u, float v, bool centered = false);
-		TextureCoordScale(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered = false);
-		
-		void applyTransform(TGen::Matrix4x4 & matrix, scalar time);
-		
-		float u, v;
-	};	
-	
-	class TextureCoordRotate : public TGen::TextureCoordTransformer {
-	public:
-		TextureCoordRotate(float speed, bool centered = false);
-		TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered = false);
-		
-		void applyTransform(TGen::Matrix4x4 & matrix, scalar time);
-		
-		float speed;
-	};
 	
 	class PassTextureUnit {
 	public:	
@@ -80,7 +36,7 @@ namespace TGen {
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
 		void setWrap(const std::string & wrapU, const std::string & wrapV);
-		void addTexCoordTransformer(TGen::TextureCoordTransformer * transformer);
+		void addTextureTransformer(TGen::TextureTransformer * transformer);
 		void update(scalar time);
 		void updateShaderVariables();
 		
@@ -89,7 +45,7 @@ namespace TGen {
 		TGen::TextureCoordGen genU, genV;
 		TGen::TextureWrap wrapU, wrapV;
 
-		typedef std::vector<TGen::TextureCoordTransformer *> TransformerList;
+		typedef std::vector<TGen::TextureTransformer *> TransformerList;
 		TransformerList transformers;
 		TGen::TextureUnit * texunit;
 

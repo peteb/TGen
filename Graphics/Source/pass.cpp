@@ -17,6 +17,8 @@
 #include "texture.h"
 #include "textureunit.h"
 #include "shadervarupdater.h"
+
+#include "texturetransformer.h"
 #include <iostream>
 
 
@@ -430,7 +432,7 @@ void TGen::Pass::update(scalar time) {
 	}
 }
 
-void TGen::PassTextureUnit::addTexCoordTransformer(TGen::TextureCoordTransformer * transformer) {
+void TGen::PassTextureUnit::addTextureTransformer(TGen::TextureTransformer * transformer) {
 	transformers.push_back(transformer);
 }
 
@@ -444,12 +446,12 @@ void TGen::PassTextureUnit::update(scalar time) {
 	bool lastCentered = false;
 	
 	for (int i = 0; i < transformers.size(); ++i) {
-		if (transformers[i]->centered && !lastCentered)
+		if (transformers[i]->shouldCenter() && !lastCentered)
 			texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
-		else if (!transformers[i]->centered && lastCentered)
+		else if (!transformers[i]->shouldCenter() && lastCentered)
 			texunit->transform *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
 
-		lastCentered = transformers[i]->centered;
+		lastCentered = transformers[i]->shouldCenter();
 		
 		transformers[i]->applyTransform(texunit->transform, time);
 		texunit->transformed = true;
@@ -474,144 +476,6 @@ void TGen::PassTextureUnit::setTextureName(const std::string & name) {
 	textureName = name;
 }
 
-TGen::TextureCoordTransformer::TextureCoordTransformer(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered) 
-	: genU(genU)
-	, genV(genV)
-	, startedAt(0.0)
-	, centered(centered)
-{
-}
-
-TGen::TextureCoordTransformer::~TextureCoordTransformer() {
-	delete genU;
-	if (genV != genU)
-		delete genV;
-}
-
-
-TGen::TextureCoordTranslate::TextureCoordTranslate(float u, float v, bool scroll)
-	: TGen::TextureCoordTransformer(NULL, NULL, false)
-	, u(u)
-	, v(v)
-	, scroll(scroll) 
-{
-}
-
-TGen::TextureCoordTranslate::TextureCoordTranslate(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool scroll)
-	: TGen::TextureCoordTransformer(genU, genV, false)
-	, scroll(scroll) 
-{
-}
-
-void TGen::TextureCoordTranslate::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
-	if (!scroll) {
-		float fixedU = 0.0f, fixedV = 0.0f;
-		
-		if (!genU)
-			fixedU = u;
-		else
-			fixedU = genU->getValue(time);
-		
-		if (!genV)
-			fixedV = v;
-		else
-			fixedV = genV->getValue(time);
-				
-		//fixedU = fixedU - floor(fixedU);		// fix range. crappy code
-		//fixedV = fixedV - floor(fixedV);		
-		
-		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-fixedU, fixedV));		
-	}
-	else {
-		
-		float fixedU = 0.0f, fixedV = 0.0f;
-		
-		if (!genU)
-			fixedU = (time - startedAt) * u;
-		else
-			fixedU = genU->getValue(time);
-		
-		if (!genV)
-			fixedV = (time - startedAt) * v;
-		else
-			fixedV = genV->getValue(time);				
-
-		
-		//	fixedU = fixedU - floor(fixedU);		// fix range
-		//		fixedV = fixedV - floor(fixedV);
-		
-		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-fixedU, fixedV));
-	}
-}
-
-
-TGen::TextureCoordScale::TextureCoordScale(float u, float v, bool centered)
-	: TGen::TextureCoordTransformer(NULL, NULL, centered)
-	, u(u)
-	, v(v)
-{
-}
-
-TGen::TextureCoordScale::TextureCoordScale(TGen::ScalarGenerator * genU, TGen::ScalarGenerator * genV, bool centered)
-	: TGen::TextureCoordTransformer(genU, genV, centered)
-	, u(0.0f)
-	, v(0.0f)
-{
-}
-
-void TGen::TextureCoordScale::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
-	float fixedU = 0.0f, fixedV = 0.0f;
-	
-	if (!genU)
-		fixedU = u;
-	else
-		fixedU = genU->getValue(time);
-	
-	if (!genV)
-		fixedV = v;
-	else
-		fixedV = genV->getValue(time);
-	
-	if (fixedU < 0.0f)
-		fixedU = 0.0f;
-	if (fixedV < 0.0f)
-		fixedV = 0.0f;
-	
-	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
-	matrix *= TGen::Matrix4x4::Scaling(TGen::Vector3(fixedU, fixedV, 1.0));
-	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
-}
-
-TGen::TextureCoordRotate::TextureCoordRotate(float speed, bool centered)
-	: TGen::TextureCoordTransformer(NULL, NULL, centered)
-	, speed(speed)
-{
-}
-
-TGen::TextureCoordRotate::TextureCoordRotate(TGen::ScalarGenerator * genRot, bool centered) 
-	: TGen::TextureCoordTransformer(genRot, NULL, centered)
-	, speed(0.0f)
-{
-}
-
-void TGen::TextureCoordRotate::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
-	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(0.5f, 0.5f));
-
-	if (!genU) {
-		float degrees = (time - startedAt) * speed;
-		
-		degrees = degrees - floor(degrees / 360.0f) * 360.0f;
-		//if (speed < 0.0)
-	//		degrees = -degrees;
-		
-		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(-degrees));
-	}
-	else {
-		matrix *= TGen::Matrix4x4::Rotation(TGen::Vector3(0.0f, 0.0f, 1.0f), TGen::Degree(genU->getValue(time)));
-	}
-
-	//if (centered) matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-0.5f, -0.5f));
-}
 
 void TGen::Pass::addShaderVariable(const std::string & varname, const std::string & linkId) {
 	TGen::PassShaderVariable * passVar = new TGen::PassShaderVariable;

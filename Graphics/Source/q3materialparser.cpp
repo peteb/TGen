@@ -14,6 +14,7 @@
 #include "pass.h"
 #include "generator.h"
 #include "passlist.h"
+#include "texturetransformer.h"
 
 TGen::Q3MaterialParser::Q3MaterialParser() {}
 TGen::Q3MaterialParser::~Q3MaterialParser() {}
@@ -180,11 +181,10 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 					}
 				}
 				
-				TGen::TextureCoordScale * scaler = new TGen::TextureCoordScale(genU, genV, centered);
-				scaler->u = uNum;
-				scaler->v = vNum;
+				TGen::TextureScale * scaler = new TGen::TextureScale(genU, genV, centered);
+				scaler->setScale(uNum, vNum);
 				
-				unit->addTexCoordTransformer(scaler);
+				unit->addTextureTransformer(scaler);
 			}
 			else if (modType == "scroll") {
 				std::string offU, offV;
@@ -197,10 +197,9 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				U = TGen::lexical_cast<float>(offU);
 				V = TGen::lexical_cast<float>(offV);
 				
-				TGen::TextureCoordTranslate * translator = new TGen::TextureCoordTranslate((TGen::ScalarGenerator *)NULL, NULL, true);
-				translator->u = U;
-				translator->v = V;
-				unit->addTexCoordTransformer(translator);
+				TGen::TextureTranslate * translator = new TGen::TextureTranslate(reinterpret_cast<TGen::ScalarGenerator *>(NULL), NULL, true);
+				translator->setCoord(U, V);
+				unit->addTextureTransformer(translator);
 			}
 			else if (modType == "rotate") {
 				std::string rotSpeed;
@@ -209,8 +208,8 @@ void TGen::Q3MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassTexture
 				rotSpeed = getNumericToken("texunit.tcMod.rotate: expecting numeric value for rotation speed");
 				rotSpeedNum = TGen::lexical_cast<float>(rotSpeed);
 				
-				TGen::TextureCoordRotate * rotator = new TGen::TextureCoordRotate(rotSpeedNum, true);
-				unit->addTexCoordTransformer(rotator);
+				TGen::TextureRotate * rotator = new TGen::TextureRotate(rotSpeedNum, true);
+				unit->addTextureTransformer(rotator);
 			}
 			else {
 				throw TGen::RuntimeException("Q3MaterialParser::ParsePassBlock", "tcMod type not supported '" + modType + "'!");
