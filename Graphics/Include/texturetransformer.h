@@ -42,7 +42,7 @@ namespace TGen {
 		
 	private:
 		float u, v;
-		bool scroll;
+		bool scroll; 
 	};
 	
 	class TextureScale : public TGen::TextureTransformer {
