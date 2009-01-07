@@ -17,12 +17,12 @@
 namespace TGen {
 	//class ShaderVariable;
 	
+	// Used for VBO-embedded attributes etc
 	class ShaderVariableUpdater {
 	public:
 		virtual ~ShaderVariableUpdater() {}
 		
 		virtual void updateShaderVariable(TGen::ShaderVariable & var, const std::string & name) abstract;
-		
 	};
 
 	class PassShaderVariable {
@@ -44,29 +44,17 @@ namespace TGen {
 		ShaderVarFloat4,
 	};
 	
-	// testa spara en länk till varje variabel i varje shader, dvs, 3 stycken samtidigt. (för varje texunit som transformerar texcoords). or just clone the shadervar :P
+	// testa spara en lÃ¤nk till varje variabel i varje shader, dvs, 3 stycken samtidigt. (fÃ¶r varje texunit som transformerar texcoords). or just clone the shadervar :P
 	class ShaderUpdater {
 	public:
-		ShaderUpdater(const std::string & varName, ShaderVarType type, float value) 
-			: varName(varName), linkedVar(NULL), type(type), value(value) {}
+		ShaderUpdater(const std::string & varName, ShaderVarType type, float value);
+		ShaderUpdater(const ShaderUpdater & other);
 		
-		virtual ~ShaderUpdater() {
-			// TODO: linkedVar should be deleted, but then it won't work in all the other updaters
-		}
+		virtual ~ShaderUpdater();
 		
-		void link(TGen::ShaderProgram * shader) {
-			linkedVar = shader->createVariable(varName);
-		}
-		
-		ShaderUpdater * clone() const {
-			return new ShaderUpdater(*this);
-		}
-		
-		void update() {
-			if (linkedVar) {
-				(*linkedVar) = int(value);
-			}
-		}
+		void link(TGen::ShaderProgram * shader);
+		ShaderUpdater * clone() const;
+		void update();
 		
 	protected:
 		TGen::ShaderVariable * linkedVar;

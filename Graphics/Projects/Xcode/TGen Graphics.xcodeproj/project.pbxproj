@@ -48,9 +48,9 @@
 		D04270490C40FFC9004CB60C /* generator.h in Headers */ = {isa = PBXBuildFile; fileRef = D04270480C40FFC9004CB60C /* generator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D04C82920CCA48F900794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C80F00CCA455F00794CEA /* libtgen_math.a */; };
 		D04C82A30CCA491D00794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C80FD0CCA456F00794CEA /* libtgen_core.a */; };
-		D072798D0D22CCC6004FCFCB /* renderstatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D072798C0D22CCC6004FCFCB /* renderstatistics.h */; };
+		D072798D0D22CCC6004FCFCB /* renderstatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D072798C0D22CCC6004FCFCB /* renderstatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07279A70D22CF80004FCFCB /* renderstatistics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07279A60D22CF80004FCFCB /* renderstatistics.cpp */; };
-		D0797FFA0D215DEF00B16739 /* vertexsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D0797FF90D215DEF00B16739 /* vertexsource.h */; };
+		D0797FFA0D215DEF00B16739 /* vertexsource.h in Headers */ = {isa = PBXBuildFile; fileRef = D0797FF90D215DEF00B16739 /* vertexsource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07980040D21666C00B16739 /* vertexsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07980030D21666C00B16739 /* vertexsource.cpp */; };
 		D07A2B7C0C666F96009CABCA /* techniquelist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2B7B0C666F96009CABCA /* techniquelist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D07A2B7E0C666FF4009CABCA /* techniquelist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07A2B7D0C666FF4009CABCA /* techniquelist.cpp */; };
@@ -61,7 +61,9 @@
 		D080D15D0F14F57500B558B1 /* texturetransformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D1560F14F53300B558B1 /* texturetransformer.cpp */; };
 		D080D15E0F14F57900B558B1 /* passtextureunit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D15A0F14F55F00B558B1 /* passtextureunit.cpp */; };
 		D080D2F20F14FD7700B558B1 /* shadermode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D15F0F14F58800B558B1 /* shadermode.cpp */; };
-		D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */ = {isa = PBXBuildFile; fileRef = D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */; };
+		D080D30E0F14FEE200B558B1 /* shadervarupdater.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D3050F14FE4500B558B1 /* shadervarupdater.cpp */; };
+		D080D3670F14FFE200B558B1 /* materallinkcallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D080D3660F14FFE200B558B1 /* materallinkcallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */ = {isa = PBXBuildFile; fileRef = D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
 		D08DCB660C3BBFD800C0AB3F /* rendercontext.h in Headers */ = {isa = PBXBuildFile; fileRef = D08DCB650C3BBFD800C0AB3F /* rendercontext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -221,6 +223,8 @@
 		D080D15A0F14F55F00B558B1 /* passtextureunit.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = passtextureunit.cpp; path = Source/passtextureunit.cpp; sourceTree = "<group>"; };
 		D080D15C0F14F56C00B558B1 /* shadermode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shadermode.h; path = Include/shadermode.h; sourceTree = "<group>"; };
 		D080D15F0F14F58800B558B1 /* shadermode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shadermode.cpp; path = Source/shadermode.cpp; sourceTree = "<group>"; };
+		D080D3050F14FE4500B558B1 /* shadervarupdater.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = shadervarupdater.cpp; path = Source/shadervarupdater.cpp; sourceTree = "<group>"; };
+		D080D3660F14FFE200B558B1 /* materallinkcallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = materallinkcallback.h; path = Include/materallinkcallback.h; sourceTree = "<group>"; };
 		D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = shadervarupdater.h; path = Include/shadervarupdater.h; sourceTree = "<group>"; };
 		D08DCB610C3BBF9700C0AB3F /* material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = material.cpp; path = Source/material.cpp; sourceTree = "<group>"; };
 		D08DCB630C3BBFA000C0AB3F /* pass.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pass.cpp; path = Source/pass.cpp; sourceTree = "<group>"; };
@@ -379,6 +383,7 @@
 		D08DCB590C3BBF7C00C0AB3F /* Material */ = {
 			isa = PBXGroup;
 			children = (
+				D080D3660F14FFE200B558B1 /* materallinkcallback.h */,
 				D08DCB610C3BBF9700C0AB3F /* material.cpp */,
 				D08DCB670C3BBFE200C0AB3F /* material.h */,
 				D0CEF2680C3BDAD0007D4B18 /* materialparser.cpp */,
@@ -396,6 +401,7 @@
 				D04270480C40FFC9004CB60C /* generator.h */,
 				D07A2EF20C668749009CABCA /* passlist.cpp */,
 				D07A2EF40C668753009CABCA /* passlist.h */,
+				D080D3050F14FE4500B558B1 /* shadervarupdater.cpp */,
 				D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */,
 				D09C150E0EC7980800355FE9 /* materialoverride.h */,
 			);
@@ -482,6 +488,7 @@
 				D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */,
 				D0797FFA0D215DEF00B16739 /* vertexsource.h in Headers */,
 				D072798D0D22CCC6004FCFCB /* renderstatistics.h in Headers */,
+				D080D3670F14FFE200B558B1 /* materallinkcallback.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +650,7 @@
 				D080D15D0F14F57500B558B1 /* texturetransformer.cpp in Sources */,
 				D080D15E0F14F57900B558B1 /* passtextureunit.cpp in Sources */,
 				D080D2F20F14FD7700B558B1 /* shadermode.cpp in Sources */,
+				D080D30E0F14FEE200B558B1 /* shadervarupdater.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

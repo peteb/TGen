@@ -10,6 +10,7 @@
 #include "shadermode.h"
 #include "material.h"
 #include "shadervarupdater.h"
+#include "materallinkcallback.h"
 
 TGen::ShaderMode::ShaderMode(const std::string & name)
 	: name(name)

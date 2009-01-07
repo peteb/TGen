@@ -30,16 +30,6 @@ namespace TGen {
 		MaterialSortTransparent = 30,
 	};
 	
-	class MaterialLinkCallback {
-	public:
-		virtual ~MaterialLinkCallback() {}
-		
-		virtual TGen::ShaderProgram * getShaderProgram(const std::string & name) abstract;
-		virtual TGen::Texture * getTexture(const std::string & name) abstract;
-		virtual int getTextureType(const std::string & name) abstract;
-	};
-
-	
 	class MaterialRenderMetadata {
 	public:
 		MaterialRenderMetadata(const std::string & mode, int lod, TGen::Texture ** textureTypes, int shaderMode, TGen::ShaderVariableUpdater * varupdater = NULL, TGen::MaterialOverride * override = NULL);
@@ -55,6 +45,7 @@ namespace TGen {
 		TGen::MaterialOverride * override;
 	};
 	
+	class MaterialLinkCallback;
 	
 	class Material {
 	public:
@@ -62,7 +53,7 @@ namespace TGen {
 		~Material();
 		
 		std::string getName() const;
-		void link(MaterialLinkCallback & callback);
+		void link(TGen::MaterialLinkCallback & callback);
 		bool isLinked() const;
 
 		void render(TGen::Renderer & renderer, const TGen::Renderable & renderable, const MaterialRenderMetadata & metadata);

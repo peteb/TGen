@@ -21,6 +21,7 @@
 #include "texturetransformer.h"
 #include "passtextureunit.h"
 #include "shadermode.h"
+#include "materallinkcallback.h"
 
 #include <iostream>
 
