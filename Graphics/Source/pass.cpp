@@ -160,8 +160,8 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		else if (!nullTexture) {
 			newUnit = new TGen::TextureUnit((*iter)->getUnit(), callback.getTexture((*iter)->getTextureName()));
 			
-			if (newUnit->texture)
-				newUnit->texture->setWrapMode((*iter)->wrapU, (*iter)->wrapV);
+			if (newUnit->getTexture())
+				newUnit->getTexture()->setWrapMode((*iter)->wrapU, (*iter)->wrapV);
 		}
 		
 		
@@ -182,8 +182,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 			}
 		}
 		
-		newUnit->genU = (*iter)->genU;
-		newUnit->genV = (*iter)->genV;
+		newUnit->setCoordGen((*iter)->genU, (*iter)->genV);
 		(*iter)->setLinkedUnit(newUnit);
 		
 		renderContext.addTextureUnit(newUnit);		

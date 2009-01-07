@@ -1080,14 +1080,17 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 
 	TGen::RenderContext::TextureList::const_iterator iter = context.textureUnits.begin();
 	for (; iter != context.textureUnits.end(); ++iter) {		
-		if ((*iter)->textureType == 0)
-			setTexture((*iter)->unit, (*iter)->texture);
-		else if ((*iter)->textureType > 0 && textureTypes)
-			setTexture((*iter)->unit, textureTypes[(*iter)->textureType]);
+		if ((*iter)->getTextureType() == 0)
+			setTexture((*iter)->getUnit(), (*iter)->getTexture());
+		else if ((*iter)->getTextureType() > 0 && textureTypes)
+			setTexture((*iter)->getUnit(), textureTypes[(*iter)->getTextureType()]);
 		else
-			setTexture((*iter)->unit, NULL);
+			setTexture((*iter)->getUnit(), NULL);
 
-		setTextureCoordGen((*iter)->genU, (*iter)->genV);
+		TGen::TextureCoordGen genU, genV;
+		(*iter)->getCoordGen(genU, genV);
+		
+		setTextureCoordGen(genU, genV);
 		
 		if ((*iter)->transformed) {
 			setTransform(TGen::TransformTexture, (*iter)->transform);

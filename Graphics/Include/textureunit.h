@@ -21,11 +21,20 @@ namespace TGen {
 		TextureUnit(int unit, TGen::Texture * texture);
 		TextureUnit(int unit, int textureType);
 		
+		TGen::Texture * getTexture() const;
+		void setCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
+		void getCoordGen(TGen::TextureCoordGen & genU, TGen::TextureCoordGen & genV) const;
+		
+		int getTextureType() const;
+		int getUnit() const;
+		
+		TGen::Matrix4x4 transform;
+		bool transformed;
+
+	private:
 		int unit;
 		TGen::Texture * texture;
 		TGen::TextureCoordGen genU, genV;
-		TGen::Matrix4x4 transform;
-		bool transformed;
 		int textureType;
 	};	
 	

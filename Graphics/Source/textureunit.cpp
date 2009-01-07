@@ -31,3 +31,25 @@ TGen::TextureUnit::TextureUnit(int unit, int textureType)
 {
 
 }
+
+TGen::Texture * TGen::TextureUnit::getTexture() const {
+	return texture;
+}
+
+void TGen::TextureUnit::setCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV) {
+	this->genU = genU;
+	this->genV = genV;
+}
+
+void TGen::TextureUnit::getCoordGen(TGen::TextureCoordGen & genU, TGen::TextureCoordGen & genV) const {
+	genU = this->genU;
+	genV = this->genV;
+}
+
+int TGen::TextureUnit::getTextureType() const {
+	return textureType;
+}
+
+int TGen::TextureUnit::getUnit() const {
+	return unit;
+}

@@ -169,7 +169,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 			const TGen::RenderContext & context = pass->getRenderContext(0);
 		 
 			TGen::TextureUnit * texunit = context.textureUnits.at(0);
-			renderer.setTexture(4, texunit->texture);
+			renderer.setTexture(4, texunit->getTexture());
 			renderer.setTextureTransform(4, texunit->transform);
 		}
 		

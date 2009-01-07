@@ -21,6 +21,7 @@ namespace TGen {
 		
 		scalar calculateAttenuationDistance(scalar threshold, scalar maxdist);
 		
+		
 		scalar constantAttenuation, linearAttenuation, quadraticAttenuation, spotCutoff, spotExponent;
 		TGen::Vector3 spotDirection;
 		TGen::Vector4 position;
