@@ -16,6 +16,7 @@
 #include "passlist.h"
 #include "shadervarupdater.h"
 #include "texturetransformer.h"
+#include "passtextureunit.h"
 #include <iostream>
 
 TGen::MaterialParser::MaterialParser() {}

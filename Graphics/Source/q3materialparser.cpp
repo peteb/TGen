@@ -15,6 +15,7 @@
 #include "generator.h"
 #include "passlist.h"
 #include "texturetransformer.h"
+#include "passtextureunit.h"
 
 TGen::Q3MaterialParser::Q3MaterialParser() {}
 TGen::Q3MaterialParser::~Q3MaterialParser() {}

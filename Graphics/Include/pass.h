@@ -26,35 +26,9 @@ namespace TGen {
 	class ColorGenerator;
 	class ScalarGenerator;
 	
+	class PassTextureUnit;
 	
-	class PassTextureUnit {
-	public:	
-		PassTextureUnit(int unit, const std::string & name);
-		~PassTextureUnit();
-		
-		void setTextureName(const std::string & name);
-		void setTexCoordGen(const std::string & genU, const std::string & genV);
-		void setSampler(const std::string & sampler);
-		void setWrap(const std::string & wrapU, const std::string & wrapV);
-		void addTextureTransformer(TGen::TextureTransformer * transformer);
-		void update(scalar time);
-		void updateShaderVariables();
-		
-		std::string textureName, samplerName;
-		int unit;
-		TGen::TextureCoordGen genU, genV;
-		TGen::TextureWrap wrapU, wrapV;
 
-		typedef std::vector<TGen::TextureTransformer *> TransformerList;
-		TransformerList transformers;
-		TGen::TextureUnit * texunit;
-
-		typedef std::vector<TGen::ShaderVariable *> ShaderVariableList;
-		
-		ShaderVariableList binders;
-		
-		int textureType;
-	};
 	
 	class ShaderMode {
 	public:
