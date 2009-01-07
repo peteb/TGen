@@ -60,7 +60,7 @@
 		D07A2EF50C668753009CABCA /* passlist.h in Headers */ = {isa = PBXBuildFile; fileRef = D07A2EF40C668753009CABCA /* passlist.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D080D15D0F14F57500B558B1 /* texturetransformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D1560F14F53300B558B1 /* texturetransformer.cpp */; };
 		D080D15E0F14F57900B558B1 /* passtextureunit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D15A0F14F55F00B558B1 /* passtextureunit.cpp */; };
-		D080D1600F14F58800B558B1 /* shadermode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D15F0F14F58800B558B1 /* shadermode.cpp */; };
+		D080D2F20F14FD7700B558B1 /* shadermode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080D15F0F14F58800B558B1 /* shadermode.cpp */; };
 		D0821DFD0CF48BFB000EFA7E /* shadervarupdater.h in Headers */ = {isa = PBXBuildFile; fileRef = D0821DFC0CF48BFB000EFA7E /* shadervarupdater.h */; };
 		D08DCB620C3BBF9700C0AB3F /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB610C3BBF9700C0AB3F /* material.cpp */; };
 		D08DCB640C3BBFA000C0AB3F /* pass.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D08DCB630C3BBFA000C0AB3F /* pass.cpp */; };
@@ -602,7 +602,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DD76F650486A84900D96B5E /* main.cpp in Sources */,
-				D080D1600F14F58800B558B1 /* shadermode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -643,6 +642,7 @@
 				D07279A70D22CF80004FCFCB /* renderstatistics.cpp in Sources */,
 				D080D15D0F14F57500B558B1 /* texturetransformer.cpp in Sources */,
 				D080D15E0F14F57900B558B1 /* passtextureunit.cpp in Sources */,
+				D080D2F20F14FD7700B558B1 /* shadermode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

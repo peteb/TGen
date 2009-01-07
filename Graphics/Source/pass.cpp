@@ -20,6 +20,8 @@
 
 #include "texturetransformer.h"
 #include "passtextureunit.h"
+#include "shadermode.h"
+
 #include <iostream>
 
 
@@ -37,6 +39,9 @@ TGen::Pass::~Pass() {
 		delete shaderVariables[i];
 	}
 	
+	for (ShaderModeMap::iterator iter = shaderModes.begin(); iter != shaderModes.end(); ++iter)
+		delete iter->second;
+	
 	delete colorGen;
 	delete alphaGen;
 }
@@ -50,7 +55,7 @@ const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	for (int i = 0; i < textureUnits.size(); ++i)
 		textureUnits[i]->updateShaderVariables();
 	
-	renderContext.shader = iter->second.shader;
+	renderContext.shader = iter->second->shader;
 
 	return renderContext;
 }
@@ -100,7 +105,7 @@ void TGen::Pass::setAlpha(const std::string & a) {
 
 void TGen::Pass::setShader(const std::string & name, int mode) {
 	//shaderName = name;	
-	shaderModes.insert(std::make_pair(mode, ShaderMode(name)));
+	shaderModes.insert(std::make_pair(mode, new ShaderMode(name)));
 }
 
 void TGen::Pass::setColorGenerator(TGen::ColorGenerator * gen) {
@@ -125,7 +130,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 	//std::cout << "linking shader " << shaderName << std::endl;
 	
 	for (ShaderModeMap::iterator iter = shaderModes.begin(); iter != shaderModes.end(); ++iter)
-		iter->second.link(callback);
+		iter->second->link(callback);
 
 	
 	renderContext.textureUnits.clear();
@@ -163,7 +168,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 			try {
 				std::cerr << (*iter)->samplerName << std::endl;
 				
-				TGen::ShaderProgram * shader = iter2->second.shader;
+				TGen::ShaderProgram * shader = iter2->second->shader;
 				
 				if (shader) {
 					TGen::ShaderVariable * var = shader->createVariable((*iter)->samplerName + "Transform");
@@ -196,7 +201,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		}*/
 		
 		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
-			TGen::ShaderProgram * shader = iter2->second.shader;
+			TGen::ShaderProgram * shader = iter2->second->shader;
 			
 			if (shader) {
 			/*	if (!(*iter)->samplerName.empty()) {
@@ -236,7 +241,7 @@ void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
 		//(*iter)->update();	
 		
 		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
-			iter2->second.update();
+			iter2->second->update();
 			/*TGen::ShaderProgram * shader = iter2->second.shader;
 			
 			if (shader) {
@@ -386,38 +391,10 @@ void TGen::Pass::addShaderVariable(const std::string & varname, const std::strin
 	shaderVariables.push_back(passVar);
 }
 
-void TGen::ShaderMode::link(TGen::MaterialLinkCallback & callback) {
-	if (name == "fixed")
-		shader = NULL;
-	else
-		shader = callback.getShaderProgram(name);
-	
-	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end();) {
-		try {
-			(*iter)->link(shader);
-			++iter;
-		}
-		catch (const TGen::RuntimeException & error) {
-			std::cout << "Error while linking shader updaters: \"" + std::string(error.what()) + "\", removed variable" << std::endl;
-			
-			delete *iter;
-			iter = shaderUpdaters.erase(iter);
-		}
-	}
-}
-
-void TGen::ShaderMode::update() {
-	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end(); ++iter)
-		(*iter)->update();	
-}
-
-void TGen::ShaderMode::addShaderUpdater(TGen::ShaderUpdater * updater) {
-	shaderUpdaters.push_back(updater);
-}
 
 void TGen::Pass::addShaderUpdater(TGen::ShaderUpdater * updater) {
 	for (ShaderModeMap::iterator iter = shaderModes.begin(); iter != shaderModes.end(); ++iter) {
-		iter->second.addShaderUpdater(updater->clone());
+		iter->second->addShaderUpdater(updater->clone());
 	}
 	
 	delete updater;

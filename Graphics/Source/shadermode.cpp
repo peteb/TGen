@@ -7,4 +7,41 @@
  *
  */
 
+#include "shadermode.h"
+#include "material.h"
+#include "shadervarupdater.h"
 
+TGen::ShaderMode::ShaderMode(const std::string & name)
+	: name(name)
+	, shader(NULL)
+{
+}
+
+void TGen::ShaderMode::link(TGen::MaterialLinkCallback & callback) {
+	if (name == "fixed")
+		shader = NULL;
+	else
+		shader = callback.getShaderProgram(name);
+	
+	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end();) {
+		try {
+			(*iter)->link(shader);
+			++iter;
+		}
+		catch (const TGen::RuntimeException & error) {
+			std::cout << "Error while linking shader updaters: \"" + std::string(error.what()) + "\", removed variable" << std::endl;
+			
+			delete *iter;
+			iter = shaderUpdaters.erase(iter);
+		}
+	}
+}
+
+void TGen::ShaderMode::update() {
+	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end(); ++iter)
+		(*iter)->update();	
+}
+
+void TGen::ShaderMode::addShaderUpdater(TGen::ShaderUpdater * updater) {
+	shaderUpdaters.push_back(updater);
+}

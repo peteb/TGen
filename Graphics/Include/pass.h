@@ -27,29 +27,9 @@ namespace TGen {
 	class ScalarGenerator;
 	
 	class PassTextureUnit;
-	
+	class ShaderMode;
 
-	
-	class ShaderMode {
-	public:
-		ShaderMode(const std::string & name)
-			: name(name)
-			, shader(NULL)
-		{
-		}
 
-		void link(TGen::MaterialLinkCallback & callback);
-		void update();
-		void addShaderUpdater(TGen::ShaderUpdater * updater);
-		
-		typedef std::vector<TGen::ShaderUpdater *> ShaderUpdaterList;
-
-		
-		ShaderUpdaterList shaderUpdaters;
-		std::string name;
-		TGen::ShaderProgram * shader;
-	};
-	
 	class Pass {
 	public:	
 		Pass();
@@ -89,7 +69,7 @@ namespace TGen {
 			
 		typedef std::vector<TGen::PassTextureUnit *> TextureList;
 		typedef std::vector<TGen::PassShaderVariable *> ShaderVarList;
-		typedef std::map<int, ShaderMode> ShaderModeMap;
+		typedef std::map<int, ShaderMode *> ShaderModeMap;
 		
 		
 		ShaderModeMap shaderModes;
