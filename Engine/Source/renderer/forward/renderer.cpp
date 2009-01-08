@@ -22,7 +22,7 @@ TGen::Engine::ForwardRenderer::ForwardRenderer(TGen::Renderer & renderer, TGen::
 {
 	depthPassMaterial = resources.getMaterial("forward/depth");
 	TGen::Rectangle size = TGen::Rectangle(512, 512);
-	shadowMap = renderer.createTexture(size, TGen::DEPTH24, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);	
+	shadowMap = renderer.createTexture(size, TGen::DEPTH32, TGen::TypeFloat, TGen::TextureNoMipmaps);	
 	crapMap = renderer.createTexture(size, TGen::RGBA, TGen::TypeUnsignedByte, TGen::TextureNoMipmaps);
 	//lightMap = resources.getTexture("textures/flashlight5.tga");
 	
@@ -64,7 +64,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		renderShadowmap(renderList, light);
 		
 		shadowMatrix *= camera->getTransform().getInverse();
-				
+		
 		// STATIC AND DYNAMIC shadows, lampor ska kunna markera att skuggorna inte behövs räknas om alls
 		
 
@@ -73,8 +73,8 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 
 		currentPass = LightPass;
 
-			renderer.setTexture(5, shadowMap);
-			renderer.setTextureTransform(5, shadowMatrix);
+		renderer.setTexture(5, shadowMap);
+		renderer.setTextureTransform(5, shadowMatrix);
 		
 		light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 		light->getLightProperties().spotDirection = TGen::Vector3(0.0f, 0.0f, 1.0f);
@@ -125,13 +125,19 @@ void TGen::Engine::ForwardRenderer::renderShadowmap(TGen::RenderList & renderLis
 	TGen::Matrix4x4 viewMat = light->getTransform(); 
 	viewMat.setZ(-viewMat.getZ());
 	viewMat.invert();
-	
+
+
+	shadowFrustum = TGen::Frustum(lightProjection, viewMat);
+
 	TGen::LodInfo lod;	
 	renderList.render(renderer, viewMat, lod, "default");
 	
 	shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) 
 		* lightProjection 
 		* viewMat;
+	
+	
+
 	
 	renderer.setTransform(TGen::TransformProjection, prevProjection);
 	renderer.setRenderTarget(NULL);
@@ -160,7 +166,11 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		renderer.setBlendFunc(TGen::BlendOne, TGen::BlendOne);
 		
 		
+		// TODO: bra optimering, spara frustum planes från shadowrendreringen och använd dem som user clip planes
+		//       när lampan rendreras!
+		
 	//renderer.setTexture(6, lightMap);
+		
 		
 		if (currentLightMaterial) {
 			TGen::Technique * tech = currentLightMaterial->getSpecialization("default");
@@ -174,15 +184,18 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		}
 		
 		glActiveTexture(GL_TEXTURE5);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
 		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LESS );
 
 		glActiveTexture(GL_TEXTURE4);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glActiveTexture(GL_TEXTURE5);
+		
 		
 		/*
 		glTexParameteri( GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE_ARB, GL_INTENSITY );

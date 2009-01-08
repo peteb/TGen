@@ -39,7 +39,7 @@ void TGen::Frustum::calculate(const TGen::Matrix4x4 & projection, const TGen::Ma
 	nearPlane.normal = combined.getOrigin() + combined.getZ();
 	nearPlane.distance = combined.elements[3][3] + combined.elements[2][3];
 	nearPlane.normalize();
-	std::cout << "DIST::::::::::: " << nearPlane.distance << std::endl;
+	//std::cout << "DIST::::::::::: " << nearPlane.distance << std::endl;
 	
 	
 	rightPlane.normalize();

@@ -29,6 +29,7 @@ namespace TGen {
 	
 	class Frustum {
 	public:
+		Frustum() {}
 		Frustum(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview);
 		
 		void calculate(const TGen::Matrix4x4 & projection, const TGen::Matrix4x4 & worldview);

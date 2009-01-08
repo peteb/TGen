@@ -49,6 +49,7 @@ namespace TGen {
 			TGen::Material * depthPassMaterial, * currentLightMaterial;
 			TGen::Matrix4x4 shadowMatrix;
 			RenderPass currentPass;
+			TGen::Frustum shadowFrustum;
 		};
 		
 	} // !Engine
