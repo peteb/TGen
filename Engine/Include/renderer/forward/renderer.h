@@ -42,12 +42,13 @@ namespace TGen {
 			
 		private:
 			void renderDepth(TGen::RenderList & renderList, TGen::Camera * camera);
-			void renderShadowmap(TGen::RenderList & renderList, TGen::Engine::Light * light);
+			void renderShadowmap(TGen::RenderList & renderList, TGen::Engine::Light * light, const TGen::Matrix4x4 & transform);
+			void renderLight(TGen::Engine::Light * light, const TGen::Matrix4x4 & transform, TGen::RenderList & renderList, TGen::Camera * camera);
 			
 			TGen::FrameBuffer * shadowMapTarget;
 			TGen::Texture * shadowMap, * crapMap, * lightMap;
 			TGen::Material * depthPassMaterial, * currentLightMaterial;
-			TGen::Matrix4x4 shadowMatrix;
+			TGen::Matrix4x4 shadowMatrix, shadowFrustumMat;
 			RenderPass currentPass;
 			TGen::Frustum shadowFrustum;
 		};
