@@ -33,7 +33,7 @@ TGen::Plane3::Plane3(const TGen::Vector3 & p0, const TGen::Vector3 & p1, const T
 	v1 = p2 - p0;
 	v2 = p1 - p0;
 	normal = TGen::Vector3::CrossProduct(v1, v2).normalize();
-	distance = -TGen::Vector3::DotProduct(normal, p2);
+	distance = TGen::Vector3::DotProduct(normal, p2);
 	/*
 	 
 	 TGen::Vector3 p1 = TGen::Vector3(-2.0f, 2.0f, 4.0f), p2 = TGen::Vector3(2.0f, 0.0f, 4.0f), p3 = TGen::Vector3(2.0f, 2.0f, 4.0f);
@@ -55,7 +55,7 @@ bool TGen::Plane3::isParallelTo(const TGen::Plane3 & plane) const {
 }
 
 scalar TGen::Plane3::getDistanceTo(const TGen::Vector3 & p) const {
-	return TGen::Vector3::DotProduct(normal, p) + distance;	
+	return TGen::Vector3::DotProduct(normal, p) - distance;	
 }
 
 

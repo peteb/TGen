@@ -44,6 +44,9 @@ namespace TGen {
 			void renderDepth(TGen::RenderList & renderList, TGen::Camera * camera);
 			void renderShadowmap(TGen::RenderList & renderList, TGen::Engine::Light * light, const TGen::Matrix4x4 & transform);
 			void renderLight(TGen::Engine::Light * light, const TGen::Matrix4x4 & transform, TGen::RenderList & renderList, TGen::Camera * camera);
+			static TGen::Matrix4x4 calculateLightProjection(const TGen::Engine::Light & light);
+			static TGen::Matrix4x4 calculateLightModelView(const TGen::Matrix4x4 & lightTransform);
+			static bool calculateFrustumBox(TGen::Rectangle & outRectangle, const TGen::Matrix4x4 & frustumTransform, const TGen::Matrix4x4 & cameraProj, const TGen::Matrix4x4 & cameraTransform);
 			
 			TGen::FrameBuffer * shadowMapTarget;
 			TGen::Texture * shadowMap, * crapMap, * lightMap;

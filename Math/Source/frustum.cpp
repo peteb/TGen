@@ -66,8 +66,8 @@ int TGen::Frustum::intersects(const TGen::Vector3 & point) const {
 	
 	if (nearPlane.getDistanceTo(point) >= 0.0f && farPlane.getDistanceTo(point) >= 0.0f && rightPlane.getDistanceTo(point) >= 0.0f && leftPlane.getDistanceTo(point) >= 0.0f
 		&& topPlane.getDistanceTo(point) >= 0.0f && bottomPlane.getDistanceTo(point) >= 0.0f)
-		return 0;
+		return 1;
 	
-	return 1;
+	return 0;
 }
 

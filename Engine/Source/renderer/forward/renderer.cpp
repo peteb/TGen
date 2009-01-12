@@ -48,6 +48,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	renderList.sort(*camera, "default");
 	
 	glDisable(GL_SCISSOR_TEST);
+	renderer.setRenderTarget(NULL);
 	renderer.setClearColor(TGen::Color::Black);
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
@@ -87,115 +88,34 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 }
 
 void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, const TGen::Matrix4x4 & transform, TGen::RenderList & renderList, TGen::Camera * camera) {
-	renderShadowmap(renderList, light, transform);
-	
-	
+	TGen::Matrix4x4 lightProjection = calculateLightProjection(*light);
+	TGen::Matrix4x4 viewMat = calculateLightModelView(light->getTransform() * transform);
 
-	shadowMatrix *= camera->getTransform().getInverse();
-	shadowFrustumMat *= camera->getTransform().getInverse();
-	
-	TGen::Matrix4x4 shadowInverse = shadowFrustumMat.getInverse();
-	
-	TGen::Vector4 nearPlane[4];
-	TGen::Vector4 farPlane[4];
-	
-	nearPlane[0] = shadowInverse * TGen::Vector3(-1.0f, 1.0f, -1.0f);
-	nearPlane[1] = shadowInverse * TGen::Vector3( 1.0f, 1.0f, -1.0f);
-	nearPlane[2] = shadowInverse * TGen::Vector3( 1.0f, -1.0f, -1.0f);
-	nearPlane[3] = shadowInverse * TGen::Vector3(-1.0f, -1.0f, -1.0f);
+	shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) * lightProjection * viewMat * camera->getTransform().getInverse();
+	shadowFrustumMat = lightProjection * viewMat;
 
-	farPlane[0] = shadowInverse * TGen::Vector3(-1.0f, 1.0f, 1.0f);
-	farPlane[1] = shadowInverse * TGen::Vector3( 1.0f, 1.0f, 1.0f);
-	farPlane[2] = shadowInverse * TGen::Vector3( 1.0f, -1.0f, 1.0f);
-	farPlane[3] = shadowInverse * TGen::Vector3(-1.0f, -1.0f, 1.0f);
+	TGen::Rectangle scissorBox;
 	
-	
-	TGen::Vector4 projed[8];
-	
-	TGen::Vector3 min, max;
-	
-	TGen::Matrix4x4 trans = camera->getProjection();
-
-	int count = 0;
-	
-	for (int i = 0; i < 4; ++i) {
-		TGen::Vector4 hey1 = TGen::Vector4(trans * nearPlane[i]);
-		TGen::Vector4 hey2 = TGen::Vector4(trans * farPlane[i]);
-
-		
-		if (nearPlane[i].z < -1.0f)
-			count++;
-		if (farPlane[i].z < -1.0f)
-			count++;
-		
-		projed[i * 2 + 0] = hey1;
-		projed[i * 2 + 1] = hey2;
-	}
-
-	bool firstMin = true, firstMax = true;
-
-	if (count == 0) {
-		//std::cout << "outside" << std::endl;
-		//return;
-	}
-	else {
-		//std::cout << "Inside: " << count << std::endl;
-	}
-	
-	for (int i = 0; i < 8; ++i) {
-		projed[i] /= projed[i].w;
-		
-
-		
-		projed[i].x = TGen::Clamp(projed[i].x, -1.0f, 1.0f);
-		projed[i].y = TGen::Clamp(projed[i].y, -1.0f, 1.0f);
-		projed[i].z = TGen::Clamp(projed[i].z, -1.0f, 1.0f);
-		
-
-		if (!firstMin) {
-			min.x = std::min(min.x, projed[i].x);
-			min.y = std::min(min.y, projed[i].y);
-			min.z = std::min(min.z, projed[i].z);
-		}
-		else {
-			min = projed[i];
-			firstMin = false;
-		}
-		
-		if (!firstMax) {
-			max.x = std::max(max.x, projed[i].x);
-			max.y = std::max(max.y, projed[i].y);
-			max.z = std::max(max.z, projed[i].z);
-
-		}
-		else {
-			max = projed[i];
-			firstMax = false;
-		}
-		
-	}
-	
-
-	
-	
-	min = min * 0.5 + 0.5;
-	max = max * 0.5 + 0.5;
-	
-	TGen::Vector2 boxmin = TGen::Vector2(min) * TGen::Vector2(640.0f, 480.0f);
-	TGen::Vector2 boxmax = TGen::Vector2(max) * TGen::Vector2(640.0f, 480.0f);
-	
-	TGen::Vector2 delta = boxmax - boxmin;
-	if (boxmax.x == 0.0f || boxmax.y == 0.0f) {
-		//std::cout << "no area" << std::endl;
+	if (!calculateFrustumBox(scissorBox, shadowFrustumMat, camera->getProjection(), camera->getTransform()))
 		return;
+	
+	{
+		TGen::Matrix4x4 prevProjection = renderer.getTransform(TGen::TransformProjection);
+	
+		renderer.setTransform(TGen::TransformProjection, lightProjection);
+		renderShadowmap(renderList, light, viewMat);
+		renderer.setTransform(TGen::TransformProjection, prevProjection);
 	}
+	
+	
+	
+	
 	
 	
 	glEnable(GL_SCISSOR_TEST);
-	glScissor(boxmin.x,  boxmin.y, boxmax.x - boxmin.x, boxmax.y - boxmin.y);
+	glScissor(scissorBox.getMin().x, scissorBox.getMin().y, scissorBox.getMax().x - scissorBox.getMin().x, scissorBox.getMax().y - scissorBox.getMin().y);
 	
 	
-//	std::cout << std::string(boxmin) << " = " << std::string(boxmax) << std::endl;
 	
 	renderList.setMaterialOverride(this, 1);
 	renderList.setMaterial(NULL);
@@ -221,8 +141,8 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	renderer.setLight(0, light->getLightProperties());
 	
 	currentLightMaterial = light->getMaterial();
-
-	/*glPushAttrib(GL_ALL_ATTRIB_BITS);
+/*
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	
 	glDepthFunc(GL_ALWAYS);
 	glActiveTexture(GL_TEXTURE0);
@@ -276,6 +196,208 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	glDisable(GL_SCISSOR_TEST);
 }
 
+TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightProjection(const TGen::Engine::Light & light) {
+	return TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(30.0), 1.0f, 0.5f, 5.0f);
+}
+
+TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightModelView(const TGen::Matrix4x4 & lightTransform) {
+	TGen::Matrix4x4 viewMat = lightTransform; 
+	viewMat.setZ(-viewMat.getZ());
+	viewMat.invert();
+
+	return viewMat;
+}
+
+bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRectangle, const TGen::Matrix4x4 & frustumTransform, const TGen::Matrix4x4 & cameraProj, const TGen::Matrix4x4 & cameraTransform) {
+	// TODO: allow possibility to render frustum in other function, but not through here. this should remain static
+	
+	TGen::Matrix4x4 shadowInverse = frustumTransform.getInverse();
+	
+	TGen::Vector4 nearPlane[4];
+	TGen::Vector4 farPlane[4];
+	
+	nearPlane[0] = shadowInverse * TGen::Vector4(-1.0f, 1.0f, -1.0f, 1.0f);
+	nearPlane[1] = shadowInverse * TGen::Vector4( 1.0f, 1.0f, -1.0f, 1.0f);
+	nearPlane[2] = shadowInverse * TGen::Vector4( 1.0f, -1.0f, -1.0f, 1.0f);
+	nearPlane[3] = shadowInverse * TGen::Vector4(-1.0f, -1.0f, -1.0f, 1.0f);
+	
+	farPlane[0] = shadowInverse * TGen::Vector4(-1.0f, 1.0f, 1.0f, 1.0f);
+	farPlane[1] = shadowInverse * TGen::Vector4( 1.0f, 1.0f, 1.0f, 1.0f);
+	farPlane[2] = shadowInverse * TGen::Vector4( 1.0f, -1.0f, 1.0f, 1.0f);
+	farPlane[3] = shadowInverse * TGen::Vector4(-1.0f, -1.0f, 1.0f, 1.0f);
+	
+	for (int i = 0; i < 4; ++i) {
+		nearPlane[i] /= nearPlane[i].w;
+		farPlane[i] /= farPlane[i].w;
+		
+		//nearPlane[i] = TGen::Vector3(nearPlane[i]);
+		//farPlane[i] = TGen::Vector3(farPlane[i]);
+	}
+	
+	TGen::Frustum frustum;
+	frustum.nearPlane = TGen::Plane3(nearPlane[0], nearPlane[1], nearPlane[2]);
+	frustum.farPlane = TGen::Plane3(farPlane[2], farPlane[1], farPlane[0]);
+	frustum.leftPlane = TGen::Plane3(farPlane[3], farPlane[0], nearPlane[0]);
+	frustum.rightPlane = TGen::Plane3(nearPlane[1], farPlane[1], farPlane[2]);
+	frustum.bottomPlane = TGen::Plane3(farPlane[2], farPlane[3], nearPlane[2]);
+	frustum.topPlane = TGen::Plane3(nearPlane[1], nearPlane[0], farPlane[1]);
+	
+	std::cout << "===> " << std::string(frustum.bottomPlane) << std::endl;
+	TGen::Vector3 cameraPos = cameraTransform.getInverse().getOrigin(); // * TGen::Vector3::Zero;
+	//std::cout << "POS: " << std::string(cameraPos) << std::endl;
+	
+	std::cout << frustum.topPlane.getDistanceTo(cameraPos) << std::endl;	
+	
+	{
+		glMatrixMode(GL_MODELVIEW);
+		glLoadMatrixf((GLfloat *)cameraTransform.elements);
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadMatrixf((GLfloat *)cameraProj.elements);
+
+		glPushAttrib(GL_ALL_ATTRIB_BITS);
+		 
+		 glDepthFunc(GL_ALWAYS);
+		 glActiveTexture(GL_TEXTURE0);
+		 glDisable(GL_TEXTURE_2D);
+		 glDisable(GL_LIGHTING);
+		 glDisable(GL_BLEND);
+		 glDisable(GL_COLOR_MATERIAL);
+		 glColorMask(true, true, true, true);
+		 
+		glUseProgram(0);
+		 
+		 glLineWidth(2.0f);
+		 
+		 glBegin(GL_LINE_LOOP);
+		 glColor3f(1.0f, 0.0f, 0.0f);
+		 
+		 for (int i = 0; i < 4; ++i) {
+		 glVertex3f(nearPlane[i].x, nearPlane[i].y, nearPlane[i].z);
+		 }	
+		 
+		 glEnd();
+		 glBegin(GL_LINE_LOOP);
+		 
+		 
+		 glColor3f(1.0f, 1.0f, 0.0f);
+		 
+		 for (int i = 0; i < 4; ++i) {
+		 glVertex3f(farPlane[i].x, farPlane[i].y, farPlane[i].z);
+		 }	
+		 
+		 glEnd();
+		 
+		 glBegin(GL_LINES);
+		 glColor3f(0.0f, 1.0f, 0.0f);
+		 
+		 for (int i = 0; i < 4; ++i) {
+		 glVertex3f(nearPlane[i].x, nearPlane[i].y, nearPlane[i].z);
+		 glVertex3f(farPlane[i].x, farPlane[i].y, farPlane[i].z);
+		 
+		 }
+		 
+		 glEnd();
+		 glPopAttrib();
+	 
+	}
+	
+	TGen::Vector4 projed[8];
+	TGen::Vector3 min, max;
+	
+	int count = 0;
+	
+	
+	// calculate screenspace 
+	for (int i = 0; i < 4; ++i) {
+		TGen::Vector4 hey1 = TGen::Vector4(cameraProj * cameraTransform * nearPlane[i]);
+		TGen::Vector4 hey2 = TGen::Vector4(cameraProj * cameraTransform * farPlane[i]);
+		
+		
+		if (nearPlane[i].z < -1.0f)
+			count++;
+		if (farPlane[i].z < -1.0f)
+			count++;
+		
+		projed[i * 2 + 0] = hey1;
+		projed[i * 2 + 1] = hey2;
+	}
+	
+	bool firstMin = true, firstMax = true;
+	
+	if (count == 0) {
+		//std::cout << "outside" << std::endl;
+		//return;
+	}
+	else {
+		//std::cout << "Inside: " << count << std::endl;
+	}
+	
+	for (int i = 0; i < 8; ++i) {
+		projed[i] /= projed[i].w;
+		
+		
+		
+		projed[i].x = TGen::Clamp(projed[i].x, -1.0f, 1.0f);
+		projed[i].y = TGen::Clamp(projed[i].y, -1.0f, 1.0f);
+		projed[i].z = TGen::Clamp(projed[i].z, -1.0f, 1.0f);
+		
+		
+		if (!firstMin) {
+			min.x = std::min(min.x, projed[i].x);
+			min.y = std::min(min.y, projed[i].y);
+			min.z = std::min(min.z, projed[i].z);
+		}
+		else {
+			min = projed[i];
+			firstMin = false;
+		}
+		
+		if (!firstMax) {
+			max.x = std::max(max.x, projed[i].x);
+			max.y = std::max(max.y, projed[i].y);
+			max.z = std::max(max.z, projed[i].z);
+			
+		}
+		else {
+			max = projed[i];
+			firstMax = false;
+		}
+		
+	}
+	
+	min = min * 0.5 + 0.5;
+	max = max * 0.5 + 0.5;
+	
+	
+	TGen::Vector2 boxmin = TGen::Vector2(min) * TGen::Vector2(640.0f, 480.0f);
+	TGen::Vector2 boxmax = TGen::Vector2(max) * TGen::Vector2(640.0f, 480.0f);
+	
+	outRectangle = TGen::Rectangle(boxmin, boxmax);
+	
+	if (boxmax.x == boxmin.x || boxmax.y == boxmin.y) {
+		std::cout << "no area " << std::string(boxmax) << " min " << std::string(boxmin) << std::endl;
+		return false;
+	}
+	
+	// TODO: gör en funktion som räknar ut det här, som går ur hela alltet för den lampan om den inte syns
+	
+	/*static int hey = 0;
+	 
+	 if (hey == 0) {
+	 hey++;
+	 }
+	 else {
+	 hey--;
+	 return;
+	 }*/
+	
+	
+	
+	
+	return true;
+}
+
 void TGen::Engine::ForwardRenderer::renderDepth(TGen::RenderList & renderList, TGen::Camera * camera) {
 	currentPass = DepthPass;
 	
@@ -286,8 +408,6 @@ void TGen::Engine::ForwardRenderer::renderDepth(TGen::RenderList & renderList, T
 }
 
 void TGen::Engine::ForwardRenderer::renderShadowmap(TGen::RenderList & renderList, TGen::Engine::Light * light, const TGen::Matrix4x4 & transform) {
-	TGen::Matrix4x4 lightProjection = TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(30.0), 1.0f, 0.5f, 5.0f);
-	TGen::Matrix4x4 prevProjection = renderer.getTransform(TGen::TransformProjection);
 	TGen::Rectangle prevView = renderer.getViewport();
 	
 	currentPass = ShadowPass;
@@ -295,33 +415,22 @@ void TGen::Engine::ForwardRenderer::renderShadowmap(TGen::RenderList & renderLis
 	renderList.setMaterialOverride(this, 1);
 	renderList.setMaterial(depthPassMaterial);
 	
+	
 	renderer.setRenderTarget(shadowMapTarget);
 	renderer.setViewport(shadowMap->size);
-	renderer.setTransform(TGen::TransformProjection, lightProjection);
+	
 	renderer.clearBuffers(TGen::DepthBuffer);
 	
-	TGen::Matrix4x4 viewMat = light->getTransform(); 
-	viewMat *= transform; 
-	viewMat.setZ(-viewMat.getZ());
-	viewMat.invert();
+
 
 	// TODO: lightDirection, spotCutoff, shadow direction
 	// TODO: skicka in en transform till funktionen som multiplicerar viewMat
 	// TODO: kolla mot near clip plane i shadern. rätt clip plane distance!
 	
-	shadowFrustum = TGen::Frustum(lightProjection, viewMat);
-
 	TGen::LodInfo lod;	
-	renderList.render(renderer, viewMat, lod, "default");
+	renderList.render(renderer, transform, lod, "default");
 	
-	shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) 
-		* lightProjection 
-		* viewMat;
 	
-	shadowFrustumMat = lightProjection * viewMat;
-
-	
-	renderer.setTransform(TGen::TransformProjection, prevProjection);
 	renderer.setRenderTarget(NULL);
 	renderer.setViewport(prevView);
 }
@@ -344,6 +453,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 	}
 	else if (currentPass == LightPass) {
 		renderer.setColorWrite(true);
+		renderer.setDepthWrite(true);
 		renderer.setDepthFunc(TGen::CompareEqual);
 		renderer.setBlendFunc(TGen::BlendOne, TGen::BlendOne);
 		
