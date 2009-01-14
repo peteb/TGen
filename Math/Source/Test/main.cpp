@@ -20,6 +20,18 @@ __nothrow int main(int argc, char ** const argv) {
 	std::cout << vec3.w << std::endl;
 	std::cout << std::string(TGen::Vector3(vec3)) << std::endl;
 	
+	std::cout << "blah" << std::endl;
+	TGen::Plane3 plane;
+	TGen::Vector3 p1, p2;
+	
+	plane.normal = TGen::Vector3(-1.0f, 1.0f, 0.0f).normalize();
+	plane.distance = -1.0f;
+	p1 = TGen::Vector3(-2.0f, 2.0f, 0.0f);
+	p2 = TGen::Vector3(2.0f, -2.0f, 0.0f);
+	
+	TGen::Vector3 intersect = plane.intersectRay(p1, p2 - p1);
+	std::cout << std::string(intersect) << std::endl;
+	
 	/*std::cout << "TGen Math (debug binary: " << std::boolalpha << TGen::isMathDebug() << ")" << std::endl;
 	
 	// 1.

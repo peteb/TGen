@@ -21,7 +21,7 @@ namespace TGen {
 		
 		bool isParallelTo(const TGen::Plane3 & plane) const;
 		scalar getDistanceTo(const TGen::Vector3 & p) const;
-		TGen::Vector3 rayIntersection(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const;
+		TGen::Vector3 intersectRay(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const;
 		TGen::Vector3 planeIntersection(const TGen::Plane3 & plane) const;
 		TGen::Vector3 project(const TGen::Vector3 & p) const;
 		scalar getPointSide(const TGen::Vector3 & p) const;

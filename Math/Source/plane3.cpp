@@ -59,7 +59,7 @@ scalar TGen::Plane3::getDistanceTo(const TGen::Vector3 & p) const {
 }
 
 
-TGen::Vector3 TGen::Plane3::rayIntersection(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const {
+TGen::Vector3 TGen::Plane3::intersectRay(const TGen::Vector3 & pos, const TGen::Vector3 & dir) const {
 	scalar a = TGen::Vector3::DotProduct(normal, dir);
 	if (a == 0)
 		return pos;

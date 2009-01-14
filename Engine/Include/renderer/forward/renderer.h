@@ -48,6 +48,8 @@ namespace TGen {
 			static TGen::Matrix4x4 calculateLightModelView(const TGen::Matrix4x4 & lightTransform);
 			static bool calculateFrustumBox(TGen::Rectangle & outRectangle, const TGen::Matrix4x4 & frustumTransform, const TGen::Matrix4x4 & cameraProj, const TGen::Matrix4x4 & cameraTransform);
 			
+			static TGen::Frustum calculateFrustum(const TGen::Matrix4x4 & transform);
+			
 			TGen::FrameBuffer * shadowMapTarget;
 			TGen::Texture * shadowMap, * crapMap, * lightMap;
 			TGen::Material * depthPassMaterial, * currentLightMaterial;

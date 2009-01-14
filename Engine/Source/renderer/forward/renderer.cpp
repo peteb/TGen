@@ -141,63 +141,14 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	renderer.setLight(0, light->getLightProperties());
 	
 	currentLightMaterial = light->getMaterial();
-/*
-	glPushAttrib(GL_ALL_ATTRIB_BITS);
-	
-	glDepthFunc(GL_ALWAYS);
-	glActiveTexture(GL_TEXTURE0);
-	glDisable(GL_TEXTURE_2D);
-	glDisable(GL_LIGHTING);
-	glDisable(GL_BLEND);
-	glDisable(GL_COLOR_MATERIAL);
-	glColorMask(true, true, true, true);
-	
-	renderer.setShaderProgram(NULL);
-	
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	
-	glLineWidth(2.0f);
-	
-	glBegin(GL_LINE_LOOP);
-	glColor3f(1.0f, 0.0f, 0.0f);
-	
-	for (int i = 0; i < 4; ++i) {
-		glVertex3f(nearPlane[i].x, nearPlane[i].y, nearPlane[i].z);
-	}	
 
-	glEnd();
-	glBegin(GL_LINE_LOOP);
-
-	
-	glColor3f(1.0f, 1.0f, 0.0f);
-	
-	for (int i = 0; i < 4; ++i) {
-		glVertex3f(farPlane[i].x, farPlane[i].y, farPlane[i].z);
-	}	
-	
-	glEnd();
-
-	glBegin(GL_LINES);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	
-	for (int i = 0; i < 4; ++i) {
-		glVertex3f(nearPlane[i].x, nearPlane[i].y, nearPlane[i].z);
-		glVertex3f(farPlane[i].x, farPlane[i].y, farPlane[i].z);
-		
-	}
-	
-	glEnd();
-	glPopAttrib();
-	*/
-	
 	renderList.renderWithinRadius(renderer, camera->getTransform(), camera->getLod(), camera->getTransform() * light->getTransform() * TGen::Vector3(0.0f, 0.0f, 0.0f), radius);	
 	
 	glDisable(GL_SCISSOR_TEST);
 }
 
 TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightProjection(const TGen::Engine::Light & light) {
-	return TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(30.0), 1.0f, 0.5f, 5.0f);
+	return TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(30.0), 1.0f, 0.5f, 15.0f);
 }
 
 TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightModelView(const TGen::Matrix4x4 & lightTransform) {
@@ -229,24 +180,126 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	for (int i = 0; i < 4; ++i) {
 		nearPlane[i] /= nearPlane[i].w;
 		farPlane[i] /= farPlane[i].w;
-		
-		//nearPlane[i] = TGen::Vector3(nearPlane[i]);
-		//farPlane[i] = TGen::Vector3(farPlane[i]);
 	}
 	
-	TGen::Frustum frustum;
-	frustum.nearPlane = TGen::Plane3(nearPlane[0], nearPlane[1], nearPlane[2]);
-	frustum.farPlane = TGen::Plane3(farPlane[2], farPlane[1], farPlane[0]);
-	frustum.leftPlane = TGen::Plane3(farPlane[3], farPlane[0], nearPlane[0]);
-	frustum.rightPlane = TGen::Plane3(nearPlane[1], farPlane[1], farPlane[2]);
-	frustum.bottomPlane = TGen::Plane3(farPlane[2], farPlane[3], nearPlane[2]);
-	frustum.topPlane = TGen::Plane3(nearPlane[1], nearPlane[0], farPlane[1]);
-	
-	std::cout << "===> " << std::string(frustum.bottomPlane) << std::endl;
+	TGen::Frustum frustum = calculateFrustum(frustumTransform);
+
 	TGen::Vector3 cameraPos = cameraTransform.getInverse().getOrigin(); // * TGen::Vector3::Zero;
-	//std::cout << "POS: " << std::string(cameraPos) << std::endl;
+
+	//if (frustum.intersects(cameraPos))
+	//	std::cout << "hey" << std::endl;
+
 	
-	std::cout << frustum.topPlane.getDistanceTo(cameraPos) << std::endl;	
+	
+	std::vector<std::pair<TGen::Vector3, TGen::Vector3> > edges, fixedEdges;
+	
+	for (int i = 0; i < 4; ++i)
+		edges.push_back(std::make_pair(nearPlane[i], farPlane[i]));
+	
+	for (int i = 0; i < 4; ++i) {
+		int next = (i < 3 ? i + 1 : 0);
+		edges.push_back(std::make_pair(nearPlane[i], nearPlane[next]));
+	}
+	
+	for (int i = 0; i < 4; ++i) {
+		int next = (i < 3 ? i + 1 : 0);
+		edges.push_back(std::make_pair(farPlane[i], farPlane[next]));
+	}
+	
+	
+	
+	TGen::Vector4 projed[8];
+	TGen::Vector3 min, max;
+	
+	int count = 0;
+	
+	
+	// calculate screenspace 
+	for (int i = 0; i < 4; ++i) {
+		TGen::Vector4 hey1 = TGen::Vector4(cameraProj * cameraTransform * nearPlane[i]);
+		TGen::Vector4 hey2 = TGen::Vector4(cameraProj * cameraTransform * farPlane[i]);
+		
+		
+		if (nearPlane[i].z >= -1.0f)
+			count++;
+		if (farPlane[i].z >= -1.0f)
+			count++;
+		
+		projed[i * 2 + 0] = hey1;
+		projed[i * 2 + 1] = hey2;
+	}
+	
+	bool firstMin = true, firstMax = true;
+	
+	/*if (count == 0) {
+	 //std::cout << "outside" << std::endl;
+	 return false;
+	 }
+	 else {
+	 //std::cout << "Inside: " << count << std::endl;
+	 }*/
+	
+	/*for (int i = 0; i < 8; ++i) {
+	 projed[i] /= projed[i].w;
+	 
+	 
+	 
+	 projed[i].x = TGen::Clamp(projed[i].x, -1.0f, 1.0f);
+	 projed[i].y = TGen::Clamp(projed[i].y, -1.0f, 1.0f);
+	 projed[i].z = TGen::Clamp(projed[i].z, -1.0f, 1.0f);
+	 
+	 
+	 if (!firstMin) {
+	 min.x = std::min(min.x, projed[i].x);
+	 min.y = std::min(min.y, projed[i].y);
+	 min.z = std::min(min.z, projed[i].z);
+	 }
+	 else {
+	 min = projed[i];
+	 firstMin = false;
+	 }
+	 
+	 if (!firstMax) {
+	 max.x = std::max(max.x, projed[i].x);
+	 max.y = std::max(max.y, projed[i].y);
+	 max.z = std::max(max.z, projed[i].z);
+	 
+	 }
+	 else {
+	 max = projed[i];
+	 firstMax = false;
+	 }
+	 
+	 }*/
+	
+	TGen::Frustum camFrustum = calculateFrustum(cameraProj * cameraTransform);
+	
+	for (int i = 0; i < edges.size(); ++i) {
+		TGen::Vector3 p1 = edges[i].first;
+		TGen::Vector3 p2 = edges[i].second;
+		
+		if ((camFrustum.rightPlane.getDistanceTo(p1) >= 0.0f) != (camFrustum.rightPlane.getDistanceTo(p2) >= 0.0f)) {
+			TGen::Vector3 newP1, newP2;
+			
+			if (camFrustum.rightPlane.getDistanceTo(p1) >= 0.0f) {		// p1 is on the visible side
+				newP1 = p1;
+				newP2 = camFrustum.rightPlane.intersectRay(p1, p2 - p1);
+			}
+			else {				// p2 is on the visible side
+				newP1 = p2;
+				newP2 = camFrustum.rightPlane.intersectRay(p2, p1 - p2);
+			}
+			
+			p1 = newP1;
+			p2 = newP2;
+		}
+		
+		if (camFrustum.rightPlane.getDistanceTo(p1) < 0.0f && camFrustum.rightPlane.getDistanceTo(p2) < 0.0f)
+			continue;
+		
+		fixedEdges.push_back(std::make_pair(p1, p2));
+	}
+		
 	
 	{
 		glMatrixMode(GL_MODELVIEW);
@@ -267,104 +320,71 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 		 
 		glUseProgram(0);
 		 
-		 glLineWidth(2.0f);
-		 
-		 glBegin(GL_LINE_LOOP);
-		 glColor3f(1.0f, 0.0f, 0.0f);
-		 
-		 for (int i = 0; i < 4; ++i) {
-		 glVertex3f(nearPlane[i].x, nearPlane[i].y, nearPlane[i].z);
-		 }	
-		 
-		 glEnd();
-		 glBegin(GL_LINE_LOOP);
-		 
-		 
-		 glColor3f(1.0f, 1.0f, 0.0f);
-		 
-		 for (int i = 0; i < 4; ++i) {
-		 glVertex3f(farPlane[i].x, farPlane[i].y, farPlane[i].z);
-		 }	
-		 
-		 glEnd();
-		 
-		 glBegin(GL_LINES);
-		 glColor3f(0.0f, 1.0f, 0.0f);
-		 
-		 for (int i = 0; i < 4; ++i) {
-		 glVertex3f(nearPlane[i].x, nearPlane[i].y, nearPlane[i].z);
-		 glVertex3f(farPlane[i].x, farPlane[i].y, farPlane[i].z);
-		 
-		 }
-		 
-		 glEnd();
+		 glLineWidth(1.0f);
+	
+		
+		
+		
+		glPointSize(7.0f);
+		glEnable(GL_POINT_SMOOTH);
+		glEnable(GL_LINE_SMOOTH);
+		glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
+		glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
+		
+		glBegin(GL_POINTS);
+		
+		glColor3f(0.0f, 1.0f, 0.0f);
+		
+		for (int i = 0; i < fixedEdges.size(); ++i) {
+			//glColor3f(float((i + 1) & 0x3) / 4.0f, float(i >> 2 & 0x3) / 3.0f, float(i >> 4 & 0xC) / 3.0f);
+			glVertex3fv(&fixedEdges[i].first.x);
+			glVertex3fv(&fixedEdges[i].second.x);
+		}
+		
+		glEnd();
+		
+		glBegin(GL_LINES);
+		
+		for (int i = 0; i < edges.size(); ++i) {
+			//glColor3f(float(i & 0x3) / 3.0f, float(i >> 2 & 0x3) / 3.0f, float(i >> 4 & 0xC) / 3.0f);
+			glVertex3fv(&edges[i].first.x);
+			glVertex3fv(&edges[i].second.x);
+		}
+		
+		
+		
+		glEnd();
 		 glPopAttrib();
 	 
 	}
 	
-	TGen::Vector4 projed[8];
-	TGen::Vector3 min, max;
 	
-	int count = 0;
-	
-	
-	// calculate screenspace 
-	for (int i = 0; i < 4; ++i) {
-		TGen::Vector4 hey1 = TGen::Vector4(cameraProj * cameraTransform * nearPlane[i]);
-		TGen::Vector4 hey2 = TGen::Vector4(cameraProj * cameraTransform * farPlane[i]);
+	for (int i = 0; i < fixedEdges.size(); ++i) {
+		TGen::Vector4 projected[2];
+		projected[0] = cameraProj * cameraTransform * TGen::Vector4(fixedEdges[i].first);
+		projected[1] = cameraProj * cameraTransform * TGen::Vector4(fixedEdges[i].second);
 		
-		
-		if (nearPlane[i].z < -1.0f)
-			count++;
-		if (farPlane[i].z < -1.0f)
-			count++;
-		
-		projed[i * 2 + 0] = hey1;
-		projed[i * 2 + 1] = hey2;
-	}
-	
-	bool firstMin = true, firstMax = true;
-	
-	if (count == 0) {
-		//std::cout << "outside" << std::endl;
-		//return;
-	}
-	else {
-		//std::cout << "Inside: " << count << std::endl;
-	}
-	
-	for (int i = 0; i < 8; ++i) {
-		projed[i] /= projed[i].w;
-		
-		
-		
-		projed[i].x = TGen::Clamp(projed[i].x, -1.0f, 1.0f);
-		projed[i].y = TGen::Clamp(projed[i].y, -1.0f, 1.0f);
-		projed[i].z = TGen::Clamp(projed[i].z, -1.0f, 1.0f);
-		
-		
-		if (!firstMin) {
-			min.x = std::min(min.x, projed[i].x);
-			min.y = std::min(min.y, projed[i].y);
-			min.z = std::min(min.z, projed[i].z);
-		}
-		else {
-			min = projed[i];
-			firstMin = false;
-		}
-		
-		if (!firstMax) {
-			max.x = std::max(max.x, projed[i].x);
-			max.y = std::max(max.y, projed[i].y);
-			max.z = std::max(max.z, projed[i].z);
+		for (int a = 0; a < 2; ++a) {
+			projected[a] /= projected[a].w;
 			
+			if (firstMin) {
+				min = projected[a];
+				firstMin = false;
+			}
+			else {
+				min = TGen::Vector3::Min(min, projected[a]);
+			}
+			
+			if (firstMax) {
+				max = projected[a];
+				firstMax = false;
+			}
+			else {
+				max = TGen::Vector3::Max(max, projected[a]);
+			}
 		}
-		else {
-			max = projed[i];
-			firstMax = false;
-		}
-		
 	}
+	
 	
 	min = min * 0.5 + 0.5;
 	max = max * 0.5 + 0.5;
@@ -376,7 +396,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	outRectangle = TGen::Rectangle(boxmin, boxmax);
 	
 	if (boxmax.x == boxmin.x || boxmax.y == boxmin.y) {
-		std::cout << "no area " << std::string(boxmax) << " min " << std::string(boxmin) << std::endl;
+		//std::cout << "no area " << std::string(boxmax) << " min " << std::string(boxmin) << std::endl;
 		return false;
 	}
 	
@@ -396,6 +416,38 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	
 	
 	return true;
+}
+
+TGen::Frustum TGen::Engine::ForwardRenderer::calculateFrustum(const TGen::Matrix4x4 & transform) {
+	TGen::Matrix4x4 inverseTransform = transform.getInverse();
+	
+	TGen::Vector4 nearPlane[4];
+	TGen::Vector4 farPlane[4];
+	
+	nearPlane[0] = inverseTransform * TGen::Vector4(-1.0f, 1.0f, -1.0f, 1.0f);
+	nearPlane[1] = inverseTransform * TGen::Vector4( 1.0f, 1.0f, -1.0f, 1.0f);
+	nearPlane[2] = inverseTransform * TGen::Vector4( 1.0f, -1.0f, -1.0f, 1.0f);
+	nearPlane[3] = inverseTransform * TGen::Vector4(-1.0f, -1.0f, -1.0f, 1.0f);
+	
+	farPlane[0] = inverseTransform * TGen::Vector4(-1.0f, 1.0f, 1.0f, 1.0f);
+	farPlane[1] = inverseTransform * TGen::Vector4( 1.0f, 1.0f, 1.0f, 1.0f);
+	farPlane[2] = inverseTransform * TGen::Vector4( 1.0f, -1.0f, 1.0f, 1.0f);
+	farPlane[3] = inverseTransform * TGen::Vector4(-1.0f, -1.0f, 1.0f, 1.0f);
+	
+	for (int i = 0; i < 4; ++i) {
+		nearPlane[i] /= nearPlane[i].w;
+		farPlane[i] /= farPlane[i].w;
+	}
+	
+	TGen::Frustum frustum;
+	frustum.nearPlane = TGen::Plane3(nearPlane[0], nearPlane[1], nearPlane[2]);
+	frustum.farPlane = TGen::Plane3(farPlane[2], farPlane[1], farPlane[0]);
+	frustum.leftPlane = TGen::Plane3(farPlane[3], farPlane[0], nearPlane[0]);
+	frustum.rightPlane = TGen::Plane3(nearPlane[1], farPlane[1], farPlane[2]);
+	frustum.bottomPlane = TGen::Plane3(farPlane[2], farPlane[3], nearPlane[2]);
+	frustum.topPlane = TGen::Plane3(nearPlane[1], nearPlane[0], farPlane[1]);
+
+	return frustum;
 }
 
 void TGen::Engine::ForwardRenderer::renderDepth(TGen::RenderList & renderList, TGen::Camera * camera) {

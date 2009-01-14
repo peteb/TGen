@@ -168,3 +168,23 @@ TGen::Vector3 TGen::Vector3::Parse(const std::string & text) {
 	return ret;
 }
 
+TGen::Vector3 TGen::Vector3::Min(const TGen::Vector3 & v1, const TGen::Vector3 & v2) {
+	TGen::Vector3 ret;
+	ret.x = std::min(v1.x, v2.x);
+	ret.y = std::min(v1.y, v2.y);
+	ret.z = std::min(v1.z, v2.z);
+	
+	return ret;
+}
+
+TGen::Vector3 TGen::Vector3::Max(const TGen::Vector3 & v1, const TGen::Vector3 & v2) {
+	TGen::Vector3 ret;
+	ret.x = std::max(v1.x, v2.x);
+	ret.y = std::max(v1.y, v2.y);
+	ret.z = std::max(v1.z, v2.z);
+	
+	return ret;	
+}
+
+
+

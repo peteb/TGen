@@ -64,6 +64,8 @@ namespace TGen {
 		static scalar DotProduct(const TGen::Vector3 & v1, const TGen::Vector3 & v2);
 		static TGen::Vector3 CrossProduct(const TGen::Vector3 & v1, const TGen::Vector3 & v2);
 		static TGen::Vector3 Parse(const std::string & text);
+		static TGen::Vector3 Min(const TGen::Vector3 & v1, const TGen::Vector3 & v2);
+		static TGen::Vector3 Max(const TGen::Vector3 & v1, const TGen::Vector3 & v2);
 		
 		static TGen::Vector3 Identity;
 		static TGen::Vector3 Zero;
