@@ -183,7 +183,6 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	}
 	
 	TGen::Frustum frustum = calculateFrustum(frustumTransform);
-
 	TGen::Vector3 cameraPos = cameraTransform.getInverse().getOrigin(); // * TGen::Vector3::Zero;
 
 	//if (frustum.intersects(cameraPos))
@@ -231,73 +230,56 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	
 	bool firstMin = true, firstMax = true;
 	
-	/*if (count == 0) {
-	 //std::cout << "outside" << std::endl;
-	 return false;
-	 }
-	 else {
-	 //std::cout << "Inside: " << count << std::endl;
-	 }*/
-	
-	/*for (int i = 0; i < 8; ++i) {
-	 projed[i] /= projed[i].w;
-	 
-	 
-	 
-	 projed[i].x = TGen::Clamp(projed[i].x, -1.0f, 1.0f);
-	 projed[i].y = TGen::Clamp(projed[i].y, -1.0f, 1.0f);
-	 projed[i].z = TGen::Clamp(projed[i].z, -1.0f, 1.0f);
-	 
-	 
-	 if (!firstMin) {
-	 min.x = std::min(min.x, projed[i].x);
-	 min.y = std::min(min.y, projed[i].y);
-	 min.z = std::min(min.z, projed[i].z);
-	 }
-	 else {
-	 min = projed[i];
-	 firstMin = false;
-	 }
-	 
-	 if (!firstMax) {
-	 max.x = std::max(max.x, projed[i].x);
-	 max.y = std::max(max.y, projed[i].y);
-	 max.z = std::max(max.z, projed[i].z);
-	 
-	 }
-	 else {
-	 max = projed[i];
-	 firstMax = false;
-	 }
-	 
-	 }*/
-	
 	TGen::Frustum camFrustum = calculateFrustum(cameraProj * cameraTransform);
 	
 	for (int i = 0; i < edges.size(); ++i) {
 		TGen::Vector3 p1 = edges[i].first;
 		TGen::Vector3 p2 = edges[i].second;
+
 		
-		if ((camFrustum.rightPlane.getDistanceTo(p1) >= 0.0f) != (camFrustum.rightPlane.getDistanceTo(p2) >= 0.0f)) {
-			TGen::Vector3 newP1, newP2;
+		bool add = false;
+
+		TGen::Vector3 np1 = p1, np2 = p2;
+		
+		for (int a = 0; a < camFrustum.getNumPlanes(); ++a) {
+			const TGen::Plane3 plane = camFrustum.getPlane(a);
 			
-			if (camFrustum.rightPlane.getDistanceTo(p1) >= 0.0f) {		// p1 is on the visible side
-				newP1 = p1;
-				newP2 = camFrustum.rightPlane.intersectRay(p1, p2 - p1);
+			if ((plane.getDistanceTo(np1) >= 0.0f) != (plane.getDistanceTo(np2) >= 0.0f)) {
+				TGen::Vector3 newP1, newP2;
+
+				if (plane.getDistanceTo(np1) >= 0.0f) {		// p1 is on the visible side
+					newP1 = np1;
+					newP2 = plane.intersectRay(np1, np2 - np1);
+				}
+				else {				// p2 is on the visible side
+					newP1 = np2;
+					newP2 = plane.intersectRay(np2, np1 - np2);
+				}
+				
+				np1 = newP1;
+				np2 = newP2;
+				
+				add = true;
 			}
-			else {				// p2 is on the visible side
-				newP1 = p2;
-				newP2 = camFrustum.rightPlane.intersectRay(p2, p1 - p2);
-			}
-			
-			p1 = newP1;
-			p2 = newP2;
+
 		}
 		
-		if (camFrustum.rightPlane.getDistanceTo(p1) < 0.0f && camFrustum.rightPlane.getDistanceTo(p2) < 0.0f)
-			continue;
+		//if (!camFrustum.intersects(np1) && !camFrustum.intersects(np2))
+		//	add = false;
+		int icount1 = 0, icount2 = 0;
 		
-		fixedEdges.push_back(std::make_pair(p1, p2));
+		for (int b = 0; b < camFrustum.getNumPlanes(); ++b) {
+			if (camFrustum.getPlane(b).getDistanceTo(np1) >= 0.0f)
+				icount1++;
+			if (camFrustum.getPlane(b).getDistanceTo(np2) >= 0.0f)
+				icount2++;
+		}
+		
+		//if (icount1 < 5 && icount2 < 5)
+		//	add = false;
+		
+		if (add)
+			fixedEdges.push_back(std::make_pair(np1, np2));
 	}
 		
 	
@@ -325,10 +307,8 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 		
 		
 		
-		glPointSize(7.0f);
+		glPointSize(4.0f);
 		glEnable(GL_POINT_SMOOTH);
-		glEnable(GL_LINE_SMOOTH);
-		glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);
 		glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);
 		
 		glBegin(GL_POINTS);
@@ -345,10 +325,10 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 		
 		glBegin(GL_LINES);
 		
-		for (int i = 0; i < edges.size(); ++i) {
+		for (int i = 0; i < fixedEdges.size(); ++i) {
 			//glColor3f(float(i & 0x3) / 3.0f, float(i >> 2 & 0x3) / 3.0f, float(i >> 4 & 0xC) / 3.0f);
-			glVertex3fv(&edges[i].first.x);
-			glVertex3fv(&edges[i].second.x);
+			glVertex3fv(&fixedEdges[i].first.x);
+			glVertex3fv(&fixedEdges[i].second.x);
 		}
 		
 		
@@ -358,6 +338,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	 
 	}
 	
+	// bugg i prob #1... om en edge helt är utanför skärmen försvinner den ju! inte bra ibland!
 	
 	for (int i = 0; i < fixedEdges.size(); ++i) {
 		TGen::Vector4 projected[2];
@@ -366,6 +347,9 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 		
 		for (int a = 0; a < 2; ++a) {
 			projected[a] /= projected[a].w;
+			
+			if (projected[a].x < -1.2f || projected[a].x > 1.2f || projected[a].y < -1.2f || projected[a].y > 1.2f || projected[a].z < -1.2f || projected[a].z > 1.2f)
+				continue;
 			
 			if (firstMin) {
 				min = projected[a];

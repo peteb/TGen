@@ -1033,6 +1033,13 @@
 			name = utilities;
 			sourceTree = "<group>";
 		};
+		D07E38170F20DAA500A4EC15 /* gui */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = gui;
+			sourceTree = "<group>";
+		};
 		D08106870E391C4F00663380 /* info */ = {
 			isa = PBXGroup;
 			children = (
@@ -1210,6 +1217,7 @@
 				D08105C80E390D3F00663380 /* symbols.h */,
 				D02E4E630E4490020070FBFC /* component */,
 				D0843BD20D0759D200C31FE3 /* entity */,
+				D07E38170F20DAA500A4EC15 /* gui */,
 				D08106870E391C4F00663380 /* info */,
 				D074307C0DFEA29C00F9F407 /* inventory */,
 				D0E457D00D90696300F4D548 /* scene */,

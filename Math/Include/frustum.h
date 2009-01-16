@@ -36,6 +36,8 @@ namespace TGen {
 		int intersects(const TGen::Sphere & sphere) const;
 		int intersects(const TGen::AABB & aabb) const;
 		int intersects(const TGen::Vector3 & point) const;
+		TGen::Plane3 & getPlane(int num);
+		int getNumPlanes() const;
 		
 		TGen::Plane3 nearPlane, farPlane, rightPlane, leftPlane, topPlane, bottomPlane;
 	};

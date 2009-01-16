@@ -71,3 +71,32 @@ int TGen::Frustum::intersects(const TGen::Vector3 & point) const {
 	return 0;
 }
 
+TGen::Plane3 & TGen::Frustum::getPlane(int num) {
+	switch (num) {
+		case 0:
+			return nearPlane;
+			
+		case 1:
+			return farPlane;
+			
+		case 2:
+			return rightPlane;
+			
+		case 3:
+			return leftPlane;
+			
+		case 4:
+			return topPlane;
+			
+		case 5:
+			return bottomPlane;
+			
+	}
+	
+	return nearPlane;
+}
+
+int TGen::Frustum::getNumPlanes() const {
+	return 6;
+}
+
