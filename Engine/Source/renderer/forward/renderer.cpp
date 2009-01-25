@@ -15,10 +15,11 @@
 #include "light.h"
 #include "resourcemanager.h"
 
-TGen::Engine::ForwardRenderer::ForwardRenderer(TGen::Renderer & renderer, TGen::Engine::ResourceManager & resources)
+TGen::Engine::ForwardRenderer::ForwardRenderer(TGen::Renderer & renderer, TGen::Engine::ResourceManager & resources, TGen::Engine::VariableRegister & variables)
 	: TGen::Engine::WorldRenderer(renderer)
 	, depthPassMaterial(NULL)
 	, currentLightMaterial(NULL)
+	, vars(variables)
 {
 	depthPassMaterial = resources.getMaterial("forward/depth");
 	TGen::Rectangle size = TGen::Rectangle(512, 512);
@@ -96,8 +97,10 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 
 	TGen::Rectangle scissorBox;
 	
-	if (!calculateFrustumBox(scissorBox, shadowFrustumMat, camera->getProjection(), camera->getTransform()))
-		return;
+	if (vars.getSettings().optShadowScissor) {
+		if (!calculateFrustumBox(scissorBox, shadowFrustumMat, camera->getProjection(), camera->getTransform()))
+			return;
+	}
 	
 	{
 		TGen::Matrix4x4 prevProjection = renderer.getTransform(TGen::TransformProjection);
@@ -111,10 +114,10 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	
 	
 	
-	
-	glEnable(GL_SCISSOR_TEST);
-	glScissor(scissorBox.getMin().x, scissorBox.getMin().y, scissorBox.getMax().x - scissorBox.getMin().x, scissorBox.getMax().y - scissorBox.getMin().y);
-	
+	if (vars.getSettings().optShadowScissor) {
+		glEnable(GL_SCISSOR_TEST);
+		glScissor(scissorBox.getMin().x, scissorBox.getMin().y, scissorBox.getMax().x - scissorBox.getMin().x, scissorBox.getMax().y - scissorBox.getMin().y);
+	}
 	
 	
 	renderList.setMaterialOverride(this, 1);
@@ -127,8 +130,8 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	
 	light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 	light->getLightProperties().spotDirection = transform * TGen::Vector3(0.0f, 0.0f, 1.0f);
-	light->getLightProperties().spotExponent = 1.0f;
-	light->getLightProperties().spotCutoff = 35.0f;
+	//light->getLightProperties().spotExponent = 5.0f;
+	//light->getLightProperties().spotCutoff = 3.0f;
 	
 	float radius = light->getLightProperties().calculateAttenuationDistance(1.0f, 1000.0f);
 	
@@ -148,7 +151,7 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 }
 
 TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightProjection(const TGen::Engine::Light & light) {
-	return TGen::Matrix4x4::PerspectiveProjection(TGen::Degree(30.0), 1.0f, 0.5f, 15.0f);
+	return TGen::Matrix4x4::PerspectiveProjection(light.getShadowAngle(), 1.0f, 0.5f, 15.0f);
 }
 
 TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightModelView(const TGen::Matrix4x4 & lightTransform) {
@@ -191,6 +194,33 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	
 	
 	std::vector<std::pair<TGen::Vector3, TGen::Vector3> > edges, fixedEdges;
+
+	TGen::Convex cv1 = calculateFrustumConvex(frustumTransform);
+	TGen::Convex cv2 = calculateFrustumConvex(cameraProj * cameraTransform);
+	
+	/*if (cv1.intersect(cv2))
+		std::cout << "intersects" << std::endl;
+	else
+		std::cout << "doesn't" << std::endl;
+	*/
+	
+	TGen::CoordSet3 c1, c2;
+	
+	for (int i = 0; i < cv1.vertices.size(); ++i) {
+		c1.addCoord(cv1.vertices[i]);
+	}
+
+	for (int i = 0; i < cv2.vertices.size(); ++i) {
+		c2.addCoord(cv2.vertices[i]);
+	}
+	
+	
+	if (c1.intersects(c2))
+		std::cout << "intersects" << std::endl;
+	else {
+		std::cout << "outside" << std::endl;
+		return false;
+	}
 	
 	for (int i = 0; i < 4; ++i)
 		edges.push_back(std::make_pair(nearPlane[i], farPlane[i]));
@@ -206,7 +236,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	}
 	
 	
-	
+	// TODO: renderer vars för forward renderer... 
 	TGen::Vector4 projed[8];
 	TGen::Vector3 min, max;
 	
@@ -321,6 +351,10 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 			glVertex3fv(&fixedEdges[i].second.x);
 		}
 		
+		/*for (int i = 0; i < cv1.vertices.size(); ++i) {
+			glVertex3f(cv1.vertices[i].x, cv1.vertices[i].y, cv1.vertices[i].z);
+		}*/
+		
 		glEnd();
 		
 		glBegin(GL_LINES);
@@ -332,6 +366,17 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 		}
 		
 		
+		/*for (int i = 0; i < cv1.normals.size(); ++i) {
+			glVertex3f(0.0f, 0.0f, 0.0f);
+			glVertex3f(cv1.normals[i].x, cv1.normals[i].y, cv1.normals[i].z);
+			
+		}
+		
+		
+		for (int i = 0; i < cv1.tangents.size(); ++i) {
+			glVertex3f(0.0f, 0.0f, 0.0f);
+			glVertex3f(cv1.tangents[i].x, cv1.tangents[i].y, cv1.tangents[i].z);
+		}*/
 		
 		glEnd();
 		 glPopAttrib();
@@ -348,7 +393,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 		for (int a = 0; a < 2; ++a) {
 			projected[a] /= projected[a].w;
 			
-			if (projected[a].x < -1.2f || projected[a].x > 1.2f || projected[a].y < -1.2f || projected[a].y > 1.2f || projected[a].z < -1.2f || projected[a].z > 1.2f)
+			if (projected[a].x < -1.1f || projected[a].x > 1.1f || projected[a].y < -1.1f || projected[a].y > 1.1f || projected[a].z < -1.1f || projected[a].z > 1.1f)
 				continue;
 			
 			if (firstMin) {
@@ -385,20 +430,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	}
 	
 	// TODO: gör en funktion som räknar ut det här, som går ur hela alltet för den lampan om den inte syns
-	
-	/*static int hey = 0;
-	 
-	 if (hey == 0) {
-	 hey++;
-	 }
-	 else {
-	 hey--;
-	 return;
-	 }*/
-	
-	
-	
-	
+
 	return true;
 }
 
@@ -432,6 +464,63 @@ TGen::Frustum TGen::Engine::ForwardRenderer::calculateFrustum(const TGen::Matrix
 	frustum.topPlane = TGen::Plane3(nearPlane[1], nearPlane[0], farPlane[1]);
 
 	return frustum;
+}
+
+TGen::Convex TGen::Engine::ForwardRenderer::calculateFrustumConvex(const TGen::Matrix4x4 & transform) {
+	TGen::Convex ret;
+	TGen::Matrix4x4 inverseTransform = transform.getInverse();	
+
+	TGen::Vector4 corners[8];
+	
+	corners[0] = inverseTransform * TGen::Vector4(-1.0f, 1.0f, -1.0f, 1.0f);
+	corners[1] = inverseTransform * TGen::Vector4( 1.0f, 1.0f, -1.0f, 1.0f);
+	corners[2] = inverseTransform * TGen::Vector4( 1.0f, -1.0f, -1.0f, 1.0f);
+	corners[3] = inverseTransform * TGen::Vector4(-1.0f, -1.0f, -1.0f, 1.0f);
+	
+	corners[4] = inverseTransform * TGen::Vector4(-1.0f, 1.0f, 1.0f, 1.0f);
+	corners[5] = inverseTransform * TGen::Vector4( 1.0f, 1.0f, 1.0f, 1.0f);
+	corners[6] = inverseTransform * TGen::Vector4( 1.0f, -1.0f, 1.0f, 1.0f);
+	corners[7] = inverseTransform * TGen::Vector4(-1.0f, -1.0f, 1.0f, 1.0f);
+	
+	for (int i = 0; i < 8; ++i) {
+		corners[i] /= corners[i].w;
+		ret.vertices.push_back(corners[i]);
+	}
+	
+	TGen::Vector3 edges[12];
+	
+	edges[0] = TGen::Vector3(corners[1]) - corners[0];
+	edges[1] = TGen::Vector3(corners[2]) - corners[1];
+	edges[2] = TGen::Vector3(corners[3]) - corners[2];
+	edges[3] = TGen::Vector3(corners[0]) - corners[3];
+
+	edges[4] = TGen::Vector3(corners[5]) - corners[4];
+	edges[5] = TGen::Vector3(corners[6]) - corners[5];
+	edges[6] = TGen::Vector3(corners[7]) - corners[6];
+	edges[7] = TGen::Vector3(corners[4]) - corners[7];
+	
+	edges[8] = TGen::Vector3(corners[0]) - corners[4];
+	edges[9] = TGen::Vector3(corners[1]) - corners[5];
+	edges[10] = TGen::Vector3(corners[2]) - corners[6];
+	edges[11] = TGen::Vector3(corners[3]) - corners[7];
+	
+	for (int i = 0; i < 12; ++i)
+		ret.tangents.push_back(edges[i]);
+	
+	ret.normals.push_back(TGen::Vector3::CrossProduct(edges[0], edges[1]));
+	ret.normals.push_back(-TGen::Vector3::CrossProduct(edges[4], edges[5]));
+	
+	ret.normals.push_back(-TGen::Vector3::CrossProduct(edges[10], edges[1]));
+	ret.normals.push_back(-TGen::Vector3::CrossProduct(edges[11], edges[3]));
+	
+	ret.normals.push_back(TGen::Vector3::CrossProduct(edges[0], edges[8]));
+	ret.normals.push_back(TGen::Vector3::CrossProduct(edges[6], edges[10]));
+	
+	for (int i = 0; i < ret.normals.size(); ++i)
+		ret.normals[i].normalize();
+	
+	
+	return ret;
 }
 
 void TGen::Engine::ForwardRenderer::renderDepth(TGen::RenderList & renderList, TGen::Camera * camera) {

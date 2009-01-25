@@ -173,8 +173,11 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	
 	light->getLightProperties().diffuse = TGen::Color::Parse(properties.getProperty("diffuse", "0 0 0"));
 	light->getLightProperties().specular = TGen::Color::Parse(properties.getProperty("specular", "0 0 0"));
-
+	light->getLightProperties().spotCutoff = TGen::lexical_cast<scalar>(properties.getProperty("spotCutoff", "35"));
+	light->getLightProperties().spotExponent = TGen::lexical_cast<scalar>(properties.getProperty("spotExponent", "10.0"));
+	
 	light->setDirections(TGen::Engine::Light::ParseDirections(properties.getProperty("directions", "")));
+	light->setShadowAngle(TGen::Degree(TGen::lexical_cast<scalar>(properties.getProperty("shadowAngle", "90.0"))));
 	
 	light->setBoundingBox(TGen::Vector3(constantAttenuation, linearAttenuation, quadraticAttenuation));
 	

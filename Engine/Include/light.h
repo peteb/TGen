@@ -54,7 +54,9 @@ namespace TGen {
 			TGen::Vector3 getBoundingBox() const;
 			uint getDirections() const;
 			void setDirections(uint directions);
-
+			void setShadowAngle(const TGen::Degree & angle);
+			const TGen::Degree & getShadowAngle() const;
+			
 			static uint ParseDirections(const std::string & desc);
 
 		private:
@@ -70,6 +72,8 @@ namespace TGen {
 			mutable TGen::Light light;
 			
 			uint directions;
+			TGen::Degree shadowAngle;
+			scalar shadowNear, shadowFar, shadowAspectRatio, shadowQuality;
 		};
 		
 		// map har flera SceneLights. (children) om en SceneLight frågas efter addUser så lägger den till sig själv som user

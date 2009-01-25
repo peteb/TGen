@@ -132,6 +132,7 @@
 		D0A310EE0DF355BB0007A749 /* channel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A310ED0DF355BB0007A749 /* channel.cpp */; };
 		D0A310FD0DF4A8490007A749 /* sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A310FC0DF4A8490007A749 /* sound.cpp */; };
 		D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */; };
+		D0A97C120F2CD06B0049CFCC /* renderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A97C110F2CD06B0049CFCC /* renderervars.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
 		D0B4212B0DF730C2004AB272 /* base in Resources */ = {isa = PBXBuildFile; fileRef = D0B4208E0DF730C2004AB272 /* base */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
@@ -537,6 +538,8 @@
 		D0A4777B0DDF902800DC1640 /* meshgeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshgeom.h; path = ../../Include/physics/meshgeom.h; sourceTree = SOURCE_ROOT; };
 		D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = meshgeom.cpp; path = physics/meshgeom.cpp; sourceTree = "<group>"; };
 		D0A479B50DE1FC8400DC1640 /* meshdecl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = meshdecl.h; path = ../../Include/physics/meshdecl.h; sourceTree = SOURCE_ROOT; };
+		D0A97C100F2CD05C0049CFCC /* renderervars.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = renderervars.h; path = ../../Include/renderer/forward/renderervars.h; sourceTree = SOURCE_ROOT; };
+		D0A97C110F2CD06B0049CFCC /* renderervars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderervars.cpp; path = renderer/forward/renderervars.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
 		D0B4208E0DF730C2004AB272 /* base */ = {isa = PBXFileReference; lastKnownFileType = folder; name = base; path = ../../Resources/base; sourceTree = SOURCE_ROOT; };
@@ -1106,6 +1109,8 @@
 			children = (
 				D08D37D80EC3C2C800F23C18 /* renderer.cpp */,
 				D08D37DA0EC3C2E700F23C18 /* renderer.h */,
+				D0A97C110F2CD06B0049CFCC /* renderervars.cpp */,
+				D0A97C100F2CD05C0049CFCC /* renderervars.h */,
 			);
 			name = forward;
 			sourceTree = "<group>";
@@ -1652,6 +1657,7 @@
 				D07DE4F30E68ADE200C6B35C /* prototypereference.cpp in Sources */,
 				D07DE7C10E69955D00C6B35C /* worldobject.cpp in Sources */,
 				D08D37D90EC3C2C800F23C18 /* renderer.cpp in Sources */,
+				D0A97C120F2CD06B0049CFCC /* renderervars.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
