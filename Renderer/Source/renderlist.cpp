@@ -17,3 +17,7 @@ void TGen::RenderList::setMaterialOverride(TGen::MaterialOverride * override, in
 void TGen::RenderList::setMaterial(TGen::Material * material) {
 	this->materialOverride = material;
 }
+
+void TGen::RenderList::setShaderMode(int mode) {
+	shaderMode = mode;
+}

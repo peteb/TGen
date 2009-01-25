@@ -85,6 +85,7 @@ namespace TGen {
 			DepthPass,
 			LightPass,
 			ShadowPass,
+			AmbientPass,
 		};
 		
 		class ForwardRenderer : public TGen::Engine::WorldRenderer, public TGen::MaterialOverride {

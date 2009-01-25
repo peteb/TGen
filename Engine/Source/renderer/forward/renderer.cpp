@@ -50,19 +50,37 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	
 	glDisable(GL_SCISSOR_TEST);
 	renderer.setRenderTarget(NULL);
-	renderer.setClearColor(TGen::Color::Black);
-	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
 	renderer.setAmbientLight(world.getAmbientLight());		
 
+	renderer.setClearColor(TGen::Color::Black);
+	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 
-	renderDepth(renderList, camera);
 	
+	
+	renderDepth(renderList, camera);
 
+	
+	/*renderList.setShaderMode(0);
+	currentLightMaterial = NULL;
+	currentPass = AmbientPass;
+	
+	renderList.setMaterialOverride(this, 1);
+	renderList.setMaterial(NULL);
+	
+	renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");
+	*/
+	
+	renderList.setShaderMode(1);
 	
 
 	for (int i = 0; i < lights.getNumLights(); ++i) {
 		TGen::Engine::Light * light = lights.getLight(i);
+		
+		if (i == 0)
+			renderList.setShaderMode(0);
+		else
+			renderList.setShaderMode(1);
 		
 		uint dirs = light->getDirections();
 		
@@ -313,7 +331,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 	}
 		
 	
-	{
+	/*{
 		glMatrixMode(GL_MODELVIEW);
 		glLoadMatrixf((GLfloat *)cameraTransform.elements);
 
@@ -351,10 +369,7 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 			glVertex3fv(&fixedEdges[i].second.x);
 		}
 		
-		/*for (int i = 0; i < cv1.vertices.size(); ++i) {
-			glVertex3f(cv1.vertices[i].x, cv1.vertices[i].y, cv1.vertices[i].z);
-		}*/
-		
+
 		glEnd();
 		
 		glBegin(GL_LINES);
@@ -365,23 +380,12 @@ bool TGen::Engine::ForwardRenderer::calculateFrustumBox(TGen::Rectangle & outRec
 			glVertex3fv(&fixedEdges[i].second.x);
 		}
 		
-		
-		/*for (int i = 0; i < cv1.normals.size(); ++i) {
-			glVertex3f(0.0f, 0.0f, 0.0f);
-			glVertex3f(cv1.normals[i].x, cv1.normals[i].y, cv1.normals[i].z);
-			
-		}
-		
-		
-		for (int i = 0; i < cv1.tangents.size(); ++i) {
-			glVertex3f(0.0f, 0.0f, 0.0f);
-			glVertex3f(cv1.tangents[i].x, cv1.tangents[i].y, cv1.tangents[i].z);
-		}*/
+
 		
 		glEnd();
 		 glPopAttrib();
 	 
-	}
+	}*/
 	
 	// bugg i prob #1... om en edge helt är utanför skärmen försvinner den ju! inte bra ibland!
 	
@@ -574,6 +578,24 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 
 		//glEnable(GL_CULL_FACE);
 		//glCullFace(GL_BACK);
+		
+	}
+	else if (currentPass == AmbientPass) {
+		renderer.setColorWrite(true);
+		renderer.setDepthWrite(true);
+		renderer.setDepthFunc(TGen::CompareEqual);
+		renderer.setBlendFunc(TGen::BlendOne, TGen::BlendOne);
+		
+		try {
+			//static int hey = 0;
+			
+			//if (hey++ < 10) {
+			renderer.getShaderProgram()->getUniform("shadowMap") = 5;
+			//}
+		}
+		catch (...) {
+			
+		}
 		
 	}
 	else if (currentPass == LightPass) {

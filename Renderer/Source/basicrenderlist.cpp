@@ -126,7 +126,7 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 			if (!faceRendered[face->getMesh()]) {
 				faceRendered[face->getMesh()] = true;
 				
-				TGen::MaterialRenderMetadata metadata(specialization, lod, NULL, 0, face->getMesh(), override);
+				TGen::MaterialRenderMetadata metadata(specialization, lod, NULL, shaderMode, face->getMesh(), override);
 				
 				selectedMaterial->render(renderer, *face->getMesh(), metadata);
 			}
@@ -173,7 +173,7 @@ void TGen::BasicRenderList::renderWithinRadius(TGen::Renderer & renderer, const 
 			if (!faceRendered[face->getMesh()]) {
 				faceRendered[face->getMesh()] = true;
 				
-				TGen::MaterialRenderMetadata metadata("default", 9, NULL, 0, face->getMesh(), override);
+				TGen::MaterialRenderMetadata metadata("default", 9, NULL, shaderMode, face->getMesh(), override);
 				selectedMaterial->render(renderer, *face->getMesh(), metadata);
 				
 				numRendered++;

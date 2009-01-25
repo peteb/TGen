@@ -208,10 +208,10 @@ void TGen::Engine::World::update(scalar dt) {
 	utilsSubsystem.update(dt);
 
 	inventorySubsystem.update(dt);
-	controllerSubsystem.update(dt);				// perform controlling
 
 	sceneSubsystem.update(dt);	
-	
+
+	controllerSubsystem.update(dt);				// perform controlling
 	physicsSubsystem.update(dt);					
 	soundSubsystem.update(dt);
 }

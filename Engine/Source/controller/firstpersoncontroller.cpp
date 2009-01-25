@@ -302,7 +302,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 		}
 //	}
 	
-	TGen::Vector3 viewDelta = checkViewDelta() * 0.002;
+	TGen::Vector3 viewDelta = checkViewDelta() * 0.002;	// TODO: sensitivity = 0.002
 
 	orientX += viewDelta.x;
 	orientY += viewDelta.y;

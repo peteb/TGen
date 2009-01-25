@@ -72,7 +72,7 @@ std::string TGen::Engine::TextPreprocessor::process(const std::string & contents
 	ret = fixLoops(ret);
 	
 	
-	//std::cout << "OUT: " << std::endl << std::endl << ret << std::endl << std::endl;
+//	std::cout << "OUT: " << std::endl << std::endl << ret << std::endl << std::endl;
 	
 	return ret;
 }

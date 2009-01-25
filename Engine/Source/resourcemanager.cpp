@@ -389,7 +389,8 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	
 	
 	// add shader permutations for all shader requests except fixed function. ff is undefined, btw
-	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 0);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 0);
+	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 1);
 	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_OMNI,SHADOWMAP_SINGLE,LIGHT_FILTER", 2);
 	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 3);
 

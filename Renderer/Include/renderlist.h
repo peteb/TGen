@@ -42,7 +42,7 @@ namespace TGen {
 	
 	class RenderList : public TGen::MetaWriter {
 	public:
-		RenderList() : override(NULL), materialOverride(NULL) {}
+		RenderList() : override(NULL), materialOverride(NULL), shaderMode(1) {}
 		virtual ~RenderList() {}
 		
 		struct UserInfo {
@@ -58,6 +58,7 @@ namespace TGen {
 		
 		void setMaterialOverride(TGen::MaterialOverride * override, int param);
 		void setMaterial(TGen::Material * material);
+		void setShaderMode(int mode);
 		
 		//virtual void writeMeta(uint metaType, const TGen::Matrix4x4 & modelview, TGen::VertexStream & stream) {}
 		virtual void render(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const std::string & specialization) abstract;
@@ -75,26 +76,26 @@ namespace TGen {
 		
 	protected:
 		TGen::MaterialOverride * override;
-		int overrideParam;
+		int overrideParam, shaderMode;
 		TGen::Material * materialOverride;
 	};
 } // !TGen
 
 /*
 RenderListCache:
- En samling vb's och ib's i en viss storlek, alignad på batch size. Varje batch har ett inlägg i en lista,
+ En samling vb's och ib's i en viss storlek, alignad pÃ‚ batch size. Varje batch har ett inlâ€°gg i en lista,
  vbnummer, ibnummer, startib, countib, primitive.
- Det här är absolut snabbaste sättet man kan rendrera på.
- För att kompilera en RenderListCache så sorterar RenderListen faces efter material och försöker göra batches så stora som möjligt.
- Om batchen blir för stor (antalet indices i ib eller vertices i vb) så delas batchen i två.
+ Det hâ€°r â€°r absolut snabbaste sâ€°ttet man kan rendrera pÃ‚.
+ FË†r att kompilera en RenderListCache sÃ‚ sorterar RenderListen faces efter material och fË†rsË†ker gË†ra batches sÃ‚ stora som mË†jligt.
+ Om batchen blir fË†r stor (antalet indices i ib eller vertices i vb) sÃ‚ delas batchen i tvÃ‚.
 
- Geometries bes att rendrera till batchen, och då kopierar den dit sina vertices och indices bara.
+ Geometries bes att rendrera till batchen, och dÃ‚ kopierar den dit sina vertices och indices bara.
  
- RenderListCache kommer inte snabba upp något typ... level data är redan så optimalt det kan vara .. nästan, sektorer är ju batchbrytare.
+ RenderListCache kommer inte snabba upp nÃ‚got typ... level data â€°r redan sÃ‚ optimalt det kan vara .. nâ€°stan, sektorer â€°r ju batchbrytare.
  
- RenderListCache måste ha alla vertices i world space. Annars är det ingen vits alls.
+ RenderListCache mÃ‚ste ha alla vertices i world space. Annars â€°r det ingen vits alls.
  
- Experimentera med det här sen när det finns testdata, ie, en någorlunda värld med modeller som rör sig.
+ Experimentera med det hâ€°r sen nâ€°r det finns testdata, ie, en nÃ‚gorlunda vâ€°rld med modeller som rË†r sig.
 
  */
 
