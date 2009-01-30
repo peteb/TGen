@@ -57,6 +57,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	renderer.clearBuffers(TGen::ColorBuffer | TGen::DepthBuffer);
 
 	
+	renderList.setShaderMode(0);
 	
 	renderDepth(renderList, camera);
 
@@ -71,34 +72,44 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");
 	*/
 	
-	renderList.setShaderMode(1);
 	
 
 	for (int i = 0; i < lights.getNumLights(); ++i) {
 		TGen::Engine::Light * light = lights.getLight(i);
 		
-		if (i == 0)
-			renderList.setShaderMode(0);
-		else
-			renderList.setShaderMode(1);
-		
+		uint shaderFlags = 0;
 		uint dirs = light->getDirections();
 		
-		if (dirs & DirPosX)
-			renderLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(90.0f)), renderList, camera);
-		if (dirs & DirNegX)
-			renderLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-90.0f)), renderList, camera);
+		if (i == 0)
+			shaderFlags |= LIGHT_AMBIENT;
+
+		if (dirs != 0)
+			shaderFlags |= SHADOWMAP;
+		
+		shaderFlags |= LIGHT_SPOT;
+		shaderFlags |= LIGHT_FILTER;
+		
+		renderList.setShaderMode(shaderFlags);
+		
+		if (dirs != 0) {
+			if (dirs & DirPosX)
+				renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(90.0f)), renderList, camera);
+			if (dirs & DirNegX)
+				renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-90.0f)), renderList, camera);
+				
+			if (dirs & DirPosZ)
+				renderShadowedLight(light, TGen::Matrix4x4::Identity, renderList, camera);
+			if (dirs & DirNegZ)
+				renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-180.0f)), renderList, camera);
 			
-		if (dirs & DirPosZ)
-			renderLight(light, TGen::Matrix4x4::Identity, renderList, camera);
-		if (dirs & DirNegZ)
-			renderLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-180.0f)), renderList, camera);
-		
-		if (dirs & DirPosY)
-			renderLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(-90.0f)), renderList, camera);
-		if (dirs & DirNegY)
-			renderLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(90.0f)), renderList, camera);
-		
+			if (dirs & DirPosY)
+				renderShadowedLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(-90.0f)), renderList, camera);
+			if (dirs & DirNegY)
+				renderShadowedLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(90.0f)), renderList, camera);
+		}
+		else {
+			renderLight(light, renderList, camera);			
+		}
 		// TODO: calculate all intersecting points of the shadow frustum, then construct bounding box in screen space
 		//      if all points are outside ordinary frustum range, don't draw light at all. don't even calculate shadow map
 		
@@ -106,13 +117,46 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	//}
 }
 
-void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, const TGen::Matrix4x4 & transform, TGen::RenderList & renderList, TGen::Camera * camera) {
+void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, TGen::RenderList & renderList, TGen::Camera * camera) {
+	TGen::Matrix4x4 lightProjection = calculateLightProjection(*light);
+	TGen::Matrix4x4 viewMat = calculateLightModelView(light->getTransform());
+	
+	shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) * lightProjection * viewMat * camera->getTransform().getInverse();
+	shadowFrustumMat = lightProjection * viewMat;
+	
+	
+	
+	renderList.setMaterialOverride(this, 1);
+	renderList.setMaterial(NULL);
+	
+	currentPass = LightPass;
+	
+	renderer.setTexture(5, shadowMap);
+	renderer.setTextureTransform(5, shadowMatrix);
+	
+	light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+	light->getLightProperties().spotDirection = TGen::Vector3(0.0f, 0.0f, 1.0f);
+
+	float radius = light->getLightProperties().calculateAttenuationDistance(1.0f, 1000.0f);
+	
+	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
+	renderer.setTransform(TGen::TransformWorldView, camera->getTransform() * light->getTransform());
+	renderer.setLight(0, light->getLightProperties());
+	
+	currentLightMaterial = light->getMaterial();
+	
+	renderList.renderWithinRadius(renderer, camera->getTransform(), camera->getLod(), camera->getTransform() * light->getTransform() * TGen::Vector3(0.0f, 0.0f, 0.0f), radius);		
+}
+
+
+void TGen::Engine::ForwardRenderer::renderShadowedLight(TGen::Engine::Light * light, const TGen::Matrix4x4 & transform, TGen::RenderList & renderList, TGen::Camera * camera) {
 	TGen::Matrix4x4 lightProjection = calculateLightProjection(*light);
 	TGen::Matrix4x4 viewMat = calculateLightModelView(light->getTransform() * transform);
 
 	shadowMatrix = TGen::Matrix4x4::Bias(TGen::Vector3(0.5f)) * lightProjection * viewMat * camera->getTransform().getInverse();
 	shadowFrustumMat = lightProjection * viewMat;
-
+	uint shaderFlags = renderList.getShaderMode();
+	
 	TGen::Rectangle scissorBox;
 	
 	if (vars.getSettings().optShadowScissor) {
@@ -140,6 +184,7 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	
 	renderList.setMaterialOverride(this, 1);
 	renderList.setMaterial(NULL);
+	renderList.setShaderMode(shaderFlags);
 	
 	currentPass = LightPass;
 	
@@ -148,14 +193,9 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 	
 	light->getLightProperties().position = TGen::Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 	light->getLightProperties().spotDirection = transform * TGen::Vector3(0.0f, 0.0f, 1.0f);
-	//light->getLightProperties().spotExponent = 5.0f;
-	//light->getLightProperties().spotCutoff = 3.0f;
 	
 	float radius = light->getLightProperties().calculateAttenuationDistance(1.0f, 1000.0f);
 	
-	//std::cout << radius << std::endl;
-	
-	// TODO: olika sorting modes, kolla upp dem. se om man kan sätta det för sky
 	
 	renderer.setTransform(TGen::TransformProjection, camera->getProjection());
 	renderer.setTransform(TGen::TransformWorldView, camera->getTransform() * light->getTransform());
@@ -169,7 +209,7 @@ void TGen::Engine::ForwardRenderer::renderLight(TGen::Engine::Light * light, con
 }
 
 TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightProjection(const TGen::Engine::Light & light) {
-	return TGen::Matrix4x4::PerspectiveProjection(light.getShadowAngle(), 1.0f, 0.5f, 15.0f);
+	return TGen::Matrix4x4::PerspectiveProjection(light.getViewAngle(), light.viewAspectRatio, light.viewNear, light.viewFar);
 }
 
 TGen::Matrix4x4 TGen::Engine::ForwardRenderer::calculateLightModelView(const TGen::Matrix4x4 & lightTransform) {
@@ -543,17 +583,13 @@ void TGen::Engine::ForwardRenderer::renderShadowmap(TGen::RenderList & renderLis
 	
 	renderList.setMaterialOverride(this, 1);
 	renderList.setMaterial(depthPassMaterial);
-	
+	renderList.setShaderMode(0);
 	
 	renderer.setRenderTarget(shadowMapTarget);
 	renderer.setViewport(shadowMap->size);
 	
 	renderer.clearBuffers(TGen::DepthBuffer);
 	
-
-
-	// TODO: lightDirection, spotCutoff, shadow direction
-	// TODO: skicka in en transform till funktionen som multiplicerar viewMat
 	// TODO: kolla mot near clip plane i shadern. rätt clip plane distance!
 	
 	TGen::LodInfo lod;	
@@ -580,7 +616,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		//glCullFace(GL_BACK);
 		
 	}
-	else if (currentPass == AmbientPass) {
+	/*else if (currentPass == AmbientPass) {
 		renderer.setColorWrite(true);
 		renderer.setDepthWrite(true);
 		renderer.setDepthFunc(TGen::CompareEqual);
@@ -597,7 +633,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 			
 		}
 		
-	}
+	}*/
 	else if (currentPass == LightPass) {
 		renderer.setColorWrite(true);
 		renderer.setDepthWrite(true);
@@ -641,15 +677,15 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 		glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
 		*/
 		try {
-			//static int hey = 0;
-			
-			//if (hey++ < 10) {
-				renderer.getShaderProgram()->getUniform("shadowMap") = 5;
-				renderer.getShaderProgram()->getUniform("lightMap") = 4;
-			//}
+			renderer.getShaderProgram()->getUniform("lightMap") = 4;
 		}
 		catch (...) {
-			
+		}
+
+		try {
+			renderer.getShaderProgram()->getUniform("shadowMap") = 5;
+		}
+		catch (...) {
 		}
 		
 	}

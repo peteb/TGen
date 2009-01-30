@@ -59,6 +59,7 @@ namespace TGen {
 		void setMaterialOverride(TGen::MaterialOverride * override, int param);
 		void setMaterial(TGen::Material * material);
 		void setShaderMode(int mode);
+		int getShaderMode() const;
 		
 		//virtual void writeMeta(uint metaType, const TGen::Matrix4x4 & modelview, TGen::VertexStream & stream) {}
 		virtual void render(TGen::Renderer & renderer, const TGen::Matrix4x4 & baseMat, const TGen::LodInfo & lod, const std::string & specialization) abstract;

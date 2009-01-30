@@ -21,3 +21,7 @@ void TGen::RenderList::setMaterial(TGen::Material * material) {
 void TGen::RenderList::setShaderMode(int mode) {
 	shaderMode = mode;
 }
+
+int TGen::RenderList::getShaderMode() const {
+	return shaderMode;
+}

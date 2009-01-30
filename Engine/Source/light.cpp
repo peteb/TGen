@@ -94,19 +94,19 @@ void TGen::Engine::Light::setDirections(uint directions) {
 	this->directions = directions;
 }
 
-void TGen::Engine::Light::setShadowAngle(const TGen::Degree & angle) {
-	shadowAngle = angle;
+void TGen::Engine::Light::setViewAngle(const TGen::Degree & angle) {
+	viewAngle = angle;
 }
 
-const TGen::Degree & TGen::Engine::Light::getShadowAngle() const {
-	return shadowAngle;
+const TGen::Degree & TGen::Engine::Light::getViewAngle() const {
+	return viewAngle;
 }
 
 uint TGen::Engine::Light::ParseDirections(const std::string & desc) {
 	uint ret = 0;
 	
-	if (desc.empty())
-		return DirAll;
+	//if (desc.empty())
+		//return DirAll;
 	
 	if (desc.find("X") != std::string::npos)
 		ret |= DirPosX;

@@ -23,6 +23,16 @@ namespace TGen {
 		class StandardLogs;
 		class Renderer;
 		class VariableRegister;
+
+		
+		enum ShaderModeAttributes {
+			LIGHT_AMBIENT =		0x0001,
+			LIGHT_SPOT =			0x0002,
+			LIGHT_OMNI =			0x0004,
+			LIGHT_FILTER =			0x0008,
+
+			SHADOWMAP =				0x0010,
+		};
 		
 		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource, public TGen::MeshSource, public TGen::ModelInstantiator, public TGen::Engine::IncludeCallback {
 		public:

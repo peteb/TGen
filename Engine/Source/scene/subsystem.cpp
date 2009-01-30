@@ -176,8 +176,12 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createLightNode(const std::str
 	light->getLightProperties().spotCutoff = TGen::lexical_cast<scalar>(properties.getProperty("spotCutoff", "35"));
 	light->getLightProperties().spotExponent = TGen::lexical_cast<scalar>(properties.getProperty("spotExponent", "10.0"));
 	
-	light->setDirections(TGen::Engine::Light::ParseDirections(properties.getProperty("directions", "")));
-	light->setShadowAngle(TGen::Degree(TGen::lexical_cast<scalar>(properties.getProperty("shadowAngle", "90.0"))));
+	light->setDirections(TGen::Engine::Light::ParseDirections(properties.getProperty("shadowDirections", "")));
+	light->setViewAngle(TGen::Degree(TGen::lexical_cast<scalar>(properties.getProperty("viewAngle", "90.0"))));
+	light->viewNear = TGen::lexical_cast<scalar>(properties.getProperty("viewNear", "0.1"));
+	light->viewFar = TGen::lexical_cast<scalar>(properties.getProperty("viewFar", "100.0"));
+	light->viewAspectRatio = TGen::lexical_cast<scalar>(properties.getProperty("viewAspect", "1.0"));
+	
 	
 	light->setBoundingBox(TGen::Vector3(constantAttenuation, linearAttenuation, quadraticAttenuation));
 	

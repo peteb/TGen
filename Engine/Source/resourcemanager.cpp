@@ -389,11 +389,16 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	
 	
 	// add shader permutations for all shader requests except fixed function. ff is undefined, btw
-	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 0);
-	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 1);
-	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_OMNI,SHADOWMAP_SINGLE,LIGHT_FILTER", 2);
-	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", 3);
+	parser.addShaderPermutation("", 0);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_AMBIENT | LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
+	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
+	parser.addShaderPermutation("LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_FILTER);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_AMBIENT | LIGHT_FILTER);
 
+	
+	
+	// men när man skär ner så här mycket i försvaret skickar det ju signaler att de inte tycker sverige är värt något alls
+	
 	// TODO: mount complete filesystem on map load, mount /map/blabla/*/ as root also
 	//			create function that checks whether a string starts with a string, if it doesn't, return new string with it prepended
 	//           useful for resource manager when loading resources so not to duplicate directory, for example, /shaders/shaders/
