@@ -27,7 +27,6 @@ TGen::Engine::Component * TGen::Engine::Utilities::Subsystem::createComponent(co
 	
 	if (type == "timer") {
 		Timer * newTimer = new TGen::Engine::Utilities::Timer(name);
-		newTimer->setEventTick(properties.getProperty("onTick", ""));
 		newTimer->setEnabled(TGen::lexical_cast<bool>(properties.getProperty("enabled", "true")));
 		newTimer->setInterval(TGen::lexical_cast<scalar>(properties.getProperty("interval", "1.0")));
 		newTimer->setOffsetTime(TGen::lexical_cast<scalar>(properties.getProperty("start", "0.0")));

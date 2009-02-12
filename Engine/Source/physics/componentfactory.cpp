@@ -249,11 +249,9 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	newGeom->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
-	newGeom->setEventCollisionForce(properties.getProperty("onCollisionForce", ""));
 	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
 	newGeom->collisionForceScale = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceScale", "1.0"));
 	
-	newGeom->setEventCollision(properties.getProperty("onCollision", ""));
 	
 	uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
 	

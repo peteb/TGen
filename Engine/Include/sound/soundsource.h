@@ -12,7 +12,6 @@
 
 #include "../component.h"
 #include "fmod/fmod.hpp"
-#include "symbols.h"
 #include <tgen_core.h>
 
 namespace TGen {
@@ -29,7 +28,6 @@ namespace TGen {
 				Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator);
 				virtual ~Source();
 				
-				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				void linkSubsystem(TGen::Engine::Sound::Subsystem & subsystem);
 				void unlink();
 				virtual void update(scalar dt);
@@ -53,8 +51,6 @@ namespace TGen {
 				TGen::Engine::Sound::Subsystem & creator;
 				
 				float volume;
-				
-				static TGen::Engine::Symbol symbolPlaySound;
 				
 			private:
 				std::string filename;

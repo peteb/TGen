@@ -10,14 +10,11 @@
 #ifndef _TGEN_ENGINE_UTILITIES_TIMER_SCRIPT_H
 #define _TGEN_ENGINE_UTILITIES_TIMER_SCRIPT_H
 
-#include "triggerable.h"
-#include "symbols.h"
 #include "componentlink.h"
 
 namespace TGen {
 	namespace Engine {
 		class ComponentLinker;
-		class TriggerContext;
 		
 		namespace Utilities {
 			class Timer;
@@ -27,15 +24,10 @@ namespace TGen {
 				TimerScript(Timer & timer);
 				
 				void link(const TGen::Engine::ComponentLinker & linker);
-				bool trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);		
-				void setEventTick(const std::string & eventName);
 				void tick();
 				
 			private:
 				Timer & timer;
-				TGen::Engine::EventDelegate eventTick;
-				
-				static TGen::Engine::Symbol symbolReset, symbolSetInterval, symbolGetInterval, symbolGetElapsedTime;
 			};
 			
 		} // !Utilities

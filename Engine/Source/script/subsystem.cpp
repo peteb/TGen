@@ -29,7 +29,7 @@ TGen::Engine::Script::Subsystem::~Subsystem() {
 }
 
 
-TGen::Engine::Script::Event * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	return componentFactory.createComponent(name, entityName, properties);
 }
 

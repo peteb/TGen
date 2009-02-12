@@ -21,10 +21,7 @@ namespace TGen {
 				Timer(const std::string & name);
 				
 				void link(const TGen::Engine::ComponentLinker & linker);
-				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				void update(scalar dt);
-
-				void setEventTick(const std::string & eventName);
 
 				void reset();
 				void setEnabled(bool enabled);

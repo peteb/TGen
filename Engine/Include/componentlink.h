@@ -14,6 +14,8 @@
 #include "entity.h"
 #include "componentlinker.h"
 #include "entityrecipe.h"
+#include <iostream>
+#include <tgen_core.h>
 
 namespace TGen {
 	namespace Engine {
@@ -126,9 +128,6 @@ namespace TGen {
 			T * linkedComponent;
 		};
 		
-		
-
-		typedef TGen::Engine::UnaryDelegate<TGen::Engine::Triggerable> EventDelegate;
 	} // !Engine
 } // !TGen
 

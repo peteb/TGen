@@ -12,7 +12,6 @@
 
 #include "component.h"
 #include "componentlink.h"
-#include "symbols.h"
 #include "color.h"
 
 namespace TGen {
@@ -28,7 +27,6 @@ namespace TGen {
 				WorldInfo(const std::string & name, TGen::Engine::World * world);
 				
 				void link(const TGen::Engine::ComponentLinker & linker);
-				void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 				
 				void setPlayerController(const std::string & name);
 				TGen::Engine::PlayerController * getPlayerController();
@@ -39,7 +37,6 @@ namespace TGen {
 			private:
 				TGen::Engine::UnaryDelegate<TGen::Engine::PlayerController> playerController;
 				
-				static TGen::Engine::Symbol symbolSetGravity, symbolGetGravity;
 				TGen::Engine::World * world;
 				TGen::Color ambientLight;
 			};

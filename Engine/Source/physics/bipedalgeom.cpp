@@ -13,8 +13,6 @@
 #include <iostream>
 #include <tgen_math.h>
 
-TGen::Engine::Symbol TGen::Engine::Physics::BipedalGeom::symbolMakeSloppy = TGen::Engine::getUniqueSymbol("setSloppy");
-
 TGen::Engine::Physics::BipedalGeom::BipedalGeom(const std::string & name, dSpaceID space, scalar capRadius, scalar length)
 	: TGen::Engine::Physics::Geom(name)
 	, capRadius(capRadius)
@@ -94,16 +92,4 @@ bool TGen::Engine::Physics::BipedalGeom::onCollision(TGen::Engine::Physics::Geom
 	return true;
 }
 
-void TGen::Engine::Physics::BipedalGeom::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::Symbol symbolNum = context.getRegister<TGen::Engine::Symbol>(0);
-	
-	if (symbolNum == symbolMakeSloppy) {
-		int isSloppy = context.getParameter<int>(2);
-		sloppy = isSloppy;
-	}
-	else {
-		TGen::Engine::Physics::Geom::trigger(context, mode);
-	}
-	
-}
 

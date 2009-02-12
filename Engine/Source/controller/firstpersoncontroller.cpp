@@ -368,7 +368,4 @@ void TGen::Engine::Controller::FirstPerson::setOrientation(const TGen::Rotation 
 	std::cout << "FP SET ORIENTATION" << std::endl;
 }
 
-void TGen::Engine::Controller::FirstPerson::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::PlayerController::trigger(context, mode);
-}
 

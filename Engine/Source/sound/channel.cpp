@@ -14,8 +14,6 @@
 
 #include "fmod/fmod_errors.h"
 
-TGen::Engine::Symbol TGen::Engine::Sound::Channel::symbolsSetUpdateVelocity = TGen::Engine::getUniqueSymbol("setUpdateVelocity:");
-
 TGen::Engine::Sound::Channel::Channel(FMOD::Channel * channel)
 	: channel(channel)
 	, updateVelocity(true)
@@ -101,13 +99,4 @@ void TGen::Engine::Sound::Channel::setUpdateVelocity(bool updateVelocity) {
 	this->updateVelocity = updateVelocity;
 }
 
-void TGen::Engine::Sound::Channel::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::Symbol function = context.getFunctionSymbol();
-	
-	if (function == symbolsSetUpdateVelocity) {
-		bool updateVelocity = context.getParameter<bool>(0);
-		
-		setUpdateVelocity(updateVelocity);
-	}
-}
 

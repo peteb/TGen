@@ -13,8 +13,6 @@
 #include "component.h"
 #include "worldobject.h"
 #include "componentlink.h"
-#include "triggerable.h"
-#include "symbols.h"
 
 #include <tgen_math.h>
 #include <ode/ode.h>
@@ -41,9 +39,7 @@ namespace TGen {
 				void link(const TGen::Engine::ComponentLinker & linker);
 				
 				dBodyID getBodyId() const;
-				
-				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
-				
+
 				void setPosition(const TGen::Vector3 & position);
 				TGen::Vector3 getPosition() const;
 				
@@ -103,10 +99,6 @@ namespace TGen {
 				bool onFloor, doUpdateFromScene;
 				scalar slope, fakeGrav;
 				
-				
-				// symbols
-				static TGen::Engine::Symbol symbolSetUpdateFromScene, symbolSetMaxAngularSpeed, 
-					symbolSetKillTorque, symbolTranslateTo, symbolResetForces, symbolAddForce;
 			};
 		} // !Physics
 	} // !Engine

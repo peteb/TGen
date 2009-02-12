@@ -13,8 +13,6 @@
 #include "componentlinker.h"
 #include <tgen_renderer.h>
 
-TGen::Engine::Symbol TGen::Engine::PlayerController::symbolSetIgnoreInput = TGen::Engine::getUniqueSymbol("setIgnoreInput");
-
 TGen::Engine::PlayerController::PlayerController(const std::string & name) 
 	: TGen::Engine::Component(name)
 	, ignoreInput(false)
@@ -105,23 +103,6 @@ TGen::Vector3 TGen::Engine::PlayerController::getPosition() const {
 
 TGen::Rotation TGen::Engine::PlayerController::getOrientation() const {
 	return TGen::Rotation::Identity;	
-}
-
-void TGen::Engine::PlayerController::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::Symbol sym = context.getFunctionSymbol();
-	
-	if (sym == symbolSetIgnoreInput) {		
-		bool lastValue = ignoreInput;
-		ignoreInput = context.getRegister<int>(2);
-		
-		if (ignoreInput && ignoreInput != lastValue) {
-			resetEvents();
-			viewDelta = TGen::Vector3::Zero;
-		}
-	}
-	else {
-		TGen::Engine::Component::trigger(context, mode);
-	}
 }
 
 void TGen::Engine::PlayerController::resetEvents() {

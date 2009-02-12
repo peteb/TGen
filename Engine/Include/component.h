@@ -11,8 +11,6 @@
 #define _TGEN_ENGINE_COMPONENT_H
 
 #include <string>
-#include "triggerable.h"
-#include "symbols.h"
 
 namespace TGen {
 	namespace Engine {
@@ -20,7 +18,7 @@ namespace TGen {
 		class EntityList;
 		class ComponentLinker;
 		
-		class Component : public TGen::Engine::Triggerable {
+		class Component {
 		public:
 			Component(const std::string & name, bool staticComponent = false);
 			virtual ~Component();
@@ -29,8 +27,7 @@ namespace TGen {
 			//virtual void linkGlobally(TGen::Engine::EntityList & entities, TGen::Engine::Entity & entity);
 
 			virtual void link(const TGen::Engine::ComponentLinker & linker);
-			virtual void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
-			
+
 			virtual void setEnabled(bool enabled) {}
 			
 			bool isStatic() const;
@@ -42,9 +39,6 @@ namespace TGen {
 			const std::string name;
 			const bool staticComponent;
 			TGen::Engine::Entity * owner;
-			
-		private:
-			static TGen::Engine::Symbol symbolGetEntity, symbolEnable, symbolDisable;
 		};
 	} // !Engine
 } // !TGen

@@ -16,22 +16,22 @@ TGen::Engine::Utilities::ObjectReference::ObjectReference(const std::string & na
 }
 
 void * TGen::Engine::Utilities::ObjectReference::getData() const {
-	return reinterpret_cast<void *>(reference.get());
+	return NULL; //reinterpret_cast<void *>(reference.get());
 }
 
 
 
 void TGen::Engine::Utilities::ObjectReference::prelink(const TGen::Engine::ComponentLinker & linker) {
-	reference.prelink(linker);		
+	//reference.prelink(linker);		
 }
 
 void TGen::Engine::Utilities::ObjectReference::link(const TGen::Engine::ComponentLinker & linker) {
-	reference.link(linker);
+	
 }
 
 
 void TGen::Engine::Utilities::ObjectReference::setObjectName(const std::string & name) {
-	reference.set(name);
+	
 }
 
 

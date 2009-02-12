@@ -10,6 +10,8 @@
 #ifndef _TGEN_ENGINE_COMPONENTINTERFACES_H
 #define _TGEN_ENGINE_COMPONENTINTERFACES_H
 
+#include <tgen_core.h>
+
 namespace TGen {
 	namespace Engine {		
 		class WeaponInterface {

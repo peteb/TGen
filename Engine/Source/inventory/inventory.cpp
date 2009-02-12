@@ -12,12 +12,6 @@
 
 // TODO: rename inventory -> itempool
 
-#define INVENTORY TGen::Engine::Inventory::Inventory
-
-TGen::Engine::Symbol INVENTORY::symbolSetItemValue = TGen::Engine::getUniqueSymbol("setItemValue:");
-TGen::Engine::Symbol INVENTORY::symbolGetItemValue = TGen::Engine::getUniqueSymbol("getItemValue:");
-TGen::Engine::Symbol INVENTORY::symbolIncreaseItemValue = TGen::Engine::getUniqueSymbol("increaseItem:with:");
-
 
 TGen::Engine::Inventory::Inventory::Inventory(const std::string & name)
 	: TGen::Engine::Component(name)
@@ -34,7 +28,6 @@ void TGen::Engine::Inventory::Inventory::addItem(const std::string & name, TGen:
 	if (items.find(name) != items.end())
 		throw TGen::RuntimeException("Inventory::addItem", "item '" + name + "' already defined");
 	
-	itemSymbols.insert(std::make_pair(TGen::Engine::getUniqueSymbol(name), item));
 	items.insert(std::make_pair(name, item));
 }
 
@@ -82,60 +75,5 @@ void TGen::Engine::Inventory::Inventory::setValue(TGen::Engine::Inventory::Item 
 	int postValue = item->value;
 	
 	std::cout << "PRE: " << preValue << " POST: " << postValue << std::endl;	
-}
-
-void TGen::Engine::Inventory::Inventory::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	TGen::Engine::Symbol symbolNum = context.getFunctionSymbol();
-	
-	// component.getOwner, if (owner == this || owner == null) delete;
-	// prototype med script skapar eventsen i den prototypen, men sätter owner till this. owner default är NULL
-	// initialize körs INTE på prototyp
-	/*
-		En LinkRef-klass borde finnas, templateas. LinkRef<PhysGeom> linkRef; linkRef.setTarget("string"); linkRef.setTarget(1);
-		Nja...... men ComponentLink! DET SKA FINNAS, templatead
-	 
-	 */
-	
-	
-	if (symbolNum == symbolSetItemValue) {
-		TGen::Engine::Symbol itemSymbol = context.getParameter<TGen::Engine::Symbol>(0);
-		int itemValue = 0;
-		
-		itemValue = context.getParameter<int>(1);
-		
-		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
-		if (iter != itemSymbols.end())
-			iter->second->setValue(itemValue);
-		else
-			context.setRegister<int>(0, -1);
-	}
-	else if (symbolNum == symbolGetItemValue) {
-		TGen::Engine::Symbol itemSymbol = context.getParameter<TGen::Engine::Symbol>(0);
-		
-		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
-		if (iter != itemSymbols.end()) {
-			std::cout << "RETURNING ITEM VALUE " << iter->second->value << std::endl;
-			context.setRegister<int>(context.getReturnRegister(), int(iter->second->value));				
-		}
-		else {
-			context.setRegister<int>(0, -1);
-		}
-	}
-	else if (symbolNum == symbolIncreaseItemValue) {
-		TGen::Engine::Symbol itemSymbol = context.getParameter<TGen::Engine::Symbol>(0);
-		int itemValue = context.getParameter<int>(1);
-
-		std::cout << "                INCREASE ITEM " << itemSymbol << " WITH " << itemValue << std::endl;
-
-		int ret = 0;
-		
-		ItemSymbolMap::iterator iter = itemSymbols.find(itemSymbol);
-		if (iter != itemSymbols.end())
-			ret = iter->second->increaseValue(itemValue);
-		else
-			context.setRegister<int>(0, -1);
-		
-		context.setRegister<int>(context.getReturnRegister(), ret);
-	}
 }
 

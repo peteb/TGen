@@ -14,7 +14,6 @@
 #include <tgen_math.h>
 #include "component.h"
 #include "worldobject.h"
-#include "symbols.h"
 #include "componentlink.h"
 
 namespace TGen {
@@ -39,7 +38,6 @@ namespace TGen {
 			virtual void link(const TGen::Engine::ComponentLinker & linker);
 			virtual void update(scalar dt) abstract;
 			virtual bool useRelativeView() const {return true; }
-			virtual void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 			
 			void beginEvent(int id);
 			void endEvent(int id);
@@ -75,8 +73,6 @@ namespace TGen {
 			TGen::Vector3 viewDelta, viewAbs;
 			
 			TGen::Engine::UnaryDelegate<TGen::Engine::Scene::Node> camera;
-			
-			static TGen::Engine::Symbol symbolSetIgnoreInput;
 		};
 		
 	} // !Engine

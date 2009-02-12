@@ -10,9 +10,6 @@
 #ifndef _TGEN_ENGINE_ENTITYRECIPE_H
 #define _TGEN_ENGINE_ENTITYRECIPE_H
 
-#include "triggerable.h"
-#include "symbols.h"
-
 #include <string>
 #include <vector>
 #include <map>
@@ -24,14 +21,13 @@ namespace TGen {
 		class Entity;
 		class ComponentLinker;
 		
-		class EntityRecipe : public TGen::Engine::Triggerable {
+		class EntityRecipe {
 		public:
 			EntityRecipe(const std::string & name);
 			virtual ~EntityRecipe(); 
 			
 			void addComponentRecipe(TGen::Engine::ComponentRecipe * recipe, const std::string & name);
 			void prelink(const TGen::Engine::ComponentLinker & linker);
-			void trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode);
 			
 			TGen::Engine::Entity *				createEntity() const;
 			TGen::Engine::ComponentRecipe *	getComponentRecipe(const std::string & name, std::nothrow_t nth);
@@ -52,8 +48,6 @@ namespace TGen {
 
 			std::string name, worldInterfaceName;
 			int worldInterfaceIndex;
-
-			static TGen::Engine::Symbol symbolCreateEntity;
 		};
 		
 	} // !Engine

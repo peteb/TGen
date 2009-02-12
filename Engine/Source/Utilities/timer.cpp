@@ -25,17 +25,8 @@ void TGen::Engine::Utilities::Timer::link(const TGen::Engine::ComponentLinker & 
 	scriptInterface.link(linker);
 }
 
-void TGen::Engine::Utilities::Timer::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	if (!scriptInterface.trigger(context, mode))
-		TGen::Engine::Component::trigger(context, mode);
-}
-
 void TGen::Engine::Utilities::Timer::setEnabled(bool enabled) {
 	this->enabled = enabled;
-}
-
-void TGen::Engine::Utilities::Timer::setEventTick(const std::string & eventName) {
-	scriptInterface.setEventTick(eventName);
 }
 
 void TGen::Engine::Utilities::Timer::setInterval(scalar interval) {

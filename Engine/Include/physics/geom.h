@@ -13,7 +13,6 @@
 #include "component.h"
 #include <ode/ode.h>
 #include <tgen_core.h>
-#include "triggerable.h"
 #include "componentlink.h"
 #include "physics/bodydelegate.h"
 
@@ -32,8 +31,6 @@ namespace TGen {
 			public:
 				Geom(const std::string & name);
 				virtual ~Geom();
-				
-				virtual void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
 				
 				float getFriction() const;
 				void setFriction(float friction);
@@ -60,10 +57,7 @@ namespace TGen {
 				void setCollidesWith(uint collidesWith);
 				uint getCategory() const;
 				void setEnabled(bool enabled);
-				
-				void setEventCollisionForce(const std::string & eventName);
-				void setEventCollision(const std::string & eventName);
-				
+								
 				scalar collisionForceThreshold, collisionForceScale;
 
 				void setPosition(const TGen::Vector3 & position);				
@@ -83,11 +77,6 @@ namespace TGen {
 				uint categoryBits, collidesWith;
 				
 				TGen::Engine::Physics::BodyDelegate bodyDelegate;
-				TGen::Engine::EventDelegate eventCollisionForce;		// TODO: event for all collisions
-				TGen::Engine::EventDelegate eventCollision; 
-				
-				// symbols
-				static TGen::Engine::Symbol symbolGetLink;
 			};
 		} // !Physics
 	} // !Engine

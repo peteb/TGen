@@ -14,8 +14,6 @@
 #include "componentlinker.h"
 #include "worldobject.h"
 
-TGen::Engine::Symbol TGen::Engine::EntityRecipe::symbolCreateEntity = TGen::Engine::getUniqueSymbol("createEntity");
-
 TGen::Engine::EntityRecipe::EntityRecipe(const std::string & name) 
 	: name(name)
 	, worldInterfaceIndex(-1)
@@ -123,15 +121,5 @@ int TGen::Engine::EntityRecipe::getComponentIndex(const std::string & name) cons
 }
 
 
-void TGen::Engine::EntityRecipe::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	TGen::Engine::Symbol function = context.getFunctionSymbol();
-	
-	if (function == symbolCreateEntity) {
-		context.setReturn(createEntity());
-	}
-	else {
-		context.invalidateCall();	
-	}
-}
 
 

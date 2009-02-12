@@ -18,10 +18,6 @@
 
 using TGen::Engine::Sound::Channel;
 
-#define SOURCE TGen::Engine::Sound::Source
-
-TGen::Engine::Symbol SOURCE::symbolPlaySound = TGen::Engine::getUniqueSymbol("playSound:");
-
 TGen::Engine::Sound::Source::Source(const std::string & name, const std::string & filename, TGen::Engine::Sound::Subsystem & creator) 
 	: TGen::Engine::Component(name)
 	, filename(filename)
@@ -81,26 +77,6 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 	}
 }
 
-
-void TGen::Engine::Sound::Source::trigger(TGen::Engine::TriggerContext & context, TriggerMode mode) {
-	TGen::Engine::Symbol methodSymbol = context.getFunctionSymbol();
-	
-	if (methodSymbol == symbolPlaySound) {
-		uint32 soundId = context.getParameter<uint32>(0);
-		TGen::Engine::Sound::Sound * sound = reinterpret_cast<TGen::Engine::Sound::Sound *>(soundId);
-		
-		if (!sound)
-			throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
-		
-		TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
-		newChannel->setVolume(volume);
-		addChannel(newChannel);
-	}
-	else {
-		TGen::Engine::Component::trigger(context, mode);
-	}
-	
-}
 
 
 void TGen::Engine::Sound::Source::setAutoplay(bool autoplay) {

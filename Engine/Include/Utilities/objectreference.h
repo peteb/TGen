@@ -12,7 +12,6 @@
 
 #include "resourcecomponent.h"
 #include "componentlink.h"
-#include "triggerable.h"
 #include "componentrecipe.h"
 
 namespace TGen {
@@ -29,9 +28,6 @@ namespace TGen {
 				void prelink(const TGen::Engine::ComponentLinker & linker);
 				
 				TGen::Engine::Component * createComponent(const TGen::Engine::EntityRecipe & entity, TGen::Engine::Entity & constructing);
-				
-			private:
-				TGen::Engine::UnaryDelegate<TGen::Engine::Triggerable> reference;
 			};
 		} // !Utilities
 	} // !Engine

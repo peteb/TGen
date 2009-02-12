@@ -11,7 +11,6 @@
 #define _TGEN_ENGINE_PHYSICS_BIPEDALGEOM_H
 
 #include "physics/geom.h"
-#include "symbols.h"
 #include <tgen_core.h>
 
 namespace TGen {
@@ -25,16 +24,11 @@ namespace TGen {
 				void postStep();
 				void link(const TGen::Engine::ComponentLinker & linker);
 				bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
-				
-				void trigger(TGen::Engine::TriggerContext & context, TriggerMode mode);
-				
+								
 			private:
 				scalar capRadius, length;
 				dGeomID raylegs;
 				bool sloppy;
-				
-				// symbols
-				static TGen::Engine::Symbol symbolMakeSloppy;
 			};
 		} // !Physics
 	} // !Engine

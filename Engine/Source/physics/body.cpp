@@ -14,16 +14,6 @@
 
 using TGen::scalar;
 
-#define BODY TGen::Engine::Physics::Body
-
-TGen::Engine::Symbol BODY::symbolSetUpdateFromScene = TGen::Engine::getUniqueSymbol("setUpdateFromScene:");
-TGen::Engine::Symbol BODY::symbolSetMaxAngularSpeed = TGen::Engine::getUniqueSymbol("setMaxAngularSpeed:");
-TGen::Engine::Symbol BODY::symbolSetKillTorque = TGen::Engine::getUniqueSymbol("setKillTorque:");
-TGen::Engine::Symbol BODY::symbolTranslateTo = TGen::Engine::getUniqueSymbol("translateTo:");
-TGen::Engine::Symbol BODY::symbolResetForces = TGen::Engine::getUniqueSymbol("resetForces");
-TGen::Engine::Symbol BODY::symbolAddForce = TGen::Engine::getUniqueSymbol("addForceX:Y:Z:");
-
-
 TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId) 
 	: TGen::Engine::Component(name)
 	, bodyId(bodyId)
@@ -70,49 +60,6 @@ void TGen::Engine::Physics::Body::postStep() {
 	
 }
 
-
-void TGen::Engine::Physics::Body::trigger(TGen::Engine::TriggerContext & context, TGen::Engine::TriggerMode mode) {
-	TGen::Engine::Symbol symbolNum = context.getFunctionSymbol();
-	
-	if (symbolNum == symbolSetUpdateFromScene) {
-		int updateFromScene = context.getRegister<int>(2);
-		this->doUpdateFromScene = updateFromScene;
-	}
-	else if (symbolNum == symbolSetMaxAngularSpeed) {
-		scalar maxAngularSpeed = context.getRegister<scalar>(2);
-		
-		if (maxAngularSpeed < 0.0)
-			setMaxAngularSpeed(dInfinity);
-		else
-			setMaxAngularSpeed(maxAngularSpeed);
-	}
-	else if (symbolNum == symbolSetKillTorque) {
-		int killTorque = context.getRegister<int>(2);
-		
-		setKillTorque(killTorque);
-	}
-	else if (symbolNum == symbolTranslateTo) {
-		TGen::Engine::Component * transportTo = context.getParameterPtr<TGen::Engine::Component *>(0);
-		TGen::Engine::WorldObject * worldObject = dynamic_cast<TGen::Engine::WorldObject *>(transportTo);
-		
-		setPosition(worldObject->getPosition());
-		std::cout << "BODY TRANSPORT TO " << std::string(worldObject->getPosition()) << std::endl;
-
-		updateScene();
-		
-		//setOrientation(worldObject->getOrientation());
-	}
-	else if (symbolNum == symbolAddForce) {
-		TGen::Vector3 force(context.getParameter<scalar>(0), context.getParameter<scalar>(1), context.getParameter<scalar>(2));
-		addForce(force);
-	}
-	else if (symbolNum == symbolResetForces) {
-		resetForces();
-	}
-	else {
-		TGen::Engine::Component::trigger(context, mode);
-	}
-}
 
 
 void TGen::Engine::Physics::Body::link(const TGen::Engine::ComponentLinker & linker) {
