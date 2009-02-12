@@ -38,7 +38,13 @@ TGen::Engine::App::App(TGen::Engine::VariableRegister & variables, TGen::Engine:
 	TGen::Engine::WorldRendererFactory rendererFactory(logs);
 	
 	// TODO: man ser ju hur många referenser varje grej har... borde kunna lösas upp en hel del
-	worldRenderer = rendererFactory.createRenderer(variables["r_renderer"].getValue(), renderer, logs, variables, globalResources);
+	try {
+		worldRenderer = rendererFactory.createRenderer(variables["r_renderer"].getValue(), renderer, logs, variables, globalResources);
+	}
+	catch (const TGen::RuntimeException & error) {
+		throw TGen::RuntimeException("App::App/" + error.getWhere(), "Failed to create '" + variables["r_renderer"].getValue() + "' renderer: \n" + error.getDescription());
+	}
+	
 	currentState = new TGen::Engine::GameState(inputDevices, env, filesystem, variables, logs, *worldRenderer, globalResources, renderer);
 	
 	logs.info["app+"] << "initialized" << TGen::endl;
