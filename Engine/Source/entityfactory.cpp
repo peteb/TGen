@@ -17,6 +17,8 @@
 #include "objectreference.h"
 #include <tgen_core.h>
 
+#include "script/subsystem.h"		// TODO: UGH
+
 TGen::Engine::EntityFactory::EntityFactory(TGen::Engine::StandardLogs & logs)
 	: logs(logs)
 {
@@ -30,6 +32,11 @@ TGen::Engine::EntityFactory::~EntityFactory() {
 
 TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::PropertyTree & properties) {	
 	TGen::Engine::Entity * entity = new TGen::Engine::Entity(properties.getName());
+
+	// TODO: script entity should maybe be a component? :> remember to remove the delete in dtor for entity
+	TGen::Engine::Script::EntityScript * scriptInterface = dynamic_cast<TGen::Engine::Script::Subsystem *>(subsystems["script"])->createScriptEntity(properties.getName());
+	entity->setScriptInterface(scriptInterface);
+	
 	
 	TGen::PropertyTree props = properties;
 	
@@ -44,9 +51,11 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	}
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
-		TGen::Engine::Component * newComponent = createComponent(entity->getName(), props.getNode(i), entity);
+		TGen::Engine::Component * newComponent = createComponent(props.getNode(i), *entity);		// TODO: remove entityName, just use Entity *.
+
 		entity->addComponent(newComponent, newComponent->getName());
 	}
+	
 	
 	//entity->link(TGen::Engine::ComponentLinker(NULL, NULL));
 	
@@ -54,7 +63,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 }
 
 
-TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std::string & entityName, const TGen::PropertyTree & properties, TGen::Engine::Entity * entity) const {
+TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const TGen::PropertyTree & properties, TGen::Engine::Entity & entity) const {
 	SubsystemMap::const_iterator iter = subsystems.find(properties.getName());
 
 	TGen::Engine::Component * ret = NULL;
@@ -64,7 +73,7 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 		componentName = properties.getAttribute(0);
 	
 	if (iter != subsystems.end()) {
-		ret = iter->second->createComponent(componentName, entityName, properties);		
+		ret = iter->second->createComponent(componentName, entity, properties);		
 	}
 	else {
 		throw TGen::RuntimeException("EntityFactory::createComponent", "no registered subsystem for component type '") << properties.getName() << "'";
@@ -74,7 +83,7 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const std
 	//if (ret && ret->isStatic())
 	//	ret->setOwner(entity);		// owner = NULL if the component should be cloned
 	if (!ret)
-		throw TGen::RuntimeException("EntityFactory::createComponent", "failed to create component " + entityName + ":" + componentName);
+		throw TGen::RuntimeException("EntityFactory::createComponent", "failed to create component " + entity.getName() + ":" + componentName);
 	
 	return ret;
 }

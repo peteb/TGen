@@ -65,7 +65,7 @@ TGen::Engine::Sound::Subsystem::~Subsystem() {
 }
 
 
-TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties) {
 	std::string filename = properties.getProperty("sound", "");
 	TGen::Engine::Sound::Source * ret = NULL;
 	
@@ -102,10 +102,10 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 TGen::Engine::ComponentRecipe * TGen::Engine::Sound::Subsystem::createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
 	std::cout << "RECIPE: " << name << std::endl;
 
-	if (properties.getName() == "soundRef") {
+	/*if (properties.getName() == "soundRef") {
 		return new TGen::Engine::StaticComponentRecipe(name, createComponent(name, entityName, properties));
 	}
-	else if (properties.getName() != "soundLocal") {
+	else */if (properties.getName() != "soundLocal") {
 		throw TGen::RuntimeException("Sound::Subsystem::createComponentRecipe", "can only create local sounds with recipes, failed at " + properties.getName());
 	}
 	

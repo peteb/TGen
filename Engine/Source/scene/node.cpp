@@ -16,11 +16,12 @@
 
 #include <tgen_renderer.h>
 
-TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * sceneNode) 
+TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * sceneNode, TGen::Engine::Entity & entity) 
 	: TGen::Engine::Component(name)
 	, sceneNode(sceneNode)
 	, changed(true)
 	, parentInverseTransform(TGen::Matrix4x4::Identity)
+	, scriptInterface(name, entity.getScriptInterface())
 {
 	
 }

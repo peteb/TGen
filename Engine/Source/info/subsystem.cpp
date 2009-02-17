@@ -16,7 +16,7 @@ TGen::Engine::Info::Subsystem::Subsystem()
 {
 }
 
-TGen::Engine::Component * TGen::Engine::Info::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties)
+TGen::Engine::Component * TGen::Engine::Info::Subsystem::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties)
 {
 	TGen::Engine::Component * ret = NULL;
 

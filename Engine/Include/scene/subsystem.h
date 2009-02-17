@@ -35,7 +35,7 @@ namespace TGen {
 				void update(scalar delta);
 				void addComponent(TGen::Engine::Scene::Node * node, const std::string & name);
 
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties);
 				TGen::Engine::Scene::NodeRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				
 				TGen::Engine::Scene::Node * getComponent(const std::string & name);

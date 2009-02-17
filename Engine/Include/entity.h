@@ -13,6 +13,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include "script/entityscript.h"
 
 namespace TGen {
 	namespace Engine {
@@ -30,6 +31,9 @@ namespace TGen {
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
 			void initialize();
 			void setWorldInterface(TGen::Engine::WorldObject * worldInterface);
+			void setScriptInterface(TGen::Engine::Script::EntityScript * scriptInterface);
+			
+			TGen::Engine::Script::EntityScript * getScriptInterface() const;
 			
 			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
 			TGen::Engine::Component & getComponent(const std::string & name);
@@ -41,14 +45,13 @@ namespace TGen {
 			
 		private:
 			typedef std::map<std::string, TGen::Engine::Component *> ComponentMap;
-			typedef std::map<int, TGen::Engine::Component *> ComponentSymbolMap;
 
 			std::vector<TGen::Engine::Component *> components;
-			
 			ComponentMap componentLookup;			
 
 			std::string name;
 			TGen::Engine::WorldObject * worldInterface;
+			TGen::Engine::Script::EntityScript * scriptInterface;
 		}; 
 		
 		

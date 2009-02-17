@@ -29,7 +29,7 @@ void TGen::Engine::Controller::Subsystem::update(scalar dt) {
 }
 
 
-TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties) {
 	TGen::Engine::PlayerController * ret = NULL;
 	
 	std::string type = properties.getProperty("type", "none");
@@ -68,7 +68,7 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 	ret->setCamera(properties.getProperty("camera", ""));
 	
 	
-	controllers.insert(std::make_pair(entityName, ret));
+	controllers.insert(std::make_pair(entity.getName(), ret));
 	
 	return ret;
 }

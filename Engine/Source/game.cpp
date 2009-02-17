@@ -35,9 +35,10 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 {
 	logs.info["gst+"] << "entering game state..." << endl;
 	
-	if (!throttledNewMap.empty()) {
+	//if (!throttledNewMap.empty()) {			// TODO: uncommenting this will make it possible to start a world without the level setting
 		std::cout << "a throttled map!" << std::endl;
 		
+	
 		
 		// heavy, show some graphics.
 		// just start with a simple fading green screen or something, multithreaded
@@ -51,7 +52,9 @@ TGen::Engine::GameState::GameState(TGen::Engine::DeviceCollection & inputDevices
 		
 		throttledNewMap = "";
 		postWorldCreation(*currentWorld);
-	}
+	
+	
+	//}
 
 	inputDevices.enterMode(TGen::Engine::DefaultMode);
 	inputDevices.enterMode(TGen::Engine::RelativeMode);

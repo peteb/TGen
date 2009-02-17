@@ -43,7 +43,7 @@ TGen::Engine::Scene::Subsystem::~Subsystem() {
 }
 
 
-TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties) {
 	bool doCreateNode = properties.getName() == "sceneNode";
 	bool doCreateCamera = properties.getName() == "sceneCamera";
 	bool doCreateLight = properties.getName() == "sceneLight";
@@ -58,7 +58,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	std::string useName = name;
 	
 	if (useName == properties.getName())
-		useName = entityName;
+		useName = entity.getName();
 	
 	if (doCreateCamera)
 		sceneNode = createCameraNode(useName, properties);
@@ -80,7 +80,7 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	
 	sceneRoot.addChild(sceneNode);
 	
-	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode);
+	TGen::Engine::Scene::Node * newComponent = new TGen::Engine::Scene::Node(name, sceneNode, entity);
 
 	addComponent(newComponent, name);
 	

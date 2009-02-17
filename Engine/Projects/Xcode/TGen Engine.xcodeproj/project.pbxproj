@@ -78,6 +78,9 @@
 		D07E33CC0E61A01100B3E7A2 /* componentfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E33CB0E61A01100B3E7A2 /* componentfactory.cpp */; };
 		D07E352F0E61C5EB00B3E7A2 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E352E0E61C5EB00B3E7A2 /* subsystem.cpp */; };
 		D07E355A0E61C7BC00B3E7A2 /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E35590E61C7BC00B3E7A2 /* timer.cpp */; };
+		D07F47580F4AF1010050D30F /* entityscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F47570F4AF1010050D30F /* entityscript.cpp */; };
+		D07F490D0F4B0A380050D30F /* scenescript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F490C0F4B0A380050D30F /* scenescript.cpp */; };
+		D07F49810F4B0DC90050D30F /* componentscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F49800F4B0DC90050D30F /* componentscript.cpp */; };
 		D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */; };
 		D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */; };
 		D08140800E300F0F0024534F /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D081407F0E300F0F0024534F /* component.cpp */; };
@@ -415,6 +418,12 @@
 		D07E352E0E61C5EB00B3E7A2 /* subsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = subsystem.cpp; path = Utilities/subsystem.cpp; sourceTree = "<group>"; };
 		D07E35580E61C7B000B3E7A2 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer.h; path = ../../Include/Utilities/timer.h; sourceTree = SOURCE_ROOT; };
 		D07E35590E61C7BC00B3E7A2 /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = timer.cpp; path = Utilities/timer.cpp; sourceTree = "<group>"; };
+		D07F47570F4AF1010050D30F /* entityscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = entityscript.cpp; path = script/entityscript.cpp; sourceTree = "<group>"; };
+		D07F47590F4AF1150050D30F /* entityscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = entityscript.h; path = ../../Include/script/entityscript.h; sourceTree = SOURCE_ROOT; };
+		D07F490C0F4B0A380050D30F /* scenescript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scenescript.cpp; path = scene/scenescript.cpp; sourceTree = "<group>"; };
+		D07F490E0F4B0A4D0050D30F /* scenescript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenescript.h; path = ../../Include/scene/scenescript.h; sourceTree = SOURCE_ROOT; };
+		D07F497F0F4B0DB60050D30F /* componentscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentscript.h; path = ../../Include/script/componentscript.h; sourceTree = SOURCE_ROOT; };
+		D07F49800F4B0DC90050D30F /* componentscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentscript.cpp; path = script/componentscript.cpp; sourceTree = "<group>"; };
 		D080DA3E0D27E8AE00EEFDFC /* mapmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapmodel.h; path = ../../Include/mapmodel.h; sourceTree = SOURCE_ROOT; };
 		D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapmodel.cpp; sourceTree = "<group>"; };
 		D080DA840D27EC9300EEFDFC /* mapsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapsurface.h; path = ../../Include/mapsurface.h; sourceTree = SOURCE_ROOT; };
@@ -951,6 +960,10 @@
 				D07BDC7A0E28E7230070CC83 /* subsystem.h */,
 				D052CAE10E59C4D2000AF567 /* componentfactory.cpp */,
 				D052CAE00E59C4C4000AF567 /* componentfactory.h */,
+				D07F47570F4AF1010050D30F /* entityscript.cpp */,
+				D07F47590F4AF1150050D30F /* entityscript.h */,
+				D07F49800F4B0DC90050D30F /* componentscript.cpp */,
+				D07F497F0F4B0DB60050D30F /* componentscript.h */,
 			);
 			name = script;
 			sourceTree = "<group>";
@@ -1173,6 +1186,8 @@
 				D0843C100D075B0100C31FE3 /* subsystem.h */,
 				D0843BD40D0759D200C31FE3 /* node.cpp */,
 				D0843BD30D0759D200C31FE3 /* node.h */,
+				D07F490C0F4B0A380050D30F /* scenescript.cpp */,
+				D07F490E0F4B0A4D0050D30F /* scenescript.h */,
 				D072BC770E01645200999FC2 /* noderecipe.cpp */,
 				D072BC720E0163F000999FC2 /* noderecipe.h */,
 				D0170FE90DE8B454007380B9 /* transformnode.cpp */,
@@ -1578,6 +1593,9 @@
 				D07DE7C10E69955D00C6B35C /* worldobject.cpp in Sources */,
 				D08D37D90EC3C2C800F23C18 /* renderer.cpp in Sources */,
 				D0A97C120F2CD06B0049CFCC /* renderervars.cpp in Sources */,
+				D07F47580F4AF1010050D30F /* entityscript.cpp in Sources */,
+				D07F490D0F4B0A380050D30F /* scenescript.cpp in Sources */,
+				D07F49810F4B0DC90050D30F /* componentscript.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

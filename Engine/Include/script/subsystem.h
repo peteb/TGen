@@ -22,19 +22,23 @@ namespace TGen {
 		
 		namespace Script {
 			const char * LuaChunkReader(lua_State * vm, void * data, size_t * size);
+			class EntityScript;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
 				Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, const std::string & mapname);
 				~Subsystem();
 				
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				lua_State * getLuaContext() const;
+				TGen::Engine::Script::EntityScript * createScriptEntity(const std::string & name);
 				
+				lua_State * getLuaContext() const;
+
+				void executeScripts(const std::string & path);
+
 			private: 
 				void initializeLua(const std::string & mapname);
-				void loadScripts(const std::string & path);
 				void loadScriptFile(const std::string & filename);
 				
 				TGen::Engine::StandardLogs & logs;

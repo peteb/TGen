@@ -56,7 +56,7 @@ TGen::Engine::Physics::Subsystem::~Subsystem() {
 }
 
 
-TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties) {
 	std::string type = properties.getName();
 	TGen::Engine::Component * ret = NULL;
 	

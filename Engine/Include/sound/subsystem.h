@@ -36,7 +36,7 @@ namespace TGen {
 				void link();
 				void addLocalSource(TGen::Engine::Sound::LocalSource * source);
 
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 
 				TGen::Engine::Sound::Sound * getSound(const std::string & name);

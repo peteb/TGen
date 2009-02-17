@@ -15,6 +15,7 @@
 TGen::Engine::Entity::Entity(const std::string & name)
 	: name(name)
 	, worldInterface(NULL)
+	, scriptInterface(NULL)
 {
 }
 
@@ -24,6 +25,8 @@ TGen::Engine::Entity::~Entity() {
 		if (components[i]->isStatic() == false)
 			delete components[i];
 	}
+	
+	delete scriptInterface;
 }
 
 
@@ -51,7 +54,14 @@ void TGen::Engine::Entity::setWorldInterface(TGen::Engine::WorldObject * worldIn
 	this->worldInterface = worldInterface;
 }
 
+void TGen::Engine::Entity::setScriptInterface(TGen::Engine::Script::EntityScript * scriptInterface) {
+	delete this->scriptInterface;
+	this->scriptInterface = scriptInterface;
+}
 
+TGen::Engine::Script::EntityScript * TGen::Engine::Entity::getScriptInterface() const {
+	return scriptInterface;
+}
 
 void TGen::Engine::Entity::addComponent(TGen::Engine::Component * component, const std::string & name) {
 	std::cout << "ADDCOMP " << name << " to " << this->name << std::endl;

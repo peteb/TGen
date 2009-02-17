@@ -18,6 +18,7 @@ namespace TGen {
 	namespace Engine {
 		class ComponentRecipe;
 		class Component;
+		class Entity;
 		
 		namespace Script {
 			class Subsystem;
@@ -27,7 +28,7 @@ namespace TGen {
 			public:
 				ComponentFactory(TGen::Engine::Script::Subsystem & subsystem);
 				
-				TGen::Engine::Component * createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
+				TGen::Engine::Component * createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				
 			private:

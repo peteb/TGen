@@ -51,19 +51,20 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	entityFactory.registerSubsystem("soundLocal", &soundSubsystem);
 	entityFactory.registerSubsystem("soundGlobal", &soundSubsystem);
-	entityFactory.registerSubsystem("soundRef", &soundSubsystem);
+	//entityFactory.registerSubsystem("soundRef", &soundSubsystem);
 	
 	entityFactory.registerSubsystem("inventory", &inventorySubsystem);
 	entityFactory.registerSubsystem("weapon", &inventorySubsystem);
 	
-	entityFactory.registerSubsystem("event", &scriptSubsystem);
-	entityFactory.registerSubsystem("-event", &scriptSubsystem);
-
+//	entityFactory.registerSubsystem("event", &scriptSubsystem);
+	//entityFactory.registerSubsystem("-event", &scriptSubsystem);
+	entityFactory.registerSubsystem("script", &scriptSubsystem);
+	
 	entityFactory.registerSubsystem("worldInfo", &infoSubsystem);
 	
 	entityFactory.registerSubsystem("timer", &utilsSubsystem);
-	entityFactory.registerSubsystem("objectRef", &utilsSubsystem);
-	entityFactory.registerSubsystem("prototypeRef", &utilsSubsystem);
+	//entityFactory.registerSubsystem("objectRef", &utilsSubsystem);
+	//entityFactory.registerSubsystem("prototypeRef", &utilsSubsystem);
 	
 	// TODO: this class is a hog
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
@@ -86,11 +87,12 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	loadDefinitions("/definitions/");	
 	
 	logs.info["world+"] << "   loading entities..." << TGen::endl;
-	loadDefinitions("/maps/" + mapname + "/entities/");
+	//loadDefinitions("/maps/" + mapname + "/entities/");
 	
+	loadDefinitions("/entities/");		// TODO: this should be the only entities folder
 	
-	if (entities.numEntities() == 0)
-		throw TGen::RuntimeException("World::World", "No entities defined; invalid filesystem for \"" + mapname + "\".");
+	//if (entities.numEntities() == 0)
+	//	throw TGen::RuntimeException("World::World", "No entities defined; invalid filesystem for \"" + mapname + "\".");
 	
 	
 	logs.info["world+"] << "   linking entities" << TGen::endl;
@@ -106,6 +108,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	logs.info["world+"] << "   linking physics subsystem..." << TGen::endl;
 	physicsSubsystem.link();
 	
+	scriptSubsystem.executeScripts("/scripts/");
 	logs.info["world+"] << "   world created" << TGen::endl;
 }
 

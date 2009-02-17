@@ -13,6 +13,7 @@
 #include "file.h"
 #include "lua/lua.hpp"
 
+#include "script/entityscript.h"
 
 TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, const std::string & mapname)
 	: logs(logs)
@@ -29,8 +30,8 @@ TGen::Engine::Script::Subsystem::~Subsystem() {
 }
 
 
-TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
-	return componentFactory.createComponent(name, entityName, properties);
+TGen::Engine::Component * TGen::Engine::Script::Subsystem::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties) {
+	return componentFactory.createComponent(name, entity, properties);
 }
 
 
@@ -38,6 +39,9 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Script::Subsystem::createComponent
 	return componentFactory.createComponentRecipe(name, entityName, properties);
 }
 
+TGen::Engine::Script::EntityScript * TGen::Engine::Script::Subsystem::createScriptEntity(const std::string & name) {
+	return new TGen::Engine::Script::EntityScript(name, *this);
+}
 
 lua_State * TGen::Engine::Script::Subsystem::getLuaContext() const {
 	return vm;
@@ -51,12 +55,15 @@ void TGen::Engine::Script::Subsystem::initializeLua(const std::string & mapname)
 	
 	luaL_openlibs(vm);
 	
-	loadScripts("/scripts/");
-	loadScripts("/maps/" + mapname + "/scripts/");
+	lua_newtable(vm);	
+	lua_setglobal(vm, "entities");
+	
+	//loadScripts("/scripts/");
+	//loadScripts("/maps/" + mapname + "/scripts/");
 }
 
 
-void TGen::Engine::Script::Subsystem::loadScripts(const std::string & path) {
+void TGen::Engine::Script::Subsystem::executeScripts(const std::string & path) {
 	std::vector<std::string> files;
 	filesystem.enumerateFiles(path, files, true);
 	

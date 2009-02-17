@@ -23,7 +23,7 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Script::ComponentFactory::createCo
 }
 
 
-TGen::Engine::Component * TGen::Engine::Script::ComponentFactory::createComponent(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties) {
+TGen::Engine::Component * TGen::Engine::Script::ComponentFactory::createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties) {
 	TGenAssert(0);
 	return NULL;	
 }
