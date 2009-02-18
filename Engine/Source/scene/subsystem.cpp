@@ -133,7 +133,7 @@ TGen::Engine::Scene::NodeRecipe * TGen::Engine::Scene::Subsystem::createComponen
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {	
 	TGen::Camera * camera = new TGen::Camera(properties.getProperty("globalName", name), 
-														  TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")), 
+														  TGen::Vector3::Parse(properties.getProperty("origin", properties.getProperty("position", "0 0 0"))), 
 														  TGen::Rotation::Identity);
 	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));

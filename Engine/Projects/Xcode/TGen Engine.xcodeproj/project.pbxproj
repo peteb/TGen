@@ -81,6 +81,7 @@
 		D07F47580F4AF1010050D30F /* entityscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F47570F4AF1010050D30F /* entityscript.cpp */; };
 		D07F490D0F4B0A380050D30F /* scenescript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F490C0F4B0A380050D30F /* scenescript.cpp */; };
 		D07F49810F4B0DC90050D30F /* componentscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F49800F4B0DC90050D30F /* componentscript.cpp */; };
+		D07F4CB80F4CAA7E0050D30F /* scriptstate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07F4CB70F4CAA7E0050D30F /* scriptstate.cpp */; };
 		D080DA400D27E8BC00EEFDFC /* mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */; };
 		D080DA860D27EC9D00EEFDFC /* mapsurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D080DA850D27EC9D00EEFDFC /* mapsurface.cpp */; };
 		D08140800E300F0F0024534F /* component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D081407F0E300F0F0024534F /* component.cpp */; };
@@ -424,6 +425,8 @@
 		D07F490E0F4B0A4D0050D30F /* scenescript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scenescript.h; path = ../../Include/scene/scenescript.h; sourceTree = SOURCE_ROOT; };
 		D07F497F0F4B0DB60050D30F /* componentscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentscript.h; path = ../../Include/script/componentscript.h; sourceTree = SOURCE_ROOT; };
 		D07F49800F4B0DC90050D30F /* componentscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentscript.cpp; path = script/componentscript.cpp; sourceTree = "<group>"; };
+		D07F4CB70F4CAA7E0050D30F /* scriptstate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scriptstate.cpp; path = script/scriptstate.cpp; sourceTree = "<group>"; };
+		D07F4CB90F4CAA8E0050D30F /* scriptstate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scriptstate.h; path = ../../Include/script/scriptstate.h; sourceTree = SOURCE_ROOT; };
 		D080DA3E0D27E8AE00EEFDFC /* mapmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapmodel.h; path = ../../Include/mapmodel.h; sourceTree = SOURCE_ROOT; };
 		D080DA3F0D27E8BC00EEFDFC /* mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapmodel.cpp; sourceTree = "<group>"; };
 		D080DA840D27EC9300EEFDFC /* mapsurface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapsurface.h; path = ../../Include/mapsurface.h; sourceTree = SOURCE_ROOT; };
@@ -964,6 +967,8 @@
 				D07F47590F4AF1150050D30F /* entityscript.h */,
 				D07F49800F4B0DC90050D30F /* componentscript.cpp */,
 				D07F497F0F4B0DB60050D30F /* componentscript.h */,
+				D07F4CB70F4CAA7E0050D30F /* scriptstate.cpp */,
+				D07F4CB90F4CAA8E0050D30F /* scriptstate.h */,
 			);
 			name = script;
 			sourceTree = "<group>";
@@ -1596,6 +1601,7 @@
 				D07F47580F4AF1010050D30F /* entityscript.cpp in Sources */,
 				D07F490D0F4B0A380050D30F /* scenescript.cpp in Sources */,
 				D07F49810F4B0DC90050D30F /* componentscript.cpp in Sources */,
+				D07F4CB80F4CAA7E0050D30F /* scriptstate.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,6 +12,7 @@
 
 #include "../subsystem.h"
 #include "componentfactory.h"
+#include "script/scriptstate.h"
 
 struct lua_State;
 
@@ -21,7 +22,6 @@ namespace TGen {
 		class Filesystem;
 		
 		namespace Script {
-			const char * LuaChunkReader(lua_State * vm, void * data, size_t * size);
 			class EntityScript;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
@@ -33,19 +33,18 @@ namespace TGen {
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 				TGen::Engine::Script::EntityScript * createScriptEntity(const std::string & name);
 				
-				lua_State * getLuaContext() const;
-
+				ScriptState & getScriptState();
+				
 				void executeScripts(const std::string & path);
 
 			private: 
-				void initializeLua(const std::string & mapname);
 				void loadScriptFile(const std::string & filename);
 				
 				TGen::Engine::StandardLogs & logs;
 				TGen::Engine::Filesystem & filesystem;
 				TGen::Engine::Script::ComponentFactory componentFactory;
 				
-				lua_State * vm;
+				TGen::Engine::Script::ScriptState scriptState;
 			};
 			
 		} // !Script

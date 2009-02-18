@@ -21,7 +21,7 @@ TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * scen
 	, sceneNode(sceneNode)
 	, changed(true)
 	, parentInverseTransform(TGen::Matrix4x4::Identity)
-	, scriptInterface(name, entity.getScriptInterface())
+	, scriptInterface(name, this, entity.getScriptInterface())
 {
 	
 }
