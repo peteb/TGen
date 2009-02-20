@@ -77,7 +77,7 @@ void TGen::Engine::Script::ScriptState::setFunction(const std::string & name, in
 	setField(-2, name);
 }
 
-void TGen::Engine::Script::ScriptState::getTable(const std::string & name) {
+void TGen::Engine::Script::ScriptState::getTableValue(const std::string & name) {
 	lua_pushstring(vm, name.c_str());
 	lua_gettable(vm, -2);
 }
