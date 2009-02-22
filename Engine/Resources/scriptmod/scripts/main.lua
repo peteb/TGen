@@ -12,16 +12,13 @@ for k,v in pairs(entities) do
 		print("*** Entity created: " .. self:name());
 	end
 	
-	print("   components:");
+	--print("   components:");
 	
-	for k,v in pairs(v) do
-		print("      "..k);
-		
-		
-		if (type(v) == "table" and v.worldPosition) then
-			print("         worldpos: " .. v:worldPosition());
-		end
-	end
+	--for k,v in pairs(v) do
+	--	if (type(v) == "table" and v.worldPosition) then
+	--		print("         worldpos: " .. v:worldPosition());
+	--	end
+	--end
 end
 
 
@@ -32,3 +29,4 @@ print("Local position: " .. entities.box1.sceneNode:localPosition());
 
 print("Added: " .. worldPos + vec3.new(0.0, 2.0, 1.0));
 
+-- sceneNode:setMaterial(scene.material("myfunkymaterial"))

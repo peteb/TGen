@@ -3,11 +3,21 @@ world {
 	sceneNode {
 		origin "1 2 3" 
 	}
+	
+	worldInfo {
+		ambientLight ".1 .1 .1"
+		playerController player:controller
+		gravity "0 0 0"
+	}
 }
 
 box1 {
 	sceneNode {
 		parent world:sceneNode
 		origin "5 4 3"
+		
+		model "gen:cube width 1.0 height 1.0 depth 1.0"
+		
+		// TODO: default player controller, just position the camera infront of 0,0,0
 	}
 }
