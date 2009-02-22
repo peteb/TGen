@@ -29,7 +29,8 @@ namespace TGen {
 				SceneScript(const std::string & name, TGen::Engine::Scene::Node * sceneNode, TGen::Engine::Script::EntityScript * entityScript);
 				~SceneScript();
 				
-				static int luaGetPosition(lua_State * vm);
+				static int luaWorldPosition(lua_State * vm);
+				static int luaLocalPosition(lua_State * vm);
 				
 			private:
 				TGen::Engine::Script::ComponentScript * scriptComponent;

@@ -15,6 +15,8 @@
 class lua_State;
 
 namespace TGen {
+	class Vector3;
+
 	namespace Engine {
 		class File;
 		
@@ -35,10 +37,14 @@ namespace TGen {
 				void pushFunction(int (*func) (lua_State *L));
 				void pushString(const std::string & val);
 				
+				void pushVector(const TGen::Vector3 & vec);
+				
+				
 				void setField(int index, const std::string & name);
 				void getField(int index, const std::string & name);
 				
 				void pop(int count);
+				void call(int nargs, int nresults);
 				
 				void getTableValue(const std::string & name);
 				void setUserData(const std::string & name, void * data);

@@ -1,0 +1,10 @@
+
+// depth write only material
+
+material forward/depth default 9 {
+	lod 9 {
+		pass depth {
+
+		}
+	}
+}

@@ -87,7 +87,7 @@ void TGen::Engine::Inventory::FireMode::fire() {
 	object.setPosition(spawnOrigin->getPosition());
 	object.setOrientation(direction);
 	
-	newEntity->initialize();
+	newEntity->onCreation();
 }
 
 void TGen::Engine::Inventory::FireMode::setOrigin(const std::string & originName) {

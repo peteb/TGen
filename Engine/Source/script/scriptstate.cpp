@@ -8,6 +8,7 @@
  */
 
 #include <tgen_core.h>
+#include <tgen_math.h>
 #include "scriptstate.h"
 #include "lua/lua.hpp"
 #include "file.h"
@@ -88,6 +89,32 @@ void * TGen::Engine::Script::ScriptState::toUserData(int index) {
 
 void TGen::Engine::Script::ScriptState::pushString(const std::string & val) {
 	lua_pushstring(vm, val.c_str());
+}
+
+void TGen::Engine::Script::ScriptState::pushVector(const TGen::Vector3 & vec) {
+	lua_createtable(vm, 3, 3);
+
+	lua_getglobal(vm, "vec3");
+	if (lua_isnil(vm, -1))
+		exit(34);
+	
+	lua_setmetatable(vm, -2);
+	
+	
+	lua_pushnumber(vm, vec.x);
+	lua_setfield(vm, -2, "x");
+	
+	lua_pushnumber(vm, vec.y);
+	lua_setfield(vm, -2, "y");
+	
+	lua_pushnumber(vm, vec.z);
+	lua_setfield(vm, -2, "z");
+	
+	
+}
+
+void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
+	lua_call(vm, nargs, nresults);
 }
 
 void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file, const std::string & name) {

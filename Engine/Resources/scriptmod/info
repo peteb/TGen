@@ -1,0 +1,23 @@
+game {
+	version 0 0 1
+	name "-- TGen Scriptmod --"	
+	author "Peter Backman"
+
+	search {	// TODO
+		file1.pak
+		file3.pak
+	}
+	
+	vars {
+	
+	}
+	
+	deps {
+
+	}
+	
+	autoexec {
+		autoexec
+		vardump	
+	}
+}

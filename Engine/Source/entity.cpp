@@ -41,12 +41,13 @@ void TGen::Engine::Entity::link(const TGen::Engine::ComponentLinker & linker) {
 			throw TGen::RuntimeException("Entity::link", "Failed to link component '" + getName() + ":" + iter->second->getName() + "':\n" + err.getWhere() + ": " + err.getDescription());
 		}
 	}
-	
-	initialize();
 }
 
-void TGen::Engine::Entity::initialize() {
-
+void TGen::Engine::Entity::onCreation() {
+	std::cout << "Entity Initialize" << std::endl;
+	
+	if (scriptInterface)
+		scriptInterface->onCreation();
 }
 
 

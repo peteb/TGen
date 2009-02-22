@@ -1,0 +1,13 @@
+
+world {
+	sceneNode {
+		origin "1 2 3" 
+	}
+}
+
+box1 {
+	sceneNode {
+		parent world:sceneNode
+		origin "5 4 3"
+	}
+}

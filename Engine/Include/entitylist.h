@@ -25,6 +25,7 @@ namespace TGen {
 			~EntityList();
 			
 			void link();
+			void initialize();
 			void addEntity(TGen::Engine::Entity * entity);
 			void addPrototype(TGen::Engine::EntityRecipe * recipe);
 			int numEntities() const;

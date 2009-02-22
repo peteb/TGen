@@ -45,9 +45,9 @@ TGen::Engine::Script::ScriptState & TGen::Engine::Script::Subsystem::getScriptSt
 	return scriptState;
 }
 
-void TGen::Engine::Script::Subsystem::executeScripts(const std::string & path) {
+void TGen::Engine::Script::Subsystem::executeScripts(const std::string & path, bool recurse) {
 	std::vector<std::string> files;
-	filesystem.enumerateFiles(path, files, true);
+	filesystem.enumerateFiles(path, files, recurse);
 	
 	for (int i = 0; i < files.size(); ++i) {
 		TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(files[i]);

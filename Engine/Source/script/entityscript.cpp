@@ -23,7 +23,7 @@ TGen::Engine::Script::EntityScript::EntityScript(const std::string & name, TGen:
 	scriptState.newTable();
 	
 	scriptState.setUserData("_objectSelf", this);
-	scriptState.setFunction("getName", luaGetName);
+	scriptState.setFunction("name", luaGetName);
 	
 	scriptState.setField(-2, name);
 	scriptState.pop(1);
@@ -52,6 +52,29 @@ TGen::Engine::Script::ComponentScript * TGen::Engine::Script::EntityScript::crea
 	scriptState.pop(1);
 	
 	return scriptComponent.release();
+}
+
+void TGen::Engine::Script::EntityScript::onCreation() {
+	// TODO: optimize using the register table, look up based on 'this' pointer
+	
+	ScriptState & scriptState = creator.getScriptState();
+	lua_State * vm = scriptState.getState();
+	
+	scriptState.getGlobal("entities");
+	scriptState.getField(-1, this->name);
+	scriptState.getField(-1, "onCreation");
+	
+	if (!lua_isnil(vm, -1)) {
+		scriptState.getGlobal("entities");
+		scriptState.getField(-1, this->name);
+		lua_remove(vm, -2);
+		
+		scriptState.call(1, 0);
+		scriptState.pop(2);
+	}
+	else {
+		scriptState.pop(3);
+	}	
 }
 
 std::string TGen::Engine::Script::EntityScript::getName() const {

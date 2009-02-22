@@ -26,10 +26,14 @@ namespace TGen {
 
 				TGen::Engine::Script::Subsystem & getCreator();
 				TGen::Engine::Script::ComponentScript * createScriptComponent(const std::string & name, void * self);
-				static int luaGetName(lua_State * vm);
+		
+				void onCreation();
 				
 				std::string getName() const;
+
 				
+				static int luaGetName(lua_State * vm);
+
 				friend class TGen::Engine::Script::Subsystem;
 				
 			private:

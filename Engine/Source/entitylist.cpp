@@ -34,6 +34,12 @@ void TGen::Engine::EntityList::link() {
 		iter->second->prelink(TGen::Engine::ComponentLinker(this, NULL, NULL, iter->second));
 }
 
+void TGen::Engine::EntityList::initialize() {
+	for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
+		iter->second->onCreation();
+	}
+}
+
 
 void TGen::Engine::EntityList::addEntity(TGen::Engine::Entity * entity) {
 	entities.insert(std::make_pair(entity->getName(), entity));

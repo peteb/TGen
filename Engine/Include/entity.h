@@ -29,7 +29,7 @@ namespace TGen {
 			
 			void link(const TGen::Engine::ComponentLinker & linker);
 			void addComponent(TGen::Engine::Component * component, const std::string & name);
-			void initialize();
+			void onCreation();
 			void setWorldInterface(TGen::Engine::WorldObject * worldInterface);
 			void setScriptInterface(TGen::Engine::Script::EntityScript * scriptInterface);
 			

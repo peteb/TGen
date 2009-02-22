@@ -10,9 +10,11 @@
 #include "scene/scenescript.h"
 #include "script/entityscript.h"
 #include "script/componentscript.h"
+#include "script/scriptstate.h"
 #include "scene/node.h"
 #include <cstdlib>
 #include <tgen_core.h>
+#include <tgen_renderer.h>
 
 #include "lua/lua.hpp"
 
@@ -23,39 +25,53 @@ TGen::Engine::Scene::SceneScript::SceneScript(const std::string & name, TGen::En
 	TGenAssert(entityScript);
 	scriptComponent = entityScript->createScriptComponent(name, this);
 	
-	scriptComponent->registerFunction("getPosition", luaGetPosition);
+	scriptComponent->registerFunction("worldPosition", luaWorldPosition);
+	scriptComponent->registerFunction("localPosition", luaLocalPosition);
+
 }
 
 TGen::Engine::Scene::SceneScript::~SceneScript() {
 	
 }
 
-int TGen::Engine::Scene::SceneScript::luaGetPosition(lua_State * vm) {
+int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
 	lua_pushstring(vm, "_objectSelf");
 	lua_gettable(vm, -2);
+		
+	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
 	
-	// TODO: LuaState-klass som wrappar lua_State och som har pushVector osv, pushVector pushar alla nummer i en table och sätter metatable till vector
+	//lua_pushstring(vm, entity->name.c_str());
+	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	
+	
+	TGen::Vector3 position = sceneNode->getPosition();
+	
+	scriptState.pushVector(position);
+	
+	return 1;
+}
+
+int TGen::Engine::Scene::SceneScript::luaLocalPosition(lua_State * vm) {
+	lua_pushstring(vm, "_objectSelf");
+	lua_gettable(vm, -2);
 	
 	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
 	
 	//lua_pushstring(vm, entity->name.c_str());
 	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
-
-	TGen::Vector3 position = sceneNode->getPosition();
+	TGen::SceneNode * node = sceneNode->getSceneNode();
 	
-	lua_createtable(vm, 3, 3);
+	TGen::Engine::Script::ScriptState scriptState(vm);
 	
-	lua_pushnumber(vm, position.x);
-	lua_setfield(vm, -2, "x");
-
-	lua_pushnumber(vm, position.y);
-	lua_setfield(vm, -2, "y");
-
-	lua_pushnumber(vm, position.z);
-	lua_setfield(vm, -2, "z");
 	
+	TGen::Vector3 position;
+	
+	if (node)
+		position = node->getLocalPosition();
+	
+	scriptState.pushVector(position);
 	
 	return 1;
 }
-
 

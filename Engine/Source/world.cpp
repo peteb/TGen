@@ -107,8 +107,11 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	
 	logs.info["world+"] << "   linking physics subsystem..." << TGen::endl;
 	physicsSubsystem.link();
-	
+
+	scriptSubsystem.executeScripts("/scripts/framework/", true);
 	scriptSubsystem.executeScripts("/scripts/");
+	
+	entities.initialize();
 	logs.info["world+"] << "   world created" << TGen::endl;
 }
 
