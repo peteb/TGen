@@ -394,6 +394,9 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
 	parser.addShaderPermutation("LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_FILTER);
 	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_AMBIENT | LIGHT_FILTER);
+	
+	
+	parser.addShaderPermutation("LIGHT_AMBIENT", LIGHT_AMBIENT);
 
 	
 	

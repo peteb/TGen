@@ -74,46 +74,65 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	
 	
 
-	for (int i = 0; i < lights.getNumLights(); ++i) {
-		TGen::Engine::Light * light = lights.getLight(i);
-		
-		uint shaderFlags = 0;
-		uint dirs = light->getDirections();
-		
-		if (i == 0)
-			shaderFlags |= LIGHT_AMBIENT;
+	if (lights.getNumLights() > 0) {
+		for (int i = 0; i < lights.getNumLights(); ++i) {
+			TGen::Engine::Light * light = lights.getLight(i);
+			
+			uint shaderFlags = 0;
+			uint dirs = light->getDirections();
+			
+			if (i == 0)
+				shaderFlags |= LIGHT_AMBIENT;
 
-		if (dirs != 0)
-			shaderFlags |= SHADOWMAP;
-		
-		shaderFlags |= LIGHT_SPOT;
-		shaderFlags |= LIGHT_FILTER;
+			if (dirs != 0)
+				shaderFlags |= SHADOWMAP;
+			
+			shaderFlags |= LIGHT_SPOT;
+			shaderFlags |= LIGHT_FILTER;
+			
+			renderList.setShaderMode(shaderFlags);
+			
+			if (dirs != 0) {
+				if (dirs & DirPosX)
+					renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(90.0f)), renderList, camera);
+				if (dirs & DirNegX)
+					renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-90.0f)), renderList, camera);
+					
+				if (dirs & DirPosZ)
+					renderShadowedLight(light, TGen::Matrix4x4::Identity, renderList, camera);
+				if (dirs & DirNegZ)
+					renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-180.0f)), renderList, camera);
+				
+				if (dirs & DirPosY)
+					renderShadowedLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(-90.0f)), renderList, camera);
+				if (dirs & DirNegY)
+					renderShadowedLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(90.0f)), renderList, camera);
+			}
+			else {
+				renderLight(light, renderList, camera);			
+			}
+			// TODO: calculate all intersecting points of the shadow frustum, then construct bounding box in screen space
+			//      if all points are outside ordinary frustum range, don't draw light at all. don't even calculate shadow map
+			
+		}
+	}
+	else {
+		uint shaderFlags = 0;
 		
 		renderList.setShaderMode(shaderFlags);
+		renderList.setMaterialOverride(this, 1);
+		renderList.setMaterial(NULL);
 		
-		if (dirs != 0) {
-			if (dirs & DirPosX)
-				renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(90.0f)), renderList, camera);
-			if (dirs & DirNegX)
-				renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-90.0f)), renderList, camera);
-				
-			if (dirs & DirPosZ)
-				renderShadowedLight(light, TGen::Matrix4x4::Identity, renderList, camera);
-			if (dirs & DirNegZ)
-				renderShadowedLight(light, TGen::Matrix4x4::RotationY(TGen::Degree(-180.0f)), renderList, camera);
-			
-			if (dirs & DirPosY)
-				renderShadowedLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(-90.0f)), renderList, camera);
-			if (dirs & DirNegY)
-				renderShadowedLight(light, TGen::Matrix4x4::RotationX(TGen::Degree(90.0f)), renderList, camera);
-		}
-		else {
-			renderLight(light, renderList, camera);			
-		}
-		// TODO: calculate all intersecting points of the shadow frustum, then construct bounding box in screen space
-		//      if all points are outside ordinary frustum range, don't draw light at all. don't even calculate shadow map
+		currentPass = LightPass;
+		renderer.setTransform(TGen::TransformProjection, camera->getProjection());
+		//renderer.setTransform(TGen::TransformWorldView, camera->getTransform());
+		glDisable(GL_SCISSOR_TEST);
+		currentLightMaterial = NULL;
 		
+		renderList.render(renderer, camera->getTransform(), camera->getLod(), "default");
+		//renderList.renderWithinRadius(renderer, camera->getTransform(), camera->getLod(), camera->getTransform() * TGen::Vector3(0.0f, 0.0f, 0.0f), 100.0);	
 	}
+	
 	//}
 }
 
@@ -656,38 +675,38 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 			TGen::TextureUnit * texunit = context.textureUnits.at(0);
 			renderer.setTexture(4, texunit->getTexture());
 			renderer.setTextureTransform(4, texunit->transform);
-		}
 		
-		glActiveTexture(GL_TEXTURE5);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
-		glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LESS );
+			glActiveTexture(GL_TEXTURE5);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			
+			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB );
+			glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LESS );
 
-		glActiveTexture(GL_TEXTURE4);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-		glActiveTexture(GL_TEXTURE5);
-		
-		
-		/*
-		glTexParameteri( GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE_ARB, GL_INTENSITY );
-		glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
-		*/
-		try {
-			renderer.getShaderProgram()->getUniform("lightMap") = 4;
-		}
-		catch (...) {
-		}
+			glActiveTexture(GL_TEXTURE4);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+			glActiveTexture(GL_TEXTURE5);
+			
+			
+			/*
+			glTexParameteri( GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE_ARB, GL_INTENSITY );
+			glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE );
+			*/
+			try {
+				renderer.getShaderProgram()->getUniform("lightMap") = 4;
+			}
+			catch (...) {
+			}
 
-		try {
-			renderer.getShaderProgram()->getUniform("shadowMap") = 5;
+			try {
+				renderer.getShaderProgram()->getUniform("shadowMap") = 5;
+			}
+			catch (...) {
+			}
 		}
-		catch (...) {
-		}
-		
 	}
 
 //	if (currentPass != ShadowPass)

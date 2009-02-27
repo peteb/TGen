@@ -127,7 +127,6 @@ void TGen::BasicRenderList::renderList(TGen::BasicRenderList::SortedFaceList & l
 				faceRendered[face->getMesh()] = true;
 				
 				TGen::MaterialRenderMetadata metadata(specialization, lod, NULL, shaderMode, face->getMesh(), override);
-				
 				selectedMaterial->render(renderer, *face->getMesh(), metadata);
 			}
 		}

@@ -206,6 +206,7 @@ void TGen::Engine::Controller::FirstPerson::update(scalar dt) {
 			TGen::Matrix4x4 rot = TGen::Matrix4x4::RotationY(TGen::Radian(orientX)); //viewNode->getLocalOrientation();
 			
 			if (!usePhysics) {
+				//std::cout << std::string(viewNode->getWorldOrientation()) << std::endl;
 				rot = TGen::Matrix4x4(viewNode->getWorldOrientation());
 				
 				if (checkEvent(EventJump))

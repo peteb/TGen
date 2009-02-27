@@ -12,8 +12,9 @@ material forward/depth default 9 {
 
 material nomat default 9 {
 	lod 9 {
-		pass RENDERER/writeAttributes:COLOR_MAP,MEASURE_TEX {
+		pass RENDERER/writeAttributes:COLOR_MAP {
 			map colorMap "gen:checker size '128' color1 'red' color2 'white' tiles '2'"
+			param colorMap int 0
 		}
 	}
 }

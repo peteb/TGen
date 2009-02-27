@@ -53,6 +53,8 @@ TGen::Pass::~Pass() {
 const TGen::RenderContext & TGen::Pass::getRenderContext(int shaderMode) {
 	ShaderModeMap::iterator iter = shaderModes.find(shaderMode);
 	TGenAssert(iter != shaderModes.end());
+	
+	std::cout << "PASS RENDER CONTEXT: " << shaderMode << " (" << iter->second->getName() << ")" << std::endl;
 	//TGenAssert(iter->second.shader);
 	for (int i = 0; i < textureUnits.size(); ++i)
 		textureUnits[i]->updateShaderVariables();

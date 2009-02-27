@@ -28,6 +28,7 @@ std::string TGen::Engine::TextPreprocessor::process(const std::string & contents
 	params.reserve(4);
 	parseParameters(parameters, params, hashDefs);
 	
+	//std::cout << "PARAMS: " << parameters << std::endl;
 	
 	std::string ret = contents;
 	

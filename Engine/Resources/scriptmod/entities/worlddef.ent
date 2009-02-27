@@ -5,7 +5,7 @@ world {
 	}
 	
 	worldInfo {
-		ambientLight ".1 .1 .1"
+		ambientLight "1 1 1"
 		playerController player:controller
 		gravity "0 0 0"
 	}
@@ -13,11 +13,54 @@ world {
 
 box1 {
 	sceneNode {
-		parent world:sceneNode
-		origin "5 4 3"
+		//parent world:sceneNode
+		origin "0 0 10"
 		
-		model "gen:cube width 1.0 height 1.0 depth 1.0"
+		model "gen:cube width 3.0 height 1.0 depth 1.0"
 		
 		// TODO: default player controller, just position the camera infront of 0,0,0
 	}
 }
+
+player {
+	sceneNode origin {
+		origin "0 0 0"
+	}
+	
+	sceneNode head_cam_joint {
+		origin "0 0.7 0"
+		
+		link origin
+	}
+	
+	sceneCamera head_cam {
+		range "1300"
+		fov 60
+		
+		link head_cam_joint
+	}
+			
+	sceneNode tjaffs {
+		//parent world:sceneNode
+		origin "0 0 -2"
+		
+		model "gen:cube width 0.1 height 0.2 depth 1.0"
+		parent head_cam_joint
+		// TODO: default player controller, just position the camera infront of 0,0,0
+	}
+	
+	controller {
+		type firstperson
+
+		//deltaPlane 	55000.0
+		//jumpForce 800000
+		//jumpTime 0.03
+		//airControl 0.15
+		//usePhysics true			// apply forces
+
+		camera head_cam			// bind camera, should be updated by view
+		view head_cam_joint		// node to control viewing direction
+		control origin
+	}
+}
+

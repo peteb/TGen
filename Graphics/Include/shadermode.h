@@ -26,11 +26,13 @@ namespace TGen {
 		void update();
 		void addShaderUpdater(TGen::ShaderUpdater * updater);
 		TGen::ShaderProgram * getShader() const;
+		const std::string & getName() const;
 		
 	private:
 		typedef std::vector<TGen::ShaderUpdater *> ShaderUpdaterList;
 				
 		ShaderUpdaterList shaderUpdaters;
+	
 		std::string name;
 		TGen::ShaderProgram * shader;
 	};
