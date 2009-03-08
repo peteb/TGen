@@ -117,7 +117,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 		}
 	}
 	else {
-		uint shaderFlags = 0;
+		uint shaderFlags = LIGHT_AMBIENT;
 		
 		renderList.setShaderMode(shaderFlags);
 		renderList.setMaterialOverride(this, 1);
