@@ -164,7 +164,7 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		TGen::Engine::ImageGenerator generator;
 		TGen::auto_ptr<TGen::Image> newImage = generator.generateImage(line);
 		
-		newTexture = renderer.createTexture(DerefHandle(newImage), TGen::RGBA);		// TODO: specify format in genline?
+		newTexture = renderer.createTexture(DerefHandle(newImage), TGen::RGBA, 0);		// TODO: specify format in genline?	TGen::TextureNoMipmaps
 	}
 	else {
 		/*ILuint imageName;

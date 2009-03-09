@@ -666,6 +666,18 @@ void TGen::MaterialParser::parseTexunitBlock(TGen::PassTextureUnit * unit, TGen:
 				
 				unit->setSampler(samplerName);
 			}
+			else if (currentToken->second == "minFilter") {
+				stepToken();
+				std::string filter = getStringToken("texunit.minFilter: expecting string value for minification filter");
+				
+				unit->setMinFilter(TGen::StringToTextureFilter(filter));
+			}
+			else if (currentToken->second == "magFilter") {
+				stepToken();
+				std::string filter = getStringToken("texunit.magFilter: expecting string value for magnification filter");
+				
+				unit->setMagFilter(TGen::StringToTextureFilter(filter));
+			}
 			
 			else {
 				throw TGen::RuntimeException("MaterialParser::ParseTexunitBlock", "not expecting '" + currentToken->second + "'!");

@@ -175,6 +175,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 		}
 		
 		newUnit->setCoordGen((*iter)->genU, (*iter)->genV);
+		newUnit->setFilter((*iter)->minFilter, (*iter)->magFilter);
 		(*iter)->setLinkedUnit(newUnit);
 		
 		renderContext.addTextureUnit(newUnit);		

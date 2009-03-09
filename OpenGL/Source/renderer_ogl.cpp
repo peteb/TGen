@@ -407,7 +407,10 @@ TGen::Texture * TGen::OpenGL::Renderer::createTexture(const TGen::Rectangle & si
 }
 
 TGen::Texture * TGen::OpenGL::Renderer::createTexture(const TGen::Image & image, TGen::ImageFormat components, uint flags) {
-	return createTexture(image.getData(), image.getSize(), components, image.getFormat(), image.getComponentFormat(), flags);
+	TGen::Texture * ret = createTexture(image.getData(), image.getSize(), components, image.getFormat(), image.getComponentFormat(), flags);
+	
+	ret->setFilterMode(TGen::TextureFilterNearest, TGen::TextureFilterNearest);
+	return ret;
 }
 
 TGen::Texture * TGen::OpenGL::Renderer::createTexture(const void * data, const TGen::Rectangle & size, TGen::ImageFormat format, TGen::ImageFormat components, TGen::FormatType componentFormat, uint flags) {
@@ -466,7 +469,7 @@ TGen::Texture * TGen::OpenGL::Renderer::create2DTexture(const void * data, const
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);		
 	}
 	
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 16.0f);
+	//glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, 16.0f);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE_ARB);
 	//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LEQUAL);
 	
@@ -1099,6 +1102,13 @@ void TGen::OpenGL::Renderer::setRenderContext(const TGen::RenderContext & contex
 			glMatrixMode(GL_TEXTURE);
 			glLoadIdentity();
 		}
+		
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL((*iter)->getMinFilter()));
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL((*iter)->getMagFilter()));
+		
+		//glActiveTexture(GL_TEXTURE0 + (*iter)->getUnit());
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		
 		if (context.shader) {
 			//std::cout << (*iter)->name << std::endl;

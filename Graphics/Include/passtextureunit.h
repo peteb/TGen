@@ -28,6 +28,9 @@ namespace TGen {
 		void setTexCoordGen(const std::string & genU, const std::string & genV);
 		void setSampler(const std::string & sampler);
 		void setWrap(const std::string & wrapU, const std::string & wrapV);
+		void setMinFilter(TGen::TextureFilter minFilter);
+		void setMagFilter(TGen::TextureFilter magFilter);
+		
 		void setLinkedUnit(TGen::TextureUnit * texunit);
 		
 		void addTextureTransformer(TGen::TextureTransformer * transformer);
@@ -42,7 +45,8 @@ namespace TGen {
 
 		TGen::TextureCoordGen genU, genV;
 		TGen::TextureWrap wrapU, wrapV;
-
+		TGen::TextureFilter minFilter, magFilter;
+		
 	private:
 		std::string textureName, samplerName;
 		

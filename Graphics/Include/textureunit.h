@@ -24,6 +24,9 @@ namespace TGen {
 		TGen::Texture * getTexture() const;
 		void setCoordGen(TGen::TextureCoordGen genU, TGen::TextureCoordGen genV);
 		void getCoordGen(TGen::TextureCoordGen & genU, TGen::TextureCoordGen & genV) const;
+		void setFilter(TGen::TextureFilter minFilter, TGen::TextureFilter magFilter);
+		TGen::TextureFilter getMinFilter() const;
+		TGen::TextureFilter getMagFilter() const;
 		
 		int getTextureType() const;
 		int getUnit() const;
@@ -35,6 +38,7 @@ namespace TGen {
 		int unit;
 		TGen::Texture * texture;
 		TGen::TextureCoordGen genU, genV;
+		TGen::TextureFilter minFilter, magFilter;
 		int textureType;
 	};	
 	

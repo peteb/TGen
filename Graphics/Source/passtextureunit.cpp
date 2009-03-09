@@ -125,6 +125,14 @@ const std::string & TGen::PassTextureUnit::getSamplerName() const {
 	return samplerName;
 }
 
+void TGen::PassTextureUnit::setMinFilter(TGen::TextureFilter minFilter) {
+	this->minFilter = minFilter;
+}
+
+void TGen::PassTextureUnit::setMagFilter(TGen::TextureFilter magFilter) {
+	this->magFilter = magFilter;
+}
+
 void TGen::PassTextureUnit::setLinkedUnit(TGen::TextureUnit * texunit) {
 	this->texunit = texunit;
 }

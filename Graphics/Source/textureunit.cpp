@@ -17,6 +17,8 @@ TGen::TextureUnit::TextureUnit(int unit, TGen::Texture * texture)
 	, genU(TGen::TextureCoordGenBase)
 	, genV(TGen::TextureCoordGenBase)
 	, textureType(0) 
+	, minFilter(TGen::TextureFilterLinear)
+	, magFilter(TGen::TextureFilterLinear)
 {
 }
 
@@ -28,6 +30,8 @@ TGen::TextureUnit::TextureUnit(int unit, int textureType)
 	, genU(TGen::TextureCoordGenBase)
 	, genV(TGen::TextureCoordGenBase)
 	, textureType(textureType) 
+	, minFilter(TGen::TextureFilterLinear)
+	, magFilter(TGen::TextureFilterLinear)
 {
 
 }
@@ -52,4 +56,17 @@ int TGen::TextureUnit::getTextureType() const {
 
 int TGen::TextureUnit::getUnit() const {
 	return unit;
+}
+
+void TGen::TextureUnit::setFilter(TGen::TextureFilter minFilter, TGen::TextureFilter magFilter) {
+	this->minFilter = minFilter;
+	this->magFilter = magFilter;
+}
+
+TGen::TextureFilter TGen::TextureUnit::getMinFilter() const {
+	return minFilter;
+}
+
+TGen::TextureFilter TGen::TextureUnit::getMagFilter() const {
+	return magFilter;
 }

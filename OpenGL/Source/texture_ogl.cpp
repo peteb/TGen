@@ -54,7 +54,7 @@ void TGen::OpenGL::Texture::setWrapMode(TGen::TextureWrap u, TGen::TextureWrap v
 
 void TGen::OpenGL::Texture::setFilterMode(TGen::TextureFilter min, TGen::TextureFilter mag) {
 	glBindTexture(target, texId);
-	glTexParameteri(target, GL_TEXTURE_MIN_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(min));
-	glTexParameteri(target, GL_TEXTURE_MAG_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(mag));
+	//glTexParameteri(target, GL_TEXTURE_MIN_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(min));
+	//glTexParameteri(target, GL_TEXTURE_MAG_FILTER, TGen::OpenGL::TgenTextureFilterToOpenGL(mag));
 }
 

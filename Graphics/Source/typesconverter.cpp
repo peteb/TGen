@@ -83,3 +83,22 @@ TGen::PolygonFaceMode TGen::StringToPolygonFaceMode(const std::string & mode) {
 	
 	return ret;
 }
+
+TGen::TextureFilter TGen::StringToTextureFilter(const std::string & filter) {
+	std::string fixedFilter = TGen::toLower(filter);
+	
+	if (fixedFilter == "nearest")
+		return TGen::TextureFilterNearest;
+	else if (fixedFilter == "linear")
+		return TGen::TextureFilterLinear;
+	else if (fixedFilter == "nearestMipmapNearest")
+		return TGen::TextureFilterNearestMipmapNearest;
+	else if (fixedFilter == "linearMipmapNearest")
+		return TGen::TextureFilterLinearMipmapNearest;
+	else if (fixedFilter == "nearestMipmapLinear")
+		return TGen::TextureFilterNearestMipmapLinear;
+	else if (fixedFilter == "linearMipmapLinear")
+		return TGen::TextureFilterLinearMipmapLinear;
+
+	throw TGen::RuntimeException("StringToTextureFilter", "invalid filter: '" + filter + "'!");	
+}

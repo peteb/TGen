@@ -116,7 +116,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 			
 		}
 	}
-	else {
+	else {	// no lights, only render ambient
 		uint shaderFlags = LIGHT_AMBIENT;
 		
 		renderList.setShaderMode(shaderFlags);
