@@ -23,7 +23,7 @@ namespace TGen {
 		class StandardLogs;
 		class Renderer;
 		class VariableRegister;
-
+		class ResourceManagerScript;
 		
 		enum ShaderModeAttributes {
 			LIGHT_AMBIENT =		0x0001,
@@ -49,6 +49,7 @@ namespace TGen {
 			void updateMaterials(scalar time);
 			
 			std::string getIncludeContent(const std::string & identifier);
+			void setScriptInterface(TGen::Engine::ResourceManagerScript * scriptInterface);
 			
 			TGen::Engine::VertexCache vertexCache;
 			
@@ -70,6 +71,7 @@ namespace TGen {
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::VariableRegister & variables;
 			TGen::Renderer & renderer;
+			TGen::Engine::ResourceManagerScript * scriptInterface;
 		};
 	}
 }

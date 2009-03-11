@@ -24,3 +24,13 @@ material nomat default 9 {
 		}
 	}
 }
+
+material newmat default 9 {
+	lod 9 {
+		pass RENDERER/writeAttributes:COLOR_MAP {
+			param colorMap int 0
+
+			map colorMap "textures/bluetex4r_danger_d.tga"			
+		}	
+	}
+}

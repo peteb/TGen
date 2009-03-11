@@ -18,6 +18,7 @@
 #include "generateline.h"
 #include "modelfactory.h"
 #include "variableregister.h"
+#include "resourcemanagerscript.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer, TGen::Engine::VariableRegister & variables) 
 	: logs(logs)
@@ -25,6 +26,7 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	, renderer(renderer)
 	, vertexCache(renderer, logs)
 	, variables(variables)
+	, scriptInterface(NULL)
 {
 	logs.info["res+"] << "initializing resource manager..." << TGen::endl;
 	
@@ -41,6 +43,8 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 TGen::Engine::ResourceManager::~ResourceManager() {
 	logs.info["res-"] << "shutting down..." << TGen::endl;
 
+	delete scriptInterface;
+	
 	logs.info["res-"] << "shaders: " << TGen::endl;
 	for (ShaderMap::iterator iter = shaders.begin(); iter != shaders.end(); ++iter)
 		logs.info["res-"] << iter->first << TGen::endl;
@@ -441,4 +445,9 @@ void TGen::Engine::ResourceManager::updateMaterials(scalar time) {	// TODO: this
 	for (; iter != materials.end(); ++iter) {
 		iter->second->update(time);
 	}
+}
+
+void TGen::Engine::ResourceManager::setScriptInterface(TGen::Engine::ResourceManagerScript * scriptInterface) {
+	delete this->scriptInterface;						// TODO: fall för TGen::auto_ptr?
+	this->scriptInterface = scriptInterface;
 }

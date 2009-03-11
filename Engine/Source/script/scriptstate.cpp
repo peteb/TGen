@@ -23,6 +23,8 @@ TGen::Engine::Script::ScriptState::ScriptState()
 	
 	lua_newtable(vm);	
 	lua_setglobal(vm, "entities");
+
+
 }
 
 TGen::Engine::Script::ScriptState::ScriptState(lua_State * prevm) 
@@ -40,6 +42,10 @@ lua_State * TGen::Engine::Script::ScriptState::getState() const {
 	return vm;
 }
 
+void TGen::Engine::Script::ScriptState::setGlobal(const std::string & name) {
+	lua_setglobal(vm, name.c_str());
+}
+
 void TGen::Engine::Script::ScriptState::getGlobal(const std::string & name) {
 	lua_getglobal(vm, name.c_str());
 }
@@ -48,9 +54,14 @@ void TGen::Engine::Script::ScriptState::newTable() {
 	lua_newtable(vm);
 }
 
+void * TGen::Engine::Script::ScriptState::newUserData(int size) {
+	return lua_newuserdata(vm, size);
+}
+
 void TGen::Engine::Script::ScriptState::pushUserData(void * data) {
 	lua_pushlightuserdata(vm, data);
 }
+
 
 void TGen::Engine::Script::ScriptState::pushFunction(int (*func) (lua_State *L)) {
 	lua_pushcfunction(vm, func);
@@ -84,7 +95,11 @@ void TGen::Engine::Script::ScriptState::getTableValue(const std::string & name) 
 }
 
 void * TGen::Engine::Script::ScriptState::toUserData(int index) {
-	return lua_touserdata(vm, -1);	
+	return lua_touserdata(vm, index);	
+}
+
+std::string TGen::Engine::Script::ScriptState::toString(int index) {
+	return std::string(lua_tostring(vm, index));
 }
 
 void TGen::Engine::Script::ScriptState::pushString(const std::string & val) {
@@ -114,16 +129,19 @@ void TGen::Engine::Script::ScriptState::pushVector(const TGen::Vector3 & vec) {
 }
 
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
-	lua_call(vm, nargs, nresults);
+	int ret = lua_pcall(vm, nargs, nresults, 0);
+	
+	if (ret != 0)
+		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to execute script:\n") << lua_tostring(vm, -1);
 }
 
 void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file, const std::string & name) {
 	int ret = lua_load(vm, LuaChunkReader, reinterpret_cast<void *>(file), name.c_str());
 	
 	if (ret != 0)
-		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "failed to load file \"" + name + "\":\n") << lua_tostring(vm, -1);
+		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to load file \"" + name + "\":\n") << lua_tostring(vm, -1);
 	
-	lua_call(vm, 0, 0);	// this creates all functions
+	call(0, 0);		// create everything in file
 }
 
 const char * TGen::Engine::Script::ScriptState::LuaChunkReader(lua_State * vm, void * data, size_t * size) {
@@ -147,3 +165,6 @@ const char * TGen::Engine::Script::ScriptState::LuaChunkReader(lua_State * vm, v
 	
 	return lastData;
 }
+
+
+

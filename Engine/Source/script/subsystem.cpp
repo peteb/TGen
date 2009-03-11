@@ -55,5 +55,3 @@ void TGen::Engine::Script::Subsystem::executeScripts(const std::string & path, b
 	}
 }
 
-
-

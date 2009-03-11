@@ -16,7 +16,7 @@ box1 {
 		//parent world:sceneNode
 		origin "0 0 10"
 		
-		model "gen:cube width 3.0 height 1.0 depth 1.0"
+		model "gen:cube width 3.0 height 1.0 depth 1.0 texwidth 3"
 		
 		// TODO: default player controller, just position the camera infront of 0,0,0
 	}

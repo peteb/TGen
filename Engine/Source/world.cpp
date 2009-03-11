@@ -16,6 +16,8 @@
 #include "log.h"
 #include "playercontroller.h"
 #include "info/worldinfo.h"
+#include "resourcemanagerscript.h"
+#include "resourcemanager.h"
 
 #include <OpenGL/OpenGL.h>
 #include <SDL/SDL.h>
@@ -70,7 +72,9 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	// TODO: sen i fysikmotorn borde man kunna låsa de objekt som inte är i något aktuellt rum, slippa uppdatera en massa. borde dock följa med hierarkiskt.
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
+	// TODO: prepare subsystem access to script here, ie resources.*, sound.* etc
 	
+	resources.setScriptInterface(new TGen::Engine::ResourceManagerScript(resources, scriptSubsystem));		// TODO: not very beautiful...
 	
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -108,7 +112,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	logs.info["world+"] << "   linking physics subsystem..." << TGen::endl;
 	physicsSubsystem.link();
 
-	scriptSubsystem.executeScripts("/scripts/framework/", true);
+	scriptSubsystem.executeScripts("/scripts/framework/", true);	// recurse framework folder
 	scriptSubsystem.executeScripts("/scripts/");
 	
 	entities.initialize();

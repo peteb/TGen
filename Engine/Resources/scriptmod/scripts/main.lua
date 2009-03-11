@@ -22,11 +22,15 @@ for k,v in pairs(entities) do
 end
 
 
-local worldPos = entities.box1.sceneNode:worldPosition();
+local funkyNode = entities.box1.sceneNode;
+local worldPos = funkyNode:worldPosition();
+
+local newMaterial = resources:material("newmat");		-- TODO: resource manager script interface
 
 print("World position: " .. worldPos);
-print("Local position: " .. entities.box1.sceneNode:localPosition());
+print("Local position: " .. funkyNode:localPosition());
 
 print("Added: " .. worldPos + vec3.new(0.0, 2.0, 1.0));
 
--- sceneNode:setMaterial(scene.material("myfunkymaterial"))
+funkyNode:setMaterial(newMaterial);						-- TODO: setMaterial method
+

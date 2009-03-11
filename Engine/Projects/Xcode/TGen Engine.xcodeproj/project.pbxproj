@@ -40,6 +40,7 @@
 		D04C83B40CCA4B0E00794CEA /* libtgen_renderer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C82070CCA470100794CEA /* libtgen_renderer.a */; };
 		D052CAE20E59C4D2000AF567 /* componentfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D052CAE10E59C4D2000AF567 /* componentfactory.cpp */; };
 		D052CF0F0E59CD90000AF567 /* liblua5.1.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D052CF0E0E59CD90000AF567 /* liblua5.1.a */; };
+		D055C3700F682A9200368928 /* resourcemanagerscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D055C36F0F682A9200368928 /* resourcemanagerscript.cpp */; };
 		D0622E410D80694F003A31A0 /* AppPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */; };
 		D0622E420D80694F003A31A0 /* DBPrefsWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = D0622E400D80694F003A31A0 /* DBPrefsWindowController.m */; };
 		D0622ECF0D806C45003A31A0 /* Displays.icns in Resources */ = {isa = PBXBuildFile; fileRef = D0622ECE0D806C45003A31A0 /* Displays.icns */; };
@@ -341,6 +342,8 @@
 		D052CAE00E59C4C4000AF567 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/script/componentfactory.h; sourceTree = SOURCE_ROOT; };
 		D052CAE10E59C4D2000AF567 /* componentfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = componentfactory.cpp; path = script/componentfactory.cpp; sourceTree = "<group>"; };
 		D052CF0E0E59CD90000AF567 /* liblua5.1.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = liblua5.1.a; path = external/liblua5.1.a; sourceTree = "<group>"; };
+		D055C36F0F682A9200368928 /* resourcemanagerscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanagerscript.cpp; sourceTree = "<group>"; };
+		D055C3710F682AA000368928 /* resourcemanagerscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanagerscript.h; path = ../../Include/resourcemanagerscript.h; sourceTree = SOURCE_ROOT; };
 		D0622E3D0D80694F003A31A0 /* AppPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = AppPrefsWindowController.h; sourceTree = "<group>"; };
 		D0622E3E0D80694F003A31A0 /* AppPrefsWindowController.m */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.objc; path = AppPrefsWindowController.m; sourceTree = "<group>"; };
 		D0622E3F0D80694F003A31A0 /* DBPrefsWindowController.h */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.c.h; path = DBPrefsWindowController.h; sourceTree = "<group>"; };
@@ -743,6 +746,8 @@
 				D0F4924B0CBE59470080CB46 /* commandregister.h */,
 				D0B649A00CE696F500B93A85 /* resourcemanager.cpp */,
 				D0B649A20CE6970300B93A85 /* resourcemanager.h */,
+				D055C36F0F682A9200368928 /* resourcemanagerscript.cpp */,
+				D055C3710F682AA000368928 /* resourcemanagerscript.h */,
 				D00347120CEE25680066E8A8 /* devilimage.cpp */,
 				D00347140CEE25780066E8A8 /* devilimage.h */,
 				D003482D0CEE29510066E8A8 /* imageloader.cpp */,
@@ -1602,6 +1607,7 @@
 				D07F490D0F4B0A380050D30F /* scenescript.cpp in Sources */,
 				D07F49810F4B0DC90050D30F /* componentscript.cpp in Sources */,
 				D07F4CB80F4CAA7E0050D30F /* scriptstate.cpp in Sources */,
+				D055C3700F682A9200368928 /* resourcemanagerscript.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

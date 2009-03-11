@@ -442,4 +442,9 @@ TGen::ModelRenderProperties & TGen::SceneNode::getRenderProperties() {
 	return renderProperties;
 }
 
+void TGen::SceneNode::overrideModelMaterials(TGen::Material * material) {
+	for (ModelInstanceList::iterator iter = models.begin(); iter != models.end(); ++iter) {
+		(*iter)->setOverridingMaterial(material);
+	}
+}
 

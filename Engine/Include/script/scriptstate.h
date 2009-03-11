@@ -31,8 +31,10 @@ namespace TGen {
 				
 				void loadScriptFile(TGen::Engine::File * file, const std::string & name);				
 				
+				void setGlobal(const std::string & name);
 				void getGlobal(const std::string & name);
 				void newTable();
+				void * newUserData(int size);
 				void pushUserData(void * data);
 				void pushFunction(int (*func) (lua_State *L));
 				void pushString(const std::string & val);
@@ -52,10 +54,11 @@ namespace TGen {
 				
 				
 				void * toUserData(int index);
+				std::string toString(int index);
 				
 			private:
 				static const char * LuaChunkReader(lua_State * vm, void * data, size_t * size);
-
+				
 				bool owner;
 				lua_State * vm;
 			};

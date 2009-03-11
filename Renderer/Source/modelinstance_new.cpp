@@ -56,6 +56,10 @@ TGen::Material * TGen::NewModelInstance::getOverridingMaterial() {
 	return material;
 }
 
+void TGen::NewModelInstance::setOverridingMaterial(TGen::Material * material) {
+	this->material = material;
+}
+
 std::string TGen::NewModelInstance::getOverridingMaterialName() const {
 	if (!materialNamePostfix.empty())
 		return materialName + "_" + materialNamePostfix;

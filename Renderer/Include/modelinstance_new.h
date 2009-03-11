@@ -44,6 +44,7 @@ namespace TGen {
 		virtual int getNumMeshes() const;
 		virtual TGen::NewMeshInstance * getMesh(int num);
 		
+		void setOverridingMaterial(TGen::Material * material);
 		TGen::Material * getOverridingMaterial();
 		std::string getOverridingMaterialName() const;
 		std::string getMaterialNamePostfix() const;

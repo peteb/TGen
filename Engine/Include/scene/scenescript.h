@@ -31,6 +31,7 @@ namespace TGen {
 				
 				static int luaWorldPosition(lua_State * vm);
 				static int luaLocalPosition(lua_State * vm);
+				static int luaSetMaterial(lua_State * vm);
 				
 			private:
 				TGen::Engine::Script::ComponentScript * scriptComponent;

@@ -36,7 +36,7 @@ namespace TGen {
 				ScriptState & getScriptState();
 				
 				void executeScripts(const std::string & path, bool recurse = false);
-
+			
 			private: 
 				void loadScriptFile(const std::string & filename);
 				
