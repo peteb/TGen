@@ -37,7 +37,7 @@ TGen::Engine::Scene::SceneScript::~SceneScript() {
 
 int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
 	lua_pushstring(vm, "_objectSelf");
-	lua_gettable(vm, -2);
+	lua_gettable(vm, 1);
 		
 	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
 	
@@ -55,7 +55,7 @@ int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
 
 int TGen::Engine::Scene::SceneScript::luaLocalPosition(lua_State * vm) {
 	lua_pushstring(vm, "_objectSelf");
-	lua_gettable(vm, -2);
+	lua_gettable(vm, 1);
 	
 	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
 	
@@ -77,17 +77,21 @@ int TGen::Engine::Scene::SceneScript::luaLocalPosition(lua_State * vm) {
 }
 
 int TGen::Engine::Scene::SceneScript::luaSetMaterial(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+
 	lua_pushstring(vm, "_objectSelf");
-	lua_gettable(vm, -3);
+	lua_gettable(vm, 1);
 	
 	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
-	TGen::Engine::Script::ScriptState scriptState(vm);
 	
-	TGen::Material * material = reinterpret_cast<TGen::Material *>(lua_touserdata(vm, -2));
+	scriptState.getField(2, "_objectSelf");
+	TGen::Material * material = reinterpret_cast<TGen::Material *>(lua_touserdata(vm, -1));
+	scriptState.pop(2);
 	
 	std::cout << "Changing to '" << material->getName() << "'..." << std::endl;
 	
-	self->sceneNode->getSceneNode()->overrideModelMaterials(material);
+	if (self && self->sceneNode && self->sceneNode->getSceneNode())
+		self->sceneNode->getSceneNode()->overrideModelMaterials(material);
 	
 	return 0;
 }

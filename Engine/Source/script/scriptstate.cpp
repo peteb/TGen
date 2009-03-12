@@ -128,6 +128,27 @@ void TGen::Engine::Script::ScriptState::pushVector(const TGen::Vector3 & vec) {
 	
 }
 
+void TGen::Engine::Script::ScriptState::setMetatable(int index) {
+	lua_setmetatable(vm, index);
+}
+
+int TGen::Engine::Script::ScriptState::getStackTop() {
+	return lua_gettop(vm);
+}
+
+bool TGen::Engine::Script::ScriptState::isNil(int index) {
+	return lua_isnil(vm, index);
+}
+
+void TGen::Engine::Script::ScriptState::generateError() {
+	lua_error(vm);
+}
+
+void TGen::Engine::Script::ScriptState::generateError(const std::string & desc) {
+	lua_pushstring(vm, desc.c_str());
+	lua_error(vm);
+}
+
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 	int ret = lua_pcall(vm, nargs, nresults, 0);
 	

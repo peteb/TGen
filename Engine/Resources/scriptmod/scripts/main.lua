@@ -25,12 +25,14 @@ end
 local funkyNode = entities.box1.sceneNode;
 local worldPos = funkyNode:worldPosition();
 
-local newMaterial = resources:material("newmat");		-- TODO: resource manager script interface
+local newMaterial = resources:material("newmat");
 
 print("World position: " .. worldPos);
 print("Local position: " .. funkyNode:localPosition());
 
 print("Added: " .. worldPos + vec3.new(0.0, 2.0, 1.0));
 
-funkyNode:setMaterial(newMaterial);						-- TODO: setMaterial method
+print("New material's name: "..newMaterial:name());
+
+funkyNode:setMaterial(newMaterial);
 

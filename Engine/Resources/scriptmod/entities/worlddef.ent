@@ -17,8 +17,6 @@ box1 {
 		origin "0 0 10"
 		
 		model "gen:cube width 3.0 height 1.0 depth 1.0 texwidth 3"
-		
-		// TODO: default player controller, just position the camera infront of 0,0,0
 	}
 }
 
@@ -51,12 +49,6 @@ player {
 	
 	controller {
 		type firstperson
-
-		//deltaPlane 	55000.0
-		//jumpForce 800000
-		//jumpTime 0.03
-		//airControl 0.15
-		//usePhysics true			// apply forces
 
 		camera head_cam			// bind camera, should be updated by view
 		view head_cam_joint		// node to control viewing direction

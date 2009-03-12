@@ -1,4 +1,11 @@
-
+--
+--  vector.lua
+--  TGen Engine
+--
+--  Created by Peter Backman on 2/12/09.
+--  Copyright 2009 Peter Backman. All rights reserved.
+--
+ 
 vec3 = {}
 
 function vec3.new(vx, vy, vz)

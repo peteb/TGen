@@ -33,6 +33,7 @@ namespace TGen {
 				
 				void setGlobal(const std::string & name);
 				void getGlobal(const std::string & name);
+				void setMetatable(int index);
 				void newTable();
 				void * newUserData(int size);
 				void pushUserData(void * data);
@@ -47,7 +48,11 @@ namespace TGen {
 				
 				void pop(int count);
 				void call(int nargs, int nresults);
+				int getStackTop();
+				bool isNil(int index);
 				
+				void generateError();
+				void generateError(const std::string & desc);
 				void getTableValue(const std::string & name);
 				void setUserData(const std::string & name, void * data);
 				void setFunction(const std::string & name, int (*func)(lua_State * L));

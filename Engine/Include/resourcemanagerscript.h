@@ -27,6 +27,8 @@ namespace TGen {
 			
 		private:
 			static int luaMaterial(lua_State * vm);
+			static int luaMaterialName(lua_State * vm);
+			
 			void registerFunction(const std::string & name, int (*func) (lua_State *L));
 
 			TGen::Engine::ResourceManager & resources;

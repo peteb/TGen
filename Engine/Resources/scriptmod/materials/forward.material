@@ -13,11 +13,13 @@ material forward/depth default 9 {
 material nomat default 9 {
 	lod 9 {
 		pass RENDERER/writeAttributes:COLOR_MAP {
-			param colorMap int 0
+			param colorMap int 0	// TODO: should be automatic
 
-			map colorMap "gen:checker size '4' color1 'red' color2 'white' tiles '2'" {
+			map colorMap "gen:checker size '2' color1 'red' color2 'white' tiles '2'" {
 				minFilter nearest
 				magFilter nearest
+				
+				// TODO: aniso true
 			}
 			
 			
