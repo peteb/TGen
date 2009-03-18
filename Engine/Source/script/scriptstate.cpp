@@ -149,6 +149,10 @@ void TGen::Engine::Script::ScriptState::generateError(const std::string & desc) 
 	lua_error(vm);
 }
 
+void TGen::Engine::Script::ScriptState::remove(int index) {
+	lua_remove(vm, index);
+}
+
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 	int ret = lua_pcall(vm, nargs, nresults, 0);
 	
@@ -162,7 +166,7 @@ void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file
 	if (ret != 0)
 		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to load file \"" + name + "\":\n") << lua_tostring(vm, -1);
 	
-	call(0, 0);		// create everything in file
+	call(0, 0);		// create everything in the file
 }
 
 const char * TGen::Engine::Script::ScriptState::LuaChunkReader(lua_State * vm, void * data, size_t * size) {

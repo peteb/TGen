@@ -10,24 +10,30 @@
 #ifndef _TGEN_ENGINE_UTILITIES_TIMER_SCRIPT_H
 #define _TGEN_ENGINE_UTILITIES_TIMER_SCRIPT_H
 
-#include "componentlink.h"
+#include <string>
 
 namespace TGen {
 	namespace Engine {
 		class ComponentLinker;
+		
+		namespace Script {
+			class EntityScript;
+			class ComponentScript;
+		}
 		
 		namespace Utilities {
 			class Timer;
 			
 			class TimerScript {
 			public:	
-				TimerScript(Timer & timer);
+				TimerScript(const std::string & name, Timer & timer, TGen::Engine::Script::EntityScript * entityScript);
 				
-				void link(const TGen::Engine::ComponentLinker & linker);
 				void tick();
 				
 			private:
 				Timer & timer;
+				TGen::Engine::Script::ComponentScript * scriptComponent;
+				std::string name;
 			};
 			
 		} // !Utilities

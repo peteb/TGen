@@ -48,6 +48,7 @@ namespace TGen {
 				
 				void pop(int count);
 				void call(int nargs, int nresults);
+				void remove(int index);
 				int getStackTop();
 				bool isNil(int index);
 				

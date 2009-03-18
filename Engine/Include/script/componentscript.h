@@ -20,12 +20,15 @@ namespace TGen {
 			class Subsystem;
 			class EntityScript;
 			class Subsystem;
+			class ScriptState;
 			
 			class ComponentScript {
 			public:
 				~ComponentScript();
 				
 				void registerFunction(const std::string & name, int (*func) (lua_State *L));
+				TGen::Engine::Script::ScriptState & beginComponentScript();
+				void endComponentScript();
 				
 				friend class TGen::Engine::Script::EntityScript;
 				

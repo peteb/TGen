@@ -8,21 +8,26 @@
  */
 
 #include "timer.h"
+#include "timer_script.h"
 
 using TGen::scalar;
 
 TGen::Engine::Utilities::Timer::Timer(const std::string & name) 
 	: TGen::Engine::Component(name)
-	, scriptInterface(*this)
 	, interval(1.0)
 	, totalTime(0.0)
 	, accumTime(0.0)
+	, scriptInterface(NULL)
 {
 	
 }
 
 void TGen::Engine::Utilities::Timer::link(const TGen::Engine::ComponentLinker & linker) {
-	scriptInterface.link(linker);
+
+}
+
+void TGen::Engine::Utilities::Timer::setScriptInterface(TGen::Engine::Utilities::TimerScript * scriptInterface) {
+	this->scriptInterface = scriptInterface;
 }
 
 void TGen::Engine::Utilities::Timer::setEnabled(bool enabled) {
@@ -65,6 +70,7 @@ void TGen::Engine::Utilities::Timer::setOffsetTime(scalar time) {
 }
 
 void TGen::Engine::Utilities::Timer::tick() {
-	scriptInterface.tick();
+	if (scriptInterface)
+		scriptInterface->tick();
 }
 

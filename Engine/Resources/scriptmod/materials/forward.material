@@ -36,3 +36,13 @@ material newmat default 9 {
 		}	
 	}
 }
+
+material greenmat default 9 {
+	lod 9 {
+		pass RENDERER/writeAttributes:COLOR_MAP {
+			param colorMap int 0
+
+			map colorMap "gen:plain color green"			
+		}	
+	}
+}

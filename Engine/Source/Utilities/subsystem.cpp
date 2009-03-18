@@ -9,6 +9,7 @@
 
 #include "utilities/subsystem.h"
 #include "utilities/timer.h"
+#include "utilities/timer_script.h"
 #include "utilities/objectreference.h"
 #include "utilities/prototypereference.h"
 
@@ -31,8 +32,11 @@ TGen::Engine::Component * TGen::Engine::Utilities::Subsystem::createComponent(co
 		newTimer->setInterval(TGen::lexical_cast<scalar>(properties.getProperty("interval", "1.0")));
 		newTimer->setOffsetTime(TGen::lexical_cast<scalar>(properties.getProperty("start", "0.0")));
 		
-		timers.push_back(newTimer);
 		
+		TGen::Engine::Utilities::TimerScript * scriptInterface = new TGen::Engine::Utilities::TimerScript(name, *newTimer, entity.getScriptInterface());
+		newTimer->setScriptInterface(scriptInterface);
+		timers.push_back(newTimer);
+
 		ret = newTimer;
 	}
 	else if (type == "objectRef") {

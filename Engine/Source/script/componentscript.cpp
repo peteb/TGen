@@ -36,3 +36,17 @@ void TGen::Engine::Script::ComponentScript::registerFunction(const std::string &
 
 	scriptState.pop(2);
 }
+
+TGen::Engine::Script::ScriptState & TGen::Engine::Script::ComponentScript::beginComponentScript() {
+	ScriptState & scriptState = creator.getScriptState();
+	
+	scriptState.getGlobal("entities");
+	scriptState.getField(-1, entityScript->getName());
+	scriptState.getField(-1, this->name);
+	
+	return scriptState;
+}
+
+void TGen::Engine::Script::ComponentScript::endComponentScript() {
+	creator.getScriptState().pop(3);
+}

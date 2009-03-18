@@ -64,10 +64,10 @@ void TGen::Engine::Script::EntityScript::onCreation() {
 	scriptState.getField(-1, this->name);
 	scriptState.getField(-1, "onCreation");
 	
-	if (!lua_isnil(vm, -1)) {
+	if (!scriptState.isNil(-1)) {
 		scriptState.getGlobal("entities");
 		scriptState.getField(-1, this->name);
-		lua_remove(vm, -2);
+		scriptState.remove(-2);
 		
 		scriptState.call(1, 0);
 		scriptState.pop(2);

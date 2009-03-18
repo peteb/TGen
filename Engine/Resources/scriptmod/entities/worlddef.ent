@@ -18,7 +18,12 @@ box1 {
 		
 		model "gen:cube width 3.0 height 1.0 depth 1.0 texwidth 3"
 	}
+	
+	timer materialChanger {
+		interval 1.0
+	}
 }
+
 
 player {
 	sceneNode origin {

@@ -88,7 +88,7 @@ int TGen::Engine::Scene::SceneScript::luaSetMaterial(lua_State * vm) {
 	TGen::Material * material = reinterpret_cast<TGen::Material *>(lua_touserdata(vm, -1));
 	scriptState.pop(2);
 	
-	std::cout << "Changing to '" << material->getName() << "'..." << std::endl;
+	//std::cout << "Changing to '" << material->getName() << "'..." << std::endl;
 	
 	if (self && self->sceneNode && self->sceneNode->getSceneNode())
 		self->sceneNode->getSceneNode()->overrideModelMaterials(material);
