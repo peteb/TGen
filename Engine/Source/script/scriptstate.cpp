@@ -23,8 +23,6 @@ TGen::Engine::Script::ScriptState::ScriptState()
 	
 	lua_newtable(vm);	
 	lua_setglobal(vm, "entities");
-
-
 }
 
 TGen::Engine::Script::ScriptState::ScriptState(lua_State * prevm) 
@@ -151,6 +149,14 @@ void TGen::Engine::Script::ScriptState::generateError(const std::string & desc) 
 
 void TGen::Engine::Script::ScriptState::remove(int index) {
 	lua_remove(vm, index);
+}
+
+void TGen::Engine::Script::ScriptState::pushNumber(float number) {
+	lua_pushnumber(vm, number);
+}
+
+float TGen::Engine::Script::ScriptState::toNumber(int index) {
+	return lua_tonumber(vm, index);
 }
 
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {

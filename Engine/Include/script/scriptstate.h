@@ -39,6 +39,7 @@ namespace TGen {
 				void pushUserData(void * data);
 				void pushFunction(int (*func) (lua_State *L));
 				void pushString(const std::string & val);
+				void pushNumber(float number);
 				
 				void pushVector(const TGen::Vector3 & vec);
 				
@@ -60,7 +61,18 @@ namespace TGen {
 				
 				
 				void * toUserData(int index);
+				float toNumber(int index);
 				std::string toString(int index);
+				
+				template<typename T>
+				T getSelfPointer() {
+					getField(1, "_objectSelf");
+					
+					T ret = reinterpret_cast<T>(toUserData(-1));
+					pop(1);
+					
+					return ret;
+				}
 				
 			private:
 				static const char * LuaChunkReader(lua_State * vm, void * data, size_t * size);

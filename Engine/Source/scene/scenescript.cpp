@@ -36,14 +36,11 @@ TGen::Engine::Scene::SceneScript::~SceneScript() {
 }
 
 int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
-	lua_pushstring(vm, "_objectSelf");
-	lua_gettable(vm, 1);
-		
-	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
-	
-	//lua_pushstring(vm, entity->name.c_str());
-	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
 	TGen::Engine::Script::ScriptState scriptState(vm);
+	
+	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
+	
+	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
 	
 	
 	TGen::Vector3 position = sceneNode->getPosition();
@@ -54,16 +51,13 @@ int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
 }
 
 int TGen::Engine::Scene::SceneScript::luaLocalPosition(lua_State * vm) {
-	lua_pushstring(vm, "_objectSelf");
-	lua_gettable(vm, 1);
+	TGen::Engine::Script::ScriptState scriptState(vm);
+
+	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
 	
-	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
-	
-	//lua_pushstring(vm, entity->name.c_str());
 	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
 	TGen::SceneNode * node = sceneNode->getSceneNode();
 	
-	TGen::Engine::Script::ScriptState scriptState(vm);
 	
 	
 	TGen::Vector3 position;
@@ -79,12 +73,9 @@ int TGen::Engine::Scene::SceneScript::luaLocalPosition(lua_State * vm) {
 int TGen::Engine::Scene::SceneScript::luaSetMaterial(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 
-	lua_pushstring(vm, "_objectSelf");
-	lua_gettable(vm, 1);
+	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
 	
-	TGen::Engine::Scene::SceneScript * self = reinterpret_cast<TGen::Engine::Scene::SceneScript *>(lua_touserdata(vm, -1));
-	
-	scriptState.getField(2, "_objectSelf");
+	scriptState.getField(2, "_objectSelf");	// get _objectSelf pointer for material object
 	TGen::Material * material = reinterpret_cast<TGen::Material *>(lua_touserdata(vm, -1));
 	scriptState.pop(2);
 	

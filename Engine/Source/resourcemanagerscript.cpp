@@ -36,7 +36,7 @@ TGen::Engine::ResourceManagerScript::ResourceManagerScript(TGen::Engine::Resourc
 	scriptState.pop(2);
 	
 	
-	// Create "_material" class; used as metatable
+	// Create "_material" class; used as metatable.    or is it?
 	scriptState.newTable();
 	scriptState.setGlobal("_material");
 	
@@ -58,22 +58,20 @@ void TGen::Engine::ResourceManagerScript::registerFunction(const std::string & n
 int TGen::Engine::ResourceManagerScript::luaMaterial(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	
-	
-	scriptState.getField(-2, "_objectSelf");	
-	TGen::Engine::ResourceManagerScript * self = reinterpret_cast<TGen::Engine::ResourceManagerScript *>(scriptState.toUserData(-1));
+	ResourceManagerScript * self = scriptState.getSelfPointer<ResourceManagerScript *>();
 
 	
-	TGen::Material * material = self->resources.getMaterial(scriptState.toString(-2));
+	TGen::Material * material = self->resources.getMaterial(scriptState.toString(2));
 	//scriptState.pushUserData(material);
 	
 	// Create material object
 	scriptState.newTable();			// TODO: opt with createtable
 	
-	scriptState.getGlobal("_material");
-	if (scriptState.isNil(-1))
-		exit(34);
+	//scriptState.getGlobal("_material");
+	//if (scriptState.isNil(-1))
+	//	exit(34);
 	
-	scriptState.setMetatable(-2);
+	//scriptState.setMetatable(-2);
 	
 	scriptState.pushUserData(material);
 	scriptState.setField(-2, "_objectSelf");

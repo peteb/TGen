@@ -17,7 +17,7 @@ TGen::Engine::Script::ComponentScript::ComponentScript(TGen::Engine::Script::Ent
 	, creator(creator)
 	, entityScript(entityScript)
 {
-	
+
 }
 
 TGen::Engine::Script::ComponentScript::~ComponentScript() {
@@ -44,9 +44,16 @@ TGen::Engine::Script::ScriptState & TGen::Engine::Script::ComponentScript::begin
 	scriptState.getField(-1, entityScript->getName());
 	scriptState.getField(-1, this->name);
 	
+	beginTop = scriptState.getStackTop();
+	
 	return scriptState;
 }
 
 void TGen::Engine::Script::ComponentScript::endComponentScript() {
+	if (beginTop != creator.getScriptState().getStackTop()) {
+		throw TGen::RuntimeException("ComponentScript::endComponentScript", "stack push/pops don't match");
+	}
+	
 	creator.getScriptState().pop(3);
 }
+

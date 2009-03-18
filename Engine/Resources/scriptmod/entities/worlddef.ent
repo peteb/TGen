@@ -22,6 +22,11 @@ box1 {
 	timer materialChanger {
 		interval 1.0
 	}
+	
+	timer timer2 {
+		interval 0.5
+		enabled false
+	}
 }
 
 

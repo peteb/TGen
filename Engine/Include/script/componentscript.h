@@ -38,6 +38,7 @@ namespace TGen {
 				TGen::Engine::Script::Subsystem & creator;
 				TGen::Engine::Script::EntityScript * entityScript;
 				std::string name;
+				int beginTop;
 			};
 		}
 	} // !Engine

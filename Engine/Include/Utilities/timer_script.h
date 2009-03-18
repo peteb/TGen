@@ -12,6 +12,8 @@
 
 #include <string>
 
+struct lua_State;
+
 namespace TGen {
 	namespace Engine {
 		class ComponentLinker;
@@ -31,8 +33,15 @@ namespace TGen {
 				void tick();
 				
 			private:
+				static int luaName(lua_State * vm);
+				static int luaInterval(lua_State * vm);
+				static int luaSetInterval(lua_State * vm);
+				static int luaEnable(lua_State * vm);
+				static int luaDisable(lua_State * vm);
+				
 				Timer & timer;
 				TGen::Engine::Script::ComponentScript * scriptComponent;
+				TGen::Engine::Script::EntityScript * scriptEntity;
 				std::string name;
 			};
 			

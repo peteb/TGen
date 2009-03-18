@@ -46,10 +46,14 @@ TGen::Engine::Script::ComponentScript * TGen::Engine::Script::EntityScript::crea
 	scriptState.getField(-1, this->name);
 	scriptState.newTable();
 	
+
 	scriptState.setUserData("_objectSelf", self);
 	
 	scriptState.setField(-2, name);
+
 	scriptState.pop(1);
+	
+
 	
 	return scriptComponent.release();
 }
