@@ -5,21 +5,21 @@
 --end
 
 for k,v in pairs(entities) do
-	--print(k.." with name: "..v:name());      
+	print(k.." with name: "..v:name());      
 	
 	-- register onCreation
-	--v.onCreation = function(self)
-	--	print("*** Entity created: " .. self:name());
-	--end
+	v.onCreation = function(self)
+		print("*** Entity created: " .. self:name());
+	end
 	
 	print("   components:");
 	
-	--for k,v in pairs(v) do
+	for k,v in pairs(v) do
 		--if (type(v) == "table" and v.worldPosition) then
 		--	print("         worldpos: " .. v:worldPosition());
 		--end
-	--	print("      "..k);
-	--end
+		print("      "..k);
+	end
 end
 
 

@@ -7,12 +7,20 @@
 --
  
 vec3 = {}
+vec3.__index = vec3;
 
 function vec3.new(vx, vy, vz)
 	local ret = {x = vx, y = vy, z = vz}
 	setmetatable(ret, vec3);
 	
 	return ret;
+end
+
+function vec3.newNormalize(vx, vy, vz)
+	local newd = vec3.new(vx, vy, vz);
+	newd:normalize();
+	
+	return newd;
 end
 
 function vec3:__tostring()
@@ -40,7 +48,7 @@ function vec3:__concat(before)
 end
 
 function vec3:magnitude()
-	return sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
+	return math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
 end
 
 function vec3:normalize()
@@ -53,6 +61,8 @@ function vec3:normalize()
 	self.x = self.x / length;
 	self.y = self.y / length;
 	self.z = self.z / length;
+	
+	return self;
 end
 
 function vec3.dotProduct(v1, v2)

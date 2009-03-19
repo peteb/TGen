@@ -159,6 +159,39 @@ float TGen::Engine::Script::ScriptState::toNumber(int index) {
 	return lua_tonumber(vm, index);
 }
 
+TGen::Vector3 TGen::Engine::Script::ScriptState::toVector(int index) {
+	TGen::Vector3 ret;
+	
+	int fixedIndex = (index < 0 ? getStackTop() + index + 1 : index);
+	getField(fixedIndex, "x");
+	getField(fixedIndex, "y");
+	getField(fixedIndex, "z");
+	
+	ret.z = toNumber(-1);
+	ret.y = toNumber(-2);
+	ret.x = toNumber(-3);
+	
+	pop(3);
+	
+	return ret;
+}
+
+TGen::Matrix3x3 TGen::Engine::Script::ScriptState::toMatrix3(int index) {
+	TGen::Vector3 x, y, z;
+	
+	getField(index, "x");
+	getField(index, "y");
+	getField(index, "z");
+
+	x = toVector(-3);
+	y = toVector(-2);
+	z = toVector(-1);
+
+	pop(3);
+	
+	return TGen::Matrix3x3(x, y, z);
+}
+
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 	int ret = lua_pcall(vm, nargs, nresults, 0);
 	

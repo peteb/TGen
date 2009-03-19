@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_SCRIPTSTATE_H
 
 #include <string>
+#include "matrix3x3.h"
 
 class lua_State;
 
@@ -63,6 +64,8 @@ namespace TGen {
 				void * toUserData(int index);
 				float toNumber(int index);
 				std::string toString(int index);
+				TGen::Vector3 toVector(int index);
+				TGen::Matrix3x3 toMatrix3(int index);
 				
 				template<typename T>
 				T getSelfPointer() {

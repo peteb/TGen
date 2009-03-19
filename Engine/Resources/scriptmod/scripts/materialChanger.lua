@@ -20,8 +20,10 @@ function box.materialChanger:onTick()
 	
 	if (self:interval() > 1.5) then
 		self:disable();
+	elseif (self:interval() > 1.2) then
 		box.timer2:enable();
 	end
+	
 end
 
 box.timer2.numTicks = 0;
@@ -31,6 +33,20 @@ function box.timer2:onTick()
 
 	print(self:name().." tick: "..self.numTicks);
 	
+	oldPos = box.sceneNode:localPosition();
+	
+	local pos = self.numTicks;
+	if (pos >= 5.0) then
+		pos = 5.0 - (pos - 5.0);
+	end
+	
+	local myVec = vec3.new(1, 2, 3);
+	myVec:normalize();
+	
+	--box.sceneNode:setLocalPosition(vec3.new(0.0, pos * 0.3, oldPos.z));
+	myMat = mat3.rotation(vec3.new(0.0, 1.0, 0.0), math.rad(pos));
+	box.sceneNode:setLocalOrientation(myMat);
+
 	if (self.numTicks >= 10) then
 		self.numTicks = 0;
 		self:disable();
@@ -38,3 +54,5 @@ function box.timer2:onTick()
 		box.materialChanger:enable();
 	end
 end
+
+

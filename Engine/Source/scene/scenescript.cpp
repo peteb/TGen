@@ -28,6 +28,9 @@ TGen::Engine::Scene::SceneScript::SceneScript(const std::string & name, TGen::En
 	scriptComponent->registerFunction("worldPosition", luaWorldPosition);
 	scriptComponent->registerFunction("localPosition", luaLocalPosition);
 	scriptComponent->registerFunction("setMaterial", luaSetMaterial);
+	scriptComponent->registerFunction("setWorldPosition", luaSetWorldPosition);
+	scriptComponent->registerFunction("setLocalPosition", luaSetLocalPosition);
+	scriptComponent->registerFunction("setLocalOrientation", luaSetLocalOrientation);
 
 }
 
@@ -86,3 +89,34 @@ int TGen::Engine::Scene::SceneScript::luaSetMaterial(lua_State * vm) {
 	
 	return 0;
 }
+
+int TGen::Engine::Scene::SceneScript::luaSetWorldPosition(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
+	
+	TGen::Vector3 vec = scriptState.toVector(2);
+	self->sceneNode->setPosition(vec);
+	
+	return 0;
+}
+
+int TGen::Engine::Scene::SceneScript::luaSetLocalPosition(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
+	
+	TGen::Vector3 vec = scriptState.toVector(2);
+	self->sceneNode->getSceneNode()->setPosition(vec);
+	
+	return 0;
+}
+
+int TGen::Engine::Scene::SceneScript::luaSetLocalOrientation(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
+	
+	TGen::Rotation orientation = scriptState.toMatrix3(2);
+	self->sceneNode->getSceneNode()->setOrientation(orientation);
+	
+	return 0;
+}
+

@@ -36,12 +36,15 @@ TGen::Engine::ResourceManagerScript::ResourceManagerScript(TGen::Engine::Resourc
 	scriptState.pop(2);
 	
 	
-	// Create "_material" class; used as metatable.    or is it?
+	// Create "_material" class; used as metatable.
 	scriptState.newTable();
 	scriptState.setGlobal("_material");
 	
 	scriptState.getGlobal("_material");
-	registerFunction("getName", luaMaterialName);
+	registerFunction("name", luaMaterialName);
+	
+	scriptState.getGlobal("_material");
+	scriptState.setField(-2, "__index");
 	
 	scriptState.pop(2);
 }
@@ -59,25 +62,24 @@ int TGen::Engine::ResourceManagerScript::luaMaterial(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	
 	ResourceManagerScript * self = scriptState.getSelfPointer<ResourceManagerScript *>();
-
 	
 	TGen::Material * material = self->resources.getMaterial(scriptState.toString(2));
-	//scriptState.pushUserData(material);
 	
 	// Create material object
 	scriptState.newTable();			// TODO: opt with createtable
 	
-	//scriptState.getGlobal("_material");
-	//if (scriptState.isNil(-1))
-	//	exit(34);
+	scriptState.getGlobal("_material");
+	if (scriptState.isNil(-1))
+		throw TGen::RuntimeException("ResourceManagerScript::luaMaterial", "_material table not defined");
 	
-	//scriptState.setMetatable(-2);
+	
+	scriptState.setMetatable(-2);
 	
 	scriptState.pushUserData(material);
 	scriptState.setField(-2, "_objectSelf");
 	
-	scriptState.pushFunction(luaMaterialName);
-	scriptState.setField(-2, "name");
+	//scriptState.pushFunction(luaMaterialName);
+	//scriptState.setField(-2, "name");
 	
 	return 1;
 }

@@ -29,11 +29,14 @@ namespace TGen {
 				SceneScript(const std::string & name, TGen::Engine::Scene::Node * sceneNode, TGen::Engine::Script::EntityScript * entityScript);
 				~SceneScript();
 				
+			private:
 				static int luaWorldPosition(lua_State * vm);
 				static int luaLocalPosition(lua_State * vm);
 				static int luaSetMaterial(lua_State * vm);
+				static int luaSetWorldPosition(lua_State * vm);
+				static int luaSetLocalPosition(lua_State * vm);
+				static int luaSetLocalOrientation(lua_State * vm);
 				
-			private:
 				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Scene::Node * sceneNode;
 				std::string name;
