@@ -46,3 +46,13 @@ material greenmat default 9 {
 		}	
 	}
 }
+
+material dirt03 default 9 {
+	lod 9 {
+		pass RENDERER/writeAttributes:COLOR_MAP {
+			param colorMap int 0
+			
+			map colorMap "textures/dirt03.tga"
+		}	
+	}
+}

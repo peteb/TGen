@@ -14,7 +14,7 @@ world {
 box1 {
 	sceneNode {
 		//parent world:sceneNode
-		origin "0 0 10"
+		origin "0 1 10"
 		
 		model "gen:cube width 3.0 height 1.0 depth 1.0 texwidth 3"
 	}
@@ -27,16 +27,42 @@ box1 {
 		interval 0.05
 		enabled false
 	}
+	
+	
+	physGeom {
+		type box
+		dimensions "3 1 1"
+		link sceneNode
+	}
 }
 
 
-player {
-	sceneNode origin {
+ground {
+	sceneNode {
 		origin "0 0 0"
+		material "dirt03"
+		model "gen:cube width 100.0 height 1.0 depth 100.0 texwidth 100.0 texdepth 100.0"
+		
+	}
+	
+	physGeom {
+		type box
+		dimensions "100 1 100"
+	}
+
+}
+
+player {
+	///////////////////////////////////////////////////////////////
+	// visual & spatial representations
+	///////////////////////////////////////////////////////////////
+	
+	sceneNode origin {
+		origin "0 2 0"
 	}
 	
 	sceneNode head_cam_joint {
-		origin "0 0.7 0"
+		origin "0 0.7 0"		// 0.9
 		
 		link origin
 	}
@@ -47,22 +73,57 @@ player {
 		
 		link head_cam_joint
 	}
-			
-	sceneNode tjaffs {
-		//parent world:sceneNode
-		origin "0 0 -2"
-		
-		model "gen:cube width 0.1 height 0.2 depth 1.0"
-		parent head_cam_joint
-		// TODO: default player controller, just position the camera infront of 0,0,0
-	}
+
+
+
+	///////////////////////////////////////////////////////////////
+	// physical representations
+	///////////////////////////////////////////////////////////////
 	
+	physBody {
+		massType box
+		massTotal 12.0
+		massDimensions "0.7 1.4 0.7"
+		
+		turnHead true
+		maxAngularSpeed 0.0
+		gravity true
+		killTorque true	
+		linearDamping 0.3
+		autoDisable false
+		
+		link origin
+	}
+
+	physGeom {
+		type bipedal
+		friction 10.0
+		capRadius 0.45
+		length 1.1
+		category "player"
+		
+		link physBody		
+	}
+
+	
+	
+	///////////////////////////////////////////////////////////////
+	// controller, gets events directly from the player
+	///////////////////////////////////////////////////////////////
+			
 	controller {
 		type firstperson
 
+		deltaPlane 	55000.0
+		jumpForce 800000
+		jumpTime 0.03
+		airControl 0.15
+		usePhysics true			// apply forces
+
 		camera head_cam			// bind camera, should be updated by view
+		control physBody		// bind component to control
 		view head_cam_joint		// node to control viewing direction
-		control origin
 	}
+	
 }
 
