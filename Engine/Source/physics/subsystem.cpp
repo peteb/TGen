@@ -71,7 +71,7 @@ TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(cons
 		
 	}
 	else if (type == "physGeom") {
-		Geom * newGeom = componentFactory.createGeom(name, properties, mainSpace);
+		Geom * newGeom = componentFactory.createGeom(name, properties, mainSpace, entity);
 		addGeom(newGeom);
 		
 		ret = newGeom;
@@ -340,9 +340,9 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 				//	std::cout << "TOTAL FORCE: " << totalForce << std::endl;
 				
 				if (contactNormal.y >= -0.5)	// TODO: hurtable, force ska vara mindre för den som får mindre slag
-					geom1->onCollisionForce(totalForce, body1OnGround);
+					geom1->onCollisionForce(totalForce, body1OnGround, geom2);
 				if (contactNormal.y <= -0.5)
-					geom2->onCollisionForce(totalForce, body2OnGround);
+					geom2->onCollisionForce(totalForce, body2OnGround, geom1);
 				
 				//if (totalForce > 0.1)
 					//std::cout << "HURT: " << totalForce << std::endl;

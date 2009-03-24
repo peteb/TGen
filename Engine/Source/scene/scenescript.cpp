@@ -35,7 +35,7 @@ TGen::Engine::Scene::SceneScript::SceneScript(const std::string & name, TGen::En
 }
 
 TGen::Engine::Scene::SceneScript::~SceneScript() {
-	
+	delete scriptComponent;
 }
 
 int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {

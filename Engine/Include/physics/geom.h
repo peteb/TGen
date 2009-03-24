@@ -23,9 +23,11 @@ namespace TGen {
 	namespace Engine {
 		class WorldObject;
 		class Triggerable;
+		class Entity;
 		
 		namespace Physics {
 			class Body;
+			class GeomScript;
 			
 			class Geom : public TGen::Engine::Component {
 			public:
@@ -48,7 +50,7 @@ namespace TGen {
 				
 				virtual bool onCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
 				virtual void postCollision(TGen::Engine::Physics::Geom * with, dGeomID id, const dContact & contactInfo);
-				virtual void onCollisionForce(scalar force, bool groundCollision);
+				virtual void onCollisionForce(scalar force, bool groundCollision, TGen::Engine::Physics::Geom * with);
 				
 				virtual void link(const TGen::Engine::ComponentLinker & linker);
 
@@ -61,6 +63,8 @@ namespace TGen {
 				scalar collisionForceThreshold, collisionForceScale;
 
 				void setPosition(const TGen::Vector3 & position);				
+				void setScriptInterface(TGen::Engine::Physics::GeomScript * scriptInterface);
+				TGen::Engine::Physics::GeomScript * getScriptInterface() const;
 				
 			protected:
 				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
@@ -77,6 +81,7 @@ namespace TGen {
 				uint categoryBits, collidesWith;
 				
 				TGen::Engine::Physics::BodyDelegate bodyDelegate;
+				TGen::Engine::Physics::GeomScript * scriptInterface;
 			};
 		} // !Physics
 	} // !Engine

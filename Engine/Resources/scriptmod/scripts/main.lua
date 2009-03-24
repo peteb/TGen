@@ -38,3 +38,8 @@ local newMaterial = resources:material("newmat");
 print("New material's name: "..newMaterial:name());
 funkyNode:setMaterial(newMaterial);
 
+
+
+function entities.player.physGeom:onCollision(force, with)
+	print("player collision, force: "..force.." with: "..with:parent():name());
+end

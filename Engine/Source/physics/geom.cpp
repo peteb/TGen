@@ -9,6 +9,7 @@
 
 #include "physics/geom.h"
 #include "physics/body.h"
+#include "physics/geomscript.h"
 #include "scene/node.h"
 
 #include "entity.h"
@@ -30,6 +31,7 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	, collidesWith(0)
 	, collisionForceThreshold(3.0)
 	, collisionForceScale(1.0)
+	, scriptInterface(NULL)
 {
 
 }
@@ -37,8 +39,15 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 
 TGen::Engine::Physics::Geom::~Geom() {
 	dGeomDestroy(geomId);
+	
+	delete scriptInterface;
 }
 
+
+void TGen::Engine::Physics::Geom::setScriptInterface(TGen::Engine::Physics::GeomScript * scriptInterface) {
+	delete this->scriptInterface;
+	this->scriptInterface = scriptInterface;
+}
 
 float TGen::Engine::Physics::Geom::getFriction() const {
 	return friction;
@@ -176,8 +185,14 @@ void TGen::Engine::Physics::Geom::sendToLink() {
 }
 
 
-void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundCollision) {
-
+void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundCollision, TGen::Engine::Physics::Geom * with) {
+	if (scriptInterface) {
+		if (force > 0.0001f) {
+		//	std::cout << "FORCE: " << force << std::endl;
+			scriptInterface->onCollision(force, with);
+		}
+	}
+	
 	/*if (eventCollisionForce) {
 		
 		//force -= collisionForceThreshold;
@@ -219,6 +234,11 @@ void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * wi
 	}*/
 	
 }
+
+TGen::Engine::Physics::GeomScript * TGen::Engine::Physics::Geom::getScriptInterface() const {
+	return scriptInterface;
+}
+
 
 uint TGen::Engine::Physics::Geom::getCategory() const {
 	return categoryBits;

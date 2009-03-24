@@ -21,6 +21,7 @@
 #include "physics/id4cmloader.h"
 #include "physics/geomrecipe.h"
 #include "physics/bodyrecipe.h"
+#include "physics/geomscript.h"
 
 #include "generateline.h"
 #include "transformerfactory.h"
@@ -195,7 +196,7 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBod
 }
 
 
-TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeom(const std::string & name, const TGen::PropertyTree & properties, dSpaceID mainSpace) {
+TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeom(const std::string & name, const TGen::PropertyTree & properties, dSpaceID mainSpace, TGen::Engine::Entity & entity) {
 	std::auto_ptr<TGen::Engine::Physics::Geom> newGeom;
 	std::string geomType = properties.getProperty("type", "none");
 	
@@ -240,15 +241,16 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 		
 		newGeom.reset(loader.createGeom(name, line.getName(), transformers, mainSpace));
 	}
-	
-	if (!newGeom.get())
+	else {
 		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
+	}
 	
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
 	newGeom->setLink(properties.getProperty("link", ""));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	newGeom->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
 	
+	newGeom->setScriptInterface(new TGen::Engine::Physics::GeomScript(name, newGeom.get(), entity.getScriptInterface()));
 	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
 	newGeom->collisionForceScale = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceScale", "1.0"));
 	

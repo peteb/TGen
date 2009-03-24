@@ -21,6 +21,7 @@ namespace TGen {
 		class Component;
 		class ComponentRecipe;
 		class Filesystem;
+		class Entity;
 		
 		namespace Physics {
 			class Subsystem;
@@ -35,7 +36,7 @@ namespace TGen {
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
 
 				TGen::Engine::Physics::Body * createBody(const std::string & name, const TGen::PropertyTree & properties, dWorldID worldId, dSpaceID spaceId);
-				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties, dSpaceID mainSpace);
+				TGen::Engine::Physics::Geom * createGeom(const std::string & name, const TGen::PropertyTree & properties, dSpaceID mainSpace, TGen::Engine::Entity & entity);
 				TGen::Engine::Physics::Joint * createJoint(const std::string & name, const TGen::PropertyTree & properties, dWorldID worldId);
 
 			private:

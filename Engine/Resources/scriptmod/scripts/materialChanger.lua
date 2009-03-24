@@ -55,4 +55,7 @@ function box.timer2:onTick()
 	end
 end
 
+-- Interpolator = Position/Orientation, tar ett objekt som Šr interpolator function typ wave 
+-- fšrst; scripta med phys*, sen ljud
+
 

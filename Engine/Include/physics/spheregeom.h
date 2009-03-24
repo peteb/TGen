@@ -14,9 +14,6 @@
 
 namespace TGen {
 	namespace Engine {
-		class Entity;
-		class EntityList;
-		
 		namespace Physics {
 			class SphereGeom : public TGen::Engine::Physics::Geom {
 			public:

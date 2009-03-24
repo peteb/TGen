@@ -18,6 +18,7 @@
 #include "physics/spheregeom.h"
 #include "physics/boxgeom.h"
 #include "physics/raygeom.h"
+#include "physics/geomscript.h"
 
 TGen::Engine::Physics::GeomRecipe::GeomRecipe(GeomRecipeType type, const std::string & name, dSpaceID space, TGen::Engine::Physics::Subsystem & subsystem)
 	: TGen::Engine::ComponentRecipe(name)
@@ -63,7 +64,8 @@ TGen::Engine::Component * TGen::Engine::Physics::GeomRecipe::createComponent(con
 	ret->setFriction(friction);
 	ret->setCategory(categoryBits);
 	ret->setCollidesWith(collidesWith);
-
+	ret->setScriptInterface(new TGen::Engine::Physics::GeomScript(name, ret, constructing.getScriptInterface()));		// TODO: check that it works
+									
 	subsystem.addGeom(ret);
 
 	return ret;
