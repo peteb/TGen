@@ -20,6 +20,9 @@ void TGen::Engine::Platform::DisplayExceptionWindow(const TGen::RuntimeException
 	errorDescription += e.getDescription() + "\n\n";
 	errorDescription += "TGen is unable to continue. Click Report to send a report.";
 	
-	DisplayErrorWindow(errorTitle.c_str(), errorDescription.c_str());
+	DisplayErrorWindow(errorTitle.c_str(), errorDescription.c_str(), true);
 }
 
+void TGen::Engine::Platform::DisplayMessage(const std::string & title, const std::string & text) {
+	DisplayErrorWindow(title.c_str(), text.c_str(), false);
+}

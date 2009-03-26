@@ -19,6 +19,7 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 	: logs(logs)
 	, filesystem(filesystem)
 	, componentFactory(*this)
+	, envScript(scriptState)
 {	
 }
 

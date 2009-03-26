@@ -103,4 +103,30 @@ void TGen::Engine::Sound::Source::setVolume(float volume) {
 	this->volume = volume;
 }
 
+/*
+ if (methodSymbol == symbolPlaySound) {
+ int soundId = context.getParameter<int>(0);
+ TGen::Engine::Sound::Sound * sound = TGen::union_cast<TGen::Engine::Sound::Sound *>(soundId);
+ 
+ std::cout << "SOUND: " << std::hex << soundId << " " << sound << std::hex <<" " << context.getParameter<int>(0) << std::endl;
+ 
+ if (!sound)
+ throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
+ 
+ TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
+ newChannel->set3D(true);		// det som är felet!		blir override i localsource... KOLLA SEN HUR CALL OCH MOVE kan förbättras så de bara använder ComponentLink!
+ newChannel->set3DMinMaxDistance(minDistance, maxDistance);
+ newChannel->setVolume(volume);
+ 
+ addChannel(newChannel);
+ 
+ context.setRegister<TGen::Engine::Triggerable *>(context.getReturnRegister(), newChannel);
+ }
+ else {
+ TGen::Engine::Sound::Source::trigger(context, mode);
+ }
+ 
+ */
+
+
 

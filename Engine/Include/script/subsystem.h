@@ -13,6 +13,7 @@
 #include "../subsystem.h"
 #include "componentfactory.h"
 #include "script/scriptstate.h"
+#include "script/envscript.h"
 
 struct lua_State;
 
@@ -45,6 +46,7 @@ namespace TGen {
 				TGen::Engine::Script::ComponentFactory componentFactory;
 				
 				TGen::Engine::Script::ScriptState scriptState;
+				TGen::Engine::Script::EnvironmentScript envScript;
 			};
 			
 		} // !Script

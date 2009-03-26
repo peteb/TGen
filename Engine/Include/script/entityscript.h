@@ -30,15 +30,15 @@ namespace TGen {
 				void onCreation();
 				
 				std::string getName() const;
-
 				
-				static int luaGetName(lua_State * vm);
 
 				friend class TGen::Engine::Script::Subsystem;
 				
 			private:
 				EntityScript(const std::string & name, TGen::Engine::Script::Subsystem & creator);
 
+				static int luaGetName(lua_State * vm);
+				
 				TGen::Engine::Script::Subsystem & creator;
 				std::string name;
 			};

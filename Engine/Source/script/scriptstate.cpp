@@ -138,6 +138,14 @@ bool TGen::Engine::Script::ScriptState::isNil(int index) {
 	return lua_isnil(vm, index);
 }
 
+bool TGen::Engine::Script::ScriptState::isString(int index) {
+	return lua_isstring(vm, index);
+}
+
+bool TGen::Engine::Script::ScriptState::isNumber(int index) {
+	return lua_isnumber(vm, index);
+}
+
 void TGen::Engine::Script::ScriptState::generateError() {
 	lua_error(vm);
 }

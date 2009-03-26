@@ -106,7 +106,7 @@ int main(int argc, char ** argv) {
 		catch (const std::exception & e) {
 			logs.error["unhandled"] << e.what() << TGen::endl;
 			logs.error << "unhandled exception, quitting..." << TGen::endl;
-			DisplayErrorWindow("Unhandled sc++l exception", e.what());
+			DisplayErrorWindow("Unhandled sc++l exception", e.what(), true);
 			preExit();
 			
 			return EXIT_FAILURE;
@@ -115,7 +115,7 @@ int main(int argc, char ** argv) {
 	catch (const std::exception & e) {
 		std::cerr << "ERROR IN STRAPPER: " << e.what() << std::endl;
 		std::cerr << "unhandled exception, quitting..." << std::endl;
-		DisplayErrorWindow("Unhandled sc++l exception in strapper", e.what());
+		DisplayErrorWindow("Unhandled sc++l exception in strapper", e.what(), true);
 		preExit();
 		
 		return EXIT_FAILURE;
@@ -123,7 +123,7 @@ int main(int argc, char ** argv) {
 	catch (...) {
 		std::cerr << "UNKNOWN ERROR IN STRAPPER!" << std::endl;
 		std::cerr << "unhandled exception, quitting..." << std::endl;
-		DisplayErrorWindow("Unhandled unknown exception in strapper", "");
+		DisplayErrorWindow("Unhandled unknown exception in strapper", "", true);
 		
 		preExit();
 		return EXIT_FAILURE;

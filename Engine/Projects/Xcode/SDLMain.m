@@ -256,15 +256,22 @@ static void CustomApplicationMain (int argc, char **argv)
 
 #endif
 
-void DisplayErrorWindow(const char * title, const char * description) {
+void DisplayErrorWindow(const char * title, const char * description, bool reportButton) {
 	NSAlert * alert = [[NSAlert alloc] init];
 	NSString * errorTitle = [[NSString alloc] initWithCString:title];
 	NSString * errorDescription = [[NSString alloc] initWithCString:description];
 
 	[alert setMessageText:errorTitle];
 	[alert addButtonWithTitle:@"Quit"];
-	[alert addButtonWithTitle:@"Report..."];
-	[alert setAlertStyle:NSCriticalAlertStyle];
+	
+	if (reportButton) {
+		[alert addButtonWithTitle:@"Report..."];
+		[alert setAlertStyle:NSCriticalAlertStyle];
+	}
+	else {
+		[alert setAlertStyle:NSWarningAlertStyle];		
+	}
+	
 	[alert setInformativeText:errorDescription];
 		
 	if ([alert runModal] == NSAlertSecondButtonReturn) {

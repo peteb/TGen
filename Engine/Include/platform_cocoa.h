@@ -13,13 +13,14 @@
 #include "tgen_core.h"
 
 extern "C" {	
-	void DisplayErrorWindow(const char * title, const char * description);	// have to be exported on every platform
+	void DisplayErrorWindow(const char * title, const char * description, bool reportButton);	// has to be exported on every platform
 }
 
 namespace TGen {
 	namespace Engine {
 		namespace Platform {
 			void DisplayExceptionWindow(const TGen::RuntimeException & e, const std::string & title = "");
+			void DisplayMessage(const std::string & title, const std::string & text);
 		} // !Platform
 	} // !Engine
 } // !TGen

@@ -53,6 +53,8 @@ namespace TGen {
 				void remove(int index);
 				int getStackTop();
 				bool isNil(int index);
+				bool isString(int index);
+				bool isNumber(int index);
 				
 				void generateError();
 				void generateError(const std::string & desc);
