@@ -34,6 +34,10 @@ namespace TGen {
 			SHADOWMAP =				0x0010,
 		};
 		
+		namespace Sound {
+			class Subsystem;
+		}
+		
 		class ResourceManager : public TGen::MaterialLinkCallback, public TGen::MaterialSource, public TGen::MeshSource, public TGen::ModelInstantiator, public TGen::Engine::IncludeCallback {
 		public:
 			ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer, TGen::Engine::VariableRegister & variables);
@@ -48,10 +52,14 @@ namespace TGen {
 			void loadMaterials(const std::string & filename);
 			void updateMaterials(scalar time);
 			
+			void setSoundDelegate(TGen::Engine::Sound::Subsystem * soundDelegate);
+			
 			std::string getIncludeContent(const std::string & identifier);
 			void setScriptInterface(TGen::Engine::ResourceManagerScript * scriptInterface);
 			
 			TGen::Engine::VertexCache vertexCache;
+			
+			friend class ResourceManagerScript;
 			
 		private:
 			typedef std::map<std::string, TGen::ShaderProgram *> ShaderMap;
@@ -72,6 +80,7 @@ namespace TGen {
 			TGen::Engine::VariableRegister & variables;
 			TGen::Renderer & renderer;
 			TGen::Engine::ResourceManagerScript * scriptInterface;
+			TGen::Engine::Sound::Subsystem * soundDelegate;
 		};
 	}
 }

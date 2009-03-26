@@ -63,6 +63,8 @@ namespace TGen {
 			void loadEntities(const std::string & filename);
 			void loadDefinitions(const std::string & path);
 			
+			
+			TGen::Engine::ResourceManager & resources;
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;
 			

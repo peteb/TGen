@@ -58,3 +58,15 @@ void TGen::Engine::Sound::LocalSource::setMinMaxDistance(scalar min, scalar max)
 void TGen::Engine::Sound::LocalSource::setLink(TGen::Engine::WorldObject * link) {
 	linkedTo = link;
 }
+
+void TGen::Engine::Sound::LocalSource::playSound(TGen::Engine::Sound::Sound * sound) {
+	TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
+	
+	newChannel->set3D(true);		// det som är felet!		blir override i localsource... KOLLA SEN HUR CALL OCH MOVE kan förbättras så de bara använder ComponentLink!
+	newChannel->set3DMinMaxDistance(minDistance, maxDistance);
+	newChannel->setVolume(volume);
+	
+	addChannel(newChannel);
+}
+
+

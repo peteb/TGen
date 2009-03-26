@@ -27,6 +27,7 @@ TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs
 	, vertexCache(renderer, logs)
 	, variables(variables)
 	, scriptInterface(NULL)
+	, soundDelegate(NULL)
 {
 	logs.info["res+"] << "initializing resource manager..." << TGen::endl;
 	
@@ -450,4 +451,8 @@ void TGen::Engine::ResourceManager::updateMaterials(scalar time) {	// TODO: this
 void TGen::Engine::ResourceManager::setScriptInterface(TGen::Engine::ResourceManagerScript * scriptInterface) {
 	delete this->scriptInterface;						// TODO: fall för TGen::auto_ptr?
 	this->scriptInterface = scriptInterface;
+}
+
+void TGen::Engine::ResourceManager::setSoundDelegate(TGen::Engine::Sound::Subsystem * soundDelegate) {
+	this->soundDelegate = soundDelegate;
 }

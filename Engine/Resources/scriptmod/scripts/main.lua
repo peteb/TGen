@@ -9,17 +9,20 @@ for k,v in pairs(entities) do
 	
 	-- register onCreation
 	v.onCreation = function(self)
-		print("*** Entity created: " .. self:name());
+		--print("*** Entity created: " .. self:name());
+		local message = "";
+
+		for k,v in pairs(v) do
+			if (string.sub(tostring(k), 0, 1) ~= "_") then
+				message = message.."   "..type(v).." "..tostring(k).."\n";
+			end
+		end
+		
+		--env.showMessage("Created entity \""..self:name().."\"", message);
 	end
 	
-	print("   components:");
+	--print("   components:");
 	
-	for k,v in pairs(v) do
-		--if (type(v) == "table" and v.worldPosition) then
-		--	print("         worldpos: " .. v:worldPosition());
-		--end
-		print("      "..k);
-	end
 end
 
 
@@ -41,5 +44,9 @@ funkyNode:setMaterial(newMaterial);
 function entities.player.physGeom:onCollision(force, with)
 	print("player collision, force: "..force.." with: "..with:parent():name());
 	--env.showMessage("Stuff", "hej");
-	env.quit();
+	--env.quit();
 end
+
+
+entities.box1.teleinSound = resources:sound("telein.wav");
+

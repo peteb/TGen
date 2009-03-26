@@ -16,12 +16,14 @@ function box.materialChanger:onTick()
 
 	self:setInterval(self:interval() + 0.1);
 
-	print(self:name().." interval: "..self:interval());
+	--print(self:name().." interval: "..self:interval());
 	
 	if (self:interval() > 1.5) then
 		self:disable();
 	elseif (self:interval() > 1.2) then
 		box.timer2:enable();
+		entities.box1.soundLocal:playSound(entities.box1.teleinSound);
+
 	end
 	
 end
@@ -31,7 +33,7 @@ box.timer2.numTicks = 0;
 function box.timer2:onTick() 
 	self.numTicks = self.numTicks + 1;
 
-	print(self:name().." tick: "..self.numTicks);
+	--print(self:name().." tick: "..self.numTicks);
 	
 	oldPos = box.sceneNode:localPosition();
 	

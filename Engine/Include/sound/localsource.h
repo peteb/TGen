@@ -28,6 +28,7 @@ namespace TGen {
 				void setLink(TGen::Engine::WorldObject * link);
 				
 				TGen::Engine::Sound::Channel * spawnChannel(bool paused);
+				void playSound(TGen::Engine::Sound::Sound * sound);
 				
 			private:
 				std::string linkWith;

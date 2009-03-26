@@ -11,6 +11,7 @@
 #include "sound/subsystem.h"
 #include "sound/channel.h"
 #include "sound/sound.h"
+#include "sound/sourcescript.h"
 
 #include "fmod/fmod_errors.h"
 #include "componentinterfaces.h"
@@ -25,10 +26,13 @@ TGen::Engine::Sound::Source::Source(const std::string & name, const std::string 
 	, prototype(false)
 	, creator(creator)
 	, volume(1.0)
+	, scriptInterface(NULL)
 {
 }
 
 TGen::Engine::Sound::Source::~Source() {
+	delete scriptInterface;
+	
 	for (int i = 0; i < channels.size(); ++i)
 		delete channels[i];
 }
@@ -68,7 +72,8 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 	
 	for (ChannelList::iterator iter = channels.begin(); iter != channels.end();) {
 		if (!(*iter)->isPlaying()) {
-			std::cout << "ERASING CHANNEL" << std::endl;
+			//std::cout << "ERASING CHANNEL" << std::endl;
+			delete *iter;
 			iter = channels.erase(iter);
 		}
 		else {
@@ -103,30 +108,9 @@ void TGen::Engine::Sound::Source::setVolume(float volume) {
 	this->volume = volume;
 }
 
-/*
- if (methodSymbol == symbolPlaySound) {
- int soundId = context.getParameter<int>(0);
- TGen::Engine::Sound::Sound * sound = TGen::union_cast<TGen::Engine::Sound::Sound *>(soundId);
- 
- std::cout << "SOUND: " << std::hex << soundId << " " << sound << std::hex <<" " << context.getParameter<int>(0) << std::endl;
- 
- if (!sound)
- throw TGen::RuntimeException("Sound::Source::trigger", "NULL sound sent");
- 
- TGen::Engine::Sound::Channel * newChannel = sound->spawnChannel(false);
- newChannel->set3D(true);		// det som är felet!		blir override i localsource... KOLLA SEN HUR CALL OCH MOVE kan förbättras så de bara använder ComponentLink!
- newChannel->set3DMinMaxDistance(minDistance, maxDistance);
- newChannel->setVolume(volume);
- 
- addChannel(newChannel);
- 
- context.setRegister<TGen::Engine::Triggerable *>(context.getReturnRegister(), newChannel);
- }
- else {
- TGen::Engine::Sound::Source::trigger(context, mode);
- }
- 
- */
-
+void TGen::Engine::Sound::Source::setScriptInterface(TGen::Engine::Sound::SourceScript * scriptInterface) {
+	delete this->scriptInterface;
+	this->scriptInterface = scriptInterface;
+}
 
 

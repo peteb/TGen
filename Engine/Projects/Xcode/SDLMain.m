@@ -262,13 +262,14 @@ void DisplayErrorWindow(const char * title, const char * description, bool repor
 	NSString * errorDescription = [[NSString alloc] initWithCString:description];
 
 	[alert setMessageText:errorTitle];
-	[alert addButtonWithTitle:@"Quit"];
 	
 	if (reportButton) {
+		[alert addButtonWithTitle:@"Quit"];
 		[alert addButtonWithTitle:@"Report..."];
 		[alert setAlertStyle:NSCriticalAlertStyle];
 	}
 	else {
+		[alert addButtonWithTitle:@"Dismiss"];
 		[alert setAlertStyle:NSWarningAlertStyle];		
 	}
 	

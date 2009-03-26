@@ -14,6 +14,7 @@
 #include "sound/sound.h"
 #include "sound/localrecipe.h"
 #include "sound/soundresource.h"
+#include "sound/sourcescript.h"
 
 #include "log.h"
 #include "generateline.h"
@@ -21,6 +22,7 @@
 #include "filesystem.h"
 #include "file.h"
 #include "staticcomponentrecipe.h"
+#include "entity.h"
 
 using TGen::Engine::Sound::GlobalSource;
 using TGen::Engine::Sound::LocalSource;
@@ -83,17 +85,18 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 		globalSources.push_back(newSource);
 		ret = newSource;
 	}
-	else if (properties.getName() == "soundRef") {
+	/*else if (properties.getName() == "soundRef") {
 		SoundResource * newResource = new SoundResource(name, *this);
 		newResource->setSoundName(properties.getAttribute(1));
 		return newResource;
-	}
+	}*/
 	else {
 		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "invalid component type: " + properties.getName());		
 	}
 	
 	ret->setAutoplay(TGen::lexical_cast<bool>(properties.getProperty("autoplay", "false")));
 	ret->setLoop(TGen::lexical_cast<bool>(properties.getProperty("loop", "false")));
+	ret->setScriptInterface(new TGen::Engine::Sound::SourceScript(name, ret, entity.getScriptInterface()));
 	
 	return ret;	
 }
@@ -178,10 +181,11 @@ void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position,
 TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std::string & name) {
 	logs.info["sound"] << "request for sound \"" << name << "\"" << TGen::endl;
 
+	std::string fixedName = TGen::prependPath(name, "/sounds/");
 	
 	TGen::Engine::Sound::Sound * ret = NULL;
 	
-	SoundMap::iterator iter = sounds.find(name);
+	SoundMap::iterator iter = sounds.find(fixedName);
 	if (iter != sounds.end()) {
 		ret = iter->second;
 		
@@ -191,10 +195,10 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std:
 	else {
 		logs.info["sound"] << "   not loaded, loading..." << TGen::endl;		
 
-		TGen::Engine::GenerateLine genline("gen:" + name);
+		TGen::Engine::GenerateLine genline("gen:" + fixedName);
 
 		ret = createSound(genline);
-		sounds.insert(std::make_pair(name, ret));
+		sounds.insert(std::make_pair(fixedName, ret));
 	}
 	
 	std::cout << "CREATED SOUND " << ret << std::endl;

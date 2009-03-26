@@ -122,6 +122,7 @@
 		D09891150D245215006A290D /* basicpoolcollection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09891140D245215006A290D /* basicpoolcollection.cpp */; };
 		D098D6A90D9A959A003B0486 /* modelfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D098D6A80D9A959A003B0486 /* modelfactory.cpp */; };
 		D099ACA20F7AF7B700AB7D0B /* envscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D099ACA10F7AF7B700AB7D0B /* envscript.cpp */; };
+		D099AE210F7BCFA000AB7D0B /* sourcescript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */; };
 		D09C62C00DF0928200B83C1E /* localsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09C62BF0DF0928200B83C1E /* localsource.cpp */; };
 		D09C62F00DF0975000B83C1E /* globalsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09C62EF0DF0975000B83C1E /* globalsource.cpp */; };
 		D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */; };
@@ -509,6 +510,8 @@
 		D098D6A80D9A959A003B0486 /* modelfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = modelfactory.cpp; sourceTree = "<group>"; };
 		D099ACA00F7AF7A800AB7D0B /* envscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = envscript.h; path = ../../Include/Script/envscript.h; sourceTree = SOURCE_ROOT; };
 		D099ACA10F7AF7B700AB7D0B /* envscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = envscript.cpp; path = Script/envscript.cpp; sourceTree = "<group>"; };
+		D099AE1F0F7BCF9100AB7D0B /* sourcescript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sourcescript.h; path = ../../Include/sound/sourcescript.h; sourceTree = SOURCE_ROOT; };
+		D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sourcescript.cpp; path = Sound/sourcescript.cpp; sourceTree = "<group>"; };
 		D09C62BC0DF0926300B83C1E /* localsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = localsource.h; path = ../../Include/sound/localsource.h; sourceTree = SOURCE_ROOT; };
 		D09C62BF0DF0928200B83C1E /* localsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = localsource.cpp; path = sound/localsource.cpp; sourceTree = "<group>"; };
 		D09C62EE0DF0974600B83C1E /* globalsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalsource.h; path = ../../Include/sound/globalsource.h; sourceTree = SOURCE_ROOT; };
@@ -1103,6 +1106,8 @@
 				D09FC1FD0E0FE17C00BF59F0 /* localrecipe.h */,
 				D079403D0E32A0370074996E /* soundresource.cpp */,
 				D079403A0E329FE70074996E /* soundresource.h */,
+				D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */,
+				D099AE1F0F7BCF9100AB7D0B /* sourcescript.h */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -1620,6 +1625,7 @@
 				D055C3700F682A9200368928 /* resourcemanagerscript.cpp in Sources */,
 				D0307DFC0F791A9F00BA480E /* geomscript.cpp in Sources */,
 				D099ACA20F7AF7B700AB7D0B /* envscript.cpp in Sources */,
+				D099AE210F7BCFA000AB7D0B /* sourcescript.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

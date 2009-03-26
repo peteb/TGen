@@ -33,7 +33,10 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, lightList(100)
 	, entityFactory(logs)
 	, worldInfo(NULL)
+	, resources(resources)
 {
+	resources.setSoundDelegate(&soundSubsystem);
+	
 	logs.info["world+"] << "initializing world '" << mapname << "'..." << TGen::endl;
 	
 	logs.info["world+"] << "   registering subsystems..." << TGen::endl;
@@ -119,6 +122,16 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	logs.info["world+"] << "   world created" << TGen::endl;
 }
 
+TGen::Engine::World::~World() {
+	logs.info["world-"] << "shutting down..." << TGen::endl;
+
+	resources.setSoundDelegate(NULL);	
+	
+	/*for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
+	 delete iter->second;
+	 }*/
+	
+}
 
 void TGen::Engine::World::loadEntities(const std::string & filename) {
 	std::auto_ptr<TGen::Engine::File> entitiesFile(filesystem.openRead(filename));
@@ -166,14 +179,6 @@ void TGen::Engine::World::loadDefinitions(const std::string & path) {
 
 // TODO: depthcheck på light volume
 
-TGen::Engine::World::~World() {
-	logs.info["world-"] << "shutting down..." << TGen::endl;
-
-	/*for (EntityMap::iterator iter = entities.begin(); iter != entities.end(); ++iter) {
-		delete iter->second;
-	}*/
-	
-}
 
 TGen::Camera * TGen::Engine::World::getCamera(const std::string & name) {
 	throw TGen::RuntimeException("World::getCamera", "shiet, remove this");
