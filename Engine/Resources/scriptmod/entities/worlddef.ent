@@ -36,6 +36,7 @@ box1 {
 	
 	physBody {
 		link sceneNode
+		autoDisable false
 	}
 
 	physGeom {

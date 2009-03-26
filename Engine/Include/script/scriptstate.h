@@ -43,7 +43,7 @@ namespace TGen {
 				void pushNumber(float number);
 				
 				void pushVector(const TGen::Vector3 & vec);
-				
+				void pushMatrix3(const TGen::Matrix3x3 & mat);
 				
 				void setField(int index, const std::string & name);
 				void getField(int index, const std::string & name);

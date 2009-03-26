@@ -46,8 +46,15 @@ function box.timer2:onTick()
 	myVec:normalize();
 	
 	--box.sceneNode:setLocalPosition(vec3.new(0.0, pos * 0.3, oldPos.z));
-	myMat = mat3.rotation(vec3.new(1.0, 0.0, 0.0), math.rad(pos) * 10.0);
-	box.sceneNode:setLocalOrientation(myMat);
+	local myMat = mat3.rotation(box.sceneNode:localOrientation().x, math.rad(10));
+	
+
+		
+	--env.quit();
+	
+	box.sceneNode:setLocalOrientation(box.sceneNode:localOrientation() * myMat);
+	
+	--box.sceneNode:setLocalOrientation(box.sceneNode:localOrientation() * myMat);
 
 	if (self.numTicks >= 10) then
 		self.numTicks = 0;

@@ -199,6 +199,49 @@ TGen::Matrix3x3 TGen::Engine::Script::ScriptState::toMatrix3(int index) {
 	
 	return TGen::Matrix3x3(x, y, z);
 }
+/*
+ 
+ void TGen::Engine::Script::ScriptState::pushVector(const TGen::Vector3 & vec) {
+ lua_createtable(vm, 3, 3);
+ 
+ lua_getglobal(vm, "vec3");
+ if (lua_isnil(vm, -1))
+ exit(34);
+ 
+ lua_setmetatable(vm, -2);
+ 
+ 
+ lua_pushnumber(vm, vec.x);
+ lua_setfield(vm, -2, "x");
+ 
+ lua_pushnumber(vm, vec.y);
+ lua_setfield(vm, -2, "y");
+ 
+ lua_pushnumber(vm, vec.z);
+ lua_setfield(vm, -2, "z");
+ 
+ 
+ }
+ */
+
+void TGen::Engine::Script::ScriptState::pushMatrix3(const TGen::Matrix3x3 & mat) {
+	lua_createtable(vm, 0, 3);
+	
+	lua_getglobal(vm, "mat3");
+	if (lua_isnil(vm, -1))
+		exit(34);
+	
+	lua_setmetatable(vm, -2);
+	
+	pushVector(mat.getX());
+	lua_setfield(vm, -2, "x");
+
+	pushVector(mat.getY());
+	lua_setfield(vm, -2, "y");
+
+	pushVector(mat.getZ());
+	lua_setfield(vm, -2, "z");
+}
 
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 	int ret = lua_pcall(vm, nargs, nresults, 0);

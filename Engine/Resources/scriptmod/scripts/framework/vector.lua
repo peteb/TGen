@@ -72,3 +72,6 @@ end
 function vec3.crossProduct(v1, v2)
 	return vec3.new(v1.x * v2.z - v2.y * v1.z, v1.z * v2.x - v2.z * v1.x, v1.x * v2.y - v2.x * v1.y);
 end
+
+vec3.Zero = vec3.new(0.0, 0.0, 0.0);
+
