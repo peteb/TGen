@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../../luadoc.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li>
+		<a href="../../files/builtin/entities.html">builtin/entities.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/builtin/entity.html">builtin/entity.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/builtin/material.html">builtin/material.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/builtin/resources.html">builtin/resources.lua</a>
+	</li>
+
+	<li><strong>components/sceneNode.lua</strong></li>
+	
+	<li>
+		<a href="../../files/framework/mat3.html">framework/mat3.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/framework/vec3.html">framework/vec3.lua</a>
+	</li>
+
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>components/sceneNode.lua</code></h1>
+
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:localOrientation">sceneNode:localOrientation</a>&nbsp;()</td>
+	<td class="summary">The local orientation of the sceneNode.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:localPosition">sceneNode:localPosition</a>&nbsp;()</td>
+	<td class="summary">Position in local space coordinate system.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:multiplyLocalOrientation">sceneNode:multiplyLocalOrientation</a>&nbsp;(mat3)</td>
+	<td class="summary">Changes the local orientation by multiplying the old orientation with the new one.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:setLocalOrientation">sceneNode:setLocalOrientation</a>&nbsp;(mat3)</td>
+	<td class="summary">Changes the local orientation of the sceneNode.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:setLocalPosition">sceneNode:setLocalPosition</a>&nbsp;(vec3)</td>
+	<td class="summary">Changes the local position.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:setMaterial">sceneNode:setMaterial</a>&nbsp;(material)</td>
+	<td class="summary">Changes overriding material of the sceneNode.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:setWorldPosition">sceneNode:setWorldPosition</a>&nbsp;(vec3)</td>
+	<td class="summary">Changes the local position so that it aligns with the position in world space.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode:worldPosition">sceneNode:worldPosition</a>&nbsp;()</td>
+	<td class="summary">Position in world space coordinate system.</td>
+	</tr>
+
+</table>
+
+
+
+
+<h2>Tables</h2>
+<table class="table_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#sceneNode">sceneNode</a></td>
+	<td class="summary">A node in the scene graph.</td>
+	</tr>
+
+</table>
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="sceneNode:localOrientation"></a><strong>sceneNode:localOrientation</strong>&nbsp;()</dt>
+<dd>
+The local orientation of the sceneNode.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+The local orientation (relative to parent node) of the sceneNode as a mat3.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:localPosition"></a><strong>sceneNode:localPosition</strong>&nbsp;()</dt>
+<dd>
+Position in local space coordinate system.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+A vec3 with the position of the sceneNode in local coordinate system, relative to the parent node.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:multiplyLocalOrientation"></a><strong>sceneNode:multiplyLocalOrientation</strong>&nbsp;(mat3)</dt>
+<dd>
+Changes the local orientation by multiplying the old orientation with the new one.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  mat3: The orientation that the old orientation should be multiplied with.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:setLocalOrientation"></a><strong>sceneNode:setLocalOrientation</strong>&nbsp;(mat3)</dt>
+<dd>
+Changes the local orientation of the sceneNode.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  mat3: The new local orientation of the sceneNode as a mat3.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:setLocalPosition"></a><strong>sceneNode:setLocalPosition</strong>&nbsp;(vec3)</dt>
+<dd>
+Changes the local position.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  vec3: The position to change to.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:setMaterial"></a><strong>sceneNode:setMaterial</strong>&nbsp;(material)</dt>
+<dd>
+Changes overriding material of the sceneNode. All models in the sceneNode will use this material if set.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  material: The material to change to, should be retrieved using the resource manager.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+<h3>See also:</h3>
+<ul>
+	
+	<li><a href="">
+		resources
+	</a>
+	
+</ul>
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:setWorldPosition"></a><strong>sceneNode:setWorldPosition</strong>&nbsp;(vec3)</dt>
+<dd>
+Changes the local position so that it aligns with the position in world space.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  vec3: The position in world space that will be converted into local space.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="sceneNode:worldPosition"></a><strong>sceneNode:worldPosition</strong>&nbsp;()</dt>
+<dd>
+Position in world space coordinate system.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+A vec3 with the position of the sceneNode in world/global coordinate system.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="tables"></a>Tables</h2>
+<dl class="table">
+
+<dt><a name="sceneNode"></a><strong>sceneNode</strong></dt>
+<dd>A node in the scene graph. Contains an orientation and local position, and usually one or more graphical objects that should be rendered. The position and orientation are relative to the parent's (a node is the child of a parent) position and orientation.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+	<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->	
+</body>
+</html>

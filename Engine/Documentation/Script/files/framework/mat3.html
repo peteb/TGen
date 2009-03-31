@@ -1,0 +1,557 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../../luadoc.css" type="text/css" />
+	<!--meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/-->
+</head>
+
+<body>
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+<div id="main">
+
+<div id="navigation">
+
+
+<h1>LuaDoc</h1>
+<ul>
+	
+	<li><a href="../../index.html">Index</a></li>
+	
+</ul>
+
+
+<!-- Module list -->
+
+
+
+<!-- File list -->
+
+<h1>Files</h1>
+<ul>
+
+	<li>
+		<a href="../../files/builtin/entities.html">builtin/entities.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/builtin/entity.html">builtin/entity.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/builtin/material.html">builtin/material.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/builtin/resources.html">builtin/resources.lua</a>
+	</li>
+
+	<li>
+		<a href="../../files/components/sceneNode.html">components/sceneNode.lua</a>
+	</li>
+
+	<li><strong>framework/mat3.lua</strong></li>
+	
+	<li>
+		<a href="../../files/framework/vec3.html">framework/vec3.lua</a>
+	</li>
+
+</ul>
+
+
+
+
+
+
+</div> <!-- id="navigation" -->
+
+<div id="content">
+
+<h1>File <code>framework/mat3.lua</code></h1>
+
+
+
+
+
+
+
+<h2>Functions</h2>
+<table class="function_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.identity">mat3.identity</a>&nbsp;()</td>
+	<td class="summary">Identity constructor.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.lookInDirection">mat3.lookInDirection</a>&nbsp;(dir, up)</td>
+	<td class="summary">Rotation from direction and up-vectors.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.new">mat3.new</a>&nbsp;(xaxis, yaxis, zaxis)</td>
+	<td class="summary">Default constructor for mat3.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.newFromIterationMap">mat3.newFromIterationMap</a>&nbsp;(map)</td>
+	<td class="summary">Construct 3x3 matrix from iteration map.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.rotation">mat3.rotation</a>&nbsp;(axis, angle)</td>
+	<td class="summary">Rotation around an arbitrary axis.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.rotationX">mat3.rotationX</a>&nbsp;(angle)</td>
+	<td class="summary">Rotation around X axis.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.rotationY">mat3.rotationY</a>&nbsp;(angle)</td>
+	<td class="summary">Rotation around Y axis.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3.rotationZ">mat3.rotationZ</a>&nbsp;(angle)</td>
+	<td class="summary">Rotation around Z axis.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3:__concat">mat3:__concat</a>&nbsp;(before)</td>
+	<td class="summary">Metamethod for '..' operator.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3:__mul">mat3:__mul</a>&nbsp;(other)</td>
+	<td class="summary">Metamethod for * operator.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3:__tostring">mat3:__tostring</a>&nbsp;()</td>
+	<td class="summary">Metamethod for tostring operator.</td>
+	</tr>
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3:iterationMap">mat3:iterationMap</a>&nbsp;()</td>
+	<td class="summary">An iteration map that can be used for iterating the components of the matrix.</td>
+	</tr>
+
+</table>
+
+
+
+
+<h2>Tables</h2>
+<table class="table_list">
+
+	<tr>
+	<td class="name" nowrap><a href="#mat3">mat3</a></td>
+	<td class="summary">A 3x3 matrix, most commonly used for rotations.</td>
+	</tr>
+
+</table>
+
+
+
+<br/>
+<br/>
+
+
+
+
+<h2><a name="functions"></a>Functions</h2>
+<dl class="function">
+
+
+
+<dt><a name="mat3.identity"></a><strong>mat3.identity</strong>&nbsp;()</dt>
+<dd>
+Identity constructor.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new identity matrix
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.lookInDirection"></a><strong>mat3.lookInDirection</strong>&nbsp;(dir, up)</dt>
+<dd>
+Rotation from direction and up-vectors.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  dir: The axis that the Z axis should be aligned to.
+	</li>
+	
+	<li>
+	  up: The up axis.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix that describes the rotation.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.new"></a><strong>mat3.new</strong>&nbsp;(xaxis, yaxis, zaxis)</dt>
+<dd>
+Default constructor for mat3.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  xaxis: The X axis.
+	</li>
+	
+	<li>
+	  yaxis: The Y axis.
+	</li>
+	
+	<li>
+	  zaxis: The Z axis.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.newFromIterationMap"></a><strong>mat3.newFromIterationMap</strong>&nbsp;(map)</dt>
+<dd>
+Construct 3x3 matrix from iteration map.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  map: The iteration map.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.rotation"></a><strong>mat3.rotation</strong>&nbsp;(axis, angle)</dt>
+<dd>
+Rotation around an arbitrary axis.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  axis: The 3D axis to rotate around
+	</li>
+	
+	<li>
+	  angle: Angle around axis in radians.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix that describes the rotation
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.rotationX"></a><strong>mat3.rotationX</strong>&nbsp;(angle)</dt>
+<dd>
+Rotation around X axis.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  angle: Angle around X in radians.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix that describes the rotation
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.rotationY"></a><strong>mat3.rotationY</strong>&nbsp;(angle)</dt>
+<dd>
+Rotation around Y axis.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  angle: Angle around y in radians.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix that describes the rotation
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3.rotationZ"></a><strong>mat3.rotationZ</strong>&nbsp;(angle)</dt>
+<dd>
+Rotation around Z axis.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  angle: Angle around Z in radians.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix that describes the rotation
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3:__concat"></a><strong>mat3:__concat</strong>&nbsp;(before)</dt>
+<dd>
+Metamethod for '..' operator.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  before: 
+	</li>
+	
+</ul>
+
+
+
+
+
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3:__mul"></a><strong>mat3:__mul</strong>&nbsp;(other)</dt>
+<dd>
+Metamethod for * operator. * operations on mat3 are not commutative.
+
+
+<h3>Parameters</h3>
+<ul>
+	
+	<li>
+	  other: The other 3x3 matrix to multiply with.
+	</li>
+	
+</ul>
+
+
+
+
+
+
+<h3>Return value:</h3>
+A new 3x3 matrix that is the product of the two matrices.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3:__tostring"></a><strong>mat3:__tostring</strong>&nbsp;()</dt>
+<dd>
+Metamethod for tostring operator.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+The matrix formatted as a string, columns being vectors.
+
+
+
+</dd>
+
+
+
+
+<dt><a name="mat3:iterationMap"></a><strong>mat3:iterationMap</strong>&nbsp;()</dt>
+<dd>
+An iteration map that can be used for iterating the components of the matrix.
+
+
+
+
+
+
+
+<h3>Return value:</h3>
+A multidimensional array that points to the components of the matrix.
+
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+<h2><a name="tables"></a>Tables</h2>
+<dl class="table">
+
+<dt><a name="mat3"></a><strong>mat3</strong></dt>
+<dd>A 3x3 matrix, most commonly used for rotations.
+
+
+<em>Fields</em>
+<ul>
+	
+	<li>
+	  x: The X axis.
+	</li>
+	
+	<li>
+	  y: The Y axis.
+	</li>
+	
+	<li>
+	  z: The Z axis.
+	</li>
+	
+</ul>
+
+
+</dd>
+
+
+</dl>
+
+
+
+
+</div> <!-- id="content" -->
+
+</div> <!-- id="main" -->
+
+<div id="about">
+	<p><a href="http://validator.w3.org/check?uri=referer"><img src="http://www.w3.org/Icons/valid-xhtml10" alt="Valid XHTML 1.0!" height="31" width="88" /></a></p>
+</div> <!-- id="about" -->
+
+</div> <!-- id="container" -->	
+</body>
+</html>
