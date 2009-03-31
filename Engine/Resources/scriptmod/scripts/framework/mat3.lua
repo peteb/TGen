@@ -6,9 +6,25 @@
 --  Copyright 2009 Peter Backman. All rights reserved.
 --
  
+ 
+---------------------------------------------------------------------------------------
+-- A 3x3 matrix, most commonly used for rotations.
+-- @class table
+-- @name mat3
+-- @field x The X axis.
+-- @field y The Y axis.
+-- @field z The Z axis.
+
 mat3 = {}
 mat3.__index = mat3;
 
+
+---------------------------------------------------------------------------------------
+-- Default constructor for mat3.
+-- @param xaxis The X axis.
+-- @param yaxis The Y axis.
+-- @param zaxis The Z axis.
+-- @return A new 3x3 matrix.
 function mat3.new(xaxis, yaxis, zaxis)
 	local ret = {x = xaxis, y = yaxis, z = zaxis}
 	setmetatable(ret, mat3);
@@ -16,10 +32,19 @@ function mat3.new(xaxis, yaxis, zaxis)
 	return ret;
 end
 
+
+---------------------------------------------------------------------------------------
+-- Identity constructor.
+-- @return A new identity matrix
 function mat3.identity()
 	return mat3.new(vec3.new(1.0, 0.0, 0.0), vec3.new(0.0, 1.0, 0.0), vec3.new(0.0, 0.0, 1.0));
 end
 
+
+---------------------------------------------------------------------------------------
+-- Rotation around X axis.
+-- @param angle Angle around X in radians.
+-- @return A new 3x3 matrix that describes the rotation
 function mat3.rotationX(angle)
 	local x = vec3.new(1.0, 0.0, 0.0);
 	local y = vec3.new(0.0, math.cos(angle), math.sin(angle));
@@ -28,6 +53,11 @@ function mat3.rotationX(angle)
 	return mat3.new(x, y, z);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Rotation around Y axis.
+-- @param angle Angle around y in radians.
+-- @return A new 3x3 matrix that describes the rotation
 function mat3.rotationY(angle)
 	local x = vec3.new(math.cos(angle), 0.0, -math.sin(angle));
 	local y = vec3.new(0.0, 1.0, 0.0);
@@ -36,6 +66,11 @@ function mat3.rotationY(angle)
 	return mat3.new(x, y, z);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Rotation around Z axis.
+-- @param angle Angle around Z in radians.
+-- @return A new 3x3 matrix that describes the rotation
 function mat3.rotationZ(angle)
 	local x = vec3.new(math.cos(angle), math.sin(angle), 0.0);
 	local y = vec3.new(-math.sin(angle), math.cos(angle), 0.0);
@@ -44,6 +79,12 @@ function mat3.rotationZ(angle)
 	return mat3.new(x, y, z);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Rotation around an arbitrary axis.
+-- @param axis The 3D axis to rotate around
+-- @param angle Angle around axis in radians.
+-- @return A new 3x3 matrix that describes the rotation
 function mat3.rotation(axis, angle)
 	local c = math.cos(angle);
 	local s = math.sin(angle);
@@ -62,6 +103,12 @@ function mat3.rotation(axis, angle)
 	return mat3.new(x, y, z);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Rotation from direction and up-vectors.
+-- @param dir The axis that the Z axis should be aligned to.
+-- @param up The up axis.
+-- @return A new 3x3 matrix that describes the rotation.
 function mat3.lookInDirection(dir, up)
 	local look = dir;
 	local right = vec3.crossProduct(up, look);
@@ -75,6 +122,12 @@ function mat3.lookInDirection(dir, up)
 	return mat3.new(right, newUp, look);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Metamethod for * operator.
+-- * operations on mat3 are not commutative.
+-- @param other The other 3x3 matrix to multiply with.
+-- @return A new 3x3 matrix that is the product of the two matrices.
 function mat3:__mul(other)
 	local ret = mat3.new(vec3.new(0, 0, 0), vec3.new(0, 0, 0), vec3.new(0, 0, 0));
 	
@@ -95,10 +148,17 @@ function mat3:__mul(other)
 	return mat3.newFromIterationMap(iterRet);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Metamethod for '..' operator.
 function mat3:__concat(before)
 	return before .. tostring(self);
 end
 
+
+---------------------------------------------------------------------------------------
+-- Metamethod for tostring operator.
+-- @return The matrix formatted as a string, columns being vectors.
 function mat3:__tostring()
 	local row1 = self.x.x .. ", " .. self.y.x .. ", " .. self.z.x;
 	local row2 = self.x.y .. ", " .. self.y.y .. ", " .. self.z.y;
@@ -107,6 +167,10 @@ function mat3:__tostring()
 	return row1 .. "\n" .. row2 .. "\n" .. row3;
 end
 
+
+---------------------------------------------------------------------------------------
+-- An iteration map that can be used for iterating the components of the matrix.
+-- @return A multidimensional array that points to the components of the matrix.
 function mat3:iterationMap()
 	local ret = {};
 	
@@ -129,6 +193,11 @@ function mat3:iterationMap()
 	return ret;
 end
 
+
+---------------------------------------------------------------------------------------
+-- Construct 3x3 matrix from iteration map.
+-- @param map The iteration map.
+-- @return A new 3x3 matrix.
 function mat3.newFromIterationMap(map)
 	local ret = {x = vec3.new(map[1][1], map[1][2], map[1][3]), y = vec3.new(map[2][1], map[2][2], map[2][3]), z = vec3.new(map[3][1], map[3][2], map[3][3])}
 	setmetatable(ret, mat3);

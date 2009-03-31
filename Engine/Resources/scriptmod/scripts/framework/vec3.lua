@@ -8,7 +8,7 @@
 
 
 ---------------------------------------------------------------------------------------
--- A vector with 3 components that describe a direction or point in 3D
+-- A vector with 3 components that describe a direction or point in 3D.
 -- @class table
 -- @name vec3
 -- @field x Value along X axis
@@ -20,7 +20,7 @@ vec3.__index = vec3;
 
 
 ---------------------------------------------------------------------------------------
--- Default constructor for vec3
+-- Default constructor for vec3.
 -- @param vx The value along the X axis
 -- @param vy The value along the Y axis
 -- @param vz The value along the Z axis
@@ -34,7 +34,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Constructor for vec3, normalizes input
+-- Constructor for vec3, normalizes input.
 -- @param vx The value along the X axis
 -- @param vy The value along the Y axis
 -- @param vz The value along the Z axis
@@ -48,7 +48,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Constructor, Zero vector
+-- Constructor, Zero vector.
 -- @return A zero-vector
 function vec3.zero()
 	return vec3.new(0, 0, 0);
@@ -56,7 +56,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Metamethod for tostring operator
+-- Metamethod for tostring operator.
 -- @return The vector formatted as a string, (x, y, z)
 function vec3:__tostring()
 	return "(" .. self.x .. ", " .. self.y .. ", " .. self.z .. ")";
@@ -64,7 +64,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Metamethod for + operator
+-- Metamethod for + operator.
 -- @param other The other vector to add
 -- @return A new vec3 that is the sum of the two vectors
 function vec3:__add(other) 
@@ -73,7 +73,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Metamethod for - operator
+-- Metamethod for - operator.
 -- @param other The vector to subtract with
 -- @return A new vec3 that is the difference between the two vectors
 function vec3:__sub(other) 
@@ -82,7 +82,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Metamethod for * operator
+-- Metamethod for * operator.
 -- @param scalar The value to multiply the vector with
 -- @return A new vec3 that has been scaled with the value
 function vec3:__mul(scalar)
@@ -91,7 +91,7 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Metamethod for negotiation (-) operator
+-- Metamethod for negotiation (-) operator.
 -- @return The negated vector
 function vec3:__unm()
 	return vec3.new(-self.x, -self.y, -self.z);
@@ -99,14 +99,14 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Metamethod for .. operator
+-- Metamethod for .. operator.
 function vec3:__concat(before)
 	return before .. tostring(self);
 end
 
 
 ---------------------------------------------------------------------------------------
--- Calculates length of vector
+-- Calculates length of vector.
 -- @return The length of the vector
 function vec3:magnitude()
 	return math.sqrt(self.x * self.x + self.y * self.y + self.z * self.z)
@@ -114,8 +114,8 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Calculates the unit vector with the same direction
--- If the length is 0, nil will be returned
+-- Calculates the unit vector with the same direction.
+-- If the length is 0, nil will be returned.
 -- @return A new vec3 that is the normalized version of this vector
 function vec3:normalize()
 	local length = self:magnitude();
@@ -133,7 +133,8 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Computes the dot product of two vectors, the parameters are commutative
+-- Computes the dot product of two vectors.
+-- The parameters are commutative.
 -- @param v1 The first vector
 -- @param v2 The second vector
 -- @usage <code>local dp = vec3.dotProduct(v1, v2)</code>
@@ -144,7 +145,8 @@ end
 
 
 ---------------------------------------------------------------------------------------
--- Computes the cross product vector of two vectors, the parameters are not commutative
+-- Computes the cross product vector of two vectors.
+-- The parameters are not commutative.
 -- @param v1 The first vector
 -- @param v2 The second vector
 -- @usage <code>local normal = vec3.crossProduct(v1, v2)</code>
