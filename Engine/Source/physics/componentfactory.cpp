@@ -22,6 +22,7 @@
 #include "physics/geomrecipe.h"
 #include "physics/bodyrecipe.h"
 #include "physics/geomscript.h"
+#include "physics/bodyscript.h"
 
 #include "generateline.h"
 #include "transformerfactory.h"
@@ -162,7 +163,7 @@ uint TGen::Engine::Physics::ComponentFactory::getCategoryBits(const std::string 
 }
 
 
-TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBody(const std::string & name, const TGen::PropertyTree & properties, dWorldID worldId, dSpaceID spaceId) {
+TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBody(const std::string & name, const TGen::PropertyTree & properties, dWorldID worldId, dSpaceID spaceId, TGen::Engine::Entity & entity) {
 	TGen::Vector3 position = TGen::Vector3::Parse(properties.getProperty("position", "0 0 0"));
 	
 	dBodyID newBodyId = dBodyCreate(worldId);
@@ -191,7 +192,8 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBod
 	newBody->setKillTorque(TGen::lexical_cast<bool>(properties.getProperty("killTorque", "false")));
 	newBody->setLinearDamping(TGen::lexical_cast<scalar>(properties.getProperty("linearDamping", "0.0")));
 	newBody->setFakeGravity(TGen::lexical_cast<scalar>(properties.getProperty("fakeGrav", "-2.0")));
-		
+	newBody->setScriptInterface(new TGen::Engine::Physics::BodyScript(name, newBody, entity.getScriptInterface()));
+
 	return newBody;
 }
 

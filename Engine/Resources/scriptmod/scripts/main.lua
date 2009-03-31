@@ -42,11 +42,32 @@ print("New material's name: "..newMaterial:name());
 funkyNode:setMaterial(newMaterial);
 
 function entities.player.physGeom:onCollision(force, with)
-	print("player collision, force: "..force.." with: "..with:parent():name());
+	print("player collision, force: "..force.." with: "..with:owner():name());
 	--env.showMessage("Stuff", "hej");
 	--env.quit();
 end
 
 
 entities.box1.teleinSound = resources:sound("telein.wav");
+
+entities.player.worldInterface = entities.player.origin;
+entities.box1.worldInterface = entities.box1.sceneNode;
+
+
+function entities.teleportground.physGeom:onCollision(force, with)
+	if (with:owner().worldInterface) then
+		print("TELEPORT ACTIVATE on "..with:owner():name());
+		
+		with:owner().worldInterface:setWorldPosition(entities.teleportstart.sceneNode:worldPosition());
+		entities.teleportstart:playTeleportSound();
+	end
+end
+
+
+
+entities.teleportstart.teleportSound = resources:sound("telein.wav");
+
+function entities.teleportstart:playTeleportSound()
+	self.soundLocal:playSound(self.teleportSound);
+end
 

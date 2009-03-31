@@ -36,7 +36,7 @@ box1 {
 	
 	physBody {
 		link sceneNode
-		autoDisable false
+		//autoDisable false
 	}
 
 	physGeom {
@@ -58,10 +58,33 @@ ground {
 	}
 	
 	physGeom {
+		link sceneNode
 		type box
 		dimensions "100 1 100"
 	}
 
+}
+
+teleportground {
+	sceneNode {
+		origin "0 -60 0"
+	}
+	
+	physGeom {
+		link sceneNode
+		type box
+		dimensions "300 1 300"
+	}
+}
+
+teleportstart {
+	sceneNode {
+		origin "0 4 0"
+	}
+	
+	soundLocal {
+		link sceneNode	
+	} 
 }
 
 player {

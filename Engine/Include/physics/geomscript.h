@@ -33,7 +33,7 @@ namespace TGen {
 				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Script::EntityScript * entityScript;
 				
-				static int luaParent(lua_State * vm);
+				static int luaOwner(lua_State * vm);
 				
 				std::string name;
 				TGen::Engine::Physics::Geom * geom;

@@ -20,7 +20,7 @@ TGen::Engine::Physics::GeomScript::GeomScript(const std::string & name, TGen::En
 	TGenAssert(entityScript);
 	scriptComponent = entityScript->createScriptComponent(name, this);
 
-	scriptComponent->registerFunction("parent", luaParent);
+	scriptComponent->registerFunction("owner", luaOwner);
 }
 
 TGen::Engine::Physics::GeomScript::~GeomScript() {
@@ -62,7 +62,7 @@ void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::
 	scriptComponent->endComponentScript();	
 }
 
-int TGen::Engine::Physics::GeomScript::luaParent(lua_State * vm) {
+int TGen::Engine::Physics::GeomScript::luaOwner(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	
 	GeomScript * self = scriptState.getSelfPointer<GeomScript *>();

@@ -189,7 +189,7 @@ void TGen::Engine::Physics::Geom::onCollisionForce(scalar force, bool groundColl
 	if (scriptInterface) {
 		if (force > 0.0001f) {
 		//	std::cout << "FORCE: " << force << std::endl;
-			scriptInterface->onCollision(force, with);
+			//scriptInterface->onCollision(force, with);
 		}
 	}
 	
@@ -232,7 +232,8 @@ void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * wi
 		
 		eventCollision->trigger(*context, TGen::Engine::TriggerPrecise);
 	}*/
-	
+	if (scriptInterface)
+		scriptInterface->onCollision(1.0f, with);
 }
 
 TGen::Engine::Physics::GeomScript * TGen::Engine::Physics::Geom::getScriptInterface() const {

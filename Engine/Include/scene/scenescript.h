@@ -37,6 +37,7 @@ namespace TGen {
 				static int luaSetLocalPosition(lua_State * vm);
 				static int luaLocalOrientation(lua_State * vm);
 				static int luaSetLocalOrientation(lua_State * vm);
+				static int luaMultiplyLocalOrientation(lua_State * vm);
 				
 				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Scene::Node * sceneNode;

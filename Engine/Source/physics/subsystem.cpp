@@ -61,7 +61,7 @@ TGen::Engine::Component * TGen::Engine::Physics::Subsystem::createComponent(cons
 	TGen::Engine::Component * ret = NULL;
 	
 	if (type == "physBody") {
-		Body * newBody = componentFactory.createBody(name, properties, worldId, mainSpace);
+		Body * newBody = componentFactory.createBody(name, properties, worldId, mainSpace, entity);
 		addBody(newBody);
 		
 		ret = newBody;	
@@ -137,9 +137,6 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 		
-		triggerCollisionEvents();		
-		collisionEvents.clear();
-
 		dWorldStep(worldId, updateInterval); // tweak
 		dJointGroupEmpty(contactGroup);
 
@@ -156,6 +153,10 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 
 	for (int i = 0; i < bodies.size(); ++i)
 		bodies[i]->postStep();
+
+	triggerCollisionEvents();		
+	collisionEvents.clear();
+
 }
 
 

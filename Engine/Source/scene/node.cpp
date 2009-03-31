@@ -9,6 +9,7 @@
 
 #include "scene/node.h"
 #include "scene/equipmentnode.h"
+#include "scene/scenescript.h"
 
 #include "entitylist.h"
 #include "entity.h"
@@ -21,7 +22,7 @@ TGen::Engine::Scene::Node::Node(const std::string & name, TGen::SceneNode * scen
 	, sceneNode(sceneNode)
 	, changed(true)
 	, parentInverseTransform(TGen::Matrix4x4::Identity)
-	, scriptInterface(name, this, entity.getScriptInterface())
+	, scriptInterface(NULL)
 {
 	
 }
@@ -147,4 +148,7 @@ void TGen::Engine::Scene::Node::setAttachJoint(const std::string & jointName) {
 	this->attachJoint = jointName;
 }
 
+void TGen::Engine::Scene::Node::setScriptInterface(TGen::Engine::Scene::SceneScript * scriptInterface) {
+	this->scriptInterface = scriptInterface;
+}
 

@@ -51,11 +51,15 @@ function box.timer2:onTick()
 
 		
 	--env.quit();
-	
-	box.sceneNode:setLocalOrientation(box.sceneNode:localOrientation() * myMat);
+
+	box.sceneNode:multiplyLocalOrientation(myMat);	
+	box.physBody:enable();
 	
 	--box.sceneNode:setLocalOrientation(box.sceneNode:localOrientation() * myMat);
-
+	
+	--box.sceneNode:setLocalOrientation(box.sceneNode:localOrientation() * myMat);
+	-- TODO: multiplyLocalOrientation
+	
 	if (self.numTicks >= 10) then
 		self.numTicks = 0;
 		self:disable();

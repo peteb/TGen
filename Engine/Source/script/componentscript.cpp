@@ -34,7 +34,7 @@ void TGen::Engine::Script::ComponentScript::registerFunction(const std::string &
 	scriptState.pushFunction(func);
 	scriptState.setField(-2, name);
 
-	scriptState.pop(2);
+	scriptState.pop(3);
 }
 
 TGen::Engine::Script::ScriptState & TGen::Engine::Script::ComponentScript::beginComponentScript() {

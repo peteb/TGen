@@ -8,6 +8,7 @@
  */
 
 #include "physics/body.h"
+#include "physics/bodyscript.h"
 #include "scene/node.h"
 #include "entity.h"
 #include <tgen_renderer.h>
@@ -24,6 +25,7 @@ TGen::Engine::Physics::Body::Body(const std::string & name, dBodyID bodyId, dWor
 	, worldId(worldId)
 	, spaceId(spaceId)
 	, doUpdateFromScene(true)
+	, scriptInterface(NULL)
 {
 }
 
@@ -282,4 +284,15 @@ void TGen::Engine::Physics::Body::setEnabled(bool enabled) {
 	else
 		dBodyDisable(bodyId);
 }
+
+void TGen::Engine::Physics::Body::setScriptInterface(TGen::Engine::Physics::BodyScript * scriptInterface) {
+	delete this->scriptInterface;
+	this->scriptInterface = scriptInterface;
+}
+
+TGen::Engine::Physics::BodyScript * TGen::Engine::Physics::Body::getScriptInterface() const {
+	return scriptInterface;
+}
+
+
 

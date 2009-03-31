@@ -13,7 +13,6 @@
 #include "component.h"
 #include "worldobject.h"
 #include "componentlink.h"
-#include "scene/scenescript.h"
 
 namespace TGen {
 	class SceneNode;
@@ -23,6 +22,8 @@ namespace TGen {
 		class Entity;
 		
 		namespace Scene {
+			class SceneScript;
+			
 			class Node : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 			public:
 				Node(const std::string & name, TGen::SceneNode * sceneNode, TGen::Engine::Entity & entity);
@@ -46,10 +47,11 @@ namespace TGen {
 				void setPosition(const TGen::Vector3 & pos);
 				void setOrientation(const TGen::Rotation & orientation);			
 				
+				void setScriptInterface(TGen::Engine::Scene::SceneScript * scriptInterface);
 				
 			private:
 				const TGen::Matrix4x4 & getParentInverseTransform();
-				TGen::Engine::Scene::SceneScript scriptInterface;
+				TGen::Engine::Scene::SceneScript * scriptInterface;
 				
 				TGen::Engine::UnaryDelegate<TGen::Engine::Scene::Node> attachComponent;
 				

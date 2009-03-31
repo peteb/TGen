@@ -123,6 +123,7 @@
 		D098D6A90D9A959A003B0486 /* modelfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D098D6A80D9A959A003B0486 /* modelfactory.cpp */; };
 		D099ACA20F7AF7B700AB7D0B /* envscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D099ACA10F7AF7B700AB7D0B /* envscript.cpp */; };
 		D099AE210F7BCFA000AB7D0B /* sourcescript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */; };
+		D099B1CA0F7E682F00AB7D0B /* bodyscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D099B1C90F7E682F00AB7D0B /* bodyscript.cpp */; };
 		D09C62C00DF0928200B83C1E /* localsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09C62BF0DF0928200B83C1E /* localsource.cpp */; };
 		D09C62F00DF0975000B83C1E /* globalsource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09C62EF0DF0975000B83C1E /* globalsource.cpp */; };
 		D09DFFBF0D35368C00DB6324 /* gameinputmapper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09DFFBE0D35368C00DB6324 /* gameinputmapper.cpp */; };
@@ -512,6 +513,8 @@
 		D099ACA10F7AF7B700AB7D0B /* envscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = envscript.cpp; path = Script/envscript.cpp; sourceTree = "<group>"; };
 		D099AE1F0F7BCF9100AB7D0B /* sourcescript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sourcescript.h; path = ../../Include/sound/sourcescript.h; sourceTree = SOURCE_ROOT; };
 		D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sourcescript.cpp; path = Sound/sourcescript.cpp; sourceTree = "<group>"; };
+		D099B1C80F7E681E00AB7D0B /* bodyscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bodyscript.h; path = ../../Include/physics/bodyscript.h; sourceTree = SOURCE_ROOT; };
+		D099B1C90F7E682F00AB7D0B /* bodyscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bodyscript.cpp; path = physics/bodyscript.cpp; sourceTree = "<group>"; };
 		D09C62BC0DF0926300B83C1E /* localsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = localsource.h; path = ../../Include/sound/localsource.h; sourceTree = SOURCE_ROOT; };
 		D09C62BF0DF0928200B83C1E /* localsource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = localsource.cpp; path = sound/localsource.cpp; sourceTree = "<group>"; };
 		D09C62EE0DF0974600B83C1E /* globalsource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = globalsource.h; path = ../../Include/sound/globalsource.h; sourceTree = SOURCE_ROOT; };
@@ -1136,6 +1139,8 @@
 				D07E33CA0E61A00300B3E7A2 /* componentfactory.h */,
 				D09629770D78529F008DABC3 /* body.cpp */,
 				D09629760D785296008DABC3 /* body.h */,
+				D099B1C90F7E682F00AB7D0B /* bodyscript.cpp */,
+				D099B1C80F7E681E00AB7D0B /* bodyscript.h */,
 				D0E096190D8834C3005D5345 /* geom.cpp */,
 				D0E096160D883485005D5345 /* geom.h */,
 				D0307DFB0F791A9F00BA480E /* geomscript.cpp */,
@@ -1626,6 +1631,7 @@
 				D0307DFC0F791A9F00BA480E /* geomscript.cpp in Sources */,
 				D099ACA20F7AF7B700AB7D0B /* envscript.cpp in Sources */,
 				D099AE210F7BCFA000AB7D0B /* sourcescript.cpp in Sources */,
+				D099B1CA0F7E682F00AB7D0B /* bodyscript.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

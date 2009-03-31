@@ -27,7 +27,8 @@ namespace TGen {
 		
 		namespace Physics {
 			class Subsystem;
-		
+			class BodyScript;
+			
 			class Body : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 			public:
 				Body(const std::string & name, dBodyID bodyId, dWorldID worldId, dSpaceID spaceId);
@@ -85,6 +86,9 @@ namespace TGen {
 				scalar getGroundDefinition() const;
 				scalar getMass() const;
 				
+				void setScriptInterface(TGen::Engine::Physics::BodyScript * scriptInterface);
+				TGen::Engine::Physics::BodyScript * getScriptInterface() const;
+				
 			private:
 				void updateFromScene();
 				void updateScene();
@@ -92,6 +96,8 @@ namespace TGen {
 				dBodyID bodyId;
 				dWorldID worldId;
 				dSpaceID spaceId;
+				
+				TGen::Engine::Physics::BodyScript * scriptInterface;
 				
 				TGen::Vector3 groundNormal, linearVelocity, lastPosition;
 				TGen::Engine::UnaryDelegate<TGen::Engine::WorldObject> delegate;

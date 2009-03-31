@@ -13,6 +13,7 @@
 #include "scene/transformnode.h"
 #include "scene/equipmentnode.h"
 #include "scene/equipmentdata.h"
+#include "scene/scenescript.h"
 
 #include "world.h"
 #include "app.h"
@@ -89,6 +90,8 @@ TGen::Engine::Component * TGen::Engine::Scene::Subsystem::createComponent(const 
 	newComponent->setAttachComponent(properties.getProperty("attachComponent", ""));
 	newComponent->setAttachJoint(properties.getProperty("attachJoint", ""));
 	
+	newComponent->setScriptInterface(new TGen::Engine::Scene::SceneScript(name, newComponent, entity.getScriptInterface()));
+
 	// TODO: NEJ!!!!!!! kör jointComponent, jointAttach... går inte att göra det där andra med animation, eller jo, går väl.. men blir komplicerat. kan dock fixa senare
 	
 	return newComponent;
