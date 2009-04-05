@@ -37,32 +37,10 @@ TGen::Engine::Script::Subsystem & TGen::Engine::Script::EntityScript::getCreator
 	return creator;
 }
 
-TGen::Engine::Script::ComponentScript * TGen::Engine::Script::EntityScript::createScriptComponent(const std::string & name, void * self) {
-	TGen::auto_ptr<TGen::Engine::Script::ComponentScript> scriptComponent = new TGen::Engine::Script::ComponentScript(this, name, creator);
-	
-	ScriptState & scriptState = creator.getScriptState();
-	
-	scriptState.getGlobal("entities");
-	scriptState.getField(-1, this->name);
-	
-	scriptState.newTable();
-	scriptState.setUserData("_objectSelf", self);	
-		
-	
-	scriptState.setField(-2, name);
-	
-	scriptState.pop(1);
-	
-	
-	
-	return scriptComponent.release();
-}
-
 void TGen::Engine::Script::EntityScript::onCreation() {
 	// TODO: optimize using the register table, look up based on 'this' pointer
 	
 	ScriptState & scriptState = creator.getScriptState();
-	lua_State * vm = scriptState.getState();
 	
 	scriptState.getGlobal("entities");
 	scriptState.getField(-1, this->name);

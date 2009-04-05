@@ -19,25 +19,23 @@
 #include "lua/lua.hpp"
 
 TGen::Engine::Scene::SceneScript::SceneScript(const std::string & name, TGen::Engine::Scene::Node * sceneNode, TGen::Engine::Script::EntityScript * entityScript) 
-	: sceneNode(sceneNode)
+	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	, sceneNode(sceneNode)
 	, name(name)
 {
-	TGenAssert(entityScript);
-	scriptComponent = entityScript->createScriptComponent(name, this);
-	
-	scriptComponent->registerFunction("worldPosition", luaWorldPosition);
-	scriptComponent->registerFunction("localPosition", luaLocalPosition);
-	scriptComponent->registerFunction("setMaterial", luaSetMaterial);
-	scriptComponent->registerFunction("setWorldPosition", luaSetWorldPosition);
-	scriptComponent->registerFunction("setLocalPosition", luaSetLocalPosition);
-	scriptComponent->registerFunction("localOrientation", luaLocalOrientation);
-	scriptComponent->registerFunction("setLocalOrientation", luaSetLocalOrientation);
-	scriptComponent->registerFunction("multiplyLocalOrientation", luaMultiplyLocalOrientation);
+	registerFunction("worldPosition", luaWorldPosition);
+	registerFunction("localPosition", luaLocalPosition);
+	registerFunction("setMaterial", luaSetMaterial);
+	registerFunction("setWorldPosition", luaSetWorldPosition);
+	registerFunction("setLocalPosition", luaSetLocalPosition);
+	registerFunction("localOrientation", luaLocalOrientation);
+	registerFunction("setLocalOrientation", luaSetLocalOrientation);
+	registerFunction("multiplyLocalOrientation", luaMultiplyLocalOrientation);
 	
 }
 
 TGen::Engine::Scene::SceneScript::~SceneScript() {
-	delete scriptComponent;
+	
 }
 
 int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {

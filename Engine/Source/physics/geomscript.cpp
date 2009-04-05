@@ -13,24 +13,28 @@
 #include "physics/geom.h"
 
 TGen::Engine::Physics::GeomScript::GeomScript(const std::string & name, TGen::Engine::Physics::Geom * geom, TGen::Engine::Script::EntityScript * entityScript) 
-	: name(name)
+	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	, name(name)
 	, geom(geom)
 	, entityScript(entityScript)
 {
 	TGenAssert(entityScript);
-	scriptComponent = entityScript->createScriptComponent(name, this);
+	//scriptComponent = entityScript->createScriptComponent(name, this);
 
-	scriptComponent->registerFunction("owner", luaOwner);
+	//registerFunction("owner", luaOwner);
+	
+	std::cout << name << " GEOMSCRIPT: " << this << std::endl;
+	
 }
 
 TGen::Engine::Physics::GeomScript::~GeomScript() {
-	delete scriptComponent;
+	//delete scriptComponent;
 }
 
 void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::Physics::Geom * with) {
 	TGenAssert(scriptComponent && scriptEntity);
 	
-	TGen::Engine::Script::ScriptState & scriptState = scriptComponent->beginComponentScript();
+	TGen::Engine::Script::ScriptState & scriptState = beginComponentScript();
 	
 	scriptState.getField(-1, "onCollision");
 	
@@ -59,18 +63,6 @@ void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::
 		scriptState.pop(1);
 	}	
 	
-	scriptComponent->endComponentScript();	
+	endComponentScript();	
 }
 
-int TGen::Engine::Physics::GeomScript::luaOwner(lua_State * vm) {
-	TGen::Engine::Script::ScriptState scriptState(vm);
-	
-	GeomScript * self = scriptState.getSelfPointer<GeomScript *>();
-	
-	scriptState.getGlobal("entities");
-	scriptState.getField(-1, self->entityScript->getName());
-	scriptState.remove(-2);
-	
-	
-	return 1;
-}

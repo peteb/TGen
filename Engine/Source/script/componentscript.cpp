@@ -12,16 +12,32 @@
 #include "script/entityscript.h"
 #include "lua/lua.hpp"
 
-TGen::Engine::Script::ComponentScript::ComponentScript(TGen::Engine::Script::EntityScript * entityScript, const std::string & name, TGen::Engine::Script::Subsystem & creator)
+TGen::Engine::Script::ComponentScript::ComponentScript(const std::string & name, TGen::Engine::Script::EntityScript * entityScript)
 	: name(name)
-	, creator(creator)
+	, creator(entityScript->getCreator())
 	, entityScript(entityScript)
 {
+	std::cout << name << " CS: " << this << std::endl;
+	
+	ScriptState & scriptState = entityScript->getCreator().getScriptState();
+	
+	scriptState.getGlobal("entities");
+	scriptState.getField(-1, entityScript->getName());
+	
+	scriptState.newTable();
 
+	scriptState.setUserData("_objectSelf", this);
+	
+	scriptState.setField(-2, name);
+	scriptState.pop(1);
+	
+	registerFunction("owner", luaOwner);
 }
 
 TGen::Engine::Script::ComponentScript::~ComponentScript() {
 	// TODO: remove table here
+	
+	
 }
 
 void TGen::Engine::Script::ComponentScript::registerFunction(const std::string & name, int (*func) (lua_State *L)) {
@@ -57,3 +73,15 @@ void TGen::Engine::Script::ComponentScript::endComponentScript() {
 	creator.getScriptState().pop(3);
 }
 
+
+int TGen::Engine::Script::ComponentScript::luaOwner(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	
+	ComponentScript * self = scriptState.getSelfPointer<ComponentScript *>();
+	
+	scriptState.getGlobal("entities");
+	scriptState.getField(-1, self->entityScript->getName());
+	scriptState.remove(-2);
+	
+	return 1;
+}

@@ -14,18 +14,16 @@
 #include "script/componentscript.h"
 
 TGen::Engine::Utilities::TimerScript::TimerScript(const std::string & name, Timer & timer, TGen::Engine::Script::EntityScript * entityScript)
-	: timer(timer)
+	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	, timer(timer)
 	, scriptEntity(entityScript)
 	, name(name)
 {
-	TGenAssert(entityScript);
-	scriptComponent = entityScript->createScriptComponent(name, this);
-	
-	scriptComponent->registerFunction("interval", luaInterval);
-	scriptComponent->registerFunction("setInterval", luaSetInterval);
-	scriptComponent->registerFunction("enable", luaEnable);
-	scriptComponent->registerFunction("disable", luaDisable);
-	scriptComponent->registerFunction("name", luaName);
+	registerFunction("interval", luaInterval);
+	registerFunction("setInterval", luaSetInterval);
+	registerFunction("enable", luaEnable);
+	registerFunction("disable", luaDisable);
+	registerFunction("name", luaName);
 }
 
 
@@ -33,7 +31,7 @@ void TGen::Engine::Utilities::TimerScript::tick() {
 	TGenAssert(scriptComponent && scriptEntity);
 	
 	
-	TGen::Engine::Script::ScriptState & scriptState = scriptComponent->beginComponentScript();	// TODO: check stack push/pop in this function, throw on endComponentScript if they don't match
+	TGen::Engine::Script::ScriptState & scriptState = beginComponentScript();	// TODO: check stack push/pop in this function, throw on endComponentScript if they don't match
 
 	scriptState.getField(-1, "onTick");
 	
@@ -51,7 +49,7 @@ void TGen::Engine::Utilities::TimerScript::tick() {
 		scriptState.pop(1);
 	}	
 	
-	scriptComponent->endComponentScript();
+	endComponentScript();
 }
 
 int TGen::Engine::Utilities::TimerScript::luaInterval(lua_State * vm) {

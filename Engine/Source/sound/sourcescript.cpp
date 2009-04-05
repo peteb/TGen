@@ -17,19 +17,17 @@
 #include <tgen_core.h>
 
 TGen::Engine::Sound::SourceScript::SourceScript(const std::string & name, TGen::Engine::Sound::Source * source, TGen::Engine::Script::EntityScript * entityScript) 
-	: name(name)
+	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	, name(name)
 	, entityScript(entityScript)
 	, source(source)
 {
-	TGenAssert(entityScript);
-	scriptComponent = entityScript->createScriptComponent(name, this);
-
-	scriptComponent->registerFunction("playSound", luaPlaySound);
+	registerFunction("playSound", luaPlaySound);
 	
 }
 
 TGen::Engine::Sound::SourceScript::~SourceScript() {
-	delete scriptComponent;
+
 }
 
 int TGen::Engine::Sound::SourceScript::luaPlaySound(lua_State * vm) {

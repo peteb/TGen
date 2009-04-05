@@ -11,25 +11,25 @@
 #define _TGEN_ENGINE_SOUND_SOURCESCRIPT_H
 
 #include <string>
+#include "script/componentscript.h"
+
 struct lua_State;
 
 namespace TGen {
 	namespace Engine {
 		namespace Script {
 			class EntityScript;
-			class ComponentScript;
 		}
 		
 		namespace Sound {
 			class Source;
 			
-			class SourceScript {
+			class SourceScript : public TGen::Engine::Script::ComponentScript {
 			public:
 				SourceScript(const std::string & name, TGen::Engine::Sound::Source * source, TGen::Engine::Script::EntityScript * entityScript);
 				~SourceScript();
 				
 			private:
-				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Script::EntityScript * entityScript;
 				
 				static int luaPlaySound(lua_State * vm);

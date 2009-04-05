@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_UTILITIES_TIMER_SCRIPT_H
 
 #include <string>
+#include "script/componentscript.h"
 
 struct lua_State;
 
@@ -20,13 +21,12 @@ namespace TGen {
 		
 		namespace Script {
 			class EntityScript;
-			class ComponentScript;
 		}
 		
 		namespace Utilities {
 			class Timer;
 			
-			class TimerScript {
+			class TimerScript : public TGen::Engine::Script::ComponentScript {
 			public:	
 				TimerScript(const std::string & name, Timer & timer, TGen::Engine::Script::EntityScript * entityScript);
 				
@@ -40,7 +40,6 @@ namespace TGen {
 				static int luaDisable(lua_State * vm);
 				
 				Timer & timer;
-				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Script::EntityScript * scriptEntity;
 				std::string name;
 			};

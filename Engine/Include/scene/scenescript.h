@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_SCENESCRIPT_H
 
 #include <string>
+#include "script/componentscript.h"
 
 class lua_State;
 
@@ -24,7 +25,7 @@ namespace TGen {
 		namespace Scene {
 			class Node;
 			
-			class SceneScript {
+			class SceneScript : public TGen::Engine::Script::ComponentScript {
 			public:
 				SceneScript(const std::string & name, TGen::Engine::Scene::Node * sceneNode, TGen::Engine::Script::EntityScript * entityScript);
 				~SceneScript();
@@ -39,7 +40,6 @@ namespace TGen {
 				static int luaSetLocalOrientation(lua_State * vm);
 				static int luaMultiplyLocalOrientation(lua_State * vm);
 				
-				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Scene::Node * sceneNode;
 				std::string name;
 			};

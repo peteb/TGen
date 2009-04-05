@@ -11,6 +11,7 @@
 #define _TGEN_ENGINE_PHYSICS_BODYSCRIPT_H
 
 #include <string>
+#include "script/componentscript.h"
 
 struct lua_State;
 
@@ -18,23 +19,20 @@ namespace TGen {
 	namespace Engine {
 		namespace Script {
 			class EntityScript;
-			class ComponentScript;
 		}
 		
 		namespace Physics {
 			class Body;
 			class EntityScript;
 			
-			class BodyScript {
+			class BodyScript : public TGen::Engine::Script::ComponentScript {
 			public:
 				BodyScript(const std::string & name, TGen::Engine::Physics::Body * body, TGen::Engine::Script::EntityScript * entityScript);
 				~BodyScript();
 				
 			private:
-				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Script::EntityScript * entityScript;
 				
-				static int luaOwner(lua_State * vm);
 				static int luaEnable(lua_State * vm);
 				
 				std::string name;

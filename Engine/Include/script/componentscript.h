@@ -24,16 +24,15 @@ namespace TGen {
 			
 			class ComponentScript {
 			public:
-				~ComponentScript();
+				ComponentScript(const std::string & name, TGen::Engine::Script::EntityScript * entityScript);
+				virtual ~ComponentScript();
 				
 				void registerFunction(const std::string & name, int (*func) (lua_State *L));
-				TGen::Engine::Script::ScriptState & beginComponentScript();
+				TGen::Engine::Script::ScriptState & beginComponentScript();		// när används dessa?
 				void endComponentScript();
 				
-				friend class TGen::Engine::Script::EntityScript;
-				
 			private:
-				ComponentScript(TGen::Engine::Script::EntityScript * entityScript, const std::string & name, TGen::Engine::Script::Subsystem & creator);
+				static int luaOwner(lua_State * vm);
 				
 				TGen::Engine::Script::Subsystem & creator;
 				TGen::Engine::Script::EntityScript * entityScript;

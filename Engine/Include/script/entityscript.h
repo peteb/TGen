@@ -24,11 +24,8 @@ namespace TGen {
 			public:
 				~EntityScript();
 
-				TGen::Engine::Script::Subsystem & getCreator();
-				TGen::Engine::Script::ComponentScript * createScriptComponent(const std::string & name, void * self);
-		
+				TGen::Engine::Script::Subsystem & getCreator();		
 				void onCreation();
-				
 				std::string getName() const;
 				
 

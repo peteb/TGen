@@ -15,14 +15,19 @@
 #include <tgen_core.h>
 #include "componentlink.h"
 #include "physics/bodydelegate.h"
+#include "script/componentscript.h"
 
 namespace TGen {
 	namespace Engine {
+		namespace Script {
+			class EntityScript;
+		}
+		
 		namespace Physics {
 			class Geom;
 			class EntityScript;
 			
-			class GeomScript {
+			class GeomScript : public TGen::Engine::Script::ComponentScript {
 			public:
 				GeomScript(const std::string & name, TGen::Engine::Physics::Geom * geom, TGen::Engine::Script::EntityScript * entityScript);
 				~GeomScript();
@@ -30,10 +35,7 @@ namespace TGen {
 				void onCollision(scalar force, TGen::Engine::Physics::Geom * with);
 				
 			private:
-				TGen::Engine::Script::ComponentScript * scriptComponent;
 				TGen::Engine::Script::EntityScript * entityScript;
-				
-				static int luaOwner(lua_State * vm);
 				
 				std::string name;
 				TGen::Engine::Physics::Geom * geom;
