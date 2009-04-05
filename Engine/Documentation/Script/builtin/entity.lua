@@ -1,5 +1,5 @@
 --- Basically a container of components.
--- Components of an entity are fields of the table.
+-- Components of an entity are fields in the table.
 -- @class table
 -- @name entity
 

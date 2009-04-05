@@ -123,6 +123,7 @@ int TGen::Engine::ResourceManagerScript::luaSound(lua_State * vm) {
 	scriptState.pushUserData(sound);
 	scriptState.setField(-2, "_objectSelf");
 	
+	// TODO: componentScript etc, arv på det. this i subclass != this i superclass	<------------
 	
 	return 1;
 }
