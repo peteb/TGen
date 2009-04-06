@@ -37,6 +37,8 @@ namespace TGen {
 			private:
 				TGen::Engine::Script::EntityScript * entityScript;
 				
+				static int luaLink(lua_State * vm);
+				
 				TGen::Engine::Physics::Geom * geom;
 			};
 		

@@ -60,6 +60,9 @@ void TGen::Engine::Script::ScriptState::pushUserData(void * data) {
 	lua_pushlightuserdata(vm, data);
 }
 
+void TGen::Engine::Script::ScriptState::pushNil() {
+	lua_pushnil(vm);
+}
 
 void TGen::Engine::Script::ScriptState::pushFunction(int (*func) (lua_State *L)) {
 	lua_pushcfunction(vm, func);
@@ -241,6 +244,20 @@ void TGen::Engine::Script::ScriptState::pushMatrix3(const TGen::Matrix3x3 & mat)
 
 	pushVector(mat.getZ());
 	lua_setfield(vm, -2, "z");
+}
+
+void TGen::Engine::Script::ScriptState::pushWorldObject(TGen::Engine::WorldObject * object) {
+	lua_createtable(vm, 0, 1);
+	
+	lua_getglobal(vm, "worldobj");
+	if (lua_isnil(vm, -1))
+		throw TGen::RuntimeException("ScriptState::pushWorldObject", "'worldobj' type not defined");
+	
+	lua_setmetatable(vm, -2);
+	
+	
+	pushUserData(object);
+	setField(-2, "_objectSelf");
 }
 
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {

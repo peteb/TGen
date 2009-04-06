@@ -20,6 +20,7 @@ namespace TGen {
 
 	namespace Engine {
 		class File;
+		class WorldObject;
 		
 		namespace Script {
 			class ScriptState {
@@ -41,9 +42,11 @@ namespace TGen {
 				void pushFunction(int (*func) (lua_State *L));
 				void pushString(const std::string & val);
 				void pushNumber(float number);
+				void pushNil();
 				
 				void pushVector(const TGen::Vector3 & vec);
 				void pushMatrix3(const TGen::Matrix3x3 & mat);
+				void pushWorldObject(TGen::Engine::WorldObject * object);
 				
 				void setField(int index, const std::string & name);
 				void getField(int index, const std::string & name);

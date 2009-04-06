@@ -95,6 +95,9 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::Geom::getBody() {
 	return bodyDelegate.getBodyObject();
 }
 
+TGen::Engine::WorldObject * TGen::Engine::Physics::Geom::getWorldLink() {
+	return bodyDelegate.getWorldObject();
+}
 
 void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 	if (dGeomGetClass(geomId) != dPlaneClass) {

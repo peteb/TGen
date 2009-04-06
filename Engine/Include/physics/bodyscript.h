@@ -32,6 +32,7 @@ namespace TGen {
 				
 			private:
 				static int luaEnable(lua_State * vm);
+				static int luaResetForces(lua_State * vm);
 				
 				TGen::Engine::Script::EntityScript * entityScript;
 				TGen::Engine::Physics::Body * body;

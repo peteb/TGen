@@ -12,6 +12,7 @@
 #include "filesystem.h"
 #include "file.h"
 #include "lua/lua.hpp"
+#include "worldobject.h"
 
 #include "script/entityscript.h"
 
@@ -23,6 +24,22 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 	, lastStackTop(-1)
 	, timeSinceGC(0.0f)
 {	
+	scriptState.newTable();
+	scriptState.setGlobal("worldobj");
+	
+	scriptState.getGlobal("worldobj");
+
+	scriptState.pushFunction(luaWOWorldPosition);
+	scriptState.setField(-2, "worldPosition");
+	
+	scriptState.pushFunction(luaWOWorldOrientation);
+	scriptState.setField(-2, "worldOrientation");
+	
+	scriptState.pushFunction(luaWOWorldVelocity);
+	scriptState.setField(-2, "worldVelocity");
+	
+	scriptState.getGlobal("worldobj");
+	scriptState.setField(-2, "__index");
 }
 
 
@@ -96,3 +113,31 @@ void TGen::Engine::Script::Subsystem::update(scalar dt) {
 	}
 }
 
+
+int TGen::Engine::Script::Subsystem::luaWOWorldPosition(lua_State * vm) {
+	ScriptState scriptState(vm);
+	
+	TGen::Engine::WorldObject * self = scriptState.getSelfPointer<TGen::Engine::WorldObject *>();
+	scriptState.pushVector(self->getPosition());
+	
+	return 1;
+}
+
+
+int TGen::Engine::Script::Subsystem::luaWOWorldOrientation(lua_State * vm) {
+	ScriptState scriptState(vm);
+	
+	TGen::Engine::WorldObject * self = scriptState.getSelfPointer<TGen::Engine::WorldObject *>();
+	scriptState.pushMatrix3(self->getOrientation());
+	
+	return 1;
+}
+
+int TGen::Engine::Script::Subsystem::luaWOWorldVelocity(lua_State * vm) {
+	ScriptState scriptState(vm);
+	
+	TGen::Engine::WorldObject * self = scriptState.getSelfPointer<TGen::Engine::WorldObject *>();
+	scriptState.pushVector(self->getVelocity());
+	
+	return 1;
+}

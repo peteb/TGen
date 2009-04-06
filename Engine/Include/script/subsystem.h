@@ -40,6 +40,10 @@ namespace TGen {
 				void update(scalar dt);
 				
 			private: 
+				static int luaWOWorldPosition(lua_State * vm);
+				static int luaWOWorldOrientation(lua_State * vm);
+				static int luaWOWorldVelocity(lua_State * vm);
+				
 				void loadScriptFile(const std::string & filename);
 				
 				TGen::Engine::StandardLogs & logs;

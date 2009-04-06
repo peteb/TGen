@@ -41,9 +41,7 @@ int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	
 	SceneScript * self = scriptState.getSelfPointer<SceneScript *>();
-	
 	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
-	
 	TGen::Vector3 position = sceneNode->getPosition();
 	
 	scriptState.pushVector(position);

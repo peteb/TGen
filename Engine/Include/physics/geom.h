@@ -44,6 +44,7 @@ namespace TGen {
 				bool getAffectsOthers() const;
 				
 				TGen::Engine::Physics::Body * getBody();
+				TGen::Engine::WorldObject * getWorldLink();
 				
 				virtual void preStep();
 				virtual void postStep();

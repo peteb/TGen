@@ -32,6 +32,7 @@ TGen::Engine::Script::ComponentScript::ComponentScript(const std::string & name,
 	scriptState.pop(1);
 	
 	registerFunction("owner", luaOwner);
+	registerFunction("name", luaName);
 }
 
 TGen::Engine::Script::ComponentScript::~ComponentScript() {

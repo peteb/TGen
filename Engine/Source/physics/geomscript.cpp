@@ -11,6 +11,7 @@
 #include "script/componentscript.h"
 #include "script/scriptstate.h"
 #include "physics/geom.h"
+#include "physics/bodyscript.h"
 
 TGen::Engine::Physics::GeomScript::GeomScript(const std::string & name, TGen::Engine::Physics::Geom * geom, TGen::Engine::Script::EntityScript * entityScript) 
 	: TGen::Engine::Script::ComponentScript(name, entityScript)
@@ -19,8 +20,7 @@ TGen::Engine::Physics::GeomScript::GeomScript(const std::string & name, TGen::En
 {
 	TGenAssert(entityScript);
 	
-	std::cout << name << " GEOMSCRIPT: " << this << std::endl;
-	
+	registerFunction("link", luaLink);
 }
 
 TGen::Engine::Physics::GeomScript::~GeomScript() {
@@ -55,3 +55,23 @@ void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::
 	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));
 }
 
+int TGen::Engine::Physics::GeomScript::luaLink(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	
+	GeomScript * self = scriptState.getSelfPointer<GeomScript *>();
+	
+	if (!self->geom->getBody()) {
+		if (!self->geom->getWorldLink()) {
+			scriptState.pushNil();
+		}
+		else {
+			scriptState.pushWorldObject(self->geom->getWorldLink());
+		}
+	}
+	else {
+		//self->geom->getBody()->getScriptInterface()->pushComponent(scriptState);
+		scriptState.pushWorldObject(self->geom->getBody());
+	}
+	
+	return 1;
+}
