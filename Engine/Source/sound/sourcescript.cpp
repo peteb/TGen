@@ -18,7 +18,6 @@
 
 TGen::Engine::Sound::SourceScript::SourceScript(const std::string & name, TGen::Engine::Sound::Source * source, TGen::Engine::Script::EntityScript * entityScript) 
 	: TGen::Engine::Script::ComponentScript(name, entityScript)
-	, name(name)
 	, entityScript(entityScript)
 	, source(source)
 {

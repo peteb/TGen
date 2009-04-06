@@ -42,7 +42,7 @@ print("New material's name: "..newMaterial:name());
 funkyNode:setMaterial(newMaterial);
 
 function entities.player.physGeom:onCollision(force, with)
-	print("player collision, force: "..force.." with: "..with:owner():name());
+	--print("player collision, force: "..force.." with: "..with:owner():name());
 	--env.showMessage("Stuff", "hej");
 	--env.quit();
 end

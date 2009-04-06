@@ -41,7 +41,6 @@ namespace TGen {
 				static int luaMultiplyLocalOrientation(lua_State * vm);
 				
 				TGen::Engine::Scene::Node * sceneNode;
-				std::string name;
 			};
 		} // !Scene
 	} // !Engine

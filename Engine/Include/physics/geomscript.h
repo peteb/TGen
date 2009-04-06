@@ -37,7 +37,6 @@ namespace TGen {
 			private:
 				TGen::Engine::Script::EntityScript * entityScript;
 				
-				std::string name;
 				TGen::Engine::Physics::Geom * geom;
 			};
 		

@@ -28,11 +28,15 @@ namespace TGen {
 				virtual ~ComponentScript();
 				
 				void registerFunction(const std::string & name, int (*func) (lua_State *L));
-				TGen::Engine::Script::ScriptState & beginComponentScript();		// när används dessa?
-				void endComponentScript();
+				void pushComponent(TGen::Engine::Script::ScriptState & scriptState);
+				void pushEntity(TGen::Engine::Script::ScriptState & scriptState);
+				const std::string & getName() const;
+				
+				TGen::Engine::Script::ScriptState & getScriptState() const;
 				
 			private:
 				static int luaOwner(lua_State * vm);
+				static int luaName(lua_State * vm);
 				
 				TGen::Engine::Script::Subsystem & creator;
 				TGen::Engine::Script::EntityScript * entityScript;

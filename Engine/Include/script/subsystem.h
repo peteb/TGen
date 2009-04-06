@@ -37,7 +37,8 @@ namespace TGen {
 				ScriptState & getScriptState();
 				
 				void executeScripts(const std::string & path, bool recurse = false);
-			
+				void update(scalar dt);
+				
 			private: 
 				void loadScriptFile(const std::string & filename);
 				
@@ -47,6 +48,8 @@ namespace TGen {
 				
 				TGen::Engine::Script::ScriptState scriptState;
 				TGen::Engine::Script::EnvironmentScript envScript;
+				int lastStackTop;
+				float timeSinceGC;
 			};
 			
 		} // !Script

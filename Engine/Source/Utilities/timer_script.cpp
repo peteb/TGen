@@ -17,39 +17,29 @@ TGen::Engine::Utilities::TimerScript::TimerScript(const std::string & name, Time
 	: TGen::Engine::Script::ComponentScript(name, entityScript)
 	, timer(timer)
 	, scriptEntity(entityScript)
-	, name(name)
 {
 	registerFunction("interval", luaInterval);
 	registerFunction("setInterval", luaSetInterval);
 	registerFunction("enable", luaEnable);
 	registerFunction("disable", luaDisable);
-	registerFunction("name", luaName);
 }
 
 
 void TGen::Engine::Utilities::TimerScript::tick() {
 	TGenAssert(scriptComponent && scriptEntity);
 	
+	TGen::Engine::Script::ScriptState & scriptState = getScriptState(); 
+	int startStackTop = scriptState.getStackTop();
+	pushComponent(scriptState);
 	
-	TGen::Engine::Script::ScriptState & scriptState = beginComponentScript();	// TODO: check stack push/pop in this function, throw on endComponentScript if they don't match
-
 	scriptState.getField(-1, "onTick");
 	
 	if (!scriptState.isNil(-1)) {
-		scriptState.getGlobal("entities");
-		scriptState.getField(-1, scriptEntity->getName());
-		scriptState.remove(-2);
-
-		scriptState.getField(-1, this->name);
-		scriptState.remove(-2);
-
+		pushComponent(scriptState);
 		scriptState.call(1, 0);
 	}
-	else {
-		scriptState.pop(1);
-	}	
 	
-	endComponentScript();
+	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));
 }
 
 int TGen::Engine::Utilities::TimerScript::luaInterval(lua_State * vm) {
@@ -88,11 +78,4 @@ int TGen::Engine::Utilities::TimerScript::luaDisable(lua_State * vm) {
 	return 0;
 }
 
-int TGen::Engine::Utilities::TimerScript::luaName(lua_State * vm) {
-	TGen::Engine::Script::ScriptState scriptState(vm);
-	
-	TimerScript * self = scriptState.getSelfPointer<TimerScript *>();
-	scriptState.pushString(self->name);
-	
-	return 1;	
-}
+

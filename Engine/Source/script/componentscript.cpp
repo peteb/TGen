@@ -53,26 +53,27 @@ void TGen::Engine::Script::ComponentScript::registerFunction(const std::string &
 	scriptState.pop(3);
 }
 
-TGen::Engine::Script::ScriptState & TGen::Engine::Script::ComponentScript::beginComponentScript() {
-	ScriptState & scriptState = creator.getScriptState();
+
+void TGen::Engine::Script::ComponentScript::pushComponent(TGen::Engine::Script::ScriptState & scriptState) {
+	pushEntity(scriptState);
 	
+	scriptState.getField(-1, this->name);	
+	scriptState.remove(-2);
+}
+
+void TGen::Engine::Script::ComponentScript::pushEntity(TGen::Engine::Script::ScriptState & scriptState) {
 	scriptState.getGlobal("entities");
 	scriptState.getField(-1, entityScript->getName());
-	scriptState.getField(-1, this->name);
-	
-	beginTop = scriptState.getStackTop();
-	
-	return scriptState;
+	scriptState.remove(-2);	
 }
 
-void TGen::Engine::Script::ComponentScript::endComponentScript() {
-	if (beginTop != creator.getScriptState().getStackTop()) {
-		throw TGen::RuntimeException("ComponentScript::endComponentScript", "stack push/pops don't match");
-	}
-	
-	creator.getScriptState().pop(3);
+TGen::Engine::Script::ScriptState & TGen::Engine::Script::ComponentScript::getScriptState() const {
+	return creator.getScriptState();
 }
 
+const std::string & TGen::Engine::Script::ComponentScript::getName() const {
+	return name;
+}
 
 int TGen::Engine::Script::ComponentScript::luaOwner(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
@@ -82,6 +83,15 @@ int TGen::Engine::Script::ComponentScript::luaOwner(lua_State * vm) {
 	scriptState.getGlobal("entities");
 	scriptState.getField(-1, self->entityScript->getName());
 	scriptState.remove(-2);
+	
+	return 1;
+}
+
+int TGen::Engine::Script::ComponentScript::luaName(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	ComponentScript * self = scriptState.getSelfPointer<ComponentScript *>();
+	
+	scriptState.pushString(self->name);
 	
 	return 1;
 }

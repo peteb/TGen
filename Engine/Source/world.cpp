@@ -229,6 +229,7 @@ void TGen::Engine::World::update(scalar dt) {
 	controllerSubsystem.update(dt);				// perform controlling
 	physicsSubsystem.update(dt);					
 	soundSubsystem.update(dt);
+	scriptSubsystem.update(dt);
 }
 
 /*

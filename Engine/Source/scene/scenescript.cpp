@@ -21,7 +21,6 @@
 TGen::Engine::Scene::SceneScript::SceneScript(const std::string & name, TGen::Engine::Scene::Node * sceneNode, TGen::Engine::Script::EntityScript * entityScript) 
 	: TGen::Engine::Script::ComponentScript(name, entityScript)
 	, sceneNode(sceneNode)
-	, name(name)
 {
 	registerFunction("worldPosition", luaWorldPosition);
 	registerFunction("localPosition", luaLocalPosition);
@@ -45,7 +44,6 @@ int TGen::Engine::Scene::SceneScript::luaWorldPosition(lua_State * vm) {
 	
 	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
 	
-	
 	TGen::Vector3 position = sceneNode->getPosition();
 	
 	scriptState.pushVector(position);
@@ -60,8 +58,6 @@ int TGen::Engine::Scene::SceneScript::luaLocalPosition(lua_State * vm) {
 	
 	TGen::Engine::Scene::Node * sceneNode = self->sceneNode;
 	TGen::SceneNode * node = sceneNode->getSceneNode();
-	
-	
 	
 	TGen::Vector3 position;
 	

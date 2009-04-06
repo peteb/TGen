@@ -33,7 +33,6 @@ namespace TGen {
 				void tick();
 				
 			private:
-				static int luaName(lua_State * vm);
 				static int luaInterval(lua_State * vm);
 				static int luaSetInterval(lua_State * vm);
 				static int luaEnable(lua_State * vm);
@@ -41,7 +40,6 @@ namespace TGen {
 				
 				Timer & timer;
 				TGen::Engine::Script::EntityScript * scriptEntity;
-				std::string name;
 			};
 			
 		} // !Utilities

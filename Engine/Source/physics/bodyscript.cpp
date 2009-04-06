@@ -14,7 +14,6 @@
 
 TGen::Engine::Physics::BodyScript::BodyScript(const std::string & name, TGen::Engine::Physics::Body * body, TGen::Engine::Script::EntityScript * entityScript) 
 	: TGen::Engine::Script::ComponentScript(name, entityScript)
-	, name(name)
 	, body(body)
 	, entityScript(entityScript)
 {

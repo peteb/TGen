@@ -29,12 +29,10 @@ namespace TGen {
 				SourceScript(const std::string & name, TGen::Engine::Sound::Source * source, TGen::Engine::Script::EntityScript * entityScript);
 				~SourceScript();
 				
-			private:
-				TGen::Engine::Script::EntityScript * entityScript;
-				
+			private:				
 				static int luaPlaySound(lua_State * vm);
 				
-				std::string name;
+				TGen::Engine::Script::EntityScript * entityScript;
 				TGen::Engine::Sound::Source * source;	
 			};
 			

@@ -31,11 +31,9 @@ namespace TGen {
 				~BodyScript();
 				
 			private:
-				TGen::Engine::Script::EntityScript * entityScript;
-				
 				static int luaEnable(lua_State * vm);
 				
-				std::string name;
+				TGen::Engine::Script::EntityScript * entityScript;
 				TGen::Engine::Physics::Body * body;
 			};
 			

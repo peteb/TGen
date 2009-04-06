@@ -20,6 +20,8 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 	, filesystem(filesystem)
 	, componentFactory(*this)
 	, envScript(scriptState)
+	, lastStackTop(-1)
+	, timeSinceGC(0.0f)
 {	
 }
 
@@ -53,6 +55,44 @@ void TGen::Engine::Script::Subsystem::executeScripts(const std::string & path, b
 	for (int i = 0; i < files.size(); ++i) {
 		TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(files[i]);
 		scriptState.loadScriptFile(file.get(), files[i]);
+	}
+}
+
+void TGen::Engine::Script::Subsystem::update(scalar dt) {
+	int stackTop = scriptState.getStackTop();
+	
+	if (lastStackTop == -1) {
+		lastStackTop = stackTop;
+	}
+	else {
+		if (stackTop - lastStackTop != 0) {
+			std::cout << "WARNING: stack diff: " << stackTop - lastStackTop << " element (-s) since last frame" << std::endl;
+		}
+		
+		lastStackTop = stackTop;
+	}
+	
+	timeSinceGC += dt;
+	
+	if (timeSinceGC > 2.0f) {
+		std::cout << "COLLECT GARBAGE" << std::endl;
+		timeSinceGC = 0.0f;
+		
+		
+		int kbytes = lua_gc(scriptState.getState(), LUA_GCCOUNTB, 0);
+		std::cout << "KB IN USE: " << kbytes << std::endl;
+		
+		
+		const float maxStepTime = 0.001f;		// max 1 ms to step gc, should probably be calculated somehow
+		
+		TGen::Time start = TGen::Time::Now();
+		
+		while (TGen::Time::Now() - start < maxStepTime) {
+			int finishedCycle = lua_gc(scriptState.getState(), LUA_GCSTEP, 30);
+			if (finishedCycle)
+				break;
+			
+		}
 	}
 }
 
