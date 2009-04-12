@@ -215,14 +215,16 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 	
 	bool stream = false;
 	std::string filename;
-	
-	if (genline.getName().substr(0, 7) == "stream:") {
+		
+	/*if (genline.getName().substr(0, 7) == "stream:") {
 		stream = true;
 		filename = genline.getName().substr(7);
 	}
 	else {
 		filename = genline.getName();
-	}
+	}*/
+	
+	filename = genline.getName();
 	
 	FMOD_MODE flags = FMOD_DEFAULT;
 	FMOD_RESULT result;
@@ -234,7 +236,10 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 	else if (loopMode == "bidi")
 		flags |= FMOD_LOOP_BIDI;
 	
-	if (TGen::lexical_cast<bool>(genline.getParameter("software", "false")))
+	stream = TGen::lexical_cast<bool>(genline.getParameter("stream", "false"));
+	
+
+	if (TGen::lexical_cast<bool>(genline.getParameter("software", "true")))
 		flags |= FMOD_SOFTWARE;
 	else
 		flags |= FMOD_HARDWARE;

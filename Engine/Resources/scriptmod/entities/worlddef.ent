@@ -9,9 +9,15 @@ world {
 		playerController player:controller
 		gravity "0 0 0"
 	}
+	
+	soundGlobal musicSource {
+
+	}
 }
 
 box1 {
+	worldInterface sceneNode
+	
 	sceneNode {
 		//parent world:sceneNode
 		origin "0 1 10"
@@ -78,6 +84,8 @@ teleportground {
 }
 
 teleportstart {
+	worldInterface sceneNode
+	
 	sceneNode {
 		origin "0 4 0"
 	}
@@ -88,6 +96,8 @@ teleportstart {
 }
 
 player {
+	worldInterface origin
+	
 	///////////////////////////////////////////////////////////////
 	// visual & spatial representations
 	///////////////////////////////////////////////////////////////

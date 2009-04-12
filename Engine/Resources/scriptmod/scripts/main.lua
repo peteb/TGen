@@ -45,7 +45,7 @@ function entities.player.physGeom:onCollision(force, with)
 	--print("player collision, force: "..force.." with: "..with:owner():name());
 	--env.showMessage("Stuff", "hej");
 	--env.quit();
-	print("Player speed: "..self:link():worldVelocity():magnitude());
+	--print("Player speed: "..self:link():worldVelocity():magnitude());
 end
 
 
@@ -53,32 +53,27 @@ entities.box1.teleinSound = resources:sound("telein.wav");
 
 entities.player.worldInterface = entities.player.origin;
 entities.box1.worldInterface = entities.box1.sceneNode;
+entities.teleportstart.worldInterface = entities.teleportstart.sceneNode;
 
 
 function entities.teleportground.physGeom:onCollision(force, with)
-	if (with:owner().worldInterface) then	-- TODO: worldInterface in entity def, read only. entity has a worldInterface if any positional component exists
-		print("TELEPORT ACTIVATED on "..with:owner():name());
+	if ([with owner].worldInterface) then	-- TODO: worldInterface in entity def, read only. entity has a worldInterface if any positional component exists, nil otherwise
+		print("TELEPORT ACTIVATED on "..[[with owner] name]);
 		
-		if (with:link().name) then
-			print("Name of with's body: "..with:link():name());
-		end
-			
-		-- TODO: link(), return the LINK!!!!
-		--		if there is no body, construct a new table that wraps WorldObject and return it from link()
-		
-		if (with:link().resetForces) then
-			print("Link implements resetForces!");
-			with:link():resetForces();
+		if ([with link].name) then
+			print("Name of with's body: "..[[with link] name]);
 		end
 		
-		if (with:link().worldPosition) then
-			print("Link implements worldPosition: "..with:link():worldPosition());
-		else
-			print("NO WORLDPOSITION");
-		end
+		-- TODO: worldInterface first
 		
-		with:owner().worldInterface:setWorldPosition(entities.teleportstart.sceneNode:worldPosition());
-		entities.teleportstart:playTeleportSound();
+		[nil setStuff: [nil getStuff: [nil doFlough]]];	-- this is ok
+		
+	
+		print("Link position: "..tostring([[with link] worldPosition]));
+
+		[[with link] resetForces];
+		[[with owner].worldInterface setWorldPosition: [entities.teleportstart.worldInterface worldPosition]];
+		[entities.teleportstart playTeleportSound];
 	end
 end
 

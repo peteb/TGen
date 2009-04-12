@@ -29,6 +29,8 @@ namespace TGen {
 				SourceScript(const std::string & name, TGen::Engine::Sound::Source * source, TGen::Engine::Script::EntityScript * entityScript);
 				~SourceScript();
 				
+				void onChannelFinished();
+				
 			private:				
 				static int luaPlaySound(lua_State * vm);
 				

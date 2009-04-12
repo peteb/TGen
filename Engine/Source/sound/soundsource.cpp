@@ -70,16 +70,28 @@ void TGen::Engine::Sound::Source::update(scalar dt) {
 		newChannel->setLoop(loop);		
 	}
 	
+	ChannelList finishedChannels;
+	
+	for (ChannelList::iterator iter = channels.begin(); iter != channels.end(); ++iter) {
+		if (!(*iter)->isPlaying()) {
+			finishedChannels.push_back(*iter);			
+		}
+	}
+
+	for (ChannelList::iterator iter = finishedChannels.begin(); iter != finishedChannels.end(); ++iter) {
+		if (scriptInterface)
+			scriptInterface->onChannelFinished();
+	}
+	
 	for (ChannelList::iterator iter = channels.begin(); iter != channels.end();) {
 		if (!(*iter)->isPlaying()) {
-			//std::cout << "ERASING CHANNEL" << std::endl;
 			delete *iter;
 			iter = channels.erase(iter);
 		}
 		else {
 			++iter;
 		}
-	}
+	}	
 }
 
 

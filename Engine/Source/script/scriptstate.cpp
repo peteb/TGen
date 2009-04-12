@@ -10,6 +10,7 @@
 #include <tgen_core.h>
 #include <tgen_math.h>
 #include "scriptstate.h"
+#include "script/scriptppc.h"
 #include "lua/lua.hpp"
 #include "file.h"
 
@@ -268,10 +269,25 @@ void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 }
 
 void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file, const std::string & name) {
-	int ret = lua_load(vm, LuaChunkReader, reinterpret_cast<void *>(file), name.c_str());
+	std::string contents = file->readAll();
+	TGen::Engine::Script::ScriptPreprocessor ppc;
+	std::string fixedContents = ppc.process(contents);
+
+	std::string global = "local msg_send_self_l = msg_send_self;\n";//+ "local msg_send_l = msg_send;\n";
+	
+	fixedContents = global + fixedContents;
+	
+	// TODO: CHUNK READER FOR STRINGS
+	
+	std::cout << name << ": " << fixedContents << std::endl;
+	
+	/*int ret = lua_load(vm, LuaChunkReader, reinterpret_cast<void *>(file), name.c_str());
 	
 	if (ret != 0)
 		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to load file \"" + name + "\":\n") << lua_tostring(vm, -1);
+	*/
+	
+	luaL_loadstring(vm, fixedContents.c_str());
 	
 	call(0, 0);		// create everything in the file
 }

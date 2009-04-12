@@ -56,6 +56,14 @@ end
 
 
 ---------------------------------------------------------------------------------------
+-- Constructor, clones the vector.
+-- @return A new copy of the vector.
+function vec3:clone() 
+	return vec3.new(self.x, self.y, self.z);
+end
+
+
+---------------------------------------------------------------------------------------
 -- Metamethod for tostring operator.
 -- @return The vector formatted as a string, (x, y, z)
 function vec3:__tostring()

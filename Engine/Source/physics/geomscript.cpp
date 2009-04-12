@@ -28,7 +28,7 @@ TGen::Engine::Physics::GeomScript::~GeomScript() {
 }
 
 void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::Physics::Geom * with) {
-	TGenAssert(scriptComponent && scriptEntity);
+	TGenAssert(scriptEntity);
 	
 	TGen::Engine::Script::ScriptState & scriptState = getScriptState();
 	int startStackTop = scriptState.getStackTop();
@@ -69,9 +69,10 @@ int TGen::Engine::Physics::GeomScript::luaLink(lua_State * vm) {
 		}
 	}
 	else {
-		//self->geom->getBody()->getScriptInterface()->pushComponent(scriptState);
-		scriptState.pushWorldObject(self->geom->getBody());
+		self->geom->getBody()->getScriptInterface()->pushComponent(scriptState);
 	}
+	
+	// TODO: setWorldPosition, setWorldOrientation
 	
 	return 1;
 }

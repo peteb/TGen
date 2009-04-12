@@ -28,6 +28,11 @@ function box.materialChanger:onTick()
 	
 end
 
+
+function entities.box1.soundLocal:onChannelFinished() 
+	print(">> CHANNEL FINISHED");
+end
+
 box.timer2.numTicks = 0;
 
 function box.timer2:onTick() 

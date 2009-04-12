@@ -133,6 +133,7 @@
 		D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */; };
 		D0A97C120F2CD06B0049CFCC /* renderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A97C110F2CD06B0049CFCC /* renderervars.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
+		D0B398D50F8FF0E30076ED80 /* scriptppc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
@@ -534,6 +535,8 @@
 		D0A97C110F2CD06B0049CFCC /* renderervars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderervars.cpp; path = renderer/forward/renderervars.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
+		D0B398D30F8FF0DB0076ED80 /* scriptppc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scriptppc.h; path = ../../Include/script/scriptppc.h; sourceTree = SOURCE_ROOT; };
+		D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scriptppc.cpp; path = script/scriptppc.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
 		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/renderer/lightlist.h; sourceTree = "<group>"; };
@@ -984,6 +987,8 @@
 				D07F47590F4AF1150050D30F /* entityscript.h */,
 				D07F49800F4B0DC90050D30F /* componentscript.cpp */,
 				D07F497F0F4B0DB60050D30F /* componentscript.h */,
+				D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */,
+				D0B398D30F8FF0DB0076ED80 /* scriptppc.h */,
 				D07F4CB70F4CAA7E0050D30F /* scriptstate.cpp */,
 				D07F4CB90F4CAA8E0050D30F /* scriptstate.h */,
 				D099ACA10F7AF7B700AB7D0B /* envscript.cpp */,
@@ -1101,6 +1106,8 @@
 				D09C62BC0DF0926300B83C1E /* localsource.h */,
 				D09C62EF0DF0975000B83C1E /* globalsource.cpp */,
 				D09C62EE0DF0974600B83C1E /* globalsource.h */,
+				D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */,
+				D099AE1F0F7BCF9100AB7D0B /* sourcescript.h */,
 				D0A310ED0DF355BB0007A749 /* channel.cpp */,
 				D0A310EC0DF355AF0007A749 /* channel.h */,
 				D0A310FC0DF4A8490007A749 /* sound.cpp */,
@@ -1109,8 +1116,6 @@
 				D09FC1FD0E0FE17C00BF59F0 /* localrecipe.h */,
 				D079403D0E32A0370074996E /* soundresource.cpp */,
 				D079403A0E329FE70074996E /* soundresource.h */,
-				D099AE200F7BCFA000AB7D0B /* sourcescript.cpp */,
-				D099AE1F0F7BCF9100AB7D0B /* sourcescript.h */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -1632,6 +1637,7 @@
 				D099ACA20F7AF7B700AB7D0B /* envscript.cpp in Sources */,
 				D099AE210F7BCFA000AB7D0B /* sourcescript.cpp in Sources */,
 				D099B1CA0F7E682F00AB7D0B /* bodyscript.cpp in Sources */,
+				D0B398D50F8FF0E30076ED80 /* scriptppc.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

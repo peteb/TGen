@@ -29,6 +29,24 @@ TGen::Engine::Sound::SourceScript::~SourceScript() {
 
 }
 
+void TGen::Engine::Sound::SourceScript::onChannelFinished() {
+	TGenAssert(scriptComponent && scriptEntity);
+	
+	TGen::Engine::Script::ScriptState & scriptState = getScriptState();
+	int startStackTop = scriptState.getStackTop();
+	pushComponent(scriptState);
+	
+	scriptState.getField(-1, "onChannelFinished");
+	
+	if (!scriptState.isNil(-1)) {
+		pushComponent(scriptState);
+		
+		scriptState.call(1, 0);
+	}
+	
+	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));
+}	
+
 int TGen::Engine::Sound::SourceScript::luaPlaySound(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);	
 
