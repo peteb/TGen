@@ -105,7 +105,7 @@ std::string TGen::Engine::Script::ScriptState::toString(int index) {
 }
 
 void TGen::Engine::Script::ScriptState::pushString(const std::string & val) {
-	lua_pushstring(vm, val.c_str());
+	lua_pushlstring(vm, val.c_str(), val.size());
 }
 
 void TGen::Engine::Script::ScriptState::pushVector(const TGen::Vector3 & vec) {

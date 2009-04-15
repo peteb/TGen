@@ -34,6 +34,7 @@ namespace TGen {
 			void setScriptInterface(TGen::Engine::Script::EntityScript * scriptInterface);
 			
 			TGen::Engine::Script::EntityScript * getScriptInterface() const;
+			TGen::Engine::WorldObject * getWorldInterface() const;
 			
 			TGen::Engine::Component * getComponent(const std::string & name, std::nothrow_t noth);
 			TGen::Engine::Component & getComponent(const std::string & name);

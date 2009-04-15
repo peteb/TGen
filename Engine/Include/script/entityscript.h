@@ -16,9 +16,13 @@ class lua_State;
 
 namespace TGen {
 	namespace Engine {
+		class WorldObject;
+		class Entity;
+		
 		namespace Script {
 			class Subsystem;
 			class ComponentScript;
+			class ScriptState;
 			
 			class EntityScript {
 			public:
@@ -28,16 +32,19 @@ namespace TGen {
 				void onCreation();
 				std::string getName() const;
 				
-
+				void pushEntity(TGen::Engine::Script::ScriptState & scriptState);
+				void registerWorldInterface(TGen::Engine::WorldObject * worldInterface);
+				
 				friend class TGen::Engine::Script::Subsystem;
 				
 			private:
-				EntityScript(const std::string & name, TGen::Engine::Script::Subsystem & creator);
+				EntityScript(TGen::Engine::Entity & entity, TGen::Engine::Script::Subsystem & creator);
 
 				static int luaGetName(lua_State * vm);
+				//static int luaGetWorldInterface(lua_State * vm);
 				
 				TGen::Engine::Script::Subsystem & creator;
-				std::string name;
+				TGen::Engine::Entity & entity;
 			};
 		} // !Script
 	} // !Engine

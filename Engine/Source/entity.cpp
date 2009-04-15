@@ -55,6 +55,10 @@ void TGen::Engine::Entity::setWorldInterface(TGen::Engine::WorldObject * worldIn
 	this->worldInterface = worldInterface;
 }
 
+TGen::Engine::WorldObject * TGen::Engine::Entity::getWorldInterface() const {
+	return worldInterface;
+}
+
 void TGen::Engine::Entity::setScriptInterface(TGen::Engine::Script::EntityScript * scriptInterface) {
 	delete this->scriptInterface;
 	this->scriptInterface = scriptInterface;

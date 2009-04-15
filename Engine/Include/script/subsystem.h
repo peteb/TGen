@@ -21,6 +21,7 @@ namespace TGen {
 	namespace Engine {
 		class StandardLogs;
 		class Filesystem;
+		class Entity;
 		
 		namespace Script {
 			class EntityScript;
@@ -32,7 +33,7 @@ namespace TGen {
 				
 				TGen::Engine::Component * createComponent(const std::string & name, TGen::Engine::Entity & entity, const TGen::PropertyTree & properties);
 				TGen::Engine::ComponentRecipe * createComponentRecipe(const std::string & name, const std::string & entityName, const TGen::PropertyTree & properties);
-				TGen::Engine::Script::EntityScript * createScriptEntity(const std::string & name);
+				TGen::Engine::Script::EntityScript * createScriptEntity(TGen::Engine::Entity & entity);
 				
 				ScriptState & getScriptState();
 				
@@ -41,6 +42,7 @@ namespace TGen {
 				
 			private: 
 				static int luaWOWorldPosition(lua_State * vm);
+				static int luaWOSetWorldPosition(lua_State * vm);
 				static int luaWOWorldOrientation(lua_State * vm);
 				static int luaWOWorldVelocity(lua_State * vm);
 				

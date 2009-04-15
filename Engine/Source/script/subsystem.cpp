@@ -31,7 +31,10 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 
 	scriptState.pushFunction(luaWOWorldPosition);
 	scriptState.setField(-2, "worldPosition");
-	
+
+	scriptState.pushFunction(luaWOSetWorldPosition);
+	scriptState.setField(-2, "setWorldPosition");
+
 	scriptState.pushFunction(luaWOWorldOrientation);
 	scriptState.setField(-2, "worldOrientation");
 	
@@ -57,8 +60,8 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Script::Subsystem::createComponent
 	return componentFactory.createComponentRecipe(name, entityName, properties);
 }
 
-TGen::Engine::Script::EntityScript * TGen::Engine::Script::Subsystem::createScriptEntity(const std::string & name) {
-	return new TGen::Engine::Script::EntityScript(name, *this);
+TGen::Engine::Script::EntityScript * TGen::Engine::Script::Subsystem::createScriptEntity(TGen::Engine::Entity & entity) {
+	return new TGen::Engine::Script::EntityScript(entity, *this);
 }
 
 TGen::Engine::Script::ScriptState & TGen::Engine::Script::Subsystem::getScriptState() {
@@ -121,6 +124,15 @@ int TGen::Engine::Script::Subsystem::luaWOWorldPosition(lua_State * vm) {
 	scriptState.pushVector(self->getPosition());
 	
 	return 1;
+}
+
+int TGen::Engine::Script::Subsystem::luaWOSetWorldPosition(lua_State * vm) {
+	ScriptState scriptState(vm);
+	
+	TGen::Engine::WorldObject * self = scriptState.getSelfPointer<TGen::Engine::WorldObject *>();
+	self->setPosition(scriptState.toVector(2));
+	
+	return 0;
 }
 
 

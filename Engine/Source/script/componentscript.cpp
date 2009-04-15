@@ -21,15 +21,13 @@ TGen::Engine::Script::ComponentScript::ComponentScript(const std::string & name,
 	
 	ScriptState & scriptState = entityScript->getCreator().getScriptState();
 	
-	scriptState.getGlobal("entities");
-	scriptState.getField(-1, entityScript->getName());
+	entityScript->pushEntity(scriptState);
 	
 	scriptState.newTable();
-
 	scriptState.setUserData("_objectSelf", this);
 	
 	scriptState.setField(-2, name);
-	scriptState.pop(1);
+	
 	
 	registerFunction("owner", luaOwner);
 	registerFunction("name", luaName);
@@ -44,14 +42,12 @@ TGen::Engine::Script::ComponentScript::~ComponentScript() {
 void TGen::Engine::Script::ComponentScript::registerFunction(const std::string & name, int (*func) (lua_State *L)) {
 	ScriptState & scriptState = creator.getScriptState();
 	
-	scriptState.getGlobal("entities");
-	scriptState.getField(-1, entityScript->getName());
-	scriptState.getField(-1, this->name);
-
+	pushComponent(scriptState);
+	
 	scriptState.pushFunction(func);
 	scriptState.setField(-2, name);
 
-	scriptState.pop(3);
+	scriptState.pop(1);
 }
 
 
@@ -63,9 +59,10 @@ void TGen::Engine::Script::ComponentScript::pushComponent(TGen::Engine::Script::
 }
 
 void TGen::Engine::Script::ComponentScript::pushEntity(TGen::Engine::Script::ScriptState & scriptState) {
+	//entityScript->pushEntity(scriptState);
 	scriptState.getGlobal("entities");
 	scriptState.getField(-1, entityScript->getName());
-	scriptState.remove(-2);	
+	scriptState.remove(-2);
 }
 
 TGen::Engine::Script::ScriptState & TGen::Engine::Script::ComponentScript::getScriptState() const {

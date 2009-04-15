@@ -31,14 +31,14 @@ local worldPos = funkyNode:worldPosition();
 
 
 print("World position: " .. worldPos);
-print("Local position: " .. funkyNode:localPosition());
+print("Local position: " .. [funkyNode localPosition]);
 
 print("Added: " .. worldPos + vec3.new(0.0, 2.0, 1.0));
 
 
-local newMaterial = resources:material("newmat");
+local newMaterial = [resources material: "newmat"];
 
-print("New material's name: "..newMaterial:name());
+print("New material's name: "..[newMaterial name]);
 funkyNode:setMaterial(newMaterial);
 
 function entities.player.physGeom:onCollision(force, with)
@@ -49,28 +49,22 @@ function entities.player.physGeom:onCollision(force, with)
 end
 
 
-entities.box1.teleinSound = resources:sound("telein.wav");
-
-entities.player.worldInterface = entities.player.origin;
-entities.box1.worldInterface = entities.box1.sceneNode;
-entities.teleportstart.worldInterface = entities.teleportstart.sceneNode;
+entities.box1.teleinSound = [resources sound: "telein.wav"];
 
 
 function entities.teleportground.physGeom:onCollision(force, with)
-	if ([with owner].worldInterface) then	-- TODO: worldInterface in entity def, read only. entity has a worldInterface if any positional component exists, nil otherwise
+	if ([with owner].worldInterface) then
 		print("TELEPORT ACTIVATED on "..[[with owner] name]);
 		
 		if ([with link].name) then
 			print("Name of with's body: "..[[with link] name]);
 		end
 		
-		-- TODO: worldInterface first
-		
 		[nil setStuff: [nil getStuff: [nil doFlough]]];	-- this is ok
 		
-	
 		print("Link position: "..tostring([[with link] worldPosition]));
-
+		print("Owner worldpos: " .. tostring([[with owner].worldInterface worldPosition]));
+		
 		[[with link] resetForces];
 		[[with owner].worldInterface setWorldPosition: [entities.teleportstart.worldInterface worldPosition]];
 		[entities.teleportstart playTeleportSound];
@@ -79,9 +73,9 @@ end
 
 
 
-entities.teleportstart.teleportSound = resources:sound("telein.wav");
+entities.teleportstart.teleportSound = [resources sound: "telein.wav"];
 
 function entities.teleportstart:playTeleportSound()
-	self.soundLocal:playSound(self.teleportSound);
+	[self.soundLocal playSound: self.teleportSound];
 end
 

@@ -16,7 +16,7 @@
 #include "log.h"
 #include "objectreference.h"
 #include <tgen_core.h>
-
+#include "worldobject.h"
 #include "script/subsystem.h"		// TODO: UGH
 
 TGen::Engine::EntityFactory::EntityFactory(TGen::Engine::StandardLogs & logs)
@@ -34,7 +34,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	TGen::Engine::Entity * entity = new TGen::Engine::Entity(properties.getName());
 
 	// TODO: script entity should maybe be a component? :> remember to remove the delete in dtor for entity
-	TGen::Engine::Script::EntityScript * scriptInterface = dynamic_cast<TGen::Engine::Script::Subsystem *>(subsystems["script"])->createScriptEntity(properties.getName());
+	TGen::Engine::Script::EntityScript * scriptInterface = dynamic_cast<TGen::Engine::Script::Subsystem *>(subsystems["script"])->createScriptEntity(*entity);
 	entity->setScriptInterface(scriptInterface);
 	
 	
@@ -51,11 +51,25 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 	}
 	
 	for (int i = 0; i < props.getNumNodes(); ++i) {
+		std::cout << "ADDING COMPONENTS " << i << std::endl;
 		TGen::Engine::Component * newComponent = createComponent(props.getNode(i), *entity);		// TODO: remove entityName, just use Entity *.
 
 		entity->addComponent(newComponent, newComponent->getName());
+		std::cout << "COMPONENTS ADDED" << std::endl;
 	}
 	
+	TGen::Engine::WorldObject * worldInterface = NULL;
+	std::string worldInterfaceName = properties.getProperty("worldInterface", "");
+
+	if (!worldInterfaceName.empty()) {
+		worldInterface = dynamic_cast<TGen::Engine::WorldObject *>(&entity->getComponent(worldInterfaceName));
+		
+		if (!worldInterface)
+			throw TGen::RuntimeException("EntityFactory::createEntity", "World interface of entity '" + properties.getName() + "' points to non-world object");
+	}
+	
+	scriptInterface->registerWorldInterface(worldInterface);
+	entity->setWorldInterface(worldInterface);
 	
 	//entity->link(TGen::Engine::ComponentLinker(NULL, NULL));
 	

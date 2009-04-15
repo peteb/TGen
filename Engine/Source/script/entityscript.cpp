@@ -11,10 +11,12 @@
 #include "script/subsystem.h"
 #include "script/componentscript.h"
 #include "lua/lua.hpp"
+#include "entity.h"
+
 #include <iostream>
 
-TGen::Engine::Script::EntityScript::EntityScript(const std::string & name, TGen::Engine::Script::Subsystem & creator) 
-	: name(name)
+TGen::Engine::Script::EntityScript::EntityScript(TGen::Engine::Entity & entity, TGen::Engine::Script::Subsystem & creator) 
+	: entity(entity)
 	, creator(creator)
 {
 	ScriptState & scriptState = creator.getScriptState();
@@ -24,8 +26,9 @@ TGen::Engine::Script::EntityScript::EntityScript(const std::string & name, TGen:
 	
 	scriptState.setUserData("_objectSelf", this);
 	scriptState.setFunction("name", luaGetName);
+	//scriptState.setFunction("worldInterface", luaGetWorldInterface);
 	
-	scriptState.setField(-2, name);
+	scriptState.setField(-2, entity.getName());
 	scriptState.pop(1);
 }
 
@@ -42,15 +45,11 @@ void TGen::Engine::Script::EntityScript::onCreation() {
 	
 	ScriptState & scriptState = creator.getScriptState();
 	
-	scriptState.getGlobal("entities");
-	scriptState.getField(-1, this->name);
+	pushEntity(scriptState);
 	scriptState.getField(-1, "onCreation");
 	
 	if (!scriptState.isNil(-1)) {
-		scriptState.getGlobal("entities");
-		scriptState.getField(-1, this->name);
-		scriptState.remove(-2);
-		
+		pushEntity(scriptState);		
 		scriptState.call(1, 0);
 		scriptState.pop(2);
 	}
@@ -59,18 +58,52 @@ void TGen::Engine::Script::EntityScript::onCreation() {
 	}	
 }
 
+void TGen::Engine::Script::EntityScript::pushEntity(TGen::Engine::Script::ScriptState & scriptState) {
+	scriptState.getGlobal("entities");
+	scriptState.getField(-1, entity.getName());
+	scriptState.remove(-2);
+	
+	if (scriptState.isNil(-1))
+		throw TGen::RuntimeException("EntityScript::pushEntity", "Entity table doesn't exist for '" + entity.getName() + "'.");
+}
+
 std::string TGen::Engine::Script::EntityScript::getName() const {
-	return name;
+	return entity.getName();
+}
+
+void TGen::Engine::Script::EntityScript::registerWorldInterface(TGen::Engine::WorldObject * worldInterface) {
+	ScriptState & scriptState = creator.getScriptState();
+
+	pushEntity(scriptState);
+	
+	if (worldInterface)
+		scriptState.pushWorldObject(worldInterface);
+	else
+		scriptState.pushNil();
+	
+	scriptState.setField(-2, "worldInterface");
 }
 
 int TGen::Engine::Script::EntityScript::luaGetName(lua_State * vm) {
 	ScriptState scriptState(vm);
-	scriptState.getTableValue("_objectSelf");
-		
-	TGen::Engine::Script::EntityScript * entity = reinterpret_cast<TGen::Engine::Script::EntityScript *>(scriptState.toUserData(-1));
+	EntityScript * self = scriptState.getSelfPointer<EntityScript *>();
 	
-	scriptState.pushString(entity->name);
+	scriptState.pushString(self->entity.getName());
 
 	return 1;
 }
 
+/*int TGen::Engine::Script::EntityScript::luaGetWorldInterface(lua_State * vm) {
+	ScriptState scriptState(vm);
+	EntityScript * self = scriptState.getSelfPointer<EntityScript *>();
+
+	TGen::Engine::WorldObject * worldInterface = self->entity.getWorldInterface();
+	
+	if (worldInterface)
+		scriptState.pushWorldObject(worldInterface);
+	else
+		scriptState.pushNil();
+	
+	return 1;
+}
+*/

@@ -786,6 +786,8 @@
 			children = (
 				D081407F0E300F0F0024534F /* component.cpp */,
 				D0843C430D075C9C00C31FE3 /* component.h */,
+				D07F49800F4B0DC90050D30F /* componentscript.cpp */,
+				D07F497F0F4B0DB60050D30F /* componentscript.h */,
 				D072BC6F0E01636A00999FC2 /* componentrecipe.h */,
 				D06F8F810E3C94D00011A495 /* componentlinker.cpp */,
 				D06F8F800E3C94BA0011A495 /* componentlinker.h */,
@@ -983,10 +985,6 @@
 				D07BDC7A0E28E7230070CC83 /* subsystem.h */,
 				D052CAE10E59C4D2000AF567 /* componentfactory.cpp */,
 				D052CAE00E59C4C4000AF567 /* componentfactory.h */,
-				D07F47570F4AF1010050D30F /* entityscript.cpp */,
-				D07F47590F4AF1150050D30F /* entityscript.h */,
-				D07F49800F4B0DC90050D30F /* componentscript.cpp */,
-				D07F497F0F4B0DB60050D30F /* componentscript.h */,
 				D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */,
 				D0B398D30F8FF0DB0076ED80 /* scriptppc.h */,
 				D07F4CB70F4CAA7E0050D30F /* scriptstate.cpp */,
@@ -1072,6 +1070,8 @@
 			children = (
 				D0843BC90D0759D200C31FE3 /* entity.cpp */,
 				D0843BC80D0759D200C31FE3 /* entity.h */,
+				D07F47570F4AF1010050D30F /* entityscript.cpp */,
+				D07F47590F4AF1150050D30F /* entityscript.h */,
 				D072BCF40E0166F000999FC2 /* entityrecipe.cpp */,
 				D072BCF30E0166E600999FC2 /* entityrecipe.h */,
 				D0095C0C0D787AE300D0DC31 /* entitylist.cpp */,
