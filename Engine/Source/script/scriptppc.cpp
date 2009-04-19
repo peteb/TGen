@@ -99,7 +99,10 @@ std::string TGen::Engine::Script::ScriptPreprocessor::parseBlock(const std::stri
 			elements.push_back(subblock);
 			subblock = "";
 		}
-				
+		
+
+
+
 		++pos;
 	} while (pos < block.size());
 	
