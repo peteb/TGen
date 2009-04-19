@@ -2,59 +2,41 @@
 // depth write only material
 
 material forward/depth default 9 {
-	lod 9 {
-		pass depth {
+	pass depth {
 
-		}
 	}
 }
 
 
 material nomat default 9 {
-	lod 9 {
-		pass RENDERER/writeAttributes:COLOR_MAP {
-			//param colorMap int 1	// TODO: should be automatic
-
-			map otherMap "gen:plain color blue"
+	pass RENDERER/writeAttributes:COLOR_MAP {
+		map otherMap "gen:plain color blue"
+		
+		map colorMap "gen:checker size '2' color1 'red' color2 'white' tiles '2'" {
+			minFilter nearest
+			magFilter nearest
 			
-			map colorMap "gen:checker size '2' color1 'red' color2 'white' tiles '2'" {
-				minFilter nearest
-				magFilter nearest
-				
-				// TODO: aniso true
-			}
-			
-			
+			// TODO: aniso true
 		}
+		
+		
 	}
 }
 
 material newmat default 9 {
-	lod 9 {
-		pass RENDERER/writeAttributes:COLOR_MAP {
-		//	param colorMap int 0
-
-			map colorMap "textures/bluetex4r_danger_d.tga"			
-		}	
-	}
+	pass RENDERER/writeAttributes:COLOR_MAP {
+		map colorMap "textures/bluetex4r_danger_d.tga"			
+	}	
 }
 
 material greenmaterial default 9 {
-	lod 9 {
-		pass RENDERER/writeAttributes:COLOR_MAP {
-		//	param colorMap int 0
-
-			map colorMap "gen:plain color green"			
-		}	
-	}
+	pass RENDERER/writeAttributes:COLOR_MAP {
+		map colorMap "gen:plain color green"			
+	}	
 }
 
 material dirt03 default 9 {
-	lod 9 {
-		pass RENDERER/writeAttributes:COLOR_MAP {
-			//param colorMap int 0
-			
-			map colorMap "textures/dirt03.tga"
-		}	
-	}
+	pass RENDERER/writeAttributes:COLOR_MAP {
+		map colorMap "textures/dirt03.tga"
+	}	
 }
