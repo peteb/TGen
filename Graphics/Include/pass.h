@@ -55,7 +55,7 @@ namespace TGen {
 
 		void link(TGen::MaterialLinkCallback & callback);
 		void update(scalar dt);
-		void updateVariables(TGen::ShaderVariableUpdater * varupdater);
+		void updateVariables(TGen::ShaderVariableUpdater * varupdater, int shaderMode);
 	
 		void addShaderVariable(const std::string & varname, const std::string & linkdid);
 		void addShaderUpdater(TGen::ShaderUpdater * updater);

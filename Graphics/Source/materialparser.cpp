@@ -46,7 +46,7 @@ void TGen::MaterialParser::parse(const char * code, std::list<TGen::Material *> 
 
 void TGen::MaterialParser::parseGlobalBlock() {
 	while (currentToken != endIter) {
-		if (currentToken->first == TGen::MaterialTokenMaterial) {
+		if (currentToken->second == "material") {
 			std::string materialName, specialization, technique;
 			
 			tokens.stepToken(currentToken, endIter);
@@ -380,6 +380,9 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 				}
 				
 				pass->addTextureUnit(newTextureUnit);
+				TGen::ShaderUpdater * newUpdater = new TGen::ShaderUpdater(textureSampler, TGen::ShaderVarInt, pass->getNumTextureUnits() - 1);
+				pass->addShaderUpdater(newUpdater);
+				
 				continue;
 			}
 			else if (currentToken->second == "color") {
@@ -458,7 +461,7 @@ void TGen::MaterialParser::parsePassBlock(TGen::Pass * pass, TGen::PassList * lo
 					type = TGen::ShaderVarFloat4;
 				
 				
-				TGen::ShaderUpdater * newUpdater = new TGen::ShaderUpdater(varName, type, TGen::lexical_cast<float>(getNumericToken("blaba")));
+				TGen::ShaderUpdater * newUpdater = new TGen::ShaderUpdater(varName, type, TGen::lexical_cast<float>(getNumericToken("Expecting numeric value")));
 				pass->addShaderUpdater(newUpdater);
 				
 				stepToken();
@@ -720,7 +723,7 @@ TGen::MaterialTokenizer::MaterialTokenizer() {
 		
 	tokens["{"] = TGen::MaterialTokenBlockStart;
 	tokens["}"] = TGen::MaterialTokenBlockEnd;
-	tokens["material"] = TGen::MaterialTokenMaterial;
+	//tokens["material"] = TGen::MaterialTokenMaterial;
 	tokens["pass"] = TGen::MaterialTokenPass;
 	tokens["lod"] = TGen::MaterialTokenLod;
 	tokens["params"] = TGen::MaterialTokenParameters;	

@@ -49,7 +49,7 @@ function entities.player.physGeom:onCollision(force, with)
 end
 
 
-entities.box1.teleinSound = [resources sound: "telein.wav"];
+entities.box1.teleinSound = [resources sound:"telein.wav"];
 
 
 function entities.teleportground.physGeom:onCollision(force, with)
@@ -58,9 +58,9 @@ function entities.teleportground.physGeom:onCollision(force, with)
 		
 		if ([with link].name) then
 			print("Name of with's body: "..[[with link] name]);
-		end
+		end 
 		
-		[nil setStuff: [nil getStuff: [nil doFlough]]];	-- this is ok
+		[nil setStuff:[nil getStuff:[nil doFlough]]];	-- this is ok
 		
 		print("Link position: "..tostring([[with link] worldPosition]));
 		print("Owner worldpos: " .. tostring([[with owner].worldInterface worldPosition]));
@@ -73,7 +73,7 @@ end
 
 
 
-entities.teleportstart.teleportSound = [resources sound: "telein.wav"];
+entities.teleportstart.teleportSound = [resources sound:"telein.wav"];
 
 function entities.teleportstart:playTeleportSound()
 	[self.soundLocal playSound: self.teleportSound];

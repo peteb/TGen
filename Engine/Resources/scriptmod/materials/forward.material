@@ -13,8 +13,10 @@ material forward/depth default 9 {
 material nomat default 9 {
 	lod 9 {
 		pass RENDERER/writeAttributes:COLOR_MAP {
-			param colorMap int 0	// TODO: should be automatic
+			//param colorMap int 1	// TODO: should be automatic
 
+			map otherMap "gen:plain color blue"
+			
 			map colorMap "gen:checker size '2' color1 'red' color2 'white' tiles '2'" {
 				minFilter nearest
 				magFilter nearest
@@ -30,17 +32,17 @@ material nomat default 9 {
 material newmat default 9 {
 	lod 9 {
 		pass RENDERER/writeAttributes:COLOR_MAP {
-			param colorMap int 0
+		//	param colorMap int 0
 
 			map colorMap "textures/bluetex4r_danger_d.tga"			
 		}	
 	}
 }
 
-material greenmat default 9 {
+material greenmaterial default 9 {
 	lod 9 {
 		pass RENDERER/writeAttributes:COLOR_MAP {
-			param colorMap int 0
+		//	param colorMap int 0
 
 			map colorMap "gen:plain color green"			
 		}	
@@ -50,7 +52,7 @@ material greenmat default 9 {
 material dirt03 default 9 {
 	lod 9 {
 		pass RENDERER/writeAttributes:COLOR_MAP {
-			param colorMap int 0
+			//param colorMap int 0
 			
 			map colorMap "textures/dirt03.tga"
 		}	

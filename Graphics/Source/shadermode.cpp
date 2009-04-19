@@ -39,8 +39,8 @@ void TGen::ShaderMode::link(TGen::MaterialLinkCallback & callback) {
 }
 
 void TGen::ShaderMode::update() {			// TODO: only update current shader.    AND save shader mode names that are being used
-	//for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end(); ++iter)
-		//(*iter)->update();	
+	for (ShaderUpdaterList::iterator iter = shaderUpdaters.begin(); iter != shaderUpdaters.end(); ++iter)
+		(*iter)->update();	
 }
 
 void TGen::ShaderMode::addShaderUpdater(TGen::ShaderUpdater * updater) {

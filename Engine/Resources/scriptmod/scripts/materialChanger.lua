@@ -1,6 +1,6 @@
 entities.box1.materialChanger.materials = {
 	resources:material("newmat"),
-	resources:material("greenmat"),
+	resources:material("greenmaterial"),
 	resources:material("coolDoom3Mat")
 }
 

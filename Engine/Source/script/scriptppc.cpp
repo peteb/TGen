@@ -84,7 +84,7 @@ std::string TGen::Engine::Script::ScriptPreprocessor::parseBlock(const std::stri
 				subblock += atPos;
 			}
 		}
-		else if (atPos == ':' && elements.size() == 1 && block.at(pos + 1) == ' ') {
+		else if (atPos == ':' && elements.size() == 1/* && block.at(pos + 1) == ' '*/) {
 			if (!subblock.empty()) {
 				elements.push_back(subblock);
 				subblock = "";

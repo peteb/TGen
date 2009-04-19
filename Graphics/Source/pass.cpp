@@ -220,7 +220,7 @@ void TGen::Pass::link(TGen::MaterialLinkCallback & callback) {
 	}
 }
 
-void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
+void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater, int shaderMode) {
 	if (varupdater) {
 		for (int i = 0; i < shaderVariables.size(); ++i) {
 			varupdater->updateShaderVariable(*shaderVariables[i]->linkedVar, shaderVariables[i]->linkId);
@@ -228,14 +228,18 @@ void TGen::Pass::updateVariables(TGen::ShaderVariableUpdater * varupdater) {
 	}
 	
 	// update shader variables::: 
-	
 
+	ShaderModeMap::iterator shaderModeIter = shaderModes.find(shaderMode);
+	
+	shaderModeIter->second->update();
+	
 	TextureList::iterator iter = textureUnits.begin();
 	for (; iter != textureUnits.end(); ++iter) {
 		//(*iter)->update();	
 		
+		
 		for (ShaderModeMap::iterator iter2 = shaderModes.begin(); iter2 != shaderModes.end(); ++iter2) {
-			iter2->second->update();
+			//iter2->second->update();
 			/*TGen::ShaderProgram * shader = iter2->second.shader;
 			
 			if (shader) {
