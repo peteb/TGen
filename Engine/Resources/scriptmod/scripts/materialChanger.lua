@@ -57,8 +57,11 @@ function box.timer2:onTick()
 		
 	--env.quit();
 
-	box.sceneNode:multiplyLocalOrientation(myMat);	
-	box.physBody:enable();
+	[box.sceneNode multiplyLocalOrientation: myMat];
+	[box.physBody enable];
+	
+	--box.sceneNode:multiplyLocalOrientation(myMat);	
+	--box.physBody:enable();
 	
 	--box.sceneNode:setLocalOrientation(box.sceneNode:localOrientation() * myMat);
 	

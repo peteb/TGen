@@ -227,7 +227,7 @@ void TGen::MaterialParser::parseMaterialBlock(TGen::Material * material) {
 			
 			currentTechnique->setPassList(newLod, lodNumber);
 			
-			stepToken();
+			//stepToken();
 			
 			#ifdef _MATPARSER_VERBOSE
 			std::cout << "entering lod block" << std::endl;
