@@ -70,9 +70,9 @@ function box.timer2:onTick()
 	
 	if (self.numTicks >= 10) then
 		self.numTicks = 0;
-		self:disable();
-		box.materialChanger:setInterval(1.0);
-		box.materialChanger:enable();
+		[self disable];
+		[box.materialChanger setInterval: 1.0];
+		[box.materialChanger enable];
 	end
 end
 

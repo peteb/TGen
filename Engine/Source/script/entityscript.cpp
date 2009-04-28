@@ -89,7 +89,9 @@ int TGen::Engine::Script::EntityScript::luaGetName(lua_State * vm) {
 	EntityScript * self = scriptState.getSelfPointer<EntityScript *>();
 	
 	scriptState.pushString(self->entity.getName());
-
+	
+	// TODO: don't use lua_loadstring for files!!!! line numbers are lost
+	
 	return 1;
 }
 

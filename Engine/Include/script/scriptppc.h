@@ -12,6 +12,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 
 namespace TGen {
 	namespace Engine {
@@ -25,6 +26,8 @@ namespace TGen {
 				std::string parseBlock(const std::string & block);
 				std::string convertBlock(const std::vector<std::string> & tokens);
 				std::string getValueConverted(const std::string & value);
+				std::string formatNamedParameters(const std::map<std::string, std::string> & namedParameters);
+				
 				bool goodBlock(const std::string & block);
 				
 			};

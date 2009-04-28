@@ -51,6 +51,9 @@ end
 
 entities.box1.teleinSound = [resources sound:"telein.wav"];
 
+function vec3:createVectorX(xvalue, namedParameters)
+	return vec3.new(xvalue, namedParameters.Y, namedParameters.Z);
+end
 
 function entities.teleportground.physGeom:onCollision(force, with)
 	if ([with owner].worldInterface) then
@@ -68,6 +71,11 @@ function entities.teleportground.physGeom:onCollision(force, with)
 		[[with link] resetForces];
 		[[with owner].worldInterface setWorldPosition: [entities.teleportstart.worldInterface worldPosition]];
 		[entities.teleportstart playTeleportSound];
+		
+		[nil executeThing:"gross" withR: 12.34 andG:"bo"];
+		
+		local newVector = [vec3 createVectorX: 100.0 Y: 20.0 Z: -13.0];
+		env.showMessage(tostring(newVector));
 	end
 end
 

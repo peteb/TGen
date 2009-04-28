@@ -9,6 +9,7 @@
 
 #include "script/scriptppc.h"
 #include <iostream>
+#include <map>
 
 std::string TGen::Engine::Script::ScriptPreprocessor::process(const std::string & input) {
 	std::string::size_type startpos = input.find("[");
@@ -84,7 +85,7 @@ std::string TGen::Engine::Script::ScriptPreprocessor::parseBlock(const std::stri
 				subblock += atPos;
 			}
 		}
-		else if (atPos == ':' && elements.size() == 1/* && block.at(pos + 1) == ' '*/) {
+		else if (atPos == ':' && elements.size() >= 1/* && block.at(pos + 1) == ' '*/) {
 			if (!subblock.empty()) {
 				elements.push_back(subblock);
 				subblock = "";
@@ -139,19 +140,50 @@ std::string TGen::Engine::Script::ScriptPreprocessor::convertBlock(const std::ve
 
 		//receiver = getValueConverted(receiver);
 
+		std::map<std::string, std::string> namedParameters;
 		
 		for (int i = 3; i < tokens.size(); ++i) {
-			parameters += tokens[i]; //getValueConverted(tokens[i]); //tokens[i].substr(1, tokens[i].size() - 2);
+			std::cout << "--> " << tokens[i] << std::endl;
 			
-			if (i < tokens.size() - 1)
-				parameters += ", ";
+			bool namedParameter = (tokens.size() > i + 1 && tokens[i + 1] == ":");
+			
+			if (namedParameter) {
+				namedParameters[tokens[i]] = tokens.at(i + 2);
+				i += 2;
+			}
+			else {
+				parameters += tokens[i]; //getValueConverted(tokens[i]); //tokens[i].substr(1, tokens[i].size() - 2);
+			
+				if (i < tokens.size() - 1)
+					parameters += ", ";
+			}
 		}
+		
+		if (!namedParameters.empty()) {
+			parameters += formatNamedParameters(namedParameters);
+		}
+		
+		std::cout << "OROMOOMP: " << receiver << " - " << message << " - " << parameters << std::endl;
 		
 		return "msg_send_self_l(" + receiver + ", " + message + ", " + parameters + ")";
 	}
 	
 	
 	return "INVALID CASE";
+}
+
+std::string TGen::Engine::Script::ScriptPreprocessor::formatNamedParameters(const std::map<std::string, std::string> & namedParameters) {
+	typedef std::map<std::string, std::string> NamedParameterMap;
+	
+	std::string ret = "{";
+	
+	for (NamedParameterMap::const_iterator iter = namedParameters.begin(); iter != namedParameters.end(); ++iter) {
+		ret += iter->first + " = " + iter->second + ", ";
+	}
+	
+	ret = ret.substr(0, ret.size() - 2) +  "}";
+	
+	return ret;
 }
 
 std::string TGen::Engine::Script::ScriptPreprocessor::getValueConverted(const std::string & value) {
