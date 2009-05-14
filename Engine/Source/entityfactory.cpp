@@ -44,7 +44,7 @@ TGen::Engine::Entity * TGen::Engine::EntityFactory::createEntity(const TGen::Pro
 		if (properties.getAttribute(0) == "extends") {
 			ClassMap::iterator iter = classDefinitions.find(properties.getAttribute(1));
 			if (iter == classDefinitions.end())
-				throw TGen::RuntimeException("EntityFactory::createEntity", "entity class '" + properties.getAttribute(1) + "' invalid");
+				throw TGen::RuntimeException("EntityFactory::createEntity", "Entity class '" + properties.getAttribute(1) + "' invalid");
 			
 			props = extendTree(iter->second, properties);
 		}
@@ -90,14 +90,14 @@ TGen::Engine::Component * TGen::Engine::EntityFactory::createComponent(const TGe
 		ret = iter->second->createComponent(componentName, entity, properties);		
 	}
 	else {
-		throw TGen::RuntimeException("EntityFactory::createComponent", "no registered subsystem for component type '") << properties.getName() << "'";
+		throw TGen::RuntimeException("EntityFactory::createComponent", "No registered subsystem for component type '") << properties.getName() << "'";
 
 	}	
 	
 	//if (ret && ret->isStatic())
 	//	ret->setOwner(entity);		// owner = NULL if the component should be cloned
 	if (!ret)
-		throw TGen::RuntimeException("EntityFactory::createComponent", "failed to create component " + entity.getName() + ":" + componentName);
+		throw TGen::RuntimeException("EntityFactory::createComponent", "Failed to create component " + entity.getName() + ":" + componentName);
 	
 	return ret;
 }
@@ -165,7 +165,7 @@ void TGen::Engine::EntityFactory::addClassEntity(const TGen::PropertyTree & prop
 	if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "extends") {
 		ClassMap::iterator iter = classDefinitions.find(properties.getAttribute(2));
 		if (iter == classDefinitions.end())
-			throw TGen::RuntimeException("EntityFactory::addClassEntity", "entity class '" + properties.getAttribute(2) + "' invalid");
+			throw TGen::RuntimeException("EntityFactory::addClassEntity", "Entity class '" + properties.getAttribute(2) + "' invalid");
 			
 		props = extendTree(iter->second, properties);
 	}
@@ -190,7 +190,7 @@ TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(
 	if (properties.getNumAttributes() > 2 && properties.getAttribute(1) == "extends") {
 		ClassMap::iterator iter = classDefinitions.find(properties.getAttribute(2));
 		if (iter == classDefinitions.end())
-			throw TGen::RuntimeException("EntityFactory::addPrototypeEntity", "entity prototype '" + properties.getAttribute(2) + "' invalid");
+			throw TGen::RuntimeException("EntityFactory::addPrototypeEntity", "Entity prototype '" + properties.getAttribute(2) + "' invalid");
 		
 		props = extendTree(iter->second, properties);
 	}
@@ -211,7 +211,7 @@ TGen::Engine::EntityRecipe * TGen::Engine::EntityFactory::createPrototypeEntity(
 
 void TGen::Engine::EntityFactory::registerSubsystem(const std::string & componentName, TGen::Engine::Subsystem * subsystem) {
 	if (subsystems.find(componentName) != subsystems.end())
-		throw TGen::RuntimeException("EntityFactory::registerSubsystem", "component type " + componentName + " already registered!");
+		throw TGen::RuntimeException("EntityFactory::registerSubsystem", "Component type " + componentName + " already registered!");
 	
 	subsystems.insert(SubsystemMap::value_type(componentName, subsystem));
 }

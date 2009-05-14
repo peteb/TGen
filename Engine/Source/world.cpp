@@ -34,6 +34,8 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	, entityFactory(logs)
 	, worldInfo(NULL)
 	, resources(resources)
+	, resourceScript(resources, scriptSubsystem)
+	, filesystemScript(filesystem, scriptSubsystem)
 {
 	resources.setSoundDelegate(&soundSubsystem);
 	
@@ -68,6 +70,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("worldInfo", &infoSubsystem);
 	
 	entityFactory.registerSubsystem("timer", &utilsSubsystem);
+	entityFactory.registerSubsystem("interpolator", &utilsSubsystem);
 	//entityFactory.registerSubsystem("objectRef", &utilsSubsystem);
 	//entityFactory.registerSubsystem("prototypeRef", &utilsSubsystem);
 	
@@ -76,9 +79,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	// TODO: kunna pruna ett materials resurser, men om de används på andra ställen då? då måste refcount in i bilden...
 
 	// TODO: prepare subsystem access to script here, ie resources.*, sound.* etc
-	
-	resources.setScriptInterface(new TGen::Engine::ResourceManagerScript(resources, scriptSubsystem));		// TODO: not very beautiful...
-	
+		
 	glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 	SDL_GL_SwapBuffers();

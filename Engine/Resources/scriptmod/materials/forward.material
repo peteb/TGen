@@ -40,3 +40,15 @@ material dirt03 default 9 {
 		map colorMap "textures/dirt03.tga"
 	}	
 }
+
+material models/weapons2/rocketl/rocketl.TGA default 9 {
+	pass RENDERER/writeAttributes:COLOR_MAP {
+		map colorMap "textures/weapons2/rocketl/rocketl.png"
+	}
+}
+
+material models/weapons2/rocketl/rocketl2.tga default 9 {
+	pass RENDERER/writeAttributes:COLOR_MAP {
+		map colorMap "textures/weapons2/rocketl/rocketl2.png"
+	}
+}

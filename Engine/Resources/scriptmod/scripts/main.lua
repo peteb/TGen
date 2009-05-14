@@ -4,6 +4,8 @@
 --	print("BOX CREATED with name "..self:name());
 --end
 
+import "sound/musicplayer.lua"
+
 for k,v in pairs(entities) do
 	print(k.." with name: "..v:name());      
 	
@@ -51,10 +53,6 @@ end
 
 entities.box1.teleinSound = [resources sound:"telein.wav"];
 
-function vec3:createVectorX(xvalue, namedParameters)
-	return vec3.new(xvalue, namedParameters.Y, namedParameters.Z);
-end
-
 function entities.teleportground.physGeom:onCollision(force, with)
 	if ([with owner].worldInterface) then
 		print("TELEPORT ACTIVATED on "..[[with owner] name]);
@@ -74,8 +72,6 @@ function entities.teleportground.physGeom:onCollision(force, with)
 		
 		[nil executeThing:"gross" withR: 12.34 andG:"bo"];
 		
-		local newVector = [vec3 createVectorX: 100.0 Y: 20.0 Z: -13.0];
-		env.showMessage(tostring(newVector));
 	end
 end
 

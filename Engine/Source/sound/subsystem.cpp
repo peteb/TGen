@@ -190,7 +190,7 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std:
 		ret = iter->second;
 		
 		if (ret->isStream())
-			throw TGen::RuntimeException("Sound::Subsystem::getSound", "can't reuse stream sound");
+			throw TGen::RuntimeException("Sound::Subsystem::getSound", "Can't reuse stream sound");
 	}
 	else {
 		logs.info["sound"] << "   not loaded, loading..." << TGen::endl;		

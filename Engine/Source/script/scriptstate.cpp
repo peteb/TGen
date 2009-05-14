@@ -11,10 +11,12 @@
 #include <tgen_math.h>
 #include "scriptstate.h"
 #include "script/scriptppc.h"
+#include "script/exception.h"
 #include "lua/lua.hpp"
 #include "file.h"
+#include "filesystem.h"
 
-TGen::Engine::Script::ScriptState::ScriptState() 
+TGen::Engine::Script::ScriptState::ScriptState(TGen::Engine::Filesystem & filesystem) 
 	: owner(true)
 {
 	vm = lua_open();
@@ -24,6 +26,12 @@ TGen::Engine::Script::ScriptState::ScriptState()
 	
 	lua_newtable(vm);	
 	lua_setglobal(vm, "entities");
+	
+	lua_pushlightuserdata(vm, &filesystem);
+	lua_setfield(vm, LUA_REGISTRYINDEX, "filesystem");
+	
+	lua_pushcfunction(vm, luaImport);
+	lua_setglobal(vm, "import");
 }
 
 TGen::Engine::Script::ScriptState::ScriptState(lua_State * prevm) 
@@ -100,8 +108,26 @@ void * TGen::Engine::Script::ScriptState::toUserData(int index) {
 	return lua_touserdata(vm, index);	
 }
 
-std::string TGen::Engine::Script::ScriptState::toString(int index) {
-	return std::string(lua_tostring(vm, index));
+std::string TGen::Engine::Script::ScriptState::toString(int index, bool callToString) {
+	if (callToString && lua_istable(vm, index)) {
+		lua_getfield(vm, index, "__tostring");
+		
+		if (!lua_isnil(vm, -1)) {
+			lua_pushvalue(vm, index + (index < 0 ? -2 : 0));
+			call(1, 1);
+			
+			std::string ret(lua_tostring(vm, -1));
+			pop(2);
+			
+			return ret;
+		}
+		else {
+			throw TGen::Engine::ScriptException("No __tostring defined in table");
+		}
+	}
+	else {
+		return std::string(lua_tostring(vm, index));
+	}
 }
 
 void TGen::Engine::Script::ScriptState::pushString(const std::string & val) {
@@ -157,6 +183,14 @@ void TGen::Engine::Script::ScriptState::generateError() {
 void TGen::Engine::Script::ScriptState::generateError(const std::string & desc) {
 	lua_pushstring(vm, desc.c_str());
 	lua_error(vm);
+}
+
+void TGen::Engine::Script::ScriptState::generateError(const TGen::RuntimeException & error) {
+	std::string formatted;
+	if (!error.getWhere().empty())
+		formatted = "In '" + error.getWhere() + "':\n";
+	
+	generateError(formatted + error.getDescription());
 }
 
 void TGen::Engine::Script::ScriptState::remove(int index) {
@@ -264,8 +298,44 @@ void TGen::Engine::Script::ScriptState::pushWorldObject(TGen::Engine::WorldObjec
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 	int ret = lua_pcall(vm, nargs, nresults, 0);
 	
-	if (ret != 0)
-		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to execute script:\n") << lua_tostring(vm, -1);
+	if (ret != 0) {
+		std::string errorName = toString(-1);
+		std::string callStack;
+		
+		lua_Debug info;
+		
+		int level = 0;
+		
+		while (lua_getstack(vm, level, &info) != 0) {
+			if (lua_getinfo(vm, "Sln", &info) == 0) {
+				break;
+			}
+			else {
+				callStack += TGen::lexical_cast<std::string>(level) + " ";
+				
+				if (info.name)	
+					callStack += std::string(info.name) + "[" + std::string(info.namewhat) + "]";
+				else
+					callStack += info.short_src;
+					
+				if (info.currentline != -1)
+					callStack += "@" + TGen::lexical_cast<std::string>(info.currentline);
+				
+				callStack += "\n";
+				
+				level++;
+			}
+		}
+
+		std::string description = errorName;
+		
+		if (!callStack.empty()) {
+			callStack = callStack.substr(0, callStack.size() - 1);
+			description += "\n\nCallstack:\n" + callStack;
+		}
+		
+		throw TGen::Engine::ScriptException(description);
+	}
 }
 
 void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file, const std::string & name) {
@@ -312,6 +382,31 @@ const char * TGen::Engine::Script::ScriptState::LuaChunkReader(lua_State * vm, v
 	}
 	
 	return lastData;
+}
+
+int TGen::Engine::Script::ScriptState::luaImport(lua_State * vm) {
+	ScriptState scriptState(vm);
+	std::string name = scriptState.toString(1);
+
+	try {
+		TGen::Engine::Filesystem * filesystem = scriptState.getFilesystem();
+		TGenAssert(filesystem);
+	
+		TGen::auto_ptr<TGen::Engine::File> file = filesystem->openRead("/scripts/" + name);
+	
+		scriptState.loadScriptFile(file.get(), name);
+	}
+	catch (const TGen::RuntimeException & error) {
+		scriptState.generateError(error);
+	}
+	
+	return 0;
+}
+
+TGen::Engine::Filesystem * TGen::Engine::Script::ScriptState::getFilesystem() const {
+	lua_getfield(vm, LUA_REGISTRYINDEX, "filesystem");
+	
+	return reinterpret_cast<TGen::Engine::Filesystem *>(lua_touserdata(vm, -1));
 }
 
 

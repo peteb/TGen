@@ -45,6 +45,7 @@ namespace TGen {
 				static int luaWOSetWorldPosition(lua_State * vm);
 				static int luaWOWorldOrientation(lua_State * vm);
 				static int luaWOWorldVelocity(lua_State * vm);
+				static int luaParseProperties(lua_State * vm);
 				
 				void loadScriptFile(const std::string & filename);
 				

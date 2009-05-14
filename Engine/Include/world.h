@@ -25,6 +25,8 @@
 #include "info/subsystem.h"
 #include "info/worldinfo.h"
 #include "utilities/subsystem.h"
+#include "resourcemanagerscript.h"
+#include "filesystemscript.h"
 
 namespace TGen {
 	class Camera;
@@ -68,6 +70,7 @@ namespace TGen {
 			TGen::Engine::Filesystem & filesystem;
 			TGen::Engine::StandardLogs & logs;
 			
+			
 			TGen::Engine::EntityFactory entityFactory;
 			
 			//TGen::SceneNode sceneRoot;
@@ -87,6 +90,10 @@ namespace TGen {
 
 			TGen::Camera * mainCam;
 			TGen::Engine::Info::WorldInfo * worldInfo;
+
+			
+			TGen::Engine::ResourceManagerScript resourceScript;
+			TGen::Engine::FilesystemScript filesystemScript;
 		};
 		
 	} // Engine

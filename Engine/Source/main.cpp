@@ -29,6 +29,7 @@
 #include "cmdset.h"
 #include "cmddumpvars.h"
 #include "devicecollection.h"
+#include "script/exception.h"
 
 #ifdef _PLATFORM_OSX
 #define _PLATFORM_FILE "platform_cocoa.h"
@@ -94,6 +95,15 @@ int main(int argc, char ** argv) {
 	
 		try {
 			return run(argc, argv, logs);
+		}
+		catch (const TGen::Engine::ScriptException & e) {
+			logs.error << TGen::RuntimeException("Script", e.getDescription());
+			logs.error << "script exception, quitting..." << TGen::endl;
+			TGen::Engine::Platform::DisplayExceptionWindow(e, "Script Exception");
+			preExit();
+			
+			return EXIT_FAILURE;
+			
 		}
 		catch (const TGen::RuntimeException & e) {
 			logs.error << e;

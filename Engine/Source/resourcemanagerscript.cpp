@@ -80,7 +80,6 @@ int TGen::Engine::ResourceManagerScript::luaMaterial(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	
 	ResourceManagerScript * self = scriptState.getSelfPointer<ResourceManagerScript *>();
-	
 	TGen::Material * material = self->resources.getMaterial(scriptState.toString(2));
 	
 	// Create material object
@@ -112,16 +111,23 @@ int TGen::Engine::ResourceManagerScript::luaSound(lua_State * vm) {
 	// Create sound object
 	scriptState.newTable();			// TODO: opt with createtable
 	
-	scriptState.getGlobal("_sound");
+	scriptState.getGlobal("_sound");		// TODO: registry!!!!!! TODO: TODO: TODO:
+	
 	if (scriptState.isNil(-1))
 		throw TGen::RuntimeException("ResourceManagerScript::luaSound", "_sound table not defined");
 	
-	TGen::Engine::Sound::Sound * sound = self->resources.soundDelegate->getSound(scriptState.toString(2));
+	try {
+		TGen::Engine::Sound::Sound * sound = self->resources.soundDelegate->getSound(scriptState.toString(2));
 	
-	scriptState.setMetatable(-2);
+		scriptState.setMetatable(-2);
 	
-	scriptState.pushUserData(sound);
-	scriptState.setField(-2, "_objectSelf");
+		scriptState.pushUserData(sound);
+		scriptState.setField(-2, "_objectSelf");
+	}
+	catch (const TGen::RuntimeException & error) {
+		scriptState.generateError(error);
+		exit(22);
+	}
 	
 	// TODO: componentScript etc, arv på det. this i subclass != this i superclass	<------------
 	

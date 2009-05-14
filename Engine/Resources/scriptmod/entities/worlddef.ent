@@ -8,12 +8,58 @@ world {
 		ambientLight "1 1 1"
 		playerController player:controller
 		gravity "0 0 0"
-	}
-	
-	soundGlobal musicSource {
+	}	
+}
 
+
+music {
+	soundGlobal source {
+		
 	}
 }
+
+start {
+	sceneNode {
+		origin "-5 1.5 0"
+		model "gen:cube width 0.1 height 3 depth 0.1 texheight 3 texwidth 0.1 texdepth 0.1"
+	}
+}
+
+end {
+	sceneNode {
+		origin "-10 3 0"
+		model "gen:cube width 0.1 height 3 depth 0.1 texheight 3 texwidth 0.1 texdepth 0.1"
+	}
+}
+
+anibox {
+	sceneNode {
+		origin "-5 1.5 0"
+		model "models/rocketl.md3 preset idtech"
+	}
+	
+	interpolator {
+		link sceneNode
+		
+		position {
+			type linear
+			speed 1.0
+			
+			keypoints {
+				"-5 1.5 0"
+				"-10 3 0"
+			}
+		}
+		
+		orientation {
+			
+		}
+	}
+}
+
+
+
+
 
 box1 {
 	worldInterface sceneNode

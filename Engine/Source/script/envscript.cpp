@@ -35,16 +35,21 @@ int TGen::Engine::Script::EnvironmentScript::luaShowMessage(lua_State * vm) {
 	
 	std::string title, message;
 	
-	if (scriptState.isString(2)) {
-		title = scriptState.toString(1);
-		message = scriptState.toString(2);
-	}
-	else {
-		title = "Message";
-		message = scriptState.toString(1);
-	}
+	try {
+		if (scriptState.isString(2)) {
+			title = scriptState.toString(1);
+			message = scriptState.toString(2);
+		}
+		else {
+			title = "Message";
+			message = scriptState.toString(1);
+		}
 	
-	TGen::Engine::Platform::DisplayMessage(title, message);
+		TGen::Engine::Platform::DisplayMessage(title, message);
+	}
+	catch (const TGen::RuntimeException & e) {
+		scriptState.generateError(e);
+	}
 	
 	return 0;
 }

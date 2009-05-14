@@ -16,7 +16,11 @@ void TGen::Engine::Platform::DisplayExceptionWindow(const TGen::RuntimeException
 	else
 		errorTitle = title;
 	
-	std::string errorDescription = "In '" + e.getWhere() + "':\n";
+	std::string errorDescription;
+	
+	if (!e.getWhere().empty())
+		errorDescription = "In '" + e.getWhere() + "':\n";
+	
 	errorDescription += e.getDescription() + "\n\n";
 	errorDescription += "TGen is unable to continue. Click Report to send a report.";
 	

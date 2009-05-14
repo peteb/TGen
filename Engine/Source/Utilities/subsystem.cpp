@@ -10,6 +10,7 @@
 #include "utilities/subsystem.h"
 #include "utilities/timer.h"
 #include "utilities/timer_script.h"
+#include "utilities/interpolator.h"
 #include "utilities/objectreference.h"
 #include "utilities/prototypereference.h"
 
@@ -38,6 +39,11 @@ TGen::Engine::Component * TGen::Engine::Utilities::Subsystem::createComponent(co
 		timers.push_back(newTimer);
 
 		ret = newTimer;
+	}
+	else if (type == "interpolator") {
+		TGen::auto_ptr<Interpolator> newInterpolator = new Interpolator(name);
+		
+		ret = newInterpolator.release();
 	}
 	else if (type == "objectRef") {
 		TGen::Engine::Utilities::ObjectReference * ref = new TGen::Engine::Utilities::ObjectReference(name);

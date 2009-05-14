@@ -23,7 +23,12 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 	, envScript(scriptState)
 	, lastStackTop(-1)
 	, timeSinceGC(0.0f)
+	, scriptState(filesystem)
 {	
+
+	scriptState.pushFunction(luaParseProperties);
+	scriptState.setGlobal("parseProperties");
+
 	scriptState.newTable();
 	scriptState.setGlobal("worldobj");
 	
@@ -40,6 +45,7 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 	
 	scriptState.pushFunction(luaWOWorldVelocity);
 	scriptState.setField(-2, "worldVelocity");
+
 	
 	scriptState.getGlobal("worldobj");
 	scriptState.setField(-2, "__index");
@@ -108,7 +114,7 @@ void TGen::Engine::Script::Subsystem::update(scalar dt) {
 		TGen::Time start = TGen::Time::Now();
 		
 		while (TGen::Time::Now() - start < maxStepTime) {
-			int finishedCycle = lua_gc(scriptState.getState(), LUA_GCSTEP, 30);
+			int finishedCycle = lua_gc(scriptState.getState(), LUA_GCSTEP, 300);
 			if (finishedCycle)
 				break;
 			
@@ -150,6 +156,24 @@ int TGen::Engine::Script::Subsystem::luaWOWorldVelocity(lua_State * vm) {
 	
 	TGen::Engine::WorldObject * self = scriptState.getSelfPointer<TGen::Engine::WorldObject *>();
 	scriptState.pushVector(self->getVelocity());
+	
+	return 1;
+}
+
+int TGen::Engine::Script::Subsystem::luaParseProperties(lua_State * vm) {
+	ScriptState scriptState(vm);
+	std::string text = scriptState.toString(1);
+	
+	TGen::PropertyTreeParser parser;
+	TGen::PropertyTree tree = parser.parse(text.c_str());
+	
+	scriptState.newTable();	
+
+	const TGen::PropertyTree::PropertyMap & properties = tree.getProperties();
+	for (TGen::PropertyTree::PropertyMap::const_iterator iter = properties.begin(); iter != properties.end(); ++iter) {
+		scriptState.pushString(iter->second);
+		scriptState.setField(-2, iter->first);
+	}
 	
 	return 1;
 }

@@ -133,12 +133,14 @@
 		D0A4777D0DDF903A00DC1640 /* meshgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A4777C0DDF903A00DC1640 /* meshgeom.cpp */; };
 		D0A97C120F2CD06B0049CFCC /* renderervars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0A97C110F2CD06B0049CFCC /* renderervars.cpp */; };
 		D0ACA8CF0CFDCD69008E008F /* vbrenderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */; };
+		D0AD96200FB9B10B00A897C5 /* filesystemscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0AD961F0FB9B10B00A897C5 /* filesystemscript.cpp */; };
 		D0B398D50F8FF0E30076ED80 /* scriptppc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
 		D0C34F220DD3A66D0061F213 /* mapportal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C34F210DD3A66D0061F213 /* mapportal.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
+		D0CEDC490FADC09E005C0E25 /* interpolator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CEDC480FADC09E005C0E25 /* interpolator.cpp */; };
 		D0DB3C810DC2254C00425EBA /* firstpersoncontroller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0DB3C800DC2254C00425EBA /* firstpersoncontroller.cpp */; };
 		D0E0961A0D8834C3005D5345 /* geom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E096190D8834C3005D5345 /* geom.cpp */; };
 		D0E4570F0D905A5A00F4D548 /* subsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0E4570E0D905A5A00F4D548 /* subsystem.cpp */; };
@@ -510,6 +512,7 @@
 		D09891140D245215006A290D /* basicpoolcollection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = basicpoolcollection.cpp; sourceTree = "<group>"; };
 		D098D6A70D9A9589003B0486 /* modelfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modelfactory.h; path = ../../Include/modelfactory.h; sourceTree = SOURCE_ROOT; };
 		D098D6A80D9A959A003B0486 /* modelfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = modelfactory.cpp; sourceTree = "<group>"; };
+		D09936D00FAA2C0B0029F994 /* exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = exception.h; path = ../../Include/script/exception.h; sourceTree = SOURCE_ROOT; };
 		D099ACA00F7AF7A800AB7D0B /* envscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = envscript.h; path = ../../Include/Script/envscript.h; sourceTree = SOURCE_ROOT; };
 		D099ACA10F7AF7B700AB7D0B /* envscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = envscript.cpp; path = Script/envscript.cpp; sourceTree = "<group>"; };
 		D099AE1F0F7BCF9100AB7D0B /* sourcescript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = sourcescript.h; path = ../../Include/sound/sourcescript.h; sourceTree = SOURCE_ROOT; };
@@ -535,6 +538,8 @@
 		D0A97C110F2CD06B0049CFCC /* renderervars.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = renderervars.cpp; path = renderer/forward/renderervars.cpp; sourceTree = "<group>"; };
 		D0ACA8CD0CFDCCE9008E008F /* vbrenderable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vbrenderable.h; path = ../../Include/vbrenderable.h; sourceTree = SOURCE_ROOT; };
 		D0ACA8CE0CFDCD69008E008F /* vbrenderable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vbrenderable.cpp; sourceTree = "<group>"; };
+		D0AD961E0FB9B10000A897C5 /* filesystemscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = filesystemscript.h; path = ../../Include/filesystemscript.h; sourceTree = SOURCE_ROOT; };
+		D0AD961F0FB9B10B00A897C5 /* filesystemscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = filesystemscript.cpp; sourceTree = "<group>"; };
 		D0B398D30F8FF0DB0076ED80 /* scriptppc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = scriptppc.h; path = ../../Include/script/scriptppc.h; sourceTree = SOURCE_ROOT; };
 		D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = scriptppc.cpp; path = script/scriptppc.cpp; sourceTree = "<group>"; };
 		D0B649A00CE696F500B93A85 /* resourcemanager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = resourcemanager.cpp; sourceTree = "<group>"; };
@@ -547,6 +552,8 @@
 		D0C34F210DD3A66D0061F213 /* mapportal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = mapportal.cpp; sourceTree = "<group>"; };
 		D0CC7A5B0CF9D1DD003EE092 /* preprocessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = preprocessor.h; path = ../../Include/preprocessor.h; sourceTree = SOURCE_ROOT; };
 		D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = preprocessor.cpp; sourceTree = "<group>"; };
+		D0CEDC470FADC083005C0E25 /* interpolator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpolator.h; path = ../../Include/utilities/interpolator.h; sourceTree = SOURCE_ROOT; };
+		D0CEDC480FADC09E005C0E25 /* interpolator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interpolator.cpp; path = utilities/interpolator.cpp; sourceTree = "<group>"; };
 		D0DB3C7F0DC2253D00425EBA /* firstpersoncontroller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = firstpersoncontroller.h; path = ../../Include/controller/firstpersoncontroller.h; sourceTree = SOURCE_ROOT; };
 		D0DB3C800DC2254C00425EBA /* firstpersoncontroller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = firstpersoncontroller.cpp; path = controller/firstpersoncontroller.cpp; sourceTree = "<group>"; };
 		D0E096160D883485005D5345 /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geom.h; path = ../../Include/physics/geom.h; sourceTree = SOURCE_ROOT; };
@@ -736,6 +743,8 @@
 		D01B6CED0C8A149200D8943C /* filesystem */ = {
 			isa = PBXGroup;
 			children = (
+				D0AD961F0FB9B10B00A897C5 /* filesystemscript.cpp */,
+				D0AD961E0FB9B10000A897C5 /* filesystemscript.h */,
 				D0EF65210C82F5120085C17B /* filesystem.cpp */,
 				D0EF65200C82F5120085C17B /* filesystem.h */,
 				D0EF65260C82F5530085C17B /* file.cpp */,
@@ -991,6 +1000,7 @@
 				D07F4CB90F4CAA8E0050D30F /* scriptstate.h */,
 				D099ACA10F7AF7B700AB7D0B /* envscript.cpp */,
 				D099ACA00F7AF7A800AB7D0B /* envscript.h */,
+				D09936D00FAA2C0B0029F994 /* exception.h */,
 			);
 			name = script;
 			sourceTree = "<group>";
@@ -1008,6 +1018,8 @@
 				D07DE4820E68ABC700C6B35C /* objectreference.h */,
 				D07DE4F20E68ADE200C6B35C /* prototypereference.cpp */,
 				D07DE4F10E68ADD400C6B35C /* prototypereference.h */,
+				D0CEDC480FADC09E005C0E25 /* interpolator.cpp */,
+				D0CEDC470FADC083005C0E25 /* interpolator.h */,
 			);
 			name = utilities;
 			sourceTree = "<group>";
@@ -1638,6 +1650,8 @@
 				D099AE210F7BCFA000AB7D0B /* sourcescript.cpp in Sources */,
 				D099B1CA0F7E682F00AB7D0B /* bodyscript.cpp in Sources */,
 				D0B398D50F8FF0E30076ED80 /* scriptppc.cpp in Sources */,
+				D0CEDC490FADC09E005C0E25 /* interpolator.cpp in Sources */,
+				D0AD96200FB9B10B00A897C5 /* filesystemscript.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

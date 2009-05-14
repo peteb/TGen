@@ -55,7 +55,6 @@ namespace TGen {
 			void setSoundDelegate(TGen::Engine::Sound::Subsystem * soundDelegate);
 			
 			std::string getIncludeContent(const std::string & identifier);
-			void setScriptInterface(TGen::Engine::ResourceManagerScript * scriptInterface);
 			
 			TGen::Engine::VertexCache vertexCache;
 			
@@ -79,7 +78,6 @@ namespace TGen {
 			TGen::Engine::StandardLogs & logs;
 			TGen::Engine::VariableRegister & variables;
 			TGen::Renderer & renderer;
-			TGen::Engine::ResourceManagerScript * scriptInterface;
 			TGen::Engine::Sound::Subsystem * soundDelegate;
 		};
 	}

@@ -23,7 +23,7 @@ TGen::Engine::Component * TGen::Engine::Info::Subsystem::createComponent(const s
 	if (properties.getName() == "worldInfo")
 		ret = createWorldInfo(name, properties);
 	else
-		throw TGen::RuntimeException("Info::Subsystem::createComponent", "invalid component type for " + name);
+		throw TGen::RuntimeException("Info::Subsystem::createComponent", "Invalid component type for " + name);
 	
 	return ret;
 }
@@ -35,7 +35,7 @@ TGen::Engine::Info::WorldInfo * TGen::Engine::Info::Subsystem::createWorldInfo(c
 	newInfo->setAmbientLight(TGen::Color::Parse(properties.getProperty("ambientLight", "0 0 0")));
 	
 	if (!world)
-		throw TGen::RuntimeException("Info::Subsystem::createWorldInfo", "no world linked!");
+		throw TGen::RuntimeException("Info::Subsystem::createWorldInfo", "No world linked!");
 	
 	world->setWorldInfo(newInfo);
 	

@@ -17,15 +17,17 @@ class lua_State;
 
 namespace TGen {
 	class Vector3;
+	class RuntimeException;
 
 	namespace Engine {
 		class File;
 		class WorldObject;
+		class Filesystem;
 		
 		namespace Script {
 			class ScriptState {
 			public:
-				ScriptState();
+				ScriptState(TGen::Engine::Filesystem & filesystem);
 				ScriptState(lua_State * prevm);
 				~ScriptState();
 				
@@ -61,6 +63,7 @@ namespace TGen {
 				
 				void generateError();
 				void generateError(const std::string & desc);
+				void generateError(const TGen::RuntimeException & error);
 				void getTableValue(const std::string & name);
 				void setUserData(const std::string & name, void * data);
 				void setFunction(const std::string & name, int (*func)(lua_State * L));
@@ -68,7 +71,7 @@ namespace TGen {
 				
 				void * toUserData(int index);
 				float toNumber(int index);
-				std::string toString(int index);
+				std::string toString(int index, bool callToString = true);
 				TGen::Vector3 toVector(int index);
 				TGen::Matrix3x3 toMatrix3(int index);
 				
@@ -83,7 +86,10 @@ namespace TGen {
 				}
 				
 			private:
+				TGen::Engine::Filesystem * getFilesystem() const;
+				
 				static const char * LuaChunkReader(lua_State * vm, void * data, size_t * size);
+				static int luaImport(lua_State * vm);
 				
 				bool owner;
 				lua_State * vm;
