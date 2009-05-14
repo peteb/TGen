@@ -201,6 +201,10 @@ void TGen::Engine::Script::ScriptState::pushNumber(float number) {
 	lua_pushnumber(vm, number);
 }
 
+void TGen::Engine::Script::ScriptState::pushBoolean(bool boolean) {
+	lua_pushboolean(vm, boolean);
+}
+
 float TGen::Engine::Script::ScriptState::toNumber(int index) {
 	return lua_tonumber(vm, index);
 }

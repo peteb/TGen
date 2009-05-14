@@ -47,6 +47,8 @@ namespace TGen {
 				static int luaWOWorldVelocity(lua_State * vm);
 				static int luaParseProperties(lua_State * vm);
 				
+				static void addPropertyNode(const TGen::PropertyTree & node, TGen::Engine::Script::ScriptState & scriptState);
+				
 				void loadScriptFile(const std::string & filename);
 				
 				TGen::Engine::StandardLogs & logs;

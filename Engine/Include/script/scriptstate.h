@@ -45,6 +45,7 @@ namespace TGen {
 				void pushString(const std::string & val);
 				void pushNumber(float number);
 				void pushNil();
+				void pushBoolean(bool boolean);
 				
 				void pushVector(const TGen::Vector3 & vec);
 				void pushMatrix3(const TGen::Matrix3x3 & mat);

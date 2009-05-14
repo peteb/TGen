@@ -169,11 +169,34 @@ int TGen::Engine::Script::Subsystem::luaParseProperties(lua_State * vm) {
 	
 	scriptState.newTable();	
 
-	const TGen::PropertyTree::PropertyMap & properties = tree.getProperties();
-	for (TGen::PropertyTree::PropertyMap::const_iterator iter = properties.begin(); iter != properties.end(); ++iter) {
-		scriptState.pushString(iter->second);
-		scriptState.setField(-2, iter->first);
-	}
+	addPropertyNode(tree, scriptState);
 	
 	return 1;
 }
+
+void TGen::Engine::Script::Subsystem::addPropertyNode(const TGen::PropertyTree & node, TGen::Engine::Script::ScriptState & scriptState) {
+	const TGen::PropertyTree::PropertyMap & properties = node.getProperties();
+	for (TGen::PropertyTree::PropertyMap::const_iterator iter = properties.begin(); iter != properties.end(); ++iter) {
+		const std::string & value = iter->second;
+		
+		try {
+			bool boolean = TGen::lexical_cast<bool>(value);
+			scriptState.pushBoolean(boolean);
+		}
+		catch (...) {
+			scriptState.pushString(iter->second);			
+		}
+		
+		scriptState.setField(-2, iter->first);
+	}
+	
+	for (int i = 0; i < node.getNumNodes(); ++i) {
+		const TGen::PropertyTree & newNode = node.getNode(i);
+		
+		scriptState.newTable();
+		
+		addPropertyNode(newNode, scriptState);
+		scriptState.setField(-2, newNode.getName());
+	}
+}
+
