@@ -29,6 +29,7 @@
 		D01710E80DE9ABCC007380B9 /* nodetransformer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D01710E70DE9ABCC007380B9 /* nodetransformer.cpp */; };
 		D020D4550DC3E3C500D0EDA4 /* arcball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D020D4540DC3E3C500D0EDA4 /* arcball.cpp */; };
 		D024B38B0D93DEB500AD0FD9 /* worldrenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */; };
+		D02D9B4F0FBF224D006D1176 /* interpolatorscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D02D9B4E0FBF224D006D1176 /* interpolatorscript.cpp */; };
 		D0307DFC0F791A9F00BA480E /* geomscript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0307DFB0F791A9F00BA480E /* geomscript.cpp */; };
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
@@ -339,6 +340,8 @@
 		D020D4540DC3E3C500D0EDA4 /* arcball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = arcball.cpp; path = controller/arcball.cpp; sourceTree = "<group>"; };
 		D024B3860D93DE1D00AD0FD9 /* worldrenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = worldrenderer.h; path = ../../Include/renderer/worldrenderer.h; sourceTree = SOURCE_ROOT; };
 		D024B38A0D93DEB500AD0FD9 /* worldrenderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = worldrenderer.cpp; path = renderer/worldrenderer.cpp; sourceTree = "<group>"; };
+		D02D9B4D0FBF2241006D1176 /* interpolatorscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = interpolatorscript.h; path = ../../Include/Utilities/interpolatorscript.h; sourceTree = SOURCE_ROOT; };
+		D02D9B4E0FBF224D006D1176 /* interpolatorscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = interpolatorscript.cpp; path = Utilities/interpolatorscript.cpp; sourceTree = "<group>"; };
 		D0307DFA0F791A8800BA480E /* geomscript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = geomscript.h; path = ../../Include/physics/geomscript.h; sourceTree = SOURCE_ROOT; };
 		D0307DFB0F791A9F00BA480E /* geomscript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = geomscript.cpp; path = physics/geomscript.cpp; sourceTree = "<group>"; };
 		D03988B80CE740A90070438B /* meshgenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = meshgenerator.cpp; sourceTree = "<group>"; };
@@ -1020,6 +1023,8 @@
 				D07DE4F10E68ADD400C6B35C /* prototypereference.h */,
 				D0CEDC480FADC09E005C0E25 /* interpolator.cpp */,
 				D0CEDC470FADC083005C0E25 /* interpolator.h */,
+				D02D9B4E0FBF224D006D1176 /* interpolatorscript.cpp */,
+				D02D9B4D0FBF2241006D1176 /* interpolatorscript.h */,
 			);
 			name = utilities;
 			sourceTree = "<group>";
@@ -1652,6 +1657,7 @@
 				D0B398D50F8FF0E30076ED80 /* scriptppc.cpp in Sources */,
 				D0CEDC490FADC09E005C0E25 /* interpolator.cpp in Sources */,
 				D0AD96200FB9B10B00A897C5 /* filesystemscript.cpp in Sources */,
+				D02D9B4F0FBF224D006D1176 /* interpolatorscript.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

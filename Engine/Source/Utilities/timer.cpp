@@ -22,6 +22,10 @@ TGen::Engine::Utilities::Timer::Timer(const std::string & name)
 	
 }
 
+TGen::Engine::Utilities::Timer::~Timer() {
+	delete scriptInterface;
+}
+
 void TGen::Engine::Utilities::Timer::link(const TGen::Engine::ComponentLinker & linker) {
 
 }

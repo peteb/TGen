@@ -78,6 +78,9 @@ void TGen::Engine::Entity::addComponent(TGen::Engine::Component * component, con
 TGen::Engine::Component * TGen::Engine::Entity::getComponent(const std::string & name, std::nothrow_t noth) {
 	ComponentMap::iterator iter = componentLookup.find(name);
 	
+	for (ComponentMap::iterator iter2 = componentLookup.begin(); iter2 != componentLookup.end(); ++iter2)
+		std::cout << iter2->first << std::endl;
+	
 	if (iter == componentLookup.end())
 		throw TGen::RuntimeException("Entity::getComponent", "no component called '" + name + "' loaded!");
 

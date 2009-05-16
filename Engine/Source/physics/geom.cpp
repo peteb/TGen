@@ -32,8 +32,8 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 	, collisionForceThreshold(3.0)
 	, collisionForceScale(1.0)
 	, scriptInterface(NULL)
+	, time(0.0f)
 {
-
 }
 
 
@@ -237,6 +237,28 @@ void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * wi
 	}*/
 	if (scriptInterface)
 		scriptInterface->onCollision(1.0f, with);
+	
+	ColliderMap::iterator iter = lastColliders.find(with);
+	if (iter == lastColliders.end()) {	// first collision
+		lastColliders.insert(std::make_pair(with, time));
+	
+		if (scriptInterface)
+			scriptInterface->onFirstCollision(with);
+	}
+	else if (time - iter->second >= 0.1f) {
+		iter->second = time;
+		
+		if (scriptInterface)
+			scriptInterface->onFirstCollision(with);
+	}
+	else {
+		iter->second = time;
+	}
+}
+
+void TGen::Engine::Physics::Geom::updateClock(scalar dt) {
+	time += dt;
+	
 }
 
 TGen::Engine::Physics::GeomScript * TGen::Engine::Physics::Geom::getScriptInterface() const {
@@ -254,6 +276,27 @@ void TGen::Engine::Physics::Geom::setEnabled(bool enabled) {
 		dGeomEnable(geomId);
 	else
 		dGeomDisable(geomId);
+}
+
+TGen::Vector3 TGen::Engine::Physics::Geom::getPosition() const {
+	const dReal * pos = dGeomGetPosition(geomId);
+
+	return TGen::Vector3(pos[0], pos[1], pos[2]);
+}
+
+TGen::Rotation TGen::Engine::Physics::Geom::getOrientation() const {
+	const dReal * orient = dGeomGetRotation(geomId);
+	
+	// TODO: transpose this if something is wrong
+	TGen::Vector3 x(orient[0], orient[4], orient[8]);
+	TGen::Vector3 y(orient[1], orient[5], orient[9]);
+	TGen::Vector3 z(orient[2], orient[6], orient[10]);
+	
+	return TGen::Rotation(x, y, z);	
+}
+
+TGen::Vector3 TGen::Engine::Physics::Geom::getVelocity() const {
+	return TGen::Vector3::Zero;
 }
 
 

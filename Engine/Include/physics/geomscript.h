@@ -33,6 +33,7 @@ namespace TGen {
 				~GeomScript();
 
 				void onCollision(scalar force, TGen::Engine::Physics::Geom * with);
+				void onFirstCollision(TGen::Engine::Physics::Geom * with);
 				
 			private:
 				TGen::Engine::Script::EntityScript * entityScript;

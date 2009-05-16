@@ -123,8 +123,10 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	for (int i = 0; i < bodies.size(); ++i)
 		bodies[i]->preStep();
 	
-	for (int i = 0; i < geoms.size(); ++i)
+	for (int i = 0; i < geoms.size(); ++i) {
+		geoms[i]->updateClock(dt);
 		geoms[i]->preStep();
+	}
 		
 	int updates = 0;
 	

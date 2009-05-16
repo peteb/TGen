@@ -21,6 +21,7 @@ namespace TGen {
 			class Timer : public TGen::Engine::Component {
 			public:
 				Timer(const std::string & name);
+				~Timer();
 				
 				void link(const TGen::Engine::ComponentLinker & linker);
 				void update(scalar dt);

@@ -55,6 +55,33 @@ void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::
 	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));
 }
 
+void TGen::Engine::Physics::GeomScript::onFirstCollision(TGen::Engine::Physics::Geom * with) {
+	TGenAssert(scriptEntity);
+	
+	TGen::Engine::Script::ScriptState & scriptState = getScriptState();
+	int startStackTop = scriptState.getStackTop();
+	pushComponent(scriptState);
+	
+	scriptState.getField(-1, "onFirstCollision");
+	
+	if (!scriptState.isNil(-1)) {
+		pushComponent(scriptState);
+		
+		if (with && with->getScriptInterface()) {
+			scriptState.getGlobal("entities");
+			scriptState.getField(-1, with->getScriptInterface()->entityScript->getName());
+			scriptState.remove(-2);
+			
+			scriptState.getField(-1, with->getScriptInterface()->getName());
+			scriptState.remove(-2);
+		}
+		
+		scriptState.call(2, 0);
+	}
+	
+	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));	
+}
+
 int TGen::Engine::Physics::GeomScript::luaLink(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	

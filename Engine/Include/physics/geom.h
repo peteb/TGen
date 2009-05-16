@@ -29,7 +29,7 @@ namespace TGen {
 			class Body;
 			class GeomScript;
 			
-			class Geom : public TGen::Engine::Component {
+			class Geom : public TGen::Engine::Component, public TGen::Engine::WorldObject {
 			public:
 				Geom(const std::string & name);
 				virtual ~Geom();
@@ -42,6 +42,8 @@ namespace TGen {
 				
 				void setAffectsOthers(bool affectOthers);
 				bool getAffectsOthers() const;
+				
+				void updateClock(scalar dt);
 				
 				TGen::Engine::Physics::Body * getBody();
 				TGen::Engine::WorldObject * getWorldLink();
@@ -64,11 +66,17 @@ namespace TGen {
 				scalar collisionForceThreshold, collisionForceScale;
 
 				void setPosition(const TGen::Vector3 & position);				
+				TGen::Vector3 getPosition() const;
+				TGen::Rotation getOrientation() const;			
+				TGen::Vector3 getVelocity() const;
+				
+				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
+				
+				
 				void setScriptInterface(TGen::Engine::Physics::GeomScript * scriptInterface);
 				TGen::Engine::Physics::GeomScript * getScriptInterface() const;
 				
 			protected:
-				virtual void setOrientation(const TGen::Matrix3x3 & orientation);
 				
 				dGeomID geomId;
 				
@@ -76,10 +84,13 @@ namespace TGen {
 				void updateFromLink();
 				void sendToLink();
 				
-
+				scalar time;
 				bool affectsOthers;
 				float friction;
 				uint categoryBits, collidesWith;
+				
+				typedef std::map<Geom *, float> ColliderMap;
+				ColliderMap lastColliders;
 				
 				TGen::Engine::Physics::BodyDelegate bodyDelegate;
 				TGen::Engine::Physics::GeomScript * scriptInterface;

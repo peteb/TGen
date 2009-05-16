@@ -12,17 +12,35 @@
 
 #include "component.h"
 #include <tgen_core.h>
+#include <tgen_math.h>
 
 namespace TGen {
 	namespace Engine {
+		class WorldObject;
+		
 		namespace Utilities {
+			class InterpolatorScript;
+			
 			class Interpolator : public TGen::Engine::Component {
 			public:	
 				Interpolator(const std::string & name);
+				virtual ~Interpolator();
 				
 				void link(const TGen::Engine::ComponentLinker & linker);
 				void update(scalar dt);
+				void setPositionDelegate(const std::string & delegateName);
+				void addKeypoint(const TGen::Vector3 & point);
+				void setSpeed(float speed);
+				void setScriptInterface(TGen::Engine::Utilities::InterpolatorScript * scriptInterface);
 				
+			private:
+				TGen::Engine::Utilities::InterpolatorScript * scriptInterface;
+
+				TGen::Engine::WorldObject * positionDelegate;
+				std::string delegateName;
+				float time, speed;
+				
+				std::vector<TGen::Vector3> keypoints;
 			};
 			
 		} // !Utilities

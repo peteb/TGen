@@ -18,11 +18,51 @@ music {
 	}
 }
 
-start {
+class elev_corner_base {
 	sceneNode {
-		origin "-5 1.5 0"
-		model "gen:cube width 0.1 height 3 depth 0.1 texheight 3 texwidth 0.1 texdepth 0.1"
+		model "gen:cube width 2 height 106 depth 0.1 texheight 106 texwidth 0.1 texdepth 0.1"
 	}
+	
+	physGeom {
+		type box
+		dimensions "2 106 0.1"
+		link sceneNode
+	}
+}
+
+
+ecorner1 extends elev_corner_base {
+	sceneNode {
+		origin "-5 50 -1"
+	}
+}
+
+ecorner2 extends elev_corner_base {
+	sceneNode {
+		origin "-5 50 1"
+	}
+}
+
+ecorner3 extends elev_corner_base {
+	sceneNode {
+		origin "-6 50 0"
+		orientation "1 0 0"
+	}
+}
+
+ecorner4 {
+	sceneNode {
+		model "gen:cube width 1 height 96 depth 0.1 texheight 102 texwidth 0.1 texdepth 0.1"
+		origin "-4 51 0"
+		orientation "1 0 0"
+	}
+	
+	physGeom {
+		type box
+		dimensions "2 96 0.1"
+		link sceneNode
+	}
+
 }
 
 end {
@@ -32,32 +72,94 @@ end {
 	}
 }
 
-anibox {
-	sceneNode {
-		origin "-5 1.5 0"
-		model "models/rocketl.md3 preset idtech"
+elevator {
+	sceneNode floor {
+		origin "-5 0 0"
+		model "gen:cube width 1.5 height 0.1 depth 1.5" //"models/rocketl.md3 preset idtech"
+	}
+
+	sceneNode floor_stick {
+		origin "0 -50 0"
+		parent floor
+		model "gen:cube width .3 height 100 depth .3 texheight 100" //"models/rocketl.md3 preset idtech"
+	}
+
+	sceneNode ceiling {
+		parent floor
+
+		origin "0 2.4 0"
+		model "gen:cube width 2 height 0.1 depth 2" //"models/rocketl.md3 preset idtech"
+	}
+	
+	physGeom floor_geom {
+		type box
+		dimensions "2 0.1 2"
+		link floor
+	}
+
+	physGeom ceiling_geom {
+		type box
+		dimensions "2 0.1 2"
+		link ceiling
 	}
 	
 	interpolator {
-		link sceneNode
-		
-		position {
-			type linear
-			speed 1.0
-			
-			keypoints {
-				"-5 1.5 0"
-				"-10 3 0"
-			}
+		link floor
+
+		keypoints {
+			"-5 0.5 0"
+			"-5 100 0"
 		}
 		
-		orientation {
-			
-		}
+		type linear
+		speed 0
 	}
 }
 
 
+
+class elevator_button {
+	sceneNode {
+		model "gen:cube width .2 height .2 depth .2"
+	}
+	
+	physGeom {
+		type box
+		dimensions ".2 .2 .2"
+		link sceneNode
+		category "button"
+		collidesWith "player"		// TODO: doesn't really work
+	}
+}
+
+
+inside_elevator_button extends elevator_button {
+	sceneNode {
+		origin "-1 1.5 0"
+		parent elevator:floor
+	}
+}
+
+
+ground_button extends elevator_button {
+	sceneNode {
+		origin "-4 1.5 1.5"
+	}
+}
+
+upper_floor {
+	sceneNode floor {
+		model "gen:cube width 8 height 0.3 depth 2"
+		origin "0 99.9 0"
+	}
+	
+	physGeom floor_geom {
+		link floor
+		
+		type box
+		dimensions "8 0.3 2"
+	}
+}
 
 
 

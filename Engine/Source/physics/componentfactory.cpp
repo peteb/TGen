@@ -211,12 +211,12 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 	else if (geomType == "sphere") {
 		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
 		
-		newGeom.reset(new TGen::Engine::Physics::SphereGeom("physGeom", radius, mainSpace));
+		newGeom.reset(new TGen::Engine::Physics::SphereGeom(name, radius, mainSpace));
 	}
 	else if (geomType == "box") {
 		TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("dimensions", "1 1 1"));
 		
-		newGeom.reset(new TGen::Engine::Physics::BoxGeom("physGeom", dimensions, mainSpace));
+		newGeom.reset(new TGen::Engine::Physics::BoxGeom(name, dimensions, mainSpace));
 	}
 	else if (geomType == "bipedal") {
 		newGeom.reset(new TGen::Engine::Physics::BipedalGeom(name, mainSpace, 
