@@ -9,5 +9,11 @@
 function physGeom:onCollision(with)
 
 ---------------------------------------------------------------------------------------
+-- Event, called when the geometries collide and will only be called once during
+-- the time the geoms touch.
+-- @param with The geom it collided with.
+function physGeom:onFirstCollision(with)
+
+---------------------------------------------------------------------------------------
 -- Returns the linked object, either a physBody, worldInterface or nil.
 function physGeom:link()
