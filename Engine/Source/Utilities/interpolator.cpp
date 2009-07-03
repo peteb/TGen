@@ -19,6 +19,7 @@ TGen::Engine::Utilities::Interpolator::Interpolator(const std::string & name)
 	, time(0.0f)
 	, speed(1.0f)
 	, scriptInterface(NULL)
+	, enabled(true)
 {
 }
 
@@ -31,10 +32,21 @@ void TGen::Engine::Utilities::Interpolator::link(const TGen::Engine::ComponentLi
 }
 
 void TGen::Engine::Utilities::Interpolator::update(scalar dt) {
+	if (!enabled)
+		return;
+	
+	float lastPos = time;
 	time += dt * speed;
 
-	time = TGen::Clamp(time, 0.0f, 1.0f);
 	
+	if ((time < 0.0f && lastPos >= 0.0f) || (time > 1.0f && lastPos <= 1.0f)) {
+		enabled = false;
+	
+		if (scriptInterface)
+			scriptInterface->onReachedEnd();
+	}
+
+	time = TGen::Clamp(time, 0.0f, 1.0f);
 	TGen::Vector3 pos = TGen::Interpolate(keypoints[0], keypoints[1], time);
 	
 	if (positionDelegate)
@@ -56,3 +68,13 @@ void TGen::Engine::Utilities::Interpolator::addKeypoint(const TGen::Vector3 & po
 void TGen::Engine::Utilities::Interpolator::setScriptInterface(TGen::Engine::Utilities::InterpolatorScript * scriptInterface) {
 	this->scriptInterface = scriptInterface;
 }
+
+void TGen::Engine::Utilities::Interpolator::setEnabled(bool enabled) {
+	this->enabled = enabled;
+}
+
+bool TGen::Engine::Utilities::Interpolator::getEnabled() const {
+	return enabled;
+}
+
+

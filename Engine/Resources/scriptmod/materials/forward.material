@@ -22,33 +22,3 @@ material nomat default 9 {
 		
 	}
 }
-
-material newmat default 9 {
-	pass RENDERER/writeAttributes:COLOR_MAP {
-		map colorMap "textures/bluetex4r_danger_d.tga"			
-	}	
-}
-
-material greenmaterial default 9 {
-	pass RENDERER/writeAttributes:COLOR_MAP {
-		map colorMap "gen:plain color green"			
-	}	
-}
-
-material dirt03 default 9 {
-	pass RENDERER/writeAttributes:COLOR_MAP {
-		map colorMap "textures/dirt03.tga"
-	}	
-}
-
-material models/weapons2/rocketl/rocketl.TGA default 9 {
-	pass RENDERER/writeAttributes:COLOR_MAP {
-		map colorMap "textures/weapons2/rocketl/rocketl.png"
-	}
-}
-
-material models/weapons2/rocketl/rocketl2.tga default 9 {
-	pass RENDERER/writeAttributes:COLOR_MAP {
-		map colorMap "textures/weapons2/rocketl/rocketl2.png"
-	}
-}

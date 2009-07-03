@@ -221,15 +221,17 @@ void TGen::Engine::World::update(scalar dt) {
 	// TODO: add lights IN the scene node of the map
 	
 
-	utilsSubsystem.update(dt);
 
 	inventorySubsystem.update(dt);
 
-	sceneSubsystem.update(dt);	
 
-	controllerSubsystem.update(dt);				// perform controlling
-	physicsSubsystem.update(dt);					
+	physicsSubsystem.update(dt);
+	sceneSubsystem.update(dt);	
 	soundSubsystem.update(dt);
+
+	utilsSubsystem.update(dt);
+	controllerSubsystem.update(dt);				// perform controlling
+
 	scriptSubsystem.update(dt);
 }
 

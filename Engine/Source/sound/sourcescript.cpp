@@ -22,7 +22,7 @@ TGen::Engine::Sound::SourceScript::SourceScript(const std::string & name, TGen::
 	, source(source)
 {
 	registerFunction("playSound", luaPlaySound);
-	
+	registerFunction("stopAllChannels", luaStopAllChannels);
 }
 
 TGen::Engine::Sound::SourceScript::~SourceScript() {
@@ -47,9 +47,19 @@ void TGen::Engine::Sound::SourceScript::onChannelFinished() {
 	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));
 }	
 
-int TGen::Engine::Sound::SourceScript::luaPlaySound(lua_State * vm) {
+int TGen::Engine::Sound::SourceScript::luaStopAllChannels(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);	
 
+	SourceScript * self = scriptState.getSelfPointer<SourceScript *>();
+	
+	self->source->removeAllChannels();
+	
+	return 0;
+}
+
+int TGen::Engine::Sound::SourceScript::luaPlaySound(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);	
+	
 	SourceScript * self = scriptState.getSelfPointer<SourceScript *>();
 	
 	scriptState.getField(2, "_objectSelf");	// get _objectSelf pointer for sound object
@@ -57,9 +67,14 @@ int TGen::Engine::Sound::SourceScript::luaPlaySound(lua_State * vm) {
 	scriptState.pop(1);
 	
 	if (sound) {
-		self->source->playSound(sound);
+		try {
+			self->source->playSound(sound);
+		}
+		catch (const TGen::RuntimeException & e) {
+			scriptState.generateError(e);
+		}
 	}
-
+	
 	
 	return 0;
 }

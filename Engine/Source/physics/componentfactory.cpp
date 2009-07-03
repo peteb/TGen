@@ -251,6 +251,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 	newGeom->setLink(properties.getProperty("link", ""));
 	newGeom->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
 	newGeom->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+	newGeom->setCalculateVelocity(TGen::lexical_cast<bool>(properties.getProperty("calculateVelocity", "false")));
 	
 	newGeom->setScriptInterface(new TGen::Engine::Physics::GeomScript(name, newGeom.get(), entity.getScriptInterface()));
 	newGeom->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));

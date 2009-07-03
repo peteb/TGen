@@ -116,7 +116,7 @@
 		D09332230D79FFFF0046DC37 /* spheregeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09332220D79FFFF0046DC37 /* spheregeom.cpp */; };
 		D09336480D7AF9CA0046DC37 /* boxgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09336470D7AF9CA0046DC37 /* boxgeom.cpp */; };
 		D09629780D78529F008DABC3 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09629770D78529F008DABC3 /* body.cpp */; };
-		D0962AFC0D7866BE008DABC3 /* libode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0962AFB0D7866BE008DABC3 /* libode.a */; };
+		D0962AFC0D7866BE008DABC3 /* libode_new.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D0962AFB0D7866BE008DABC3 /* libode_new.a */; };
 		D098901A0D244181006A290D /* vertexcache2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890190D244181006A290D /* vertexcache2.cpp */; };
 		D09890A50D2449C0006A290D /* vertexcacheentry.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890A40D2449C0006A290D /* vertexcacheentry.cpp */; };
 		D09890CF0D244BB4006A290D /* poolcollection2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D09890CE0D244BB4006A290D /* poolcollection2.cpp */; };
@@ -504,7 +504,7 @@
 		D09628EC0D784E89008DABC3 /* subsystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = subsystem.h; path = ../../Include/physics/subsystem.h; sourceTree = SOURCE_ROOT; };
 		D09629760D785296008DABC3 /* body.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = body.h; path = ../../Include/physics/body.h; sourceTree = SOURCE_ROOT; };
 		D09629770D78529F008DABC3 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = body.cpp; path = physics/body.cpp; sourceTree = "<group>"; };
-		D0962AFB0D7866BE008DABC3 /* libode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libode.a; path = external/libode.a; sourceTree = "<group>"; };
+		D0962AFB0D7866BE008DABC3 /* libode_new.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libode_new.a; path = external/libode_new.a; sourceTree = "<group>"; };
 		D09890180D24414D006A290D /* vertexcache2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = vertexcache2.h; path = ../../Include/vertexcache2.h; sourceTree = SOURCE_ROOT; };
 		D09890190D244181006A290D /* vertexcache2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = vertexcache2.cpp; sourceTree = "<group>"; };
 		D09890440D24435E006A290D /* poolcollection2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = poolcollection2.h; path = ../../Include/poolcollection2.h; sourceTree = SOURCE_ROOT; };
@@ -636,7 +636,7 @@
 				D00347590CEE26740066E8A8 /* libIL.a in Frameworks */,
 				D003475A0CEE26740066E8A8 /* libjpeg.a in Frameworks */,
 				D003475B0CEE26740066E8A8 /* libpng12.a in Frameworks */,
-				D0962AFC0D7866BE008DABC3 /* libode.a in Frameworks */,
+				D0962AFC0D7866BE008DABC3 /* libode_new.a in Frameworks */,
 				D08F3DA70DEB41CB0051EDD6 /* libfmodex.dylib in Frameworks */,
 				D052CF0F0E59CD90000AF567 /* liblua5.1.a in Frameworks */,
 			);
@@ -889,7 +889,7 @@
 			isa = PBXGroup;
 			children = (
 				D052CF0E0E59CD90000AF567 /* liblua5.1.a */,
-				D0962AFB0D7866BE008DABC3 /* libode.a */,
+				D0962AFB0D7866BE008DABC3 /* libode_new.a */,
 				D08F3D830DEB3E0E0051EDD6 /* libfmodex.dylib */,
 				D00347560CEE26740066E8A8 /* libIL.a */,
 				D00347570CEE26740066E8A8 /* libjpeg.a */,

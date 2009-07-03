@@ -125,4 +125,12 @@ void TGen::Engine::Sound::Source::setScriptInterface(TGen::Engine::Sound::Source
 	this->scriptInterface = scriptInterface;
 }
 
+void TGen::Engine::Sound::Source::removeAllChannels() {
+	for (int i = 0; i < channels.size(); ++i) {
+		delete channels[i];
+	}
+	
+	channels.clear();
+}
+
 

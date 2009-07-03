@@ -31,12 +31,17 @@ namespace TGen {
 				void pushComponent(TGen::Engine::Script::ScriptState & scriptState);
 				void pushEntity(TGen::Engine::Script::ScriptState & scriptState);
 				const std::string & getName() const;
+				virtual void setEnabled(bool enabled) {}
+				virtual bool getEnabled() const {return true; }
 				
 				TGen::Engine::Script::ScriptState & getScriptState() const;
 				
 			private:
 				static int luaOwner(lua_State * vm);
 				static int luaName(lua_State * vm);
+				static int luaEnable(lua_State * vm);
+				static int luaDisable(lua_State * vm);
+				static int luaIsEnabled(lua_State * vm);
 				
 				TGen::Engine::Script::Subsystem & creator;
 				TGen::Engine::Script::EntityScript * entityScript;

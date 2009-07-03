@@ -141,7 +141,7 @@ void TGen::Engine::Physics::Geom::preStep() {	// update geom with scene node var
 
 
 void TGen::Engine::Physics::Geom::postStep() {
-	// Do nothing, without a body we can't be moved physically
+	// Do nothing, without a body we can't be moved physically. yes we can, setPosition etc.
 }
 
 
@@ -258,7 +258,11 @@ void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * wi
 
 void TGen::Engine::Physics::Geom::updateClock(scalar dt) {
 	time += dt;
+	TGen::Vector3 diff = getPosition() - lastPosition;
+
+	velocity = diff;// / dt;
 	
+	lastPosition = getPosition();
 }
 
 TGen::Engine::Physics::GeomScript * TGen::Engine::Physics::Geom::getScriptInterface() const {
@@ -296,7 +300,16 @@ TGen::Rotation TGen::Engine::Physics::Geom::getOrientation() const {
 }
 
 TGen::Vector3 TGen::Engine::Physics::Geom::getVelocity() const {
-	return TGen::Vector3::Zero;
+	//std::cout << "VEL: " << std::string(velocity) << std::endl;
+	return velocity;
+}
+
+void TGen::Engine::Physics::Geom::setCalculateVelocity(bool calculateVelocity) {
+	this->calculateVelocity = calculateVelocity;
+}
+
+bool TGen::Engine::Physics::Geom::getCalculateVelocity() const {
+	return calculateVelocity;
 }
 
 

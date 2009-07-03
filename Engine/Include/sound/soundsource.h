@@ -39,6 +39,7 @@ namespace TGen {
 				void addChannel(TGen::Engine::Sound::Channel * channel);
 				void setVolume(float volume);
 				void setScriptInterface(TGen::Engine::Sound::SourceScript * scriptInterface);
+				void removeAllChannels();
 				
 				virtual void playSound(TGen::Engine::Sound::Sound * sound) abstract;
 				

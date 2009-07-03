@@ -73,10 +73,8 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	
 	if (properties.getName() == "soundLocal") {
 		LocalSource * newSource = new LocalSource(name, filename, properties.getProperty("link", "sceneNode"), *this);
-		newSource->setMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "1.0")),
+		newSource->setMinMaxDistance(TGen::lexical_cast<scalar>(properties.getProperty("minDistance", "4.0")),
 											  TGen::lexical_cast<scalar>(properties.getProperty("maxDistance", "10000.0")));
-		newSource->setVolume(TGen::lexical_cast<scalar>(properties.getProperty("volume", "1.0")));
-		
 		localSources.push_back(newSource);
 		ret = newSource;
 	}
@@ -93,7 +91,9 @@ TGen::Engine::Component * TGen::Engine::Sound::Subsystem::createComponent(const 
 	else {
 		throw TGen::RuntimeException("Sound::Subsystem::createComponent", "invalid component type: " + properties.getName());		
 	}
-	
+
+	ret->setVolume(TGen::lexical_cast<scalar>(properties.getProperty("volume", "1.0")));
+
 	ret->setAutoplay(TGen::lexical_cast<bool>(properties.getProperty("autoplay", "false")));
 	ret->setLoop(TGen::lexical_cast<bool>(properties.getProperty("loop", "false")));
 	ret->setScriptInterface(new TGen::Engine::Sound::SourceScript(name, ret, entity.getScriptInterface()));
@@ -181,7 +181,12 @@ void TGen::Engine::Sound::Subsystem::setListener(const TGen::Vector3 & position,
 TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::getSound(const std::string & name) {
 	logs.info["sound"] << "request for sound \"" << name << "\"" << TGen::endl;
 
-	std::string fixedName = TGen::prependPath(name, "/sounds/");
+	std::string fixedName;
+	
+	if (name.substr(0, 7) != "http://")
+		fixedName = TGen::prependPath(name, "/sounds/");
+	else
+		fixedName = name;
 	
 	TGen::Engine::Sound::Sound * ret = NULL;
 	
@@ -235,6 +240,15 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 		flags |= FMOD_LOOP_NORMAL;
 	else if (loopMode == "bidi")
 		flags |= FMOD_LOOP_BIDI;
+	else {
+		try {
+			if (TGen::lexical_cast<bool>(genline.getParameter("loop", "false")))
+				flags |= FMOD_LOOP_NORMAL;
+		}
+		catch (...) {
+			
+		}
+	}
 	
 	stream = TGen::lexical_cast<bool>(genline.getParameter("stream", "false"));
 	
@@ -243,14 +257,21 @@ TGen::Engine::Sound::Sound * TGen::Engine::Sound::Subsystem::createSound(const T
 		flags |= FMOD_SOFTWARE;
 	else
 		flags |= FMOD_HARDWARE;
+
+	if (TGen::lexical_cast<bool>(genline.getParameter("net", "false")))
+		fmodSystem->setFileSystem(NULL, NULL, NULL, NULL, -1);
+	else
+		fmodSystem->setFileSystem(&openCallback, &closeCallback, &readCallback, &seekCallback, -1);
+
 	
 	if (stream)
 		result = fmodSystem->createStream(filename.c_str(), flags, NULL, &ret);
 	else
 		result = fmodSystem->createSound(filename.c_str(), flags, NULL, &ret);
 	
+	
 	if (result != FMOD_OK)
-		throw TGen::RuntimeException("Sound::Subsystem::createSound", "failed to load sound '" + filename + "': ") << FMOD_ErrorString(result);
+		throw TGen::RuntimeException("Sound::Subsystem::createSound", "failed to load " + std::string(stream ? "stream " : "") + "sound '" + filename + "': ") << FMOD_ErrorString(result);
 	
 	return new TGen::Engine::Sound::Sound(ret, stream);
 }

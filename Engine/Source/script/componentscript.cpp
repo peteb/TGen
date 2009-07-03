@@ -31,6 +31,9 @@ TGen::Engine::Script::ComponentScript::ComponentScript(const std::string & name,
 	
 	registerFunction("owner", luaOwner);
 	registerFunction("name", luaName);
+	registerFunction("enable", luaEnable);
+	registerFunction("disable", luaDisable);
+	registerFunction("isEnabled", luaIsEnabled);
 }
 
 TGen::Engine::Script::ComponentScript::~ComponentScript() {
@@ -92,4 +95,32 @@ int TGen::Engine::Script::ComponentScript::luaName(lua_State * vm) {
 	scriptState.pushString(self->name);
 	
 	return 1;
+}
+
+int TGen::Engine::Script::ComponentScript::luaEnable(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	ComponentScript * self = scriptState.getSelfPointer<ComponentScript *>();
+	
+	self->setEnabled(true);
+	
+	return 0;
+}
+
+int TGen::Engine::Script::ComponentScript::luaIsEnabled(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	ComponentScript * self = scriptState.getSelfPointer<ComponentScript *>();
+	
+	return self->getEnabled();
+	
+	return 1;
+}
+
+
+int TGen::Engine::Script::ComponentScript::luaDisable(lua_State * vm) {
+	TGen::Engine::Script::ScriptState scriptState(vm);
+	ComponentScript * self = scriptState.getSelfPointer<ComponentScript *>();
+	
+	self->setEnabled(false);
+	
+	return 0;
 }

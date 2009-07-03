@@ -299,6 +299,11 @@ void TGen::Engine::Script::ScriptState::pushWorldObject(TGen::Engine::WorldObjec
 	setField(-2, "_objectSelf");
 }
 
+void TGen::Engine::Script::ScriptState::executeString(const std::string & line) {
+	luaL_loadstring(vm, line.c_str());
+	call(0, 0);
+}
+
 void TGen::Engine::Script::ScriptState::call(int nargs, int nresults) {
 	int ret = lua_pcall(vm, nargs, nresults, 0);
 	
@@ -347,13 +352,11 @@ void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file
 	TGen::Engine::Script::ScriptPreprocessor ppc;
 	std::string fixedContents = ppc.process(contents);
 
-	std::string global = "local msg_send_self_l = msg_send_self;\n";//+ "local msg_send_l = msg_send;\n";
+	std::string global = "local msg_send_self_l = msg_send_self;";//+ "local msg_send_l = msg_send;\n";
 	
 	fixedContents = global + fixedContents;
 	
-	// TODO: CHUNK READER FOR STRINGS
-	
-	std::cout << name << ": " << fixedContents << std::endl;
+	//std::cout << name << ": " << fixedContents << std::endl;
 	
 	/*int ret = lua_load(vm, LuaChunkReader, reinterpret_cast<void *>(file), name.c_str());
 	
@@ -361,7 +364,19 @@ void TGen::Engine::Script::ScriptState::loadScriptFile(TGen::Engine::File * file
 		throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to load file \"" + name + "\":\n") << lua_tostring(vm, -1);
 	*/
 	
-	luaL_loadstring(vm, fixedContents.c_str());
+	//luaL_loadstring(vm, fixedContents.c_str());
+	
+	LuaMemory data;
+	data.pos = 0;
+	data.size = fixedContents.size();
+	data.data = fixedContents.c_str();
+	
+	int ret = lua_load(vm, LuaMemoryReader, reinterpret_cast<void *>(&data), name.c_str());
+	 
+	if (ret != 0)
+		 throw TGen::RuntimeException("Script::ScriptState::loadScriptFile", "Failed to load file \"" + name + "\":\n") << lua_tostring(vm, -1);
+	
+	
 	
 	call(0, 0);		// create everything in the file
 }
@@ -386,6 +401,29 @@ const char * TGen::Engine::Script::ScriptState::LuaChunkReader(lua_State * vm, v
 	}
 	
 	return lastData;
+}
+
+const char * TGen::Engine::Script::ScriptState::LuaMemoryReader(lua_State * vm, void * data, size_t * size) {
+	TGenAssert(data);
+	
+	LuaMemory * memory = reinterpret_cast<LuaMemory *>(data);
+	
+	if (memory->pos < memory->size) {
+		int bytesLeft = memory->size - memory->pos;
+		int bytesRead = std::min(bytesLeft, 4096);
+		
+		size_t lastPos = memory->pos;
+		memory->pos += bytesRead;
+		
+		*size = bytesRead;
+
+		return &memory->data[lastPos];
+	}
+	else {
+		return NULL;
+	}
+	
+	return NULL;
 }
 
 int TGen::Engine::Script::ScriptState::luaImport(lua_State * vm) {

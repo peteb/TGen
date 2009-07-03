@@ -27,7 +27,7 @@ TGen::Engine::Script::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TG
 {	
 
 	scriptState.pushFunction(luaParseProperties);
-	scriptState.setGlobal("parseProperties");
+	scriptState.setGlobal("parse_properties");
 
 	scriptState.newTable();
 	scriptState.setGlobal("worldobj");

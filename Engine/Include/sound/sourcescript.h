@@ -33,6 +33,7 @@ namespace TGen {
 				
 			private:				
 				static int luaPlaySound(lua_State * vm);
+				static int luaStopAllChannels(lua_State * vm);
 				
 				TGen::Engine::Script::EntityScript * entityScript;
 				TGen::Engine::Sound::Source * source;	

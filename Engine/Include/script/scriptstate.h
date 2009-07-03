@@ -69,6 +69,7 @@ namespace TGen {
 				void setUserData(const std::string & name, void * data);
 				void setFunction(const std::string & name, int (*func)(lua_State * L));
 				
+				void executeString(const std::string & line);
 				
 				void * toUserData(int index);
 				float toNumber(int index);
@@ -90,6 +91,13 @@ namespace TGen {
 				TGen::Engine::Filesystem * getFilesystem() const;
 				
 				static const char * LuaChunkReader(lua_State * vm, void * data, size_t * size);
+				static const char * LuaMemoryReader(lua_State * vm, void * data, size_t * size);
+				
+				struct LuaMemory {
+					size_t size, pos;
+					const char * data;
+				};
+				
 				static int luaImport(lua_State * vm);
 				
 				bool owner;

@@ -17,7 +17,6 @@ TGen::Engine::Physics::BodyScript::BodyScript(const std::string & name, TGen::En
 	, body(body)
 	, entityScript(entityScript)
 {
-	registerFunction("enable", luaEnable);
 	registerFunction("resetForces", luaResetForces);
 }
 
@@ -25,13 +24,13 @@ TGen::Engine::Physics::BodyScript::~BodyScript() {
 
 }
 
-int TGen::Engine::Physics::BodyScript::luaEnable(lua_State * vm) {
-	TGen::Engine::Script::ScriptState scriptState(vm);
-	
-	BodyScript * self = scriptState.getSelfPointer<BodyScript *>();
-	self->body->setEnabled(true);
-	
-	return 0;
+void TGen::Engine::Physics::BodyScript::setEnabled(bool enabled) {
+	body->setEnabled(enabled);
+}
+
+bool TGen::Engine::Physics::BodyScript::getEnabled() const {
+	throw TGen::RuntimeException("bam", "bam");
+	return false;
 }
 
 int TGen::Engine::Physics::BodyScript::luaResetForces(lua_State * vm) {

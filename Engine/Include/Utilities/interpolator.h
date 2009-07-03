@@ -21,6 +21,8 @@ namespace TGen {
 		namespace Utilities {
 			class InterpolatorScript;
 			
+			// TODO: move this to controllers.... this is actually a frakking controller!
+			
 			class Interpolator : public TGen::Engine::Component {
 			public:	
 				Interpolator(const std::string & name);
@@ -32,6 +34,8 @@ namespace TGen {
 				void addKeypoint(const TGen::Vector3 & point);
 				void setSpeed(float speed);
 				void setScriptInterface(TGen::Engine::Utilities::InterpolatorScript * scriptInterface);
+				void setEnabled(bool enabled);
+				bool getEnabled() const;
 				
 			private:
 				TGen::Engine::Utilities::InterpolatorScript * scriptInterface;
@@ -39,6 +43,7 @@ namespace TGen {
 				TGen::Engine::WorldObject * positionDelegate;
 				std::string delegateName;
 				float time, speed;
+				bool enabled;
 				
 				std::vector<TGen::Vector3> keypoints;
 			};

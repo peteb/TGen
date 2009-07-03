@@ -14,7 +14,7 @@ world {
 
 music {
 	soundGlobal source {
-		
+		volume 0.5
 	}
 }
 
@@ -50,7 +50,7 @@ ecorner3 extends elev_corner_base {
 	}
 }
 
-ecorner4 {
+/*ecorner4 {
 	sceneNode {
 		model "gen:cube width 1 height 96 depth 0.1 texheight 102 texwidth 0.1 texdepth 0.1"
 		origin "-4 51 0"
@@ -63,7 +63,7 @@ ecorner4 {
 		link sceneNode
 	}
 
-}
+}*/
 
 end {
 	sceneNode {
@@ -84,23 +84,35 @@ elevator {
 		model "gen:cube width .3 height 100 depth .3 texheight 100" //"models/rocketl.md3 preset idtech"
 	}
 
-	sceneNode ceiling {
+	/*sceneNode ceiling {
 		parent floor
 
 		origin "0 2.4 0"
 		model "gen:cube width 2 height 0.1 depth 2" //"models/rocketl.md3 preset idtech"
-	}
+	}*/
 	
 	physGeom floor_geom {
 		type box
 		dimensions "2 0.1 2"
 		link floor
+		
+		calculateVelocity false
 	}
 
-	physGeom ceiling_geom {
+	/*physGeom ceiling_geom {
 		type box
 		dimensions "2 0.1 2"
 		link ceiling
+
+		calculateVelocity true
+	}*/
+	soundLocal soundSource {
+		link floor
+	}
+	
+	soundLocal localLoopSource {
+		link floor
+		volume 0.7
 	}
 	
 	interpolator {
@@ -132,6 +144,11 @@ class elevator_button {
 	}
 }
 
+music_button extends elevator_button {
+	sceneNode {
+		origin "10 1.5 0"
+	}
+}
 
 inside_elevator_button extends elevator_button {
 	sceneNode {
@@ -301,7 +318,7 @@ player {
 	
 	
 	///////////////////////////////////////////////////////////////
-	// controller, gets events directly from the player
+	// controller, receives events directly from the player
 	///////////////////////////////////////////////////////////////
 			
 	controller {

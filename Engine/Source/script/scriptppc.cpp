@@ -64,6 +64,7 @@ std::string TGen::Engine::Script::ScriptPreprocessor::parseBlock(const std::stri
 	std::string subblock;
 	std::vector<std::string> elements;
 	int ignoreBlock = 0;
+	bool inQuote = false;
 	
 	do {
 		char atPos = block[pos];
@@ -78,6 +79,7 @@ std::string TGen::Engine::Script::ScriptPreprocessor::parseBlock(const std::stri
 			std::string newBlock = block.substr(pos + 1, nextPos - pos - 2);
 			
 			if (goodBlock(newBlock)) {
+				std::cout << "GOOD BLOCK" << std::endl;
 				subblock += parseBlock(newBlock);
 				pos = nextPos - 1;
 			}
@@ -85,7 +87,16 @@ std::string TGen::Engine::Script::ScriptPreprocessor::parseBlock(const std::stri
 				subblock += atPos;
 			}
 		}
-		else if (atPos == ':' && elements.size() >= 1/* && block.at(pos + 1) == ' '*/) {
+		else if (atPos == '@') {
+			elements.push_back("res");
+			elements.push_back("new");
+			elements.push_back(":");
+		}
+		else if (atPos == '"') {
+			inQuote = !inQuote;
+			subblock += atPos;
+		}
+		else if (atPos == ':' && elements.size() >= 1 && !inQuote/* && block.at(pos + 1) == ' '*/) {
 			if (!subblock.empty()) {
 				elements.push_back(subblock);
 				subblock = "";
@@ -163,8 +174,6 @@ std::string TGen::Engine::Script::ScriptPreprocessor::convertBlock(const std::ve
 			parameters += formatNamedParameters(namedParameters);
 		}
 		
-		std::cout << "OROMOOMP: " << receiver << " - " << message << " - " << parameters << std::endl;
-		
 		return "msg_send_self_l(" + receiver + ", " + message + ", " + parameters + ")";
 	}
 	
@@ -228,7 +237,7 @@ bool TGen::Engine::Script::ScriptPreprocessor::goodBlock(const std::string & blo
 		elements.push_back(part);
 
 	
-	if (elements.size() < 2)
+	if (elements.size() < 2 && block.at(0) != '@')
 		return false;
 	
 	return true;

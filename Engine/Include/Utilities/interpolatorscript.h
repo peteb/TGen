@@ -24,6 +24,10 @@ namespace TGen {
 			public:
 				InterpolatorScript(const std::string & name, Interpolator & interpolator, TGen::Engine::Script::EntityScript * entityScript);
 				
+				void onReachedEnd();
+				void setEnabled(bool enabled);
+				bool getEnabled() const;
+				
 			private:
 				static int luaSetSpeed(lua_State * vm);
 				

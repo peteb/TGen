@@ -31,6 +31,8 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, T
 {
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
+	dInitODE();
+	
 	worldId = dWorldCreate();
 	mainSpace = dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
@@ -173,6 +175,8 @@ TGen::Vector3 TGen::Engine::Physics::Subsystem::getGravity() const {
 	
 	return TGen::Vector3(gravity[0], gravity[1], gravity[2]);
 }
+
+
 
 void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
 	// the most scariest function in the whole engine
@@ -353,6 +357,41 @@ void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGe
 
 			collisionEvents.push_back(contacts[i]);
 	
+			if (geom1 && geom1->getCalculateVelocity()) {
+				contacts[i].surface.mode |= (dContactMotion1 | dContactMotion2 | dContactMotionN | dContactFDir1);
+				
+				const dReal * normal = contacts[i].geom.normal;
+				const dReal velocity[] = {geom1->getVelocity().x, geom1->getVelocity().y, geom1->getVelocity().z};
+				
+				dVector3 fdir1, fdir2;
+				dPlaneSpace(normal, fdir1, fdir2);
+				contacts[i].fdir1[0] = fdir1[0];
+				contacts[i].fdir1[1] = fdir1[1];
+				contacts[i].fdir1[2] = fdir1[2];
+			
+				contacts[i].surface.motion1 = dDOT(velocity, fdir1);
+				contacts[i].surface.motion2 = -1.0 * dDOT(velocity, fdir2);
+				contacts[i].surface.motionN = -1.0 * dDOT(velocity, normal);
+			}
+
+			if (geom2 && geom2->getCalculateVelocity()) {
+				contacts[i].surface.mode |= (dContactMotion1 | dContactMotion2 | dContactMotionN | dContactFDir1);
+				
+				const dReal * normal = contacts[i].geom.normal;
+				const dReal velocity[] = {geom2->getVelocity().x, geom2->getVelocity().y, geom2->getVelocity().z};
+				
+				dVector3 fdir1, fdir2;
+				dPlaneSpace(normal, fdir1, fdir2);
+				contacts[i].fdir1[0] = fdir1[0];
+				contacts[i].fdir1[1] = fdir1[1];
+				contacts[i].fdir1[2] = fdir1[2];
+				
+				contacts[i].surface.motion1 = dDOT(velocity, fdir1);
+				contacts[i].surface.motion2 = dDOT(velocity, fdir2);
+				contacts[i].surface.motionN = dDOT(velocity, normal);
+			}
+
+			
 			if ((!geom1 || (geom1 && geom1->onCollision(geom2, o1, contacts[i]))) && (!geom2 || (geom2 && geom2->onCollision(geom1, o2, contacts[i])))) {
 				dJointID contactJoint = dJointCreateContact(worldId, contactGroup, &contacts[i]);
 				dJointAttach(contactJoint, body1, body2);
