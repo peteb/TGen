@@ -30,8 +30,10 @@ namespace TGen {
 				BodyScript(const std::string & name, TGen::Engine::Physics::Body * body, TGen::Engine::Script::EntityScript * entityScript);
 				~BodyScript();
 				
+				void setEnabled(bool enabled);
+				bool getEnabled() const;
+				
 			private:
-				static int luaEnable(lua_State * vm);
 				static int luaResetForces(lua_State * vm);
 				
 				TGen::Engine::Script::EntityScript * entityScript;

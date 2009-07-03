@@ -62,7 +62,9 @@ namespace TGen {
 				void setCollidesWith(uint collidesWith);
 				uint getCategory() const;
 				void setEnabled(bool enabled);
-								
+				void setCalculateVelocity(bool calculateVelocity);
+				bool getCalculateVelocity() const;
+				
 				scalar collisionForceThreshold, collisionForceScale;
 
 				void setPosition(const TGen::Vector3 & position);				
@@ -85,10 +87,11 @@ namespace TGen {
 				void sendToLink();
 				
 				scalar time;
-				bool affectsOthers;
+				bool affectsOthers, calculateVelocity;
 				float friction;
 				uint categoryBits, collidesWith;
 				
+				TGen::Vector3 velocity, lastPosition;
 				typedef std::map<Geom *, float> ColliderMap;
 				ColliderMap lastColliders;
 				
