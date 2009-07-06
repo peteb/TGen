@@ -48,6 +48,11 @@ TGen::Engine::Filesystem::Filesystem(const char * argv0, TGen::Engine::StandardL
 		restOfFSBase = argv0;
 	
 	std::string bundleName = restOfFSBase.substr(0, restOfFSBase.find("/"));
+	if (bundleName == ".") {
+		int firstSlash = restOfFSBase.find("/");
+		
+		bundleName = restOfFSBase.substr(firstSlash + 1, restOfFSBase.find("/", firstSlash + 1) - firstSlash);
+	}
 	
 	base = bundleName + "/Contents/Resources/";
 	

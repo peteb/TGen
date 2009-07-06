@@ -13,7 +13,7 @@ game {
 	}
 	
 	deps {
-
+		base
 	}
 	
 	autoexec {

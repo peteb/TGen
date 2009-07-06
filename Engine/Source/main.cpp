@@ -16,6 +16,7 @@
 #include <tgen_opengl.h>
 #include <tgen_renderer.h>
 #include <SDL/SDL.h>
+#include <platform_cocoa.h>
 
 #include "app.h"
 #include "log.h"
@@ -30,6 +31,7 @@
 #include "cmddumpvars.h"
 #include "devicecollection.h"
 #include "script/exception.h"
+#include "generateline.h"
 
 #ifdef _PLATFORM_OSX
 #define _PLATFORM_FILE "platform_cocoa.h"
@@ -225,6 +227,18 @@ int run(int argc, char ** argv, TGen::Engine::StandardLogs & logs) {
 	
 	createVariables(variables);
 	createCommands(commands, variables);
+	
+	std::string attributes = "crap ";
+	for (int i = 1; i < argc; ++i)
+		attributes += std::string(argv[i]) + " ";
+	
+	TGen::Engine::GenerateLine genline("gen:" + attributes);
+	//std::cout << "attributes: '" << attributes << "'" << std::endl;
+
+	TGen::Engine::GenerateLine::ParameterMap::const_iterator iter = genline.getParameters().begin();
+	for (; iter != genline.getParameters().end(); ++iter) {
+		variables[iter->first] = iter->second;
+	}
 	
 	
 	// this is just a test
