@@ -262,7 +262,6 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std:
 
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
-	TGen::Engine::MapLoader loader(logs, filesystem);
 	
 	TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
 
@@ -276,6 +275,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	transformers.addTransformer(transFactory.createTransformers(line));
 	
 	
+	TGen::Engine::MapLoader loader(logs, filesystem);
 	TGen::Engine::Map * map = loader.createMap(name, modelName, transformers);
 
 	map->instantiate(dataSource);
