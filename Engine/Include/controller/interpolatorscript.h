@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_UTILITIES_INTERPOLATORSCRIPT_H
-#define _TGEN_ENGINE_UTILITIES_INTERPOLATORSCRIPT_H
+#ifndef _TGEN_ENGINE_CONTROLLER_INTERPOLATORSCRIPT_H
+#define _TGEN_ENGINE_CONTROLLER_INTERPOLATORSCRIPT_H
 
 #include <string>
 #include "script/componentscript.h"
@@ -17,7 +17,7 @@ struct lua_State;
 
 namespace TGen {
 	namespace Engine {
-		namespace Utilities {
+		namespace Controller {
 			class Interpolator;
 			
 			class InterpolatorScript : public TGen::Engine::Script::ComponentScript {
@@ -35,9 +35,9 @@ namespace TGen {
 				TGen::Engine::Script::EntityScript * scriptEntity;
 			};
 			
-		} // !Utilities
+		} // !Controller
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_UTILITIES_INTERPOLATORSCRIPT_H
+#endif // !_TGEN_ENGINE_CONTROLLER_INTERPOLATORSCRIPT_H
 

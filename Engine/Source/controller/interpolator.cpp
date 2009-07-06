@@ -7,15 +7,15 @@
  *
  */
 
-#include "utilities/interpolator.h"
-#include "utilities/interpolatorscript.h"
+#include "controller/interpolator.h"
+#include "controller/interpolatorscript.h"
 
 #include "componentlinker.h"
 #include "worldobject.h"
 
 // TODO: interpolator -> controllers
 
-TGen::Engine::Utilities::Interpolator::Interpolator(const std::string & name)
+TGen::Engine::Controller::Interpolator::Interpolator(const std::string & name)
 	: TGen::Engine::Component(name)
 	, positionDelegate(NULL)
 	, time(0.0f)
@@ -25,15 +25,15 @@ TGen::Engine::Utilities::Interpolator::Interpolator(const std::string & name)
 {
 }
 
-TGen::Engine::Utilities::Interpolator::~Interpolator() {
+TGen::Engine::Controller::Interpolator::~Interpolator() {
 	delete scriptInterface;
 }
 
-void TGen::Engine::Utilities::Interpolator::link(const TGen::Engine::ComponentLinker & linker) {	
+void TGen::Engine::Controller::Interpolator::link(const TGen::Engine::ComponentLinker & linker) {	
 	positionDelegate = dynamic_cast<TGen::Engine::WorldObject *>(linker.getComponent(delegateName));
 }
 
-void TGen::Engine::Utilities::Interpolator::update(scalar dt) {
+void TGen::Engine::Controller::Interpolator::update(scalar dt) {
 	if (!enabled)
 		return;
 	
@@ -55,27 +55,27 @@ void TGen::Engine::Utilities::Interpolator::update(scalar dt) {
 		positionDelegate->setPosition(pos);
 }
 
-void TGen::Engine::Utilities::Interpolator::setPositionDelegate(const std::string & delegateName) {
+void TGen::Engine::Controller::Interpolator::setPositionDelegate(const std::string & delegateName) {
 	this->delegateName = delegateName;
 }
 
-void TGen::Engine::Utilities::Interpolator::setSpeed(float speed) {
+void TGen::Engine::Controller::Interpolator::setSpeed(float speed) {
 	this->speed = speed;
 }
 
-void TGen::Engine::Utilities::Interpolator::addKeypoint(const TGen::Vector3 & point) {
+void TGen::Engine::Controller::Interpolator::addKeypoint(const TGen::Vector3 & point) {
 	keypoints.push_back(point);
 }
 
-void TGen::Engine::Utilities::Interpolator::setScriptInterface(TGen::Engine::Utilities::InterpolatorScript * scriptInterface) {
+void TGen::Engine::Controller::Interpolator::setScriptInterface(TGen::Engine::Controller::InterpolatorScript * scriptInterface) {
 	this->scriptInterface = scriptInterface;
 }
 
-void TGen::Engine::Utilities::Interpolator::setEnabled(bool enabled) {
+void TGen::Engine::Controller::Interpolator::setEnabled(bool enabled) {
 	this->enabled = enabled;
 }
 
-bool TGen::Engine::Utilities::Interpolator::getEnabled() const {
+bool TGen::Engine::Controller::Interpolator::getEnabled() const {
 	return enabled;
 }
 

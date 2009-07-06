@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _TGEN_ENGINE_UTILITIES_INTERPOLATOR_H
-#define _TGEN_ENGINE_UTILITIES_INTERPOLATOR_H
+#ifndef _TGEN_ENGINE_CONTROLLER_INTERPOLATOR_H
+#define _TGEN_ENGINE_CONTROLLER_INTERPOLATOR_H
 
 #include "component.h"
 #include <tgen_core.h>
@@ -18,7 +18,7 @@ namespace TGen {
 	namespace Engine {
 		class WorldObject;
 		
-		namespace Utilities {
+		namespace Controller {
 			class InterpolatorScript;
 			
 			// TODO: move this to controllers.... this is actually a frakking controller!
@@ -33,12 +33,12 @@ namespace TGen {
 				void setPositionDelegate(const std::string & delegateName);
 				void addKeypoint(const TGen::Vector3 & point);
 				void setSpeed(float speed);
-				void setScriptInterface(TGen::Engine::Utilities::InterpolatorScript * scriptInterface);
+				void setScriptInterface(TGen::Engine::Controller::InterpolatorScript * scriptInterface);
 				void setEnabled(bool enabled);
 				bool getEnabled() const;
 				
 			private:
-				TGen::Engine::Utilities::InterpolatorScript * scriptInterface;
+				TGen::Engine::Controller::InterpolatorScript * scriptInterface;
 
 				TGen::Engine::WorldObject * positionDelegate;
 				std::string delegateName;
@@ -48,9 +48,9 @@ namespace TGen {
 				std::vector<TGen::Vector3> keypoints;
 			};
 			
-		} // !Utilities
+		} // !Controller
 	} // !Engine
 } // !TGen
 
-#endif // !_TGEN_ENGINE_UTILITIES_INTERPOLATOR_H
+#endif // !_TGEN_ENGINE_CONTROLLER_INTERPOLATOR_H
 

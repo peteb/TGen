@@ -16,7 +16,6 @@ namespace TGen {
 	namespace Engine {
 		namespace Utilities {
 			class Timer;
-			class Interpolator;
 			
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
@@ -28,7 +27,6 @@ namespace TGen {
 				
 			private:
 				std::vector<Timer *> timers;
-				std::vector<Interpolator *> interpolators;
 			};
 			
 		} // !Utilities

@@ -18,6 +18,8 @@ namespace TGen {
 		class Component;
 		
 		namespace Controller {
+			class Interpolator;
+
 			class Subsystem : public TGen::Engine::Subsystem {
 			public:
 				Subsystem();
@@ -30,6 +32,9 @@ namespace TGen {
 			private:
 				typedef std::map<std::string, TGen::Engine::PlayerController *> ControllerMap;
 				ControllerMap controllers;
+				
+				std::vector<Interpolator *> interpolators;
+
 			};
 			
 		} // !Controller

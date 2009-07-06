@@ -10,6 +10,9 @@
 #include "controller/subsystem.h"
 #include "controller/firstpersoncontroller.h"
 #include "controller/arcball.h"
+#include "controller/interpolator.h"
+#include "controller/interpolatorscript.h"
+
 #include "playercontroller.h"
 
 TGen::Engine::Controller::Subsystem::Subsystem() {
@@ -26,6 +29,10 @@ void TGen::Engine::Controller::Subsystem::update(scalar dt) {
 	for (ControllerMap::iterator iter = controllers.begin(); iter != controllers.end(); ++iter) {
 		iter->second->update(dt);
 	}
+	
+	for (int i = 0; i < interpolators.size(); ++i) {
+		interpolators[i]->update(dt);
+	}	
 }
 
 
@@ -60,6 +67,24 @@ TGen::Engine::Component * TGen::Engine::Controller::Subsystem::createComponent(c
 		//newArcball->addCamera("headcam", properties.getProperty("camera", "sceneCamera"));
 		
 		ret = newArcball;
+	}
+	else if (properties.getName() == "interpolator") {
+		TGen::auto_ptr<Interpolator> newInterpolator = new Interpolator(name);
+		
+		newInterpolator->setPositionDelegate(properties.getProperty("link", ""));
+		newInterpolator->setSpeed(TGen::lexical_cast<scalar>(properties.getProperty("speed", "1.0")));
+		
+		TGen::Engine::Controller::InterpolatorScript * scriptInterface = new TGen::Engine::Controller::InterpolatorScript(name, *newInterpolator.get(), entity.getScriptInterface());
+		newInterpolator->setScriptInterface(scriptInterface);
+		
+		
+		TGen::PropertyTree::PropertyMap::const_iterator iter = properties.getNode("keypoints").getProperties().begin();
+		for (; iter != properties.getNode("keypoints").getProperties().end(); ++iter) {
+			newInterpolator->addKeypoint(TGen::Vector3::Parse(iter->second));
+		}
+		
+		interpolators.push_back(newInterpolator.get());
+		return newInterpolator.release();
 	}
 	else {
 		throw TGen::RuntimeException("Controller::Subsystem::createComponent", "invalid controller type: '" + type + "'");

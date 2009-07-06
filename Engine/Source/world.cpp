@@ -55,6 +55,7 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("physJoint", &physicsSubsystem);
 	
 	entityFactory.registerSubsystem("controller", &controllerSubsystem);
+	entityFactory.registerSubsystem("interpolator", &controllerSubsystem);
 	
 	entityFactory.registerSubsystem("soundLocal", &soundSubsystem);
 	entityFactory.registerSubsystem("soundGlobal", &soundSubsystem);
@@ -70,7 +71,6 @@ TGen::Engine::World::World(TGen::Engine::Filesystem & filesystem, TGen::Engine::
 	entityFactory.registerSubsystem("worldInfo", &infoSubsystem);
 	
 	entityFactory.registerSubsystem("timer", &utilsSubsystem);
-	entityFactory.registerSubsystem("interpolator", &utilsSubsystem);
 	//entityFactory.registerSubsystem("objectRef", &utilsSubsystem);
 	//entityFactory.registerSubsystem("prototypeRef", &utilsSubsystem);
 	

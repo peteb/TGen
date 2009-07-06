@@ -10,8 +10,6 @@
 #include "utilities/subsystem.h"
 #include "utilities/timer.h"
 #include "utilities/timer_script.h"
-#include "utilities/interpolator.h"
-#include "utilities/interpolatorscript.h"
 #include "utilities/objectreference.h"
 #include "utilities/prototypereference.h"
 
@@ -41,24 +39,6 @@ TGen::Engine::Component * TGen::Engine::Utilities::Subsystem::createComponent(co
 
 		ret = newTimer;
 	}
-	else if (type == "interpolator") {
-		TGen::auto_ptr<Interpolator> newInterpolator = new Interpolator(name);
-		
-		newInterpolator->setPositionDelegate(properties.getProperty("link", ""));
-		newInterpolator->setSpeed(TGen::lexical_cast<scalar>(properties.getProperty("speed", "1.0")));
-
-		TGen::Engine::Utilities::InterpolatorScript * scriptInterface = new TGen::Engine::Utilities::InterpolatorScript(name, *newInterpolator.get(), entity.getScriptInterface());
-		newInterpolator->setScriptInterface(scriptInterface);
-
-		
-		TGen::PropertyTree::PropertyMap::const_iterator iter = properties.getNode("keypoints").getProperties().begin();
-		for (; iter != properties.getNode("keypoints").getProperties().end(); ++iter) {
-			newInterpolator->addKeypoint(TGen::Vector3::Parse(iter->second));
-		}
-		
-		interpolators.push_back(newInterpolator.get());
-		ret = newInterpolator.release();
-	}
 	else if (type == "objectRef") {
 		TGen::Engine::Utilities::ObjectReference * ref = new TGen::Engine::Utilities::ObjectReference(name);
 		ref->setObjectName(properties.getAttribute(1));
@@ -80,9 +60,5 @@ TGen::Engine::Component * TGen::Engine::Utilities::Subsystem::createComponent(co
 void TGen::Engine::Utilities::Subsystem::update(scalar dt) {
 	for (int i = 0; i < timers.size(); ++i) {
 		timers[i]->update(dt);
-	}
-	
-	for (int i = 0; i < interpolators.size(); ++i) {
-		interpolators[i]->update(dt);
-	}
+	}	
 }

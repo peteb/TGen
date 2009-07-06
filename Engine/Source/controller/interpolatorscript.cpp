@@ -9,17 +9,16 @@
 
 #include "interpolatorscript.h"
 #include "script/scriptstate.h"
-#include "utilities/interpolator.h"
+#include "controller/interpolator.h"
 
-TGen::Engine::Utilities::InterpolatorScript::InterpolatorScript(const std::string & name, Interpolator & interpolator, TGen::Engine::Script::EntityScript * entityScript)
+TGen::Engine::Controller::InterpolatorScript::InterpolatorScript(const std::string & name, Interpolator & interpolator, TGen::Engine::Script::EntityScript * entityScript)
 	: TGen::Engine::Script::ComponentScript(name, entityScript)
 	, interpolator(interpolator)
 {
 	registerFunction("setSpeed", luaSetSpeed);
-	
 }
 
-void TGen::Engine::Utilities::InterpolatorScript::onReachedEnd() {
+void TGen::Engine::Controller::InterpolatorScript::onReachedEnd() {
 	TGenAssert(scriptComponent && scriptEntity);
 	
 	TGen::Engine::Script::ScriptState & scriptState = getScriptState(); 
@@ -36,15 +35,15 @@ void TGen::Engine::Utilities::InterpolatorScript::onReachedEnd() {
 	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));
 }
 
-void TGen::Engine::Utilities::InterpolatorScript::setEnabled(bool enabled) {
+void TGen::Engine::Controller::InterpolatorScript::setEnabled(bool enabled) {
 	interpolator.setEnabled(enabled);
 }
 
-bool TGen::Engine::Utilities::InterpolatorScript::getEnabled() const {
+bool TGen::Engine::Controller::InterpolatorScript::getEnabled() const {
 	return interpolator.getEnabled();
 }
 
-int TGen::Engine::Utilities::InterpolatorScript::luaSetSpeed(lua_State * vm) {
+int TGen::Engine::Controller::InterpolatorScript::luaSetSpeed(lua_State * vm) {
 	TGen::Engine::Script::ScriptState scriptState(vm);
 	
 	InterpolatorScript * self = scriptState.getSelfPointer<InterpolatorScript *>();
