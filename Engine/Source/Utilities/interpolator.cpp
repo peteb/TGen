@@ -13,6 +13,8 @@
 #include "componentlinker.h"
 #include "worldobject.h"
 
+// TODO: interpolator -> controllers
+
 TGen::Engine::Utilities::Interpolator::Interpolator(const std::string & name)
 	: TGen::Engine::Component(name)
 	, positionDelegate(NULL)
