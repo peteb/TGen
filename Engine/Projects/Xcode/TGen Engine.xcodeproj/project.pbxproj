@@ -35,6 +35,8 @@
 		D03988B90CE740A90070438B /* meshgenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D03988B80CE740A90070438B /* meshgenerator.cpp */; };
 		D03F1C5C0D7F4D22001166CE /* Preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = D03F1C5B0D7F4D22001166CE /* Preferences.xib */; };
 		D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03F1C7B0D7F50FF001166CE /* PreferencesController.m */; };
+		D046E8DE101E3FE400CCCCC3 /* q3map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D046E8DD101E3FE400CCCCC3 /* q3map.cpp */; };
+		D046E928101E4E7B00CCCCC3 /* q3maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D046E927101E4E7B00CCCCC3 /* q3maploader.cpp */; };
 		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
 		D04C83AC0CCA4AE900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81E70CCA46EC00794CEA /* libtgen_core.a */; };
 		D04C83AF0CCA4AEE00794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81DA0CCA46E400794CEA /* libtgen_math.a */; };
@@ -351,6 +353,10 @@
 		D03F1C5B0D7F4D22001166CE /* Preferences.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Preferences.xib; sourceTree = "<group>"; };
 		D03F1C7A0D7F50FF001166CE /* PreferencesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreferencesController.h; sourceTree = SOURCE_ROOT; };
 		D03F1C7B0D7F50FF001166CE /* PreferencesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreferencesController.m; sourceTree = SOURCE_ROOT; };
+		D046E8DC101E3FD200CCCCC3 /* q3map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3map.h; path = ../../Include/q3bsp/q3map.h; sourceTree = SOURCE_ROOT; };
+		D046E8DD101E3FE400CCCCC3 /* q3map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3map.cpp; path = q3bsp/q3map.cpp; sourceTree = "<group>"; };
+		D046E926101E4E7000CCCCC3 /* q3maploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3maploader.h; path = ../../Include/q3bsp/q3maploader.h; sourceTree = SOURCE_ROOT; };
+		D046E927101E4E7B00CCCCC3 /* q3maploader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3maploader.cpp; path = q3bsp/q3maploader.cpp; sourceTree = "<group>"; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
 		D052CAE00E59C4C4000AF567 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/script/componentfactory.h; sourceTree = SOURCE_ROOT; };
@@ -813,6 +819,17 @@
 			name = component;
 			sourceTree = "<group>";
 		};
+		D046E8D6101E3F0100CCCCC3 /* q3bsp */ = {
+			isa = PBXGroup;
+			children = (
+				D046E8DD101E3FE400CCCCC3 /* q3map.cpp */,
+				D046E8DC101E3FD200CCCCC3 /* q3map.h */,
+				D046E927101E4E7B00CCCCC3 /* q3maploader.cpp */,
+				D046E926101E4E7000CCCCC3 /* q3maploader.h */,
+			);
+			name = q3bsp;
+			sourceTree = "<group>";
+		};
 		D048B94C0CE743F700607EBA /* meshes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1251,6 +1268,7 @@
 				D09107BF0E167D0C0075D654 /* equipmentdata.cpp */,
 				D09107BE0E167CFE0075D654 /* equipmentdata.h */,
 				D0734A910E0EB6F100976974 /* dummynode.h */,
+				D046E8D6101E3F0100CCCCC3 /* q3bsp */,
 				D077FA470D26DA4B00217E07 /* map */,
 			);
 			name = scene;
@@ -1658,6 +1676,8 @@
 				D0AD96200FB9B10B00A897C5 /* filesystemscript.cpp in Sources */,
 				D027C15B1001F2CC00BCA5B2 /* interpolator.cpp in Sources */,
 				D027C15C1001F2CC00BCA5B2 /* interpolatorscript.cpp in Sources */,
+				D046E8DE101E3FE400CCCCC3 /* q3map.cpp in Sources */,
+				D046E928101E4E7B00CCCCC3 /* q3maploader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

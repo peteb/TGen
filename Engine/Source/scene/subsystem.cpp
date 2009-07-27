@@ -14,6 +14,8 @@
 #include "scene/equipmentnode.h"
 #include "scene/equipmentdata.h"
 #include "scene/scenescript.h"
+#include "q3bsp/q3map.h"
+#include "q3bsp/q3maploader.h"
 
 #include "world.h"
 #include "app.h"
@@ -262,7 +264,6 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createEquipmentNode(const std:
 
 
 TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::string & name, const TGen::PropertyTree & properties, bool dummy) {
-	
 	TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
 
 	std::string modelName = line.getName();
@@ -275,13 +276,23 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	transformers.addTransformer(transFactory.createTransformers(line));
 	
 	
-	TGen::Engine::MapLoader loader(logs, filesystem);
-	TGen::Engine::Map * map = loader.createMap(name, modelName, transformers);
+	if (modelName.substr(modelName.size() - 4) == ".bsp") {
+		TGen::Engine::Q3MapLoader loader(logs, filesystem);
+		TGen::auto_ptr<TGen::Engine::Q3Map> map = loader.createMap(name, modelName, transformers);
+		
+		return map.release();
+	}
+	else {
+		TGen::Engine::MapLoader loader(logs, filesystem);
+		TGen::auto_ptr<TGen::Engine::Map> map = loader.createMap(name, modelName, transformers);
 
-	map->instantiate(dataSource);
-	map->linkMaterial(resources);
+		map->instantiate(dataSource);
+		map->linkMaterial(resources);
 	
-	return map;
+		return map.release();
+	}
+	
+	throw TGen::RuntimeException("Scene::Subsystem::createMapNode", "not supported file extension");
 }
 
 
