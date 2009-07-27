@@ -37,6 +37,8 @@
 		D03F1C7C0D7F50FF001166CE /* PreferencesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D03F1C7B0D7F50FF001166CE /* PreferencesController.m */; };
 		D046E8DE101E3FE400CCCCC3 /* q3map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D046E8DD101E3FE400CCCCC3 /* q3map.cpp */; };
 		D046E928101E4E7B00CCCCC3 /* q3maploader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D046E927101E4E7B00CCCCC3 /* q3maploader.cpp */; };
+		D046EB0A101E5A8200CCCCC3 /* q3mapmesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D046EB09101E5A8200CCCCC3 /* q3mapmesh.cpp */; };
+		D046EBA6101E5D8B00CCCCC3 /* q3mapmodel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D046EBA5101E5D8B00CCCCC3 /* q3mapmodel.cpp */; };
 		D048B9510CE7441200607EBA /* fillquad.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D048B9500CE7441200607EBA /* fillquad.cpp */; };
 		D04C83AC0CCA4AE900794CEA /* libtgen_core.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81E70CCA46EC00794CEA /* libtgen_core.a */; };
 		D04C83AF0CCA4AEE00794CEA /* libtgen_math.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D04C81DA0CCA46E400794CEA /* libtgen_math.a */; };
@@ -357,6 +359,10 @@
 		D046E8DD101E3FE400CCCCC3 /* q3map.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3map.cpp; path = q3bsp/q3map.cpp; sourceTree = "<group>"; };
 		D046E926101E4E7000CCCCC3 /* q3maploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3maploader.h; path = ../../Include/q3bsp/q3maploader.h; sourceTree = SOURCE_ROOT; };
 		D046E927101E4E7B00CCCCC3 /* q3maploader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3maploader.cpp; path = q3bsp/q3maploader.cpp; sourceTree = "<group>"; };
+		D046EB08101E5A7400CCCCC3 /* q3mapmesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3mapmesh.h; path = ../../Include/q3bsp/q3mapmesh.h; sourceTree = SOURCE_ROOT; };
+		D046EB09101E5A8200CCCCC3 /* q3mapmesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3mapmesh.cpp; path = q3bsp/q3mapmesh.cpp; sourceTree = "<group>"; };
+		D046EBA4101E5D7F00CCCCC3 /* q3mapmodel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = q3mapmodel.h; path = ../../Include/q3bsp/q3mapmodel.h; sourceTree = SOURCE_ROOT; };
+		D046EBA5101E5D8B00CCCCC3 /* q3mapmodel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = q3mapmodel.cpp; path = q3bsp/q3mapmodel.cpp; sourceTree = "<group>"; };
 		D048B9500CE7441200607EBA /* fillquad.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fillquad.cpp; sourceTree = "<group>"; };
 		D048B9520CE7441F00607EBA /* fillquad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fillquad.h; path = ../../Include/fillquad.h; sourceTree = SOURCE_ROOT; };
 		D052CAE00E59C4C4000AF567 /* componentfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = componentfactory.h; path = ../../Include/script/componentfactory.h; sourceTree = SOURCE_ROOT; };
@@ -826,6 +832,10 @@
 				D046E8DC101E3FD200CCCCC3 /* q3map.h */,
 				D046E927101E4E7B00CCCCC3 /* q3maploader.cpp */,
 				D046E926101E4E7000CCCCC3 /* q3maploader.h */,
+				D046EB09101E5A8200CCCCC3 /* q3mapmesh.cpp */,
+				D046EB08101E5A7400CCCCC3 /* q3mapmesh.h */,
+				D046EBA5101E5D8B00CCCCC3 /* q3mapmodel.cpp */,
+				D046EBA4101E5D7F00CCCCC3 /* q3mapmodel.h */,
 			);
 			name = q3bsp;
 			sourceTree = "<group>";
@@ -1678,6 +1688,8 @@
 				D027C15C1001F2CC00BCA5B2 /* interpolatorscript.cpp in Sources */,
 				D046E8DE101E3FE400CCCCC3 /* q3map.cpp in Sources */,
 				D046E928101E4E7B00CCCCC3 /* q3maploader.cpp in Sources */,
+				D046EB0A101E5A8200CCCCC3 /* q3mapmesh.cpp in Sources */,
+				D046EBA6101E5D8B00CCCCC3 /* q3mapmodel.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

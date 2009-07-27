@@ -7,6 +7,8 @@
  *
  */
 
+#include <tgen_core.h>
+
 #include "scene/subsystem.h"
 #include "scene/node.h"
 #include "scene/dummynode.h"
@@ -16,6 +18,9 @@
 #include "scene/scenescript.h"
 #include "q3bsp/q3map.h"
 #include "q3bsp/q3maploader.h"
+
+#include "filesystem.h"
+#include "file.h"
 
 #include "world.h"
 #include "app.h"
@@ -277,8 +282,12 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createMapNode(const std::strin
 	
 	
 	if (modelName.substr(modelName.size() - 4) == ".bsp") {
-		TGen::Engine::Q3MapLoader loader(logs, filesystem);
-		TGen::auto_ptr<TGen::Engine::Q3Map> map = loader.createMap(name, modelName, transformers);
+		TGen::Engine::Q3MapLoader loader(logs);
+		TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(modelName);
+		TGen::auto_ptr<TGen::Engine::Q3Map> map = loader.createMap(name, *file.get(), transformers);
+		
+		map->instantiate(dataSource);
+		map->linkMaterial(resources);
 		
 		return map.release();
 	}

@@ -14,11 +14,19 @@
 
 namespace TGen {
 	namespace Engine {
+		class Q3MapModel;
+		
 		class Q3Map : public TGen::SceneNode {
 		public:	
 			Q3Map(const std::string & name);
 			
 			bool fillFaces(TGen::RenderList & list, const TGen::Camera & camera) const;
+			void addModel(TGen::Engine::Q3MapModel * model);
+			void linkMaterial(TGen::MaterialSource & source);
+			void instantiate(TGen::VertexDataSource & source);
+			
+		private:
+			std::vector<TGen::Engine::Q3MapModel *> models;
 		};
 		
 	} // !Engine
