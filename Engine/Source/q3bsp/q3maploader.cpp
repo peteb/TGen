@@ -74,19 +74,21 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	
 	source.seekReadPos(header.entries[10].offset, TGen::beg);
 	source.read(reinterpret_cast<char *>(vertices), header.entries[10].length);
+
 	
 	
+	int numMeshVerts = header.entries[11].length / sizeof(int);
+	int * meshVerts = new int[numMeshVerts];
+	
+	source.seekReadPos(header.entries[11].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(meshVerts), header.entries[11].length);
+
 	
 	//exit(33);
 	
 	TGen::Engine::Q3MapModel * newModel = new Q3MapModel("test");
-	TGen::Engine::Q3MapMesh * newMesh = new Q3MapMesh;
-	
-	/*newMesh->addVertex(TGen::Engine::Q3MapMesh::VertexDecl::Type(TGen::Vector3(-10.0f, 0.0f, -10.0f)));
-	newMesh->addVertex(TGen::Engine::Q3MapMesh::VertexDecl::Type(TGen::Vector3(10.0f, 0.0f, 10.0f)));
-	newMesh->addVertex(TGen::Engine::Q3MapMesh::VertexDecl::Type(TGen::Vector3(-10.0f, 0.0f, 10.0f)));
-	*/
-	
+	/*TGen::Engine::Q3MapMesh * newMesh = new Q3MapMesh;
+		
 	for (int i = 0; i < numVertices; ++i) {
 		Vertex * vert = &vertices[i];
 		
@@ -98,6 +100,39 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	
 	
 	newModel->addMesh(newMesh);
+	*/
+	
+	for (int i = 0; i < numFaces; ++i) {
+		Face * face = &faces[i];
+		
+		if (face->type == 3 || face->type == 2) {
+			TGen::Engine::Q3MapMesh * mesh = new Q3MapMesh;
+			
+			for (int a = 0; a < face->num_meshverts; ++a) {
+				int fixedA = a;
+				
+				if (a % 3 == 0)		// TODO: matematisk formel
+					fixedA = a + 2;
+				else if (a % 3 == 1)
+					fixedA = a;
+				else
+					fixedA = a - 2;
+				
+				int offset = meshVerts[fixedA + face->meshvert] + face->vertex;
+				Vertex * vert = &vertices[offset];
+				
+				TGen::Vector3 pos(vert->position[0], vert->position[1], vert->position[2]);
+				transformer.transform(pos);
+				
+				mesh->addVertex(TGen::Engine::Q3MapMesh::VertexDecl::Type(pos));
+				
+			}
+			newModel->addMesh(mesh);
+			
+		}
+	}
+
+	
 	map->addModel(newModel);
 	
 	return map.release();
