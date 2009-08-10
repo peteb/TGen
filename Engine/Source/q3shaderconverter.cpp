@@ -62,8 +62,8 @@ std::string TGen::Engine::Q3ShaderConverter::parseMaterial(const std::string & n
 			stepToken();
 			break;
 		}
-		
-		stepToken();
+		else
+			stepToken();
 	}
 	
 	ret += "}\n";
@@ -74,24 +74,90 @@ std::string TGen::Engine::Q3ShaderConverter::parseMaterial(const std::string & n
 std::string TGen::Engine::Q3ShaderConverter::parsePass() {
 	std::string ret;
 	
-	ret = "\tpass RENDERER/writeAttributes:COLOR_MAP {\n";
+	ret = "\tpass RENDERER/writeAttributes:COLOR_MAP,TRANSFORM_TEX {\n";
+	
+	std::string mapPath;
+	std::vector<std::string> mapParams;
 	
 	while (currentToken != endIter) {
-		if (currentToken->second == "map") {
+		std::string param = TGen::toLower(currentToken->second);
+		
+		if (param == "map") {
 			stepToken();
-			ret += "\t\tmap colorMap " + currentToken->second + "\n";
+			mapPath = currentToken->second;
+		}
+		else if (param == "clampmap") {
+			stepToken();
+			mapPath = currentToken->second;
+			mapParams.push_back("wrap clamp clamp");
+		}
+		else if (param == "blendfunc") {
+			stepToken();
+			std::string source = TGen::toLower(currentToken->second);
+			stepToken();
+			std::string dest = TGen::toLower(currentToken->second);
+			
+			if (source == "gl_one" && dest == "gl_one")
+				ret += "\t\tblendFunc additive\n";
+			
+		}
+		else if (param == "tcmod") {
+			stepToken();
+			std::string type = currentToken->second;
+			stepToken();
+			
+			mapParams.push_back(type + " " + parseFunction());
+		}
+		else if (param == "rgbgen") {
+			stepToken();
+			std::string value = currentToken->second;
+			stepToken();
+			
+			if (value == "wave")
+				ret += "\t\tcolor " + parseFunction();
 		}
 		else if (currentToken->first == TGen::Q3MaterialTokenBlockEnd) {
 			stepToken();
 			break;
 		}
+		else
+			stepToken();
+	}
+	
+	if (!mapPath.empty()) {
+		ret += "\t\tmap colorMap " + mapPath;
 		
-		stepToken();
+		if (!mapParams.empty()) {
+			ret += " {\n";
+			
+			for (int i = 0; i < mapParams.size(); ++i) {
+				ret += "\t\t\t" + mapParams[i] + "\n";
+			}
+			
+			ret += "\t\t}\n";
+		}
+		else {
+			ret += "\n";
+		}
 	}
 	
 	ret += "\t}\n";
 	
 	return ret;
+}
+
+std::string TGen::Engine::Q3ShaderConverter::parseFunction() {
+	std::string function = currentToken->second;
+	stepToken();
+	std::string param1 = currentToken->second;
+	stepToken();
+	std::string param2 = currentToken->second;
+	stepToken();
+	std::string param3 = currentToken->second;
+	stepToken();
+	std::string param4 = currentToken->second;
+	
+	return "wave " + function + " " + param1 + " " + param2 + " " + param3 + " " + param4;
 }
 
 void TGen::Engine::Q3ShaderConverter::stepToken() {

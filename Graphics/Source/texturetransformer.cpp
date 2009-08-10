@@ -116,12 +116,12 @@ void TGen::TextureScale::applyTransform(TGen::Matrix4x4 & matrix, scalar time) {
 	if (!genU)
 		fixedU = u;
 	else
-		fixedU = genU->getValue(time);
+		fixedU = 1.0f / genU->getValue(time);
 	
 	if (!genV)
 		fixedV = v;
 	else
-		fixedV = genV->getValue(time);
+		fixedV = 1.0f / genV->getValue(time);
 	
 	if (fixedU < 0.0f)
 		fixedU = 0.0f;

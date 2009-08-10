@@ -203,7 +203,8 @@ uint TGen::OpenGL::TgenTextureFilterToOpenGL(TGen::TextureFilter filter) {
 			return GL_LINEAR_MIPMAP_LINEAR;			
 	}	
 	
-	throw TGen::NotImplemented("TgenTextureFilterToOpenGL", "filter not supported");		
+	return GL_LINEAR;
+	//throw TGen::NotImplemented("TgenTextureFilterToOpenGL", "filter not supported");		
 }
 
 uint TGen::OpenGL::TgenTextureCoordGenToOpenGL(TGen::TextureCoordGen tcgen) {

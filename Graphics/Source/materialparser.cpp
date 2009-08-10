@@ -566,6 +566,15 @@ void TGen::MaterialParser::parseTexunitBlock(TGen::PassTextureUnit * unit, TGen:
 				
 				unit->setTexCoordGen(genU, genV);
 			}
+			else if (currentToken->second == "wrap") {
+				std::string wrapU, wrapV;
+				
+				stepToken();
+				wrapU = getStringToken("texunit.wrap: expecting string value for U");
+				stepToken();
+				wrapV = getStringToken("texunit.wrap: expecting string value for V");
+				unit->setWrap(wrapU, wrapV);
+			}
 			else if (currentToken->second == "translate" || currentToken->second == "scroll") {
 				std::string offU, offV;
 				float u = 0.0f, v = 0.0f;

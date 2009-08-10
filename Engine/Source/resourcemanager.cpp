@@ -174,7 +174,7 @@ TGen::Texture * TGen::Engine::ResourceManager::getTexture(const std::string & na
 		ilGenImages(1, &imageName);
 		ilBindImage(imageName);*/		// what is this? I commented it out now. looks stoopid.
 	
-		std::string fixedName = TGen::prependPath(name, "textures/");
+		std::string fixedName = name; // TGen::prependPath(name, "textures/");
 		std::string ext = TGen::toUpper(TGen::getExtension(fixedName));
 				
 		logs.info["res"] << "request for '" + fixedName + "'..." << TGen::endl;
@@ -359,8 +359,30 @@ TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & 
 		return material;
 	}
 	
-	logs.warning["res"] << "material '" << name << "' is not loaded, using 'nomat'" << TGen::endl;
 	
+	std::vector<std::string> picExts;
+	picExts.push_back(".jpg");
+	picExts.push_back(".tga");
+	picExts.push_back(".png");
+	
+	for (int i = 0; i < picExts.size(); ++i) {
+		std::string filename = name + picExts[i];
+		
+		if (filesystem.exists(filename)) {
+			logs.warning["res"] << "material '" << name << "' is not loaded, generating material..." << TGen::endl;
+
+			createMaterialForTexture(filename, name);
+		
+			iter = materials.find(name);
+			if (iter != materials.end())
+				return iter->second;
+			
+			break;
+		}
+	}
+	
+	logs.warning["res"] << "material '" << name << "' is not loaded, using 'nomat'" << TGen::endl;
+
 	iter = materials.find("nomat");
 	if (iter != materials.end()) {
 		if (!iter->second->isLinked())
@@ -368,6 +390,7 @@ TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & 
 		
 		return iter->second;
 	}
+	
 	
 	throw TGen::RuntimeException("ResourceManager::getMaterial", "material '" + name + "' is not found and there is no fallback (nomat)!");
 }
@@ -421,6 +444,41 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	}
 	
 	logs.info["res"] << TGen::endl;
+}
+
+void TGen::Engine::ResourceManager::createMaterialForTexture(const std::string & filename, const std::string & name) {
+	std::string code;
+	
+	code += "\nmaterial " + name + " {\n";
+	code += "  pass RENDERER/writeAttributes:COLOR_MAP {\n";
+	code += "    map colorMap \"" + filename + "\"\n";
+	code += "  }\n";
+	code += "}\n";
+	
+	std::list<TGen::Material *> materialsLoaded;
+	loadTGenMaterials(code, materialsLoaded);
+
+	std::cout << "texmat" << std::endl;
+	
+	int i = 0;
+	
+	for (std::list<TGen::Material *>::iterator iter = materialsLoaded.begin(); iter != materialsLoaded.end(); ++iter) {
+		MaterialMap::iterator iter2 = materials.find((*iter)->getName());
+		if (iter2 != materials.end())
+			delete iter2->second;					// the material is already loaded and is deleted
+		
+		(*iter)->setMaximumTechnique(9);			// set default technique setting, TODO: read from setting register
+		(*iter)->link(*this);
+		
+		materials[(*iter)->getName()] = *iter;
+		
+		std::cout << "created '" << (*iter)->getName() << "'" << std::endl;
+		
+		if (i++ > 4) {		// break output line after four material names...
+			logs.info["res"] << "\n";
+			i = 0;
+		}
+	}
 }
 
 void TGen::Engine::ResourceManager::loadTGenMaterials(const std::string & contents, std::list<TGen::Material *> & created) {

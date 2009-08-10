@@ -23,6 +23,7 @@ namespace TGen {
 			std::string parseGlobalBlock();
 			std::string parseMaterial(const std::string & name);
 			std::string parsePass();
+			std::string parseFunction();
 			
 			void stepToken();
 			

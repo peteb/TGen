@@ -20,7 +20,7 @@ TGen::WaveGenerator::WaveGenerator(TGen::WaveType type, scalar base, scalar ampl
 	, frequency(frequency)
 	, startedAt(0.0) 
 {
-
+	phase = phase * frequency;
 }
 
 TGen::Color TGen::WaveGenerator::getColor(double time, float alpha) const {
@@ -30,14 +30,14 @@ TGen::Color TGen::WaveGenerator::getColor(double time, float alpha) const {
 }
 
 scalar TGen::WaveGenerator::getValue(double time) const {
-	scalar x = (time + phase) * frequency;
+	scalar x = (phase) - time * frequency;
 	x -= floor(x);
 	
 	scalar y = 0.0f;
 	
 	switch (type) {
 		case TGen::WaveSine:
-			y = sinf(x * TGen::TWO_PI);
+			y = sin(x * TGen::TWO_PI);
 			break;
 			
 		case TGen::WaveTriangle:
@@ -45,7 +45,7 @@ scalar TGen::WaveGenerator::getValue(double time) const {
 			break;
 			
 		case TGen::WaveSquare:
-			x < 0.5f ? y = 1.0f : y = -1.0f;
+			x < 0.5f ? y = -1.0f : y = 1.0f;
 			break;
 			
 		case TGen::WaveSawtooth:
@@ -61,7 +61,7 @@ scalar TGen::WaveGenerator::getValue(double time) const {
 			break;
 	}
 	
-	return y * amplitude + base;
+	return base + y * amplitude;
 }
 
 TGen::WaveGenerator * TGen::WaveGenerator::clone() {

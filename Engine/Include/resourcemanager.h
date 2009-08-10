@@ -63,6 +63,7 @@ namespace TGen {
 		private:
 			void loadTGenMaterials(const std::string & contents, std::list<TGen::Material *> & created);
 			void loadQ3Materials(const std::string & contents, std::list<TGen::Material *> & created);
+			void createMaterialForTexture(const std::string & filename, const std::string & name);
 			
 			typedef std::map<std::string, TGen::ShaderProgram *> ShaderMap;
 			typedef std::map<std::string, TGen::Texture *> TextureMap;

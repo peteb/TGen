@@ -40,9 +40,13 @@ void TGen::PassTextureUnit::setWrap(const std::string & wrapU, const std::string
 	
 	if (fixedU == "clamp")
 		this->wrapU = TGen::TextureWrapClamp;
+	else if (fixedU == "repeat")
+		this->wrapU = TGen::TextureWrapRepeat;
 	
 	if (fixedV == "clamp")
 		this->wrapV = TGen::TextureWrapClamp;
+	else if (fixedV == "repeat")
+		this->wrapV = TGen::TextureWrapRepeat;
 }
 
 void TGen::PassTextureUnit::setTexCoordGen(const std::string & genU, const std::string & genV) {
