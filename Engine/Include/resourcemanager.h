@@ -61,6 +61,9 @@ namespace TGen {
 			friend class ResourceManagerScript;
 			
 		private:
+			void loadTGenMaterials(const std::string & contents, std::list<TGen::Material *> & created);
+			void loadQ3Materials(const std::string & contents, std::list<TGen::Material *> & created);
+			
 			typedef std::map<std::string, TGen::ShaderProgram *> ShaderMap;
 			typedef std::map<std::string, TGen::Texture *> TextureMap;
 			typedef std::map<std::string, TGen::Mesh *> MeshMap;

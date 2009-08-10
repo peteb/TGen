@@ -9,8 +9,8 @@
 
 #include "q3mapmesh.h"
 
-TGen::Engine::Q3MapMesh::Q3MapMesh()
-	: TGen::NewMesh("nomat", "")
+TGen::Engine::Q3MapMesh::Q3MapMesh(const std::string & material)
+	: TGen::NewMesh(material, "")
 	, vb(NULL)
 {
 }

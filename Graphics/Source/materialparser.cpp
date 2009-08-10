@@ -58,26 +58,32 @@ void TGen::MaterialParser::parseGlobalBlock() {
 			
 			tokens.stepToken(currentToken, endIter);
 			
-			if (currentToken->first == TGen::TokenValueString)
+			if (currentToken->first == TGen::TokenValueString) {
 				specialization = currentToken->second;
+				tokens.stepToken(currentToken, endIter);
+			}
 			else
-				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting string value for specialization!");
+				specialization = "default";
 			
-			tokens.stepToken(currentToken, endIter);
+				//throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting string value for specialization!");
 			
-			if (currentToken->first == TGen::TokenValueNumeric)
+			
+			if (currentToken->first == TGen::TokenValueNumeric) {
 				technique = currentToken->second;
+				tokens.stepToken(currentToken, endIter);
+			}
 			else
-				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting numeric value for technique, not ") << currentToken->second;
+				technique = "9";
+				//	throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting numeric value for technique, not ") << currentToken->second;
 			
 			int techniqueNumber = 0;
 			std::stringstream ss;
 			ss << technique;
 			ss >> techniqueNumber;
 			
-			do {
+			while(currentToken->first == TGen::MaterialTokenEndOfLine) {
 				tokens.stepToken(currentToken, endIter);
-			} while(currentToken->first == TGen::MaterialTokenEndOfLine);
+			} ;
 			
 			if (currentToken->first != TGen::MaterialTokenBlockStart) 
 				throw TGen::RuntimeException("MaterialParser::ParseGlobalBlock", "material: expecting block start, not '" + currentToken->second + "'!");

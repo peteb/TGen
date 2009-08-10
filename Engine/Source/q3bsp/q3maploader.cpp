@@ -84,6 +84,13 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	source.read(reinterpret_cast<char *>(meshVerts), header.entries[11].length);
 
 	
+	int numTextures = header.entries[1].length / sizeof(Texture);
+	Texture * textures = new Texture[numTextures];
+	
+	source.seekReadPos(header.entries[1].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(textures), header.entries[1].length);
+	
+	
 	//exit(33);
 	
 	TGen::Engine::Q3MapModel * newModel = new Q3MapModel("test");
@@ -102,11 +109,16 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	newModel->addMesh(newMesh);
 	*/
 	
+	
+	typedef std::vector<TGen::Engine::Q3MapMesh::VertexDecl::Type> Batch;
+	typedef std::map<std::string, Batch> BatchMap;
+	BatchMap batches;
+	
 	for (int i = 0; i < numFaces; ++i) {
 		Face * face = &faces[i];
 		
-		if (face->type == 3 || face->type == 2) {
-			TGen::Engine::Q3MapMesh * mesh = new Q3MapMesh;
+		if (face->type == 3 || face->type == 1) {
+			//TGen::Engine::Q3MapMesh * mesh = new Q3MapMesh;
 			
 			for (int a = 0; a < face->num_meshverts; ++a) {
 				int fixedA = a;
@@ -124,14 +136,32 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 				TGen::Vector3 pos(vert->position[0], vert->position[1], vert->position[2]);
 				transformer.transform(pos);
 				
-				mesh->addVertex(TGen::Engine::Q3MapMesh::VertexDecl::Type(pos));
+				TGen::Vector2 texcoord(vert->texcoord[0][0], vert->texcoord[0][1]);
 				
+				TGen::Engine::Q3MapMesh::VertexDecl::Type newVertex(pos, texcoord);
+
+				const Texture & texture = textures[face->texture];
+				batches[texture.name].push_back(newVertex);
 			}
-			newModel->addMesh(mesh);
-			
 		}
 	}
 
+	std::cout << "BSP batch sizes" << std::endl;
+	
+	for (BatchMap::iterator iter = batches.begin(); iter != batches.end(); ++iter) {		
+		const BatchMap::value_type & batch = *iter;
+		
+		Q3MapMesh * mesh = new Q3MapMesh(batch.first);
+		
+		std::cout << batch.first << " used: " << batch.second.size() << std::endl;
+		
+		for (int i = 0; i < batch.second.size(); ++i) {
+			mesh->addVertex(batch.second[i]);
+		}
+
+		newModel->addMesh(mesh);
+	}
+	
 	
 	map->addModel(newModel);
 	

@@ -19,6 +19,7 @@
 #include "modelfactory.h"
 #include "variableregister.h"
 #include "resourcemanagerscript.h"
+#include "q3shaderconverter.h"
 
 TGen::Engine::ResourceManager::ResourceManager(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem, TGen::Renderer & renderer, TGen::Engine::VariableRegister & variables) 
 	: logs(logs)
@@ -372,37 +373,11 @@ TGen::Material * TGen::Engine::ResourceManager::getMaterial(const std::string & 
 }
 
 void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) {
-	logs.info["res"] << "loading materials from '" << filename << "'..." << TGen::endl;
+	logs.info["res"] << "loading materials from '" << filename << "', type " << TGen::getExtension(filename) << "..." << TGen::endl;
 	
 	// read file contents
-	std::string contents;
-	
-	TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(filename);
-	contents = file->readAll();
-	
-	
-	// preprocess content
-	TGen::Engine::TextPreprocessor processor; 
-	std::string fixedContents = processor.process(contents, "RENDERER=" + variables["r_renderer"].getValue(), true, false);		
 
 	
-	// setup parser
-	TGen::MaterialParser parser;
-	
-	
-	// add shader permutations for all shader requests except fixed function. ff is undefined, btw
-	parser.addShaderPermutation("", 0);
-	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_AMBIENT | LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
-	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
-	parser.addShaderPermutation("LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_FILTER);
-	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_AMBIENT | LIGHT_FILTER);
-	
-	
-	parser.addShaderPermutation("LIGHT_AMBIENT", LIGHT_AMBIENT);
-
-	
-	
-	// men när man skär ner så här mycket i försvaret skickar det ju signaler att de inte tycker sverige är värt något alls
 	
 	// TODO: mount complete filesystem on map load, mount /map/blabla/*/ as root also
 	//			create function that checks whether a string starts with a string, if it doesn't, return new string with it prepended
@@ -411,7 +386,17 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	
 	std::list<TGen::Material *> materialsLoaded;		// TODO: vector
 	
-	parser.parse(fixedContents.c_str(), materialsLoaded);
+	std::string contents;
+	
+	TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(filename);
+	contents = file->readAll();
+	
+	if (TGen::getExtension(filename) == "shader") {
+		TGen::Engine::Q3ShaderConverter converter;
+		contents = converter.convert(contents);
+	}
+	
+	loadTGenMaterials(contents, materialsLoaded);
 	
 	logs.info["res"] << "loaded " << materialsLoaded.size() << " materials:\n";
 	
@@ -437,6 +422,41 @@ void TGen::Engine::ResourceManager::loadMaterials(const std::string & filename) 
 	
 	logs.info["res"] << TGen::endl;
 }
+
+void TGen::Engine::ResourceManager::loadTGenMaterials(const std::string & contents, std::list<TGen::Material *> & created) {
+
+	
+	
+	// preprocess content
+	TGen::Engine::TextPreprocessor processor; 
+	std::string fixedContents = processor.process(contents, "RENDERER=" + variables["r_renderer"].getValue(), true, false);		
+	
+	
+	// setup parser
+	TGen::MaterialParser parser;
+	
+	
+	// add shader permutations for all shader requests except fixed function. ff is undefined, btw
+	parser.addShaderPermutation("", 0);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_AMBIENT | LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
+	parser.addShaderPermutation("LIGHT_SPOT,SHADOWMAP_SINGLE,LIGHT_FILTER", LIGHT_SPOT | SHADOWMAP | LIGHT_FILTER);
+	parser.addShaderPermutation("LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_FILTER);
+	parser.addShaderPermutation("LIGHT_AMBIENT,LIGHT_SPOT,LIGHT_FILTER", LIGHT_SPOT | LIGHT_AMBIENT | LIGHT_FILTER);
+	
+	
+	parser.addShaderPermutation("LIGHT_AMBIENT", LIGHT_AMBIENT);
+
+	parser.parse(fixedContents.c_str(), created);
+
+}
+
+void TGen::Engine::ResourceManager::loadQ3Materials(const std::string & contents, std::list<TGen::Material *> & created) {
+	TGen::Q3MaterialParser parser;
+	
+	parser.parse(contents.c_str(), created);
+}
+
+
 
 void TGen::Engine::ResourceManager::updateMaterials(scalar time) {	// TODO: this isn't really the place for this...
 	MaterialMap::iterator iter = materials.begin();

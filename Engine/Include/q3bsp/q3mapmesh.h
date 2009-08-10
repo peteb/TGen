@@ -16,10 +16,11 @@ namespace TGen {
 	namespace Engine {
 		class Q3MapMesh : public TGen::NewMesh {
 		public:
-			Q3MapMesh();
+			Q3MapMesh(const std::string & material);
 			
 			typedef TGen::Vertex3<float> Vertex;
-			typedef Vertex VertexDecl;
+			typedef TGen::TexCoord2<float, 0> TexCoord;
+			typedef TGen::JoinVertexElements2<Vertex, TexCoord> VertexDecl;
 			
 			TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source);
 			void render(TGen::Renderer & renderer) const;
