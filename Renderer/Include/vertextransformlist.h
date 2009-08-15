@@ -20,6 +20,7 @@ namespace TGen {
 		~VertexTransformList();
 		
 		void transform(TGen::Vector3 & vector) const;
+		void transform(TGen::Plane3 & plane) const;
 		void addTransformer(TGen::VertexTransformer * transformer);
 		void addTransformerFirst(TGen::VertexTransformer * transformer);
 		

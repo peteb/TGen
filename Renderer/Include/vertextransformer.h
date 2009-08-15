@@ -14,12 +14,14 @@
 
 namespace TGen {
 	class Vector3;
+	class Plane3;
 	
 	class VertexTransformer {
 	public:
 		virtual ~VertexTransformer() {}
 		
 		virtual void transform(TGen::Vector3 & vector) const abstract;
+		virtual void transform(TGen::Plane3 & plane) const abstract;
 		virtual TGen::VertexTransformer * clone() const abstract;
 	};
 	

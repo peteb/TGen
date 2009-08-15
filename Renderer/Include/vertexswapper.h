@@ -24,6 +24,8 @@ namespace TGen {
 		VertexSwapper(const SwapAxes & ax1, const SwapAxes & ax2);
 		
 		void transform(TGen::Vector3 & vector) const;
+		void transform(TGen::Plane3 & plane) const;
+
 		TGen::VertexSwapper * clone() const;
 		
 

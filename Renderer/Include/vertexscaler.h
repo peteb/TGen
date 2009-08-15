@@ -18,6 +18,7 @@ namespace TGen {
 		VertexScaler(scalar scale);
 		
 		void transform(TGen::Vector3 & vector) const;
+		void transform(TGen::Plane3 & plane) const;
 		TGen::VertexScaler * clone() const;
 		
 	private:
