@@ -19,6 +19,10 @@ void TGen::VertexOffsetter::transform(TGen::Vector3 & vector) const {
 	vector += offset;
 }
 
+void TGen::VertexOffsetter::transform(TGen::Plane3 & plane) const {
+	// TODO: hur offsettar man ett plan med en punkt?
+}
+
 TGen::VertexOffsetter * TGen::VertexOffsetter::clone() const {
 	return new TGen::VertexOffsetter(offset);
 }

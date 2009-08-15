@@ -18,6 +18,12 @@ void TGen::VertexMatrixTransformer::transform(TGen::Vector3 & vector) const {
 	vector = matrix * vector;
 }
 
+void TGen::VertexMatrixTransformer::transform(TGen::Plane3 & plane) const {
+	//vector = matrix * vector;
+	plane.normal = matrix * plane.normal;
+	//plane.distance = (matrix * (plane.normal * plane.distance)).getMagnitude();	// TODO: dunno if this works
+}
+
 TGen::VertexMatrixTransformer * TGen::VertexMatrixTransformer::clone() const {
 	return new TGen::VertexMatrixTransformer(matrix);
 }

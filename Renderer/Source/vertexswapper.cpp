@@ -64,6 +64,10 @@ void TGen::VertexSwapper::transform(TGen::Vector3 & vector) const {
 	
 }
 
+void TGen::VertexSwapper::transform(TGen::Plane3 & plane) const {
+	transform(plane.normal);
+}
+
 TGen::VertexSwapper * TGen::VertexSwapper::clone() const {
 	return new TGen::VertexSwapper(ax1, ax2);
 }

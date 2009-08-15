@@ -24,6 +24,11 @@ void TGen::VertexTransformList::transform(TGen::Vector3 & vector) const {
 		transformers[i]->transform(vector);
 }
 
+void TGen::VertexTransformList::transform(TGen::Plane3 & plane) const {
+	for (int i = 0; i < transformers.size(); ++i)
+		transformers[i]->transform(plane);	
+}
+
 void TGen::VertexTransformList::addTransformer(TGen::VertexTransformer * transformer) {
 	transformers.push_back(transformer);
 }

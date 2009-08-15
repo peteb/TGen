@@ -19,6 +19,10 @@ void TGen::VertexScaler::transform(TGen::Vector3 & vector) const {
 	vector = vector * scale;
 }
 
+void TGen::VertexScaler::transform(TGen::Plane3 & plane) const {
+	plane.distance *= scale;
+}
+
 TGen::VertexScaler * TGen::VertexScaler::clone() const {
 	return new TGen::VertexScaler(scale);
 }
