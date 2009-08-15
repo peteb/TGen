@@ -60,96 +60,49 @@ TGen::Engine::Physics::Id4CMGeom * TGen::Engine::Physics::Id4CMLoader::createGeo
 		std::vector<uint> newIndices;
 		
 		getContour(indices, polygons[i]);
+
 		
-
-		/*if (indices.size() == 4) {
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[1]);
-			newIndices.push_back(indices[2]);
-
-
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[2]);
-			newIndices.push_back(indices[3]);
-
-		}
-		else if (indices.size() == 3) {
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[1]);
-			newIndices.push_back(indices[2]);			
-		}
-		else if (indices.size() == 5) {
-			
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[1]);
-			newIndices.push_back(indices[2]);
-
-			newIndices.push_back(indices[2]);
-			newIndices.push_back(indices[3]);
-			newIndices.push_back(indices[4]);
-			
-			newIndices.push_back(indices[4]);
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[2]);
-			
-			
-			
-		}
-		else {*/
-			//exit(1);
-			//std::cerr << "EAR CLIP: " << indices.size() << std::endl;
-			//exit(1);
-			
-		for (int i = 1; i < indices.size() - 1; ++i) {
-
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[i]);
-			newIndices.push_back(indices[i + 1]);			
-			
-		}
-
-		/*for (int i = indices.size() - 1; i > 0; --i) {
-			
-			newIndices.push_back(indices[0]);
-			newIndices.push_back(indices[i]);
-			newIndices.push_back(indices[i - 1]);			
-			
-		}*/
 		
-			// TODO: använd delaunay för triangulering - eller inte, behövs nog inte
-			
-		/*std::cout << "VERT$: " << std::endl;
-		 for (int i = 0; i < 5; ++i)
-		 std::cout << std::string(vertices[indices[i]]) << std::endl;
+		
+		
+		/*for (int i = 1; i < indices.size() - 1; ++i) {		// KASS TRIANGULERINGSKOD FFS
+		 newIndices.push_back(indices[0]);
+		 newIndices.push_back(indices[i]);
+		 newIndices.push_back(indices[i + 1]);
+		 }
 		 */
-		//exit(1);
-
-		/*
-			TGen::Engine::EarClippingTriangulator triangulator;
-			
-			for (int i = 0; i < indices.size(); ++i)
-				triangulator.add(vertices[indices[i]]);
-			
-			
-			triangulator.triangulate(newIndices);
-			
-			for (int i = 0; i < newIndices.size(); ++i)
-				newIndices[i] = indices[newIndices[i]];*/
-		//}
 		
-	//	std::cout << "TRI: " << newIndices.size() << std::endl;
+		
+		
+		/////////////////////////////////////
+		std::list<uint> vertices;
+		
+		for (int i = 0; i < indices.size(); ++i)
+			vertices.push_back(indices[i]);
+		
+		while (vertices.size() > 2) {
+			std::list<uint>::iterator iter = vertices.begin();
+			iter++;
 
+			newIndices.push_back(vertices.back());
+			newIndices.push_back(vertices.front());
+			newIndices.push_back(*iter);
+			
+			vertices.erase(vertices.begin());			
+		}
+			
+		///////////////////////////////////
+		
 		for (int i = 0; i < newIndices.size(); i += 3) {
 			TGen::Engine::Physics::StridedTriangle tri;
-			
-			//std::cout << newIndices[i] << " - " << newIndices[i + 1] << " - " << newIndices[i + 2] << std::endl;
 			
 			tri.indices[2] = newIndices[i + 0];
 			tri.indices[1] = newIndices[i + 1];
 			tri.indices[0] = newIndices[i + 2];
 			
-			newModel->indexData.push_back(tri);			
+			newModel->indexData.push_back(tri);						
 		}
+		
 		
 		numIndices += newIndices.size();				
 	}

@@ -28,6 +28,8 @@ namespace TGen {
 		TGen::Plane3 & normalize();
 		TGen::Plane3 & invert();
 		
+		static TGen::Vector3 Intersect3Planes(const TGen::Plane3 & p1, const TGen::Plane3 & p2, const TGen::Plane3 & p3, bool & succeded);
+		
 		operator std::string() const;
 		
 		TGen::Vector3 normal;

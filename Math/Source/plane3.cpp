@@ -101,3 +101,22 @@ TGen::Plane3::operator std::string() const {
 	return ss.str();
 }
 
+TGen::Vector3 TGen::Plane3::Intersect3Planes(const TGen::Plane3 & p1, const TGen::Plane3 & p2, const TGen::Plane3 & p3, bool & succeded) {
+	TGen::Vector3 ret;
+	
+	float divisor = TGen::Vector3::DotProduct(p1.normal, TGen::Vector3::CrossProduct(p2.normal, p3.normal));
+	
+	if (divisor == 0.0f) {
+		succeded = false;
+		return ret;
+	}
+	
+	TGen::Vector3 divident = TGen::Vector3::CrossProduct(p2.normal, p3.normal) * p1.distance + 
+										TGen::Vector3::CrossProduct(p3.normal, p1.normal) * p2.distance + 
+										TGen::Vector3::CrossProduct(p1.normal, p2.normal) * p3.distance;
+	
+	succeded = true;
+	
+	return divident / divisor;	
+}
+

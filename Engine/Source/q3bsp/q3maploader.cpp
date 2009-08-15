@@ -16,7 +16,7 @@
 #include "filesystem.h"
 #include "file.h"
 #include "log.h"
-
+#include "q3bsp/q3bsp.h"
 
 TGen::Engine::Q3MapLoader::Q3MapLoader(TGen::Engine::StandardLogs & logs)
 	: logs(logs)
@@ -28,94 +28,20 @@ TGen::Engine::Q3MapLoader::Q3MapLoader(TGen::Engine::StandardLogs & logs)
 TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & name, TGen::InputStream & source, const TGen::VertexTransformer & transformer) {
 	TGen::auto_ptr<TGen::Engine::Q3Map> map = new TGen::Engine::Q3Map(name);
 		
-	Header header;
+	TGen::Engine::Q3BspFile bsp;
+	
+	loadBspFile(source, bsp);
 
-	source.read(reinterpret_cast<char *>(&header), sizeof(header));
-	
-	if (header.magic[0] != 'I' || header.magic[1] != 'B' || header.magic[2] != 'S' || header.magic[3] != 'P')
-		throw TGen::RuntimeException("Q3MapLoader::createMap", "Invalid magic: ") << header.magic[0] << header.magic[1] << header.magic[2] << header.magic[3];
-
-	logs.info["bsp3"] << "version: " << std::hex << header.version << TGen::endl;
-
-	if (header.version != 0x2E)
-		logs.warning["bsp3"] << "version is not quake 3!" << TGen::endl;
-
-	
-	
-	int numModels = header.entries[7].length / sizeof(Model);
-	Model * models = new Model[numModels];
-	
-	
-	source.seekReadPos(header.entries[7].offset, TGen::beg);
-	source.read(reinterpret_cast<char *>(models), header.entries[7].length);
-	
-	std::cout << "[bsp]: " << numModels << " models: " << std::endl;
-		
-	for (int i = 0; i < numModels; ++i) {
-		std::cout << "       " << i << ": BB min: (" << models[i].bbmin[0] << ", " << models[i].bbmin[1] << ", " << models[i].bbmin[2];
-		std::cout << ") BB max: (" << models[i].bbmax[0] << ", " << models[i].bbmax[1] << ", " << models[i].bbmax[2];
-		std::cout << ") face: " << models[i].face << " numfaces: " << models[i].num_faces << " brush: " << models[i].brush << " numbrushes: " << models[i].num_brushes << std::endl;
-	}		
-	
-	
-	
-	
-	int numFaces = header.entries[13].length / sizeof(Face);
-	Face * faces = new Face[numFaces];
-	
-	source.seekReadPos(header.entries[13].offset, TGen::beg);
-	source.read(reinterpret_cast<char *>(faces), header.entries[13].length);
-
-	
-	
-	
-	int numVertices = header.entries[10].length / sizeof(Vertex);
-	Vertex * vertices = new Vertex[numVertices];
-	
-	source.seekReadPos(header.entries[10].offset, TGen::beg);
-	source.read(reinterpret_cast<char *>(vertices), header.entries[10].length);
-
-	
-	
-	int numMeshVerts = header.entries[11].length / sizeof(int);
-	int * meshVerts = new int[numMeshVerts];
-	
-	source.seekReadPos(header.entries[11].offset, TGen::beg);
-	source.read(reinterpret_cast<char *>(meshVerts), header.entries[11].length);
-
-	
-	int numTextures = header.entries[1].length / sizeof(Texture);
-	Texture * textures = new Texture[numTextures];
-	
-	source.seekReadPos(header.entries[1].offset, TGen::beg);
-	source.read(reinterpret_cast<char *>(textures), header.entries[1].length);
-	
-	
-	//exit(33);
 	
 	TGen::Engine::Q3MapModel * newModel = new Q3MapModel("test");
-	/*TGen::Engine::Q3MapMesh * newMesh = new Q3MapMesh;
-		
-	for (int i = 0; i < numVertices; ++i) {
-		Vertex * vert = &vertices[i];
-		
-		TGen::Vector3 pos(vert->position[0], vert->position[1], vert->position[2]);
-		transformer.transform(pos);
-		
-		newMesh->addVertex(TGen::Engine::Q3MapMesh::VertexDecl::Type(pos));
-	}
-	
-	
-	newModel->addMesh(newMesh);
-	*/
-	
+
 	
 	typedef std::vector<TGen::Engine::Q3MapMesh::VertexDecl::Type> Batch;
 	typedef std::map<std::string, Batch> BatchMap;
 	BatchMap batches;
 	
-	for (int i = 0; i < numFaces; ++i) {
-		Face * face = &faces[i];
+	for (int i = 0; i < bsp.numFaces; ++i) {
+		Q3Bsp::Face * face = &bsp.faces[i];
 		
 		if (face->type == 3 || face->type == 1) {
 			//TGen::Engine::Q3MapMesh * mesh = new Q3MapMesh;
@@ -130,8 +56,8 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 				else
 					fixedA = a - 2;
 				
-				int offset = meshVerts[fixedA + face->meshvert] + face->vertex;
-				Vertex * vert = &vertices[offset];
+				int offset = bsp.meshverts[fixedA + face->meshvert].offset + face->vertex;
+				Q3Bsp::Vertex * vert = &bsp.vertices[offset];
 				
 				TGen::Vector3 pos(vert->position[0], vert->position[1], vert->position[2]);
 				transformer.transform(pos);
@@ -140,7 +66,7 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 				
 				TGen::Engine::Q3MapMesh::VertexDecl::Type newVertex(pos, texcoord);
 
-				const Texture & texture = textures[face->texture];
+				const Q3Bsp::Texture & texture = bsp.textures[face->texture];
 				batches[texture.name].push_back(newVertex);
 			}
 		}
@@ -167,3 +93,52 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	
 	return map.release();
 }
+
+void TGen::Engine::Q3MapLoader::loadBspFile(TGen::InputStream & source, TGen::Engine::Q3BspFile & file) {
+	source.read(reinterpret_cast<char *>(&file.header), sizeof(file.header));
+	
+	if (file.header.magic[0] != 'I' || file.header.magic[1] != 'B' || file.header.magic[2] != 'S' || file.header.magic[3] != 'P')
+		throw TGen::RuntimeException("Q3MapLoader::createMap", "Invalid magic: ") << file.header.magic[0] << file.header.magic[1] << file.header.magic[2] << file.header.magic[3];
+	
+	logs.info["bsp3"] << "version: " << std::hex << file.header.version << TGen::endl;
+	
+	if (file.header.version != 0x2E)
+		logs.warning["bsp3"] << "version is not quake 3!" << TGen::endl;
+	
+	
+	
+	file.numModels = file.header.entries[Q3Bsp::LumpModels].length / sizeof(Q3Bsp::Model);
+	file.models = new Q3Bsp::Model[file.numModels];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpModels].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.models), file.header.entries[Q3Bsp::LumpModels].length);
+	
+	
+	file.numFaces = file.header.entries[Q3Bsp::LumpFaces].length / sizeof(Q3Bsp::Face);
+	file.faces = new Q3Bsp::Face[file.numFaces];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpFaces].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.faces), file.header.entries[Q3Bsp::LumpFaces].length);
+	
+	
+	file.numVertices = file.header.entries[Q3Bsp::LumpVertices].length / sizeof(Q3Bsp::Vertex);
+	file.vertices = new Q3Bsp::Vertex[file.numVertices];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpVertices].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.vertices), file.header.entries[Q3Bsp::LumpVertices].length);
+	
+	
+	file.numMeshverts = file.header.entries[Q3Bsp::LumpMeshverts].length / sizeof(Q3Bsp::Meshvert);
+	file.meshverts = new Q3Bsp::Meshvert[file.numMeshverts];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpMeshverts].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.meshverts), file.header.entries[Q3Bsp::LumpMeshverts].length);
+	
+	
+	file.numTextures = file.header.entries[Q3Bsp::LumpTextures].length / sizeof(Q3Bsp::Texture);
+	file.textures = new Q3Bsp::Texture[file.numTextures];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpTextures].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.textures), file.header.entries[Q3Bsp::LumpTextures].length);
+}
+

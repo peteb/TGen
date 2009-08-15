@@ -145,7 +145,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 	TGen::Camera * camera = new TGen::Camera(properties.getProperty("globalName", name), 
 														  TGen::Vector3::Parse(properties.getProperty("origin", properties.getProperty("position", "0 0 0"))), 
 														  TGen::Rotation::Identity);
-	camera->setClip(0.1f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
+	camera->setClip(TGen::lexical_cast<float>(properties.getProperty("clipNear", "0.1")), TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setLod(0.0f, TGen::lexical_cast<float>(properties.getProperty("range", "300")));
 	camera->setFov(TGen::lexical_cast<float>(properties.getProperty("fov", "80")));
 	
@@ -154,7 +154,7 @@ TGen::SceneNode * TGen::Engine::Scene::Subsystem::createCameraNode(const std::st
 	
 	camera->setOrientation(rotation);
 	camera->update(0.0f);
-	
+
 	return camera;
 }
 
