@@ -19,6 +19,7 @@ namespace TGen {
 		VertexMatrixTransformer(const TGen::Matrix4x4 & matrix);
 		
 		void transform(TGen::Vector3 & vector) const;
+		void transform(TGen::Plane3 & Plane3) const;
 		TGen::VertexMatrixTransformer * clone() const;
 	
 	private:
