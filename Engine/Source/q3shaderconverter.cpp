@@ -95,18 +95,55 @@ std::string TGen::Engine::Q3ShaderConverter::parsePass() {
 			stepToken();
 			std::string source = TGen::toLower(currentToken->second);
 			stepToken();
-			std::string dest = TGen::toLower(currentToken->second);
 			
-			if (source == "gl_one" && dest == "gl_one")
-				ret += "\t\tblendFunc additive\n";
-			
+			if (source == "blend") {
+				ret += "\t\tblendFunc blend\n";
+			}
+			else {
+				std::string dest = TGen::toLower(currentToken->second);
+				
+				if (source == "gl_one" && dest == "gl_one") {
+					ret += "\t\tblendFunc additive\n";
+				}
+				else {
+					source = ConvertBlendComponent(source);
+					dest = ConvertBlendComponent(dest);
+					
+					if (!source.empty() && !dest.empty())
+						ret += "\t\tblendFunc " + source + " " + dest + "\n";
+					
+				}
+			}
 		}
 		else if (param == "tcmod") {
 			stepToken();
 			std::string type = currentToken->second;
 			stepToken();
 			
-			mapParams.push_back(type + " " + parseFunction());
+			if (TGen::toLower(type) != "stretch") {
+				std::string first, second;
+				
+				if (currentToken->second != "wave") {
+					first = currentToken->second;
+					stepToken();
+				}
+				else {
+					first = parseFunction();
+				}
+
+				if (currentToken->second != "wave") {
+					second = currentToken->second;
+					stepToken();
+				}
+				else {
+					second = parseFunction();
+				}
+				
+				mapParams.push_back(type + " " + first + " " + second);
+			}
+			else {
+				mapParams.push_back(type + " " + parseFunction());
+			}
 		}
 		else if (param == "rgbgen") {
 			stepToken();
@@ -114,7 +151,17 @@ std::string TGen::Engine::Q3ShaderConverter::parsePass() {
 			stepToken();
 			
 			if (value == "wave")
-				ret += "\t\tcolor " + parseFunction();
+				ret += "\t\tcolor " + parseFunction() + "\n";
+			//else 
+			//	ret += "\t\tcolor " + value + "\n";
+		}
+		else if (param == "alphagen") {
+			stepToken();
+			std::string value = currentToken->second;
+			stepToken();
+			
+			if (value == "wave")
+				ret += "\t\talpha " + parseFunction() + "\n";			
 		}
 		else if (currentToken->first == TGen::Q3MaterialTokenBlockEnd) {
 			stepToken();
@@ -144,6 +191,12 @@ std::string TGen::Engine::Q3ShaderConverter::parsePass() {
 	ret += "\t}\n";
 	
 	return ret;
+}
+
+std::string TGen::Engine::Q3ShaderConverter::ConvertBlendComponent(const std::string & comp) {
+	//std::string fixed = TGen::toLower(comp);
+
+	return comp;
 }
 
 std::string TGen::Engine::Q3ShaderConverter::parseFunction() {

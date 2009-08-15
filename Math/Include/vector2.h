@@ -46,8 +46,10 @@ namespace TGen {
 		static scalar DotProduct(const TGen::Vector2 & v1, const TGen::Vector2 & v2) throw();
 		static TGen::Vector2 CrossProduct(const TGen::Vector2 & v1, const TGen::Vector2 & v2) throw();
 		static TGen::Vector2 Identity;
+		static TGen::Vector2 Zero;
 		static TGen::Vector2 Parse(const std::string & text);
-		
+
+
 		scalar x, y;
 	}; // !Vector2
 	

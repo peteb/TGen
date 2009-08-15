@@ -49,11 +49,11 @@ scalar TGen::WaveGenerator::getValue(double time) const {
 			break;
 			
 		case TGen::WaveSawtooth:
-			y = x;
+			y = 1.0f - x;
 			break;
 			
 		case TGen::WaveInverseSawtooth:
-			y = 1.0f - x;
+			y = x;
 			break;
 			
 		case TGen::WaveConst:

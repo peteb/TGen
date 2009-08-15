@@ -66,6 +66,7 @@ namespace TGen {
 		static TGen::Vector3 Parse(const std::string & text);
 		static TGen::Vector3 Min(const TGen::Vector3 & v1, const TGen::Vector3 & v2);
 		static TGen::Vector3 Max(const TGen::Vector3 & v1, const TGen::Vector3 & v2);
+		static float SignedAngle(const TGen::Vector3 & v1, const TGen::Vector3 & v2, const TGen::Vector3 & reference);
 		
 		static TGen::Vector3 Identity;
 		static TGen::Vector3 Zero;

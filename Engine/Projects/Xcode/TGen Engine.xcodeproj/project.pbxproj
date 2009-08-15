@@ -145,6 +145,8 @@
 		D0B398D50F8FF0E30076ED80 /* scriptppc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B398D40F8FF0E30076ED80 /* scriptppc.cpp */; };
 		D0B649A10CE696F500B93A85 /* resourcemanager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0B649A00CE696F500B93A85 /* resourcemanager.cpp */; };
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
+		D0C1FCCE1036F4980090FF40 /* polyutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C1FCCD1036F4980090FF40 /* polyutils.cpp */; };
+		D0C1FD2A1036F8670090FF40 /* brush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C1FD291036F8670090FF40 /* brush.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
 		D0C34F220DD3A66D0061F213 /* mapportal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C34F210DD3A66D0061F213 /* mapportal.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
@@ -569,6 +571,10 @@
 		D0B649A20CE6970300B93A85 /* resourcemanager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = resourcemanager.h; path = ../../Include/resourcemanager.h; sourceTree = SOURCE_ROOT; };
 		D0BDFD0A0CF0BF0A00A3A3C7 /* lightlist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lightlist.h; path = ../Include/renderer/lightlist.h; sourceTree = "<group>"; };
 		D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = lightlist.cpp; path = renderer/lightlist.cpp; sourceTree = "<group>"; };
+		D0C1FCCC1036F48D0090FF40 /* polyutils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = polyutils.h; path = ../../Include/polyutils.h; sourceTree = SOURCE_ROOT; };
+		D0C1FCCD1036F4980090FF40 /* polyutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = polyutils.cpp; sourceTree = "<group>"; };
+		D0C1FD281036F8600090FF40 /* brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brush.h; path = ../../Include/brush.h; sourceTree = SOURCE_ROOT; };
+		D0C1FD291036F8670090FF40 /* brush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = brush.cpp; sourceTree = "<group>"; };
 		D0C2CC7C0D95A36600047CD7 /* rendererfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendererfactory.h; path = ../../Include/renderer/rendererfactory.h; sourceTree = SOURCE_ROOT; };
 		D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rendererfactory.cpp; path = renderer/rendererfactory.cpp; sourceTree = "<group>"; };
 		D0C34F200DD3A6630061F213 /* mapportal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapportal.h; path = ../../Include/mapportal.h; sourceTree = SOURCE_ROOT; };
@@ -809,6 +815,10 @@
 				D07147A60D68592100842110 /* metacreator.h */,
 				D0198175103034FE003A5CFF /* q3shaderconverter.cpp */,
 				D0198174103034F5003A5CFF /* q3shaderconverter.h */,
+				D0C1FCCD1036F4980090FF40 /* polyutils.cpp */,
+				D0C1FCCC1036F48D0090FF40 /* polyutils.h */,
+				D0C1FD291036F8670090FF40 /* brush.cpp */,
+				D0C1FD281036F8600090FF40 /* brush.h */,
 			);
 			name = data;
 			sourceTree = "<group>";
@@ -1702,6 +1712,8 @@
 				D046EBA6101E5D8B00CCCCC3 /* q3mapmodel.cpp in Sources */,
 				D0198176103034FE003A5CFF /* q3shaderconverter.cpp in Sources */,
 				D0ADD4DE1036C3BF003EBE9E /* q3bsp.cpp in Sources */,
+				D0C1FCCE1036F4980090FF40 /* polyutils.cpp in Sources */,
+				D0C1FD2A1036F8670090FF40 /* brush.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

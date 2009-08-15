@@ -15,6 +15,7 @@
 using TGen::scalar;
 
 TGen::Vector2 TGen::Vector2::Identity(1.0f, 1.0f);
+TGen::Vector2 TGen::Vector2::Zero(0.0f, 0.0f);
 
 TGen::Vector2::Vector2(const TGen::Vector2 & vector) throw() 
 	: x(vector.x)

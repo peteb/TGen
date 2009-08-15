@@ -17,6 +17,7 @@
 #include "file.h"
 #include "log.h"
 #include "q3bsp/q3bsp.h"
+#include "brush.h"
 
 TGen::Engine::Q3MapLoader::Q3MapLoader(TGen::Engine::StandardLogs & logs)
 	: logs(logs)
@@ -33,10 +34,55 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	loadBspFile(source, bsp);
 
 	
-	TGen::Engine::Q3MapModel * newModel = new Q3MapModel("test");
+	TGen::auto_ptr<TGen::Engine::Q3MapModel> newModel = new Q3MapModel(name);
 
 	
-	typedef std::vector<TGen::Engine::Q3MapMesh::VertexDecl::Type> Batch;
+	
+	
+	
+	
+	for (int i = 0; i < bsp.numBrushes; ++i) {
+		
+		const Q3Bsp::Brush & q3Brush = bsp.brushes[i];
+
+		Q3MapMesh * mesh = new Q3MapMesh(bsp.textures[q3Brush.texture].name);
+
+		std::vector<TGen::Plane3> brushPlanes;
+		
+		for (int i = 0; i < q3Brush.n_brushsides; ++i) {
+			const Q3Bsp::Brushside & q3Brushside = bsp.brushsides[q3Brush.brushside + i];
+			const Q3Bsp::Plane & q3Plane = bsp.planes[q3Brushside.plane];
+			
+			TGen::Plane3 newPlane(TGen::Vector3(q3Plane.normal[0], q3Plane.normal[1], q3Plane.normal[2]), q3Plane.dist);
+			transformer.transform(newPlane);
+			
+			brushPlanes.push_back(newPlane);
+		}
+		
+		// brushPlanes = fixed planes
+		
+		for (int i = 0; i < brushPlanes.size(); ++i) {
+			std::vector<TGen::Vector3> sideTris = TGen::Engine::TriangulateBrushside(brushPlanes, i);
+			
+			for (int i = 0; i < sideTris.size(); ++i) {
+				Q3MapMesh::VertexDecl::Type vertex(sideTris[i], TGen::Vector2(sideTris[i].x, sideTris[i].y));
+				mesh->addVertex(vertex);
+			}
+		}
+
+		newModel->addMesh(mesh);
+
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	/*typedef std::vector<TGen::Engine::Q3MapMesh::VertexDecl::Type> Batch;
 	typedef std::map<std::string, Batch> BatchMap;
 	BatchMap batches;
 	
@@ -86,10 +132,11 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 		}
 
 		newModel->addMesh(mesh);
-	}
+	}*/
 	
 	
-	map->addModel(newModel);
+	
+	map->addModel(newModel.release());
 	
 	return map.release();
 }
@@ -133,6 +180,28 @@ void TGen::Engine::Q3MapLoader::loadBspFile(TGen::InputStream & source, TGen::En
 	
 	source.seekReadPos(file.header.entries[Q3Bsp::LumpMeshverts].offset, TGen::beg);
 	source.read(reinterpret_cast<char *>(file.meshverts), file.header.entries[Q3Bsp::LumpMeshverts].length);
+
+	
+	file.numBrushes = file.header.entries[Q3Bsp::LumpBrushes].length / sizeof(Q3Bsp::Brush);
+	file.brushes = new Q3Bsp::Brush[file.numBrushes];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpBrushes].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.brushes), file.header.entries[Q3Bsp::LumpBrushes].length);
+
+	
+	file.numBrushsides = file.header.entries[Q3Bsp::LumpBrushsides].length / sizeof(Q3Bsp::Brushside);
+	file.brushsides = new Q3Bsp::Brushside[file.numBrushsides];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpBrushsides].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.brushsides), file.header.entries[Q3Bsp::LumpBrushsides].length);
+
+	
+	file.numPlanes = file.header.entries[Q3Bsp::LumpPlanes].length / sizeof(Q3Bsp::Plane);
+	file.planes = new Q3Bsp::Plane[file.numPlanes];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpPlanes].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.planes), file.header.entries[Q3Bsp::LumpPlanes].length);
+	
 	
 	
 	file.numTextures = file.header.entries[Q3Bsp::LumpTextures].length / sizeof(Q3Bsp::Texture);

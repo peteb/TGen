@@ -10,6 +10,8 @@
 #ifndef _TGEN_ENGINE_Q3BSP_Q3BSP_H
 #define _TGEN_ENGINE_Q3BSP_Q3BSP_H
 
+#include <iostream>
+
 namespace TGen {
 	namespace Engine {
 		namespace Q3Bsp {
@@ -25,6 +27,8 @@ namespace TGen {
 				LumpLeaves = 4,
 				LumpLeafFaces = 5,
 				LumpEntities = 0,
+				LumpBrushes = 8,
+				LumpBrushsides = 9,
 			};
 			
 			enum FaceType {
@@ -107,6 +111,17 @@ namespace TGen {
 				int face;
 			};
 			
+			struct Brush {
+				int brushside;
+				int n_brushsides;
+				int texture;
+			};
+			
+			struct Brushside {
+				int plane;
+				int texture;
+			};
+			
 			struct Header {
 				char magic[4];
 				int version;
@@ -125,6 +140,8 @@ namespace TGen {
 				leafFaces = NULL;
 				models = NULL;
 				textures = NULL;
+				brushes = NULL;
+				brushsides = NULL;
 			}
 			
 			~Q3BspFile() {
@@ -137,6 +154,8 @@ namespace TGen {
 				delete [] leafFaces;
 				delete [] models;
 				delete [] textures;
+				delete [] brushes;
+				delete [] brushsides;
 			}
 			
 			Q3Bsp::Header header;
@@ -149,7 +168,11 @@ namespace TGen {
 			Q3Bsp::LeafFace * leafFaces;
 			Q3Bsp::Model * models;
 			Q3Bsp::Texture * textures;
+			Q3Bsp::Brush * brushes;
+			Q3Bsp::Brushside * brushsides;
 			
+			int numBrushes;
+			int numBrushsides;
 			int numTextures;
 			int numModels;
 			int numFaces;

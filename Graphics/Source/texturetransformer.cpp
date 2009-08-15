@@ -83,8 +83,8 @@ void TGen::TextureTranslate::applyTransform(TGen::Matrix4x4 & matrix, scalar tim
 			fixedV = genV->getValue(time);				
 		
 		
-		//	fixedU = fixedU - floor(fixedU);		// fix range
-		//		fixedV = fixedV - floor(fixedV);
+		fixedU = fixedU - floor(fixedU);		// fix range
+		fixedV = fixedV - floor(fixedV);
 		
 		matrix *= TGen::Matrix4x4::Translation(TGen::Vector2(-fixedU, fixedV));
 	}

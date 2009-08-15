@@ -186,5 +186,11 @@ TGen::Vector3 TGen::Vector3::Max(const TGen::Vector3 & v1, const TGen::Vector3 &
 	return ret;	
 }
 
+float TGen::Vector3::SignedAngle(const TGen::Vector3 & v1, const TGen::Vector3 & v2, const TGen::Vector3 & reference) {
+	TGen::Vector3 c = TGen::Vector3::CrossProduct(v1, v2);
+	float angle = std::atan2(double(c.getMagnitude()), double(TGen::Vector3::DotProduct(v1, v2)));
+	
+	return TGen::Vector3::DotProduct(c, reference) < float(0) ? -angle : angle;	
+}
 
 

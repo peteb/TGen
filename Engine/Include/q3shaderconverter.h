@@ -25,6 +25,8 @@ namespace TGen {
 			std::string parsePass();
 			std::string parseFunction();
 			
+			static std::string ConvertBlendComponent(const std::string & comp);
+			
 			void stepToken();
 			
 			TGen::TokenStream tokens;
