@@ -19,6 +19,7 @@ namespace TGen {
 		VertexOffsetter(const TGen::Vector3 & offset);
 		
 		void transform(TGen::Vector3 & vector) const;
+		void transform(TGen::Plane3 & Plane3) const;
 		TGen::VertexOffsetter * clone() const;
 		
 	private:
