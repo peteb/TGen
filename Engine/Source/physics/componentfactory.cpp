@@ -19,6 +19,9 @@
 #include "physics/meshgeom.h"
 #include "physics/id4cmgeom.h"
 #include "physics/id4cmloader.h"
+#include "physics/id3cmloader.h"
+#include "physics/id3cmgeom.h"
+
 #include "physics/geomrecipe.h"
 #include "physics/bodyrecipe.h"
 #include "physics/geomscript.h"
@@ -243,9 +246,23 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 		
 		newGeom.reset(loader.createGeom(name, line.getName(), transformers, mainSpace));
 	}
+	else if (geomType == "id3cm") {
+		TGen::Engine::Physics::Id3CMLoader loader(filesystem);
+		TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
+		TGen::Engine::TransformerFactory transFactory;
+		
+		TGen::VertexTransformList transformers;
+		transformers.addTransformer(transFactory.createTransformers(line));
+		
+		newGeom.reset(loader.createGeom(name, line.getName(), transformers, mainSpace));
+		
+	}
 	else {
 		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
 	}
+	
+	if (!newGeom.get())
+		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "failed to create geom of type '" + geomType + "'!");
 	
 	newGeom->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
 	newGeom->setLink(properties.getProperty("link", ""));

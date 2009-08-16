@@ -20,7 +20,10 @@ namespace TGen {
 			
 			typedef TGen::Vertex3<float> Vertex;
 			typedef TGen::TexCoord2<float, 0> TexCoord;
-			typedef TGen::JoinVertexElements2<Vertex, TexCoord> VertexDecl;
+			typedef TGen::TexCoord2<float, 1> LightCoord;
+			typedef TGen::Color3<float> Color;
+			
+			typedef TGen::JoinVertexElements4<Vertex, TexCoord, LightCoord, Color> VertexDecl;
 			
 			TGen::NewMeshInstance * instantiate(TGen::VertexDataSource & source);
 			void render(TGen::Renderer & renderer) const;

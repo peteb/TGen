@@ -59,7 +59,7 @@ void TGen::Engine::ForwardRenderer::renderWorld(TGen::Engine::World & world, TGe
 	
 	renderList.setShaderMode(0);
 	
-	//renderDepth(renderList, camera);
+	renderDepth(renderList, camera);
 
 	
 	/*renderList.setShaderMode(0);
@@ -656,7 +656,7 @@ void TGen::Engine::ForwardRenderer::overrideMaterial(TGen::Renderer & renderer, 
 	else if (currentPass == AmbientPass) {
 		renderer.setColorWrite(true);
 		renderer.setDepthWrite(true);
-		//renderer.setDepthFunc(TGen::CompareEqual);
+		renderer.setDepthFunc(TGen::CompareEqual);
 	}
 	else if (currentPass == LightPass) {
 		renderer.setColorWrite(true);

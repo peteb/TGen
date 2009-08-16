@@ -147,6 +147,8 @@
 		D0BDFD0C0CF0BF7600A3A3C7 /* lightlist.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0BDFD0B0CF0BF7600A3A3C7 /* lightlist.cpp */; };
 		D0C1FCCE1036F4980090FF40 /* polyutils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C1FCCD1036F4980090FF40 /* polyutils.cpp */; };
 		D0C1FD2A1036F8670090FF40 /* brush.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C1FD291036F8670090FF40 /* brush.cpp */; };
+		D0C1FFBF10370E8D0090FF40 /* id3cmgeom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C1FFBE10370E8D0090FF40 /* id3cmgeom.cpp */; };
+		D0C1FFCD10370ED40090FF40 /* id3cmloader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C1FFCC10370ED40090FF40 /* id3cmloader.cpp */; };
 		D0C2CC7E0D95A38200047CD7 /* rendererfactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */; };
 		D0C34F220DD3A66D0061F213 /* mapportal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0C34F210DD3A66D0061F213 /* mapportal.cpp */; };
 		D0CC7A5D0CF9D1E6003EE092 /* preprocessor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0CC7A5C0CF9D1E6003EE092 /* preprocessor.cpp */; };
@@ -575,6 +577,10 @@
 		D0C1FCCD1036F4980090FF40 /* polyutils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = polyutils.cpp; sourceTree = "<group>"; };
 		D0C1FD281036F8600090FF40 /* brush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = brush.h; path = ../../Include/brush.h; sourceTree = SOURCE_ROOT; };
 		D0C1FD291036F8670090FF40 /* brush.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = brush.cpp; sourceTree = "<group>"; };
+		D0C1FFBD10370E820090FF40 /* id3cmgeom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id3cmgeom.h; path = ../../Include/physics/id3cmgeom.h; sourceTree = SOURCE_ROOT; };
+		D0C1FFBE10370E8D0090FF40 /* id3cmgeom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id3cmgeom.cpp; path = physics/id3cmgeom.cpp; sourceTree = "<group>"; };
+		D0C1FFCB10370EC80090FF40 /* id3cmloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = id3cmloader.h; path = ../../Include/physics/id3cmloader.h; sourceTree = SOURCE_ROOT; };
+		D0C1FFCC10370ED40090FF40 /* id3cmloader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = id3cmloader.cpp; path = physics/id3cmloader.cpp; sourceTree = "<group>"; };
 		D0C2CC7C0D95A36600047CD7 /* rendererfactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rendererfactory.h; path = ../../Include/renderer/rendererfactory.h; sourceTree = SOURCE_ROOT; };
 		D0C2CC7D0D95A38200047CD7 /* rendererfactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = rendererfactory.cpp; path = renderer/rendererfactory.cpp; sourceTree = "<group>"; };
 		D0C34F200DD3A6630061F213 /* mapportal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mapportal.h; path = ../../Include/mapportal.h; sourceTree = SOURCE_ROOT; };
@@ -1253,6 +1259,7 @@
 				D07BB80C0DCA66F7006A8A53 /* bipedalgeom.cpp */,
 				D07BB80B0DCA66E2006A8A53 /* bipedalgeom.h */,
 				D090A96D0E1516AD0045AF15 /* id4cm */,
+				D0C1FFAD10370DDF0090FF40 /* id3cm */,
 			);
 			name = geoms;
 			sourceTree = "<group>";
@@ -1276,6 +1283,17 @@
 				D093321E0D79FFC30046DC37 /* physics */,
 			);
 			name = subsystems;
+			sourceTree = "<group>";
+		};
+		D0C1FFAD10370DDF0090FF40 /* id3cm */ = {
+			isa = PBXGroup;
+			children = (
+				D0C1FFBE10370E8D0090FF40 /* id3cmgeom.cpp */,
+				D0C1FFBD10370E820090FF40 /* id3cmgeom.h */,
+				D0C1FFCC10370ED40090FF40 /* id3cmloader.cpp */,
+				D0C1FFCB10370EC80090FF40 /* id3cmloader.h */,
+			);
+			name = id3cm;
 			sourceTree = "<group>";
 		};
 		D0E457D00D90696300F4D548 /* scene */ = {
@@ -1714,6 +1732,8 @@
 				D0ADD4DE1036C3BF003EBE9E /* q3bsp.cpp in Sources */,
 				D0C1FCCE1036F4980090FF40 /* polyutils.cpp in Sources */,
 				D0C1FD2A1036F8670090FF40 /* brush.cpp in Sources */,
+				D0C1FFBF10370E8D0090FF40 /* id3cmgeom.cpp in Sources */,
+				D0C1FFCD10370ED40090FF40 /* id3cmloader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

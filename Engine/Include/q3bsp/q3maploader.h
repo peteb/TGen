@@ -29,9 +29,9 @@ namespace TGen {
 			
 			
 			
+			static void LoadBspFile(TGen::InputStream & source, TGen::Engine::Q3BspFile & file);
 			
 		private:
-			void loadBspFile(TGen::InputStream & source, TGen::Engine::Q3BspFile & file);
 			
 			TGen::Engine::StandardLogs & logs;
 		};

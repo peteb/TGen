@@ -29,6 +29,7 @@ namespace TGen {
 				LumpEntities = 0,
 				LumpBrushes = 8,
 				LumpBrushsides = 9,
+				LumpLightmaps = 14,
 			};
 			
 			enum FaceType {
@@ -56,6 +57,10 @@ namespace TGen {
 			
 			struct DirectoryEntry {
 				int offset, length;
+			};
+			
+			struct Lightmap {
+				unsigned char map[128][128][3];
 			};
 			
 			struct Face {
@@ -142,6 +147,7 @@ namespace TGen {
 				textures = NULL;
 				brushes = NULL;
 				brushsides = NULL;
+				lightmaps = NULL;
 			}
 			
 			~Q3BspFile() {
@@ -156,6 +162,7 @@ namespace TGen {
 				delete [] textures;
 				delete [] brushes;
 				delete [] brushsides;
+				delete [] lightmaps;
 			}
 			
 			Q3Bsp::Header header;
@@ -170,7 +177,9 @@ namespace TGen {
 			Q3Bsp::Texture * textures;
 			Q3Bsp::Brush * brushes;
 			Q3Bsp::Brushside * brushsides;
+			Q3Bsp::Lightmap * lightmaps;
 			
+			int numLightmaps;
 			int numBrushes;
 			int numBrushsides;
 			int numTextures;

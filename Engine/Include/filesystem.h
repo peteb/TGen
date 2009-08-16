@@ -10,6 +10,8 @@
 #ifndef _TGEN_ENGINE_FILESYSTEM_H
 #define _TGEN_ENGINE_FILESYSTEM_H
 
+#include <vector>
+
 namespace TGen {
 	namespace Engine {
 		class File;

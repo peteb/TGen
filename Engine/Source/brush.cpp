@@ -16,7 +16,7 @@ std::vector<TGen::Vector3> TGen::Engine::TriangulateBrush(const std::vector<TGen
 	std::vector<TGen::Vector3> triangles;
 	
 	for (int i = 0; i < brush.size(); ++i) {
-		std::vector<TGen::Vector3> sideTris = TriangulateBrushside(brush, i);
+		std::vector<TGen::Vector3> sideTris = TriangulateBrushside(brush, i, false);
 		
 		for (int i = 0; i < sideTris.size(); ++i)
 			triangles.push_back(sideTris[i]);	
@@ -25,7 +25,7 @@ std::vector<TGen::Vector3> TGen::Engine::TriangulateBrush(const std::vector<TGen
 	return triangles;
 }
 
-std::vector<TGen::Vector3> TGen::Engine::TriangulateBrushside(const std::vector<TGen::Plane3> & brush, int side) {
+std::vector<TGen::Vector3> TGen::Engine::TriangulateBrushside(const std::vector<TGen::Plane3> & brush, int side, bool reverseWinding) {
 	const TGen::Plane3 & brushPlane = brush[side];
 	std::vector<TGen::Vector3> vertices;
 	
@@ -56,7 +56,9 @@ std::vector<TGen::Vector3> TGen::Engine::TriangulateBrushside(const std::vector<
 	std::vector<TGen::Vector3> triangles;
 
 	if (!vertices.empty()) {
-		std::vector<TGen::Vector3> windedVertices = TGen::Engine::RewindVertices(vertices, -brushPlane.normal);
+		std::vector<TGen::Vector3> windedVertices = TGen::Engine::RewindVertices(vertices, (reverseWinding ? -brushPlane.normal : brushPlane.normal));
+		
+		
 		std::vector<TGen::Vector3> faceTriangles = TGen::Engine::TriangulateConvexPolygon(windedVertices);
 		
 		for (int i = 0; i < faceTriangles.size(); ++i)

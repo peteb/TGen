@@ -18,7 +18,7 @@ namespace TGen {
 	
 	namespace Engine {
 		std::vector<TGen::Vector3> TriangulateBrush(const std::vector<TGen::Plane3> & brush);
-		std::vector<TGen::Vector3> TriangulateBrushside(const std::vector<TGen::Plane3> & brush, int side);
+		std::vector<TGen::Vector3> TriangulateBrushside(const std::vector<TGen::Plane3> & brush, int side, bool reverseWinding);
 		
 	} // !Engine
 } // !TGen

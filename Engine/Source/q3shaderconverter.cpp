@@ -170,7 +170,7 @@ std::string TGen::Engine::Q3ShaderConverter::parsePass() {
 		else
 			stepToken();
 	}
-	
+		
 	if (!mapPath.empty()) {
 		ret += "\t\tmap colorMap " + mapPath;
 		

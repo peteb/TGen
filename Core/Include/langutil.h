@@ -45,6 +45,7 @@ namespace TGen {
 		T * operator -> () {return get(); }
 		T * get() const {TGenAssert(ptr.get()); return ptr.get(); }
 		T * release() {return ptr.release(); }
+		T & deref() const {TGenAssert(ptr.get()); return *ptr.get(); }
 	};
 	
 	class ScopeDebugger {

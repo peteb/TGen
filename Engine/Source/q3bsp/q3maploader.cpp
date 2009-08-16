@@ -31,7 +31,7 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 		
 	TGen::Engine::Q3BspFile bsp;
 	
-	loadBspFile(source, bsp);
+	LoadBspFile(source, bsp);
 
 	
 	TGen::auto_ptr<TGen::Engine::Q3MapModel> newModel = new Q3MapModel(name);
@@ -41,7 +41,10 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	
 	
 	
-	for (int i = 0; i < bsp.numBrushes; ++i) {
+	/*
+	 // THIS IS FOR RENDERING BRUSHES
+	 
+	 for (int i = 0; i < bsp.numBrushes; ++i) {
 		
 		const Q3Bsp::Brush & q3Brush = bsp.brushes[i];
 
@@ -72,7 +75,7 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 
 		newModel->addMesh(mesh);
 
-	}
+	}*/
 	
 	
 
@@ -82,7 +85,7 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	
 	
 	
-	/*typedef std::vector<TGen::Engine::Q3MapMesh::VertexDecl::Type> Batch;
+	typedef std::vector<TGen::Engine::Q3MapMesh::VertexDecl::Type> Batch;
 	typedef std::map<std::string, Batch> BatchMap;
 	BatchMap batches;
 	
@@ -110,7 +113,7 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 				
 				TGen::Vector2 texcoord(vert->texcoord[0][0], vert->texcoord[0][1]);
 				
-				TGen::Engine::Q3MapMesh::VertexDecl::Type newVertex(pos, texcoord);
+				TGen::Engine::Q3MapMesh::VertexDecl::Type newVertex(pos, texcoord, TGen::Vector2(vert->texcoord[1][0], vert->texcoord[1][1]), TGen::Color(vert->color[0], vert->color[1], vert->color[2], vert->color[3]));
 
 				const Q3Bsp::Texture & texture = bsp.textures[face->texture];
 				batches[texture.name].push_back(newVertex);
@@ -132,7 +135,7 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 		}
 
 		newModel->addMesh(mesh);
-	}*/
+	}
 	
 	
 	
@@ -141,16 +144,16 @@ TGen::Engine::Q3Map * TGen::Engine::Q3MapLoader::createMap(const std::string & n
 	return map.release();
 }
 
-void TGen::Engine::Q3MapLoader::loadBspFile(TGen::InputStream & source, TGen::Engine::Q3BspFile & file) {
+void TGen::Engine::Q3MapLoader::LoadBspFile(TGen::InputStream & source, TGen::Engine::Q3BspFile & file) {
 	source.read(reinterpret_cast<char *>(&file.header), sizeof(file.header));
 	
 	if (file.header.magic[0] != 'I' || file.header.magic[1] != 'B' || file.header.magic[2] != 'S' || file.header.magic[3] != 'P')
 		throw TGen::RuntimeException("Q3MapLoader::createMap", "Invalid magic: ") << file.header.magic[0] << file.header.magic[1] << file.header.magic[2] << file.header.magic[3];
 	
-	logs.info["bsp3"] << "version: " << std::hex << file.header.version << TGen::endl;
+	//logs.info["bsp3"] << "version: " << std::hex << file.header.version << TGen::endl;
 	
-	if (file.header.version != 0x2E)
-		logs.warning["bsp3"] << "version is not quake 3!" << TGen::endl;
+	//if (file.header.version != 0x2E)
+	//	logs.warning["bsp3"] << "version is not quake 3!" << TGen::endl;
 	
 	
 	
@@ -203,11 +206,21 @@ void TGen::Engine::Q3MapLoader::loadBspFile(TGen::InputStream & source, TGen::En
 	source.read(reinterpret_cast<char *>(file.planes), file.header.entries[Q3Bsp::LumpPlanes].length);
 	
 	
+	// TODO: lightmaps. det finns massa olika lightmaps, 9 st för q3dm17, och varje face har en lightmap index.
+	//							så ladda in dem, men hur ska de väljas sen? batchar måste brytas på det, får typ testa ta overrideMaterial eller nått skumt skit
 	
 	file.numTextures = file.header.entries[Q3Bsp::LumpTextures].length / sizeof(Q3Bsp::Texture);
 	file.textures = new Q3Bsp::Texture[file.numTextures];
 	
 	source.seekReadPos(file.header.entries[Q3Bsp::LumpTextures].offset, TGen::beg);
 	source.read(reinterpret_cast<char *>(file.textures), file.header.entries[Q3Bsp::LumpTextures].length);
+
+
+	file.numLightmaps = file.header.entries[Q3Bsp::LumpLightmaps].length / sizeof(Q3Bsp::Lightmap);
+	file.lightmaps = new Q3Bsp::Lightmap[file.numLightmaps];
+	
+	source.seekReadPos(file.header.entries[Q3Bsp::LumpLightmaps].offset, TGen::beg);
+	source.read(reinterpret_cast<char *>(file.lightmaps), file.header.entries[Q3Bsp::LumpLightmaps].length);
+	
 }
 
