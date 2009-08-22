@@ -26,17 +26,18 @@ TGen::Engine::Physics::Id3CMLoader::Id3CMLoader(TGen::Engine::Filesystem & files
 {
 }
 
-TGen::Engine::Physics::Id3CMGeom * TGen::Engine::Physics::Id3CMLoader::createGeom(const std::string & name, const std::string & path, const TGen::VertexTransformer & transformer, dSpaceID space) {
+std::vector<TGen::Engine::Physics::Geom *> TGen::Engine::Physics::Id3CMLoader::fillGeoms(const std::string & name, const std::string & path, const TGen::VertexTransformer & transformer, dSpaceID space) {
 	TGen::Engine::Q3BspFile bsp;
 	
 	TGen::auto_ptr<TGen::Engine::File> file = filesystem.openRead(path);
 	TGen::Engine::Q3MapLoader::LoadBspFile(file.deref(), bsp);
-
-	std::auto_ptr<TGen::Engine::Physics::Id3CMGeom> newModel(new TGen::Engine::Physics::Id3CMGeom(name));
 	
+	std::vector<TGen::Engine::Physics::Geom *> geomsCreated;
+
 	
 	
 	for (int i = 0; i < bsp.numModels; ++i) {
+		TGen::auto_ptr<TGen::Engine::Physics::Id3CMGeom> newModel = new TGen::Engine::Physics::Id3CMGeom("model" + TGen::lexical_cast<std::string>(i));
 		const Q3Bsp::Model & q3Model = bsp.models[i];
 		
 		for (int i = q3Model.brush; i < q3Model.brush + q3Model.num_brushes; ++i) {
@@ -93,26 +94,31 @@ TGen::Engine::Physics::Id3CMGeom * TGen::Engine::Physics::Id3CMLoader::createGeo
 			}		
 			
 		}
+
+	
+		dTriMeshDataID meshData = dGeomTriMeshDataCreate();
+		
+		
+		//dGeomTriMeshDataBuildSingle(meshData, &newModel->vertexData[0], sizeof(StridedVertex), newModel->vertexData.size(),
+		//									 &newModel->indexData[0], newModel->indexData.size() * 3, sizeof(StridedTriangle));
+		
+		dGeomTriMeshDataBuildSimple(meshData, (const dReal *)&newModel->vertices[0], newModel->vertices.size(), 
+											 (const dTriIndex *)&newModel->indices[0], newModel->indices.size());
+		
+		dGeomTriMeshDataPreprocess(meshData);
+		
+		dGeomID geomId = dCreateTriMesh(space, meshData, NULL, NULL, NULL);
+		
+		newModel->setGeom(geomId);
+		geomsCreated.push_back(newModel.release());
+		
 	}	
 	
 	
-	dTriMeshDataID meshData = dGeomTriMeshDataCreate();
 	
 	
-	//dGeomTriMeshDataBuildSingle(meshData, &newModel->vertexData[0], sizeof(StridedVertex), newModel->vertexData.size(),
-	//									 &newModel->indexData[0], newModel->indexData.size() * 3, sizeof(StridedTriangle));
-	
-	dGeomTriMeshDataBuildSimple(meshData, (const dReal *)&newModel->vertices[0], newModel->vertices.size(), 
-										 (const dTriIndex *)&newModel->indices[0], newModel->indices.size());
-	
-	dGeomTriMeshDataPreprocess(meshData);
-	
-	dGeomID geomId = dCreateTriMesh(space, meshData, NULL, NULL, NULL);
-	
-	newModel->setGeom(geomId);
-	
-	
-	return newModel.release();
+	return geomsCreated;
+	//return newModel.release();
 }
 
 

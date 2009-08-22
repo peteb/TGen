@@ -10,18 +10,29 @@
 #include "script/componentscript.h"
 #include "script/subsystem.h"
 #include "script/entityscript.h"
+#include "component.h"
 #include "lua/lua.hpp"
 
-TGen::Engine::Script::ComponentScript::ComponentScript(const std::string & name, TGen::Engine::Script::EntityScript * entityScript)
+TGen::Engine::Script::ComponentScript::ComponentScript(const std::string & name, TGen::Engine::Script::EntityScript * entityScript, TGen::Engine::Component * component)
 	: name(name)
 	, creator(entityScript->getCreator())
 	, entityScript(entityScript)
+	, component(component)
 {
 	std::cout << name << " CS: " << this << std::endl;
 	
 	ScriptState & scriptState = entityScript->getCreator().getScriptState();
 	
-	entityScript->pushEntity(scriptState);
+	
+	if (component->getParent()) {
+		if (component->getParent()->getScriptInterface())
+			component->getParent()->getScriptInterface()->pushComponent(scriptState);
+		else
+			throw TGen::RuntimeException("ComponentScript::ComponentScript", "component is a child, but parent does not have a script interface");
+	}
+	else {
+		entityScript->pushEntity(scriptState);	
+	}
 	
 	scriptState.newTable();
 	scriptState.setUserData("_objectSelf", this);
@@ -55,10 +66,22 @@ void TGen::Engine::Script::ComponentScript::registerFunction(const std::string &
 
 
 void TGen::Engine::Script::ComponentScript::pushComponent(TGen::Engine::Script::ScriptState & scriptState) {
-	pushEntity(scriptState);
+	if (component->getParent()) {
+		if (component->getParent()->getScriptInterface())
+			component->getParent()->getScriptInterface()->pushComponent(scriptState);
+		else
+			throw TGen::RuntimeException("ComponentScript::pushComponent", "component is a child, but parent does not have a script interface");
+	}
+	else {
+		pushEntity(scriptState);	
+	}
+
 	
 	scriptState.getField(-1, this->name);	
 	scriptState.remove(-2);
+	
+	if (scriptState.isNil(1))
+		throw TGen::RuntimeException("Script::ComponentScript::pushComponent", "could not find component");
 }
 
 void TGen::Engine::Script::ComponentScript::pushEntity(TGen::Engine::Script::ScriptState & scriptState) {

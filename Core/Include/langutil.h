@@ -38,6 +38,7 @@ namespace TGen {
 	public:
 		auto_ptr(T * obj) {ptr.reset(obj); }
 		auto_ptr(const auto_ptr & other) {ptr.reset(other.ptr.release()); }
+		auto_ptr() {}
 		
 		auto_ptr & operator = (T * obj) {ptr.reset(obj); return *this; }
 		

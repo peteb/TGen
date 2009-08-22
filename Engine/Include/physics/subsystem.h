@@ -61,6 +61,9 @@ namespace TGen {
 				float updateInterval;
 				double lastUpdate;
 			
+				static int reportedCollisions;
+				static float lastSecond;
+				
 				TGen::Engine::StandardLogs & logs;
 				
 				dWorldID worldId;

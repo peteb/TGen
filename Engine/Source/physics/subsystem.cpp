@@ -20,6 +20,8 @@ int TGen::Engine::Physics::Subsystem::numSubsystems = 0;
 
 //dWorldID TGen::Engine::Physics::Subsystem::worldId = 0;
 dJointGroupID TGen::Engine::Physics::Subsystem::contactGroup = 0;
+int TGen::Engine::Physics::Subsystem::reportedCollisions = 0;
+float TGen::Engine::Physics::Subsystem::lastSecond = 0.0f;
 std::vector<dContact> TGen::Engine::Physics::Subsystem::collisionEvents;
 
 TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, TGen::Engine::Filesystem & filesystem) 
@@ -32,9 +34,18 @@ TGen::Engine::Physics::Subsystem::Subsystem(TGen::Engine::StandardLogs & logs, T
 	logs.info["phys+"] << "*** INITIALIZING PHYSICS ***" << TGen::endl;
 	
 	dInitODE();
-	
+
 	worldId = dWorldCreate();
-	mainSpace = dSimpleSpaceCreate(0);
+
+	std::cout << "ERP: " << dWorldGetERP(worldId) << std::endl;
+	std::cout << "CFM: " << dWorldGetCFM(worldId) << std::endl;
+
+	dWorldSetERP(worldId, 0.3f);
+	dWorldSetCFM(worldId, 0.00001f);
+	
+	dVector3 center = {0.0f, 0.0f, 0.0f};
+	dVector3 extents = {500.0f, 500.0f, 500.0f};
+	mainSpace = dQuadTreeSpaceCreate(0, center, extents, 7); //dHashSpaceCreate(0); //dSimpleSpaceCreate(0);
 	contactGroup = dJointGroupCreate(0);
 	dWorldSetLinearDamping(worldId, 0.07);
 	
@@ -119,6 +130,22 @@ void TGen::Engine::Physics::Subsystem::link() {
 void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 	lastUpdate += dt;
 	
+	static int steps = 0;
+	static float timeStepped = 0.0f;
+	
+	lastSecond += dt;
+	
+	if (lastSecond >= 1.0f) {
+		std::cout << "geoms: " << dSpaceGetNumGeoms(mainSpace) << std::endl;
+		std::cout << "collisions last sec: " << reportedCollisions << std::endl;
+		std::cout << "steps: " << steps << " time: " << timeStepped << std::endl;
+		
+		lastSecond -= floor(lastSecond);
+		reportedCollisions = 0;
+		timeStepped = 0.0f;
+		steps = 0;
+	}
+	
 	if (lastUpdate < updateInterval)
 		return;
 
@@ -141,7 +168,13 @@ void TGen::Engine::Physics::Subsystem::update(scalar dt) {
 		
 		dSpaceCollide(mainSpace, 0, &nearCallback);
 		
-		dWorldStep(worldId, updateInterval); // tweak
+		steps++;
+		timeStepped += updateInterval;
+		
+		// force is not per second but per step????
+		
+		dWorldQuickStep(worldId, updateInterval); // tweak
+		
 		dJointGroupEmpty(contactGroup);
 
 		lastUpdate -= updateInterval;		
@@ -180,6 +213,7 @@ TGen::Vector3 TGen::Engine::Physics::Subsystem::getGravity() const {
 
 void TGen::Engine::Physics::Subsystem::nearCallback(void * data, dGeomID o1, dGeomID o2) {
 	// the most scariest function in the whole engine
+	reportedCollisions++;
 	
 	if (dGeomIsSpace(o1) || dGeomIsSpace(o2)) {
 		dSpaceCollide2(o1, o2, data, &nearCallback);

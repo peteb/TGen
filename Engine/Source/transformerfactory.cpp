@@ -32,6 +32,14 @@ TGen::VertexTransformList * TGen::Engine::TransformerFactory::createTransformers
 			TGen::Matrix4x4 transform = TGen::Matrix4x4::RotationY(TGen::Degree(TGen::lexical_cast<scalar>(iter->second)));
 			transformers->addTransformer(new TGen::VertexMatrixTransformer(transform));
 		}
+		else if (iter->first == "rotX") {
+			TGen::Matrix4x4 transform = TGen::Matrix4x4::RotationX(TGen::Degree(TGen::lexical_cast<scalar>(iter->second)));
+			transformers->addTransformer(new TGen::VertexMatrixTransformer(transform));
+		}
+		else if (iter->first == "rotZ") {
+			TGen::Matrix4x4 transform = TGen::Matrix4x4::RotationZ(TGen::Degree(TGen::lexical_cast<scalar>(iter->second)));
+			transformers->addTransformer(new TGen::VertexMatrixTransformer(transform));
+		}
 	}
 	
 	return transformers.release();

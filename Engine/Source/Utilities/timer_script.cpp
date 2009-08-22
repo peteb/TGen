@@ -14,7 +14,7 @@
 #include "script/componentscript.h"
 
 TGen::Engine::Utilities::TimerScript::TimerScript(const std::string & name, Timer & timer, TGen::Engine::Script::EntityScript * entityScript)
-	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	: TGen::Engine::Script::ComponentScript(name, entityScript, &timer)
 	, timer(timer)
 	, scriptEntity(entityScript)
 {

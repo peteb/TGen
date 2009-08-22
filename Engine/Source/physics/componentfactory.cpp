@@ -202,29 +202,29 @@ TGen::Engine::Physics::Body * TGen::Engine::Physics::ComponentFactory::createBod
 
 
 TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeom(const std::string & name, const TGen::PropertyTree & properties, dSpaceID mainSpace, TGen::Engine::Entity & entity) {
-	std::auto_ptr<TGen::Engine::Physics::Geom> newGeom;
+	TGen::auto_ptr<TGen::Engine::Physics::Geom> newGeom;
 	std::string geomType = properties.getProperty("type", "none");
 	
 	if (geomType == "plane") {
 		TGen::Vector3 normal = TGen::Vector3::Parse(properties.getProperty("orientation", "0 1 0"));
 		scalar distance = TGen::lexical_cast<scalar>(properties.getProperty("distance", "0"));
 		
-		newGeom.reset(new TGen::Engine::Physics::PlaneGeom(name, TGen::Plane3(normal, distance), mainSpace));
+		newGeom = new TGen::Engine::Physics::PlaneGeom(name, TGen::Plane3(normal, distance), mainSpace);
 	}
 	else if (geomType == "sphere") {
 		scalar radius = TGen::lexical_cast<scalar>(properties.getProperty("radius", "1.0"));
 		
-		newGeom.reset(new TGen::Engine::Physics::SphereGeom(name, radius, mainSpace));
+		newGeom = new TGen::Engine::Physics::SphereGeom(name, radius, mainSpace);
 	}
 	else if (geomType == "box") {
 		TGen::Vector3 dimensions = TGen::Vector3::Parse(properties.getProperty("dimensions", "1 1 1"));
 		
-		newGeom.reset(new TGen::Engine::Physics::BoxGeom(name, dimensions, mainSpace));
+		newGeom = new TGen::Engine::Physics::BoxGeom(name, dimensions, mainSpace);
 	}
 	else if (geomType == "bipedal") {
-		newGeom.reset(new TGen::Engine::Physics::BipedalGeom(name, mainSpace, 
+		newGeom = new TGen::Engine::Physics::BipedalGeom(name, mainSpace, 
 																			  TGen::lexical_cast<scalar>(properties.getProperty("capRadius", "1.0")), 
-																			  TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0"))));
+																			  TGen::lexical_cast<scalar>(properties.getProperty("length", "1.0")));
 	}
 	else if (geomType == "mesh") {
 		TGen::PropertyTree props(properties);
@@ -232,9 +232,9 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 		if (!props.hasNode("normals"))
 			props.addNode(TGen::PropertyTree("normals"));
 		
-		newGeom.reset(new TGen::Engine::Physics::MeshGeom(name, mainSpace, props.getNode("vertices"), 
+		newGeom = new TGen::Engine::Physics::MeshGeom(name, mainSpace, props.getNode("vertices"), 
 																		  props.getNode("indices"), 
-																		  props.getNode("normals")));
+																		  props.getNode("normals"));
 	}
 	else if (geomType == "id4cm") {
 		TGen::Engine::Physics::Id4CMLoader loader(filesystem);
@@ -244,10 +244,13 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 		TGen::VertexTransformList transformers;
 		transformers.addTransformer(transFactory.createTransformers(line));
 		
-		newGeom.reset(loader.createGeom(name, line.getName(), transformers, mainSpace));
+		newGeom = loader.createGeom(name, line.getName(), transformers, mainSpace);
 	}
 	else if (geomType == "id3cm") {
-		TGen::Engine::Physics::Id3CMLoader loader(filesystem);
+		// id3cm = multicomponent, component with children.
+		newGeom = new TGen::Engine::Physics::Geom(name);
+		
+	/*	TGen::Engine::Physics::Id3CMLoader loader(filesystem);
 		TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
 		TGen::Engine::TransformerFactory transFactory;
 		
@@ -255,7 +258,7 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 		transformers.addTransformer(transFactory.createTransformers(line));
 		
 		newGeom.reset(loader.createGeom(name, line.getName(), transformers, mainSpace));
-		
+		*/
 	}
 	else {
 		throw TGen::RuntimeException("Physics::Subsystem::createGeom", "invalid geom type '" + geomType + "'!");
@@ -279,6 +282,51 @@ TGen::Engine::Physics::Geom * TGen::Engine::Physics::ComponentFactory::createGeo
 	
 	newGeom->setCategory(getCategoryBits(properties.getProperty("category", "default")));
 	newGeom->setCollidesWith(collideWith);
+	
+	
+	if (geomType == "id3cm") {	// fill component with childgeometries
+		TGen::Engine::Physics::Id3CMLoader loader(filesystem);
+		TGen::Engine::GenerateLine line("gen:" + properties.getProperty("model", ""));
+		TGen::Engine::TransformerFactory transFactory;
+		
+		TGen::VertexTransformList transformers;
+		transformers.addTransformer(transFactory.createTransformers(line));
+
+		std::vector<TGen::Engine::Physics::Geom *> geomsCreated;
+		
+		geomsCreated = loader.fillGeoms(name, line.getName(), transformers, mainSpace);
+		
+		for (int i = 0; i < geomsCreated.size(); ++i) {
+			TGen::Engine::Physics::Geom * component = geomsCreated[i];
+
+			newGeom->addSubcomponent(component);
+
+			
+			///////////////////////////////////////////////////
+			// exact same code as above
+			
+			component->setFriction(TGen::lexical_cast<float>(properties.getProperty("friction", "1.0")));
+			component->setLink(properties.getProperty("link", ""));
+			component->setAffectsOthers(TGen::lexical_cast<bool>(properties.getProperty("affectsOthers", "true")));
+			component->setPosition(TGen::Vector3::Parse(properties.getProperty("origin", "0 0 0")));
+			component->setCalculateVelocity(TGen::lexical_cast<bool>(properties.getProperty("calculateVelocity", "false")));
+			
+			component->setScriptInterface(new TGen::Engine::Physics::GeomScript(component->getName(), component, entity.getScriptInterface()));
+			
+			component->collisionForceThreshold = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceThreshold", "3.0"));
+			component->collisionForceScale = TGen::lexical_cast<scalar>(properties.getProperty("collisionForceScale", "1.0"));
+			
+			
+			uint collideWith = ~getCategoryBits(properties.getProperty("noCollide", ""));
+			
+			component->setCategory(getCategoryBits(properties.getProperty("category", "default")));
+			component->setCollidesWith(collideWith);
+			
+			///////////////////////////////////////////////////
+			
+		}
+
+	}
 	
 	return newGeom.release();
 }

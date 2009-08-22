@@ -16,6 +16,8 @@ class lua_State;
 
 namespace TGen {
 	namespace Engine {
+		class Component;
+		
 		namespace Script {
 			class Subsystem;
 			class EntityScript;
@@ -24,7 +26,7 @@ namespace TGen {
 			
 			class ComponentScript {
 			public:
-				ComponentScript(const std::string & name, TGen::Engine::Script::EntityScript * entityScript);
+				ComponentScript(const std::string & name, TGen::Engine::Script::EntityScript * entityScript, TGen::Engine::Component * component);
 				virtual ~ComponentScript();
 				
 				void registerFunction(const std::string & name, int (*func) (lua_State *L));
@@ -45,6 +47,7 @@ namespace TGen {
 				
 				TGen::Engine::Script::Subsystem & creator;
 				TGen::Engine::Script::EntityScript * entityScript;
+				TGen::Engine::Component * component;
 				std::string name;
 				int beginTop;
 			};

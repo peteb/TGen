@@ -38,7 +38,8 @@ TGen::Engine::Physics::Geom::Geom(const std::string & name)
 
 
 TGen::Engine::Physics::Geom::~Geom() {
-	dGeomDestroy(geomId);
+	if (geomId != 0)
+		dGeomDestroy(geomId);
 	
 	delete scriptInterface;
 }
@@ -47,6 +48,8 @@ TGen::Engine::Physics::Geom::~Geom() {
 void TGen::Engine::Physics::Geom::setScriptInterface(TGen::Engine::Physics::GeomScript * scriptInterface) {
 	delete this->scriptInterface;
 	this->scriptInterface = scriptInterface;
+	
+	TGen::Engine::Component::setScriptInterface(scriptInterface);
 }
 
 float TGen::Engine::Physics::Geom::getFriction() const {
@@ -71,13 +74,17 @@ void TGen::Engine::Physics::Geom::setLink(TGen::Engine::WorldObject * linkedTo) 
 
 void TGen::Engine::Physics::Geom::setCategory(uint category) {
 	this->categoryBits = category;
-	dGeomSetCategoryBits(geomId, categoryBits);
+	
+	if (geomId != 0)
+		dGeomSetCategoryBits(geomId, categoryBits);
 }
 
 
 void TGen::Engine::Physics::Geom::setCollidesWith(uint collidesWith) {
 	this->collidesWith = collidesWith;
-	dGeomSetCollideBits(geomId, collidesWith);
+	
+	if (geomId != 0)
+		dGeomSetCollideBits(geomId, collidesWith);
 }
 
 
@@ -100,7 +107,7 @@ TGen::Engine::WorldObject * TGen::Engine::Physics::Geom::getWorldLink() {
 }
 
 void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
-	if (dGeomGetClass(geomId) != dPlaneClass) {
+	if (geomId != 0 && dGeomGetClass(geomId) != dPlaneClass) {
 		dGeomSetBody(geomId, body->getBodyId());
 	}
 	
@@ -109,7 +116,7 @@ void TGen::Engine::Physics::Geom::setBody(TGen::Engine::Physics::Body * body) {
 
 
 void TGen::Engine::Physics::Geom::link(const TGen::Engine::ComponentLinker & linker) {
-	if (geomId == 0)
+	if (geomId == 0)	
 		return;
 	
 	if (dGeomGetClass(geomId) != dPlaneClass) {		// planes are non-movable
@@ -152,6 +159,9 @@ void TGen::Engine::Physics::Geom::setPosition(const TGen::Vector3 & position) {
 
 
 void TGen::Engine::Physics::Geom::setOrientation(const TGen::Matrix3x3 & orientation) {
+	if (geomId == 0)
+		return;
+	
 	dMatrix3 matrix;
 	TGen::Vector3 x = orientation.getX();
 	TGen::Vector3 y = orientation.getY();
@@ -245,14 +255,16 @@ void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * wi
 		if (scriptInterface)
 			scriptInterface->onFirstCollision(with);
 	}
-	else if (time - iter->second >= 0.1f) {
-		iter->second = time;
-		
-		if (scriptInterface)
-			scriptInterface->onFirstCollision(with);
-	}
 	else {
-		iter->second = time;
+		if (time - iter->second >= 0.1f) {
+			iter->second = time;
+		
+			if (scriptInterface)
+				scriptInterface->onFirstCollision(with);
+		}
+		else {
+			iter->second = time;
+		}
 	}
 }
 
@@ -276,6 +288,9 @@ uint TGen::Engine::Physics::Geom::getCategory() const {
 
 
 void TGen::Engine::Physics::Geom::setEnabled(bool enabled) {
+	if (geomId == 0)
+		return;
+	
 	if (enabled)
 		dGeomEnable(geomId);
 	else
@@ -283,6 +298,9 @@ void TGen::Engine::Physics::Geom::setEnabled(bool enabled) {
 }
 
 TGen::Vector3 TGen::Engine::Physics::Geom::getPosition() const {
+	if (geomId == 0)
+		return TGen::Vector3::Zero;
+	
 	const dReal * pos = dGeomGetPosition(geomId);
 
 	return TGen::Vector3(pos[0], pos[1], pos[2]);

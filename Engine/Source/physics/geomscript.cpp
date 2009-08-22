@@ -14,7 +14,7 @@
 #include "physics/bodyscript.h"
 
 TGen::Engine::Physics::GeomScript::GeomScript(const std::string & name, TGen::Engine::Physics::Geom * geom, TGen::Engine::Script::EntityScript * entityScript) 
-	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	: TGen::Engine::Script::ComponentScript(name, entityScript, geom)
 	, geom(geom)
 	, entityScript(entityScript)
 {
@@ -60,6 +60,7 @@ void TGen::Engine::Physics::GeomScript::onFirstCollision(TGen::Engine::Physics::
 	
 	TGen::Engine::Script::ScriptState & scriptState = getScriptState();
 	int startStackTop = scriptState.getStackTop();
+	
 	pushComponent(scriptState);
 	
 	scriptState.getField(-1, "onFirstCollision");
@@ -68,12 +69,8 @@ void TGen::Engine::Physics::GeomScript::onFirstCollision(TGen::Engine::Physics::
 		pushComponent(scriptState);
 		
 		if (with && with->getScriptInterface()) {
-			scriptState.getGlobal("entities");
-			scriptState.getField(-1, with->getScriptInterface()->entityScript->getName());
-			scriptState.remove(-2);
 			
-			scriptState.getField(-1, with->getScriptInterface()->getName());
-			scriptState.remove(-2);
+			with->getScriptInterface()->pushComponent(scriptState);
 		}
 		
 		scriptState.call(2, 0);

@@ -19,7 +19,7 @@
 #include "lua/lua.hpp"
 
 TGen::Engine::Scene::SceneScript::SceneScript(const std::string & name, TGen::Engine::Scene::Node * sceneNode, TGen::Engine::Script::EntityScript * entityScript) 
-	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	: TGen::Engine::Script::ComponentScript(name, entityScript, sceneNode)
 	, sceneNode(sceneNode)
 {
 	registerFunction("worldPosition", luaWorldPosition);

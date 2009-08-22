@@ -12,7 +12,7 @@
 #include "controller/interpolator.h"
 
 TGen::Engine::Controller::InterpolatorScript::InterpolatorScript(const std::string & name, Interpolator & interpolator, TGen::Engine::Script::EntityScript * entityScript)
-	: TGen::Engine::Script::ComponentScript(name, entityScript)
+	: TGen::Engine::Script::ComponentScript(name, entityScript, &interpolator)
 	, interpolator(interpolator)
 {
 	registerFunction("setSpeed", luaSetSpeed);
