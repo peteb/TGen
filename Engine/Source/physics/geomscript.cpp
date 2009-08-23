@@ -58,6 +58,8 @@ void TGen::Engine::Physics::GeomScript::onCollision(scalar force, TGen::Engine::
 void TGen::Engine::Physics::GeomScript::onFirstCollision(TGen::Engine::Physics::Geom * with) {
 	TGenAssert(scriptEntity);
 	
+	std::cout << "ON FIRST COLLISION AT " << geom->getName() << " with " << with->getScriptInterface()->getName() << std::endl;
+	
 	TGen::Engine::Script::ScriptState & scriptState = getScriptState();
 	int startStackTop = scriptState.getStackTop();
 	
@@ -69,14 +71,13 @@ void TGen::Engine::Physics::GeomScript::onFirstCollision(TGen::Engine::Physics::
 		pushComponent(scriptState);
 		
 		if (with && with->getScriptInterface()) {
-			
 			with->getScriptInterface()->pushComponent(scriptState);
 		}
 		
 		scriptState.call(2, 0);
 	}
 	
-	scriptState.pop(abs(scriptState.getStackTop() - startStackTop));	
+	scriptState.pop(scriptState.getStackTop() - startStackTop);	
 }
 
 int TGen::Engine::Physics::GeomScript::luaLink(lua_State * vm) {

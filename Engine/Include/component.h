@@ -44,6 +44,9 @@ namespace TGen {
 			void setScriptInterface(TGen::Engine::Script::ComponentScript * scriptInterface);
 			TGen::Engine::Script::ComponentScript * getScriptInterface();
 			
+			int getNumChildren() const;
+			TGen::Engine::Component * getChild(int id);
+			
 		protected:
 			TGen::Engine::Component * parent;
 			TGen::Engine::Script::ComponentScript * scriptInterface;

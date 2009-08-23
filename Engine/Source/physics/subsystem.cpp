@@ -107,8 +107,20 @@ TGen::Engine::ComponentRecipe * TGen::Engine::Physics::Subsystem::createComponen
 
 void TGen::Engine::Physics::Subsystem::addGeom(TGen::Engine::Physics::Geom * geom) {
 	geoms.push_back(geom);
+	
+	addSubGeoms(geom);
 }
 
+void TGen::Engine::Physics::Subsystem::addSubGeoms(TGen::Engine::Physics::Geom * geom) {
+	for (int i = 0; i < geom->getNumChildren(); ++i) {
+		Geom * child = dynamic_cast<Geom *>(geom->getChild(i));
+		
+		if (child) {
+			geoms.push_back(child);
+			addSubGeoms(child);
+		}
+	}
+}
 
 void TGen::Engine::Physics::Subsystem::addBody(TGen::Engine::Physics::Body * body) {
 	bodies.push_back(body);

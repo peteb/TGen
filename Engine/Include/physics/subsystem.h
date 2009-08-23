@@ -48,6 +48,7 @@ namespace TGen {
 				
 			private:
 				TGen::Engine::Physics::ComponentFactory componentFactory;
+				void addSubGeoms(TGen::Engine::Physics::Geom * geom);
 				
 				static void nearCallback(void * data, dGeomID o1, dGeomID o2);
 				static std::vector<dContact> collisionEvents;

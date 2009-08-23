@@ -247,7 +247,7 @@ void TGen::Engine::Physics::Geom::postCollision(TGen::Engine::Physics::Geom * wi
 	}*/
 	if (scriptInterface)
 		scriptInterface->onCollision(1.0f, with);
-	
+		
 	ColliderMap::iterator iter = lastColliders.find(with);
 	if (iter == lastColliders.end()) {	// first collision
 		lastColliders.insert(std::make_pair(with, time));

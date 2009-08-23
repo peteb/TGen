@@ -71,3 +71,11 @@ TGen::Engine::Script::ComponentScript * TGen::Engine::Component::getScriptInterf
 	return scriptInterface;
 }
 
+int TGen::Engine::Component::getNumChildren() const {
+	return children.size();
+}
+
+TGen::Engine::Component * TGen::Engine::Component::getChild(int id) {
+	return children.at(id);
+}
+

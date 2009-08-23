@@ -66,6 +66,8 @@ void TGen::Engine::Script::ComponentScript::registerFunction(const std::string &
 
 
 void TGen::Engine::Script::ComponentScript::pushComponent(TGen::Engine::Script::ScriptState & scriptState) {
+	int stackStart = scriptState.getStackTop();
+	
 	if (component->getParent()) {
 		if (component->getParent()->getScriptInterface())
 			component->getParent()->getScriptInterface()->pushComponent(scriptState);
@@ -82,6 +84,9 @@ void TGen::Engine::Script::ComponentScript::pushComponent(TGen::Engine::Script::
 	
 	if (scriptState.isNil(1))
 		throw TGen::RuntimeException("Script::ComponentScript::pushComponent", "could not find component");
+	
+	if (scriptState.getStackTop() - stackStart != 1)
+		throw TGen::RuntimeException("ComponentScript::pushComponent", "should only return 1 value on stack");
 }
 
 void TGen::Engine::Script::ComponentScript::pushEntity(TGen::Engine::Script::ScriptState & scriptState) {
